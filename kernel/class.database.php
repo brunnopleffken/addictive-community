@@ -139,8 +139,7 @@
 			$query = "INSERT INTO {$table} (" . implode(", ", $fields) . ") VALUES (" . implode(", ", $values) . ");";
 			$this->query = mysql_query($query);
 			
-			if(!$this->query)
-			{
+			if(!$this->query) {
 				$this->MysqlException();
 			}
 			
@@ -161,8 +160,7 @@
 			$sql_query = "UPDATE {$table} SET " . implode(", ", $fields) . " WHERE {$where};";
 			$this->query = $this->Query($sql_query);
 			
-			if(!$this->query)
-			{
+			if(!$this->query) {
 				$this->MysqlException();
 			}
 			
@@ -199,7 +197,7 @@
 
 		private function MysqlException()
 		{
-			echo "<b>MySQL Error:</b> " . mysql_error();
+			Html::Error("<b>MySQL Error:</b> " . mysql_error());
 			exit;
 		}
 	}

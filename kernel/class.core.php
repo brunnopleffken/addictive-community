@@ -12,7 +12,7 @@
 	class Core
 	{
 		private $Db;
-		private $config = array();
+		public $config = array();
 
 		// ---------------------------------------------------
 		// Constructor
@@ -26,8 +26,28 @@
 			// Get configurations from database
 			$this->Db->Query("SELECT * FROM c_config;");
 			while($data = $this->Db->Fetch()) {
-				$this->_config[$data['index']] = $data['value'];
+				$this->config[$data['index']] = $data['value'];
 			}
+		}
+
+		// ---------------------------------------------------
+		// Get query string (if not defined, set default)
+		// ---------------------------------------------------
+
+		public function QueryString($variable, $default, $numeric_only = false)
+		{
+			if(isset($_REQUEST[$variable])) {
+				if(!is_numeric($_REQUEST[$variable]) && $numeric_only) {
+					Html::Error("Query string '{$variable}' must be a numeric value.");
+					return false;
+				}
+				$retval = $_REQUEST[$variable];
+			}
+			else {
+				$retval = $default;
+			}
+
+			return $retval;
 		}
 
 		// ---------------------------------------------------
@@ -37,15 +57,15 @@
 		public function DateFormat($timestamp, $format = "longdate")
 		{
 			if($format == "shortdate") {
-				$format = $this->_config['date_short_format']; // Get short format date from $_config
+				$format = $this->config['date_short_format']; // Get short format date from $_config
 			}
 			elseif($format == "longdate") {
-				$format = $this->_config['date_long_format']; // Get long format date from $_config
+				$format = $this->config['date_long_format']; // Get long format date from $_config
 			}
 			
 			// Get timezones and daylight saving time
 
-			$offset = $this->_config['date_default_offset'] * 60 * 60;
+			$offset = $this->config['date_default_offset'] * MINUTE * MINUTE;
 
 			// format and return it
 

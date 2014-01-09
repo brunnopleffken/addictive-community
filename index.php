@@ -21,17 +21,20 @@
 		protected $Core;
 
 		public $info = array(
-			"module"	=> "community",
-			"template"	=> 1
+			"module"	=> "",
+			"language"	=> "",
+			"template"	=> ""
 			);
 
-		public $user = array();
+		public $user = array(
+			"m_id"	=> 0
+			);
 
 		// Sections
 
-		public $header	= "";
-		public $sidebar	= "";
-		public $content	= "";
+		private $header	= "";
+		private $sidebar	= "";
+		private $content	= "";
 
 		// ---------------------------------------------------
 		// Constructor
@@ -51,7 +54,14 @@
 			$this->Db = new Database($config);
 			$this->Core = new Core($this->Db);
 
-			// Load views and controllers
+			// Get languages and template skin
+
+			$this->GetLanguage();
+			$this->GetTemplate();
+
+			// Load templates and controllers
+
+			$this->info['module'] = $this->Core->QueryString("module", "community");
 
 			ob_start();
 			require_once("controllers/" . $this->info['module'] . ".php");
@@ -67,6 +77,28 @@
 
 			require_once("templates/" . $this->info['template'] . "/" . $layout . ".php");
 			require_once("controllers/" . $layout . ".php");
+		}
+
+		// ---------------------------------------------------
+		// Get community default language
+		// ---------------------------------------------------
+
+		private function GetLanguage()
+		{
+			if($this->user['m_id'] == 0) {
+				$this->info['template'] = "en_US";
+			}
+		}
+
+		// ---------------------------------------------------
+		// Get community default template
+		// ---------------------------------------------------
+
+		private function GetTemplate()
+		{
+			if($this->user['m_id'] == 0) {
+				$this->info['template'] = "default";
+			}
 		}
 	}
 

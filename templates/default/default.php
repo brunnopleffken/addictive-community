@@ -1,10 +1,19 @@
+<?php
+
+	Text::PR($this->Core);
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Addictive Community</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title><?php echo $this->Core->config['general_communityname'] ?></title>
+	<meta name="generator" content="Addictive Community <?php echo VERSION ?>">
+	<meta name="description" content="<?php echo $this->Core->config['seo_description'] ?>">
+	<meta name="keywords" content="<?php echo $this->Core->config['seo_keywords'] ?>">
 	<link rel="shortcut icon" href="favicon.ico">
-	<link rel="stylesheet" href="templates/1/css/main.css">
+	<link rel="stylesheet" href="templates/<?php echo $this->info['template'] ?>/css/main.css">
 	<script src="resources/jquery-1.10.2.min.js" type="text/javascript"></script>
 	<?php echo $this->header ?>
 </head>
@@ -12,7 +21,7 @@
 
 	<div id="topbar">
 		<div class="wrapper">
-			<div class="fleft"><a href="http://www.addictive.com.br" target="_blank" class="transition">Addictive Software</a></div>
+			<div class="fleft"><a href="<?php echo $this->Core->config['general_websiteurl'] ?>" target="_blank" class="transition"><?php echo $this->Core->config['general_websitename'] ?></a></div>
 			<div class="fright">
 				<a href="index.php?module=search" class="transition">Search</a>
 				<a href="index.php?module=members" class="transition">Member List</a>
@@ -25,7 +34,7 @@
 
 	<div id="logo">
 		<div class="wrapper">
-			<a href="index.php"><img src="templates/1/images/logo.png" class="logo-image"></a>
+			<a href="index.php"><img src="templates/<?php echo $this->info['template'] ?>/images/<?php echo $this->Core->config['general_communitylogo'] ?>" class="logo-image"></a>
 			<div id="search">
 				<form action="index.php" method="get">
 					<input type="hidden" name="module" value="search">
@@ -34,6 +43,10 @@
 				</form>
 			</div>
 		</div>
+	</div>
+
+	<div class="wrapper">
+		<div id="breadcrumb"><a href="index.php">Addictive Community</a></div>
 	</div>
 
 	<div class="wrapper">
@@ -60,9 +73,9 @@
 					<div class="sidebarItem">
 						<div class="title">Members Online</div>
 						<div class="text">
-							<span class="subtitle">Members (0)</span>
-							<div class="onlineList">Brunno Pleffken</div>
-							<span class="subtitle" style="margin-top: 10px">Guests (1)</span>
+							<span class="subtitle">Members (1)</span>
+							<div class="onlineList"><a href="">Brunno Pleffken</a></div>
+							<span class="subtitle" style="margin-top: 10px">Guests (0)</span>
 						</div>
 					</div>
 					
@@ -88,7 +101,7 @@
 	<div id="footer">
 		<div class="wrapper">
 			<span class="fleft"><a href="#" class="transition">Delete All Cookies</a> | <a href="#" class="transition">Mark All As Read</a></span>
-			<span class="fright">Powered by Addictive Community 1.0-Alpha &copy; 2012 - All rights reserved.</span>
+			<span class="fright">Powered by Addictive Community <?php echo VERSION ?> &copy; 2012 - All rights reserved.</span>
 		</div>
 	</div>
 
