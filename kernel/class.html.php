@@ -112,6 +112,74 @@
 			$html = "<div class=\"notification warning\"><p><strong>" . $title . "</strong> " . $text . "</p></div>";
 			return $html;
 		}
+
+		// ---------------------------------------------------
+		// Get Gravatar or community avatar image path
+		// ---------------------------------------------------
+
+		public static function GetGravatar($email, $size = 96, $mode = "gravatar", $d = "mm", $r = "g", $img = false, $atts = array())
+		{
+			global $sql;
+			
+			$av_sql = clone($sql);
+			
+			if($mode == "gravatar")
+			{
+				$url = "http://www.gravatar.com/avatar/";
+				$url .= md5(strtolower(trim($email)));
+				$url .= "?s={$size}&d={$d}&r={$r}";
+			}
+			elseif($mode == "custom")
+			{
+				$av_sql->Query("SELECT photo FROM c_members WHERE email = '{$email}';");
+				$url = $av_sql->Fetch();
+				$url = $url['photo'];
+				$url = "public/avatar/{$url}\" width=\"{$size}\" height=\"{$size}";
+			}
+			
+			return $url;
+		}
+
+		// ---------------------------------------------------
+		// Generate GD image
+		// ---------------------------------------------------
+
+		public static function ShowGDImage($content="")
+		{
+			flush();
+			
+			@header("Content-Type: image/jpeg");
+			
+			$font_style = 5;
+			$no_chars   = strlen($content);
+			
+			$charheight = ImageFontHeight($font_style);
+			$charwidth  = ImageFontWidth($font_style);
+			$strwidth   = $charwidth * intval($no_chars);
+			$strheight  = $charheight;
+			
+			$imgwidth   = $strwidth  + 15;
+			$imgheight  = $strheight + 15;
+			$img_c_x    = $imgwidth  / 2;
+			$img_c_y    = $imgheight / 2;
+			
+			$im       = ImageCreate($imgwidth, $imgheight);
+			$text_col = ImageColorAllocate($im, 0, 0, 0);
+			$back_col = ImageColorAllocate($im, 240,240,240);
+			
+			ImageFilledRectangle($im, 0, 0, $imgwidth, $imgheight, $text_col);
+			ImageFilledRectangle($im, 1, 1, $imgwidth - 2, $imgheight - 2, $back_col);
+			
+			$draw_pos_x = $img_c_x - ($strwidth  / 2) + 1;
+			$draw_pos_y = $img_c_y - ($strheight / 2);
+			
+			ImageString($im, $font_style, $draw_pos_x, $draw_pos_y, $content, $text_col);
+			
+			ImageJPEG($im);
+			ImageDestroy($im);
+			
+			exit();
+		}
 	}
 
 ?>

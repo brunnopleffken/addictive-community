@@ -1,14 +1,8 @@
-<?php
-
-	Text::PR($this->Core);
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<title><?php echo $this->Core->config['general_communityname'] ?></title>
+	<title><?php echo $html['title'] . $this->Core->config['general_communityname'] ?></title>
 	<meta name="generator" content="Addictive Community <?php echo VERSION ?>">
 	<meta name="description" content="<?php echo $this->Core->config['seo_description'] ?>">
 	<meta name="keywords" content="<?php echo $this->Core->config['seo_keywords'] ?>">
@@ -46,7 +40,7 @@
 	</div>
 
 	<div class="wrapper">
-		<div id="breadcrumb"><a href="index.php">Addictive Community</a></div>
+		<div id="breadcrumb"><a href="index.php">Addictive Community</a> <?php echo $html['breadcrumb'] ?></div>
 	</div>
 
 	<div class="wrapper">

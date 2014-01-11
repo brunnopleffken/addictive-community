@@ -1,7 +1,13 @@
 /* RESET */
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; border: 0; margin: 0; outline: none; padding: 0; }
 
-/** HELPERS **/
+/** GLOBAL **/
+body { background: #f1f1f1; font-family: Arial, Helvetica, sans-serif; font-size: 13px; }
+body h1 { margin-bottom: 8px; }
+body h2 { letter-spacing: 1px; margin-bottom: 15px; }
+body .transition { -webkit-transition: 300ms; -moz-transition: 300ms; -o-transition: 300ms; transition: 300ms; }
+body .wrapper { margin: 0 auto; min-width: 960px; width: 95%; }
+
 .fleft { float: left; }
 
 .fright { float: right; }
@@ -18,17 +24,8 @@
 
 .tiny { font-size: 11px; }
 
-.transition { -webkit-transition: 300ms; -moz-transition: 300ms; -o-transition: 300ms; transition: 300ms; }
-
-/** GLOBAL **/
-body { background: #f1f1f1; font-family: Arial, Helvetica, sans-serif; font-size: 13px; }
-body h1 { margin-bottom: 8px; }
-body h2 { letter-spacing: 1px; margin-bottom: 15px; }
-
 a { color: #113377; text-decoration: none; }
 a:hover { text-decoration: underline; }
-
-.wrapper { margin: 0 auto; min-width: 960px; width: 95%; }
 
 /** FORMS **/
 button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner { padding: 0 !important; border: 0 none !important; }
@@ -80,7 +77,7 @@ textarea { overflow: auto; }
 .sidebar .sidebarItem .list .item:hover { background: #f7f7f7; }
 .sidebar .sidebarItem .list .item:last-child { border-radius: 0 0 7px 7px; }
 .sidebar .sidebarItem .list .item a { color: #707070; display: inline-block; font-weight: bold; margin-bottom: -5px; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; width: 180px; white-space: nowrap; }
-.sidebar .sidebarItem .list .item span { background: #8a8b90; color: #f0eff4; border-radius: 15px; display: inline-block; float: right; font-size: 9px; padding: 3px 0; text-align: center; width: 35px; }
+.sidebar .sidebarItem .list .item span { background: #8a8b90; color: #f0eff4; border-radius: 15px; display: inline-block; float: right; font-size: 9px; padding: 1px 0; text-align: center; width: 35px; }
 .sidebar .sidebarItem .user { background: #303747 url("../images/bar-bg.png"); border-radius: 7px; color: #eeeeee; overflow: hidden; padding: 10px; }
 .sidebar .sidebarItem .user .avatar { background: url("../images/user_img_bg.png") no-repeat; float: left; height: 42px; width: 42px; }
 .sidebar .sidebarItem .user .avatar img { height: 30px; margin: 6px; width: 30px; }

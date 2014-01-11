@@ -57,10 +57,10 @@
 		public function DateFormat($timestamp, $format = "longdate")
 		{
 			if($format == "shortdate") {
-				$format = $this->config['date_short_format']; // Get short format date from $_config
+				$format = $this->config['date_short_format'];	// Get short format date from $_config
 			}
 			elseif($format == "longdate") {
-				$format = $this->config['date_long_format']; // Get long format date from $_config
+				$format = $this->config['date_long_format'];	// Get long format date from $_config
 			}
 			
 			// Get timezones and daylight saving time

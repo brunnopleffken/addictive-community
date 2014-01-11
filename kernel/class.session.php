@@ -11,7 +11,8 @@
 
 	class Session
 	{
-		
+		// Session ID (MD5)
+		private $s_id = "";
 	}
 
 ?>

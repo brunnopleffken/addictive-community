@@ -120,6 +120,15 @@
 		{
 			return preg_replace("#\[(.+)\](.+)\[\/(.+)\]#iUs", "$2", $string);
 		}
+
+		// ---------------------------------------------------
+		// Password encrypt (with salt)
+		// ---------------------------------------------------
+
+		public static function PasswordEncrypt($password)
+		{
+			return md5(base64_decode("Ly9hZGRpY3RpdmU=") . $password);
+		}
 	}
 
 ?>

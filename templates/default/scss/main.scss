@@ -10,24 +10,6 @@
 	padding: 0;
 }
 
-/** HELPERS **/
-
-.fleft { float: left; }
-.fright { float: right; }
-.fix { clear: both; }
-.center { text-align: center !important; }
-.left { text-align: left !important; }
-.right { text-align: right !important; }
-.small { font-size: 12px; }
-.tiny { font-size: 11px; }
-
-.transition {
-	-webkit-transition: 300ms;
-	-moz-transition: 300ms;
-	-o-transition: 300ms;
-	transition: 300ms;
-}
-
 /** GLOBAL **/
 
 body {
@@ -41,8 +23,27 @@ body {
 		letter-spacing: 1px;
 		margin-bottom: 15px;
 	}
+	.transition {
+		-webkit-transition: 300ms;
+		-moz-transition: 300ms;
+		-o-transition: 300ms;
+		transition: 300ms;
+	}
+	.wrapper {
+		margin: 0 auto;
+		min-width: 960px;
+		width: 95%;
+	}
 }
 
+.fleft { float: left; }
+.fright { float: right; }
+.fix { clear: both; }
+.center { text-align: center !important; }
+.left { text-align: left !important; }
+.right { text-align: right !important; }
+.small { font-size: 12px; }
+.tiny { font-size: 11px; }
 
 a {
 	color: #113377;
@@ -50,12 +51,6 @@ a {
 	&:hover {
 		text-decoration: underline;
 	}
-}
-
-.wrapper {
-	margin: 0 auto;
-	min-width: 960px;
-	width: 95%;
 }
 
 /** FORMS **/
@@ -258,7 +253,7 @@ textarea {
 					display: inline-block;
 					float: right;
 					font-size: 9px;
-					padding: 3px 0;
+					padding: 1px 0;
 					text-align: center;
 					width: 35px;
 				}
