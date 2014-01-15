@@ -17,15 +17,22 @@
 </div>
 
 <?php
+	## THREAD ROW ##
 	if(isset($_thread)):
-		foreach($_thread as $k => $v):
+	foreach($_thread as $k => $v):
 ?>
+
 <table class="threadItem <?php echo $_thread[$k]['class'] ?>">
 	<tr>
 		<td class="content">
 			<a href="index.php?module=thread&amp;id=<?php echo $_thread[$k]['t_id'] ?>" class="title"><?php echo $_thread[$k]['title'] ?></a>
 			<div class="desc"><?php echo $_thread[$k]['description'] ?></div>
-			<span class="author"><img src="templates/<?php echo $this->info['template'] ?>/images/thread-start-author.png"> By <?php echo $_thread[$k]['author_name'] ?> &nbsp; <img src="templates/<?php echo $this->info['template'] ?>/images/thread-start-date.png"> Started on <?php echo $_thread[$k]['start_date'] ?></span>
+			<div class="author">
+				<img src="templates/<?php echo $this->info['template'] ?>/images/thread-start-author.png">
+				By <?php echo $_thread[$k]['author_name'] ?> &nbsp;
+				<img src="templates/<?php echo $this->info['template'] ?>/images/thread-start-date.png">
+				Started on <?php echo $_thread[$k]['start_date'] ?>
+			</div>
 		</td>
 		<td class="info"><img src="templates/<?php echo $this->info['template'] ?>/images/thread-replies.png"><br><?php echo $_thread[$k]['replies'] ?></td>
 		<td class="stats {$thread_info['class_status']}">
@@ -35,13 +42,21 @@
 		</td>
 	</tr>
 </table>
+
 <?php
-		endforeach;
+	endforeach;
 	else:
+	## NO THREADS ##
 ?>
+
 <div class="threadItem">
 	<div class="center">There are no threads to show.</div>
 </div>
+
 <?php
 	endif;
 ?>
+
+<div class="roomTitleBar">
+	<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php echo $roomId ?>" class="defaultButton transition">New Thread</a></div>
+</div>

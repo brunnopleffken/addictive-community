@@ -123,16 +123,17 @@ textarea { overflow: auto; }
 
 /** ROOM PAGE **/
 .threadItem { background: #ffffff; border-spacing: 0; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); margin-bottom: 10px; width: 100%; /* THREAD STATUS */ }
-.threadItem .content { padding: 10px; }
+.threadItem .content { padding: 10px; position: relative; }
 .threadItem .content .title { display: block; font-size: 16px; font-weight: bold; margin-bottom: 5px; }
 .threadItem .content .desc { color: #444444; display: block; font-size: 11px; font-style: italic; margin-right: -1000px; overflow: hidden; position: relative; text-overflow: ellipsis; width: 100%; white-space: nowrap; }
-.threadItem .content .author { color: #888888; display: block; margin-top: 3px; font-size: 10px; }
+.threadItem .content .author { color: #888888; display: block; font-size: 10px; margin-top: 3px; padding: 0; }
 .threadItem .info { background: rgba(180, 180, 180, 0.1); font-size: 14px; font-weight: bold; text-align: center; width: 70px; }
 .threadItem .stats { background: #465068; padding: 5px; width: 160px; }
 .threadItem .stats .label { overflow: hidden; padding: 1px; }
 .threadItem .stats .label img { margin-top: 2px; }
 .threadItem .stats .label .value { color: #ffffff; display: inline-block; font-size: 11px; margin-left: 6px; }
 .threadItem .stats .label a { color: #ffffff; }
+.threadItem > .center { padding: 15px; }
 .threadItem.hot .stats { background: #465068 url("../images/hot-thread.png") no-repeat top right; }
 .threadItem.unread { border-left: 2px solid #465068; }
 .threadItem.announcement { background: #f9f9ff; border-left: 2px solid #009; }

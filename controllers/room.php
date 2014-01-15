@@ -31,19 +31,24 @@
 
 	switch($act) {
 		case "mythreads":
-			$order = "AND author_member_id = '{$main->info['member_id']}' ORDER BY lastpost_date DESC";
+			$where = "AND author_member_id = '{$main->info['member_id']}'";
+			$order = "lastpost_date DESC";
 			break;
 		case "topreplies":
-			$order = "ORDER BY replies DESC";
+			$where = "";
+			$order = "replies DESC";
 			break;
 		case "noreplies":
-			$order = "AND replies = '1' ORDER BY lastpost_date DESC";
+			$where = "AND replies = '1'";
+			$order = "lastpost_date DESC";
 			break;
 		case "bestanswered":
-			$order = "AND with_bestanswer = '1' ORDER BY lastpost_date DESC";
+			$where = "AND with_bestanswer = '1'";
+			$order = "lastpost_date DESC";
 			break;
 		default:
-			$order = "ORDER BY lastpost_date DESC";
+			$where = "";
+			$order = "lastpost_date DESC";
 	}
 
 	// Get list of threads
@@ -52,25 +57,47 @@
 		(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 		INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
 		INNER JOIN c_members AS lastpost ON (c_threads.lastpost_member_id = lastpost.m_id)
-		WHERE room_id = {$roomId} {$order};");
+		WHERE room_id = {$roomId} {$where} ORDER BY announcement DESC, {$order};");
 
 	// Process data
 
 	while($result = $this->Db->Fetch()) {
 		$result['class'] = "";
 		$result['description'] = Text::RemoveBBcode($result['post']);
+		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
+
+		// Get the number of replies, not number of posts... ;)
+		$result['replies']--;
 
 		// Status: unread
+
+			/**
+			 * TO DO
+			 */
+
+		// Status: locked
+
+		if($result['locked'] == 1) {
+			$result['class'] = "locked ";
+		}
+
+		// Status: answered
+
+		if($result['with_bestanswer'] == 1) {
+			$result['class'] = "answered ";
+		}
+
+		// Status: announcement
+
+		if($result['announcement'] == 1) {
+			$result['class'] = "announcement ";
+		}
 
 		// Status: hot
 
 		if($result['replies'] >= $this->Core->config['thread_posts_hot']) {
 			$result['class'] .= "hot";
 		}
-
-		// Status: locked
-
-		// Status: answered
 
 		// Populate results on array
 		
