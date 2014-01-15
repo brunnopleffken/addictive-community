@@ -42,6 +42,9 @@ option { padding-right: 10px; }
 
 textarea { overflow: auto; }
 
+.defaultButton { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #ffffff; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000; }
+.defaultButton:hover { background-color: #556677; text-decoration: none; }
+
 .colorbox { background: #ffffff; border: 1px solid #ccc; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); left: 275px; position: absolute; top: 20px; width: 49px; }
 .colorbox .item { display: block; height: 12px; margin: 2px; width: 45px; }
 
@@ -89,7 +92,18 @@ textarea { overflow: auto; }
 /** CONTENT AREA **/
 .content { display: table-cell; padding-left: 12px; vertical-align: top; }
 
-/** COMMUNITY HOME **/
+/** NAVIGATION BAR **/
+.navigation .navbar { background: #465068; padding: 5px 0 0 20px; }
+.navigation .navbar a { color: #ffffff; display: inline-block; font-weight: bold; margin-right: 20px; padding: 10px; text-transform: uppercase; }
+.navigation .navbar a:hover { background: #55617e; border-radius: 8px 8px 0 0; text-decoration: none; }
+.navigation .navbar .selected { background: #ffffff; border-radius: 8px 8px 0 0; color: #313848; }
+.navigation .navbar .selected:hover { background: #55617e; border-radius: 8px 8px 0 0; text-decoration: none; }
+.navigation .subnav { background: #ffffff; margin-bottom: 15px; padding: 0 10px; }
+.navigation .subnav a { border-bottom: 2px solid #ffffff; color: #000000; display: inline-block; font-size: 12px; font-weight: bold; padding: 10px 15px 7px 15px; text-transform: uppercase; }
+.navigation .subnav a:hover { border-bottom: 2px solid #eff5fb; text-decoration: none; }
+.navigation .subnav .selected { border-bottom: 2px solid #afc1de; }
+
+/** COMMUNITY PAGE **/
 .roomItem { background: #ffffff; border-spacing: 0; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 15px; width: 100%; }
 .roomItem:last-child { margin: 0; }
 .roomItem .image { padding: 0 15px; width: 1%; }
@@ -100,6 +114,30 @@ textarea { overflow: auto; }
 .roomItem .info .lastPost span { margin-right: 15px; }
 .roomItem .roomStats { background: #465068; vertical-align: top; width: 100px; }
 .roomItem .roomStats .item { border-bottom: 1px dotted #cccccc; color: #ffffff; font-weight: bold; font-size: 15px; overflow: hidden; padding: 15px; text-align: center; }
+
+/** ROOM PAGE **/
+.roomTitleBar { overflow: hidden; padding: 5px 0 18px 0; vertical-align: bottom; }
+.roomTitleBar .title { font-size: 19px; font-weight: bold; letter-spacing: 2px; margin-right: 120px; }
+.roomTitleBar .title span { color: #bbbbbb; display: block; font-size: 12px; font-weight: normal; margin-bottom: 2px; }
+.roomTitleBar .buttons { margin-top: 15px; }
+
+/** ROOM PAGE **/
+.threadItem { background: #ffffff; border-spacing: 0; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); margin-bottom: 10px; width: 100%; /* THREAD STATUS */ }
+.threadItem .content { padding: 10px; }
+.threadItem .content .title { display: block; font-size: 16px; font-weight: bold; margin-bottom: 5px; }
+.threadItem .content .desc { color: #444444; display: block; font-size: 11px; font-style: italic; margin-right: -1000px; overflow: hidden; position: relative; text-overflow: ellipsis; width: 100%; white-space: nowrap; }
+.threadItem .content .author { color: #888888; display: block; margin-top: 3px; font-size: 10px; }
+.threadItem .info { background: rgba(180, 180, 180, 0.1); font-size: 14px; font-weight: bold; text-align: center; width: 70px; }
+.threadItem .stats { background: #465068; padding: 5px; width: 160px; }
+.threadItem .stats .label { overflow: hidden; padding: 1px; }
+.threadItem .stats .label img { margin-top: 2px; }
+.threadItem .stats .label .value { color: #ffffff; display: inline-block; font-size: 11px; margin-left: 6px; }
+.threadItem .stats .label a { color: #ffffff; }
+.threadItem.hot .stats { background: #465068 url("../images/hot-thread.png") no-repeat top right; }
+.threadItem.unread { border-left: 2px solid #465068; }
+.threadItem.announcement { background: #f9f9ff; border-left: 2px solid #009; }
+.threadItem.locked { background: #fff9f9; border-left: 2px solid #C00; }
+.threadItem.answered { background: #ffffff; border-left: 2px solid #090; }
 
 /** NOTIFICATIONS **/
 .notification { margin-bottom: 20px; }

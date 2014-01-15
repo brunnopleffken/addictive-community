@@ -34,7 +34,7 @@
 		// Get query string (if not defined, set default)
 		// ---------------------------------------------------
 
-		public function QueryString($variable, $default, $numeric_only = false)
+		public function QueryString($variable, $default = "", $numeric_only = false)
 		{
 			if(isset($_REQUEST[$variable])) {
 				if(!is_numeric($_REQUEST[$variable]) && $numeric_only) {
@@ -44,7 +44,12 @@
 				$retval = $_REQUEST[$variable];
 			}
 			else {
-				$retval = $default;
+				if($default != "") {
+					$retval = $default;
+				}
+				else {
+					return false;
+				}
 			}
 
 			return $retval;

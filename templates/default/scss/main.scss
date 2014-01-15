@@ -96,6 +96,20 @@ textarea {
 	overflow: auto;
 }
 
+.defaultButton {
+	background: #465068 url('../images/button-bg.png') repeat-x;
+	border-radius: 7px;
+	color:#ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 10px 15px;
+	text-shadow: 1px 1px 0px #000;
+	&:hover {
+		background-color: #556677;
+		text-decoration: none;
+	}
+}
+
 .colorbox {
 	background: #ffffff;
 	border: 1px solid #ccc;
@@ -303,7 +317,60 @@ textarea {
 	vertical-align: top;
 }
 
-/** COMMUNITY HOME **/
+/** NAVIGATION BAR **/
+
+.navigation {
+	.navbar {
+		background: #465068;
+		padding: 5px 0 0 20px;
+		a {
+			color: #ffffff;
+			display: inline-block;
+			font-weight: bold;
+			margin-right: 20px;
+			padding: 10px;
+			text-transform: uppercase;
+			&:hover {
+				background: #55617e;
+				border-radius: 8px 8px 0 0;
+				text-decoration: none;
+			}
+		}
+		.selected {
+			background: #ffffff;
+			border-radius: 8px 8px 0 0;
+			color: #313848;
+			&:hover {
+				background: #55617e;
+				border-radius: 8px 8px 0 0;
+				text-decoration: none;
+			}
+		}
+	}
+	.subnav {
+		background: #ffffff;
+		margin-bottom: 15px;
+		padding: 0 10px;
+		a {
+			border-bottom: 2px solid #ffffff;
+			color: #000000;
+			display: inline-block;
+			font-size: 12px;
+			font-weight: bold;
+			padding: 10px 15px 7px 15px;
+			text-transform: uppercase;
+			&:hover {
+				border-bottom: 2px solid #eff5fb;
+				text-decoration: none;
+			}
+		}
+		.selected {
+			border-bottom: 2px solid #afc1de;
+		}
+	}
+}
+
+/** COMMUNITY PAGE **/
 
 .roomItem {
 	background: #ffffff;
@@ -357,6 +424,118 @@ textarea {
 			padding: 15px;
 			text-align: center;
 		}
+	}
+}
+
+/** ROOM PAGE **/
+
+.roomTitleBar {
+	overflow: hidden;
+	padding: 5px 0 18px 0;
+	vertical-align: bottom;
+	.title {
+		font-size: 19px;
+		font-weight: bold;
+		letter-spacing: 2px;
+		margin-right: 120px;
+		span {
+			color: #bbbbbb;
+			display: block;
+			font-size: 12px;
+			font-weight: normal;
+			margin-bottom: 2px;
+		}
+	}
+	.buttons {
+		margin-top: 15px;
+	}
+}
+
+/** ROOM PAGE **/
+
+.threadItem {
+	background: #ffffff;
+	border-spacing: 0;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+	margin-bottom: 10px;
+	width: 100%;
+	.content {
+		padding: 10px;
+		.title {
+			display: block;
+			font-size: 16px;
+			font-weight: bold;
+			margin-bottom: 5px;
+		}
+		.desc {
+			color: #444444;
+			display: block;
+			font-size: 11px;
+			font-style: italic;
+			margin-right: -1000px;
+			overflow: hidden;
+			position: relative;
+			text-overflow: ellipsis;
+			width: 100%;
+			white-space: nowrap;
+		}
+		.author {
+			color: #888888;
+			display: block;
+			margin-top: 3px;
+			font-size: 10px;
+		}
+	}
+	.info {
+		background: rgba(180, 180, 180, 0.1);
+		font-size: 14px;
+		font-weight: bold;
+		text-align: center;
+		width: 70px;
+	}
+	.stats {
+		background: #465068;
+		padding: 5px;
+		width: 160px;
+		.label {
+			overflow: hidden;
+			padding: 1px;
+			img {
+				margin-top: 2px;
+			}
+			.value {
+				color: #ffffff;
+				display: inline-block;
+				font-size: 11px;
+				margin-left: 6px;
+			}
+			a {
+				color: #ffffff;
+			}
+		}
+	}
+
+	/* THREAD STATUS */
+
+	&.hot {
+		.stats {
+			background: #465068 url('../images/hot-thread.png') no-repeat top right;
+		}
+	}
+	&.unread {
+		border-left: 2px solid #465068;
+	}
+	&.announcement {
+		background: #f9f9ff;
+		border-left: 2px solid #009;
+	}
+	&.locked {
+		background: #fff9f9;
+		border-left: 2px solid #C00;
+	}
+	&.answered {
+		background: #ffffff;
+		border-left: 2px solid #090;
 	}
 }
 
