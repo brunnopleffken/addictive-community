@@ -59,8 +59,14 @@
 					<div class="sidebarItem">
 						<div class="title">Rooms</div>
 						<div class="list">
-							<div class="item"><a href="index.php?module=room&amp;id=1">General Web Design and Coding</a> <span>8</span></div>
-							<div class="item"><a href="index.php?module=room&id=3">Pre-Sales Questions</a> <span>0</span></div>
+							<?php foreach($_siderooms as $k => $v): ?>
+								<div class="item">
+									<a href="index.php?module=room&amp;id=<?php echo $_siderooms[$k]['r_id'] ?>">
+										<?php echo $_siderooms[$k]['name'] ?>
+									</a>
+									<span><?php echo $_siderooms[$k]['threads'] ?></span>
+								</div>
+							<?php endforeach; ?>
 						</div>
 					</div>
 					
@@ -76,10 +82,10 @@
 					<div class="sidebarItem">
 						<div class="title">Statistics</div>
 						<div class="text">
-							<span class="statsName fleft">Threads</span><b class="fright">8</b><br>
-							<span class="statsName fleft">Replies</span><b class="fright">30</b><br>
-							<span class="statsName fleft">Members</span><b class="fright">2</b><br>
-							<span class="statsName fleft">Last Member</span><b class="fright"><a href="index.php?module=profile&amp;id=2">Brunno Pleffken</a></b>
+							<span class="statsName fleft">Threads</span><b class="fright"><?php echo $_stats['threads'] ?></b><br>
+							<span class="statsName fleft">Replies</span><b class="fright"><?php echo $_stats['replies'] ?></b><br>
+							<span class="statsName fleft">Members</span><b class="fright"><?php echo $_stats['members'] ?></b><br>
+							<span class="statsName fleft">Last Member</span><b class="fright"><a href="index.php?module=profile&amp;id=<?php echo $_stats['lastmemberid'] ?>"><?php echo $_stats['lastmembername'] ?></a></b>
 							<div class="fix"></div>
 						</div>
 					</div>
