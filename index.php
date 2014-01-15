@@ -65,7 +65,7 @@
 
 			ob_start();
 			require_once("controllers/" . $this->info['module'] . ".php");
-			require_once("templates/" . $this->info['template'] . "/" . $this->info['module'] . ".tpl");
+			require_once("templates/" . $this->info['template'] . "/" . $this->info['module'] . ".tpl.php");
 			$this->content = ob_get_clean();
 
 			if(isset($define['layout'])) {
@@ -76,7 +76,7 @@
 			}
 
 			require_once("controllers/" . $layout . ".php");
-			require_once("templates/" . $this->info['template'] . "/" . $layout . ".tpl");
+			require_once("templates/" . $this->info['template'] . "/" . $layout . ".tpl.php");
 		}
 
 		// ---------------------------------------------------
