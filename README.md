@@ -1,9 +1,22 @@
 Addictive Community
 ===================
 
-SOFTWARE UNDER DEVELOPMENT!
+Discussion forum software, written in object-oriented PHP and MySQL 5.1+. UNDER DEVELOPMENT!
 
-Discussion forum software, written in object-oriented PHP and MySQL 5.1+.
+![ScreenShot](http://www.addictive.com.br/images/addictive_community.png)
+
+## Highlight features##
+
+* BB Code, HTML and WYSIWYG post editor;
+* Mark threads as answered;
+* Social networks integration and sharing;
+* Built-in mobile support;
+* API extension system;
+* Integrated database maintenance tools;
+* Templates and languages customization;
+* Built-in Search Engine Optimization (SEO) tools;
+* RSS syndication;
+* And much more!
 
 ## How the Addictive Community's framework works? ##
 
@@ -22,8 +35,9 @@ The "kernel" folder is probably the most untouchable folder: the main core files
 * MySQL 5.1 or higher;
 * Internet Explorer 9 or higher (others, like Chrome or Firefox, might work preety well even with older versions).
 
-## Author ##
+## About the Author ##
 
-Written by Brunno Pleffken Hosti.
-* www.facebook.com/brupleffken
-* www.twitter.com/brunnopleffken
+**Brunno Pleffken Hosti**, programmer well-versed in object-oriented PHP and .NET/C# (ASP.NET, Windows Forms, WPF and Windows Phone development). Currently, Front-End developer at Phocus Interact (www.phocus.com.br).
+
+* Facebook: www.facebook.com/brupleffken
+* Twitter: www.twitter.com/brunnopleffken
