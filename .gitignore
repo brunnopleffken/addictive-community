@@ -1,6 +1,7 @@
 # SASS #
 *.sass-cache
 **/scss
+*.rb
 
 # Folder config file #
 Desktop.ini
