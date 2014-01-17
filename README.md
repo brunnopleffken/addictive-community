@@ -18,7 +18,7 @@ Discussion forum software, written in object-oriented PHP and MySQL 5.1+. UNDER 
 * RSS syndication;
 * And much more!
 
-## How the Addictive Community's framework works? ##
+## How does the Addictive Community's framework works? ##
 
 As a .NET/C# and a PHP programmer, I've tried to get the best of both worlds: the simplicity of ASP.NET WebForms/MVC and the flexibility of PHP. I wrote this framework from scratch and it is based on MVC pattern, but just "based on", because it is not an actual MVC. There is no "model" layer. All database access, queries and data formatting is done inside the controller layer. So, there is just a controller and a view layer (which I called "templates"). So, there is just a few points that really matter:
 
