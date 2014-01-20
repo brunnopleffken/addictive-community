@@ -13,7 +13,38 @@ jQuery(document).ready(function($) {
 
 			$(this).find('input[type=text], input[type=password], textarea, select').filter('.required').each(function(){
 				if(this.value == '') {
-					console.log($(this));
+					$(this).addClass('error');
+					stopSend = true;
+				}
+				else {
+					$(this).removeClass('error');
+				}
+			});
+			
+			// Is the URL valid?
+
+			$(this).find('.url').filter('.required').each(function(){
+				var str = this.value;
+				var pattern = new RegExp(/(http:\/\/)([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2,3}/);
+				var result = pattern.test(str);
+
+				if(!result) {
+					$(this).addClass('error');
+					stopSend = true;
+				}
+				else {
+					$(this).removeClass('error');
+				}
+			});
+
+			// Is the e-mail address valid?
+
+			$(this).find('.email').filter('.required').each(function(){
+				var str = this.value;
+				var pattern = new RegExp(/[a-z0-9_\.\-]+\@[a-z0-9_\.\-]+\.[a-z]{2,3}/);
+				var result = pattern.test(str);
+
+				if(!result) {
 					$(this).addClass('error');
 					stopSend = true;
 				}
@@ -32,5 +63,11 @@ jQuery(document).ready(function($) {
 
 		}
 	});
+
+	// ---------------------------------------------------
+	// FORM MASK
+	// ---------------------------------------------------
+
+
 
 });

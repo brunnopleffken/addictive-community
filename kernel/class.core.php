@@ -37,19 +37,15 @@
 		public function QueryString($variable, $default = "", $numeric_only = false)
 		{
 			if(isset($_REQUEST[$variable])) {
-				if(!is_numeric($_REQUEST[$variable]) && $numeric_only) {
+				if(!is_numeric($_REQUEST[$variable]) and $numeric_only == true) {
 					Html::Error("Query string '{$variable}' must be a numeric value.");
 					return false;
+					exit;
 				}
-				$retval = $_REQUEST[$variable];
+				$retval = addslashes($_REQUEST[$variable]);
 			}
 			else {
-				if($default != "") {
-					$retval = $default;
-				}
-				else {
-					return false;
-				}
+				$retval = $default;
 			}
 
 			return $retval;

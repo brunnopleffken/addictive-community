@@ -1,4 +1,4 @@
-/* RESET */
+/** RESET **/
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; border: 0; margin: 0; outline: none; padding: 0; }
 
 /** GLOBAL **/
@@ -7,7 +7,7 @@ body h1 { margin-bottom: 8px; }
 body h2 { letter-spacing: 1px; margin-bottom: 15px; }
 body .transition { -webkit-transition: 300ms; -moz-transition: 300ms; -o-transition: 300ms; transition: 300ms; }
 body .wrapper { margin: 0 auto; min-width: 960px; width: 95%; }
-body .box { background-color: #ffffff; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); padding: 10px; }
+body .box { background-color: #ffffff; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); margin-bottom: 10px; padding: 10px; }
 body .fleft { float: left; }
 body .fright { float: right; }
 body .fix { clear: both; }
@@ -16,6 +16,7 @@ body .left { text-align: left !important; }
 body .right { text-align: right !important; }
 body .small { font-size: 12px; }
 body .tiny { font-size: 11px; }
+body .min { width: 1% !important; white-space: nowrap; }
 
 a { color: #113377; text-decoration: none; }
 a:hover { text-decoration: underline; }

@@ -33,8 +33,8 @@
 			<a href="index.php"><img src="templates/<?php echo $this->info['template'] ?>/images/<?php echo $this->Core->config['general_communitylogo'] ?>" class="logo-image"></a>
 			<div id="search">
 				<form action="index.php" method="get">
-					<input type="hidden" name="module" value="search">
 					<input type="text" name="q" size="25" placeholder="Search...">
+					<input type="hidden" name="module" value="search">
 					<input type="submit" value="OK">
 				</form>
 			</div>

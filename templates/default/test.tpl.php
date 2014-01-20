@@ -9,6 +9,10 @@
 			<div class="field"><input type="password" class="small required"></div>
 		</div>
 		<div class="inputBox">
+			<div class="label">E-mail Address</div>
+			<div class="field"><input type="text" class="medium required email"></div>
+		</div>
+		<div class="inputBox">
 			<div class="label">Message</div>
 			<div class="field"><textarea rows="5" cols="60"></textarea></div>
 		</div>

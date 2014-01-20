@@ -1,7 +1,9 @@
 <div class="roomTitleBar">
-	<div class="title fleft"><span>Community Name</span><?php echo $roomInfo['name'] ?></div>
+	<div class="title fleft"><span><?php echo $this->Core->config['general_communityname'] ?></span><?php echo $roomInfo['name'] ?></div>
 	<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php echo $roomId ?>" class="defaultButton transition">New Thread</a></div>
 </div>
+
+
 
 <div class="navigation">
 	<div class="navbar">
@@ -50,7 +52,7 @@
 ?>
 
 <div class="threadItem">
-	<div class="center">There are no threads to show.</div>
+	<div class="center">There are no threads to show. What about starting a new one?</div>
 </div>
 
 <?php
