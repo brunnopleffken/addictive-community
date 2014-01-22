@@ -48,6 +48,10 @@ form textarea { overflow: auto; }
 .defaultButton { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #ffffff; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000000; }
 .defaultButton:hover { background-color: #556677; text-decoration: none; }
 
+.smallButton.grey { background: rgba(0, 0, 0, 0.1); border-radius: 7px; color: #333333; cursor: pointer; font-size: 10px; font-weight: bold; padding: 4px 10px 5px 10px; text-shadow: 1px 1px 1px white; }
+.smallButton.grey:hover { background: rgba(0, 0, 0, 0.2); text-decoration: none; }
+.smallButton.grey.white { color: #ffffff; text-shadow: 1px 1px 1px black; }
+
 .colorbox { background: #ffffff; border: 1px solid #ccc; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); left: 275px; position: absolute; top: 20px; width: 49px; }
 .colorbox .item { display: block; height: 12px; margin: 2px; width: 45px; }
 
@@ -142,6 +146,20 @@ form textarea { overflow: auto; }
 .threadItem.announcement { background: #f9f9ff; border-left: 2px solid #000099; }
 .threadItem.locked { background: #fff9f9; border-left: 2px solid #cc0000; }
 .threadItem.answered { background: #ffffff; border-left: 2px solid #009900; }
+
+/** MEMBER LIST ELEMENTS **/
+.classification { margin-bottom: 12px; text-align: right; }
+.classification a { background: url("../images/page.png") repeat-x; border: 1px solid #ddd; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1); color: #444; display: inline-block; font-weight: bold; font-size: 11px; padding: 2px 5px; text-shadow: 1px 1px 0px #ffffff; }
+.classification a:hover { background: url("../images/page-hover.png") repeat-x; text-decoration: none; }
+.classification .page-selected { background: transparent; box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2) inset; }
+
+/** TABLE **/
+.tableList { border-spacing: 0; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 15px; width: 100%; }
+.tableList tr th { background: #465068 url("../images/bar-bg.png") repeat-x; color: #ffffff; font-weight: bold; padding: 8px; text-align: left; }
+.tableList tr td { background: #ffffff; border-bottom: 1px solid #eee; padding: 8px; }
+.tableList tr td .avatar { box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); margin-bottom: -3px; }
+.tableList tr.subtitle td { background: white url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; }
+.tableList tr:last-child td { border-bottom: 0; }
 
 /** NOTIFICATIONS **/
 .notification { margin-bottom: 20px; border: 1px solid #000000; }

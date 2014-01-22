@@ -13,6 +13,10 @@
 			<div class="field"><input type="text" class="medium required email"></div>
 		</div>
 		<div class="inputBox">
+			<div class="label">URL</div>
+			<div class="field"><input type="text" class="medium required url" value="http://"></div>
+		</div>
+		<div class="inputBox">
 			<div class="label">Message</div>
 			<div class="field"><textarea rows="5" cols="60"></textarea></div>
 		</div>

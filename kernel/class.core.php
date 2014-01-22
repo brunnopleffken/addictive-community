@@ -55,12 +55,12 @@
 		// Use custom date formatting
 		// ---------------------------------------------------
 
-		public function DateFormat($timestamp, $format = "longdate")
+		public function DateFormat($timestamp, $format = "long")
 		{
-			if($format == "shortdate") {
+			if($format == "short") {
 				$format = $this->config['date_short_format'];	// Get short format date from $_config
 			}
-			elseif($format == "longdate") {
+			elseif($format == "long") {
 				$format = $this->config['date_long_format'];	// Get long format date from $_config
 			}
 			
@@ -72,6 +72,26 @@
 
 			$date = date($format, $timestamp + $offset);
 			return $date;
+		}
+
+		// ---------------------------------------------------
+		// Get Gravatar or community avatar image path
+		// ---------------------------------------------------
+
+		public function GetGravatar($email, $photo, $size = 96, $mode = "gravatar", $d = "mm", $r = "g")
+		{
+			if($mode == "gravatar")
+			{
+				$url = "http://www.gravatar.com/avatar/";
+				$url .= md5(strtolower(trim($email)));
+				$url .= "?s={$size}&d={$d}&r={$r}";
+			}
+			elseif($mode == "custom")
+			{
+				$url = "public/avatar/{$photo}\" width=\"{$size}\" height=\"{$size}";
+			}
+			
+			return $url;
 		}
 	}
 

@@ -3,6 +3,13 @@ jQuery(document).ready(function($) {
 	// ---------------------------------------------------
 	// FORM VALIDATION - REQUIRED FIELDS
 	// ---------------------------------------------------
+	
+	/**
+	 * CSS CLASSES FOR VALIDATION
+	 * .url		Validates http://xxx.com or http://xxx.com.br
+	 * .email	Validates me@me.com or me@me.com.br
+	 * .numeric	Validates if the value is numeric only
+	 */
 
 	$('form').on('submit', function(e) {
 		if($(this).hasClass('validate')) {
@@ -42,6 +49,22 @@ jQuery(document).ready(function($) {
 			$(this).find('.email').filter('.required').each(function(){
 				var str = this.value;
 				var pattern = new RegExp(/[a-z0-9_\.\-]+\@[a-z0-9_\.\-]+\.[a-z]{2,3}/);
+				var result = pattern.test(str);
+
+				if(!result) {
+					$(this).addClass('error');
+					stopSend = true;
+				}
+				else {
+					$(this).removeClass('error');
+				}
+			});
+			
+			// Numeric only field
+
+			$(this).find('.numeric').filter('.required').each(function(){
+				var str = this.value;
+				var pattern = new RegExp(/([0-9]*)/);
 				var result = pattern.test(str);
 
 				if(!result) {

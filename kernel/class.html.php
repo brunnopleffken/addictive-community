@@ -114,33 +114,6 @@
 		}
 
 		// ---------------------------------------------------
-		// Get Gravatar or community avatar image path
-		// ---------------------------------------------------
-
-		public static function GetGravatar($email, $size = 96, $mode = "gravatar", $d = "mm", $r = "g", $img = false, $atts = array())
-		{
-			global $sql;
-			
-			$av_sql = clone($sql);
-			
-			if($mode == "gravatar")
-			{
-				$url = "http://www.gravatar.com/avatar/";
-				$url .= md5(strtolower(trim($email)));
-				$url .= "?s={$size}&d={$d}&r={$r}";
-			}
-			elseif($mode == "custom")
-			{
-				$av_sql->Query("SELECT photo FROM c_members WHERE email = '{$email}';");
-				$url = $av_sql->Fetch();
-				$url = $url['photo'];
-				$url = "public/avatar/{$url}\" width=\"{$size}\" height=\"{$size}";
-			}
-			
-			return $url;
-		}
-
-		// ---------------------------------------------------
 		// Generate GD image
 		// ---------------------------------------------------
 
