@@ -13,7 +13,7 @@
 	// Build header!
 	// ---------------------------------------------------
 
-	// Letters index!
+	// The awesome alphabet
 	
 	$letters = array(
 		"a", "b", "c", "d", "e",
@@ -27,9 +27,9 @@
 	$selected = "";
 	$letterList = "";
 	
-	// If there is a letter selected, do not select "All"
+	// If there is a letter selected, don't let "All" selected
 	
-	if(isset($_REQUEST['letter'])) {
+	if(Html::Request("letter")) {
 		$first = "<a href=\"index.php?module=members\">All</a>\n";
 	}
 	else {
@@ -41,14 +41,21 @@
 	foreach($letters as $value) {
 		$label = strtoupper($value);
 		
-		if(isset($_REQUEST['letter']) and $_REQUEST['letter'] == $value) {
+		if(Html::Request("letter") == $value) {
 			$selected = "class=\"page-selected\"";
 		}
 		else {
 			$selected = "";
 		}
+
+		if(Html::Request("order")) {
+			$order = "&amp;order=" . $_REQUEST['order'];
+		}
+		else {
+			$order = "";
+		}
 		
-		$letterList .= "<a href=\"index.php?module=members&amp;letter={$value}\" {$selected}>{$label}</a>\n";
+		$letterList .= "<a href=\"index.php?module=members&amp;letter={$value}{$order}\" {$selected}>{$label}</a>\n";
 	}
 	
 	// ---------------------------------------------------
@@ -57,8 +64,8 @@
 	
 	// Sort by username, join date or number of posts
 	
-	if(isset($_REQUEST['order'])) {
-		switch($_REQUEST['order']) {
+	if(Html::Request("order")) {
+		switch(Html::Request("order")) {
 			case "join":
 				$order = "ORDER BY joined DESC";
 				break;
@@ -73,8 +80,8 @@
 	
 	// Filter by first letter
 	
-	if(isset($_REQUEST['letter'])) {
-		$letter = $_REQUEST['letter'];
+	if(Html::Request("letter")) {
+		$letter = Html::Request("letter");
 		$this->Db->Query("SELECT * FROM c_members
 			LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id)
 			WHERE username LIKE '{$letter}%' {$order};");

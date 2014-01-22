@@ -22,6 +22,47 @@
 		}
 
 		// ---------------------------------------------------
+		// Same as $_REQUEST['var'], but sanitized!
+		// ---------------------------------------------------
+
+		public static function Request($name)
+		{
+			if(isset($_REQUEST[$name])) {
+				$text = self::Sanitize($_REQUEST[$name]);
+			}
+			else {
+				return false;
+			}
+
+			return $text;
+		}
+
+		// ---------------------------------------------------
+		// Remove all non-alphanumeric character
+		// ---------------------------------------------------
+
+		public static function Sanitize($string, $allowed = array())
+		{
+			$allow = null;
+			if (!empty($allowed)) {
+				foreach ($allowed as $value) {
+					$allow .= "\\$value";
+				}
+			}
+
+			if (!is_array($string)) {
+				return preg_replace("/[^{$allow}a-zA-Z0-9]/", '', $string);
+			}
+
+			$cleaned = array();
+			foreach ($string as $key => $clean) {
+				$cleaned[$key] = preg_replace("/[^{$allow}a-zA-Z0-9]/", '', $clean);
+			}
+
+			return $cleaned;
+		}
+
+		// ---------------------------------------------------
 		// List of days of the month (1 to 31)
 		// ---------------------------------------------------
 

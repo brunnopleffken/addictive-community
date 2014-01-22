@@ -161,6 +161,14 @@ form textarea { overflow: auto; }
 .tableList tr.subtitle td { background: white url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; }
 .tableList tr:last-child td { border-bottom: 0; }
 
+/** CALENDAR **/
+.calendar { border-collapse: collapse; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 15px; width: 100%; }
+.calendar th { background: #465068 url("../images/bar-bg.png") repeat-x; color: #ffffff; font-weight: bold; padding: 8px; text-align: left; }
+.calendar .week { background: white url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; width: 14%; }
+.calendar .day, .calendar .today { background: #ffffff; border: 1px solid #eee; padding: 20px; }
+.calendar .fill { background: #ffffff; border: 1px solid #eee; padding: 20px; }
+.calendar .today { background: #fafafa; box-shadow: 0px 0px 1px 1px #960000 inset; }
+
 /** NOTIFICATIONS **/
 .notification { margin-bottom: 20px; border: 1px solid #000000; }
 .notification p { color: #565656; font-size: 12px; margin: 0px; padding: 10px 25px 10px 54px; }
