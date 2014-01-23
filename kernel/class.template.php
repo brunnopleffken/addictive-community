@@ -11,50 +11,50 @@
 
 	class Template
 	{
-		public $html = "";
+		public static $html = "";
 
 		// ---------------------------------------------------
 		// Insert HTML to $this->html
 		// ---------------------------------------------------
 
-		public function Add($html)
+		public static function Add($html)
 		{
-			$this->html .= $html;
+			self::$html .= $html;
 		}
 
 		// ---------------------------------------------------
 		// Get HTML template stored in $this->html
 		// ---------------------------------------------------
 
-		public function Get()
+		public static function Get()
 		{
-			return $this->html;
+			return self::$html;
 		}
 
 		// ---------------------------------------------------
 		// Clear all
 		// ---------------------------------------------------
 
-		public function Clear()
+		public static function Clear()
 		{
-			$this->html = "";
+			self::$html = "";
 		}
 
 		// ---------------------------------------------------
 		// Force template including inside controller
 		// ---------------------------------------------------
 
-		public function Element($filename, $fullpath = false)
-		{
-			if($fullpath)
-			{
-				require_once("templates/1/" . $filename . ".php");
-			}
-			else
-			{
-				require_once($filename . ".php");
-			}
-		}
+		// public static function Element($filename, $fullpath = false)
+		// {
+		// 	if($fullpath)
+		// 	{
+		// 		require_once("templates/1/" . $filename . ".php");
+		// 	}
+		// 	else
+		// 	{
+		// 		require_once($filename . ".php");
+		// 	}
+		// }
 	}
 
 ?>

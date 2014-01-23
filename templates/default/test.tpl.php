@@ -22,7 +22,7 @@
 		</div>
 		<div class="inputBox">
 			<div class="label">Sector</div>
-			<div class="field"><select class="small required">
+			<div class="field"><select class="small required select2">
 				<option value="">---</option>
 				<option value="PR">Paraná</option>
 				<option value="RJ">Rio de Janeiro</option>

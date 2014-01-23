@@ -3,7 +3,7 @@
 	<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php echo $roomId ?>" class="defaultButton transition">New Thread</a></div>
 </div>
 
-
+<!-- NOTIFICATIONS -->
 
 <div class="navigation">
 	<div class="navbar">

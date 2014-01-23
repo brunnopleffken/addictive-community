@@ -6,7 +6,7 @@
 	<form action="index.php" method="get">
 		<input type="hidden" name="module" value="calendar">
 		Go to:
-		<?php echo Html::Months("month") ?>
+		<?php echo Html::Months("month", false, $this->t, $c_month) ?>
 		<?php echo Html::Years("year", 3, 3) ?>
 		<input type="submit" value="Go">
 	</form>

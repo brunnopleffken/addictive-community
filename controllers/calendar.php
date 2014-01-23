@@ -19,12 +19,19 @@
 	$db = $this->Db;
 
 	switch($act) {
+
+		// ---------------------------------------------------
+		// CALENDAR VIEW
+		// ---------------------------------------------------
+
 		case "month":
 	
+			// ---------------------------------------------------
 			// Get current date/year, if not set
+			// ---------------------------------------------------
 			
-			$c_month	= (isset($_REQUEST['month'])) ? $_REQUEST['month'] : date("n");
-			$c_year		= (isset($_REQUEST['year'])) ? $_REQUEST['year'] : date("Y");
+			$c_month	= (Html::Request("month")) ? Html::Request("month") : date("n");
+			$c_year		= (Html::Request("year")) ? Html::Request("year") : date("Y");
 			
 			/// ---------------------------------------------------
 			// Let's see our calendar!
@@ -35,47 +42,47 @@
 			
 			// Create array containing names of days of week.
 			$w_days = array(
-				"Sunday", "Monday",
-				"Tuesday", "Wednesday",
-				"Thursday", "Friday",
-				"Saturday"
+				$this->t["w_1"], $this->t["w_2"],
+				$this->t["w_3"], $this->t["w_4"],
+				$this->t["w_5"], $this->t["w_6"],
+				$this->t["w_7"]
 			);
 
-			// What is the first day of the month in question?
+			// What is the first day of the selected month?
 			$m_firstday = mktime(0,0,0,$c_month,1,$c_year);
 
 			// How many days does this month contain?
 			$num_days = date('t',$m_firstday);
 
-			// Retrieve some information about the first day of the month in question.
+			// Retrieve some information about the first day of the selected month
 			$date_components = getdate($m_firstday);
 
-			// What is the name of the month in question?
+			// What is the name of this month?
 			$m_name = "m_" . $date_components['mon'];
-			$m_name = "January";
+			$m_name = $this->t[$m_name];
 
 			// What is the index value (0-6) of the first day of the month in question.
 			$w_day = $date_components['wday'];
 
 			// Create the table tag opener and day headers
-			$calendar = "<table class='calendar'>";
-			$calendar .= "<tr><th colspan='7'>{$m_name} {$c_year}</th></tr>";
-			$calendar .= "<tr>";
+			Template::Add("<table class='calendar'>");
+			Template::Add("<tr><th colspan='7'>{$m_name} {$c_year}</th></tr>");
+			Template::Add("<tr>");
 
 			// Create the calendar headers
 			foreach($w_days as $day) {
-				$calendar .= "<td class='week'>{$day}</td>";
+				Template::Add("<td class='week'>{$day}</td>");
 			} 
 			
 			// Create the rest of the calendar
 			// Initiate the day counter, starting with the 1st.
 			$current_day = 1;
-			$calendar .= "</tr><tr>";
+			Template::Add("</tr><tr>");
 			
 			// The variable $w_day is used to ensure that the calendar
 			// display consists of exactly 7 columns.
 			if ($w_day > 0) { 
-				$calendar .= "<td class='fill' colspan='{$w_day}'>&nbsp;</td>"; 
+				Template::Add("<td class='fill' colspan='{$w_day}'>&nbsp;</td>");
 			}
 			
 			$month = str_pad($c_month, 2, "0", STR_PAD_LEFT);
@@ -84,7 +91,7 @@
 				// Seventh column (Saturday) reached. Start a new row.
 				if ($w_day == 7) {
 					$w_day = 0;
-					$calendar .= "</tr><tr>";
+					Template::Add("</tr><tr>");
 				}
 				
 				$current_day_rel = str_pad($current_day, 2, "0", STR_PAD_LEFT);
@@ -110,10 +117,10 @@
 					$c_year == $today_info['year'] &&
 					$current_day == $today_info['mday']
 				) {
-					$calendar .= "<td class='today' rel='{$date}' {$event_marker}><b><a href=\"{$date}\">{$current_day}</a></b></td>";
+					Template::Add("<td class='today' rel='{$date}' {$event_marker}><b><a href=\"{$date}\">{$current_day}</a></b></td>");
 				}
 				else {
-					$calendar .= "<td class='day' rel='{$date}' {$event_marker}><a href=\"index.php?module=calendar&amp;act=event&amp;date={$date}\">{$current_day}</a></td>";
+					Template::Add("<td class='day' rel='{$date}' {$event_marker}><a href=\"index.php?module=calendar&amp;act=event&amp;date={$date}\">{$current_day}</a></td>");
 				}
 				
 				// Increment counters
@@ -125,35 +132,24 @@
 			
 			if ($w_day != 7) { 
 				$remaining_days = 7 - $w_day;
-				$calendar .= "<td class='fill' colspan='{$remaining_days}'>&nbsp;</td>"; 
+				Template::Add("<td class='fill' colspan='{$remaining_days}'>&nbsp;</td>"); 
 			}
 
-			$calendar .= "</tr>";
-			$calendar .= "</table>";
+			Template::Add("</tr></table>");
+
+			$calendar = Template::Get();
+			Template::Clear();
 
 			break;
+
+		// ---------------------------------------------------
+		// ADD NEW EVENT VIEW
+		// ---------------------------------------------------
 		
 		case "addevent":
 			
-			// Registered members only
-			
-			$session->NoGuest();
-			
-			$add_event_html = AddEventForm();
-			$add_event_html = str_replace("<!--DAYS-->", $display->DayDD("day", 1), $add_event_html);
-			$add_event_html = str_replace("<!--MONTHS-->", $display->MonthDD("month", 1), $add_event_html);
-			$add_event_html = str_replace("<!--YEARS-->", $display->YearDD("year", date("Y"), 3, 3), $add_event_html);
-			
-			$display->AddOutput($add_event_html);
-			
 			break;
 	}
-
-	// ---------------------------------------------------
-	// Create calendar
-	// ---------------------------------------------------
-
-
 
 	// ---------------------------------------------------
 	// Where are we?

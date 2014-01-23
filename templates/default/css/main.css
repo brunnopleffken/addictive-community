@@ -14,7 +14,7 @@ body .fix { clear: both; }
 body .center { text-align: center !important; }
 body .left { text-align: left !important; }
 body .right { text-align: right !important; }
-body .small { font-size: 12px; }
+body .fsmall { font-size: 12px; }
 body .tiny { font-size: 11px; }
 body .min { width: 1% !important; white-space: nowrap; }
 
@@ -41,7 +41,7 @@ form textarea { overflow: auto; }
 .inputBox { background: #fdfdfd; border: 1px solid #eeeeee; margin-bottom: 10px; padding: 10px; }
 .inputBox .label { float: left; font-size: 15px; font-weight: bold; margin-bottom: 15px; padding: 5px 0; width: 140px; }
 .inputBox .label:last-child { margin: 0; }
-.inputBox .field { font-size: 12px; margin-bottom: 15px; margin-left: 150px; min-height: 30px; }
+.inputBox .field { margin-bottom: 15px; margin-left: 150px; min-height: 30px; }
 .inputBox .field:last-child { margin: 0; }
 .inputBox:last-child { margin: 0; }
 
@@ -104,7 +104,7 @@ form textarea { overflow: auto; }
 .navigation .navbar a { color: #ffffff; display: inline-block; font-weight: bold; margin-right: 20px; padding: 10px; text-transform: uppercase; }
 .navigation .navbar a:hover { background: #55617e; border-radius: 8px 8px 0 0; text-decoration: none; }
 .navigation .navbar .selected { background: #ffffff; border-radius: 8px 8px 0 0; color: #313848; }
-.navigation .navbar .selected:hover { background: #55617e; border-radius: 8px 8px 0 0; text-decoration: none; }
+.navigation .navbar .selected:hover { background: #ffffff; text-decoration: none; }
 .navigation .subnav { background: #ffffff; margin-bottom: 15px; padding: 0 10px; }
 .navigation .subnav a { border-bottom: 2px solid #ffffff; color: #000000; display: inline-block; font-size: 12px; font-weight: bold; padding: 10px 15px 7px 15px; text-transform: uppercase; }
 .navigation .subnav a:hover { border-bottom: 2px solid #eff5fb; text-decoration: none; }
@@ -167,7 +167,7 @@ form textarea { overflow: auto; }
 .calendar .week { background: white url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; width: 14%; }
 .calendar .day, .calendar .today { background: #ffffff; border: 1px solid #eee; padding: 20px; }
 .calendar .fill { background: #ffffff; border: 1px solid #eee; padding: 20px; }
-.calendar .today { background: #fafafa; box-shadow: 0px 0px 1px 1px #960000 inset; }
+.calendar .today { background: #fcfcfc; box-shadow: 0px 0px 1px 1px #960000 inset; }
 
 /** NOTIFICATIONS **/
 .notification { margin-bottom: 20px; border: 1px solid #000000; }

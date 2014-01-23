@@ -30,6 +30,8 @@
 			"m_id"	=> 0
 			);
 
+		public $t = array();
+
 		// Sections
 
 		private $header	= "";
@@ -54,14 +56,16 @@
 			$this->Db = new Database($config);
 			$this->Core = new Core($this->Db);
 
-			// Get languages and template skin
-
-			$this->GetLanguage();
-			$this->GetTemplate();
-
-			// Load templates and controllers
+			// Get required module name
 
 			$this->info['module'] = $this->Core->QueryString("module", "community");
+
+			// Get languages and template skin
+
+			$this->GetLanguage($this->info['module']);
+			$this->GetTemplate();
+
+			// Load controllers and views
 
 			ob_start();
 			require_once("controllers/" . $this->info['module'] . ".php");
@@ -83,10 +87,20 @@
 		// Get community default language
 		// ---------------------------------------------------
 
-		private function GetLanguage()
+		private function GetLanguage($module)
 		{
 			if($this->user['m_id'] == 0) {
-				$this->info['template'] = "en_US";
+				$this->info['language'] = "en_US";
+			}
+			else {
+				$this->user['language'] = $this->info['language'];
+			}
+
+			include("languages/" . $this->info['language'] . "/global.php");			// global language file
+			@include("languages/" . $this->info['language'] . "/" . $module . ".php");	// optional file
+
+			foreach($t as $k => $v) {
+				$this->t[$k] = $v;
 			}
 		}
 

@@ -82,15 +82,22 @@
 
 		// ---------------------------------------------------
 		// List of months of the year (Jan to Dec)
+		// $lang is REQUIRED if $numeric = false
 		// ---------------------------------------------------
 
-		public static function Months($name, $current = 1)
+		public static function Months($name, $numeric = true, $lang = array(), $current = 1)
 		{
 			$retval = "<select name=\"{$name}\" id=\"{$name}\">";
 
 			for($i = 1; $i <= 12; $i++) {
 				$selected = ($i == $current) ? "selected" : "";
-				$retval .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
+				if(!$numeric) {
+					$indexName = "m_" . $i;
+					$retval .= "<option value=\"{$i}\" {$selected}>{$lang[$indexName]}</option>";
+				}
+				else {
+					$retval .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
+				}
 			}
 
 			$retval .= "</select>";

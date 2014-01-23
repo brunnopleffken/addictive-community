@@ -8,9 +8,11 @@
 	<meta name="keywords" content="<?php echo $this->Core->config['seo_keywords'] ?>">
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="stylesheet" href="templates/<?php echo $this->info['template'] ?>/css/main.css">
+	<link rel="stylesheet" href="resources/select2/select2.css">
 	<script src="resources/jquery-1.10.2.min.js" type="text/javascript"></script>
 	<script src="resources/main.js" type="text/javascript"></script>
 	<script src="resources/functions.js" type="text/javascript"></script>
+	<script src="resources/select2/select2.js" type="text/javascript"></script>
 	<?php echo $this->header ?>
 </head>
 <body>
