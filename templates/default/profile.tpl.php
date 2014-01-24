@@ -5,7 +5,7 @@
 <div class="navigation">
 	<div class="navbar">
 		<a href="index.php?module=profile&amp;id=<?php echo $id ?>" class="transition selected">Profile</a>
-		<a href="index.php?module=profile&amp;id=<?php echo $id ?>&amp;act=updates" class="transition">Status Updates</a>
+		<!-- <a href="index.php?module=profile&amp;id=<?php echo $id ?>&amp;act=updates" class="transition">Status Updates</a> -->
 	</div>
 	<div class="subnav">
 		<a href="index.php?module=profile&amp;id=<?php echo $id ?>" class="transition">My Profile</a>
@@ -113,12 +113,7 @@
 
 	<h1><?php echo $info['username'] ?></h1>
 	<span><?php echo $info['member_title'] ?></span>
-	<table class="tableList noBorders noShadow" style="margin-top: 15px" id="facebookNewsFeed">
-		<tr>
-			<th colspan="2">Last 10 Facebook posts</th>
-		</tr>
-		
-	</table>
+	
 
 	<?php
 		break;
