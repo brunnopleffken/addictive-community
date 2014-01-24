@@ -63,10 +63,10 @@
 
 	while($result = $this->Db->Fetch()) {
 		$result['class'] = "";
-		$result['description'] = Text::RemoveBBcode($result['post']);
+		$result['description'] = String::RemoveBBcode($result['post']);
 		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
 
-		// Get the number of replies, not number of posts... ;)
+		// Get the number of replies, not total number of posts... ;)
 		$result['replies']--;
 
 		// Status: unread

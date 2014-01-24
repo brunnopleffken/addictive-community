@@ -93,6 +93,28 @@
 			
 			return $url;
 		}
+
+		// ---------------------------------------------------
+		// Calculate member age from birthday timestamp
+		// ---------------------------------------------------
+
+		public function MemberAge($timestamp)
+		{
+			$birth = date("md Y", $timestamp);
+			$birth = explode(" ", $birth);
+			
+			$now = date("md Y", time());
+			$now = explode(" ", $now);
+			
+			if($now[0] < $birth[0]) {
+				$age = $now[1] - $birth[1] - 1;
+			}
+			else {
+				$age = $now[1] - $birth[1];
+			}
+			
+			return $age;
+		}
 	}
 
 ?>

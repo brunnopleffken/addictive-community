@@ -20,20 +20,28 @@
 		protected $Db;
 		protected $Core;
 
+		// Community info
 		public $info = array(
 			"module"	=> "",
 			"language"	=> "",
 			"template"	=> ""
 			);
 
+		// Member or guest info
 		public $user = array(
 			"m_id"	=> 0
 			);
 
+		// Languages/dictionary array
 		public $t = array();
 
-		// Sections
+		// Paths
+		public $p = array(
+			"IMG" => "",
+			"TPL" => "",
+			);
 
+		// Sections (HTML)
 		private $header	= "";
 		private $sidebar	= "";
 		private $content	= "";
@@ -113,6 +121,9 @@
 			if($this->user['m_id'] == 0) {
 				$this->info['template'] = "default";
 			}
+
+			$this->p['TPL'] = "templates/" . $this->info['template'];
+			$this->p['IMG'] = "templates/" . $this->info['template'] . "/images";
 		}
 	}
 

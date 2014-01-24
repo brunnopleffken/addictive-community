@@ -54,7 +54,8 @@
 		$result['relevance'] = round($result['relevance'], 2);
 		
 		foreach($keyHighlight as $words) {
-			$result['post'] = str_ireplace($words, "<b style=\"background: #ffa\">" . $words . "</b>", $result['post']);
+			$result['post'] = str_ireplace($words, "<b style=\"background: #ffa\">" . $words . "</b>",
+				String::RemoveBBcode($result['post']));
 		}
 		
 		$_result[] = $result;

@@ -14,7 +14,7 @@
 <table class="threadItem search">
 	<tr>
 		<td class="stats min">
-			<img src="templates/<?php echo $this->info['template'] ?>/images/thread-replier.png">
+			<img src="<?php echo $this->p['IMG'] ?>/thread-replier.png">
 		</td>
 		<td class="stats min">
 			<div class="label">
@@ -24,7 +24,7 @@
 			</div>
 		</td>
 		<td class="stats min">
-			<img src="templates/<?php echo $this->info['template'] ?>/images/thread-date.png">
+			<img src="<?php echo $this->p['IMG'] ?>/thread-date.png">
 		</td>
 		<td class="stats min">
 			<div class="label">

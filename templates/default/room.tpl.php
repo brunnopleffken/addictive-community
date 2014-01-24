@@ -30,17 +30,17 @@
 			<a href="index.php?module=thread&amp;id=<?php echo $_thread[$k]['t_id'] ?>" class="title"><?php echo $_thread[$k]['title'] ?></a>
 			<div class="desc"><?php echo $_thread[$k]['description'] ?></div>
 			<div class="author">
-				<img src="templates/<?php echo $this->info['template'] ?>/images/thread-start-author.png">
+				<img src="<?php echo $this->p['IMG'] ?>/thread-start-author.png">
 				By <?php echo $_thread[$k]['author_name'] ?> &nbsp;
-				<img src="templates/<?php echo $this->info['template'] ?>/images/thread-start-date.png">
+				<img src="<?php echo $this->p['IMG'] ?>/thread-start-date.png">
 				Started on <?php echo $_thread[$k]['start_date'] ?>
 			</div>
 		</td>
-		<td class="info"><img src="templates/<?php echo $this->info['template'] ?>/images/thread-replies.png"><br><?php echo $_thread[$k]['replies'] ?></td>
+		<td class="info"><img src="<?php echo $this->p['IMG'] ?>/thread-replies.png"><br><?php echo $_thread[$k]['replies'] ?></td>
 		<td class="stats {$thread_info['class_status']}">
-			<div class="label"><img src="templates/<?php echo $this->info['template'] ?>/images/thread-views.png" class="thread-stats-img fleft"><span class="value"><?php echo $_thread[$k]['views'] ?> views</span></div>
-			<div class="label"><img src="templates/<?php echo $this->info['template'] ?>/images/thread-replier.png" class="thread-stats-img fleft"><span class="value"><a href="index.php?module=profile&amp;id={$thread_info['lastpost_member_id']}" title="Last post by <?php echo $_thread[$k]['lastpost_name'] ?>"><?php echo $_thread[$k]['lastpost_name'] ?></a></span></div>
-			<div class="label"><img src="templates/<?php echo $this->info['template'] ?>/images/thread-date.png" class="thread-stats-img fleft"><span class="value"><?php echo $_thread[$k]['lastpost_date'] ?></span></div>
+			<div class="label"><img src="<?php echo $this->p['IMG'] ?>/thread-views.png" class="thread-stats-img fleft"><span class="value"><?php echo $_thread[$k]['views'] ?> views</span></div>
+			<div class="label"><img src="<?php echo $this->p['IMG'] ?>/thread-replier.png" class="thread-stats-img fleft"><span class="value"><a href="index.php?module=profile&amp;id={$thread_info['lastpost_member_id']}" title="Last post by <?php echo $_thread[$k]['lastpost_name'] ?>"><?php echo $_thread[$k]['lastpost_name'] ?></a></span></div>
+			<div class="label"><img src="<?php echo $this->p['IMG'] ?>/thread-date.png" class="thread-stats-img fleft"><span class="value"><?php echo $_thread[$k]['lastpost_date'] ?></span></div>
 		</td>
 	</tr>
 </table>

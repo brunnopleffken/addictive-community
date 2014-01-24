@@ -2,21 +2,23 @@
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; border: 0; margin: 0; outline: none; padding: 0; }
 
 /** GLOBAL **/
-body { background: #f1f1f1; font-family: Arial, Helvetica, sans-serif; font-size: 13px; }
+body { background: #f1f1f1; font-family: Arial, Helvetica, sans-serif; font-size: 13px; /** HELPERS **/ }
 body h1 { margin-bottom: 8px; }
 body h2 { letter-spacing: 1px; margin-bottom: 15px; }
 body .transition { -webkit-transition: 300ms; -moz-transition: 300ms; -o-transition: 300ms; transition: 300ms; }
 body .wrapper { margin: 0 auto; min-width: 960px; width: 95%; }
 body .box { background-color: #ffffff; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); margin-bottom: 10px; padding: 10px; }
+body .clear { clear: both; }
 body .fleft { float: left; }
 body .fright { float: right; }
 body .fix { clear: both; }
 body .center { text-align: center !important; }
 body .left { text-align: left !important; }
 body .right { text-align: right !important; }
-body .fsmall { font-size: 12px; }
+body .small { font-size: 12px; }
 body .tiny { font-size: 11px; }
 body .min { width: 1% !important; white-space: nowrap; }
+body .noShadow { box-shadow: none; }
 
 a { color: #113377; text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -158,8 +160,24 @@ form textarea { overflow: auto; }
 .tableList tr th { background: #465068 url("../images/bar-bg.png") repeat-x; color: #ffffff; font-weight: bold; padding: 8px; text-align: left; }
 .tableList tr td { background: #ffffff; border-bottom: 1px solid #eee; padding: 8px; }
 .tableList tr td .avatar { box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); margin-bottom: -3px; }
+.tableList tr td.tLabel { color: #888; text-align: right; white-space: nowrap; width: 1%; vertical-align: top; }
 .tableList tr.subtitle td { background: white url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; }
 .tableList tr:last-child td { border-bottom: 0; }
+.tableList.noBorders tr td { border-bottom: 0; padding: 9px 8px; }
+.tableList.noBorders tr.subtitle td { border-bottom: 1px solid #ccc; padding: 6px 8px; }
+
+.tableLayer { display: table; width: 100%; }
+.tableLayer .tRow { display: table-row; }
+.tableLayer .tCell { display: table-cell; }
+.tableLayer .tSpacer { display: table-cell; width: 15px; }
+
+/** MEMBER PROFILE **/
+.profileContainer .profileSidebar { width: 180px; vertical-align: top; }
+.profileContainer .profileSidebar .userInfoList { color: #444; font-size: 10px; list-style: none; margin: 20px 0px; }
+.profileContainer .profileSidebar .userInfoList li { padding: 0 3px; text-align: right; }
+.profileContainer .profileSidebar .userInfoList li b { float: left; }
+.profileContainer .profileContent { vertical-align: top; }
+.profileContainer .profileContent h1 { margin-top: 5px; }
 
 /** CALENDAR **/
 .calendar { border-collapse: collapse; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 15px; width: 100%; }
@@ -178,6 +196,12 @@ form textarea { overflow: auto; }
 .notification.failure { background: #fccac1 url("../images/notifications/exclamation.png") no-repeat 15px center; border-color: #e18b7c; color: #ac260f; }
 .notification.info { background: #d1e4f3 url("../images/notifications/information.png") no-repeat 15px center; border-color: #99c4ea; color: #235685; }
 .notification.debug { background: #f4f4f4 url("../images/notifications/debug.png") no-repeat 15px center; border-color: #999999; color: #666666; }
+
+/** STEP BOX **/
+.stepBox { display: table; margin: 0 auto; margin-bottom: 20px; border-bottom: 3px solid #303747; }
+.stepBox .previous { color: #d9d9d9; display: table-cell; padding: 6px; text-align: center; width: 120px; }
+.stepBox .current { background: #465068; color: #ffffff; display: table-cell; padding: 6px; text-align: center; width: 120px; }
+.stepBox .next { display: table-cell; padding: 6px; text-align: center; width: 120px; }
 
 /** FOOTER **/
 #footer { background: #000000; color: #cccccc; font-size: 11px; margin-top: 15px; overflow: auto; padding: 8px; }

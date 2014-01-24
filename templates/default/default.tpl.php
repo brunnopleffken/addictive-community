@@ -32,7 +32,7 @@
 
 	<div id="logo">
 		<div class="wrapper">
-			<a href="index.php"><img src="templates/<?php echo $this->info['template'] ?>/images/<?php echo $this->Core->config['general_communitylogo'] ?>" class="logo-image"></a>
+			<a href="index.php"><img src="<?php echo $this->p['IMG'] . "/" . $this->Core->config['general_communitylogo'] ?>" class="logo"></a>
 			<div id="search">
 				<form action="index.php" method="get">
 					<input type="text" name="q" size="25" placeholder="Search...">

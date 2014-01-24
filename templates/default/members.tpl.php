@@ -39,7 +39,7 @@
 		<td><?php echo $_result[$k]['posts'] ?></td>
 		<td><?php echo $_result[$k]['location'] ?></td>
 		<td><?php echo $_result[$k]['name'] ?></td>
-		<td class="min"><a href="index.php?module=profile&amp;id=1"><img src="templates/<?php echo $this->info['template'] ?>/images/view_profile.png"></a></td>
+		<td class="min"><a href="index.php?module=profile&amp;id=1"><img src="<?php echo $this->p['IMG'] ?>/view_profile.png"></a></td>
 	</tr>
 	
 	<?php

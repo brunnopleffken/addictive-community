@@ -32,10 +32,10 @@
 		}
 
 		// ---------------------------------------------------
-		// Clear all
+		// Clean all
 		// ---------------------------------------------------
 
-		public static function Clear()
+		public static function Clean()
 		{
 			self::$html = "";
 		}
