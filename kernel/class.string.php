@@ -181,6 +181,24 @@
 
 			return array_pop($list);
 		}
+
+		// --------------------------------------------
+		// Clean reserved characters in HTML
+		// --------------------------------------------
+
+		public static function Sanitize($text)
+		{
+			$text = str_replace("&", "&amp;", $text);
+			$text = str_replace("<", "&lt;", $text);
+			$text = str_replace(">", "&gt;", $text);
+			$text = str_replace('"', "&quot;", $text);
+			$text = str_replace("'", "&#39;", $text);
+
+			// An extra for double slashes (escape char in PHP)
+			$text = str_replace("\\", "\\\\", $text);
+
+			return $text;
+		}
 	}
 
 ?>

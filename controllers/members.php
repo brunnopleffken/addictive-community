@@ -93,7 +93,6 @@
 	}
 
 	while($result = $this->Db->Fetch()) {
-		// Text::PR($result);
 		$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 36, $result['photo_type']);
 		$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 
