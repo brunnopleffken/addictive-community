@@ -135,8 +135,7 @@ jQuery(document).ready(function($) {
 					console.log(v.id);
 
 					// Append to table
-					//postHtml = "<tr><td><span style='color: #aaaaaa'>" + postTime + "</span><br><a href='https://www.facebook.com/" + fbUsername + "/posts/" + v.id + "' target='_blank'>" + content + "</a></td></tr>";
-
+					
 					postHtml = "<tr><td class=\"tLabel\">" + postTime + "</td><td><a href='https://www.facebook.com/" + fbUsername + "/posts/" + v.id + "' target='_blank'><b>0 likes - 0 comments</b></a></td></tr> <tr> <td colspan=\"2\" style=\"border-bottom: 1px solid #eee; padding-left: 20px; padding-bottom: 20px\">" + content + "</td></tr>";
 					postItems.push(postHtml);
 					i++;
