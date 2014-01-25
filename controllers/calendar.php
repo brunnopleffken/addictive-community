@@ -138,7 +138,7 @@
 			Template::Add("</tr></table>");
 
 			$calendar = Template::Get();
-			Template::Clear();
+			Template::Clean();
 
 			break;
 

@@ -51,9 +51,10 @@ form textarea { overflow: auto; }
 .defaultButton { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #ffffff; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000000; }
 .defaultButton:hover { background-color: #556677; text-decoration: none; }
 
-.smallButton.grey { background: rgba(0, 0, 0, 0.1); border-radius: 7px; color: #333333; cursor: pointer; font-size: 10px; font-weight: bold; padding: 4px 10px 5px 10px; text-shadow: 1px 1px 1px white; }
+.smallButton { border-radius: 7px; color: #333333; cursor: pointer; font-size: 10px; padding: 4px 10px 5px 10px; }
+.smallButton.grey { background: rgba(0, 0, 0, 0.1); text-shadow: 1px 1px 1px white; }
 .smallButton.grey:hover { background: rgba(0, 0, 0, 0.2); text-decoration: none; }
-.smallButton.grey.white { color: #ffffff; text-shadow: 1px 1px 1px black; }
+.smallButton.grey.white { color: #ffffff; font-weight: bold; text-shadow: 1px 1px 1px black; }
 
 .colorbox { background: #ffffff; border: 1px solid #ccc; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); left: 275px; position: absolute; top: 20px; width: 49px; }
 .colorbox .item { display: block; height: 12px; margin: 2px; width: 45px; }
@@ -150,6 +151,44 @@ form textarea { overflow: auto; }
 .threadItem.locked { background: #fff9f9; border-left: 2px solid #cc0000; }
 .threadItem.answered { background: #ffffff; border-left: 2px solid #009900; }
 
+/** THREAD PAGE **/
+.mainPost { background: #ffffff; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); overflow: hidden; }
+.mainPost .header { background: #f6f6f6; border-bottom: 1px solid #cccccc; border-top: 1px solid #bbbbbb; overflow: hidden; padding: 7px 10px 5px 10px; }
+.mainPost .header .author { display: table; float: left; width: 100%; }
+.mainPost .header .author img { border: 1px solid #dddddd; float: left; height: 48px; padding: 2px; width: 48px; }
+.mainPost .header .author .authorInfo { float: left; font-size: 10px; line-height: 1.2em; margin-left: 5px; margin-top: 5px; }
+.mainPost .header .author .authorInfo a { display: inline-block; font-size: 15px; font-weight: bold; margin-bottom: 5px; }
+.mainPost .title { font-size: 22px; font-weight: bold; letter-spacing: 1px; padding: 20px 10px; }
+.mainPost .text { font-size: 14px; padding: 5px 30px 25px 30px; }
+.mainPost .footer { border-top: 1px solid #eeeeee; font-size: 11px; padding: 6px 10px; overflow: hidden; }
+
+.threadButtons { margin: 18px 0; overflow: hidden; padding: 15px 0; }
+.threadButtons .replies { font-size: 21px; font-weight: bold; }
+.threadButtons .replies span { color: #465068; }
+
+.postReply { background: #ffffff; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); display: table; margin-bottom: 10px; position: relative; width: 100%; }
+.postReply .author { display: table-cell; padding: 10px 0 25px 0; text-align: center; width: 180px; }
+.postReply .author .photostack { background: url("../images/photo-stack.png") no-repeat; margin: auto; width: 128px; height: 128px; }
+.postReply .author .photostack img { margin: 16px; }
+.postReply .author .name { font-size: 14px; font-weight: bold; }
+.postReply .author .memberTitle { font-size: 10px; }
+.postReply .author .userInfo { color: #444; font-size: 9px; list-style: none; margin: 20px 5px; }
+.postReply .author .userInfo li { padding: 0 3px; text-align: right; }
+.postReply .author .userInfo li b { float: left; }
+.postReply .content { display: table-cell; }
+.postReply .content .date { color: #666666; font-size: 11px; padding: 10px 5px; }
+.postReply .content .text { margin-bottom: 35px; padding: 15px; }
+.postReply .content .text .signature { border-top: 1px solid rgba(0, 0, 0, 0.1); color: #777; font-size: 0.8em; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
+.postReply .content .footer { background: rgba(0, 0, 0, 0.01); bottom: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); left: 0; padding: 5px 5px 8px 5px; position: absolute; right: 0; text-align: right; }
+.postReply.bestAnswer { background: #fafff8 url("../images/best-answer.png") no-repeat right top; border-left: 3px solid #009900; }
+
+.relatedThreads { background: #ffffff; padding: 18px; }
+.relatedThreads h2 { margin-bottom: 18px; }
+.relatedThreads .item { border-bottom: 1px solid #eee; font-size: 12px; padding: 5px; }
+.relatedThreads .item:last-child { border: 0; }
+.relatedThreads .item span { color: #bbb; font-size: 11px; }
+.relatedThreads .item a { display: inline-block; font-weight: bold; margin-left: 15px; }
+
 /** MEMBER LIST ELEMENTS **/
 .classification { margin-bottom: 12px; text-align: right; }
 .classification a { background: url("../images/page.png") repeat-x; border: 1px solid #ddd; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1); color: #444; display: inline-block; font-weight: bold; font-size: 11px; padding: 2px 5px; text-shadow: 1px 1px 0px #ffffff; }
@@ -203,6 +242,11 @@ form textarea { overflow: auto; }
 .stepBox .previous { color: #d9d9d9; display: table-cell; padding: 6px; text-align: center; width: 120px; }
 .stepBox .current { background: #465068; color: #ffffff; display: table-cell; padding: 6px; text-align: center; width: 120px; }
 .stepBox .next { display: table-cell; padding: 6px; text-align: center; width: 120px; }
+
+/** PAGINATION ELEMENTS **/
+.pages a { background: url("../images/page.png") repeat-x; border: 1px solid #ddd; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1); color: #444; display: inline-block; font-weight: bold; font-size: 11px; margin-left: 5px; padding: 5px 10px; text-shadow: 1px 1px 0px #ffffff; }
+.pages a:hover { background: url("../images/page-hover.png") repeat-x; text-decoration: none; }
+.pages a.page-selected { background: transparent; box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2) inset; }
 
 /** FOOTER **/
 #footer { background: #000000; color: #cccccc; font-size: 11px; margin-top: 15px; overflow: auto; padding: 8px; }
