@@ -3,7 +3,10 @@
 	<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php echo $roomId ?>" class="defaultButton transition">New Thread</a></div>
 </div>
 
-<!-- NOTIFICATIONS -->
+<?php
+	if(isset($notification))
+		echo $notification;
+?>
 
 <div class="navigation">
 	<div class="navbar">
@@ -52,7 +55,7 @@
 ?>
 
 <div class="threadItem">
-	<div class="center">There are no threads to show. What about starting a new one?</div>
+	<div class="center">There are no threads to be shown. What about starting a new one?</div>
 </div>
 
 <?php

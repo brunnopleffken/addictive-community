@@ -51,6 +51,12 @@
 			$order = "lastpost_date DESC";
 	}
 
+	// Get notification
+
+	if($roomInfo['rules_visible'] == 1) {
+		$notification = Html::Notification($roomInfo['rules_text'], "warning", $roomInfo['rules_title']);
+	}
+
 	// Get list of threads
 
 	$this->Db->Query("SELECT c_threads.*, author.username AS author_name, lastpost.username AS lastpost_name,

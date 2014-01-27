@@ -132,7 +132,7 @@
 			
 			if ($w_day != 7) { 
 				$remaining_days = 7 - $w_day;
-				Template::Add("<td class='fill' colspan='{$remaining_days}'>&nbsp;</td>"); 
+				Template::Add("<td class='fill' colspan='{$remaining_days}'>&nbsp;</td>");
 			}
 
 			Template::Add("</tr></table>");

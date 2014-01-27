@@ -18,7 +18,7 @@
 					<?php echo $firstPostInfo['posts'] ?> posts
 				</div>
 			</div>
-			<div class="fright" style="margin-top: 12px">	 
+			<div class="fright" style="margin-top: 12px">
 				<div class="fb-share-button" data-href="http://www.underthelight.com.br" data-type="button_count"></div>
 			</div>
 		</div>
@@ -33,8 +33,8 @@
 		<p class="fleft" title="Tags"><img src="<?php echo $this->p['IMG'] ?>/post-tags.png"> {$first_post_info['tags']}</p>
 	</div> -->
 	<div class="footer">
-		<p class="fleft"><img src="<?php echo $this->p['IMG'] ?>/post-clock.png"> Posted on <?php echo $firstPostInfo['post_date'] ?></p>
-		<p class="fright"><img src="<?php echo $this->p['IMG'] ?>/report.png"> <a href="index.php?module=report&amp;t_id=<?php echo $threadId ?>" class="fancybox fancybox.ajax">Report abuse</a></p>
+		<p class="fleft"><img src="<?php echo $this->p['IMG'] ?>/post-clock.png" style="vertical-align: text-bottom"> Posted on <?php echo $firstPostInfo['post_date'] ?></p>
+		<p class="fright"><img src="<?php echo $this->p['IMG'] ?>/report.png" style="vertical-align: text-bottom"> <a href="index.php?module=report&amp;t_id=<?php echo $threadId ?>" class="fancybox fancybox.ajax">Report abuse</a></p>
 	</div>
 </div>
 
@@ -91,14 +91,14 @@
 <?php endif; ?>
 
 <div class="relatedThreads">
-		<h2>Related Threads</h2>
-		<?php
-			if($_relatedThreadList):
-			foreach($_relatedThreadList as $k => $v):
-		?>
-			<div class="item"><span><?php echo $_relatedThreadList[$k]['thread_date'] ?></span><a href="index.php?module=thread&amp;id={$id}"><?php echo $_relatedThreadList[$k]['title'] ?></a></div>
-		<?php
-			endforeach;
-			endif;
-		?>
-	</div>
+	<h2>Related Threads</h2>
+	<?php
+		if($_relatedThreadList):
+		foreach($_relatedThreadList as $k => $v):
+	?>
+		<div class="item"><span><?php echo $_relatedThreadList[$k]['thread_date'] ?></span><a href="index.php?module=thread&amp;id={$id}"><?php echo $_relatedThreadList[$k]['title'] ?></a></div>
+	<?php
+		endforeach;
+		endif;
+	?>
+</div>

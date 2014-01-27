@@ -129,7 +129,7 @@
 		// Show notification message
 		// ---------------------------------------------------
 
-		public static function Notification($message, $code)
+		public static function Notification($message, $code, $customTitle = "")
 		{
 			switch($code) {
 				case "warning":
@@ -144,6 +144,10 @@
 				case "info":
 					$title = "INFORMATION:";
 					break;
+			}
+			
+			if($customTitle != "") {
+				$title = $customTitle;
 			}
 			
 			$html = "<div class=\"notification " . $code . "\"><p><strong>" . $title . "</strong> " . $message . "</p></div>";
