@@ -120,9 +120,14 @@
 			}
 			
 			$query = "SELECT * FROM {$table} {$where};";
-			$this->temp = mysql_query($query);
+			$this->query = mysql_query($query);
+
+			if(!$this->query) {
+				$this->MysqlException();
+			}
+			
 			$this->log[] = $query;
-			return $this->temp;
+			return $this->query;
 		}
 		
 		// ---------------------------------------------------

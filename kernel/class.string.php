@@ -161,7 +161,7 @@
 		}
 
 		// ---------------------------------------------------
-		// Password encrypt (with salt)
+		// One-way password encrypt (with salt)
 		// ---------------------------------------------------
 
 		public static function PasswordEncrypt($password)
