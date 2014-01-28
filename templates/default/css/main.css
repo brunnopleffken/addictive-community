@@ -37,11 +37,12 @@ form input[type=text], form input[type=password], form input[type=file], form se
 form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form select:focus, form textarea:focus { border: 1px solid #aaaaaa; transition: 500ms; }
 form input[type=file] { border: 0; box-shadow: none; margin: 3px 0; }
 form input[type=button], form input[type=submit] { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #ffffff; padding: 7px 12px; text-shadow: 1px 1px 0px #000000; }
+form input[type=button].cancel, form input[type=submit].cancel { background: #eeeeee url("../images/button-bg.png") !important; color: #990000 !important; text-shadow: 1px 1px 0px #fff !important; }
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #ffffff; }
 form option { padding-right: 10px; }
 form textarea { overflow: auto; }
 
-.inputBox { background: #fdfdfd; border: 1px solid #eeeeee; margin-bottom: 10px; padding: 10px; }
+.inputBox { background: #fdfdfd; border: 1px solid #eeeeee; margin-bottom: 10px; padding: 10px; white-space: nowrap; }
 .inputBox .label { float: left; font-size: 15px; font-weight: bold; margin-bottom: 15px; padding: 5px 0; width: 140px; }
 .inputBox .label:last-child { margin: 0; }
 .inputBox .field { margin-bottom: 15px; margin-left: 150px; min-height: 30px; }
