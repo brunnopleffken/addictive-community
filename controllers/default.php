@@ -43,6 +43,34 @@
 	}
 
 	// ---------------------------------------------------
+	// SIDEBAR: get members online
+	// ---------------------------------------------------
+
+	// Members online
+
+	$online = array();
+	$sessionExpiration = $this->Core->config['general_session_expiration'];
+
+	$this->Db->Query("SELECT * FROM c_sessions WHERE
+		member_id <> 0 AND activity_time > '{$sessionExpiration}' AND anonymous = 0
+		ORDER BY activity_time DESC;");
+
+	while($members = $this->Db->Fetch()) {
+		$online[] = "<a href=\"index.php?module=profile&amp;id={$members['member_id']}\">{$members['username']}</a>";
+	}
+
+	$memberCount = count($online);
+	$memberList = implode(", ", $online);
+
+	// Number of guests
+
+	$this->Db->Query("SELECT COUNT(s_id) AS count FROM c_sessions
+		WHERE member_id = 0;");
+
+	$guestsCount = $this->Db->Fetch();
+	$guestsCount = $guestsCount['count'];
+
+	// ---------------------------------------------------
 	// SIDEBAR: get community statistics
 	// ---------------------------------------------------
 

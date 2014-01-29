@@ -64,7 +64,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="sidebarItem">
 						<div class="title">Rooms</div>
 						<div class="list">
@@ -82,9 +82,9 @@
 					<div class="sidebarItem">
 						<div class="title">Members Online</div>
 						<div class="text">
-							<span class="subtitle">Members (1)</span>
-							<div class="onlineList"><a href="">Brunno Pleffken</a></div>
-							<span class="subtitle" style="margin-top: 10px">Guests (0)</span>
+							<span class="subtitle">Members (<?php echo $memberCount ?>)</span>
+							<div class="onlineList"><?php echo $memberList ?></div>
+							<span class="subtitle" style="margin-top: 10px">Guests (<?php echo $guestsCount ?>)</span>
 						</div>
 					</div>
 					

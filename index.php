@@ -19,18 +19,19 @@
 
 		protected $Db;
 		protected $Core;
+		protected $Session;
 
 		// Community info
 		public $info = array(
-			"module"	=> "",
-			"language"	=> "",
-			"template"	=> ""
+			"module"		=> "",
+			"language"		=> "",
+			"template"		=> "",
+			"section_id"	=> 0,
+			"room_id"		=> 0
 			);
 
-		// Member or guest info
-		public $user = array(
-			"m_id"	=> 0
-			);
+		// Member info
+		public $member = array();
 
 		// Languages/dictionary array
 		public $t = array();
@@ -38,7 +39,7 @@
 		// Paths
 		public $p = array(
 			"IMG" => "",
-			"TPL" => "",
+			"TPL" => ""
 			);
 
 		// Sections (HTML)
@@ -47,15 +48,16 @@
 		private $content	= "";
 
 		// ---------------------------------------------------
-		// Constructor
+		// Main constructor
 		// ---------------------------------------------------
 
 		public function __construct()
 		{
-			// Intial configuration
+			// ---------------------------------------------------
+			// Initial configuration
+			// ---------------------------------------------------
 
 			require_once("config.php");
-
 			$init = new Init();
 			$init->Load();
 
@@ -63,31 +65,45 @@
 
 			$this->Db = new Database($config);
 			$this->Core = new Core($this->Db);
+			$this->Session = new Session($this->Db);
 
-			// Get required module name
+
+			// ---------------------------------------------------
+			// Get module name and set user/guest session
+			// ---------------------------------------------------
 
 			$this->info['module'] = $this->Core->QueryString("module", "community");
 
+			$this->Session->UpdateSession($this->info);
+
+			// ---------------------------------------------------
 			// Get languages and template skin
+			// ---------------------------------------------------
 
 			$this->GetLanguage($this->info['module']);
 			$this->GetTemplate();
 
-			// Load controllers and views
+			// ---------------------------------------------------
+			// Load views and controllers
+			// ---------------------------------------------------
+
+			// Get module view/controller
 
 			ob_start();
 			require_once("controllers/" . $this->info['module'] . ".php");
 			require_once($this->p['TPL'] . "/" . $this->info['module'] . ".tpl.php");
 			$this->content = ob_get_clean();
 
+			// Check if a custom master template is defined
+
 			if(isset($define['layout'])) {
-				// If the user defined a custom master template
 				$layout = $define['layout'];
 			}
 			else {
-				// Otherwise, get default master template
 				$layout = "default";
 			}
+
+			// Master template controller and template
 
 			require_once("controllers/" . $layout . ".php");
 			require_once($this->p['TPL'] . "/" . $layout . ".tpl.php");
@@ -99,13 +115,13 @@
 
 		private function GetLanguage($module)
 		{
-			if($this->user['m_id'] == 0) {
+			if($this->Session->sInfo['member_id'] == 0) {
 				// Default language
 				$this->info['language'] = "en_US";
 			}
 			else {
 				// User defined language
-				$this->user['language'] = $this->info['language'];
+				$this->member['language'] = $this->info['language'];
 			}
 
 			include("languages/" . $this->info['language'] . "/global.php");			// Global language file
@@ -122,7 +138,7 @@
 
 		private function GetTemplate()
 		{
-			if($this->user['m_id'] == 0) {
+			if($this->Session->sInfo['member_id'] == 0) {
 				$this->info['template'] = "default";
 			}
 

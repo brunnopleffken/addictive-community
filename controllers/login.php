@@ -17,9 +17,6 @@
 
 	switch($act) {
 		case "do":
-			
-			// Get HTTP referrer URL
-			$from = getenv("HTTP_REFERER");
 
 			if(Html::Request("username") && Html::Request("password")) {
 				$username = Html::Request("username");
@@ -34,14 +31,14 @@
 				if($this->Db->Rows()) {
 					$userInfo = $this->Db->Fetch();
 
-					$sessionRemember = (Html::Request("remember")) ? 1 : 0;
-					$sessionAnonym = (Html::Request("anonymous")) ? 1 : 0;
+					$userInfo['remember'] = (Html::Request("remember")) ? 1 : 0;
+					$userInfo['anonymous'] = (Html::Request("anonymous")) ? 1 : 0;
 
 					// Are we attempting to login from an exception page?
 					// HTML: <input type="hidden" name="exception_referrer" value="true">
 					
 					if(!Html::Request("exception_referrer")) {
-						header("Location: " . $from);
+						header("Location: " . getenv("HTTP_REFERER"));
 						exit;
 					}
 					else {
