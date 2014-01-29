@@ -54,7 +54,7 @@
 		{
 			// Intial configuration
 
-			include("config.php");
+			require_once("config.php");
 
 			$init = new Init();
 			$init->Load();
@@ -77,18 +77,20 @@
 
 			ob_start();
 			require_once("controllers/" . $this->info['module'] . ".php");
-			require_once("templates/" . $this->info['template'] . "/" . $this->info['module'] . ".tpl.php");
+			require_once($this->p['TPL'] . "/" . $this->info['module'] . ".tpl.php");
 			$this->content = ob_get_clean();
 
 			if(isset($define['layout'])) {
+				// If the user defined a custom master template
 				$layout = $define['layout'];
 			}
 			else {
+				// Otherwise, get default master template
 				$layout = "default";
 			}
 
 			require_once("controllers/" . $layout . ".php");
-			require_once("templates/" . $this->info['template'] . "/" . $layout . ".tpl.php");
+			require_once($this->p['TPL'] . "/" . $layout . ".tpl.php");
 		}
 
 		// ---------------------------------------------------
@@ -98,14 +100,16 @@
 		private function GetLanguage($module)
 		{
 			if($this->user['m_id'] == 0) {
+				// Default language
 				$this->info['language'] = "en_US";
 			}
 			else {
+				// User defined language
 				$this->user['language'] = $this->info['language'];
 			}
 
-			include("languages/" . $this->info['language'] . "/global.php");			// global language file
-			@include("languages/" . $this->info['language'] . "/" . $module . ".php");	// optional file
+			include("languages/" . $this->info['language'] . "/global.php");			// Global language file
+			@include("languages/" . $this->info['language'] . "/" . $module . ".php");	// Module file, if exists
 
 			foreach($t as $k => $v) {
 				$this->t[$k] = $v;

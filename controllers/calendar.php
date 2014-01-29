@@ -120,7 +120,8 @@
 					Template::Add("<td class='today' rel='{$date}' {$event_marker}><b><a href=\"{$date}\">{$current_day}</a></b></td>");
 				}
 				else {
-					Template::Add("<td class='day' rel='{$date}' {$event_marker}><a href=\"index.php?module=calendar&amp;act=event&amp;date={$date}\">{$current_day}</a></td>");
+					Template::Add("<td class='day' rel='{$date}' {$event_marker}>
+						<a href=\"index.php?module=calendar&amp;act=event&amp;date={$date}\">{$current_day}</a></td>");
 				}
 				
 				// Increment counters
