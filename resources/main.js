@@ -17,6 +17,17 @@ jQuery(document).ready(function($) {
 	$('.select2').select2();
 
 	// ---------------------------------------------------
+	// Build lightbox when .fancybox exists
+	// ---------------------------------------------------
+
+	$('.fancybox').fancybox({
+		autoSize: true,
+		closeBtn: false, 
+		modal: false,
+		padding: 3
+	});
+
+	// ---------------------------------------------------
 	// FORM VALIDATION - REQUIRED FIELDS
 	// ---------------------------------------------------
 	
