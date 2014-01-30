@@ -22,28 +22,30 @@
 				$username = Html::Request("username");
 				$password = String::PasswordEncrypt(Html::Request("password"));
 
-				$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
-					WHERE username = '{$username}' AND password = '{$password}';");
-
-				echo $this->Db->Rows();
-				exit;
+				$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members "
+						. "WHERE username = '{$username}' AND password = '{$password}';");
 
 				if($this->Db->Rows()) {
 					$userInfo = $this->Db->Fetch();
 
 					$userInfo['remember'] = (Html::Request("remember")) ? 1 : 0;
 					$userInfo['anonymous'] = (Html::Request("anonymous")) ? 1 : 0;
+					
+					// Check if member session was created successfully
+					try {
+						$this->Session->SetMemberSession($userInfo);
+					} catch (Exception $ex) {
+						Html::Error($ex);
+					}
 
 					// Are we attempting to login from an exception page?
 					// HTML: <input type="hidden" name="exception_referrer" value="true">
 					
 					if(!Html::Request("exception_referrer")) {
 						header("Location: " . getenv("HTTP_REFERER"));
-						exit;
 					}
 					else {
 						header("Location: index.php");
-						exit;
 					}
 				}
 				else {
@@ -53,10 +55,27 @@
 					exit;
 				}
 			}
-
-			// header("Location: index.php");
-			exit;
 			
+			exit;
+			break;
+		
+		case "logout":
+			
+			// Get referrer URL
+			$from = getenv('HTTP_REFERER');
+			
+			// Destroy everything
+			try {
+				$this->Session->UnloadCookie("session_id");
+				$this->Session->UnloadCookie("member_id");
+			} catch (Exception $ex) {
+				Html::Error($ex);
+			}
+			
+			// Redirect
+			header("Location: " . $from);
+			
+			exit;
 			break;
 	}
 

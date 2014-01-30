@@ -166,7 +166,7 @@
 
 		public static function PasswordEncrypt($password)
 		{
-			return md5(base64_decode("Ly9hZGRpY3RpdmU=") . $password);
+			return hash("sha512", base64_decode("Ly9hZGRpY3RpdmU=") . $password);
 		}
 
 		// ---------------------------------------------------

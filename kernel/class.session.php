@@ -65,7 +65,7 @@
 				return $_COOKIE[$name];
 			}
 			else {
-				return false;
+				throw new Exception("Could not get cookie '" . $name . "'.");
 			}
 		}
 
@@ -79,7 +79,7 @@
 				setcookie($name, "0", -1);
 			}
 			else {
-				return false;
+				throw new Exception("Could not unload cookie '" . $name . "'.");
 			}
 		}
 
@@ -124,7 +124,12 @@
 			// Create new session
 			
 			$this->Db->Insert("c_sessions", $this->sInfo);
-			$this->CreateCookie("session_id", $this->sInfo['s_id'], 1);
+			
+			try {
+				$this->CreateCookie("session_id", $this->sInfo['s_id'], 1);
+			} catch (Exception $ex) {
+				Html::Error($ex);
+			}
 
 		}
 
@@ -145,7 +150,7 @@
 					'username'		=> $userInfo['username'],
 					'usergroup'		=> $userInfo['usergroup'],
 					'anonymous'		=> $userInfo['anonymous'],
-					's_id'			=> $this->session_id,
+					's_id'			=> $this->sId,
 					'ip_address'	=> getenv("REMOTE_ADDR"),
 					'browser'		=> getenv("HTTP_USER_AGENT"),
 					'activity_time'	=> time()
@@ -153,7 +158,7 @@
 				
 				// Delete old sessions
 				
-				$sql->Query("DELETE FROM c_sessions
+				$this->Db->Query("DELETE FROM c_sessions
 					WHERE member_id = '{$this->sInfo['member_id']}'
 						OR ip_address = '{$this->sInfo['ip_address']}'
 						OR activity_time < '{$this->sActivityCut}';");
@@ -161,11 +166,17 @@
 				// Create new session
 				
 				$this->Db->Insert("c_sessions", $this->sInfo);
-				$this->CreateCookie("session_id", $this->sInfo['s_id'], $persistent);
-				$this->CreateCookie("member_id", $this->sInfo['member_id'], $persistent);
+				
+				try {
+					$this->CreateCookie("session_id", $this->sInfo['s_id'], $persistent);
+					$this->CreateCookie("member_id", $this->sInfo['member_id'], $persistent);
+				} catch (Exception $ex) {
+					Html::Error($ex);
+				}
+				
 			}
 			else {
-				$this->SetGuestSession();
+				throw new Exception("SetMemberSession() could not receive member ID.");
 			}
 
 		}
@@ -176,9 +187,13 @@
 		
 		public function UpdateSession($community_info)
 		{
-			$s_id = $this->GetCookie("session_id");
-			$m_id = $this->GetCookie("member_id");
-
+			try {
+				$s_id = $this->GetCookie("session_id");
+				$m_id = $this->GetCookie("member_id");
+			} catch (Exception $ex) {
+				Html::Error($ex);
+			}
+			
 			// Check if the session is registered
 			
 			if($s_id)
@@ -189,20 +204,16 @@
 				{
 					// If member
 					$this->sInfo['activity_time'] = time();
-					/******$main->member['member_id'] = $m_id;********/
+					$this->sInfo['member_id'] = $m_id;
 					
-					$member_info = $this->Db->Select("c_members", "m_id = '{$m_id}'");
-					
-					$sql->Query("UPDATE c_members
-						SET last_activity = '{$this->sInfo['activity_time']}'
-						WHERE m_id = '{$m_id}';");
+					$this->Db->Query("UPDATE c_members "
+							. "SET last_activity = '{$this->sInfo['activity_time']}' "
+							. "WHERE m_id = '{$m_id}';");
 						
-					$sql->Query("UPDATE c_sessions SET
-						activity_time = '{$this->sInfo['activity_time']}',
-						location_type = '{$community_info['module']}'
-						WHERE s_id = '{$s_id}';");
-						
-					return true;
+					$this->Db->Query("UPDATE c_sessions SET "
+							. "activity_time = '{$this->sInfo['activity_time']}', "
+							. "location_type = '{$community_info['module']}' "
+							. "WHERE s_id = '{$s_id}';");
 				}
 				else
 				{
@@ -210,18 +221,19 @@
 					$this->sInfo['activity_time'] = time();
 					$this->sInfo['member_id'] = 0;
 					
-					$this->Db->Query("UPDATE c_sessions SET
-						activity_time = '{$this->sInfo['activity_time']}',
-						location_type = '{$community_info['module']}'
-						WHERE s_id = '{$s_id}';");
-					
-					return true;
+					$this->Db->Query("UPDATE c_sessions SET "
+							. "activity_time = '{$this->sInfo['activity_time']}', "
+							. "location_type = '{$community_info['module']}' "
+							. "WHERE s_id = '{$s_id}';");
 				}
 			}
 			else
 			{
-				$this->SetGuestSession();
-				return true;
+				try {
+					$this->SetGuestSession();
+				} catch (Exception $ex) {
+					Html::Error($ex);
+				}
 			}
 		}
 	}

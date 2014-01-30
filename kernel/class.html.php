@@ -28,7 +28,14 @@
 		public static function Request($name)
 		{
 			if(isset($_REQUEST[$name])) {
-				$text = self::Sanitize($_REQUEST[$name]);
+				$text = $_REQUEST[$name];
+				
+				$text = str_replace("&", "&amp;", $text);
+				$text = str_replace("<", "&lt;", $text);
+				$text = str_replace(">", "&gt;", $text);
+				$text = str_replace('"', "&quot;", $text);
+				$text = str_replace("'", "&#39;", $text);
+				$text = str_replace("\\", "\\\\", $text);
 			}
 			else {
 				return false;

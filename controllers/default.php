@@ -29,6 +29,15 @@
 	foreach($pageinfo['bc'] as $item) {
 		$html['breadcrumb'] .= " &raquo; " . $item;
 	}
+	
+	// ---------------------------------------------------
+	// SIDEBAR: get member information (when logged in)
+	// ---------------------------------------------------
+	
+	if(isset($this->member['m_id'])) {
+		// Get user avatar
+		$this->member['avatar'] = $this->Core->GetGravatar($this->member['email'], $this->member['photo'], 30, $this->member['photo_type']);
+	}
 
 	// ---------------------------------------------------
 	// SIDEBAR: get list of rooms

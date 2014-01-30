@@ -75,6 +75,17 @@
 			$this->info['module'] = $this->Core->QueryString("module", "community");
 
 			$this->Session->UpdateSession($this->info);
+			
+			// Store member information in $this->member
+			
+			if($this->Session->sInfo['member_id']) {
+				$m_id = $this->Session->sInfo['member_id'];
+				
+				$this->Db->Query("SELECT * FROM c_members "
+						. "WHERE m_id = '{$m_id}';");
+					
+				$this->member = $this->Db->Fetch();
+			}
 
 			// ---------------------------------------------------
 			// Get languages and template skin
@@ -121,7 +132,7 @@
 			}
 			else {
 				// User defined language
-				$this->member['language'] = $this->info['language'];
+				$this->info['language'] = $this->member['language'];
 			}
 
 			include("languages/" . $this->info['language'] . "/global.php");			// Global language file
@@ -140,6 +151,9 @@
 		{
 			if($this->Session->sInfo['member_id'] == 0) {
 				$this->info['template'] = "default";
+			}
+			else {
+				$this->info['template'] = $this->member['template'];
 			}
 
 			$this->p['TPL'] = "templates/" . $this->info['template'];

@@ -55,6 +55,8 @@
 		<div class="mainWrapper">
 			<div class="sidebar">
 				<div class="sidebarBg">
+					
+					<?php if(@$this->member['m_id'] == 0): ?>
 
 					<div class="sidebarItem">
 						<div class="user">
@@ -64,6 +66,22 @@
 							</div>
 						</div>
 					</div>
+					
+					<?php else: ?>
+					
+					<div class="sidebarItem">
+						<div class="user">
+							<div class="avatar">
+								<img src="<?php echo $this->member['avatar'] ?>">
+							</div>
+							<div class="userInfo">
+								<b><a href="index.php?module=profile&id=<?php echo $this->member['m_id'] ?>" title="Show <?php echo $this->member['username'] ?>'s profile"><?php echo $this->member['username'] ?></a></b><br>
+								<a href="index.php?module=usercp">User CP</a> | <a href="index.php?module=messenger">Inbox (0)</a> | <a href="index.php?module=login&amp;act=logout">Logout</a>
+							</div>
+						</div>
+					</div>
+					
+					<?php endif; ?>
 
 					<div class="sidebarItem">
 						<div class="title">Rooms</div>
