@@ -191,7 +191,8 @@
 				$s_id = $this->GetCookie("session_id");
 				$m_id = $this->GetCookie("member_id");
 			} catch (Exception $ex) {
-				Html::Error($ex);
+				$s_id = 0;
+				$m_id = 0;
 			}
 			
 			// Check if the session is registered

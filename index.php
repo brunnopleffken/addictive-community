@@ -149,13 +149,24 @@
 
 		private function GetTemplate()
 		{
-			if($this->Session->sInfo['member_id'] == 0) {
-				$this->info['template'] = "default";
+			// Check if user is accessing from mobile device
+			$userBrowser = $_SERVER['HTTP_USER_AGENT'];
+			$isMobile = false;
+
+			// Load mobile template or default desktop/tablet template
+			if($isMobile) {
+				$this->info['template'] = "mobile";
 			}
 			else {
-				$this->info['template'] = $this->member['template'];
+				if($this->Session->sInfo['member_id'] == 0) {
+					$this->info['template'] = "default";
+				}
+				else {
+					$this->info['template'] = $this->member['template'];
+				}
 			}
 
+			// Get full template path
 			$this->p['TPL'] = "templates/" . $this->info['template'];
 			$this->p['IMG'] = "templates/" . $this->info['template'] . "/images";
 		}
