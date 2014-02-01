@@ -7,7 +7,7 @@ body h1 { margin-bottom: 8px; }
 body h2 { letter-spacing: 1px; margin-bottom: 15px; }
 body .transition { -webkit-transition: 300ms; -moz-transition: 300ms; -o-transition: 300ms; transition: 300ms; }
 body .wrapper { margin: 0 auto; min-width: 960px; width: 95%; }
-body .box { background-color: #ffffff; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); margin-bottom: 10px; padding: 10px; }
+body .box { background-color: #ffffff; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); margin-bottom: 10px; overflow: hidden; padding: 10px; }
 body .clear { clear: both; }
 body .fleft { float: left; }
 body .fright { float: right; }

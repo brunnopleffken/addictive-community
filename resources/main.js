@@ -14,7 +14,8 @@ jQuery(document).ready(function($) {
 	// Replace regular <select> with a nice one!
 	// ---------------------------------------------------
 
-	$('.select2').select2();
+	$('.select2').select2({ 'width': 'element' });
+	$('.select2-no-search').select2({ 'minimumResultsForSearch': -1, 'width': 'element' });
 
 	// ---------------------------------------------------
 	// Build lightbox when .fancybox exists
@@ -111,6 +112,28 @@ jQuery(document).ready(function($) {
 				$(this).find('.errorMessage').css('display', 'inline-block').hide().fadeIn();
 			}
 
+		}
+	});
+
+	// ---------------------------------------------------
+	// USER CP - GRAVATAR OR CUSTOM PHOTO
+	// ---------------------------------------------------
+
+	if($('.photoSelect:checked').val() == "gravatar") {
+		$('#gravatar').show();
+	} else if($('.photoSelect:checked').val() == "custom") {
+		$('#custom').show();
+	}
+
+	$('.photoSelect').on('change', function(){
+		var value = $(this).val();
+
+		if(value == "gravatar") {
+			$('#gravatar').delay(400).slideDown();
+			$('#custom').slideUp();
+		} else {
+			$('#gravatar').slideUp();
+			$('#custom').delay(400).slideDown();
 		}
 	});
 

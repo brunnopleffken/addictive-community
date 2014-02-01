@@ -75,7 +75,7 @@
 
 		public static function Days($name, $current = 1)
 		{
-			$retval = "<select name=\"{$name}\" id=\"{$name}\">";
+			$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\">";
 
 			for($i = 1; $i <= 31; $i++) {
 				$selected = ($i == $current) ? "selected" : "";
@@ -94,7 +94,7 @@
 
 		public static function Months($name, $numeric = true, $lang = array(), $current = 1)
 		{
-			$retval = "<select name=\"{$name}\" id=\"{$name}\">";
+			$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\">";
 
 			for($i = 1; $i <= 12; $i++) {
 				$selected = ($i == $current) ? "selected" : "";
@@ -120,7 +120,7 @@
 		{
 			$current = date("Y", time());
 
-			$retval = "<select name=\"{$name}\" id=\"{$name}\">";
+			$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\">";
 
 			for($i = $current - $before; $i <= $current + $after; $i++) {
 				$selected = ($i == $current) ? "selected" : "";
