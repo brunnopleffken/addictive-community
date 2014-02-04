@@ -10,8 +10,8 @@
 
 <div class="navigation">
 	<div class="navbar">
-		<a href="index.php?module=room&amp;id=<?php echo $roomId ?>" class="transition {$all}">All</a>
-		<a href="index.php?module=room&amp;id=<?php echo $roomId ?>&amp;act=mythreads" class="transition {$mythreads}">My Threads</a>
+		<a href="index.php?module=room&amp;id=<?php echo $roomId ?>" class="transition <?php echo $menu[0] ?>">All</a>
+		<?php echo $myThreadsMenu ?>
 	</div>
 	<div class="subnav">
 		<a href="index.php?module=room&amp;id=<?php echo $roomId ?>" class="transition {$newest}">Newest</a>

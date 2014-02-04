@@ -31,24 +31,38 @@
 
 	switch($act) {
 		case "mythreads":
-			$where = "AND author_member_id = '{$main->info['member_id']}'";
+			$menu = array("", "selected");
+			$where = "AND author_member_id = '{$this->member['m_id']}'";
 			$order = "lastpost_date DESC";
 			break;
 		case "topreplies":
+			$menu = array("selected", "");
 			$where = "";
 			$order = "replies DESC";
 			break;
 		case "noreplies":
+			$menu = array("selected", "");
 			$where = "AND replies = '1'";
 			$order = "lastpost_date DESC";
 			break;
 		case "bestanswered":
+			$menu = array("selected", "");
 			$where = "AND with_bestanswer = '1'";
 			$order = "lastpost_date DESC";
 			break;
 		default:
+			$menu = array("selected", "");
 			$where = "";
 			$order = "lastpost_date DESC";
+	}
+
+	// Is the user logged in?
+
+	if(isset($this->member['m_id'])) {
+		$myThreadsMenu = "<a href=\"index.php?module=room&amp;id={$roomId}&amp;act=mythreads\" class=\"transition " . $menu[1] . "\">My Threads</a>";
+	}
+	else {
+		$myThreadsMenu = "";
 	}
 
 	// Get notification
