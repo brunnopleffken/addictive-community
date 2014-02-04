@@ -42,11 +42,12 @@ form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1p
 form option { padding-right: 10px; }
 form textarea { overflow: auto; }
 
-.inputBox { background: #fdfdfd; border: 1px solid #eeeeee; margin-bottom: 10px; padding: 10px; white-space: nowrap; }
-.inputBox .label { float: left; font-size: 15px; font-weight: bold; margin-bottom: 15px; padding: 5px 0; width: 140px; }
+.inputBox { background: #fdfdfd; border: 1px solid #eeeeee; display: table; margin-bottom: 10px; padding: 10px; white-space: nowrap; width: 100%; }
+.inputBox .label { display: table-cell; font-size: 15px; font-weight: bold; margin-bottom: 15px; padding: 5px 0; vertical-align: top; width: 140px; }
 .inputBox .label:last-child { margin: 0; }
-.inputBox .field { margin-bottom: 15px; margin-left: 150px; min-height: 30px; }
+.inputBox .field { display: table-cell; margin-bottom: 15px; margin-left: 150px; min-height: 30px; vertical-align: top; }
 .inputBox .field:last-child { margin: 0; }
+.inputBox .field.textOnly { padding: 5px 0; }
 .inputBox:last-child { margin: 0; }
 
 .defaultButton { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #ffffff; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000000; }
