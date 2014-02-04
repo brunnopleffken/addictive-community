@@ -1,3 +1,8 @@
+<?php
+	$this->header .= '<script type="text/javascript" src="resources/markdown.parser.js"></script>';
+	$this->header .= '<script type="text/javascript">$(document).ready(function(){$(\'.parsing\').markdownParser()});</script>';
+?>
+
 <div id="fb-root" style="display: none"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -26,7 +31,7 @@
 	<div>
 		<p class="title"><?php echo $firstPostInfo['title'] ?></p>
 		<div class="text">
-			<?php echo $firstPostInfo['post_html'] ?>
+			<span class="parsing"><?php echo $firstPostInfo['post'] ?></span>
 		</div>
 	</div>
 	<!-- <div class="footer">
@@ -64,7 +69,7 @@
 	<div class="content">
 		<div class="date">Posted on <?php echo $_replyResult[$k]['post_date'] ?> <?php echo $_replyResult[$k]['edited'] ?></div>
 		<div class="text">
-			<?php echo $_replyResult[$k]['post_html'] ?>
+			<span class="parsing"><?php echo $_replyResult[$k]['post'] ?></span>
 			<div class="signature"><?php echo $_replyResult[$k]['signature'] ?></div>
 		</div>
 		<div class="footer">

@@ -107,6 +107,25 @@
 		break;
 		case "signature":
 	?>
+	
+	<?php
+		$this->header .= '<script type="text/javascript" src="resources/markdown.parser.js"></script>';
+		$this->header .= '<script type="text/javascript">$(document).ready(function(){$(\'#markdownTextarea\').markdownRealTime()});</script>';
+	?>
+	
+	<form action="" method="post" class="validate">
+		<div class="inputBox">
+			<div class="label">Current</div>
+			<div class="field textOnly" id="markdownPreview"></div>
+		</div>
+		<div class="inputBox">
+			<div class="label">Edit signature</div>
+			<div class="field">
+				<textarea rows="8" class="large" id="markdownTextarea"><?php echo $this->member['signature'] ?></textarea>
+			</div>
+		</div>
+		<div class="fright"><input type="submit" value="Update Signature"></div>
+	</form>
 
 	<?php
 		break;
