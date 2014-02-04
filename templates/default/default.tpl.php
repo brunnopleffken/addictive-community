@@ -15,8 +15,6 @@
 	<script src="resources/functions.js" type="text/javascript"></script>
 	<script src="resources/fancybox/jquery.fancybox.pack.js?v=2.1.5" type="text/javascript"></script>
 	<script src="resources/select2/select2.js" type="text/javascript"></script>
-
-
 	<?php echo $this->header ?>
 </head>
 <body>
