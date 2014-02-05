@@ -90,7 +90,7 @@
 
 			// Select posts
 
-			$this->Db->Query("SELECT p.post_date, p.post_html, t.t_id, t.title FROM c_posts p
+			$this->Db->Query("SELECT p.post_date, p.post, t.t_id, t.title FROM c_posts p
 				INNER JOIN c_threads t ON (t.t_id = p.thread_id)
 				WHERE author_id = '{$info['m_id']}'
 				ORDER BY post_date DESC LIMIT 5;");
@@ -103,8 +103,8 @@
 					<td><a href=\"index.php?module=thread&amp;id={$posts['t_id']}\"><b>{$posts['title']}</b></a></td>
 				</tr>
 				<tr>
-					<td colspan=\"2\" style=\"border-bottom: 1px solid #eee; padding-left: 20px; padding-bottom: 20px\">
-						{$posts['post_html']}
+					<td colspan=\"2\" class=\"parsing\" style=\"border-bottom: 1px solid #eee; padding-left: 20px; padding-bottom: 20px\">
+						{$posts['post']}
 					</td>
 				</tr>");
 			}

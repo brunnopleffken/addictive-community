@@ -1,3 +1,8 @@
+<?php
+	$this->header .= '<script type="text/javascript" src="resources/markdown.parser.js"></script>';
+	$this->header .= '<script type="text/javascript">$(document).ready(function(){$(\'.parsing\').markdownParser()});</script>';
+?>
+
 <div class="roomTitleBar">
 	<div class="title fleft"><span><?php echo $this->Core->config['general_communityname'] ?></span>View Profile</div>
 </div>
@@ -60,7 +65,7 @@
 			</tr>
 			<tr>
 				<td class="tLabel">Signature</td>
-				<td><?php echo $info['signature'] ?></td>
+				<td class="parsing"><?php echo $info['signature'] ?></td>
 			</tr>
 		</table>
 		<table class="tableList noShadow noShadow" style="margin-top: 15px">

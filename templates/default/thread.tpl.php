@@ -70,7 +70,7 @@
 		<div class="date">Posted on <?php echo $_replyResult[$k]['post_date'] ?> <?php echo $_replyResult[$k]['edited'] ?></div>
 		<div class="text">
 			<span class="parsing"><?php echo $_replyResult[$k]['post'] ?></span>
-			<div class="signature"><?php echo $_replyResult[$k]['signature'] ?></div>
+			<div class="signature parsing"><?php echo $_replyResult[$k]['signature'] ?></div>
 		</div>
 		<div class="footer">
 			<div class="fleft">
