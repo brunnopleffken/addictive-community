@@ -116,13 +116,14 @@
 		// Really nice years drop-down generator
 		// ---------------------------------------------------
 
-		public static function Years($name, $before, $after)
+		public static function Years($name, $before, $after, $current = 0)
 		{
-			$current = date("Y", time());
+			$now = date("Y", time());
+			$current = ($current == 0) ? $now : $current;
 
 			$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\">";
 
-			for($i = $current - $before; $i <= $current + $after; $i++) {
+			for($i = $now - $before; $i <= $now + $after; $i++) {
 				$selected = ($i == $current) ? "selected" : "";
 				$retval .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
 			}
@@ -136,7 +137,7 @@
 		// Show notification message
 		// ---------------------------------------------------
 
-		public static function Notification($message, $code, $customTitle = "")
+		public static function Notification($message, $code, $persistent = false, $customTitle = "")
 		{
 			switch($code) {
 				case "warning":
@@ -153,11 +154,15 @@
 					break;
 			}
 			
+			if($persistent) {
+				$persistent = "persistent";
+			}
+
 			if($customTitle != "") {
 				$title = $customTitle;
 			}
-			
-			$html = "<div class=\"notification " . $code . "\"><p><strong>" . $title . "</strong> " . $message . "</p></div>";
+
+			$html = "<div class=\"notification " . $code . " " . $persistent . "\"><p><strong>" . $title . "</strong> " . $message . "</p></div>";
 			
 			return $html;
 		}
