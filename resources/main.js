@@ -18,6 +18,12 @@ jQuery(document).ready(function($) {
 	$('.select2-no-search').select2({ 'minimumResultsForSearch': -1, 'width': 'element' });
 
 	// ---------------------------------------------------
+	// Fade out notifications after 3 seconds
+	// ---------------------------------------------------
+
+	$('.notification').not('.persistent').delay(3000).fadeOut(1000);
+
+	// ---------------------------------------------------
 	// Build lightbox when .fancybox exists
 	// ---------------------------------------------------
 
