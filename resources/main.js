@@ -136,9 +136,9 @@ jQuery(document).ready(function($) {
 
 		if(value == "gravatar") {
 			$('#gravatar').delay(400).slideDown();
-			$('#custom').slideUp();
+			$('#custom').slideUp(400);
 		} else {
-			$('#gravatar').slideUp();
+			$('#gravatar').slideUp(400);
 			$('#custom').delay(400).slideDown();
 		}
 	});

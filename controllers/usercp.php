@@ -23,6 +23,135 @@
 	$m_id = $this->Session->sInfo['member_id'];
 
 	// ---------------------------------------------------
+	// ACTIONS
+	// ---------------------------------------------------
+
+	$act = Html::Request("act");
+
+	switch($act) {
+		
+		// ---------------------------------------------------
+		// Edit member profile
+		// ---------------------------------------------------
+		
+		case "profile":
+			$info = array(
+				"email"			=> Html::Request("email"),
+				"member_title"	=> Html::Request("member_title"),
+				"location"		=> Html::Request("location"),
+				"profile"		=> Html::Request("profile"),
+				"b_day"			=> Html::Request("b_day"),
+				"b_month"		=> Html::Request("b_month"),
+				"b_year"		=> Html::Request("b_year"),
+				"gender"		=> Html::Request("gender"),
+				"website"		=> Html::Request("website"),
+				"im_facebook"	=> Html::Request("im_facebook"),
+				"im_twitter"	=> Html::Request("im_twitter")
+				);
+
+			$this->Db->Update("c_members", $info, "m_id = {$m_id}");
+			header("Location: index.php?module=usercp&m=1");
+
+			exit;
+			break;
+		
+		// ---------------------------------------------------
+		// Edit signature
+		// ---------------------------------------------------
+		
+		case "signature":
+			$info = array(
+				"signature" => Html::Request("signature")
+				);
+
+			$this->Db->Update("c_members", $info, "m_id = {$m_id}");
+			header("Location: index.php?module=usercp&view=signature&m=3");
+
+			exit;
+			break;
+
+		// ---------------------------------------------------
+		// Edit board settings
+		// ---------------------------------------------------
+		
+		case "settings":
+			$info = array(
+				"signature" => Html::Request("signature")
+				);
+
+			$this->Db->Update("c_members", $info, "m_id = {$m_id}");
+			header("Location: index.php?module=usercp&view=signature&m=3");
+
+			exit;
+			break;
+		
+		// ---------------------------------------------------
+		// Alter password
+		// ---------------------------------------------------
+		
+		case "password":
+			$current = String::PasswordEncrypt(Html::Request("current"));
+			$new_pass = String::PasswordEncrypt(Html::Request("new_password"));
+			$c_pass = String::PasswordEncrypt(Html::Request("c_password"));
+			
+			$this->Db->Query("SELECT COUNT(*) AS result FROM c_members WHERE m_id = '{$m_id}' AND password = '{$current}';");
+			$count = $this->Db->Fetch();
+			$_count = $count['result'];
+			
+			if($_count == 0) {
+				// If old password is wrong: redirect and show error message
+				header("Location: index.php?module=usercp&view=password&m=6");
+				exit;
+			}
+			elseif($new_pass != $c_pass) {
+				// If password does not match: redirect and show error message
+				header("Location: index.php?module=usercp&view=password&m=7");
+				exit;
+			}
+			
+			// Continue...
+			$info = array("password" => $new_pass);
+			$this->Db->Update("c_members", $info, "m_id = {$m_id}");
+			header("Location: index.php?module=usercp&view=signature&m=5");
+
+			exit;
+			break;
+	}
+
+	// ---------------------------------------------------
+	// MESSAGES AND NOTIFICATIONS
+	// ---------------------------------------------------
+
+	$m = Html::Request("m");
+
+	switch($m) {
+		case 1:
+			$notification = Html::Notification("Your member profile has been changed successfully.", "success");
+			break;
+		case 2:
+			$notification = Html::Notification("Your photo has been changed successfully.", "success");
+			break;
+		case 3:
+			$notification = Html::Notification("Your signature has been changed successfully.", "success");
+			break;
+		case 4:
+			$notification = Html::Notification("Your settings has been changed successfully.", "success");
+			break;
+		case 5:
+			$notification = Html::Notification("Your password has been changed successfully.", "success");
+			break;
+		case 6:
+			$notification = Html::Notification("Your old password is incorrect. Please, try again.", "failure");
+			break;
+		case 7:
+			$notification = Html::Notification("The new password does not match (passwords are case-sensitive). Please, try again.", "failure");
+			break;
+		default:
+			$notification = "";
+			break;
+	}
+
+	// ---------------------------------------------------
 	// Which page are we viewing?
 	// ---------------------------------------------------
 	

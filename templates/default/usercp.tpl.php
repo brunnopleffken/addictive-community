@@ -14,6 +14,8 @@
 
 <div class="box noShadow">
 
+	<?php echo $notification ?>
+
 	<?php
 		switch($view):
 		case "profile":
@@ -22,23 +24,23 @@
 	<form action="" method="post" class="validate">
 		<div class="inputBox">
 			<div class="label">Member title</div>
-			<div class="field"><input type="text" name="" value="<?php echo $this->member['member_title'] ?>" class="large"></div>
+			<div class="field"><input type="text" name="member_title" value="<?php echo $this->member['member_title'] ?>" class="large"></div>
 		</div>
 		<div class="inputBox">
 			<div class="label">About me</div>
-			<div class="field"><textarea name="" rows="5" class="large"><?php echo $this->member['profile'] ?></textarea></div>
+			<div class="field"><textarea name="profile" rows="5" class="large"><?php echo $this->member['profile'] ?></textarea></div>
 		</div>
 		<div class="inputBox">
 			<div class="label">E-mail address</div>
-			<div class="field"><input type="text" value="<?php echo $this->member['email'] ?>" class="required medium"></div>
+			<div class="field"><input type="text" name="email" value="<?php echo $this->member['email'] ?>" class="required medium"></div>
 		</div>
 		<div class="inputBox">
 			<div class="label">Birthday</div>
 			<div class="field">
 			<?php
-				echo Html::Days("b_day") . " ";
-				echo Html::Months("b_month", false, $this->t) . " ";
-				echo Html::Years("b_year", 80, 0);
+				echo Html::Days("b_day", $this->member['b_day']) . " ";
+				echo Html::Months("b_month", false, $this->t, $this->member['b_month']) . " ";
+				echo Html::Years("b_year", 80, 0, $this->member['b_year']);
 			?>
 			</div>
 		</div>
@@ -54,21 +56,21 @@
 		</div>
 		<div class="inputBox">
 			<div class="label">Location</div>
-			<div class="field"><input type="text" name="" value="<?php echo $this->member['location'] ?>" class="medium"></div>
+			<div class="field"><input type="text" name="location" value="<?php echo $this->member['location'] ?>" class="medium"></div>
 		</div>
 		<div class="inputBox">
 			<div class="label">Website</div>
-			<div class="field"><input type="text" name="" value="<?php echo $this->member['website'] ?>" class="large"></div>
+			<div class="field"><input type="text" name="website" value="<?php echo $this->member['website'] ?>" class="large"></div>
 		</div>
 		<div class="inputBox">
 			<div class="label">Facebook</div>
-			<div class="field">http://www.facebook.com/ <input type="text" name="" value="<?php echo $this->member['im_facebook'] ?>" class="small"></div>
+			<div class="field">http://www.facebook.com/ <input type="text" name="im_facebook" value="<?php echo $this->member['im_facebook'] ?>" class="small"></div>
 		</div>
 		<div class="inputBox">
 			<div class="label">Twitter</div>
-			<div class="field" style="position:relative"><span style="position:absolute; top:5px; left: 148px">@</span><input type="text" name="" value="<?php echo $this->member['im_twitter'] ?>" class="small" style="padding-left: 22px"></div>
+			<div class="field" style="position:relative"><span style="position:absolute; top:2px; left: 0px">@</span><input type="text" name="im_twitter" value="<?php echo $this->member['im_twitter'] ?>" class="small" style="padding-left: 22px"></div>
 		</div>
-		<div class="fright"><input type="submit" value="Update Profile"></div>
+		<div class="fright"><input type="hidden" name="act" value="profile"><input type="submit" value="Update Profile"></div>
 	</form>
 
 	<?php
@@ -76,7 +78,7 @@
 		case "photo":
 	?>
 
-	<form action="" method="post" class="validate">
+	<form action="" method="post" class="validate" enctype="multipart/form-data">
 		<div class="inputBox">
 			<div class="label">Photo type</div>
 			<div class="field">
@@ -121,10 +123,10 @@
 		<div class="inputBox">
 			<div class="label">Edit signature</div>
 			<div class="field">
-				<textarea rows="8" class="large" id="markdownTextarea"><?php echo $this->member['signature'] ?></textarea>
+				<textarea name="signature" rows="8" class="large" id="markdownTextarea"><?php echo $this->member['signature'] ?></textarea>
 			</div>
 		</div>
-		<div class="fright"><input type="submit" value="Update Signature"></div>
+		<div class="fright"><input type="hidden" name="act" value="signature"><input type="submit" value="Update Signature"></div>
 	</form>
 
 	<?php
@@ -157,7 +159,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="fright"><input type="submit" value="Update Settings"></div>
+		<div class="fright"><input type="hidden" name="act" value="settings"><input type="submit" value="Update Settings"></div>
 	</form>
 
 	<?php
@@ -168,17 +170,17 @@
 	<form action="" method="post" class="validate">
 		<div class="inputBox">
 			<div class="label">Current password</div>
-			<div class="field"><input type="password" class="required small"></div>
+			<div class="field"><input type="password" name="current" class="required small"></div>
 		</div>
 		<div class="inputBox">
 			<div class="label">New password</div>
-			<div class="field"><input type="password" class="required small"></div>
+			<div class="field"><input type="password" name="new_password" class="required small"></div>
 		</div>
 		<div class="inputBox">
 			<div class="label">Re-type password</div>
-			<div class="field"><input type="password" class="required small"></div>
+			<div class="field"><input type="password" name="c_password" class="required small"></div>
 		</div>
-		<div class="fright"><input type="submit" value="Change Password"></div>
+		<div class="fright"><input type="hidden" name="act" value="password"><input type="submit" value="Change Password"></div>
 	</form>
 
 	<?php
