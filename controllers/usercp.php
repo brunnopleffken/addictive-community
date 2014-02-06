@@ -76,11 +76,13 @@
 		
 		case "settings":
 			$info = array(
-				"signature" => Html::Request("signature")
+				"template" => Html::Request("template"),
+				"language" => Html::Request("language"),
+				"timezone_offset" => Html::Request("timezone")
 				);
 
 			$this->Db->Update("c_members", $info, "m_id = {$m_id}");
-			header("Location: index.php?module=usercp&view=signature&m=3");
+			header("Location: index.php?module=usercp&view=settings&m=4");
 
 			exit;
 			break;
@@ -259,7 +261,7 @@
 			$settings['tz_list'] = "";
 
 			foreach($tz_offset as $value => $name) {
-				if($this->member['time_offset'] == $value) {
+				if($this->member['timezone_offset'] == $value) {
 					$selected = "selected";
 				}
 				else {
