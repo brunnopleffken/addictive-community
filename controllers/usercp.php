@@ -269,7 +269,7 @@
 			}
 
 			// Gravatar
-			$photo_info['gravatar_img_url'] = $this->Core->GetGravatar($this->member['email'], $this->member['photo'], 120, $this->member['photo_type']);
+			$photo_info['gravatar_img_url'] = $this->Core->GetGravatar($this->member['email'], $this->member['photo'], 120, "gravatar");
 
 
 			break;
