@@ -134,12 +134,12 @@ jQuery(document).ready(function($) {
 	$('.photoSelect').on('change', function(){
 		var value = $(this).val();
 
-		if(value == "gravatar") {
-			$('#gravatar').delay(400).slideDown();
-			$('#custom').slideUp(400);
+		if(value == "custom") {
+			$('#gravatar').fadeOut();
+			$('#custom').delay(400).fadeIn();
 		} else {
-			$('#gravatar').slideUp(400);
-			$('#custom').delay(400).slideDown();
+			$('#custom').fadeOut();
+			$('#gravatar').delay(400).fadeIn();
 		}
 	});
 
