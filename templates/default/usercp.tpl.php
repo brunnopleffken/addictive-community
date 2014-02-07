@@ -89,20 +89,28 @@
 		<div class="inputBox" id="gravatar" style="display: none">
 			<div class="label">Gravatar settings</div>
 			<div class="field">
-				<div class="fleft" style="margin-right: 15px"><img src="<?php echo $photo_info['gravatar_img_url'] ?>"></div>
-				<div class="fleft">{$lang->show['gravatar_desc']}</div>
+				<div class="fleft" style="margin-right: 15px">
+					<img src="<?php echo $photo_info['gravatar_img_url'] ?>">
+				</div>
+				<div class="fleft">
+					<b>Gravatar</b> is a service for providing globally unique avatars.<br>
+					Your gravatar is associated with <a href="index.php?module=usercp&do=profile">your e-mail address</a>.
+					<br><br>Edit or create your Gravatar accessing <a href="https://www.gravatar.com" rel="nofollow">www.gravatar.com</a>.
+				</div>
 				<div class="fix"></div>
 			</div>
 		</div>
 		<div class="inputBox" id="custom" style="display: none">
 			<div class="label">Photo upload</div>
 			<div class="field">
-				<div class="fleft" style="margin-right: 15px"><img src="public/avatar/<?php echo $this->member['photo'] ?>" width="120" class="shadow"></div>
+				<div class="fleft" style="margin-right: 15px">
+					<?php echo Html::Crop("public/avatar/" . $this->member['photo'], 120, 120) ?>
+				</div>
 				<div class="fleft" style="border:1px dashed #eee;"><input type="file" name="file_upload"></div>
 				<div class="fix"></div>
 			</div>
 		</div>
-		<div class="fright"><input type="submit" value="Update Photo"></div>
+		<div class="fright"><input type="hidden" name="act" value="photo"><input type="submit" value="Update Photo"></div>
 	</form>
 
 	<?php

@@ -56,6 +56,73 @@
 			break;
 		
 		// ---------------------------------------------------
+		// Edit member photo
+		// ---------------------------------------------------
+		
+		case "photo":
+			
+			// Get photo type
+			$photoType = Html::Request("photo_type");
+
+			// Do processes!
+			
+			if($photoType == "gravatar") {
+				// Change photo type to 'gravatar'
+				$this->Db->Query("UPDATE c_members SET photo_type = '{$photoType}' WHERE m_id = '{$m_id}';");
+				header("Location: index.php?module=usercp&view=photo&m=2");
+				exit;
+			}
+			else {
+				// User photo already hosted on community's server
+				if($_FILES['file_upload']['name'] == "") {
+					$this->Db->Query("UPDATE c_members SET photo_type = '{$photoType}' WHERE m_id = '{$m_id}';");
+					header("Location: index.php?module=usercp&view=photo&m=2");
+					exit;
+				}
+				else {
+					// Allowed extensions (JPEG, GIF and PNG)
+					$extAllow = array("jpg", "gif", "png");
+					$extFile = end(explode(".", $_FILES['file_upload']['name']));
+					
+					if(in_array($extFile, $extAllow)) {
+						// Select current photo, if exists
+						$this->Db->Query("SELECT photo FROM c_members WHERE m_id = '{$m_id}';");
+						$currentPhoto = $this->Db->Fetch();
+						$currentPhoto = ($currentPhoto['photo'] != "") ? $currentPhoto['photo'] : null;
+						
+						// Delete special characters and diacritics
+						$_FILES['file_upload']['name'] = ereg_replace(
+								"[^a-zA-Z0-9_.]", "",
+								strtr($_FILES['file_upload']['name'],
+										"áàãâéêíóôõúüçÁÀÃÂÉÊÍÓÔÕÚÜÇ ",
+										"aaaaeeiooouucAAAAEEIOOOUUC_")
+								);
+						
+						// Delete current photo, if exists (avoid duplicate files)
+						if(file_exists("public/avatar/{$currentPhoto}")) {
+							unlink("public/avatar/{$currentPhoto}");
+						}
+						
+						// Do upload!
+						$newFileName = $m_id . "." . $extFile;
+						move_uploaded_file($_FILES['file_upload']['tmp_name'], "public/avatar/" . $newFileName);
+						chmod(__DIR__ . "/public/avatar/" . $newFileName, 0666);
+						
+						$this->Db->Query("UPDATE c_members SET photo_type = '{$photoType}',
+							photo = '{$newFileName}' WHERE m_id = '{$m_id}';");
+						
+						// Redirect
+						header("Location: index.php?module=usercp&view=photo&m=2");
+						exit;
+					}
+					
+					exit;
+				}
+			}
+			
+			break;
+		
+		// ---------------------------------------------------
 		// Edit signature
 		// ---------------------------------------------------
 		
