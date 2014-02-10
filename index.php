@@ -10,6 +10,7 @@
 	## ---------------------------------------------------
 
 	include("init.php");
+	include("app.php");
 
 	class Main
 	{
@@ -137,8 +138,8 @@
 
 			include("languages/" . $this->info['language'] . "/global.php");			// Global language file
 			@include("languages/" . $this->info['language'] . "/" . $module . ".php");	// Module file, if exists
-
-			foreach($translate as $k => $v) {
+			
+			foreach($t as $k => $v) {
 				$this->t[$k] = $v;
 			}
 		}
@@ -149,9 +150,20 @@
 
 		private function GetTemplate()
 		{
+			global $mobileBrowser;
+
 			// Check if user is accessing from mobile device
 			$userBrowser = $_SERVER['HTTP_USER_AGENT'];
-			$isMobile = false;
+			
+			foreach($mobileBrowser as $v) {
+				if(stristr($userBrowser, $v)) {
+					$isMobile = true;
+					break;
+				}
+				else {
+					$isMobile = false;
+				}
+			}
 
 			// Load mobile template or default desktop/tablet template
 			if($isMobile) {

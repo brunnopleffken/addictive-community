@@ -36,10 +36,10 @@
 			$this->Db = $database;
 
 			// Session will expires in 30 days' time
-			$this->sExpires = time() + 2592000;
+			$this->sExpires = time() + DAY * 30;
 
 			// Activity cut-off set to past 20 minutes (by default)
-			$this->sActivityCut = time() - 1200;
+			$this->sActivityCut = time() - MINUTE * 20;
 		}
 
 		// ----------------------------------------
