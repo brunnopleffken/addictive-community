@@ -33,7 +33,7 @@
 
 			foreach($files as $filename)
 			{
-				if($filename == "." or $filename == "..") {
+				if($filename == "." or $filename == ".." or $filename == "index.html") {
 					continue;
 				}
 				else {
