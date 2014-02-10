@@ -95,7 +95,7 @@
 				<div class="fleft">
 					<b>Gravatar</b> is a service for providing globally unique avatars.<br>
 					Your gravatar is associated with <a href="index.php?module=usercp&do=profile">your e-mail address</a>.
-					<br><br>Edit or create your Gravatar accessing <a href="https://www.gravatar.com" rel="nofollow">www.gravatar.com</a>.
+					<br><br>Edit or create your Gravatar accessing <a href="https://www.gravatar.com" target="_blank" rel="nofollow">www.gravatar.com</a>.
 				</div>
 				<div class="fix"></div>
 			</div>
