@@ -1,32 +1,27 @@
 <?php
 
-	$translate = array(
-		"search" => "Search",
-		"memberlist" => "Member List",
-		"calendar" => "Calendar",
-		"help" => "Help",
-
-		"m_1" => "January",
-		"m_2" => "February",
-		"m_3" => "March",
-		"m_4" => "April",
-		"m_5" => "May",
-		"m_6" => "June",
-		"m_7" => "July",
-		"m_8" => "August",
-		"m_9" => "September",
-		"m_10" => "October",
-		"m_11" => "November",
-		"m_12" => "December",
-		
-		"w_1" => "Sunday",
-		"w_2" => "Monday",
-		"w_3" => "Tuesday",
-		"w_4" => "Wednesday",
-		"w_5" => "Thursday",
-		"w_6" => "Friday",
-		"w_7" => "Saturday"
-		
-		);
+	$t["search"] = "Search";
+	$t["memberlist"] = "Member List";
+	$t["calendar"] = "Calendar";
+	$t["help"] = "Help";
+	$t["m_1"] = "January";
+	$t["m_2"] = "February";
+	$t["m_3"] = "March";
+	$t["m_4"] = "April";
+	$t["m_5"] = "May";
+	$t["m_6"] = "June";
+	$t["m_7"] = "July";
+	$t["m_8"] = "August";
+	$t["m_9"] = "September";
+	$t["m_10"] = "October";
+	$t["m_11"] = "November";
+	$t["m_12"] = "December";
+	$t["w_1"] = "Sunday";
+	$t["w_2"] = "Monday";
+	$t["w_3"] = "Tuesday";
+	$t["w_4"] = "Wednesday";
+	$t["w_5"] = "Thursday";
+	$t["w_6"] = "Friday";
+	$t["w_7"] = "Saturday";
 
 ?>

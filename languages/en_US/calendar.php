@@ -1,5 +1,5 @@
 <?php
 
-	$translate = array();
+	$t[""] = "";
 
 ?>
