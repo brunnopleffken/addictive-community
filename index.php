@@ -138,7 +138,7 @@
 			include("languages/" . $this->info['language'] . "/global.php");			// Global language file
 			@include("languages/" . $this->info['language'] . "/" . $module . ".php");	// Module file, if exists
 
-			foreach($t as $k => $v) {
+			foreach($translate as $k => $v) {
 				$this->t[$k] = $v;
 			}
 		}

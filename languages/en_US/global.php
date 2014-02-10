@@ -1,6 +1,6 @@
 <?php
 
-	$t = array(
+	$translate = array(
 		"search" => "Search",
 		"memberlist" => "Member List",
 		"calendar" => "Calendar",
