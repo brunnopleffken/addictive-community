@@ -18,6 +18,17 @@
 			<td><input type="password" name="password" class="required small"></td>
 		</tr>
 		<tr>
+			<td><strong></strong></td>
+			<td style="line-height: 1.6em">
+				<input type="checkbox" name="anonymous"> Anonymous login<br>
+				<input type="checkbox" name="remember"> Remember my current session
+			</td>
+		</tr>
+		<tr>
+			<td><strong></strong></td>
+			<td>Don't have an account? <a href="index.php?module=register">Sign up here!</a></td>
+		</tr>
+		<tr>
 			<td colspan="2" class="center"><input type="submit" value="Log In"></td>
 		</tr>
 	</table>
