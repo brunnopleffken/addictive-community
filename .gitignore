@@ -1,3 +1,10 @@
+# Addictive Community files #
+/public/attachments/*
+/public/avatar/*
+/uploads/*
+/controllers/test.php
+/templates/default/test.tpl.php
+
 # SASS #
 *.sass-cache
 **/scss
