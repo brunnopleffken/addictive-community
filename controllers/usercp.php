@@ -94,7 +94,7 @@
 						$_FILES['file_upload']['name'] = ereg_replace(
 								"[^a-zA-Z0-9_.]", "",
 								strtr($_FILES['file_upload']['name'],
-										"áàãâéêíóôõúüçÁÀÃÂÉÊÍÓÔÕÚÜÇ ",
+										"Ã¡Ã Ã£Ã¢Ã©ÃªÃ­Ã³Ã´ÃµÃºÃ¼Ã§ÃÃ€ÃƒÃ‚Ã‰ÃŠÃÃ“Ã”Ã•ÃšÃœÃ‡ ",
 										"aaaaeeiooouucAAAAEEIOOOUUC_")
 								);
 						
@@ -301,13 +301,13 @@
 				"-9"	=> "(UTC-09:00) Alaska",
 				"-8"	=> "(UTC-08:00) Pacific Time (US & Canada), Tijuana",
 				"-7"	=> "(UTC-07:00) Mountain Time (US & Canada), Chihuahua, La Paz",
-				"-6"	=> "(UTC-06:00) Central America, Central Time (US & Canada), Mexico City",
+				"-6"	=> "(UTC-06:00) Central Time (US & Canada), Cental America, Mexico City",
 				"-5"	=> "(UTC-05:00) Eastern Time (US & Canada), Bogota, Lima, Rio Branco",
 				"-4"	=> "(UTC-04:00) Atlantic Time (Canada), Caracas, Santiago, Manaus",
 				"-3"	=> "(UTC-03:00) Brasilia, Sao Paulo, Buenos Aires, Montevideo",
 				"-2"	=> "(UTC-02:00) Mid-Atlantic",
 				"-1"	=> "(UTC-01:00) Azores, Cape Verde Is.",
-				"0"		=> "(UTC&#177;00:00) London, Casablanca, Reykjavik, Dublin",
+				"0"		=> "(UTC&#177;00:00) London, Lisboa, Reykjavik, Dublin",
 				"1"		=> "(UTC+01:00) Paris, Amsterdam, Berlin, Bern, Rome, West Central Africa",
 				"2"		=> "(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius",
 				"3"		=> "(UTC+03:00) Moscow, St. Petersburg, Nairobi, Kuwait, Baghdad",
@@ -328,7 +328,7 @@
 			$settings['tz_list'] = "";
 
 			foreach($tz_offset as $value => $name) {
-				if($this->member['timezone_offset'] == $value) {
+				if($this->member['time_offset'] == $value) {
 					$selected = "selected";
 				}
 				else {
