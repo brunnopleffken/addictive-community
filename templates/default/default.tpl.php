@@ -21,7 +21,11 @@
 
 	<div id="topbar">
 		<div class="wrapper">
-			<div class="fleft"><a href="<?php echo $this->Core->config['general_websiteurl'] ?>" target="_blank" class="transition"><?php echo $this->Core->config['general_websitename'] ?></a></div>
+			<div class="fleft">
+				<a href="<?php echo $this->Core->config['general_websiteurl'] ?>" target="_blank" class="transition">
+					<?php echo $this->Core->config['general_websitename'] ?>
+				</a>
+			</div>
 			<div class="fright">
 				<a href="index.php?module=search" class="transition">Search</a>
 				<a href="index.php?module=members" class="transition">Member List</a>
@@ -70,7 +74,7 @@
 					<div class="sidebarItem">
 						<div class="user">
 							<div class="avatar">
-								<img src="<?php echo $this->member['avatar'] ?>">
+								<?php echo Html::Crop($this->member['avatar'], 30, 30, "img") ?>
 							</div>
 							<div class="userInfo">
 								<b><a href="index.php?module=profile&id=<?php echo $this->member['m_id'] ?>" title="Show <?php echo $this->member['username'] ?>'s profile"><?php echo $this->member['username'] ?></a></b><br>

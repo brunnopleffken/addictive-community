@@ -20,7 +20,7 @@
 
 <div class="tableLayer profileContainer">
 	<div class="box tCell profileSidebar">
-		<img src="<?php echo $info['avatar'] ?>" alt="<?php echo $info['username'] ?>">
+		<?php echo Html::Crop($info['avatar'], 160, 160, "avatar") ?>
 		<ul class="userInfoList">
 			<li><b>Group</b> <?php echo $info['name'] ?></li>
 			<li><b>Registered</b> <?php echo $info['joined'] ?></li>

@@ -88,7 +88,7 @@
 			}
 			elseif($mode == "custom")
 			{
-				$url = "public/avatar/{$photo}\" width=\"{$size}\" height=\"{$size}";
+				$url = "public/avatar/{$photo}";
 			}
 			
 			return $url;

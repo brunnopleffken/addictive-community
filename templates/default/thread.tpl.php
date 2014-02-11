@@ -15,7 +15,7 @@
 <div class="mainPost">
 	<div class="header">
 		<div class="author">
-			<a href="#"><img src="<?php echo $firstPostInfo['avatar'] ?>"></a>
+			<a href="#"><?php echo Html::Crop($firstPostInfo['avatar'], 42, 42, "avatar") ?></a>
 			<div class="authorInfo">
 				<div>
 					<a href="index.php?module=profile&amp;id=<?php echo $firstPostInfo['author_id'] ?>"><?php echo $firstPostInfo['username'] ?></a><br>
@@ -57,7 +57,11 @@
 
 <div class="postReply <?php echo $_replyResult[$k]['bestanswer_class'] ?>">
 	<div class="author">
-		<div class="photostack"><a href="index.php?module=profile&amp;id=<?php echo $_replyResult[$k]['author_id'] ?>"><img src="<?php echo $_replyResult[$k]['avatar'] ?>"></a></div>
+		<div class="photostack">
+			<a href="index.php?module=profile&amp;id=<?php echo $_replyResult[$k]['author_id'] ?>">
+				<?php echo Html::Crop($_replyResult[$k]['avatar'], 96, 96, "avatar") ?>
+			</a>
+		</div>
 		<p class="name"><a href="index.php?module=profile&amp;id=<?php echo $_replyResult[$k]['author_id'] ?>"><?php echo $_replyResult[$k]['username'] ?></a></p>
 		<p class="memberTitle"><?php echo $_replyResult[$k]['member_title'] ?></p>
 		<ul class="userInfo">

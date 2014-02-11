@@ -96,7 +96,7 @@ form textarea { overflow: auto; }
 .sidebar .sidebarItem .list .item span { background: #8a8b90; color: #f0eff4; border-radius: 15px; display: inline-block; float: right; font-size: 9px; padding: 1px 0; text-align: center; width: 35px; }
 .sidebar .sidebarItem .user { background: #303747 url("../images/bar-bg.png"); border-radius: 7px; color: #eeeeee; overflow: hidden; padding: 10px; }
 .sidebar .sidebarItem .user .avatar { background: url("../images/user_img_bg.png") no-repeat; float: left; height: 42px; width: 42px; }
-.sidebar .sidebarItem .user .avatar img { height: 30px; margin: 6px; width: 30px; }
+.sidebar .sidebarItem .user .avatar .img { height: 30px; margin: 6px; width: 30px; }
 .sidebar .sidebarItem .user .userInfo { float: left; font-size: 11px; margin-left: 8px; margin-top: 2px; }
 .sidebar .sidebarItem .user .userInfo a { color: #eeeeff; }
 .sidebar .sidebarItem .user .userInfo b { font-size: 15px; }
@@ -157,7 +157,7 @@ form textarea { overflow: auto; }
 .mainPost { background: #ffffff; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); overflow: hidden; }
 .mainPost .header { background: #f6f6f6; border-bottom: 1px solid #cccccc; border-top: 1px solid #bbbbbb; overflow: hidden; padding: 7px 10px 5px 10px; }
 .mainPost .header .author { display: table; float: left; width: 100%; }
-.mainPost .header .author img { border: 1px solid #dddddd; float: left; height: 48px; padding: 2px; width: 48px; }
+.mainPost .header .author .avatar { border: 1px solid #dddddd; float: left; height: 48px; padding: 2px; width: 48px; }
 .mainPost .header .author .authorInfo { float: left; font-size: 10px; line-height: 1.2em; margin-left: 5px; margin-top: 5px; }
 .mainPost .header .author .authorInfo a { display: inline-block; font-size: 15px; font-weight: bold; margin-bottom: 5px; }
 .mainPost .title { font-size: 22px; font-weight: bold; letter-spacing: 1px; padding: 20px 10px; }
@@ -171,7 +171,7 @@ form textarea { overflow: auto; }
 .postReply { background: #ffffff; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); display: table; margin-bottom: 10px; position: relative; width: 100%; }
 .postReply .author { display: table-cell; padding: 10px 0 25px 0; text-align: center; width: 180px; }
 .postReply .author .photostack { background: url("../images/photo-stack.png") no-repeat; margin: auto; width: 128px; height: 128px; }
-.postReply .author .photostack img { margin: 16px; }
+.postReply .author .photostack .avatar { margin: 16px; }
 .postReply .author .name { font-size: 14px; font-weight: bold; }
 .postReply .author .memberTitle { font-size: 10px; }
 .postReply .author .userInfo { color: #444; font-size: 9px; list-style: none; margin: 20px 5px; }

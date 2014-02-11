@@ -33,7 +33,7 @@
 	?>
 
 	<tr>
-		<td class="min"><img src="<?php echo $_result[$k]['avatar'] ?>" class="avatar"></td>
+		<td class="min"><?php echo Html::Crop($_result[$k]['avatar'], 42, 42, "avatar") ?></td>
 		<td style="font-size: 14px;"><a href="index.php?module=profile&amp;id=<?php echo $_result[$k]['m_id'] ?>"><b><?php echo $_result[$k]['username'] ?></b></a></td>
 		<td><?php echo $_result[$k]['joined'] ?></td>
 		<td><?php echo $_result[$k]['posts'] ?></td>
