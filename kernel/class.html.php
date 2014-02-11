@@ -132,6 +132,48 @@
 
 			return $retval;
 		}
+		
+		// ---------------------------------------------------
+		// List of hours (00 to 23)
+		// ---------------------------------------------------
+
+		public static function Hours($name, $current = 0)
+		{
+			$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\">";
+
+			for($i = 0; $i <= 23; $i++) {
+				$selected = ($i == $current) ? "selected" : "";
+				if($i < 10) {
+					$i = "0" . $i;
+				}
+				$retval .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
+			}
+
+			$retval .= "</select>";
+
+			return $retval;
+		}
+		
+		// ---------------------------------------------------
+		// List of minutes (00 to 45)
+		// ---------------------------------------------------
+
+		public static function Minutes($name, $current = 0)
+		{
+			$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\">";
+
+			for($i = 0; $i <= 45; $i += 15) {
+				$selected = ($i == $current) ? "selected" : "";
+				if($i < 10) {
+					$i = "0" . $i;
+				}
+				$retval .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
+			}
+
+			$retval .= "</select>";
+
+			return $retval;
+		}
 
 		// ---------------------------------------------------
 		// Show notification message
