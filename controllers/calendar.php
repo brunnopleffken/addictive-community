@@ -11,14 +11,62 @@
 	
 	
 	// ---------------------------------------------------
-	// What are we doing?
+	// Set actions
 	// ---------------------------------------------------
 
-	$act = (Html::Request("act")) ? Html::Request("act") : "month";
-
-	$db = $this->Db;
-
+	$act = (Html::Request("act")) ? Html::Request("act") : null;
+	
 	switch($act) {
+		case "addevent":
+			String::PR($_REQUEST);
+			
+			$event = array(
+				"title"		=> Html::Request("title"),
+				"type"		=> Html::Request("type"),
+				"author"	=> $this->member['m_id'],
+				"day"		=> Html::Request("day"),
+				"month"		=> Html::Request("month"),
+				"year"		=> Html::Request("year"),
+				"timestamp"	=> mktime(
+						Html::Request("hour"),
+						Html::Request("minute"), 0,
+						Html::Request("month"),
+						Html::Request("day"),
+						Html::Request("year")),
+				"added"		=> time(),
+				"text"		=> Html::Request("text"),
+			);
+
+			$this->Db->Insert("c_events", $event);
+
+			header("Location: index.php?module=calendar&m=1");			
+			exit;
+
+			break;
+	}
+
+	// ---------------------------------------------------
+	// MESSAGES AND NOTIFICATIONS
+	// ---------------------------------------------------
+
+	$m = Html::Request("m");
+
+	switch($m) {
+		case 1:
+			$notification = Html::Notification("Your event has been successfully submitted.", "success");
+			break;
+		default:
+			$notification = "";
+			break;
+	}
+
+	// ---------------------------------------------------
+	// What are we viewing?
+	// ---------------------------------------------------
+
+	$view = (Html::Request("view")) ? Html::Request("view") : "month";
+	
+	switch($view) {
 
 		// ---------------------------------------------------
 		// CALENDAR VIEW
@@ -38,7 +86,7 @@
 			// ---------------------------------------------------
 			
 			// What is the day of today?
-			$today_info = getdate(time());
+			$todayInfo = getdate(time());
 			
 			// Create array containing names of days of week.
 			$w_days = array(
@@ -46,7 +94,7 @@
 				$this->t["w_3"], $this->t["w_4"],
 				$this->t["w_5"], $this->t["w_6"],
 				$this->t["w_7"]
-			);
+				);
 
 			// What is the first day of the selected month?
 			$m_firstday = mktime(0,0,0,$c_month,1,$c_year);
@@ -76,7 +124,7 @@
 			
 			// Create the rest of the calendar
 			// Initiate the day counter, starting with the 1st.
-			$current_day = 1;
+			$currentDay = 1;
 			Template::Add("</tr><tr>");
 			
 			// The variable $w_day is used to ensure that the calendar
@@ -87,45 +135,45 @@
 			
 			$month = str_pad($c_month, 2, "0", STR_PAD_LEFT);
 			
-			while ($current_day <= $num_days) {
+			while ($currentDay <= $num_days) {
 				// Seventh column (Saturday) reached. Start a new row.
 				if ($w_day == 7) {
 					$w_day = 0;
 					Template::Add("</tr><tr>");
 				}
 				
-				$current_day_rel = str_pad($current_day, 2, "0", STR_PAD_LEFT);
-				$date = "{$c_year}-{$c_month}-{$current_day_rel}";
+				$currentDayRel = str_pad($currentDay, 2, "0", STR_PAD_LEFT);
+				$date = "{$c_year}-{$c_month}-{$currentDayRel}";
 				
 				// Do we have any event this day?
-				$db->Query("SELECT COUNT(e_id) AS event_number FROM c_events
-					WHERE day = '{$current_day_rel}' AND month = '{$c_month}' AND year = '{$c_year}';");
+				$this->Db->Query("SELECT COUNT(e_id) AS event_number FROM c_events
+					WHERE day = '{$currentDayRel}' AND month = '{$c_month}' AND year = '{$c_year}';");
 				
-				$event_count = $this->Db->Fetch();
-				$event_count = $event_count['event_number'];
+				$eventCount = $this->Db->Fetch();
+				$eventCount = $eventCount['event_number'];
 				
-				if($event_count != 0) {
-					$event_marker = "style=\"background: #f8fcff url('templates/1/images/star.png') no-repeat 95% 10%;\"";
+				if($eventCount != 0) {
+					$eventMarker = "style=\"background: #f8fcff url('" . $this->p['IMG'] . "/star.png') no-repeat 95% 15%;\"";
 				}
 				else {
-					$event_marker = "";
+					$eventMarker = "";
 				}
 				
 				// Create table cell
 				
-				if( $c_month == $today_info['mon'] &&
-					$c_year == $today_info['year'] &&
-					$current_day == $today_info['mday']
+				if( $c_month == $todayInfo['mon'] &&
+					$c_year == $todayInfo['year'] &&
+					$currentDay == $todayInfo['mday']
 				) {
-					Template::Add("<td class='today' rel='{$date}' {$event_marker}><b><a href=\"{$date}\">{$current_day}</a></b></td>");
+					Template::Add("<td class='today' rel='{$date}' {$eventMarker}><b><a href=\"{$date}\">{$currentDay}</a></b></td>");
 				}
 				else {
-					Template::Add("<td class='day' rel='{$date}' {$event_marker}>
-						<a href=\"index.php?module=calendar&amp;act=event&amp;date={$date}\">{$current_day}</a></td>");
+					Template::Add("<td class='day' rel='{$date}' {$eventMarker}>
+						<a href=\"index.php?module=calendar&amp;act=event&amp;date={$date}\">{$currentDay}</a></td>");
 				}
 				
 				// Increment counters
-				$current_day++;
+				$currentDay++;
 				$w_day++;
 			}
 			
@@ -141,6 +189,10 @@
 			$calendar = Template::Get();
 			Template::Clean();
 
+			// Where are we?
+			$pageinfo['title'] = "Calendar";
+			$pageinfo['bc'] = array("Calendar");
+
 			break;
 
 		// ---------------------------------------------------
@@ -149,15 +201,12 @@
 		
 		case "addevent":
 			
+			// Where are we?
+			$pageinfo['title'] = "Add Event";
+			$pageinfo['bc'] = array("Calendar", "Add Event");
+
 			break;
 	}
 
-	// ---------------------------------------------------
-	// Where are we?
-	// ---------------------------------------------------
-	
-	// Page information
-	$pageinfo['title'] = "Calendar";
-	$pageinfo['bc'] = array("Calendar");
 
 ?>
