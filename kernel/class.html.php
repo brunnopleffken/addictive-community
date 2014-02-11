@@ -224,7 +224,7 @@
 
 		public static function Crop($image, $w, $h, $class = "")
 		{
-			$html = "<div style=\"display:inline-block; width:{$w}px; height:{$h}px; background: url('{$image}') no-repeat; background-size:cover\" class=\"{$class}\"></div>";
+			$html = "<div style=\"display:inline-block; width:{$w}px; height:{$h}px; background: url('{$image}') no-repeat center top; background-size:cover; image-rendering: optimizeQuality;\" class=\"{$class}\"></div>";
 			return $html;
 		}
 	}
