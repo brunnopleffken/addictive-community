@@ -8,6 +8,7 @@
 	<meta name="keywords" content="<?php echo $this->Core->config['seo_keywords'] ?>">
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="stylesheet" href="<?php echo $this->p['TPL'] ?>/css/main.css">
+	<link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="resources/select2/select2.css">
 	<link rel="stylesheet" href="resources/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
 	<script src="resources/jquery-1.10.2.min.js" type="text/javascript"></script>

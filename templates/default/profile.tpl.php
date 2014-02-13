@@ -82,8 +82,16 @@
 				<th colspan="2">Contact Information</th>
 			</tr>
 			<tr>
-				<td class="min"><img src="<?php echo $this->p['IMG'] ?>/profile_icons/email_16.png"></td>
+				<td class="min" style="font-size: 16px"><i class="fa fa-envelope-o"></i></td>
 				<td><a href="mailto:<?php echo $info['email'] ?>"><?php echo $info['email'] ?></a></td>
+			</tr>
+			<tr>
+				<td class="min" style="font-size: 16px"><i class="fa fa-facebook-square"></i></td>
+				<td><a href="http://www.facebook.com/<?php echo $info['im_facebook'] ?>" target="_blank" rel="nofollow">fb.com/<?php echo $info['im_facebook'] ?></a></td>
+			</tr>
+			<tr>
+				<td class="min" style="font-size: 16px"><i class="fa fa-twitter"></i></td>
+				<td><a href="http://twitter.com/<?php echo $info['im_twitter'] ?>" target="_blank" rel="nofollow">@<?php echo $info['im_twitter'] ?></a></td>
 			</tr>
 		</table>
 

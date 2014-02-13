@@ -119,7 +119,7 @@ form textarea { overflow: auto; }
 /** COMMUNITY PAGE **/
 .roomItem { background: #ffffff; border-spacing: 0; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 15px; width: 100%; }
 .roomItem:last-child { margin: 0; }
-.roomItem .image { padding: 0 15px; width: 1%; }
+.roomItem .image { font-size: 35px; padding: 0 15px; width: 1%; }
 .roomItem .info { padding: 15px 10px; vertical-align: top; }
 .roomItem .info .title { display: block; font-size: 18px; font-weight: bold; letter-spacing: 1px; margin-bottom: 8px; }
 .roomItem .info .description { color: #333333; font-size: 12px; }
@@ -140,12 +140,15 @@ form textarea { overflow: auto; }
 .threadItem .content .title { display: block; font-size: 17px; font-weight: bold; margin-bottom: 5px; }
 .threadItem .content .desc { color: #444444; display: block; font-size: 11px; font-style: italic; margin-right: -1000px; overflow: hidden; position: relative; text-overflow: ellipsis; width: 100%; white-space: nowrap; }
 .threadItem .content .author { color: #888888; display: block; font-size: 10px; margin-top: 3px; padding: 0; }
+.threadItem .content .author i { color: #000000; }
 .threadItem .info { background: rgba(180, 180, 180, 0.1); font-size: 14px; font-weight: bold; text-align: center; width: 70px; }
+.threadItem .info i { font-size: 30px; }
 .threadItem .stats { background: #465068; padding: 5px; width: 160px; }
-.threadItem .stats .label { overflow: hidden; padding: 1px; }
+.threadItem .stats .label { color: #ffffff; overflow: hidden; padding: 1px; }
 .threadItem .stats .label img { margin-top: 2px; }
-.threadItem .stats .label .value { color: #ffffff; display: inline-block; font-size: 11px; margin-left: 6px; }
+.threadItem .stats .label .value { display: inline-block; font-size: 11px; margin-left: 6px; }
 .threadItem .stats .label a { color: #ffffff; }
+.threadItem .stats .label i { font-size: 16px; width: 18px; vertical-align: text-top; }
 .threadItem > .center { padding: 15px; }
 .threadItem.hot .stats { background: #465068 url("../images/hot-thread.png") no-repeat top right; }
 .threadItem.unread { border-left: 2px solid #465068; }
@@ -163,6 +166,7 @@ form textarea { overflow: auto; }
 .mainPost .title { font-size: 22px; font-weight: bold; letter-spacing: 1px; padding: 20px 10px; }
 .mainPost .text { font-size: 14px; padding: 5px 30px 25px 30px; }
 .mainPost .footer { border-top: 1px solid #eeeeee; font-size: 11px; padding: 6px 10px; overflow: hidden; }
+.mainPost .footer i { font-size: 14px; }
 
 .threadButtons { margin: 18px 0; overflow: hidden; padding: 15px 0; }
 .threadButtons .replies { font-size: 21px; font-weight: bold; }

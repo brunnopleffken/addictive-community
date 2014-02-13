@@ -38,8 +38,8 @@
 		<p class="fleft" title="Tags"><img src="<?php echo $this->p['IMG'] ?>/post-tags.png"> {$first_post_info['tags']}</p>
 	</div> -->
 	<div class="footer">
-		<p class="fleft"><img src="<?php echo $this->p['IMG'] ?>/post-clock.png" style="vertical-align: text-bottom"> Posted on <?php echo $firstPostInfo['post_date'] ?></p>
-		<p class="fright"><img src="<?php echo $this->p['IMG'] ?>/report.png" style="vertical-align: text-bottom"> <a href="index.php?module=report&amp;t_id=<?php echo $threadId ?>" class="fancybox fancybox.ajax">Report abuse</a></p>
+		<p class="fleft"><i class="fa fa-clock-o"></i> Posted on <?php echo $firstPostInfo['post_date'] ?></p>
+		<p class="fright"><i class="fa fa-warning"></i> <a href="index.php?module=report&amp;t_id=<?php echo $threadId ?>" class="fancybox fancybox.ajax">Report abuse</a></p>
 	</div>
 </div>
 
