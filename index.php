@@ -41,10 +41,10 @@
 		public $p = array(
 			"IMG" => "",
 			"TPL" => ""
-			);
+		);
 
 		// Sections (HTML)
-		private $header	= "";
+		private $header		= "";
 		private $sidebar	= "";
 		private $content	= "";
 
@@ -67,7 +67,6 @@
 			$this->Db = new Database($config);
 			$this->Core = new Core($this->Db);
 			$this->Session = new Session($this->Db);
-
 
 			// ---------------------------------------------------
 			// Get module name and set user/guest session
