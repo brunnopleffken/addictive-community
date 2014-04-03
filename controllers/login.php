@@ -51,7 +51,7 @@
 				else {
 					// No lines returned: show error
 					// "Username or password is wrong."
-					header("Location: index.php?module=exception&errno=7");
+					header("Location: index.php?module=exception&errno=1");
 					exit;
 				}
 			}
