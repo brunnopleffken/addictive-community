@@ -38,7 +38,7 @@
 	<!-- MEMBER PROFILE -->
 
 		<h1><?php echo $info['username'] ?></h1>
-		<span><?php echo $info['member_title'] ?></span>
+		<span><em><?php echo $info['member_title'] ?></em></span>
 		<table class="tableList noShadow noBorders" style="margin-top: 15px">
 			<tr>
 				<th colspan="2">My Profile</th>
