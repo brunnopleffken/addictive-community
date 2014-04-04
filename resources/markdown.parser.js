@@ -14,8 +14,8 @@ function markdownReplace(content) {
 	content = content.replace(/\>/gm, '&gt;');
 	
 	// *bold*, _italic_ and ~~strikethrough~~
-	content = content.replace(/\*(.+?)\*/gm, '<b>$1</b>');
-	content = content.replace(/\_(.+?)\_/gm, '<em>$1</em>');
+	content = content.replace(/\*\*(.+?)\*\*/gm, '<b>$1</b>');
+	content = content.replace(/\_\_(.+?)\_\_/gm, '<em>$1</em>');
 	content = content.replace(/\~\~(.+?)\~\~/gm, '<s>$1</s>');
 	
 	// [[links]]
