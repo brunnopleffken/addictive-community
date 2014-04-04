@@ -19,7 +19,7 @@
 				<div class="label">Password</div>
 				<div class="field"><input type="password" name="password" class="required medium"></div>
 			</div>
-			<div class="fright"><input type="submit" value="Log In"></div>
+			<div class="fright"><input type="hidden" name="exception_referrer" value="true"><input type="submit" value="Log In"></div>
 		</div>
 	</form>
 <?php endif; ?>
