@@ -222,8 +222,8 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
     border: 1px solid #999999;
     outline: none;
 
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .3);
-            box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+    /*-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+            box-shadow: 0 0 5px rgba(0, 0, 0, .3);*/
 }
 
 .select2-dropdown-open .select2-choice {
