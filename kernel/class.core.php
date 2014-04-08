@@ -24,7 +24,7 @@
 			$this->Db = $database_class;
 
 			// Get configurations from database
-			$this->Db->Query("SELECT * FROM c_config;");
+			$this->Db->Query("SELECT c.index, c.value FROM c_config c;");
 			while($data = $this->Db->Fetch()) {
 				$this->config[$data['index']] = $data['value'];
 			}
