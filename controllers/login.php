@@ -22,8 +22,8 @@
 				$username = Html::Request("username");
 				$password = String::PasswordEncrypt(Html::Request("password"));
 
-				$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
-					WHERE username = '{$username}' AND password = '{$password}';");
+				$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members "
+						. "WHERE username = '{$username}' AND password = '{$password}';");
 
 				if($this->Db->Rows()) {
 					$userInfo = $this->Db->Fetch();

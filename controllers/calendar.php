@@ -146,8 +146,8 @@
 				$date = "{$c_year}-{$c_month}-{$currentDayRel}";
 				
 				// Do we have any event this day?
-				$this->Db->Query("SELECT COUNT(e_id) AS event_number FROM c_events
-					WHERE day = '{$currentDayRel}' AND month = '{$c_month}' AND year = '{$c_year}';");
+				$this->Db->Query("SELECT COUNT(e_id) AS event_number FROM c_events "
+						. "WHERE day = '{$currentDayRel}' AND month = '{$c_month}' AND year = '{$c_year}';");
 				
 				$eventCount = $this->Db->Fetch();
 				$eventCount = $eventCount['event_number'];

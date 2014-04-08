@@ -73,11 +73,11 @@
 
 	// Get list of threads
 
-	$this->Db->Query("SELECT c_threads.*, author.username AS author_name, lastpost.username AS lastpost_name,
-		(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
-		INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
-		INNER JOIN c_members AS lastpost ON (c_threads.lastpost_member_id = lastpost.m_id)
-		WHERE room_id = {$roomId} {$where} ORDER BY announcement DESC, {$order};");
+	$this->Db->Query("SELECT c_threads.*, author.username AS author_name, lastpost.username AS lastpost_name, "
+			. "(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post "
+			. "FROM c_threads INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id) "
+			. "INNER JOIN c_members AS lastpost ON (c_threads.lastpost_member_id = lastpost.m_id) "
+			. "WHERE room_id = {$roomId} {$where} ORDER BY announcement DESC, {$order};");
 
 	// Process data
 

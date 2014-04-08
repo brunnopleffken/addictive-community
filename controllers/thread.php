@@ -41,11 +41,10 @@
 	// Fetch thread general info
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT t.title, t.author_member_id, r.r_id, r.name,
-		(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count
-		FROM c_threads t
-		INNER JOIN c_rooms r ON (r.r_id = t.room_id)
-		WHERE t.t_id = '{$threadId}';");
+	$this->Db->Query("SELECT t.title, t.author_member_id, r.r_id, r.name, "
+			. "(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t "
+			. "INNER JOIN c_rooms r ON (r.r_id = t.room_id) "
+			. "WHERE t.t_id = '{$threadId}';");
 
 	$threadInfo = $this->Db->Fetch();
 
@@ -78,11 +77,11 @@
 	// Get first post
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id,
-		c_threads.title, c_threads.locked, c_members.* FROM c_posts
-		INNER JOIN c_threads ON (c_posts.thread_id = c_threads.t_id)
-		INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
-		WHERE thread_id = '{$threadId}' AND first_post = '1' LIMIT 1;");
+	$this->Db->Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id, "
+			. "c_threads.title, c_threads.locked, c_members.* FROM c_posts "
+			. "INNER JOIN c_threads ON (c_posts.thread_id = c_threads.t_id) "
+			. "INNER JOIN c_members ON (c_posts.author_id = c_members.m_id) "
+			. "WHERE thread_id = '{$threadId}' AND first_post = '1' LIMIT 1;");
 
 	$firstPostInfo = $this->Db->Fetch();
 
@@ -95,11 +94,10 @@
 	// Get replies
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT c_posts.*, c_members.* FROM c_posts
-		INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
-		WHERE thread_id = '{$threadId}' AND first_post = '0'
-		ORDER BY best_answer DESC,
-		post_date ASC LIMIT {$pSql},{$itemsPerPage};");
+	$this->Db->Query("SELECT c_posts.*, c_members.* FROM c_posts "
+			. "INNER JOIN c_members ON (c_posts.author_id = c_members.m_id) "
+			. "WHERE thread_id = '{$threadId}' AND first_post = '0' "
+			. "ORDER BY best_answer DESC, post_date ASC LIMIT {$pSql},{$itemsPerPage};");
 
 	while($result = $this->Db->Fetch()) {
 
@@ -175,8 +173,8 @@
 
 	$threadSearch = implode(" ", $threadSearch);
 
-	$this->Db->Query("SELECT *, MATCH(title) AGAINST ('{$threadSearch}') AS relevance FROM c_threads
-		WHERE t_id <> {$threadId} AND MATCH(title) AGAINST ('{$threadSearch}');");
+	$this->Db->Query("SELECT *, MATCH(title) AGAINST ('{$threadSearch}') AS relevance FROM c_threads "
+		. "WHERE t_id <> {$threadId} AND MATCH(title) AGAINST ('{$threadSearch}');");
 
 	while($relatedThread = $this->Db->Fetch()) {
 		$relatedThread['thread_date'] = $this->Core->DateFormat($relatedThread['lastpost_date'], "short");

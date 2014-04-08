@@ -43,9 +43,9 @@
 	// SIDEBAR: get list of rooms
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT c_rooms.r_id, c_rooms.name,
-		(SELECT COUNT(*) FROM c_threads WHERE c_threads.room_id = c_rooms.r_id) AS threads
-		FROM c_rooms WHERE invisible = 0;");
+	$this->Db->Query("SELECT c_rooms.r_id, c_rooms.name, "
+			. "(SELECT COUNT(*) FROM c_threads WHERE c_threads.room_id = c_rooms.r_id) AS threads "
+			. "FROM c_rooms WHERE invisible = 0;");
 
 	while($result = $this->Db->Fetch()) {
 		$_siderooms[] = $result;
@@ -60,9 +60,9 @@
 	$online = array();
 	$sessionExpiration = $this->Core->config['general_session_expiration'];
 
-	$this->Db->Query("SELECT * FROM c_sessions WHERE
-		member_id <> 0 AND activity_time > '{$sessionExpiration}' AND anonymous = 0
-		ORDER BY activity_time DESC;");
+	$this->Db->Query("SELECT * FROM c_sessions WHERE "
+			. "member_id <> 0 AND activity_time > '{$sessionExpiration}' AND anonymous = 0 "
+			. "ORDER BY activity_time DESC;");
 
 	while($members = $this->Db->Fetch()) {
 		$online[] = "<a href=\"index.php?module=profile&amp;id={$members['member_id']}\">{$members['username']}</a>";
@@ -90,8 +90,8 @@
 	$_stats['replies'] = $statsResultTmp['total_posts'];
 	$_stats['members'] = $statsResultTmp['member_count'];
 
-	$this->Db->Query("SELECT m_id, username FROM c_members
-		ORDER BY m_id DESC LIMIT 1;");
+	$this->Db->Query("SELECT m_id, username FROM c_members "
+			. "ORDER BY m_id DESC LIMIT 1;");
 	$statsResultTmp = $this->Db->Fetch();
 
 	$_stats['lastmemberid'] = $statsResultTmp['m_id'];
