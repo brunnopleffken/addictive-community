@@ -36,4 +36,13 @@
 		"MeeGo", "Symbian", "SymbianOS", "Opera Mini"
 		);
 	
+	// ---------------------------------------------------
+	// Shortcut for echo
+	// ---------------------------------------------------
+	
+	function __($string)
+	{
+		echo $string;
+	}
+	
 ?>
