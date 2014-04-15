@@ -1,10 +1,10 @@
 <div class="roomTitleBar">
-	<div class="title fleft"><span><?php echo $this->Core->config['general_communityname'] ?></span>An error occoured</div>
+	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span>An error occoured</div>
 </div>
 
 <?php if($notification): ?>
 	<div class="notification warning persistent">
-		<p><strong>WARNING!</strong> <?php echo $message ?></p>
+		<p><strong>WARNING!</strong> <?php __($message) ?></p>
 	</div>
 <?php endif; ?>
 

@@ -1,10 +1,10 @@
 <div class="roomTitleBar">
-	<div class="title fleft"><span><?php echo $this->Core->config['general_communityname'] ?></span>Member List</div>
+	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span>Member List</div>
 </div>
 
 <div class="classification">
-	<?php echo $first ?>
-	<?php echo $letterList ?>
+	<?php __($first) ?>
+	<?php __($letterList) ?>
 </div>
 
 <table class="tableList">
@@ -33,12 +33,12 @@
 	?>
 
 	<tr>
-		<td class="min"><?php echo Html::Crop($_result[$k]['avatar'], 42, 42, "avatar") ?></td>
-		<td style="font-size: 14px;"><a href="index.php?module=profile&amp;id=<?php echo $_result[$k]['m_id'] ?>"><b><?php echo $_result[$k]['username'] ?></b></a></td>
-		<td><?php echo $_result[$k]['joined'] ?></td>
-		<td><?php echo $_result[$k]['posts'] ?></td>
-		<td><?php echo $_result[$k]['location'] ?></td>
-		<td><?php echo $_result[$k]['name'] ?></td>
+		<td class="min"><?php __(Html::Crop($_result[$k]['avatar'], 42, 42, "avatar")) ?></td>
+		<td style="font-size: 14px;"><a href="index.php?module=profile&amp;id=<?php __($_result[$k]['m_id']) ?>"><b><?php __($_result[$k]['username']) ?></b></a></td>
+		<td><?php __($_result[$k]['joined']) ?></td>
+		<td><?php __($_result[$k]['posts']) ?></td>
+		<td><?php __($_result[$k]['location']) ?></td>
+		<td><?php __($_result[$k]['name']) ?></td>
 		<td class="min" style="font-size: 16px"><a href="index.php?module=profile&amp;id=1"><i class="fa fa-search"></i></a></td>
 	</tr>
 	

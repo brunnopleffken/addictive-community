@@ -5,22 +5,22 @@
 
 <div id="fb-root" style="display: none"></div>
 <script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <div class="mainPost">
 	<div class="header">
 		<div class="author">
-			<a href="#"><?php echo Html::Crop($firstPostInfo['avatar'], 42, 42, "avatar") ?></a>
+			<a href="#"><?php __(Html::Crop($firstPostInfo['avatar'], 42, 42, "avatar")) ?></a>
 			<div class="authorInfo">
 				<div>
-					<a href="index.php?module=profile&amp;id=<?php echo $firstPostInfo['author_id'] ?>"><?php echo $firstPostInfo['username'] ?></a><br>
-					<?php echo $firstPostInfo['member_title'] ?><br>
-					<?php echo $firstPostInfo['posts'] ?> posts
+					<a href="index.php?module=profile&amp;id=<?php __($firstPostInfo['author_id']) ?>"><?php __($firstPostInfo['username']) ?></a><br>
+					<?php __($firstPostInfo['member_title']) ?><br>
+					<?php __($firstPostInfo['posts']) ?> posts
 				</div>
 			</div>
 			<div class="fright" style="margin-top: 12px">
@@ -29,24 +29,24 @@
 		</div>
 	</div>
 	<div>
-		<p class="title"><?php echo $firstPostInfo['title'] ?></p>
+		<p class="title"><?php __($firstPostInfo['title']) ?></p>
 		<div class="text">
-			<span class="parsing"><?php echo $firstPostInfo['post'] ?></span>
+			<span class="parsing"><?php __($firstPostInfo['post']) ?></span>
 		</div>
 	</div>
 	<!-- <div class="footer">
-		<p class="fleft" title="Tags"><img src="<?php echo $this->p['IMG'] ?>/post-tags.png"> {$first_post_info['tags']}</p>
+		<p class="fleft" title="Tags"><img src="<?php __($this->p['IMG']) ?>/post-tags.png"> {$first_post_info['tags']}</p>
 	</div> -->
 	<div class="footer">
-		<p class="fleft"><i class="fa fa-clock-o"></i> Posted on <?php echo $firstPostInfo['post_date'] ?></p>
-		<p class="fright"><i class="fa fa-warning"></i> <a href="index.php?module=report&amp;t_id=<?php echo $threadId ?>" class="fancybox fancybox.ajax">Report abuse</a></p>
+		<p class="fleft"><i class="fa fa-clock-o"></i> Posted on <?php __($firstPostInfo['post_date']) ?></p>
+		<p class="fright"><i class="fa fa-warning"></i> <a href="index.php?module=report&amp;t_id=<?php __($threadId) ?>" class="fancybox fancybox.ajax">Report abuse</a></p>
 	</div>
 </div>
 
 <div class="threadButtons">
-	<p class="replies fleft">Replies: <span><?php echo $threadInfo['post_count']-1 ?></span></p>
+	<p class="replies fleft">Replies: <span><?php __($threadInfo['post_count'] - 1) ?></span></p>
 	<div class="fright">
-		<a href="index.php?module=post&amp;act=thread&amp;id=<?php echo $threadId ?>" class="defaultButton transition">Add Reply</a>
+		<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
 	</div>
 </div>
 
@@ -55,30 +55,30 @@
 	foreach($_replyResult as $k => $v):
 ?>
 
-<div class="postReply <?php echo $_replyResult[$k]['bestanswer_class'] ?>">
+<div class="postReply <?php __($_replyResult[$k]['bestanswer_class']) ?>">
 	<div class="author">
 		<div class="photostack">
-			<a href="index.php?module=profile&amp;id=<?php echo $_replyResult[$k]['author_id'] ?>">
-				<?php echo Html::Crop($_replyResult[$k]['avatar'], 96, 96, "avatar") ?>
+			<a href="index.php?module=profile&amp;id=<?php __($_replyResult[$k]['author_id']) ?>">
+				<?php __(Html::Crop($_replyResult[$k]['avatar'], 96, 96, "avatar")) ?>
 			</a>
 		</div>
-		<p class="name"><a href="index.php?module=profile&amp;id=<?php echo $_replyResult[$k]['author_id'] ?>"><?php echo $_replyResult[$k]['username'] ?></a></p>
-		<p class="memberTitle"><?php echo $_replyResult[$k]['member_title'] ?></p>
+		<p class="name"><a href="index.php?module=profile&amp;id=<?php __($_replyResult[$k]['author_id']) ?>"><?php __($_replyResult[$k]['username']) ?></a></p>
+		<p class="memberTitle"><?php __($_replyResult[$k]['member_title']) ?></p>
 		<ul class="userInfo">
-			<li><b>Posts</b> <?php echo $_replyResult[$k]['posts'] ?> posts</li>
-			<li><b>Registered</b> <?php echo $_replyResult[$k]['joined'] ?></li>
-			<li><b>Location</b> <?php echo $_replyResult[$k]['location'] ?></li>
+			<li><b>Posts</b> <?php __($_replyResult[$k]['posts']) ?> posts</li>
+			<li><b>Registered</b> <?php __($_replyResult[$k]['joined']) ?></li>
+			<li><b>Location</b> <?php __($_replyResult[$k]['location']) ?></li>
 		</ul>
 	</div>
 	<div class="content">
-		<div class="date">Posted on <?php echo $_replyResult[$k]['post_date'] ?> <?php echo $_replyResult[$k]['edited'] ?></div>
+		<div class="date">Posted on <?php __($_replyResult[$k]['post_date']) ?> <?php __($_replyResult[$k]['edited']) ?></div>
 		<div class="text">
-			<span class="parsing"><?php echo $_replyResult[$k]['post'] ?></span>
-			<div class="signature parsing"><?php echo $_replyResult[$k]['signature'] ?></div>
+			<span class="parsing"><?php __($_replyResult[$k]['post']) ?></span>
+			<div class="signature parsing"><?php __($_replyResult[$k]['signature']) ?></div>
 		</div>
 		<div class="footer">
 			<div class="fleft">
-				<a href="index.php?module=report&amp;t_id=<?php echo $threadId ?>&amp;p_id=<?php echo $_replyResult[$k]['p_id'] ?>" class="smallButton grey transition fancybox fancybox.ajax">Report this post</a>
+				<a href="index.php?module=report&amp;t_id=<?php __($threadId) ?>&amp;p_id=<?php __($_replyResult[$k]['p_id']) ?>" class="smallButton grey transition fancybox fancybox.ajax">Report this post</a>
 			</div>
 			<div class="fright">
 				<a href="" class="smallButton grey transition">Edit</a>
@@ -91,9 +91,9 @@
 <?php endforeach; ?>
 
 <div class="threadButtons">
-	<div class="fleft"><?php echo $pagination ?></div>
+	<div class="fleft"><?php __($pagination) ?></div>
 	<div class="fright">
-		<a href="index.php?module=post&amp;act=thread&amp;id=<?php echo $threadId ?>" class="defaultButton transition">Add Reply</a>
+		<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
 	</div>
 </div>
 
@@ -105,7 +105,7 @@
 		if($_relatedThreadList):
 		foreach($_relatedThreadList as $k => $v):
 	?>
-		<div class="item"><span><?php echo $_relatedThreadList[$k]['thread_date'] ?></span><a href="index.php?module=thread&amp;id={$id}"><?php echo $_relatedThreadList[$k]['title'] ?></a></div>
+		<div class="item"><span><?php __($_relatedThreadList[$k]['thread_date']) ?></span><a href="index.php?module=thread&amp;id={$id}"><?php __($_relatedThreadList[$k]['title']) ?></a></div>
 	<?php
 		endforeach;
 		endif;

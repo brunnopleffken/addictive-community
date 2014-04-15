@@ -1,8 +1,8 @@
 <div class="roomTitleBar">
-	<div class="title fleft"><span><?php echo $this->Core->config['general_communityname'] ?></span>Calendar</div>
+	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span>Calendar</div>
 </div>
 
-<?php echo $notification ?>
+<?php __($notification) ?>
 
 <?php
 	switch($view):
@@ -13,13 +13,13 @@
 	<form action="index.php" method="get">
 		<input type="hidden" name="module" value="calendar">
 		Go to:
-		<?php echo Html::Months("month", false, $this->t, $c_month) ?>
-		<?php echo Html::Years("year", 3, 3) ?>
+		<?php __(Html::Months("month", false, $this->t, $c_month)) ?>
+		<?php __(Html::Years("year", 3, 3)) ?>
 		<input type="submit" value="Go">
 	</form>
 </div>
 
-<?php echo $calendar ?>
+<?php __($calendar) ?>
 
 <div class="fright">
 	<form>
@@ -48,11 +48,11 @@
 			<div class="label">Event Date</div>
 			<div class="field">
 				<?php
-					echo Html::Days("day", date("d")) . " ";
-					echo Html::Months("month", false, $this->t, date("m")) . " ";
-					echo Html::Years("year", 0, 3) . " at ";
-					echo Html::Hours("hour") . ":";
-					echo Html::Minutes("minute");
+					__(Html::Days("day", date("d")) . " ");
+					__(Html::Months("month", false, $this->t, date("m")) . " ");
+					__(Html::Years("year", 0, 3) . " at ");
+					__(Html::Hours("hour") . ":");
+					__(Html::Minutes("minute"));
 				?>
 			</div>
 		</div>

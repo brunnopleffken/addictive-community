@@ -1,23 +1,23 @@
 <div class="roomTitleBar">
-	<div class="title fleft"><span><?php echo $this->Core->config['general_communityname'] ?></span><?php echo $roomInfo['name'] ?></div>
-	<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php echo $roomId ?>" class="defaultButton transition">New Thread</a></div>
+	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span><?php __($roomInfo['name']) ?></div>
+	<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php __($roomId) ?>" class="defaultButton transition">New Thread</a></div>
 </div>
 
 <?php
 	if(isset($notification))
-		echo $notification;
+		__($notification);
 ?>
 
 <div class="navigation">
 	<div class="navbar">
-		<a href="index.php?module=room&amp;id=<?php echo $roomId ?>" class="transition <?php echo $menu[0] ?>">All</a>
-		<?php echo $myThreadsMenu ?>
+		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>" class="transition <?php __($menu[0]) ?>">All</a>
+		<?php __($myThreadsMenu) ?>
 	</div>
 	<div class="subnav">
-		<a href="index.php?module=room&amp;id=<?php echo $roomId ?>" class="transition {$newest}">Newest</a>
-		<a href="index.php?module=room&amp;id=<?php echo $roomId ?>&amp;act=topreplies" class="transition {$topreplies}">Top Threads</a>
-		<a href="index.php?module=room&amp;id=<?php echo $roomId ?>&amp;act=noreplies" class="transition {$noreplies}">No Replies</a>
-		<a href="index.php?module=room&amp;id=<?php echo $roomId ?>&amp;act=bestanswered" class="transition {$bestanswered}">Answered</a>
+		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>" class="transition">Newest</a>
+		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>&amp;act=topreplies" class="transition">Top Threads</a>
+		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>&amp;act=noreplies" class="transition">No Replies</a>
+		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>&amp;act=bestanswered" class="transition">Answered</a>
 	</div>
 </div>
 
@@ -27,23 +27,23 @@
 	foreach($_thread as $k => $v):
 ?>
 
-<table class="threadItem <?php echo $_thread[$k]['class'] ?>">
+<table class="threadItem <?php __($_thread[$k]['class']) ?>">
 	<tr>
 		<td class="content">
-			<a href="index.php?module=thread&amp;id=<?php echo $_thread[$k]['t_id'] ?>" class="title"><?php echo $_thread[$k]['title'] ?></a>
-			<div class="desc"><?php echo $_thread[$k]['description'] ?></div>
+			<a href="index.php?module=thread&amp;id=<?php __($_thread[$k]['t_id']) ?>" class="title"><?php __($_thread[$k]['title']) ?></a>
+			<div class="desc"><?php __($_thread[$k]['description']) ?></div>
 			<div class="author">
 				<i class="fa fa-user"></i>
-				By <?php echo $_thread[$k]['author_name'] ?> &nbsp;
+				By <?php __($_thread[$k]['author_name']) ?> &nbsp;
 				<i class="fa fa-clock-o"></i>
-				Started on <?php echo $_thread[$k]['start_date'] ?>
+				Started on <?php __($_thread[$k]['start_date']) ?>
 			</div>
 		</td>
-		<td class="info"><i class="fa fa-comments"></i><br><?php echo $_thread[$k]['replies'] ?></td>
-		<td class="stats {$thread_info['class_status']}">
-			<div class="label"><i class="fa fa-eye"></i><span class="value"><?php echo $_thread[$k]['views'] ?> views</span></div>
-			<div class="label"><i class="fa fa-user fleft"></i><span class="value"><a href="index.php?module=profile&amp;id={$thread_info['lastpost_member_id']}" title="Last post by <?php echo $_thread[$k]['lastpost_name'] ?>"><?php echo $_thread[$k]['lastpost_name'] ?></a></span></div>
-			<div class="label"><i class="fa fa-clock-o fleft"></i><span class="value"><?php echo $_thread[$k]['lastpost_date'] ?></span></div>
+		<td class="info"><i class="fa fa-comments"></i><br><?php __($_thread[$k]['replies']) ?></td>
+		<td class="stats">
+			<div class="label"><i class="fa fa-eye"></i><span class="value"><?php __($_thread[$k]['views']) ?> views</span></div>
+			<div class="label"><i class="fa fa-user fleft"></i><span class="value"><a href="index.php?module=profile&amp;id={$thread_info['lastpost_member_id']}" title="Last post by <?php __($_thread[$k]['lastpost_name']) ?>"><?php __($_thread[$k]['lastpost_name']) ?></a></span></div>
+			<div class="label"><i class="fa fa-clock-o fleft"></i><span class="value"><?php __($_thread[$k]['lastpost_date']) ?></span></div>
 		</td>
 	</tr>
 </table>
@@ -63,5 +63,5 @@
 ?>
 
 <div class="roomTitleBar">
-	<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php echo $roomId ?>" class="defaultButton transition">New Thread</a></div>
+	<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php __($roomId) ?>" class="defaultButton transition">New Thread</a></div>
 </div>
