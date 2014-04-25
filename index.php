@@ -58,9 +58,17 @@
 			// Initial configuration
 			// ---------------------------------------------------
 
-			require_once("config.php");
 			$init = new Init();
 			$init->Load();
+
+			// Load configuration file
+
+			if(is_file("config.php")) {
+				require_once("config.php");				
+			}
+			else {
+				Html::Error("Configuration file is missing.");
+			}
 
 			// Define classes
 
