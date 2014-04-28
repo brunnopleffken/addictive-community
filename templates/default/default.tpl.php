@@ -79,7 +79,7 @@
 							</div>
 							<div class="userInfo">
 								<b><a href="index.php?module=profile&id=<?php __($this->member['m_id']) ?>" title="Show <?php __($this->member['username']) ?>'s profile"><?php __($this->member['username']) ?></a></b><br>
-								<a href="index.php?module=usercp">Control Panel</a> | <a href="index.php?module=messenger">Inbox (0)</a> | <a href="index.php?module=login&amp;act=logout">Logout</a>
+								<a href="index.php?module=usercp">Control Panel</a> | <a href="index.php?module=messenger">Inbox (<?php __($unreadMessages['total']) ?>)</a> | <a href="index.php?module=login&amp;act=logout">Logout</a>
 							</div>
 						</div>
 					</div>

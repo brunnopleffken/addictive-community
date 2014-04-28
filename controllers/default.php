@@ -34,9 +34,14 @@
 	// SIDEBAR: get member information (when logged in)
 	// ---------------------------------------------------
 	
-	if(isset($this->member['m_id'])) {
+	if(isset($this->Session->sInfo['member_id'])) {
+		$m_id = $this->Session->sInfo['member_id'];
 		// Get user avatar
 		$this->member['avatar'] = $this->Core->GetGravatar($this->member['email'], $this->member['photo'], 30, $this->member['photo_type']);
+
+		// Number of new messages
+		$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages WHERE to_id = '{$m_id}' AND status = 0;");
+		$unreadMessages = $this->Db->Fetch();
 	}
 
 	// ---------------------------------------------------
