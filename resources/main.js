@@ -143,4 +143,18 @@ jQuery(document).ready(function($) {
 		}
 	});
 
+	// ---------------------------------------------------
+	// MESSENGER - ERASE MESSAGES
+	// ---------------------------------------------------
+	
+	$('#messengerDeleteMessages').on('click', function(event){
+		if($('.checkDeleteMessage:checked').length == 0) {
+			alert('You need to select at least one message.');
+			event.preventDefault();
+		}
+		else {
+			$('form.personalMessenger').submit();
+		}
+	});
+
 });
