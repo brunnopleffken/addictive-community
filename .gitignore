@@ -4,10 +4,6 @@
 /uploads/*
 /controllers/test.php
 /templates/default/test.tpl.php
-config.php
-
-# PhpStorm IDE folder #
-.idea
 
 # SASS #
 *.sass-cache
