@@ -46,6 +46,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 	<title>Addictive Community</title>
+	<script src="../resources/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<script src="../resources/main.js" type="text/javascript"></script>
 	<link href="styles/admin_style.css" type="text/css" rel="stylesheet">
 	<script type="text/javascript">
 	
@@ -61,29 +63,27 @@
 <body onload="javascript:autofocus('username')">
 
 	<div id="topbar">
-		<div class="wrapper">
 			<div class="fleft"><a href="" class="transition">Addictive Services</a></div>
-			<div class="fright"><a href="" class="toplinks transition">Back to Community &raquo;</a></div>
+			<div class="fright"><a href="../" class="toplinks transition">Back to Community &raquo;</a></div>
 			<div class="fix"></div>
-		</div>
 	</div>
 	
 	<div id="login-wrapper"><div style="display: table-row"><div style="display: table-cell; vertical-align: middle;">
 
 		<div class="login-logo"><img src="images/logo.png"></div>
 		
-		<form action="auth.php" method="post">
+		<form action="auth.php" method="post" class="validate">
 		
 			<div id="login">
 				<?php echo $message ?>
 				<table style="width: 100%">
 					<tr>
 						<td>Username</td>
-						<td><input type="text" id="username" name="username" class="small"></td>
+						<td><input type="text" id="username" name="username" class="required small"></td>
 					</tr>
 					<tr>
 						<td>Password</td>
-						<td><input type="password" name="password" class="small"></td>
+						<td><input type="password" name="password" class="required small"></td>
 					</tr>
 					<tr>
 						<td></td>
