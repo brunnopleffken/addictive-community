@@ -5,6 +5,9 @@
 /controllers/test.php
 /templates/default/test.tpl.php
 
+# Don't remove index.html files
+!index.html
+
 # SASS #
 *.sass-cache
 **/scss
