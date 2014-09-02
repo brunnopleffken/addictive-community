@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
 	<title><?php __($html['title'] . $this->Core->config['general_communityname']) ?> (Powered by Addictive Community)</title>
+	<!-- META -->
 	<meta name="generator" content="Addictive Community <?php __(VERSION) ?>">
 	<meta name="description" content="<?php __($this->Core->config['seo_description']) ?>">
 	<meta name="keywords" content="<?php __($this->Core->config['seo_keywords']) ?>">
 	<link rel="shortcut icon" href="favicon.ico">
+	<!-- CSS -->
 	<link rel="stylesheet" href="<?php __($this->p['TPL']) ?>/css/main.css">
 	<link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="resources/select2/select2.css">
 	<link rel="stylesheet" href="resources/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+	<!-- JS -->
 	<script src="resources/jquery-1.10.2.min.js" type="text/javascript"></script>
 	<script src="resources/main.js" type="text/javascript"></script>
 	<script src="resources/functions.js" type="text/javascript"></script>
@@ -51,7 +54,7 @@
 	</div>
 
 	<div class="wrapper">
-		<div id="breadcrumb"><a href="index.php">Addictive Community</a> <?php __($html['breadcrumb']) ?></div>
+		<div id="breadcrumb"><a href="index.php"><?php __($this->Core->config['general_communityname']) ?></a> <?php __($html['breadcrumb']) ?></div>
 	</div>
 
 	<div class="wrapper">
