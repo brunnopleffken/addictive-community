@@ -27,12 +27,14 @@ jQuery(document).ready(function($) {
 	// Build lightbox when .fancybox exists
 	// ---------------------------------------------------
 
-	$('.fancybox').fancybox({
-		autoSize: true,
-		closeBtn: false, 
-		modal: false,
-		padding: 3
-	});
+	if(typeof fancybox != 'undefined') {
+		$('.fancybox').fancybox({
+			autoSize: true,
+			closeBtn: false, 
+			modal: false,
+			padding: 3
+		});
+	}
 
 	// ---------------------------------------------------
 	// FORM VALIDATION - REQUIRED FIELDS
@@ -45,7 +47,7 @@ jQuery(document).ready(function($) {
 	 * .numeric	Validates if the value is numeric only
 	 */
 
-	$('form').on('submit', function(e) {
+	$('form').on('submit', function(event) {
 		if($(this).hasClass('validate')) {
 
 			var stopSend = false;
@@ -114,7 +116,7 @@ jQuery(document).ready(function($) {
 			// ...otherwise, send form as it should be
 
 			if(stopSend == true) {
-				e.preventDefault();
+				event.preventDefault();
 				$(this).find('.errorMessage').css('display', 'inline-block').hide().fadeIn();
 			}
 
