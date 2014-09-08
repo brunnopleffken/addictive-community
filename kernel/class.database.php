@@ -45,11 +45,22 @@
 		// Connect to MySQL database
 		// ---------------------------------------------------
 
-		public function __construct($config)
+		public function __construct($config = array())
 		{
-			$this->prefix = $config['db_prefix'];
+			// Automatically connect to database if $config is passed as param
+			if(!empty($config)) {
+				$this->_Connect($config);
+			}
+			else {
+				return false;
+			}
+		}
+		
+		protected function _Connect($config)
+		{
+			$this->prefix = @$config['db_prefix'];
 			$this->link = @mysql_connect($config['db_server'], $config['db_username'], $config['db_password']);
-			
+
 			if(!$this->link) {
 				$this->MysqlException();
 			}
