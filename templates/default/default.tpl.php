@@ -12,12 +12,12 @@
 	<link rel="stylesheet" href="<?php __($this->p['TPL']) ?>/css/main.css">
 	<link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="resources/select2/select2.css">
-	<link rel="stylesheet" href="resources/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+	<link rel="stylesheet" href="resources/fancybox/jquery.fancybox.css" type="text/css" media="screen">
 	<!-- JS -->
-	<script src="resources/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<script src="resources/jquery.min.js" type="text/javascript"></script>
 	<script src="resources/main.js" type="text/javascript"></script>
 	<script src="resources/functions.js" type="text/javascript"></script>
-	<script src="resources/fancybox/jquery.fancybox.pack.js?v=2.1.5" type="text/javascript"></script>
+	<script src="resources/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
 	<script src="resources/select2/select2.js" type="text/javascript"></script>
 	<?php __($this->header) ?>
 </head>
