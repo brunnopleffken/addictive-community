@@ -19,6 +19,9 @@
 
 	$init = new Init();
 
+	define("MIN_PHP_VERSION", 5.3);
+	define("MIN_SQL_VERSION", 5.1);
+
 	// --------------------------------------------
 	// Installer class inherits main Database class
 	// --------------------------------------------
@@ -27,16 +30,15 @@
 	{
 		public $input = array();
 		
-		function InstallerDB()
+		public function InstallerDB()
 		{
-			$this->mysql['host']		= $this->input['sql_host'];
-			$this->mysql['user']		= $this->input['sql_user'];
-			$this->mysql['password']	= $this->input['sql_password'];
-			$this->mysql['dbase']		= $this->input['sql_database'];
+			$this->mysql['host']	 = $this->input['db_server'];
+			$this->mysql['user']	 = $this->input['db_username'];
+			$this->mysql['password'] = $this->input['db_password'];
+			$this->mysql['dbase']	 = $this->input['db_database'];
 			
-			$this->Connect();
-			
-			return true;
+			$config = $this->input;
+			$this->_Connect($config);
 		}
 	}
 	
@@ -44,18 +46,15 @@
 	// Which step is the user in
 	// --------------------------------------------
 	
-	if(isset($_REQUEST['step']))
-	{
+	if(isset($_REQUEST['step'])) {
 		$step = $_REQUEST['step'];
 	}
-	else
-	{
+	else {
 		$step = 1;
 	}
 	
-	if(file_exists("eula_en.txt") and $step == 1)
-	{
-		$eula = file_get_contents("eula_en.txt");
+	if(file_exists("eula.txt") && $step == 1) {
+		$eula = file_get_contents("eula.txt");
 	}
 
 
@@ -82,13 +81,15 @@ switch($step)
 		</div>
 		
 		<form method="post" name="install">
-		
-			<div style="text-align: center"><textarea style="width: 500px; height: 300px; margin-bottom: 20px" readonly>{$eula}</textarea></div>
-			
-			<div class="input-box" style="text-align: center"><label><input type="checkbox" id="agree"> I agree with the End User Licence Agreement</label></div>
-			
-			<div class="input-box" style="text-align: center"><input type="button" value="Proceed" onclick="javascript:eula()"></div>
-		
+			<div style="text-align: center">
+				<textarea style="width: 550px; height: 300px; margin-bottom: 20px" readonly>{$eula}</textarea>
+			</div>
+			<div class="input-box" style="text-align: center">
+				<label><input type="checkbox" id="agree"> I agree with the End User Licence Agreement</label>
+			</div>
+			<div class="input-box" style="text-align: center">
+				<input type="button" value="Proceed" onclick="javascript:eula()">
+			</div>
 		</form>
 HTML;
 		
@@ -141,12 +142,13 @@ HTML;
 		session_start();
 		
 		// Connect to database and get information
+		$installer = new Installer;
 		
-		$_SESSION['sql_host'] = $installer->input['sql_host'] = $_REQUEST['host'];
-		$_SESSION['sql_database'] = $installer->input['sql_database'] = $_REQUEST['database'];
-		$_SESSION['sql_user'] = $installer->input['sql_user'] = $_REQUEST['username'];
-		$_SESSION['sql_password'] = $installer->input['sql_password'] = $_REQUEST['password'];
-		
+		$_SESSION['db_server']   = $installer->input['db_server']   = $_REQUEST['host'];
+		$_SESSION['db_database'] = $installer->input['db_database'] = $_REQUEST['database'];
+		$_SESSION['db_username'] = $installer->input['db_username'] = $_REQUEST['username'];
+		$_SESSION['db_password'] = $installer->input['db_password'] = $_REQUEST['password'];
+
 		$installer->InstallerDB();
 		
 		$installer->Query("SELECT VERSION() AS mysql_version;");
@@ -167,8 +169,8 @@ HTML;
 		$sql_check = ($sql_v >= 0) ? "<span style=\"color: #090\">Yes (v{$info['mysql-version']})</span>" : "<span style=\"color: #900\">No ({$info['mysql-version']})</span>";
 
 		$environment = "<table class=\"table\" style=\"width: 400px;\">";
-		$environment .= "<tr><td>Server Software</td><td>{$_SERVER['SERVER_SOFTWARE']}</td></tr>";
-		$environment .= "<tr><td>PHP 5.2+</td><td>{$php_check}</td></tr>";
+		$environment .= "<tr><td>Server Software</td><td>{$_SERVER['SERVER_SOFTWARE']} {$_SERVER['SERVER_PROTOCOL']}</td></tr>";
+		$environment .= "<tr><td>PHP 5.3+</td><td>{$php_check}</td></tr>";
 		$environment .= "<tr><td>MySQL 5.1+</td><td>{$sql_check}</td></tr>";
 		$environment .= "</table>";
 		
@@ -185,14 +187,11 @@ HTML;
 
 		$extensions_ok = "<table class=\"table\" style=\"width: 300px\">";
 		
-		foreach($required as $data)
-		{
-			if(in_array($data, $extensions))
-			{
+		foreach($required as $data) {
+			if(in_array($data, $extensions)) {
 				$status = "<span style=\"color: #090\">Yes</span>";
 			}
-			else
-			{
+			else {
 				$status = "<span style=\"color: #C00\">No</span>";
 			}
 			
@@ -203,13 +202,13 @@ HTML;
 		
 		// Check folders
 		
-		$file_conf = (is_writable("../default.config.php")) ? "<span style=\"color: #090\">Writable</span>" : "<span style=\"color: #C00\">Not writable</span>";
+		$file_conf = (is_writable("../config.php")) ? "<span style=\"color: #090\">Writable</span>" : "<span style=\"color: #C00\">Not writable</span>";
 		$dir_uploads = (is_writable("../uploads/")) ? "<span style=\"color: #090\">Writable</span>" : "<span style=\"color: #C00\">Not writable</span>";
 		$dir_attach = (is_writable("../public/attachments/")) ? "<span style=\"color: #090\">Writable</span>" : "<span style=\"color: #C00\">Not writable</span>";
 		$dir_avatar = (is_writable("../public/avatar/")) ? "<span style=\"color: #090\">Writable</span>" : "<span style=\"color: #C00\">Not writable</span>";
 		
 		$folders = "<table class=\"table\" style=\"width: 300px\">";
-		$folders .= "<tr><td>/default.config.php</td><td>{$file_conf}</td></tr>";
+		$folders .= "<tr><td>/config.php</td><td>{$file_conf}</td></tr>";
 		$folders .= "<tr><td>/uploads</td><td>{$dir_uploads}</td></tr>";
 		$folders .= "<tr><td>/public/attachments</td><td>{$dir_attach}</td></tr>";
 		$folders .= "<tr><td>/public/avatar</td><td>{$dir_avatar}</td></tr>";
@@ -282,11 +281,11 @@ HTML;
 			<h2>Paths and URLs</h2><br>
 			
 			<div class="input-box">
-				<div class="input-box-label">Install directory</div>
+				<div class="input-box-label">Installation Path</div>
 				<div class="input-box-field"><input type="text" name="adm_username" class="medium" value="{$dir}"></div>
 			</div>
 			<div class="input-box">
-				<div class="input-box-label">Install URL</div>
+				<div class="input-box-label">Installation URL</div>
 				<div class="input-box-field"><input type="text" name="adm_username" class="medium" value="{$url}"></div>
 			</div>
 			
@@ -308,10 +307,10 @@ HTML;
 			</div>
 			
 			<div class="input-box" style="text-align: center">
-				<input type="hidden" name="sql_host" value="{$_SESSION['sql_host']}">
-				<input type="hidden" name="sql_database" value="{$_SESSION['sql_database']}">
-				<input type="hidden" name="sql_user" value="{$_SESSION['sql_user']}">
-				<input type="hidden" name="sql_password" value="{$_SESSION['sql_password']}">
+				<input type="hidden" name="db_server" value="{$_SESSION['db_server']}">
+				<input type="hidden" name="db_database" value="{$_SESSION['db_database']}">
+				<input type="hidden" name="db_username" value="{$_SESSION['db_username']}">
+				<input type="hidden" name="db_password" value="{$_SESSION['db_password']}">
 				<input type="submit" value="Proceed">
 			</div>
 		
@@ -328,8 +327,9 @@ HTML;
 	
 	case 5:
 		
-		var_dump($_REQUEST);
-		
+		echo "<pre>";
+		print_r($_REQUEST);
+		echo "</pre>";
 		
 		$tpl = <<<HTML
 		
@@ -351,45 +351,38 @@ HTML;
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta charset="utf-8">
 	<title>Addictive Community</title>
 	<link href="../templates/default/css/main.css" type="text/css" rel="stylesheet">
 	<link href="../admin/styles/admin_style.css" type="text/css" rel="stylesheet">
-	<script type="text/javascript" src="../resources/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="../resources/jquery.min.js"></script>
 	<script type="text/javascript" src="../resources/select2/select2.js"></script>
 	<script type="text/javascript" src="../resources/main.js"></script>
 	<script type="text/javascript">
 		// Addictive Community Installer - Javascripts
 		// Written by Brunno Pleffken
 		
-		function eula()
-		{
+		function eula() {
 			checkbox = document.getElementById("agree");
-			if(checkbox.checked == false)
-			{
+			if(checkbox.checked == false) {
 				alert("You must agree to the EULA to proceed with installation.");
 				return false;
 			}
-			else
-			{
+			else {
 				window.location.replace("index.php?step=2");
 			}
 		}
 		
-		function checkPasswordMatch()
-		{
+		function checkPasswordMatch() {
 			password = document.getElementById("adm_password");
 			confirm = document.getElementById("adm_password2");
 			
-			if(confirm.value != "")
-			{
-				if(confirm.value != password.value)
-				{
+			if(confirm.value != "") {
+				if(confirm.value != password.value) {
 					alert("Administrator passwords does not match!");
 					confirm.style.background = "#FFE4E1";
 				}
-				else
-				{
+				else {
 					confirm.style.background = "transparent";
 				}
 			}
