@@ -15,6 +15,7 @@
 	// --------------------------------------------
 	
 	require_once("../init.php");
+	require_once("../kernel/class.html.php");
 	require_once("../kernel/class.database.php");
 
 	$init = new Init();
@@ -201,11 +202,43 @@ HTML;
 		$extensions_ok .= "</table>";
 		
 		// Check folders
-		
-		$file_conf = (is_writable("../config.php")) ? "<span style=\"color: #090\">Writable</span>" : "<span style=\"color: #C00\">Not writable</span>";
-		$dir_uploads = (is_writable("../uploads/")) ? "<span style=\"color: #090\">Writable</span>" : "<span style=\"color: #C00\">Not writable</span>";
-		$dir_attach = (is_writable("../public/attachments/")) ? "<span style=\"color: #090\">Writable</span>" : "<span style=\"color: #C00\">Not writable</span>";
-		$dir_avatar = (is_writable("../public/avatar/")) ? "<span style=\"color: #090\">Writable</span>" : "<span style=\"color: #C00\">Not writable</span>";
+		$disabled = "";
+	
+		// root/config.php
+		if(is_writable("../config.php")) {
+			$file_conf = "<span style=\"color: #090\">Writable</span>";
+		}
+		else {
+			$file_conf = "<span style=\"color: #C00\">Not writable</span>";
+			$disabled = "disabled='disabled'";
+		}
+	
+		// root/public/attachments
+		if(is_writable("../uploads/")) {
+			$dir_uploads = "<span style=\"color: #090\">Writable</span>";
+		}
+		else {
+			$dir_uploads = "<span style=\"color: #C00\">Not writable</span>";
+			$disabled = "disabled='disabled'";
+		}
+	
+		// root/public/attachments
+		if(is_writable("../public/attachments/")) {
+			$dir_attach = "<span style=\"color: #090\">Writable</span>";
+		}
+		else {
+			$dir_attach = "<span style=\"color: #C00\">Not writable</span>";
+			$disabled = "disabled='disabled'";
+		}
+	
+		// root/public/avatar
+		if(is_writable("../public/avatar/")) {
+			$dir_avatar = "<span style=\"color: #090\">Writable</span>";
+		}
+		else {
+			$dir_avatar = "<span style=\"color: #C00\">Not writable</span>";
+			$disabled = "disabled='disabled'";
+		}
 		
 		$folders = "<table class=\"table\" style=\"width: 300px\">";
 		$folders .= "<tr><td>/config.php</td><td>{$file_conf}</td></tr>";
@@ -243,7 +276,7 @@ HTML;
 				{$folders}
 			</div>
 			
-			<div class="input-box" style="text-align: center"><input type="button" value="Proceed" onclick="javascript:window.location.replace('index.php?step=4')"></div>
+			<div class="input-box" style="text-align: center"><input type="button" value="Proceed" onclick="javascript:window.location.replace('index.php?step=4')" {$disabled}></div>
 
 		</form>
 HTML;
@@ -332,9 +365,26 @@ HTML;
 		echo "</pre>";
 		
 		$tpl = <<<HTML
+		<div class="step-box">
+			<div class="step-box-previous"><h3>Step 1</h3><span class="tiny">EULA</span></div>
+			<div class="step-box-previous"><h3>Step 2</h3><span class="tiny">Database Settings</span></div>
+			<div class="step-box-previous"><h3>Step 3</h3><span class="tiny">Requirements</span></div>
+			<div class="step-box-previous"><h3>Step 4</h3><span class="tiny">Community Settings</span></div>
+			<div class="step-box-current"><h3>Step 5</h3><span class="tiny">Install</span></div>
+		</div>
 		
-		Teste
+		<h4>Installation Progress</h4>
 		
+		<div id="log" style="line-height: 1.4em">
+			<div class="step1">Saving configuration file... <span class="ok">OK</span><span class="failed">FAILED</span></div>
+			<div class="step2">Checking information and connecting to database... <span class="ok">OK</span><span class="failed">FAILED</span></div>
+			<div class="step3">Extracting table structure... <span class="ok">OK</span><span class="failed">FAILED</span></div>
+			<div class="step4">Inserting initial data... <span class="ok">OK</span><span class="failed">FAILED</span></div>
+			<div class="step5">Saving user information... <span class="ok">OK</span><span class="failed">FAILED</span></div>
+			<div class="step6">Locking installer... <span class="ok">OK</span><span class="failed">FAILED</span></div>
+			<div class="step7">Locking installer... <span class="ok">OK</span><span class="failed">FAILED</span></div>
+			<input type="submit" value="Let's Go!" style="margin-top: 10px">
+		</div>
 HTML;
 		
 		break;
@@ -387,7 +437,38 @@ HTML;
 				}
 			}
 		}
+
+		// Run installer
+		
+		$(document).ready(function() {
+			function installModule(id) {
+				$.ajax({
+					url: 'execute.php?step=' + id,
+					type: 'get',
+					beforeSend: function(){
+						console.log("Initializing step " + id);
+					}
+				})
+				.done(function() {
+					console.log("Step " + id + ", success!");
+				})
+				.fail(function() {
+					console.log("Step " + id + ", error!");
+				})
+				.always(function() {
+					console.log("Step " + id + ", complete!");
+				});
+				
+			}
+		});
 	</script>
+	<style type="text/css">
+		#log > div { display: none; }
+		#log .ok { color: #090; display: none; }
+		#log .ok { color: #090; display: none; }
+		#log .failed { color: #d00; display: none; }
+		#log input { display: none; }
+	</style>
 </head>
 
 <body>
@@ -417,7 +498,7 @@ HTML;
 	
 	<div id="footer">
 		<div class="wrapper">
-			<span class="fright">Powered by Addictive Community &copy; 2012 - All rights reserved.</span>
+			<span class="fright">Powered by Addictive Community &copy; <?php echo date("Y") ?> - All rights reserved.</span>
 		</div>
 	</div>
 
