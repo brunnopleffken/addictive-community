@@ -8,14 +8,14 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	// ---------------------------------------------------
 	// Define access method
 	// ---------------------------------------------------
-	
+
 	// Deny guest access
 	$this->Session->NoGuest();
-	
+
 	// ---------------------------------------------------
 	// Get user's personal messages
 	// ---------------------------------------------------
@@ -26,10 +26,10 @@
 	// ---------------------------------------------------
 	// Which page is the user viewing?
 	// ---------------------------------------------------
-	
+
 	// Which action is the user taking
 	$view = (Html::Request("view")) ? Html::Request("view") : "inbox";
-	
+
 	switch($view) {
 		case "inbox":
 
@@ -37,7 +37,7 @@
 			$this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username "
 					. "FROM c_messages m INNER JOIN c_members u ON (m.from_id = u.m_id) "
 					. "WHERE m.to_id = '{$m_id}' ORDER BY m.sent_date DESC;");
-			
+
 			// Number of results
 			$numResults = $this->Db->Rows();
 
@@ -58,6 +58,27 @@
 			break;
 
 		case "compose":
+			break;
+
+	}
+
+	// ---------------------------------------------------
+	// Set action
+	// ---------------------------------------------------
+
+	$act = Html::Request("act");
+
+	switch($act) {
+		case "delete":
+			$messages = Html::Request("pm");
+
+			foreach($messages as $v) {
+				$this->Db->Query("DELETE FROM c_messages WHERE pm_id = {$v} AND to_id = {$m_id}");
+			}
+
+			header("Location: index.php?module=messenger");
+
+			exit;
 			break;
 	}
 
