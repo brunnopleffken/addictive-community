@@ -69,6 +69,12 @@
 			else {
 				Html::Error("Configuration file is missing.");
 			}
+			
+			// If config.php is empty, go to AC installer
+			
+			if(filesize("config.php") == 0 || empty($config)) {
+				header("Location: install/");
+			}
 
 			// Define classes
 
