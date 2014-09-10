@@ -9,7 +9,7 @@
 
 
 jQuery(document).ready(function($) {
-	
+
 	// ---------------------------------------------------
 	// Replace regular <select> with a nice one!
 	// ---------------------------------------------------
@@ -27,10 +27,10 @@ jQuery(document).ready(function($) {
 	// Build lightbox when .fancybox exists
 	// ---------------------------------------------------
 
-	if(typeof fancybox != 'undefined') {
+	if(typeof $.fancybox != 'undefined') {
 		$('.fancybox').fancybox({
 			autoSize: true,
-			closeBtn: false, 
+			closeBtn: false,
 			modal: false,
 			padding: 3
 		});
@@ -39,7 +39,7 @@ jQuery(document).ready(function($) {
 	// ---------------------------------------------------
 	// FORM VALIDATION - REQUIRED FIELDS
 	// ---------------------------------------------------
-	
+
 	/**
 	 * CSS CLASSES FOR VALIDATION
 	 * .url		Validates http://xxx.com or http://xxx.com.br
@@ -51,7 +51,7 @@ jQuery(document).ready(function($) {
 		if($(this).hasClass('validate')) {
 
 			var stopSend = false;
-			
+
 			// Validade INPUT text, INPUT password and TEXTAREAs
 
 			$(this).find('input[type=text], input[type=password], textarea, select').filter('.required').each(function(){
@@ -63,7 +63,7 @@ jQuery(document).ready(function($) {
 					$(this).removeClass('error');
 				}
 			});
-			
+
 			// Is the URL valid?
 
 			$(this).find('.url').filter('.required').each(function(){
@@ -95,7 +95,7 @@ jQuery(document).ready(function($) {
 					$(this).removeClass('error');
 				}
 			});
-			
+
 			// Numeric only field
 
 			$(this).find('.numeric').filter('.required').each(function(){
@@ -148,7 +148,7 @@ jQuery(document).ready(function($) {
 	// ---------------------------------------------------
 	// MESSENGER - ERASE MESSAGES
 	// ---------------------------------------------------
-	
+
 	$('#messengerDeleteMessages').on('click', function(event){
 		if($('.checkDeleteMessage:checked').length == 0) {
 			alert('You need to select at least one message.');
