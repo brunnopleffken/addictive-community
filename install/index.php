@@ -489,7 +489,8 @@ HTML;
 					$('.step' + id + ' .failed').show();
 				}
 			})
-			.fail(function() {
+			.fail(function(data) {
+				console.log(data);
 				console.log("Step " + id + ", error!");
 				$('.step' + id + ' .failed').show();
 			})
