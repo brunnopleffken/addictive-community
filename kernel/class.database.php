@@ -63,6 +63,7 @@
 
 			if(!$this->link) {
 				$this->MysqlException();
+				return false;
 			}
 
 			mysql_select_db($config['db_database']);
