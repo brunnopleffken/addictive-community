@@ -1,14 +1,13 @@
 <?php
 
-	// ---------------------------------------------------
-	//  ADDICTIVE COMMUNITY
-	// ---------------------------------------------------
-	// Created by Brunno Pleffken Hosti
-	//
-	// Website: www.addictive.com.br
-	// E-mail: brunno.pleffken@addictive.com.br
-	// Release: December/2012
-	// ---------------------------------------------------
+	## ---------------------------------------------------
+	#  ADDICTIVE COMMUNITY
+	## ---------------------------------------------------
+	#  Developed by Brunno Pleffken Hosti
+	#  File: index.php
+	#  Release: v1.0.0
+	#  Copyright: (c) 2014 - Addictive Software
+	## ---------------------------------------------------
 
 	// --------------------------------------------
 	// Initialization information
@@ -213,6 +212,15 @@ HTML;
 			$disabled = "disabled='disabled'";
 		}
 
+		// root/install
+		if(is_writable("../install")) {
+			$dir_install = "<span style=\"color: #090\">Writable</span>";
+		}
+		else {
+			$dir_install = "<span style=\"color: #C00\">Not writable</span>";
+			$disabled = "disabled='disabled'";
+		}
+
 		// root/public/attachments
 		if(is_writable("../uploads/")) {
 			$dir_uploads = "<span style=\"color: #090\">Writable</span>";
@@ -242,9 +250,10 @@ HTML;
 
 		$folders = "<table class=\"table\" style=\"width: 300px\">";
 		$folders .= "<tr><td>/config.php</td><td>{$file_conf}</td></tr>";
-		$folders .= "<tr><td>/uploads</td><td>{$dir_uploads}</td></tr>";
+		$folders .= "<tr><td>/install</td><td>{$dir_install}</td></tr>";
 		$folders .= "<tr><td>/public/attachments</td><td>{$dir_attach}</td></tr>";
 		$folders .= "<tr><td>/public/avatar</td><td>{$dir_avatar}</td></tr>";
+		$folders .= "<tr><td>/uploads</td><td>{$dir_uploads}</td></tr>";
 		$folders .= "</table>";
 
 
@@ -359,11 +368,6 @@ HTML;
 	// --------------------------------------------
 
 	case 5:
-
-		echo "<pre>";
-		print_r($_REQUEST);
-		echo "</pre>";
-
 		$tpl = <<<HTML
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -394,7 +398,7 @@ HTML;
 			<div class="step1">Saving configuration file... <span class="ok">OK</span><span class="failed">FAILED</span></div>
 			<div class="step2">Checking information and connecting to database... <span class="ok">OK</span><span class="failed">FAILED</span></div>
 			<div class="step3">Extracting table structure... <span class="ok">OK</span><span class="failed">FAILED</span></div>
-			<div class="step4">Inserting initial data... <span class="ok">OK</span><span class="failed">FAILED</span></div>
+			<div class="step4">Inserting initial data and settings... <span class="ok">OK</span><span class="failed">FAILED</span></div>
 			<div class="step5">Saving user information... <span class="ok">OK</span><span class="failed">FAILED</span></div>
 			<div class="step6">Locking installer... <span class="ok">OK</span><span class="failed">FAILED</span></div>
 			<input type="submit" value="Let's Go!" style="margin-top: 10px">
@@ -422,9 +426,8 @@ HTML;
 	<script type="text/javascript" src="../resources/jquery.min.js"></script>
 	<script type="text/javascript" src="../resources/select2/select2.js"></script>
 	<script type="text/javascript" src="../resources/main.js"></script>
+
 	<script type="text/javascript">
-		// Addictive Community Installer - Javascripts
-		// Written by Brunno Pleffken
 
 		function eula() {
 			checkbox = document.getElementById("agree");
@@ -501,9 +504,9 @@ HTML;
 			});
 		}
 	</script>
+
 	<style type="text/css">
 		#log > div { display: none; }
-		#log .ok { color: #090; display: none; }
 		#log .ok { color: #090; display: none; }
 		#log .failed { color: #d00; display: none; }
 		#log input { display: none; }
@@ -514,25 +517,21 @@ HTML;
 
 	<div id="topbar">
 		<div class="wrapper">
-			<div class="fleft"><a href="http://www.addictive.com.br" target="_blank" class="transition">Addictive Website</a></div>
+			<div class="fleft"><a href="http://www.addictive.com.br" target="_blank" class="transition">Addictive Community Website</a></div>
 			<div class="fright"></div>
 			<div class="fix"></div>
 		</div>
 	</div>
 
 	<div class="wrapper">
-
 		<div id="logo">
 			<div class="wrapper">
 				<img src="../admin/images/logo.png" class="logo-image">
 			</div>
 		</div>
-
-
 		<div id="content" style="width: 700px">
 			<?php echo $tpl; ?>
 		</div>
-
 	</div>
 
 	<div id="footer">
@@ -540,7 +539,6 @@ HTML;
 			<span class="fright">Powered by Addictive Community &copy; <?php echo date("Y") ?> - All rights reserved.</span>
 		</div>
 	</div>
-
 
 </body>
 </html>
