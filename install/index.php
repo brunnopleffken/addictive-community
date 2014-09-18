@@ -409,10 +409,6 @@ HTML;
 
 }
 
-// --------------------------------------------
-// HTML template below
-// --------------------------------------------
-
 ?>
 
 
@@ -427,83 +423,7 @@ HTML;
 	<script type="text/javascript" src="../resources/select2/select2.js"></script>
 	<script type="text/javascript" src="../resources/main.js"></script>
 
-	<script type="text/javascript">
-
-		function eula() {
-			checkbox = document.getElementById("agree");
-			if(checkbox.checked == false) {
-				alert("You must agree to the EULA to proceed with installation.");
-				return false;
-			}
-			else {
-				window.location.replace("index.php?step=2");
-			}
-		}
-
-		function checkPasswordMatch() {
-			password = document.getElementById("adm_password");
-			confirm = document.getElementById("adm_password2");
-
-			if(confirm.value != "") {
-				if(confirm.value != password.value) {
-					alert("Administrator passwords does not match!");
-					confirm.style.background = "#FFE4E1";
-				}
-				else {
-					confirm.style.background = "transparent";
-				}
-			}
-		}
-
-		// Run installer
-
-		function installModule(id) {
-			var installData = {
-				db_server: $('#db_server').val(),
-				db_database: $('#db_database').val(),
-				db_username: $('#db_username').val(),
-				db_password: $('#db_password').val(),
-				community_name: $('#community_name').val(),
-				admin_username: $('#admin_username').val(),
-				admin_password: $('#admin_password').val(),
-				admin_email: $('#admin_email').val(),
-			};
-
-			$.ajax({
-				url: 'execute.php?step=' + id,
-				dataType: 'json',
-				type: 'post',
-				data: installData,
-				beforeSend: function() {
-					console.log("Initializing step " + id);
-					$('.step' + id).show();
-				}
-			})
-			.done(function(data) {
-				console.log(data);
-				console.log("Step " + id + ", success!");
-
-				if(data.status == 1) {
-					$('.step' + id + ' .ok').show();
-					id++;
-					installModule(id);
-				}
-				else {
-					$('.step' + id + ' .failed').show();
-				}
-			})
-			.fail(function(data) {
-				console.log(data);
-				console.log("Step " + id + ", error!");
-				$('.step' + id + ' .failed').show();
-			})
-			.always(function() {
-				if(id == 7) {
-					$('#log input').fadeIn();
-				}
-			});
-		}
-	</script>
+	<script type="text/javascript" src="installer.js"></script>
 
 	<style type="text/css">
 		#log > div { display: none; }
