@@ -17,14 +17,12 @@
 		<div class="author">
 			<a href="#"><?php __(Html::Crop($firstPostInfo['avatar'], 42, 42, "avatar")) ?></a>
 			<div class="authorInfo">
-				<div>
-					<a href="index.php?module=profile&amp;id=<?php __($firstPostInfo['author_id']) ?>"><?php __($firstPostInfo['username']) ?></a><br>
-					<?php __($firstPostInfo['member_title']) ?><br>
-					<?php __($firstPostInfo['posts']) ?> posts
-				</div>
+				<a href="index.php?module=profile&amp;id=<?php __($firstPostInfo['author_id']) ?>"><?php __($firstPostInfo['username']) ?></a><br>
+				<?php __($firstPostInfo['member_title']) ?><br>
+				<?php __($firstPostInfo['posts']) ?> posts
 			</div>
 			<div class="fright" style="margin-top: 12px">
-				<div class="fb-share-button" data-href="http://www.underthelight.com.br" data-type="button_count"></div>
+				<div class="fb-share-button" data-href="<?php echo Html::CurrentUrl() ?>" data-type="button_count"></div>
 			</div>
 		</div>
 	</div>
@@ -108,6 +106,8 @@
 		<div class="item"><span><?php __($_relatedThreadList[$k]['thread_date']) ?></span><a href="index.php?module=thread&amp;id={$id}"><?php __($_relatedThreadList[$k]['title']) ?></a></div>
 	<?php
 		endforeach;
-		endif;
+		else:
 	?>
+		<div class="item"><span>There are no related threads to show.</span></div>
+	<?php endif; ?>
 </div>

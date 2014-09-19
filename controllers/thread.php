@@ -164,6 +164,7 @@
 
 	$threadList = "";
 	$threadSearch = explode(" ", String::Sanitize($firstPostInfo['title']));
+	$_relatedThreadList = array();
 
 	foreach($threadSearch as $key => $value) {
 		if(strlen($value) < 4) {
