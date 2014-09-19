@@ -1,9 +1,10 @@
 # Addictive Community files #
+/controllers/test.php
+/install/.lock
 /public/attachments/*
 /public/avatar/*
-/uploads/*
-/controllers/test.php
 /templates/default/test.tpl.php
+/uploads/*
 
 # Don't remove index.html files
 !index.html
