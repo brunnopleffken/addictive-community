@@ -42,6 +42,8 @@ function installModule(id) {
 		db_username: $('#db_username').val(),
 		db_password: $('#db_password').val(),
 		community_name: $('#community_name').val(),
+		community_path: $('#community_path').val(),
+		community_url: $('#community_url').val(),
 		admin_username: $('#admin_username').val(),
 		admin_password: $('#admin_password').val(),
 		admin_email: $('#admin_email').val()
@@ -66,10 +68,14 @@ function installModule(id) {
 			$('.step' + id + ' .failed').show();
 		}
 	})
-	.fail(function(data) {
+	.fail(function(jqXHR, textStatus, errorThrown) {
+		console.log('Failed in step ' + id);
+		console.log(jqXHR);
+		console.log(textStatus);
+		console.log(errorThrown);
 		$('.step' + id + ' .failed').show();
 	})
-	.always(function() {
+	.always(function(data) {
 		if(id == 7) {
 			$('#log input').fadeIn();
 		}

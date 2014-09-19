@@ -278,7 +278,13 @@ HTML;
 		$folders .= "<tr><td>/public/avatar</td><td>{$dir_avatar}</td></tr>";
 		$folders .= "<tr><td>/uploads</td><td>{$dir_uploads}</td></tr>";
 		$folders .= "</table>";
-
+	
+		if($disabled != "") {
+			$notification = Html::Notification("There are some incompatibilities with your server environment or it is configured incorrectly.", "failure", true);;
+		}
+		else {
+			$notification = "";
+		}
 
 		// Do template!
 
@@ -290,6 +296,8 @@ HTML;
 			<div class="step-box-next"><h3>Step 4</h3><span class="tiny">Community Settings</span></div>
 			<div class="step-box-next"><h3>Step 5</h3><span class="tiny">Install</span></div>
 		</div>
+		
+		{$notification}
 
 		<form action="index.php?step=3" method="post">
 
@@ -347,11 +355,11 @@ HTML;
 
 			<div class="input-box">
 				<div class="input-box-label">Installation Path</div>
-				<div class="input-box-field"><input type="text" name="adm_username" class="medium" value="{$dir}"></div>
+				<div class="input-box-field"><input type="text" name="install_path" class="medium" value="{$dir}"></div>
 			</div>
 			<div class="input-box">
 				<div class="input-box-label">Installation URL</div>
-				<div class="input-box-field"><input type="text" name="adm_username" class="medium" value="{$url}"></div>
+				<div class="input-box-field"><input type="text" name="install_url" class="medium" value="{$url}"></div>
 			</div>
 
 			<h2>Administrator Account</h2><br>
@@ -411,6 +419,8 @@ HTML;
 		<input type="hidden" id="db_username" value="{$_REQUEST['db_username']}">
 		<input type="hidden" id="db_password" value="{$_REQUEST['db_password']}">
 		<input type="hidden" id="community_name" value="{$_REQUEST['community']}">
+		<input type="hidden" id="community_path" value="{$_REQUEST['install_path']}">
+		<input type="hidden" id="community_url" value="{$_REQUEST['install_url']}">
 		<input type="hidden" id="admin_username" value="{$_REQUEST['adm_username']}">
 		<input type="hidden" id="admin_password" value="{$_REQUEST['adm_password']}">
 		<input type="hidden" id="admin_email" value="{$_REQUEST['adm_email']}">
@@ -424,7 +434,7 @@ HTML;
 			<div class="step4">Inserting initial data and settings... <span class="ok">OK</span><span class="failed">FAILED</span></div>
 			<div class="step5">Saving user information... <span class="ok">OK</span><span class="failed">FAILED</span></div>
 			<div class="step6">Locking installer... <span class="ok">OK</span><span class="failed">FAILED</span></div>
-			<input type="submit" value="Let's Go!" style="margin-top: 10px">
+			<input type="submit" value="Let's Go!" style="margin-top: 10px" onclick="window.location='../index.php'">
 		</div>
 HTML;
 
