@@ -1,7 +1,9 @@
 Addictive Community
 ===================
 
-Discussion forum software, written in object-oriented PHP and MySQL 5.1+. UNDER DEVELOPMENT, this is an Alpha version and has issues and incomplete features that will be fixed soon!
+Discussion forum software, written in object-oriented PHP. This is an Alpha version (UNDER DEVELOPMENT) and has issues and incomplete features that will be fixed soon!
+
+![Addictive Community](https://raw.githubusercontent.com/brunnopleffken/addictive-community/ad30a574724fb463783a9278800b856f233728dd/templates/default/images/screenshot.png)
 
 ## Highlight features##
 
