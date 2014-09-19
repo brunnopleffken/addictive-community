@@ -13,7 +13,7 @@
 	// Application specific constants
 	// --------------------------------------------
 
-	define("VERSION", "1.0-Alpha");
+	define("VERSION", "v0.1-Alpha");
 
 	// --------------------------------------------
 	// Are we in development or production env.?
