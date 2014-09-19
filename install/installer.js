@@ -8,7 +8,7 @@
 // ---------------------------------------------------
 
 function eula() {
-	checkbox = document.getElementById("agree");
+	var checkbox = document.getElementById("agree");
 	if(checkbox.checked == false) {
 		alert("You must agree to the EULA to proceed with installation.");
 		return false;
@@ -19,8 +19,8 @@ function eula() {
 }
 
 function checkPasswordMatch() {
-	password = document.getElementById("adm_password");
-	confirm = document.getElementById("adm_password2");
+	var password = document.getElementById("adm_password"),
+	    confirm = document.getElementById("adm_password2");
 
 	if(confirm.value != "") {
 		if(confirm.value != password.value) {
@@ -44,7 +44,7 @@ function installModule(id) {
 		community_name: $('#community_name').val(),
 		admin_username: $('#admin_username').val(),
 		admin_password: $('#admin_password').val(),
-		admin_email: $('#admin_email').val(),
+		admin_email: $('#admin_email').val()
 	};
 
 	$.ajax({
@@ -53,14 +53,10 @@ function installModule(id) {
 		type: 'post',
 		data: installData,
 		beforeSend: function() {
-			console.log("Initializing step " + id);
 			$('.step' + id).show();
 		}
 	})
 	.done(function(data) {
-		console.log(data);
-		console.log("Step " + id + ", success!");
-
 		if(data.status == 1) {
 			$('.step' + id + ' .ok').show();
 			id++;
@@ -71,8 +67,6 @@ function installModule(id) {
 		}
 	})
 	.fail(function(data) {
-		console.log(data);
-		console.log("Step " + id + ", error!");
 		$('.step' + id + ' .failed').show();
 	})
 	.always(function() {

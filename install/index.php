@@ -71,6 +71,18 @@ switch($step)
 
 	case 1:
 
+		$disabled = "";
+		$notification = "";
+		$button = "<input type='button' value='Proceed' onclick='javascript:eula()'>";
+
+		// Check if installer is locked
+
+		if(file_exists(".lock")) {
+			$disabled = "disabled";
+			$notification = Html::Notification("Installer is locked! Please, remove the file <b>install/.lock</b> to proceed.", "failure", true);
+			$button  = "<input type='button' value='Proceed' disabled>";
+		}
+
 		$tpl = <<<HTML
 		<div class="step-box">
 			<div class="step-box-current"><h3>Step 1</h3><span class="tiny">EULA</span></div>
@@ -80,15 +92,17 @@ switch($step)
 			<div class="step-box-next"><h3>Step 5</h3><span class="tiny">Install</span></div>
 		</div>
 
+		{$notification}
+
 		<form method="post" name="install">
 			<div style="text-align: center">
 				<textarea style="width: 550px; height: 300px; margin-bottom: 20px" readonly>{$eula}</textarea>
 			</div>
 			<div class="input-box" style="text-align: center">
-				<label><input type="checkbox" id="agree"> I agree with the End User Licence Agreement</label>
+				<label><input type="checkbox" id="agree" {$disabled}> I agree with the End User Licence Agreement</label>
 			</div>
 			<div class="input-box" style="text-align: center">
-				<input type="button" value="Proceed" onclick="javascript:eula()">
+				{$button}
 			</div>
 		</form>
 HTML;
@@ -100,6 +114,15 @@ HTML;
 	// --------------------------------------------
 
 	case 2:
+
+		// Second barrier to stop any unwanted reinstall
+
+		if(file_exists(".lock")) {
+			echo Html::Notification("Installer is locked! Please, remove the file <b>install/.lock</b> to proceed.", "failure", true);
+			exit;
+		}
+
+		// Ok, proceed...
 
 		$tpl = <<<HTML
 		<div class="step-box">
