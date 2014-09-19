@@ -84,6 +84,7 @@
 	while($result = $this->Db->Fetch()) {
 		$result['class'] = "";
 		$result['description'] = String::RemoveBBcode($result['post']);
+		$result['start_date'] = $this->Core->DateFormat($result['start_date']);
 		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
 
 		// Get the number of replies, not total number of posts... ;)
