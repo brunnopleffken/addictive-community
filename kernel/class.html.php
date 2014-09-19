@@ -269,6 +269,24 @@
 			$html = "<div style=\"display:inline-block; width:{$w}px; height:{$h}px; background: url('{$image}') no-repeat center top; background-size:cover; image-rendering: optimizeQuality;\" class=\"{$class}\"></div>";
 			return $html;
 		}
+
+		// ---------------------------------------------------
+		// Get current URL
+		// ---------------------------------------------------
+
+		public static function CurrentUrl() {
+			$pageUrl = (@$_SERVER['HTTPS'] == "on") ? "https" : "http";
+
+			$pageUrl .= "://";
+			if($_SERVER['SERVER_PORT'] != "80") {
+				$pageUrl .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+			}
+			else {
+				$pageUrl .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+			}
+
+			return $pageUrl;
+		}
 	}
 
 ?>
