@@ -161,7 +161,7 @@ form textarea { overflow: auto; }
 .mainPost .header { background: #f6f6f6; border-bottom: 1px solid #cccccc; border-top: 1px solid #bbbbbb; overflow: hidden; padding: 7px 10px 5px 10px; }
 .mainPost .header .author { display: table; float: left; width: 100%; }
 .mainPost .header .author .avatar { border: 1px solid #dddddd; float: left; height: 48px; padding: 2px; width: 48px; }
-.mainPost .header .author .authorInfo { float: left; font-size: 10px; line-height: 1.2em; margin-left: 5px; margin-top: 5px; }
+.mainPost .header .author .authorInfo { float: left; font-size: 10px; line-height: 1.2em; margin-left: 5px; margin-top: 2px; }
 .mainPost .header .author .authorInfo a { display: inline-block; font-size: 15px; font-weight: bold; margin-bottom: 5px; }
 .mainPost .title { font-size: 22px; font-weight: bold; letter-spacing: 1px; padding: 20px 10px; }
 .mainPost .text { font-size: 14px; padding: 5px 30px 25px 30px; }
