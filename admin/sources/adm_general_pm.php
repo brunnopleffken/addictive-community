@@ -36,7 +36,7 @@
 					</tr>
 					<tr>
 						<td class="title-fixed">Enable PM</td>
-						<td><label><?php echo $Admin->SelectCheckbox("general_email_authentication") ?> Enable private messages for all members</label></td>
+						<td><label><?php echo $Admin->SelectCheckbox("member_pm_enable") ?> Enable private messages for all members</label></td>
 					</tr>
 					<tr>
 						<td class="title-fixed">PM Storage Size</td>
