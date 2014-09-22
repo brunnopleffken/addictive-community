@@ -15,10 +15,10 @@
 	<link rel="stylesheet" href="resources/fancybox/jquery.fancybox.css" type="text/css" media="screen">
 	<!-- JS -->
 	<script src="resources/jquery.min.js" type="text/javascript"></script>
-	<script src="resources/main.js" type="text/javascript"></script>
-	<script src="resources/functions.js" type="text/javascript"></script>
 	<script src="resources/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
 	<script src="resources/select2/select2.js" type="text/javascript"></script>
+	<script src="resources/functions.js" type="text/javascript"></script>
+	<script src="resources/main.js" type="text/javascript"></script>
 	<?php __($this->header) ?>
 </head>
 <body>
