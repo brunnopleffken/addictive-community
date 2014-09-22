@@ -139,7 +139,7 @@
 			$communityInfo = array(
 				'timestamp'      => time(),
 				'community_name' => String::Sanitize($data['community_name']),
-				'community_url'  => String::Sanitize($data['community_name'])
+				'community_url'  => String::Sanitize($data['community_url'])
 			);
 
 			// Insert sample room, thread and post
