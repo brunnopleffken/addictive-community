@@ -80,7 +80,7 @@
 				"ip_addr"	=> $_SERVER['REMOTE_ADDR']
 			);
 
-			$sql->Query("INSERT INTO c_logs (member_id, time, act, ip_address) VALUES
+			$this->Db->Query("INSERT INTO c_logs (member_id, time, act, ip_address) VALUES
 				('{$log['member_id']}', '{$log['time']}', '{$log['message']}', '{$log['ip_addr']}');");
 			
 			return true;
