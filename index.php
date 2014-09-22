@@ -24,11 +24,11 @@
 
 		// Community info
 		public $info = array(
-			"module"		=> "",
-			"language"		=> "",
-			"template"		=> "",
-			"section_id"	=> 0,
-			"room_id"		=> 0
+			"module"     => "",
+			"language"   => "",
+			"template"   => "",
+			"section_id" => 0,
+			"room_id"    => 0
 			);
 
 		// Member info
@@ -44,9 +44,9 @@
 		);
 
 		// Sections (HTML)
-		private $header		= "";
-		private $sidebar	= "";
-		private $content	= "";
+		private $header  = "";
+		private $sidebar = "";
+		private $content = "";
 
 		// ---------------------------------------------------
 		// Main constructor
@@ -149,8 +149,8 @@
 				$this->info['language'] = $this->member['language'];
 			}
 
-			include("languages/" . $this->info['language'] . "/global.php");			// Global language file
-			@include("languages/" . $this->info['language'] . "/" . $module . ".php");	// Module file, if exists
+			include("languages/" . $this->info['language'] . "/global.lang.php");           // Global language file
+			@include("languages/" . $this->info['language'] . "/" . $module . ".lang.php"); // Module file, if exists
 			
 			foreach($t as $k => $v) {
 				$this->t[$k] = $v;
