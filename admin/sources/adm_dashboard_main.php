@@ -49,8 +49,8 @@
 				<td rowspan=\"2\" style=\"border-right: 1px solid #eee; border-bottom: 2px solid #eee\" nowrap>{$report['username']}</td>
 				<td nowrap>{$report['date']}</td>
 				<td>{$report['ip_address']}</td>
-				<td><a href=\"{$report['thread_id']}\">{$report['title']}</a></td>
-				<td>{$report['post_html']}</td>
+				<td><a href=\"../index.php?module=thread&amp;id={$report['thread_id']}\">{$report['title']}</a></td>
+				<td>{$report['post']}</td>
 				<td rowspan=\"2\" style=\"border-left: 1px solid #eee; border-bottom: 2px solid #eee\"><a href=\"#\" onclick=\"DeleteReport({$report['rp_id']},{$report['thread_id']})\"><img src=\"images/trash.png\"></a></td>
 			</tr>
 			<tr>
