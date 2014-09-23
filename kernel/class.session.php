@@ -65,7 +65,7 @@
 				return $_COOKIE[$name];
 			}
 			else {
-				throw new Exception("Could not get cookie '" . $name . "'.");
+				return false;
 			}
 		}
 
