@@ -34,8 +34,8 @@
 	// SIDEBAR: get member information (when logged in)
 	// ---------------------------------------------------
 
-	if($this->Session->sInfo['member_id']) {
-		$m_id = $this->Session->sInfo['member_id'];
+	if($this->member['m_id'] != 0) {
+		$m_id = $this->member['m_id'];
 		// Get user avatar
 		$this->member['avatar'] = $this->Core->GetGravatar($this->member['email'], $this->member['photo'], 30, $this->member['photo_type']);
 

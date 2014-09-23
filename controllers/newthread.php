@@ -21,7 +21,7 @@
 	// ---------------------------------------------------
 
 	// Get member ID
-	$m_id = $this->Session->sInfo['member_id'];
+	$m_id = $this->member['m_id'];
 
 	// Get room ID
 	$roomId = Html::Request("room", true);

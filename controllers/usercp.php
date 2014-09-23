@@ -20,7 +20,7 @@
 	// Get member information
 	// ---------------------------------------------------
 
-	$m_id = $this->Session->sInfo['member_id'];
+	$m_id = $this->member['m_id'];
 
 	// ---------------------------------------------------
 	// ACTIONS

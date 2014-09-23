@@ -21,7 +21,7 @@
 	// ---------------------------------------------------
 
 	// Get member ID
-	$m_id = $this->Session->sInfo['member_id'];
+	$m_id = $this->member['m_id'];
 
 	// ---------------------------------------------------
 	// Which page is the user viewing?
