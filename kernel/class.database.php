@@ -67,6 +67,7 @@
 			}
 
 			mysql_select_db($config['db_database']);
+			$this->Query("SET NAMES UTF8;");
 		}
 		
 		// ---------------------------------------------------
@@ -75,8 +76,7 @@
 		
 		public function Query($query)
 		{
-			if($this->prefix != "c_")
-			{
+			if($this->prefix != "c_") {
 				$query = preg_replace("/c_/", $this->prefix, $query);
 			}
 
