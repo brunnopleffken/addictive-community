@@ -86,6 +86,20 @@
 			return true;
 		}
 		
+		// Replace true/false and 1/0 into green "Yes" or red "No"
+
+		public function FriendlyBool($value) {
+			if($value == 1 or $value == "true") {
+				return "<span style='color:#090'>Yes</span>";
+			}
+			elseif($value == 0 or $value == "false") {
+				return "<span style='color:#C00'>No</span>";
+			}
+			else {
+				return false;
+			}
+		}
+
 	}
 	
 ?>
