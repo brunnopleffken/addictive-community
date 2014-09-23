@@ -27,17 +27,22 @@
 		header("Location: index.php?error=3");
 	}
 	
-	// Call files, classes, functions, etc
+	// Call files
 	
 	require_once("../init.php");
 	require_once("../app.php");
 	require_once("../config.php");
-	require_once("../kernel/class.database.php");
-	require_once("../kernel/class.core.php");
-	require_once("../kernel/class.string.php");
-	require_once("../kernel/class.html.php");
-	require_once("../kernel/class.template.php");
-	require_once("../kernel/class.admin.php");
+
+	$Init = new Init();
+
+	// Load kernel drivers
+
+	$Init->Load("database", true);
+	$Init->Load("core", true);
+	$Init->Load("string", true);
+	$Init->Load("html", true);
+	$Init->Load("template", true);
+	$Init->Load("admin", true);
 
 	$Db = new Database($config);
 	$Core = new Core($Db);
