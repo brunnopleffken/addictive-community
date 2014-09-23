@@ -44,7 +44,11 @@
 <div class="threadButtons">
 	<p class="replies fleft">Replies: <span><?php __($threadInfo['post_count'] - 1) ?></span></p>
 	<div class="fright">
-		<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
+		<?php if($threadInfo['locked'] == 0): ?>
+			<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
+		<?php else: ?>
+			<a href="#" class="defaultButton disabled transition">Add Reply</a>
+		<?php endif; ?>
 	</div>
 </div>
 
@@ -103,7 +107,7 @@
 		if($_relatedThreadList):
 		foreach($_relatedThreadList as $k => $v):
 	?>
-		<div class="item"><span><?php __($_relatedThreadList[$k]['thread_date']) ?></span><a href="index.php?module=thread&amp;id={$id}"><?php __($_relatedThreadList[$k]['title']) ?></a></div>
+		<div class="item"><span><?php __($_relatedThreadList[$k]['thread_date']) ?></span><a href="index.php?module=thread&amp;id=<?php echo $_relatedThreadList[$k]['t_id'] ?>"><?php __($_relatedThreadList[$k]['title']) ?></a></div>
 	<?php
 		endforeach;
 		else:

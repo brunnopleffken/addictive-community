@@ -52,6 +52,7 @@ form textarea { overflow: auto; }
 
 .defaultButton { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000000; }
 .defaultButton:hover { background-color: #556677; text-decoration: none; }
+.defaultButton.disabled { background: #dddddd; color: #990000 !important; cursor: default; text-shadow: 1px 1px 0px #fff !important; }
 
 .smallButton { border-radius: 7px; color: #333333; cursor: pointer; font-size: 10px; padding: 4px 10px 5px 10px; }
 .smallButton.grey { background: rgba(0, 0, 0, 0.1); text-shadow: 1px 1px 1px white; }

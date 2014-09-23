@@ -22,7 +22,7 @@
 	$act = Html::Request("act");
 
 	if($act) {
-		switch ($act) {
+		switch($act) {
 			case 'delete':
 				# code...
 				break;
@@ -41,7 +41,7 @@
 	// Fetch thread general info
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT t.title, t.author_member_id, r.r_id, r.name, "
+	$this->Db->Query("SELECT t.title, t.author_member_id, t.locked, r.r_id, r.name, "
 			. "(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t "
 			. "INNER JOIN c_rooms r ON (r.r_id = t.room_id) "
 			. "WHERE t.t_id = '{$threadId}';");
