@@ -120,8 +120,8 @@ form textarea { overflow: auto; }
 /** COMMUNITY PAGE **/
 .roomItem { background: #ffffff; border-spacing: 0; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 15px; width: 100%; }
 .roomItem:last-child { margin: 0; }
-.roomItem .image { font-size: 35px; padding: 0 15px; width: 1%; }
-.roomItem .info { padding: 15px 10px; vertical-align: top; }
+.roomItem .image { font-size: 35px; padding: 0 20px; width: 1%; }
+.roomItem .info { padding: 15px 10px 15px 0; vertical-align: top; }
 .roomItem .info .title { display: block; font-size: 18px; font-weight: bold; letter-spacing: 1px; margin-bottom: 8px; }
 .roomItem .info .description { color: #333333; font-size: 12px; }
 .roomItem .info .lastPost { border-top: 1px solid #eeeeee; font-size: 11px; margin-bottom: -10px; margin-top: 10px; padding: 7px 0 0px 0; position: relative; }
