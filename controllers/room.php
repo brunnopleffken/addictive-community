@@ -15,6 +15,35 @@
 
 	$roomId = $this->Core->QueryString("id");
 	$act = $this->Core->QueryString("act", "");
+
+	// ---------------------------------------------------
+	// Execute actions
+	// ---------------------------------------------------
+	
+	$execute = Html::Request("execute");
+
+	switch($execute) {
+		case 'protected':
+			$password = Html::Request("password");
+
+			$this->Db->Query("SELECT password FROM c_rooms WHERE r_id = {$roomId}");
+			$roomInfo = $this->Db->Fetch();
+
+			if($password == $roomInfo['password']) {
+				$sessionName = "room_" . $roomId;
+				$this->Session->CreateCookie($sessionName, 1);
+
+				header("Location: index.php?module=room&id=" . $roomId);
+				exit;
+			}
+			else {
+				header("Location: index.php?module=exception&errno=2&r_id=" . $roomId);
+				exit;
+			}
+
+			exit;
+			break;
+	}
 	
 	// ---------------------------------------------------
 	// Get general information
@@ -26,32 +55,39 @@
 	$roomInfo = $this->Db->Fetch();
 
 	// Is the room protected?
+	
+	if($roomInfo['password'] != "") {
+		$sessionName = "room_" . $roomInfo['r_id'];
+		if(!$this->Session->GetCookie($sessionName)) {
+			header("Location: index.php?module=exception&errno=2&r_id=" . $roomInfo['r_id']);
+		}
+	}
 
 	// Sort threads by...
 
 	switch($act) {
 		case "mythreads":
-			$menu = array("", "selected");
+			$menu  = array("", "selected");
 			$where = "AND author_member_id = '{$this->member['m_id']}'";
 			$order = "lastpost_date DESC";
 			break;
 		case "topreplies":
-			$menu = array("selected", "");
+			$menu  = array("selected", "");
 			$where = "";
 			$order = "replies DESC";
 			break;
 		case "noreplies":
-			$menu = array("selected", "");
+			$menu  = array("selected", "");
 			$where = "AND replies = '1'";
 			$order = "lastpost_date DESC";
 			break;
 		case "bestanswered":
-			$menu = array("selected", "");
+			$menu  = array("selected", "");
 			$where = "AND with_bestanswer = '1'";
 			$order = "lastpost_date DESC";
 			break;
 		default:
-			$menu = array("selected", "");
+			$menu  = array("selected", "");
 			$where = "";
 			$order = "lastpost_date DESC";
 	}

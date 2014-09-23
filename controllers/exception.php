@@ -20,9 +20,17 @@
 
 		// Wrong username or password when logging in
 		case 1:
-			$notification	= true;
-			$message		= "Username or password is wrong. Please, try again.";
-			$loginForm		= true;
+			$notification = true;
+			$message      = "Username or password is wrong. Please, try again.";
+			$loginForm    = true;
+			break;
+
+		// The room is protected
+		case 2:
+			$notification = true;
+			$message      = "This room is protected.";
+			$loginForm    = false;
+			$roomPassword = true;
 			break;
 	}
 

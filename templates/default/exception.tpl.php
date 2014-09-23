@@ -23,3 +23,17 @@
 		</div>
 	</form>
 <?php endif; ?>
+
+<?php if(isset($roomPassword)): ?>
+
+	<form action="index.php?module=room&amp;id=<?php echo Html::Request("r_id") ?>&amp;execute=protected" method="post" class="validate">
+		<div class="box">
+			<div class="inputBox">
+				<div class="label">Password</div>
+				<div class="field"><input type="password" name="password" class="required medium"></div>
+			</div>
+			<div class="fright"><input type="hidden" name="exception_referrer" value="true"><input type="submit" value="Proceed"></div>
+		</div>
+	</form>
+
+<?php endif; ?>
