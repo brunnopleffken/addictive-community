@@ -31,8 +31,12 @@
 			"room_id"    => 0
 			);
 
-		// Member info
-		public $member = array();
+		// Default member/guest info
+		// Usergroups: 1 - Admin; 2 - Mod; 3 - Member; 4 - Banned; 5 - Guest
+		public $member = array(
+			"m_id"      => 0,
+			"usergroup" => 5
+		);
 
 		// Languages/dictionary array
 		public $t = array();

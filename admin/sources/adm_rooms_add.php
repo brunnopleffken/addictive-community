@@ -26,7 +26,13 @@
 		
 		while($view_g = $Db->Fetch()) {
 			$title .= "<td>{$view_g['name']}</td>";
-			$checkboxes .= "<td class=\"center\"><input type=\"checkbox\" name=\"view[]\" value=\"V_{$view_g['g_id']}\" checked></td>";
+
+			if($view_g['view_board'] == 1) {
+				$checkboxes .= "<td class=\"center\"><input type=\"checkbox\" name=\"view[]\" value=\"V_{$view_g['g_id']}\" checked></td>";
+			}
+			else {
+				$checkboxes .= "<td class=\"center\"><input type=\"checkbox\" name=\"view[]\" value=\"V_{$view_g['g_id']}\"></td>";
+			}
 		}
 		
 		$view = "
@@ -53,7 +59,7 @@
 		while($view_g = $Db->Fetch()) {
 			$title .= "<td>{$view_g['name']}</td>";
 			
-			if($view_g['g_id'] == 1 or $view_g['g_id'] == 2 or $view_g['g_id'] == 3) {
+			if($view_g['post_new_threads'] == 1) {
 				$checkboxes .= "<td class=\"center\"><input type=\"checkbox\" name=\"post[]\" value=\"V_{$view_g['g_id']}\" checked></td>";
 			}
 			else {
@@ -85,7 +91,7 @@
 		while($view_g = $Db->Fetch()) {
 			$title .= "<td>{$view_g['name']}</td>";
 			
-			if($view_g['g_id'] == 1 or $view_g['g_id'] == 2 or $view_g['g_id'] == 3) {
+			if($view_g['reply_threads'] == 1) {
 				$checkboxes .= "<td class=\"center\"><input type=\"checkbox\" name=\"reply[]\" value=\"V_{$view_g['g_id']}\" checked></td>";
 			}
 			else {
@@ -162,7 +168,7 @@
 				</tr>
 				<tr>
 					<td class="title-fixed">Invisible</td>
-					<td><label><input type="checkbox" name="visible"> Set room as invisible for members, except Administrators.</label></td>
+					<td><label><input type="checkbox" name="invisible"> Set room as invisible for members, except Administrators.</label></td>
 				</tr>
 				<tr>
 					<td class="title-fixed">Uploads</td>
@@ -176,7 +182,7 @@
 				</tr>
 				
 				<tr>
-					<td class="title-fixed">View Room</td>
+					<td class="title-fixed">Read Threads</td>
 					<td>
 						<?php echo MatrixView() ?>
 					</td>

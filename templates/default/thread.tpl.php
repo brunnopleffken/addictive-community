@@ -32,22 +32,21 @@
 			<span class="parsing"><?php __($firstPostInfo['post']) ?></span>
 		</div>
 	</div>
-	<!-- <div class="footer">
-		<p class="fleft" title="Tags"><img src="<?php __($this->p['IMG']) ?>/post-tags.png"> {$first_post_info['tags']}</p>
-	</div> -->
 	<div class="footer">
 		<p class="fleft"><i class="fa fa-clock-o"></i> Posted on <?php __($firstPostInfo['post_date']) ?></p>
-		<p class="fright"><i class="fa fa-warning"></i> <a href="index.php?module=report&amp;t_id=<?php __($threadId) ?>" class="fancybox fancybox.ajax">Report abuse</a></p>
+		<?php if($this->Session->sInfo['member_id'] != 0): ?>
+			<p class="fright"><i class="fa fa-warning"></i> <a href="index.php?module=report&amp;t_id=<?php __($threadId) ?>" class="fancybox fancybox.ajax">Report abuse</a></p>
+		<?php endif; ?>
 	</div>
 </div>
 
 <div class="threadButtons">
-	<p class="replies fleft">Replies: <span><?php __($threadInfo['post_count'] - 1) ?></span></p>
+	<p class="replies fleft">Replies: <span><?php __($threadInfo['post_count_display']) ?></span></p>
 	<div class="fright">
-		<?php if($threadInfo['locked'] == 0): ?>
+		<?php if($threadInfo['locked'] == 0 && $allowToReply): ?>
 			<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
 		<?php else: ?>
-			<a href="#" class="defaultButton disabled transition">Add Reply</a>
+			<a href="#" class="defaultButton disabled transition">Locked</a>
 		<?php endif; ?>
 	</div>
 </div>

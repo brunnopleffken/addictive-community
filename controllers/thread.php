@@ -41,26 +41,53 @@
 	// Fetch thread general info
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT t.title, t.author_member_id, t.locked, r.r_id, r.name, "
+	$this->Db->Query("SELECT t.title, t.author_member_id, t.locked, r.r_id, r.name, r.perm_view, r.perm_reply, "
 			. "(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t "
 			. "INNER JOIN c_rooms r ON (r.r_id = t.room_id) "
 			. "WHERE t.t_id = '{$threadId}';");
 
 	$threadInfo = $this->Db->Fetch();
 
+	// Get number of replies
+	$threadInfo['post_count_display'] = $threadInfo['post_count'] - 1;
+
+	// ---------------------------------------------------
+	// Check room permissions (view and reply)
+	// ---------------------------------------------------
+
+	// Permission to view
+	
+	$threadInfo['perm_view'] = unserialize($threadInfo['perm_view']);
+	$permissionValue = "V_" . $this->member['usergroup'];
+
+	if(!in_array($permissionValue, $threadInfo['perm_view'])) {
+		header("Location: " . $_SERVER['HTTP_REFERER']);
+	}
+
+	// Permission to reply
+
+	$threadInfo['perm_reply'] = unserialize($threadInfo['perm_reply']);
+	$permissionValue = "V_" . $this->member['usergroup'];
+
+	if(in_array($permissionValue, $threadInfo['perm_reply'])) {
+		$allowToReply = true;
+	}
+	else {
+		$allowToReply = false;
+	}
+
 	// ---------------------------------------------------
 	// Get thread number of pages
 	// ---------------------------------------------------
 
 	$itemsPerPage = $this->Core->config['thread_posts_per_page'];
-	$totalPosts = $threadInfo['post_count'];
+	$totalPosts   = $threadInfo['post_count'];
 	
 	// page number for SQL sentences
-	$pSql	= (Html::Request("p")) ? Html::Request("p") * $itemsPerPage - $itemsPerPage : 0;
+	$pSql = (Html::Request("p")) ? Html::Request("p") * $itemsPerPage - $itemsPerPage : 0;
 
 	// page number for HTML page numbers
 	$pDisp = (isset($_REQUEST['p'])) ? $_REQUEST['p'] : 1;
-	
 	$pages = ceil($totalPosts / $itemsPerPage);
 
 	// ---------------------------------------------------
@@ -110,7 +137,7 @@
 
 		if(isset($result['edited'])) {
 			$result['edit_time'] = $this->Core->DateFormat($result['edit_time']);
-			$result['edited'] = "<em>(Edited in " . $result['edit_time'] . " by " . $result['edit_author'] . ")</em>";
+			$result['edited']    = "<em>(Edited in " . $result['edit_time'] . " by " . $result['edit_author'] . ")</em>";
 		}
 		else {
 			$result['edited'] = "";

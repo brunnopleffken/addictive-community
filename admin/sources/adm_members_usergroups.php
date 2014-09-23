@@ -18,7 +18,7 @@
 			$message = Html::Notification("The settings has been changed successfully.", "success");
 			break;
 		default:
-			$message = Html::Notification("You cannot delete native user groups (like Administrator, Member or Guest).", "info");
+			$message = Html::Notification("You cannot remove native user groups (like Administrator, Member or Guest).", "info");
 			break;
 	}
 

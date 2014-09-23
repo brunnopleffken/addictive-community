@@ -13,7 +13,7 @@
 	// Get room ID and sorting
 	// ---------------------------------------------------
 
-	$roomId = $this->Core->QueryString("id");
+	$roomId = Html::Request("id");
 	$act = $this->Core->QueryString("act", "");
 
 	// ---------------------------------------------------
@@ -61,6 +61,22 @@
 		if(!$this->Session->GetCookie($sessionName)) {
 			header("Location: index.php?module=exception&errno=2&r_id=" . $roomInfo['r_id']);
 		}
+	}
+
+	// Check view permission
+
+	$roomInfo['perm_view'] = unserialize($roomInfo['perm_view']);
+	$permissionValue = "V_" . $this->member['usergroup'];
+
+	if(!in_array($permissionValue, $roomInfo['perm_view'])) {
+		header("Location: index.php?msg=1");
+	}
+
+	// Is the room invisible?
+	// P.S.: avoid direct URL redirection
+
+	if($roomInfo['invisible'] == 1 && $this->member['usergroup'] != 1) {
+		header("Location: index.php?msg=1");
 	}
 
 	// Sort threads by...

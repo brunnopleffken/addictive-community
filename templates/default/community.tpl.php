@@ -1,3 +1,5 @@
+<?php echo $notification ?>
+
 <?php foreach($_rooms as $k => $v): ?>
 	<table class="roomItem">
 		<tr>

@@ -10,21 +10,29 @@
 	## ---------------------------------------------------
 
 	// ---------------------------------------------------
+	// Get notifications
+	// ---------------------------------------------------
+
+	$notification = "";
+	$msg = Html::Request("msg");
+
+	switch($msg) {
+		case 1:
+			$notification = Html::Notification("You are unable to see this room due to user group policy.", "failure");
+			break;
+	}
+
+	// ---------------------------------------------------
 	// Get room list
 	// ---------------------------------------------------
 	
-	// If admin, show invisible rooms too
+	// If member is Admin, show invisible rooms too
 	
-	if(isset($this->user['usergroup'])) {
-		if($this->user['usergroup'] != 1) {
-			$visibility = "WHERE invisible = '0'";
-		}
-		else {
-			$visibility = "";
-		}
+	if($this->member['usergroup'] != 1) {
+		$visibility = "WHERE invisible = '0'";
 	}
 	else {
-		$visibility = "WHERE invisible = '0'";
+		$visibility = "";
 	}
 
 	// Do query
