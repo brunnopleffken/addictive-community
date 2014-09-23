@@ -27,7 +27,7 @@
 
 		public static function Request($name, $numeric = false)
 		{
-			if($numeric == true && !is_numeric($_REQUEST[$name])) {
+			if(isset($_REQUEST[$name]) && $numeric == true && !is_numeric($_REQUEST[$name])) {
 				return false;
 			}
 			
