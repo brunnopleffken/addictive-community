@@ -14,7 +14,7 @@
 	// ---------------------------------------------------
 
 	$notification = "";
-	$msg = Html::Request("msg");
+	$msg = Html::Request("msg", true);
 
 	switch($msg) {
 		case 1:

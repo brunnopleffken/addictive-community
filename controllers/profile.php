@@ -13,7 +13,7 @@
 	// Which member are we seeing?
 	// ---------------------------------------------------
 
-	$id = Html::Request("id");
+	$id = Html::Request("id", true);
 
 	// ---------------------------------------------------
 	// Get member info

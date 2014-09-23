@@ -13,7 +13,7 @@
 	// Get thread ID
 	// ---------------------------------------------------
 
-	$threadId = Html::Request("id");
+	$threadId = Html::Request("id", true);
 
 	// ---------------------------------------------------
 	// What are we doing?

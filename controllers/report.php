@@ -19,8 +19,8 @@
 	// Get thread/post information
 	// ---------------------------------------------------
 
-	$threadId = Html::Request("t_id");
-	$postId   = Html::Request("p_id");
+	$threadId = Html::Request("t_id", true);
+	$postId   = Html::Request("p_id", true);
 
 	// ---------------------------------------------------
 	// Execute actions

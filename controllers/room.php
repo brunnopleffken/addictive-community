@@ -13,7 +13,7 @@
 	// Get room ID and sorting
 	// ---------------------------------------------------
 
-	$roomId = Html::Request("id");
+	$roomId = Html::Request("id", true);
 	$act = $this->Core->QueryString("act", "");
 
 	// ---------------------------------------------------

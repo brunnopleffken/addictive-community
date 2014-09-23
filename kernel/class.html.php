@@ -25,8 +25,12 @@
 		// Same as $_REQUEST['var'], but sanitized!
 		// ---------------------------------------------------
 
-		public static function Request($name)
+		public static function Request($name, $numeric = false)
 		{
+			if($numeric == true && !is_numeric($_REQUEST[$name])) {
+				return false;
+			}
+			
 			if(isset($_REQUEST[$name])) {
 				$text = $_REQUEST[$name];
 				

@@ -14,7 +14,7 @@
 	// Get error code
 	// ---------------------------------------------------
 
-	$errno = Html::Request("errno");
+	$errno = Html::Request("errno", true);
 
 	switch($errno) {
 
