@@ -26,18 +26,28 @@
 		// Load class helper
 		// ---------------------------------------------------
 		
-		public function Load()
+		public function Load($file = "", $level = false)
 		{
-			$dir = "kernel";
-			$files = scandir($dir);
+			if($file == "") {
+				$dir = "kernel";
+				$files = scandir($dir);
 
-			foreach($files as $filename)
-			{
-				if($filename == "." or $filename == ".." or $filename == "index.html") {
-					continue;
+				foreach($files as $filename)
+				{
+					if($filename == "." || $filename == ".." || $filename == "index.html") {
+						continue;
+					}
+					else {
+						require("kernel/" . $filename);
+					}
+				}
+			}
+			else {
+				if($level) {
+					require("../kernel/class." . $file . ".php");
 				}
 				else {
-					include("kernel/" . $filename);
+					require("kernel/class." . $file . ".php");
 				}
 			}
 		}
