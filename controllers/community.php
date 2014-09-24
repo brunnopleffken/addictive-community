@@ -59,9 +59,11 @@
 		// Is this room a protected room?
 
 		if($result['password'] != "") {
+			$result['icon']  = "<i class=\"fa fa-lock fa-fw fleft\"></i>";
 			$result['title'] = "<em>Protected room</em>";
 		}
 		else {
+			$result['icon']  = "<i class=\"fa fa-folder-open-o fa-fw fleft\"></i>";
 			$result['title'] = "<a href=\"index.php?module=thread&id={$result['t_id']}\">{$result['title']}</a>";
 		}
 

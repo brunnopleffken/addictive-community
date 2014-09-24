@@ -3,7 +3,7 @@
 <?php foreach($_rooms as $k => $v): ?>
 	<table class="roomItem">
 		<tr>
-			<td class="image"><i class="fa fa-folder-open-o fleft"></i></td>
+			<td class="image"><?php __($_rooms[$k]['icon']) ?></td>
 			<td class="info">
 				<a href="index.php?module=room&amp;id=<?php __($_rooms[$k]['r_id']) ?>" class="title"><?php __($_rooms[$k]['name']) ?></a>
 				<p class="description"><?php __($_rooms[$k]['description']) ?></p>
