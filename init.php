@@ -32,6 +32,9 @@
 				$dir = "kernel";
 				$files = scandir($dir);
 
+				// Files and folders to ignore
+				$ignore = array(".", "..", "index.html");
+
 				foreach($files as $filename)
 				{
 					if($filename == "." || $filename == ".." || $filename == "index.html") {
