@@ -150,31 +150,39 @@
 
 			// Insert configuration file
 
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (1, 'general_communityname', '{$communityInfo['community_name']}', 'Your community name');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (2, 'general_communityurl', '{$communityInfo['community_url']}', 'Absolute URL to your community');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (3, 'general_websitename', 'My Website', 'Your website name');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (4, 'general_websiteurl', 'http://', 'Your website root URL');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (5, 'general_communitylogo', 'logo.png', 'File name (inside /images folder)');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (6, 'general_sidebar_online', 'true', 'Show users online in sidebar');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (7, 'general_sidebar_stats', 'true', 'Show statistics in sidebar');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (8, 'date_long_format', 'd M Y, H:i', 'Date and time long format');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (9, 'date_default_offset', '-3', 'Default offset for timezones (in seconds)');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (10, 'thread_posts_hot', '15', 'Minimum replies to a thread become a hot thread');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (11, 'seo_description', 'An Addictive Services product.', 'Description HTML Meta tags');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (12, 'seo_keywords', 'addictive, community, board', 'Keywords for HTML Meta tags');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (13, 'date_short_format', 'd M Y', 'Date short format');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (14, 'general_session_expiration', '900', 'Expires user session after X seconds (also cuts off from Members Online list)');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (15, 'thread_posts_per_page', '10', 'Number of posts per page in a thread');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (16, 'thread_best_answer_all_pages', 'false', 'Display the best answer on top of all thread pages (not only the first)');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (17, 'thread_obsolete', 'false', 'Turns a thread obsolete after X days, suggesting the member to create another thread');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (18, 'thread_obsolete_value', '30', 'Number of days for a thread become obsolete');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (19, 'emoticon_default_set', 'default', 'Sets default emoticon set');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (20, 'thread_allow_emoticons', 'true', 'Allow emoticons on thread posts');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (21, 'general_allow_guest_post', 'false', 'Allow guests to post');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (22, 'general_offline', 'false', 'Community is offline. Only administrators are allowed to view the board.');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (23, 'general_disable_registrations', 'false', 'The community is closed for new registrations.');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (24, 'general_bread_separator', '>', 'Breadcrumb separator.');";
-			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (25, 'member_pm_storage', '100', 'Storage size for personal messages');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (1, 'general_communityname', '{$communityInfo['community_name']}');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (2, 'general_communityurl', '{$communityInfo['community_url']}');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (3, 'general_websitename', 'My Website');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (4, 'general_websiteurl', 'http://');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (5, 'general_communitylogo', 'logo.png');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (6, 'general_sidebar_online', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (7, 'general_sidebar_stats', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (8, 'date_long_format', 'd M Y, H:i');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (9, 'date_default_offset', '-3');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (10, 'thread_posts_hot', '15');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (11, 'seo_description', 'An Addictive Services product.');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (12, 'seo_keywords', 'addictive, community, board');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (13, 'date_short_format', 'd M Y');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (14, 'general_session_expiration', '900');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (15, 'thread_posts_per_page', '10');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (16, 'thread_best_answer_all_pages', 'false');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (17, 'thread_obsolete', 'false');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (18, 'thread_obsolete_value', '30');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (19, 'emoticon_default_set', 'default');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (20, 'thread_allow_emoticons', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (21, 'general_allow_guest_post', 'false');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (22, 'general_offline', 'false');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (23, 'general_disable_registrations', 'false');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (24, 'general_bread_separator', '>');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (25, 'member_pm_storage', '100');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (26, 'general_calendar_enable', '100');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (27, 'general_email_smtp', '');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (28, 'general_email_username', '');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (29, 'general_email_password', '');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (30, 'general_email_port', '587');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (31, 'general_email_authentication', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (32, 'general_email_auth_method', 'tls');";
+			$sql[] = "INSERT INTO `c_config` (`id`, `index`, `value`, `description`) VALUES (33, 'general_security_validation', 'false');";
 
 			foreach($sql as $value) {
 				$query = $database->Query($value);
