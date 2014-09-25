@@ -42,10 +42,10 @@
 
 	<div id="logo">
 		<div class="wrapper">
-			<a href="index.php"><img src="<?php __($this->p['IMG'] . "/" . $this->Core->config['general_communitylogo']) ?>" class="logo"></a>
+			<a href="index.php"><img src="<?php __($this->p['IMG'] . "/" . $this->Core->config['general_communitylogo']) ?>" class="logo" alt="<?php __($this->Core->config['general_communityname']) ?>"></a>
 			<div id="search">
-				<form action="index.php" method="get">
-					<input type="text" name="q" size="25" placeholder="Search...">
+				<form action="index.php" method="get" class="validate">
+					<input type="text" name="q" size="25" class="required" placeholder="Search...">
 					<input type="hidden" name="module" value="search">
 					<input type="submit" value="OK">
 				</form>
@@ -81,7 +81,7 @@
 								<?php __(Html::Crop($this->member['avatar'], 30, 30, "img")) ?>
 							</div>
 							<div class="userInfo">
-								<b><a href="index.php?module=profile&id=<?php __($this->member['m_id']) ?>" title="Show <?php __($this->member['username']) ?>'s profile"><?php __($this->member['username']) ?></a></b><br>
+								<b><a href="index.php?module=profile&amp;id=<?php __($this->member['m_id']) ?>" title="Show <?php __($this->member['username']) ?>'s profile"><?php __($this->member['username']) ?></a></b><br>
 								<a href="index.php?module=usercp">Control Panel</a> | <a href="index.php?module=messenger">Inbox (<?php __($unreadMessages['total']) ?>)</a> | <a href="index.php?module=login&amp;act=logout">Logout</a>
 							</div>
 						</div>
@@ -132,9 +132,8 @@
 	</div>
 
 	<div id="footer">
-		<div class="wrapper">
-			<span class="fleft"><a href="#" class="transition">Delete All Cookies</a> | <a href="#" class="transition">Mark All As Read</a></span>
-			<span class="fright">Powered by Addictive Community <?php __(VERSION) ?> &copy; 2012 - All rights reserved.</span>
+		<div class="wrapper center">
+			Powered by Addictive Community <?php __(VERSION) ?> &copy; <?php echo date("Y") ?> - All rights reserved.
 		</div>
 	</div>
 

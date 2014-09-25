@@ -84,7 +84,7 @@
 			{
 				$url = "http://www.gravatar.com/avatar/";
 				$url .= md5(strtolower(trim($email)));
-				$url .= "?s={$size}&d={$d}&r={$r}";
+				$url .= "?s={$size}&amp;d={$d}&amp;r={$r}";
 			}
 			elseif($mode == "custom")
 			{

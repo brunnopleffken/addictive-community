@@ -103,9 +103,7 @@
 					<td><a href=\"index.php?module=thread&amp;id={$posts['t_id']}\"><b>{$posts['title']}</b></a></td>
 				</tr>
 				<tr>
-					<td colspan=\"2\" class=\"parsing\" style=\"border-bottom: 1px solid #eee; padding-left: 20px; padding-bottom: 20px\">
-						{$posts['post']}
-					</td>
+					<td colspan=\"2\" class=\"parsing\" style=\"border-bottom: 1px solid #eee; padding: 10px 10px 20px 10px\">{$posts['post']}</td>
 				</tr>");
 			}
 

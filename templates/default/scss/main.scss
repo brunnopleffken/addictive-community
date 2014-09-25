@@ -82,6 +82,7 @@ form {
 	.errorMessage {
 		color: #cc0000;
 		display: none;
+		font-weight: bold;
 		margin-left: 10px;
 	}
 	.full { width: 90%; }
@@ -578,13 +579,14 @@ form {
 			display: block;
 			font-size: 17px;
 			font-weight: bold;
-			margin-bottom: 5px;
+			line-height: 1em;
 		}
 		.desc {
 			color: #444444;
 			display: block;
 			font-size: 11px;
 			font-style: italic;
+			line-height: 30px;
 			margin-right: -1000px;
 			overflow: hidden;
 			position: relative;
@@ -596,8 +598,7 @@ form {
 			color: #888888;
 			display: block;
 			font-size: 10px;
-			margin-top: 3px;
-			padding: 0;
+			line-height: 1em;
 			i {
 				color: #000000;
 			}
@@ -616,7 +617,7 @@ form {
 	.stats {
 		background: #465068;
 		padding: 5px;
-		width: 160px;
+		width: 170px;
 		.label {
 			color: #ffffff;
 			overflow: hidden;
@@ -951,7 +952,7 @@ form {
 		vertical-align: top;
 		.userInfoList{
 			color: #444;
-			font-size: 10px;
+			font-size: 11px;
 			list-style: none;
 			margin: 20px 0px;
 			li {
@@ -1144,5 +1145,45 @@ form {
 			color: #ffffff;
 			text-decoration: none;
 		}
+	}
+}
+
+/** TOOLTIP **/
+
+.tooltip {
+	background-color: #465068;
+	border-radius: 3px;
+	color: #ffffff;
+	display: none;
+	font-size: 11px;
+	line-height: 1em;
+	padding: 5px;
+	position: absolute;
+	&:before {
+		border-style: solid;
+		border-width: 0 5px 5px 5px;
+		border-color: transparent transparent #465068 transparent;
+		content: ('');
+		height: 0;
+		left: 50%;
+		margin-left: -5px;
+		position: absolute;
+		top: -5px;
+		width: 0;
+	}
+}
+
+/** TEXTAREA TOOLBAR **/
+
+#textareaToolbar {
+	font-size: 18px;
+	margin-bottom: 5px;
+	position: relative;
+	i {
+		border: 1px solid #dddddd;
+		border-radius: 4px;
+		cursor: pointer;
+		padding: 5px;
+		width: 30px;
 	}
 }

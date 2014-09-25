@@ -64,7 +64,7 @@
 		}
 		else {
 			$result['icon']  = "<i class=\"fa fa-folder-open-o fa-fw fleft\"></i>";
-			$result['title'] = "<a href=\"index.php?module=thread&id={$result['t_id']}\">{$result['title']}</a>";
+			$result['title'] = "<a href=\"index.php?module=thread&amp;id={$result['t_id']}\">{$result['title']}</a>";
 		}
 
 		// Store result in array

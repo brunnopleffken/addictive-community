@@ -32,7 +32,7 @@
 		</div>
 		<div class="inputBox">
 			<div class="label">E-mail address</div>
-			<div class="field"><input type="text" name="email" value="<?php __($this->member['email']) ?>" class="required medium"></div>
+			<div class="field"><input type="text" name="email" value="<?php __($this->member['email']) ?>" class="required email medium"></div>
 		</div>
 		<div class="inputBox">
 			<div class="label">Birthday</div>
@@ -68,7 +68,10 @@
 		</div>
 		<div class="inputBox">
 			<div class="label">Twitter</div>
-			<div class="field" style="position:relative"><span style="position:absolute; top:2px; left: 0px">@</span><input type="text" name="im_twitter" value="<?php __($this->member['im_twitter']) ?>" class="small" style="padding-left: 22px"></div>
+			<div class="field" style="position:relative"><span style="position:absolute;top:5px;left:5px;color:#999">@</span><input type="text" name="im_twitter" value="<?php __($this->member['im_twitter']) ?>" class="small" style="padding-left: 20px"></div>
+		</div>
+		<div class="fleft">
+			<div class="errorMessage">You need to enter a valid e-mail address.</div>
 		</div>
 		<div class="fright"><input type="hidden" name="act" value="profile"><input type="submit" value="Update Profile"></div>
 	</form>
@@ -187,6 +190,9 @@
 		<div class="inputBox">
 			<div class="label">Re-type password</div>
 			<div class="field"><input type="password" name="c_password" class="required small"></div>
+		</div>
+		<div class="fleft">
+			<div class="errorMessage">Passwords doesn't match or fields are empty.</div>
 		</div>
 		<div class="fright"><input type="hidden" name="act" value="password"><input type="submit" value="Change Password"></div>
 	</form>

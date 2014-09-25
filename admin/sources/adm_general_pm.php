@@ -22,7 +22,7 @@
 	
 ?>
 
-	<h1>Private Messages</h1>
+	<h1>Personal Messages</h1>
 	
 	<div id="content">
 		<div class="grid-row">
@@ -36,11 +36,11 @@
 					</tr>
 					<tr>
 						<td class="title-fixed">Enable personal messages</td>
-						<td><label><?php echo $Admin->SelectCheckbox("member_pm_enable") ?> Enable private messages for all members</label></td>
+						<td><label><?php echo $Admin->SelectCheckbox("member_pm_enable") ?> Enable personal messages to all registered members</label></td>
 					</tr>
 					<tr>
 						<td class="title-fixed">Inbox storage size</td>
-						<td><input type="text" name="member_pm_storage" class="nano" value="<?php echo $Admin->SelectConfig("member_pm_storage") ?>"> private messages</td>
+						<td><input type="text" name="member_pm_storage" class="nano" value="<?php echo $Admin->SelectConfig("member_pm_storage") ?>"> personal messages</td>
 					</tr>
 				</table>
 				

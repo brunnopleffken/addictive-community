@@ -1,5 +1,5 @@
-<form action="index.php?module=report&act=send" method="post">
-	<table class="tableList noBorders" style="width: 350px;">
+<form action="index.php?module=report&amp;act=send" method="post" class="validate">
+	<table class="tableList noBorders" style="width:350px; margin:0">
 		<tr>
 			<th colspan="7">
 				<div class="fleft">Report Abuse</div>
@@ -10,7 +10,7 @@
 			<td class="min">What's wrong with the selected post/thread (optional)?</td>
 		</tr>
 		<tr>
-			<td><textarea name="description" class="large" rows="6"></textarea></td>
+			<td><textarea name="description" class="large required" rows="6"></textarea></td>
 		</tr>
 		<tr class="footer">
 			<td colspan="2" style="text-align:center; padding:10px">

@@ -27,7 +27,7 @@ a:hover { text-decoration: underline; }
 button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner { padding: 0 !important; border: 0 none !important; /* Fixes odd padding in FF */ }
 
 form .error { border-color: #cc0000 !important; box-shadow: 0px 0px 5px rgba(255, 0, 0, 0.2) !important; }
-form .errorMessage { color: #cc0000; display: none; margin-left: 10px; }
+form .errorMessage { color: #cc0000; display: none; font-weight: bold; margin-left: 10px; }
 form .full { width: 90%; }
 form .large { width: 420px; }
 form .medium { width: 300px; }
@@ -138,13 +138,13 @@ form textarea { overflow: auto; }
 /** ROOM PAGE **/
 .threadItem { background: #ffffff; border-spacing: 0; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); margin-bottom: 10px; width: 100%; /* THREAD STATUS */ }
 .threadItem .content { padding: 10px; position: relative; }
-.threadItem .content .title { display: block; font-size: 17px; font-weight: bold; margin-bottom: 5px; }
-.threadItem .content .desc { color: #444444; display: block; font-size: 11px; font-style: italic; margin-right: -1000px; overflow: hidden; position: relative; text-overflow: ellipsis; width: 100%; white-space: nowrap; }
-.threadItem .content .author { color: #888888; display: block; font-size: 10px; margin-top: 3px; padding: 0; }
+.threadItem .content .title { display: block; font-size: 17px; font-weight: bold; line-height: 1em; }
+.threadItem .content .desc { color: #444444; display: block; font-size: 11px; font-style: italic; line-height: 30px; margin-right: -1000px; overflow: hidden; position: relative; text-overflow: ellipsis; width: 100%; white-space: nowrap; }
+.threadItem .content .author { color: #888888; display: block; font-size: 10px; line-height: 1em; }
 .threadItem .content .author i { color: #000000; }
 .threadItem .info { background: rgba(180, 180, 180, 0.1); font-size: 14px; font-weight: bold; text-align: center; width: 70px; }
 .threadItem .info i { font-size: 30px; }
-.threadItem .stats { background: #465068; padding: 5px; width: 160px; }
+.threadItem .stats { background: #465068; padding: 5px; width: 170px; }
 .threadItem .stats .label { color: #ffffff; overflow: hidden; padding: 1px; }
 .threadItem .stats .label img { margin-top: 2px; }
 .threadItem .stats .label .value { display: inline-block; font-size: 11px; margin-left: 6px; }
@@ -220,7 +220,7 @@ form textarea { overflow: auto; }
 
 /** MEMBER PROFILE **/
 .profileContainer .profileSidebar { width: 180px; vertical-align: top; }
-.profileContainer .profileSidebar .userInfoList { color: #444; font-size: 10px; list-style: none; margin: 20px 0px; }
+.profileContainer .profileSidebar .userInfoList { color: #444; font-size: 11px; list-style: none; margin: 20px 0px; }
 .profileContainer .profileSidebar .userInfoList li { padding: 0 3px; text-align: right; }
 .profileContainer .profileSidebar .userInfoList li b { float: left; }
 .profileContainer .profileContent { vertical-align: top; }
@@ -264,3 +264,11 @@ form textarea { overflow: auto; }
 #footer { background: #000000; color: #cccccc; font-size: 11px; margin-top: 15px; overflow: auto; padding: 8px; }
 #footer a { color: #cccccc; }
 #footer a:hover { color: #ffffff; text-decoration: none; }
+
+/** TOOLTIP **/
+.tooltip { background-color: #465068; border-radius: 3px; color: #ffffff; display: none; font-size: 11px; line-height: 1em; padding: 5px; position: absolute; }
+.tooltip:before { border-style: solid; border-width: 0 5px 5px 5px; border-color: transparent transparent #465068 transparent; content: ""; height: 0; left: 50%; margin-left: -5px; position: absolute; top: -5px; width: 0; }
+
+/** TEXTAREA TOOLBAR **/
+#textareaToolbar { font-size: 18px; margin-bottom: 5px; position: relative; }
+#textareaToolbar i { border: 1px solid #dddddd; border-radius: 4px; cursor: pointer; padding: 5px; width: 30px; }

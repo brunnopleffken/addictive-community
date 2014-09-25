@@ -32,9 +32,36 @@ jQuery(document).ready(function($) {
 			autoSize: true,
 			closeBtn: false,
 			modal: false,
-			padding: 3
+			padding: 2
 		});
 	}
+
+	// ---------------------------------------------------
+	// Automatic tooltips
+	// ---------------------------------------------------
+
+	$('*[data-tooltip]').each(function(i, v) {
+		var $element = $(this),
+		    position = $element.position(),
+		    height   = $element.outerHeight() + 8;
+		
+		$element.attr('data-tooltip-identifier', i);
+		$element.after('<div class="tooltip" id="tooltip_' + i + '" style="left: ' + position.left +'px; top: ' + height + 'px">' + $element.data('tooltip') + '</div>');
+
+		$element.on('mouseenter', function() {
+			$('#tooltip_' + i).fadeIn();
+		});
+		$element.on('mouseleave', function() {
+			$('#tooltip_' + i).stop().fadeOut();
+		});
+	});
+
+	$('.tooltip').each(function(i, v) {
+		var $tooltip = $(this),
+		    width    = $tooltip.outerWidth() / 2 - 15;
+
+		$tooltip.css('margin-left', '-' + width + 'px');
+	});
 
 	// ---------------------------------------------------
 	// FORM VALIDATION - REQUIRED FIELDS
@@ -42,9 +69,9 @@ jQuery(document).ready(function($) {
 
 	/**
 	 * CSS CLASSES FOR VALIDATION
-	 * .url		Validates http://xxx.com or http://xxx.com.br
-	 * .email	Validates me@me.com or me@me.com.br
-	 * .numeric	Validates if the value is numeric only
+	 * input.url      Validates http://xxx.com or http://xxx.com.br
+	 * input.email    Validates me@me.com or me@me.com.br
+	 * input.numeric  Validates if the value is numeric only
 	 */
 
 	$('form').on('submit', function(event) {
@@ -121,6 +148,12 @@ jQuery(document).ready(function($) {
 			}
 
 		}
+	});
+
+	// Remove .error class on focus
+
+	$('body').on('focus', '.error', function() {
+		$(this).removeClass('error');
 	});
 
 	// ---------------------------------------------------
