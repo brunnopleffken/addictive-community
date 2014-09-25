@@ -291,6 +291,27 @@
 
 			return $pageUrl;
 		}
+
+		// ---------------------------------------------------
+		// Build textarea toolbar
+		// ---------------------------------------------------
+
+		public static function Toolbar() {
+			$content = <<<HTML
+				<div id="textareaToolbar">
+					<i class="fa fa-fw fa-bold" data-tooltip="Bold"></i>
+					<i class="fa fa-fw fa-italic" data-tooltip="Italic"></i>
+					<i class="fa fa-fw fa-underline" data-tooltip="Underline"></i>
+					<i class="fa fa-fw fa-paint-brush" data-tooltip="Font Color"></i>
+					<i class="fa fa-fw fa-link" data-tooltip="Hyperlink"></i>
+					<i class="fa fa-fw fa-list-ul" data-tooltip="List"></i>
+					<i class="fa fa-fw fa-image" data-tooltip="Image"></i>
+					<i class="fa fa-fw fa-video-camera" data-tooltip="YouTube"></i>
+				</div>
+HTML;
+
+			return $content;
+		}
 	}
 
 ?>
