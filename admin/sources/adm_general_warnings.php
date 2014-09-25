@@ -35,8 +35,8 @@
 						<th colspan="2">General Warning Settings</th>
 					</tr>
 					<tr>
-						<td class="title-fixed"></td>
-						<td></td>
+						<td class="title-fixed">Maximum warning points<span class="title-desc">Reaching X warnings, the user is automatically banned from the community.</span></td>
+						<td><input type="text" name="general_warning_max" class="nano" value="<?php echo $Admin->SelectConfig("general_warning_max") ?>"> warnings</td>
 					</tr>
 				</table>
 				

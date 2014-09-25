@@ -47,15 +47,15 @@
 						<td><input type="password" name="general_email_password" class="small" value="<?php echo $Admin->SelectConfig("general_email_password") ?>"></td>
 					</tr>
 					<tr>
-						<td class="title-fixed">TCP Port</td>
+						<td class="title-fixed">TCP port</td>
 						<td><input type="text" name="general_email_port" class="tiny" value="<?php echo $Admin->SelectConfig("general_email_port") ?>"></td>
 					</tr>
 					<tr>
-						<td class="title-fixed">Use Authentication</td>
+						<td class="title-fixed">Requires authentication</td>
 						<td><label><?php echo $Admin->SelectCheckbox("general_email_authentication") ?> Enable SMTP authentication</label></td>
 					</tr>
 					<tr>
-						<td class="title-fixed">Authentication Method</td>
+						<td class="title-fixed">Authentication method</td>
 						<td>
 							<select name="general_email_auth_method">
 								<option value="tls">TLS</option>

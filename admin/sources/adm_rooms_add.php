@@ -172,7 +172,7 @@
 				</tr>
 				<tr>
 					<td class="title-fixed">Uploads</td>
-					<td><input type="checkbox" name="upload"> Allow file uploads in this room.</td>
+					<td><input type="checkbox" name="upload" checked="checked"> Allow file uploads in this room.</td>
 				</tr>
 			</table>
 			

@@ -35,8 +35,8 @@
 						<th colspan="2">Calendars Settings</th>
 					</tr>
 					<tr>
-						<td class="title-fixed">Enable Calendars</td>
-						<td><label><?php echo $Admin->SelectCheckbox("general_calendar_enable") ?></label></td>
+						<td class="title-fixed">Enable</td>
+						<td><label><?php echo $Admin->SelectCheckbox("general_calendar_enable") ?> Enable calendar and events</label></td>
 					</tr>
 				</table>
 				

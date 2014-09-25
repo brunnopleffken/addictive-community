@@ -55,6 +55,7 @@ input[type=text], input[type=password], input[type=file],
 select, textarea { font-family: Arial, Helvetica, sans-serif; font-size: 13px; border: 1px solid #cccccc; padding: 6px; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; outline: none; }
 input[type=file] { font-family: Arial, Helvetica, sans-serif; border: 0; box-shadow: none; margin: 3px 0; }
 input[type=button], input[type=submit] { font-family: Arial, Helvetica, sans-serif; padding: 7px 12px; border: 0; border-radius: 4px; color: #ffffff; background: #465068 url('../images/button-bg.png'); box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); text-shadow: 1px 1px 0px #000; }
+input[type=checkbox] { vertical-align: text-top; }
 
 input[disabled], textarea[disabled] { background: #f5f5f5; border: 1px solid #dddddd; box-shadow: none; }
 
@@ -116,7 +117,7 @@ input[type=file]:focus, textarea:focus { border: 1px solid #aaaaaa; transition: 
 .table-list tr td { padding: 8px; background: #ffffff; border-bottom: 1px solid #eee; }
 .table-list tr td .avatar { box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2); margin-bottom: -3px; }
 .title { width: 1%; white-space: nowrap; text-align: right; font-weight: bold; }
-.title-fixed { width: 23%; white-space: nowrap; font-weight: bold; }
+.title-fixed { width: 23%; font-weight: bold; }
 .title-desc { display: block; font-weight: normal; font-size: 11px; font-style: italic; }
 .min { width: 1%; white-space: nowrap; text-align: center; font-weight: bold; }
 

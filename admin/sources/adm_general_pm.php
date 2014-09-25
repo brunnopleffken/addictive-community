@@ -35,12 +35,12 @@
 						<th colspan="2">PMs Settings</th>
 					</tr>
 					<tr>
-						<td class="title-fixed">Enable PM</td>
+						<td class="title-fixed">Enable personal messages</td>
 						<td><label><?php echo $Admin->SelectCheckbox("member_pm_enable") ?> Enable private messages for all members</label></td>
 					</tr>
 					<tr>
-						<td class="title-fixed">PM Storage Size</td>
-						<td><input type="text" name="member_pm_storage" class="tiny" value="<?php echo $Admin->SelectConfig("member_pm_storage") ?>"> messages</td>
+						<td class="title-fixed">Inbox storage size</td>
+						<td><input type="text" name="member_pm_storage" class="nano" value="<?php echo $Admin->SelectConfig("member_pm_storage") ?>"> private messages</td>
 					</tr>
 				</table>
 				

@@ -62,7 +62,7 @@
 					
 					<tr>
 						<td class="title-fixed">Show Best Answer in all pages</td>
-						<td><label><?php echo $Admin->SelectCheckbox("thread_best_answer_all_pages") ?> Display the best answer on top of all thread pages (not only the first page).</label></td>
+						<td><label><?php echo $Admin->SelectCheckbox("thread_best_answer_all_pages") ?> Show the best answer on top of all pages of a thread (not only the first page).</label></td>
 					</tr>
 				</table>
 				
@@ -72,12 +72,12 @@
 					</tr>
 					
 					<tr>
-						<td class="title-fixed">Enable "Obsolete Thread"<span class="title-desc">After X days without answer, members<br>cannot reply a thread anymore. A new<br>thread must be opened.</span></td>
+						<td class="title-fixed">Enable "Obsolete Thread"<span class="title-desc">After X days without answer, members cannot reply a thread anymore. A new thread must be opened.</span></td>
 						<td><label><?php echo $Admin->SelectCheckbox("thread_obsolete") ?> Allows a thread to become obsolete after X days (replies are not allowed).</label></td>
 					</tr>
 					<tr>
 						<td class="title-fixed">Days to become obsolete</td>
-						<td><input type="text" name="thread_obsolete_value" class="nano" value="<?php echo $Admin->SelectConfig("thread_obsolete_value") ?>"> days without answer for a thread to become obsolete.</td>
+						<td><input type="text" name="thread_obsolete_value" class="nano" value="<?php echo $Admin->SelectConfig("thread_obsolete_value") ?>"> days without answers for a thread to become obsolete.</td>
 					</tr>
 				</table>
 				
