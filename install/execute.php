@@ -215,7 +215,7 @@
 
 			// Build SQL
 
-			$sqlInsertAdmin = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_windowslive`, `im_skype`, `im_facebook`, `im_twitter`, `im_yim`, `im_aol`, `posts`, `lastpost_date`, `signature`, `template`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_email`, `show_birthday`, `show_gender`) VALUES ('{$adminInfo['username']}', '{$adminInfo['password']}', '{$adminInfo['email']}', 0, '', {$adminInfo['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', '', '', '', '', 1, 1367848084, '', 'default', 'en_US', NULL, NULL, 0, '0', 0, 1, 1, 1)";
+			$sqlInsertAdmin = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_windowslive`, `im_skype`, `im_facebook`, `im_twitter`, `im_yim`, `im_aol`, `posts`, `lastpost_date`, `signature`, `template`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_email`, `show_birthday`, `show_gender`, `token`) VALUES ('{$adminInfo['username']}', '{$adminInfo['password']}', '{$adminInfo['email']}', 0, '', {$adminInfo['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', '', '', '', '', 1, 1367848084, '', 'default', 'en_US', NULL, NULL, 0, '0', 0, 1, 1, 1, '')";
 
 			$insertAdmin = $database->Query($sqlInsertAdmin);
 
