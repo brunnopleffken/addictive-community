@@ -62,6 +62,44 @@ jQuery(document).ready(function($) {
 
 		$tooltip.css('margin-left', '-' + width + 'px');
 	});
+	
+	// ---------------------------------------------------
+	// INSERT MARKDOWN TAGS TO TEXTAREA
+	// ---------------------------------------------------
+	
+	$('#textareaToolbar').each(function(i, v) {
+		var $toolbar  = $(this),
+		    $textarea = $toolbar.parent().find('textarea');
+		
+		$toolbar.find('i').on('click', function() {
+			var $button = $(this);
+			
+			if($button.hasClass('fa-bold')) { InsertMarkdown('post', '**', '**'); }
+			if($button.hasClass('fa-italic')) { InsertMarkdown('post', '*', '*'); }
+			if($button.hasClass('fa-underline')) { InsertMarkdown('post', '__', '__'); }
+			if($button.hasClass('fa-strikethrough')) { InsertMarkdown('post', '~~', '~~'); }
+			if($button.hasClass('fa-link')) { InsertMarkdown('post', '[[', ']]'); }
+			if($button.hasClass('fa-image')) { InsertMarkdown('post', '{{', '}}'); }
+			if($button.hasClass('fa-paint-brush')) { InsertMarkdown('post', '[color:red]', '[/color]'); }
+			if($button.hasClass('fa-code')) { InsertMarkdown('post', '``', '``'); }
+			if($button.hasClass('fa-list-ul')) { InsertMarkdown('post', '\n* ', ''); }
+		})
+	});
+	
+	function InsertMarkdown(elementID, openTag, closeTag) {
+		var textArea = document.getElementById(elementID),
+			contentPos = openTag.length;
+
+		if (typeof(textArea.selectionStart) != "undefined") {
+			var begin = textArea.value.substr(0, textArea.selectionStart);
+			var selection = textArea.value.substr(textArea.selectionStart, textArea.selectionEnd - textArea.selectionStart);
+			var end = textArea.value.substr(textArea.selectionEnd);
+			textArea.value = begin + openTag + selection + closeTag + end;
+			
+			textArea.focus();
+			textArea.setSelectionRange(textArea.selectionStart + contentPos, textArea.selectionStart + contentPos)
+		}
+	}
 
 	// ---------------------------------------------------
 	// FORM VALIDATION - REQUIRED FIELDS
@@ -179,7 +217,7 @@ jQuery(document).ready(function($) {
 	});
 
 	// ---------------------------------------------------
-	// MESSENGER - ERASE MESSAGES
+	// MESSENGER
 	// ---------------------------------------------------
 
 	$('#messengerDeleteMessages').on('click', function(event){
@@ -190,6 +228,12 @@ jQuery(document).ready(function($) {
 		else {
 			$('form.personalMessenger').submit();
 		}
+	});
+
+	$('a[data-check]').on('click', function() {
+		$('.' + $(this).data('check')).each(function(index, value){
+			$(this).attr('checked', 'checked');
+		});
 	});
 
 });

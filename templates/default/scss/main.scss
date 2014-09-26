@@ -65,6 +65,11 @@ a {
 	}
 }
 
+code {
+	background-color: #eeeeee;
+	padding: 0 2px;
+}
+
 /** FORMS **/
 
 button::-moz-focus-inner, input[type="button"]::-moz-focus-inner,
@@ -104,10 +109,10 @@ form {
 		}
 	}
 	input[type=file] {
-		border: 0;
+		border: 1px dashed #ccc;
 		box-shadow: none;
 		font-family: Arial, Helvetica, sans-serif;
-		margin: 3px 0;
+		margin-top: -3px;
 	}
 	input[type=button], input[type=submit] {
 		background: #465068 url('../images/button-bg.png');
@@ -772,6 +777,7 @@ form {
 			font-size: 9px;
 			list-style: none;
 			margin: 20px 5px;
+			overflow: hidden;
 			li {
 				padding: 0 3px;
 				text-align: right;
@@ -1179,6 +1185,7 @@ form {
 	font-size: 18px;
 	margin-bottom: 5px;
 	position: relative;
+	user-select: none;
 	i {
 		border: 1px solid #dddddd;
 		border-radius: 4px;
@@ -1186,4 +1193,8 @@ form {
 		padding: 5px;
 		width: 30px;
 	}
+}
+
+#markdownPreview {
+	white-space: initial;
 }

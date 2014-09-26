@@ -23,6 +23,8 @@ body .noShadow { box-shadow: none; }
 a { color: #113377; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+code { background-color: #eeeeee; padding: 0 2px; }
+
 /** FORMS **/
 button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner { padding: 0 !important; border: 0 none !important; /* Fixes odd padding in FF */ }
 
@@ -35,7 +37,7 @@ form .small { width: 200px; }
 form .tiny { width: 90px; }
 form input[type=text], form input[type=password], form input[type=file], form select, form textarea { border: 1px solid #cccccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica, sans-serif; font-size: 13px; outline: none; padding: 6px; }
 form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form select:focus, form textarea:focus { border: 1px solid #aaaaaa; transition: 500ms; }
-form input[type=file] { border: 0; box-shadow: none; font-family: Arial, Helvetica, sans-serif; margin: 3px 0; }
+form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: Arial, Helvetica, sans-serif; margin-top: -3px; }
 form input[type=button], form input[type=submit] { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #ffffff; font-family: Arial, Helvetica, sans-serif; padding: 7px 12px; text-shadow: 1px 1px 0px #000000; }
 form input[type=button].cancel, form input[type=submit].cancel { background: #eeeeee url("../images/button-bg.png") !important; color: #990000 !important; text-shadow: 1px 1px 0px #fff !important; }
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #ffffff; }
@@ -179,7 +181,7 @@ form textarea { overflow: auto; }
 .postReply .author .photostack .avatar { margin: 16px; }
 .postReply .author .name { font-size: 14px; font-weight: bold; }
 .postReply .author .memberTitle { font-size: 10px; }
-.postReply .author .userInfo { color: #444; font-size: 9px; list-style: none; margin: 20px 5px; }
+.postReply .author .userInfo { color: #444; font-size: 9px; list-style: none; margin: 20px 5px; overflow: hidden; }
 .postReply .author .userInfo li { padding: 0 3px; text-align: right; }
 .postReply .author .userInfo li b { float: left; }
 .postReply .content { display: table-cell; }
@@ -270,5 +272,7 @@ form textarea { overflow: auto; }
 .tooltip:before { border-style: solid; border-width: 0 5px 5px 5px; border-color: transparent transparent #465068 transparent; content: ""; height: 0; left: 50%; margin-left: -5px; position: absolute; top: -5px; width: 0; }
 
 /** TEXTAREA TOOLBAR **/
-#textareaToolbar { font-size: 18px; margin-bottom: 5px; position: relative; }
+#textareaToolbar { font-size: 18px; margin-bottom: 5px; position: relative; user-select: none; }
 #textareaToolbar i { border: 1px solid #dddddd; border-radius: 4px; cursor: pointer; padding: 5px; width: 30px; }
+
+#markdownPreview { white-space: initial; }
