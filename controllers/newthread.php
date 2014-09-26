@@ -20,11 +20,69 @@
 	// Get user and room information
 	// ---------------------------------------------------
 
-	// Get member ID
-	$m_id = $this->member['m_id'];
-
 	// Get room ID
 	$roomId = Html::Request("room", true);
+
+	$this->Db->Query("SELECT r_id, name FROM c_rooms WHERE r_id = {$roomId};");
+	$roomInfo = $this->Db->Fetch();
+
+	// ---------------------------------------------------
+	// Get action
+	// ---------------------------------------------------
+
+	$act = Html::Request("act");
+
+	switch($act) {
+		case 'add':
+			String::PR($_POST);
+
+			$thread = array(
+				"title"              => Html::Request("title"),
+				"author_member_id"   => $this->member['m_id'],
+				"replies"            => 1,
+				"views"              => 0,
+				"start_date"         => time(),
+				"room_id"            => Html::Request("room_id", true),
+				"announcement"       => Html::Request("announcement", true),
+				"lastpost_date"      => time(),
+				"lastpost_member_id" => $this->member['m_id'],
+				"locked"             => Html::Request("locked", true),
+				"approved"           => 1,
+				"with_bestanswer"    => 0
+			);
+
+			$this->Db->Insert("c_threads", $thread);
+
+			$post = array(
+				"author_id"   => $this->member['m_id'],
+				"thread_id"   => $this->Db->GetLastID(),
+				"post_date"   => $thread['lastpost_date'],
+				"ip_address"  => $_SERVER['REMOTE_ADDR'],
+				"post"        => String::Sanitize(Html::Request("post")),
+				"best_answer" => 0,
+				"first_post"  => 1
+			);
+
+			$this->Db->Insert("c_posts", $post);
+
+			// Update tables
+
+			$this->Db->Query("UPDATE c_rooms SET lastpost_date = '{$post['post_date']}',
+				lastpost_thread = '{$post['thread_id']}', lastpost_member = '{$post['author_id']}'
+				WHERE r_id = '{$thread['room_id']}';");
+
+			$this->Db->Query("UPDATE c_stats SET total_posts = total_posts + 1, total_threads = total_threads + 1;");
+
+			$this->Db->Query("UPDATE c_members SET posts = posts + 1, lastpost_date = '{$post['post_date']}'
+				WHERE m_id = '{$post['author_id']}';");
+
+			// Redirect to the thread
+
+			header("Location: index.php?module=thread&id=" . $post['thread_id']);
+			exit;
+
+			break;
+	}
 
 	// ---------------------------------------------------
 	// Where are we?
