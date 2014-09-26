@@ -65,6 +65,20 @@
 					</tr>
 				</table>
 				
+				<table class="table-list">
+					<tr>
+						<th colspan="2">E-mail Identification</th>
+					</tr>
+					<tr>
+						<td class="title-fixed">"Reply To" address<span class="title-desc">Usually the same used in authentication.</span></td>
+						<td><input type="text" name="general_email_smtp" class="medium" value="<?php echo $Admin->SelectConfig("general_email_smtp") ?>"></td>
+					</tr>
+					<tr>
+						<td class="title-fixed">"From" name</td>
+						<td><input type="text" name="general_email_smtp" class="medium" value="<?php echo $Admin->SelectConfig("general_email_smtp") ?>"></td>
+					</tr>
+				</table>
+				
 				<div class="box fright"><input type="submit" value="Save Settings"></div>
 			</form>
 		</div>
