@@ -39,22 +39,6 @@
 		{
 			self::$html = "";
 		}
-
-		// ---------------------------------------------------
-		// Force template including inside controller
-		// ---------------------------------------------------
-
-		// public static function Element($filename, $fullpath = false)
-		// {
-		// 	if($fullpath)
-		// 	{
-		// 		require_once("templates/1/" . $filename . ".php");
-		// 	}
-		// 	else
-		// 	{
-		// 		require_once($filename . ".php");
-		// 	}
-		// }
 	}
 
 ?>
