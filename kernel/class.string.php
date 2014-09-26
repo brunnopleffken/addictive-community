@@ -52,8 +52,8 @@
 		public static function UUID() {
 			$node = getenv('SERVER_ADDR');
 
-			if (strpos($node, ':') !== false) {
-				if (substr_count($node, '::')) {
+			if(strpos($node, ':') !== false) {
+				if(substr_count($node, '::')) {
 					$node = str_replace(
 						'::', str_repeat(':0000', 8 - substr_count($node, ':')) . ':', $node
 					);
@@ -68,21 +68,21 @@
 
 				$node = base_convert($ipSix, 2, 10);
 
-				if (strlen($node) < 38) {
+				if(strlen($node) < 38) {
 					$node = null;
 				}
 				else {
 					$node = crc32($node);
 				}
 			}
-			elseif (empty($node)) {
+			elseif(empty($node)) {
 				$host = getenv('HOSTNAME');
-				if (empty($host)) {
+				if(empty($host)) {
 					$host = getenv('HOST');
 				}
-				if (!empty($host)) {
+				if(!empty($host)) {
 					$ip = gethostbyname($host);
-					if ($ip === $host) {
+					if($ip === $host) {
 						$node = crc32($host);
 					}
 					else {
@@ -90,28 +90,28 @@
 					}
 				}
 			}
-			elseif ($node !== '127.0.0.1') {
+			elseif($node !== '127.0.0.1') {
 				$node = ip2long($node);
 			}
 			else {
 				$node = null;
 			}
 
-			if (empty($node)) {
+			if(empty($node)) {
 				$node = crc32('loremipsum');
 			}
 
-			if (function_exists('hphp_get_thread_id')) {
+			if(function_exists('hphp_get_thread_id')) {
 				$pid = hphp_get_thread_id();
 			}
-			elseif (function_exists('zend_thread_id')) {
+			elseif(function_exists('zend_thread_id')) {
 				$pid = zend_thread_id();
 			}
 			else {
 				$pid = getmypid();
 			}
 
-			if (!$pid || $pid > 65535) {
+			if(!$pid || $pid > 65535) {
 				$pid = mt_rand(0, 0xfff) | 0x4000;
 			}
 
@@ -174,9 +174,9 @@
 		// items are joined with 'and'.
 		// ---------------------------------------------------
 
-		public static function ToList($list, $and = 'and', $separator = ', ') {
-			if (count($list) > 1) {
-				return implode($separator, array_slice($list, null, -1)) . ' ' . $and . ' ' . array_pop($list);
+		public static function ToList($list, $and = "and", $separator = ", ") {
+			if(count($list) > 1) {
+				return implode($separator, array_slice($list, null, -1)) . " " . $and . " " . array_pop($list);
 			}
 
 			return array_pop($list);

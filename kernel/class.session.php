@@ -197,12 +197,10 @@
 			
 			// Check if the session is registered
 			
-			if($s_id)
-			{
+			if($s_id) {
 				// Member or guest?
 				
-				if($m_id)
-				{
+				if($m_id) {
 					// If member
 					$this->sInfo['activity_time'] = time();
 					$this->sInfo['member_id'] = $m_id;
@@ -216,8 +214,7 @@
 							. "location_type = '{$community_info['module']}' "
 							. "WHERE s_id = '{$s_id}';");
 				}
-				else
-				{
+				else {
 					// If guest
 					$this->sInfo['activity_time'] = time();
 					$this->sInfo['member_id'] = 0;
@@ -228,8 +225,7 @@
 							. "WHERE s_id = '{$s_id}';");
 				}
 			}
-			else
-			{
+			else {
 				try {
 					$this->SetGuestSession();
 				} catch (Exception $ex) {
