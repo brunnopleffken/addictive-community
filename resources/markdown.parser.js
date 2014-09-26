@@ -13,18 +13,22 @@ function markdownReplace(content) {
 	content = content.replace(/\</gm, '&lt;');
 	content = content.replace(/\>/gm, '&gt;');
 	
-	// *bold*, _italic_ and ~~strikethrough~~
+	// **bold**, *italic*, __underline__ and ~~strikethrough~~
 	content = content.replace(/\*\*(.+?)\*\*/gm, '<b>$1</b>');
 	content = content.replace(/\*(.+?)\*/gm, '<em>$1</em>');
+	content = content.replace(/\_\_(.+?)\_\_/gm, '<u>$1</u>');
 	content = content.replace(/\~\~(.+?)\~\~/gm, '<s>$1</s>');
 	
 	// [[links]]
-	content = content.replace(/\[\[(.+?)\|(.+?)\]\]/gm, '<a href="$1">$2</a>');
-	content = content.replace(/\[\[(.+?)\]\]/gm, '<a href="$1">$1</a>');
+	content = content.replace(/\[\[(.+?)\|(.+?)\]\]/gm, '<a href="$1" target="_blank">$2</a>');
+	content = content.replace(/\[\[(.+?)\]\]/gm, '<a href="$1" target="_blank">$1</a>');
 	
 	// {{images}}
 	content = content.replace(/\{\{([^\}\{]+?)\|([0-9]+?)x([0-9]+?)\}\}/gm, '<img src="$1" width="$2" height="$3">');
 	content = content.replace(/\{\{([^\}\{]+?)\}\}/gm, '<img src="$1">');
+	
+	// ``code``
+	content = content.replace(/\`\`(.+?)\`\`/gm, '<code>$1</code>');
 	
 	// [color:value][/color]
 	content = content.replace(/\[color\:(.+?)\](.+?)\[\/color\]/gm, '<span style="color:$1">$2</span>');
@@ -70,7 +74,7 @@ $(document).ready(function(){
 		$(markdownPreview).html(markdownReplace(content));
 		
 		// Fire event and replace markdown elements when typing
-		this.on('keyup', function(){
+		this.on('change keyup paste', function(){
 			var content = markdownTextarea.val();
 			content = markdownReplace(content);
 			

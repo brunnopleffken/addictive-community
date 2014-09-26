@@ -55,19 +55,19 @@
 		public static function Sanitize($string, $allowed = array())
 		{
 			$allow = null;
-			if (!empty($allowed)) {
+			if(!empty($allowed)) {
 				foreach ($allowed as $value) {
 					$allow .= "\\$value";
 				}
 			}
 
-			if (!is_array($string)) {
-				return preg_replace("/[^{$allow}a-zA-Z0-9]/", '', $string);
+			if(!is_array($string)) {
+				return preg_replace("/[^{$allow}a-zA-Z0-9]/", "", $string);
 			}
 
 			$cleaned = array();
-			foreach ($string as $key => $clean) {
-				$cleaned[$key] = preg_replace("/[^{$allow}a-zA-Z0-9]/", '', $clean);
+			foreach($string as $key => $clean) {
+				$cleaned[$key] = preg_replace("/[^{$allow}a-zA-Z0-9]/", "", $clean);
 			}
 
 			return $cleaned;
@@ -302,9 +302,11 @@
 					<i class="fa fa-fw fa-bold" data-tooltip="Bold"></i>
 					<i class="fa fa-fw fa-italic" data-tooltip="Italic"></i>
 					<i class="fa fa-fw fa-underline" data-tooltip="Underline"></i>
+					<i class="fa fa-fw fa-strikethrough" data-tooltip="Strikethrough"></i>
 					<i class="fa fa-fw fa-paint-brush" data-tooltip="Font Color"></i>
 					<i class="fa fa-fw fa-link" data-tooltip="Hyperlink"></i>
 					<i class="fa fa-fw fa-list-ul" data-tooltip="List"></i>
+					<i class="fa fa-fw fa-code" data-tooltip="Code"></i>
 					<i class="fa fa-fw fa-image" data-tooltip="Image"></i>
 					<i class="fa fa-fw fa-video-camera" data-tooltip="YouTube"></i>
 				</div>
