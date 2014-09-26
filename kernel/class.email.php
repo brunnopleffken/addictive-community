@@ -26,7 +26,7 @@
 
 		public function __construct($config)
 		{
-			require("../thirdparty/PHPMailer/PHPMailerAutoload.php");
+			require("thirdparty/PHPMailer/PHPMailerAutoload.php");
 
 			$this->Mail = new PHPMailer();
 
