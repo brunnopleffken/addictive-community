@@ -1,3 +1,6 @@
+$fontFamily: Arial, Helvetica, sans-serif;
+$colorFiord: #465068;
+
 /** RESET **/
 
 * {
@@ -14,7 +17,7 @@
 
 body {
 	background: #f1f1f1;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: $fontFamily;
 	font-size: 13px;
 	h1 {
 		margin-bottom: 8px;
@@ -99,7 +102,7 @@ form {
 		border: 1px solid #cccccc;
 		border-radius: 3px;
 		box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset;
-		font-family: Arial, Helvetica, sans-serif;
+		font-family: $fontFamily;
 		font-size: 13px;
 		outline: none;
 		padding: 6px;
@@ -111,16 +114,18 @@ form {
 	input[type=file] {
 		border: 1px dashed #ccc;
 		box-shadow: none;
-		font-family: Arial, Helvetica, sans-serif;
+		font-family: $fontFamily;
 		margin-top: -3px;
 	}
 	input[type=button], input[type=submit] {
-		background: #465068 url('../images/button-bg.png');
+		background: $colorFiord url('../images/button-bg.png');
 		border: 0;
 		border-radius: 4px;
 		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
 		color: #ffffff;
-		font-family: Arial, Helvetica, sans-serif;
+		cursor: pointer;
+		font-family: $fontFamily;
+		font-size: 12px;
 		padding: 7px 12px;
 		text-shadow: 1px 1px 0px #000000;
 		&.cancel {
@@ -187,16 +192,16 @@ form {
 // Large button, like "New Thread" and "Add Reply"
 
 .defaultButton {
-	background: #465068 url('../images/button-bg.png') repeat-x;
+	background: $colorFiord url('../images/button-bg.png') repeat-x;
 	border-radius: 7px;
 	color:#ffffff;
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: $fontFamily;
 	font-size: 14px;
 	font-weight: bold;
 	padding: 10px 15px;
 	text-shadow: 1px 1px 0px #000000;
 	&:hover {
-		background-color: #556677;
+		background-color: lighten($colorFiord, 8%);
 		text-decoration: none;
 	}
 	&.disabled {
@@ -294,12 +299,16 @@ form {
 		background: #336699;
 		border: 0;
 		color: #ffffff;
+		cursor: pointer;
 		font-size: 11px;
 		font-weight: bold;
 		height: 32px;
 		margin-left: 10px;
 		padding: 0 8px;
 		vertical-align: top;
+		&:hover {
+			background: lighten(#336699, 5%);
+		}
 	}
 }
 
@@ -335,7 +344,7 @@ form {
 			margin-bottom: 0;
 		}
 		.title {
-			background: #465068 url('../images/bar-bg.png') repeat-x;
+			background: $colorFiord url('../images/bar-bg.png') repeat-x;
 			border-radius: 5px 5px 0 0;
 			color:#ffffff;
 			font-size: 14px;
@@ -380,6 +389,9 @@ form {
 					text-overflow: ellipsis;
 					width: 180px;
 					white-space: nowrap;
+					&:hover {
+						text-decoration: none;
+					}
 				}
 				span {
 					background: #8a8b90; color: #f0eff4;
@@ -441,7 +453,7 @@ form {
 
 .navigation {
 	.navbar {
-		background: #465068;
+		background: $colorFiord;
 		padding: 5px 0 0 20px;
 		a {
 			color: #ffffff;
@@ -533,7 +545,7 @@ form {
 		}
 	}
 	.roomStats {
-		background: #465068;
+		background: $colorFiord;
 		vertical-align: top;
 		width: 100px;
 		.item {
@@ -624,7 +636,7 @@ form {
 		}
 	}
 	.stats {
-		background: #465068;
+		background: $colorFiord;
 		padding: 5px;
 		width: 170px;
 		.label {
@@ -657,11 +669,11 @@ form {
 
 	&.hot {
 		.stats {
-			background: #465068 url('../images/hot-thread.png') no-repeat top right;
+			background: $colorFiord url('../images/hot-thread.png') no-repeat top right;
 		}
 	}
 	&.unread {
-		border-left: 2px solid #465068;
+		border-left: 2px solid $colorFiord;
 	}
 	&.announcement {
 		background: #f9f9ff;
@@ -744,7 +756,7 @@ form {
 		font-size: 21px;
 		font-weight: bold;
 		span {
-			color: #465068;
+			color: $colorFiord;
 		}
 	}
 }
@@ -886,7 +898,7 @@ form {
 	width: 100%;
 	tr {
 		th {
-			background: #465068 url('../images/bar-bg.png') repeat-x;
+			background: $colorFiord url('../images/bar-bg.png') repeat-x;
 			color:#ffffff;
 			font-weight: bold;
 			padding: 8px;
@@ -990,7 +1002,7 @@ form {
 	margin-bottom: 15px;
 	width: 100%;
 	th {
-		background: #465068 url('../images/bar-bg.png') repeat-x;
+		background: $colorFiord url('../images/bar-bg.png') repeat-x;
 		color:#ffffff;
 		font-weight: bold;
 		padding: 8px;
@@ -1076,7 +1088,7 @@ form {
 		width: 120px;
 	}
 	.current {
-		background: #465068;
+		background: $colorFiord;
 		color: #ffffff;
 		display: table-cell;
 		padding: 6px;
@@ -1104,7 +1116,7 @@ form {
 	padding: 1px;
 	position: relative;
 	.fill {
-		background: #465068;
+		background: $colorFiord;
 		display: inline-block;
 		float: left;
 		height: 15px;
@@ -1161,7 +1173,7 @@ form {
 /** TOOLTIP **/
 
 .tooltip {
-	background-color: #465068;
+	background-color: $colorFiord;
 	border-radius: 3px;
 	color: #ffffff;
 	display: none;
@@ -1172,7 +1184,7 @@ form {
 	&:before {
 		border-style: solid;
 		border-width: 0 5px 5px 5px;
-		border-color: transparent transparent #465068 transparent;
+		border-color: transparent transparent $colorFiord transparent;
 		content: ('');
 		height: 0;
 		left: 50%;

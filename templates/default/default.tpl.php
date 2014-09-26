@@ -31,6 +31,9 @@
 				</a>
 			</div>
 			<div class="fright">
+				<?php if($this->member['usergroup'] == 1): ?>
+					<a href="admin/" target="_blank" class="transition">Admin CP</a>
+				<?php endif; ?>
 				<a href="index.php?module=search" class="transition">Search</a>
 				<a href="index.php?module=members" class="transition">Member List</a>
 				<a href="index.php?module=calendar" class="transition">Calendar</a>
@@ -47,7 +50,7 @@
 				<form action="index.php" method="get" class="validate">
 					<input type="text" name="q" size="25" class="required" placeholder="Search...">
 					<input type="hidden" name="module" value="search">
-					<input type="submit" value="OK">
+					<input type="submit" class="transition" value="OK">
 				</form>
 			</div>
 		</div>
@@ -93,7 +96,7 @@
 						<div class="title">Rooms</div>
 						<div class="list">
 							<?php foreach($_siderooms as $k => $v): ?>
-								<div class="item">
+								<div class="item transition">
 									<a href="index.php?module=room&amp;id=<?php __($_siderooms[$k]['r_id']) ?>">
 										<?php __($_siderooms[$k]['name']) ?>
 									</a>

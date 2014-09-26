@@ -38,7 +38,7 @@ form .tiny { width: 90px; }
 form input[type=text], form input[type=password], form input[type=file], form select, form textarea { border: 1px solid #cccccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica, sans-serif; font-size: 13px; outline: none; padding: 6px; }
 form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form select:focus, form textarea:focus { border: 1px solid #aaaaaa; transition: 500ms; }
 form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: Arial, Helvetica, sans-serif; margin-top: -3px; }
-form input[type=button], form input[type=submit] { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #ffffff; font-family: Arial, Helvetica, sans-serif; padding: 7px 12px; text-shadow: 1px 1px 0px #000000; }
+form input[type=button], form input[type=submit] { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #ffffff; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 12px; padding: 7px 12px; text-shadow: 1px 1px 0px #000000; }
 form input[type=button].cancel, form input[type=submit].cancel { background: #eeeeee url("../images/button-bg.png") !important; color: #990000 !important; text-shadow: 1px 1px 0px #fff !important; }
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #ffffff; }
 form input[type=checkbox] { margin-right: 2px; vertical-align: text-top; }
@@ -54,7 +54,7 @@ form textarea { overflow: auto; }
 .inputBox:last-child { margin: 0; }
 
 .defaultButton { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000000; }
-.defaultButton:hover { background-color: #556677; text-decoration: none; }
+.defaultButton:hover { background-color: #566380; text-decoration: none; }
 .defaultButton.disabled { background: #dddddd; color: #990000 !important; cursor: default; text-shadow: 1px 1px 0px #fff !important; }
 
 .smallButton { border-radius: 7px; color: #333333; cursor: pointer; font-size: 10px; padding: 4px 10px 5px 10px; }
@@ -76,7 +76,8 @@ form textarea { overflow: auto; }
 
 #search { background: #303747; border-radius: 8px; float: right; font-size: 0; padding: 10px; }
 #search input[type=text] { background: white url("../images/lupa.jpg") no-repeat 5px 5px; border: 0; border-radius: 2px; font-size: 14px; height: 32px; padding: 0 4px 0 30px; width: 250px; }
-#search input[type=submit] { background: #336699; border: 0; color: #ffffff; font-size: 11px; font-weight: bold; height: 32px; margin-left: 10px; padding: 0 8px; vertical-align: top; }
+#search input[type=submit] { background: #336699; border: 0; color: #ffffff; cursor: pointer; font-size: 11px; font-weight: bold; height: 32px; margin-left: 10px; padding: 0 8px; vertical-align: top; }
+#search input[type=submit]:hover { background: #3973ac; }
 
 #breadcrumb { background: #ffffff; color: #666666; font-size: 11px; margin: 10px 0; padding: 8px 10px; }
 
@@ -97,6 +98,7 @@ form textarea { overflow: auto; }
 .sidebar .sidebarItem .list .item:hover { background: #f7f7f7; }
 .sidebar .sidebarItem .list .item:last-child { border-radius: 0 0 7px 7px; }
 .sidebar .sidebarItem .list .item a { color: #707070; display: inline-block; font-weight: bold; margin-bottom: -5px; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; width: 180px; white-space: nowrap; }
+.sidebar .sidebarItem .list .item a:hover { text-decoration: none; }
 .sidebar .sidebarItem .list .item span { background: #8a8b90; color: #f0eff4; border-radius: 15px; display: inline-block; float: right; font-size: 9px; padding: 1px 0; text-align: center; width: 35px; }
 .sidebar .sidebarItem .user { background: #303747 url("../images/bar-bg.png"); border-radius: 7px; color: #eeeeee; overflow: hidden; padding: 10px; }
 .sidebar .sidebarItem .user .avatar { background: url("../images/user_img_bg.png") no-repeat; float: left; height: 42px; width: 42px; }
