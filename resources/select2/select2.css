@@ -336,6 +336,7 @@ Version: 3.4.5 Timestamp: Mon Nov  4 08:22:42 PST 2013
 .select2-results .select2-selection-limit {
     background: #f4f4f4;
     display: list-item;
+	padding: 3px;
 }
 
 /*

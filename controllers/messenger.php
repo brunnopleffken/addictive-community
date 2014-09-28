@@ -17,6 +17,19 @@
 	$this->Session->NoGuest();
 
 	// ---------------------------------------------------
+	// Get notifications
+	// ---------------------------------------------------
+
+	$msg = Html::Request("msg");
+	$notification = "";
+
+	switch ($msg) {
+		case 1:
+			$notification = Html::Notification("Your personal message has been successfully sent.", "success");
+			break;
+	}
+
+	// ---------------------------------------------------
 	// Get user's personal messages
 	// ---------------------------------------------------
 
@@ -28,11 +41,10 @@
 	// ---------------------------------------------------
 
 	// Which action is the user taking
-	$view = (Html::Request("view")) ? Html::Request("view") : "inbox";
+	$view = $this->Core->QueryString("view", "inbox");
 
 	switch($view) {
 		case "inbox":
-
 			// Select personal messages
 			$this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username "
 					. "FROM c_messages m INNER JOIN c_members u ON (m.from_id = u.m_id) "
@@ -48,9 +60,8 @@
 			// Results
 			while($result = $this->Db->Fetch()) {
 				$result['icon_class'] = ($result['status'] == 0) ? "fa-envelope" : "fa-envelope-o";
-				$result['subject'] = ($result['status'] == 0) ? "<b>" . $result['subject'] . "<b>" : $result['subject'];
-
-				$result['sent_date'] = $this->Core->DateFormat($result['sent_date']);
+				$result['subject']    = ($result['status'] == 0) ? "<b>" . $result['subject'] . "<b>" : $result['subject'];
+				$result['sent_date']  = $this->Core->DateFormat($result['sent_date']);
 
 				$results[] = $result;
 			}

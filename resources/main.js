@@ -235,5 +235,32 @@ jQuery(document).ready(function($) {
 			$(this).attr('checked', 'checked');
 		});
 	});
+	
+	$('#pmTo').select2({
+		placeholder: "Username",
+		minimumInputLength: 2,
+		ajax: {
+			url: 'api/usernames.php',
+			dataType: 'json',
+			type: "POST",
+			quietMillis: 100,
+			data: function (term) {
+				return {
+					term: term
+				};
+			},
+			results: function (data) {
+				return {
+					results: $.map(data, function (item) {
+						return {
+							text: item.username,
+							slug: item.username,
+							id: item.m_id
+						}
+					})
+				};
+			}
+		}
+	});
 
 });
