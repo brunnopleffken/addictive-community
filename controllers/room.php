@@ -136,6 +136,7 @@
 	while($result = $this->Db->Fetch()) {
 		$result['class'] = "";
 		$result['description'] = String::RemoveBBcode($result['post']);
+		$result['mobile_start_date'] = $this->Core->DateFormat($result['start_date'], "short");
 		$result['start_date'] = $this->Core->DateFormat($result['start_date']);
 		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
 
