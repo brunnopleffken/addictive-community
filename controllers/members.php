@@ -82,7 +82,7 @@
 	
 	if(Html::Request("letter")) {
 		$letter = Html::Request("letter");
-		$this->Db->Query("SELECT * FROM c_members"
+		$this->Db->Query("SELECT * FROM c_members "
 				. "LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id)"
 				. "WHERE username LIKE '{$letter}%' {$order};");
 	}
