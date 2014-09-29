@@ -51,6 +51,8 @@
 		<div class="next"><h3>Step 3</h3><span class="tiny">Confirmation</span></div>
 	</div>
 
+	<?php echo $notification ?>
+
 	<form action="index.php" method="post" class="validate">
 		<div class="inputBox">
 			<div class="label">Username</div>

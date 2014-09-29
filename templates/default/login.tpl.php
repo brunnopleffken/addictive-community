@@ -26,7 +26,7 @@
 		</tr>
 		<tr>
 			<td><strong></strong></td>
-			<td>Don't have an account? <a href="index.php?module=register">Sign up here!</a></td>
+			<td>Don't have an account? <a href="index.php?module=register"><strong>Sign up here!</strong></a></td>
 		</tr>
 		<tr>
 			<td colspan="2" class="center"><input type="submit" value="Log In"></td>
