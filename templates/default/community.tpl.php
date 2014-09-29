@@ -9,7 +9,7 @@
 				<p class="description"><?php __($_rooms[$k]['description']) ?></p>
 				<div class="lastPost">
 					<span><i class="fa fa-comment"></i>&nbsp; <?php __($_rooms[$k]['title']) ?></span>
-					<span><i class="fa fa-user"></i>&nbsp; <a href="index.php?module=profile&amp;id=2"><?php __($_rooms[$k]['username']) ?></a></span>
+					<span><i class="fa fa-user"></i>&nbsp; <a href="index.php?module=profile&amp;id=<?php __($_rooms[$k]['lastpost_member']) ?>"><?php __($_rooms[$k]['username']) ?></a></span>
 					<span><i class="fa fa-clock-o"></i>&nbsp; <?php __($_rooms[$k]['lastpost_date']) ?></span>
 				</div>
 			</td>
