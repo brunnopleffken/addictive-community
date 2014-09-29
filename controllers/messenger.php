@@ -59,8 +59,8 @@
 
 			// Results
 			while($result = $this->Db->Fetch()) {
-				$result['icon_class'] = ($result['status'] == 0) ? "fa-envelope" : "fa-envelope-o";
-				$result['subject']    = ($result['status'] == 0) ? "<b>" . $result['subject'] . "<b>" : $result['subject'];
+				$result['icon_class'] = ($result['status'] == 1) ? "fa-envelope" : "fa-envelope-o";
+				$result['subject']    = ($result['status'] == 1) ? "<b>" . $result['subject'] . "<b>" : $result['subject'];
 				$result['sent_date']  = $this->Core->DateFormat($result['sent_date']);
 
 				$results[] = $result;
@@ -81,14 +81,35 @@
 
 	switch($act) {
 		case "delete":
+			// Get selected messages
 			$messages = Html::Request("pm");
 
+			// Delete
 			foreach($messages as $v) {
 				$this->Db->Query("DELETE FROM c_messages WHERE pm_id = {$v} AND to_id = {$m_id}");
 			}
 
+			// Redirect
 			header("Location: index.php?module=messenger");
+			exit;
+			break;
 
+		case 'send':
+			// Build register
+			$pm = array(
+				"from_id"   => $this->member['m_id'],
+				"to_id"     => Html::Request("to", true),
+				"subject"   => Html::Request("subject"),
+				"status"    => 1,
+				"sent_date" => time(),
+				"message"   => Html::Request("post"),
+			);
+
+			// Insert into DB
+			$this->Db->Insert("c_messages", $pm);
+
+			// Redirect
+			header("Location: index.php?module=messenger&msg=1");
 			exit;
 			break;
 	}

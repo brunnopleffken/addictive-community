@@ -40,7 +40,7 @@
 		$this->member['avatar'] = $this->Core->GetGravatar($this->member['email'], $this->member['photo'], 30, $this->member['photo_type']);
 
 		// Number of new messages
-		$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages WHERE to_id = '{$m_id}' AND status = 0;");
+		$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages WHERE to_id = '{$m_id}' AND status = 1;");
 		$unreadMessages = $this->Db->Fetch();
 	}
 
@@ -74,12 +74,11 @@
 	}
 
 	$memberCount = count($online);
-	$memberList = implode(", ", $online);
+	$memberList  = implode(", ", $online);
 
 	// Number of guests
 
-	$this->Db->Query("SELECT COUNT(s_id) AS count FROM c_sessions
-		WHERE member_id = 0;");
+	$this->Db->Query("SELECT COUNT(s_id) AS count FROM c_sessions WHERE member_id = 0;");
 
 	$guestsCount = $this->Db->Fetch();
 	$guestsCount = $guestsCount['count'];
@@ -99,7 +98,7 @@
 			. "ORDER BY m_id DESC LIMIT 1;");
 	$statsResultTmp = $this->Db->Fetch();
 
-	$_stats['lastmemberid'] = $statsResultTmp['m_id'];
+	$_stats['lastmemberid']   = $statsResultTmp['m_id'];
 	$_stats['lastmembername'] = $statsResultTmp['username'];
 
 ?>

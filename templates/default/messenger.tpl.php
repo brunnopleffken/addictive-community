@@ -74,7 +74,7 @@
 		<div class="inputBox">
 			<div class="label">To</div>
 			<div class="field">
-				<input type="hidden" id="pmTo" class="medium required">
+				<input type="hidden" name="to" id="pmTo" class="medium required">
 			</div>
 		</div>
 		<div class="inputBox">
