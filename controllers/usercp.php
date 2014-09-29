@@ -145,7 +145,7 @@
 			$info = array(
 				"template" => Html::Request("template"),
 				"language" => Html::Request("language"),
-				"timezone_offset" => Html::Request("timezone")
+				"time_offset" => Html::Request("timezone")
 				);
 
 			$this->Db->Update("c_members", $info, "m_id = {$m_id}");
