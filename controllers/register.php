@@ -17,6 +17,19 @@
 	$act = Html::Request("act");
 
 	// ---------------------------------------------------
+	// Get step number
+	// ---------------------------------------------------
+
+	$notification = "";
+	$error = Html::Request("error");
+
+	switch($error) {
+		case 1:
+			$notification = Html::Notification("Username or e-mail already exists. Try again.", "failure");
+			break;
+	}
+
+	// ---------------------------------------------------
 	// Let's do it!
 	// ---------------------------------------------------
 
@@ -43,29 +56,37 @@
 				"dst"           => 0,
 				"show_email"    => 1,
 				"show_birthday" => 1,
-				"show_gender"   => 1
+				"show_gender"   => 1,
+				"token"         => md5(microtime())
 			);
 
 			// Find for already registered email address
-			$this->Db->Query("SELECT email FROM c_members WHERE email = '{$registerInfo['email']}';");
+			$this->Db->Query("SELECT email FROM c_members "
+							 . "WHERE email = '{$registerInfo['email']}' OR "
+							 . "username = '{$registerInfo['username']}';");
 			$emailExistsCount = $this->Db->Rows();
 
 			if($emailExistsCount > 0) {
-				header("Location: index.php?module=register?step=2?error=1");
+				header("Location: index.php?module=register&step=2&error=1");
 				exit;
 			}
 
 			// Insert new member on database
 
-			$this->Db->Insert($registerInfo, "c_members");
-			$this->Db->Query("UPDATE c_stats SET member_count = member_count + 1;");
-			header("Location: index.php?module=register&step=3");
+			//$this->Db->Insert($registerInfo, "c_members");
+			//$this->Db->Query("UPDATE c_stats SET member_count = member_count + 1;");
+			//header("Location: index.php?module=register&step=3");
 
 			// TO DO: [ GENERATE RANDOM MD5 / SEND VALIDATION E-MAIL TO THE USER ]
-			
+
 			if($registerInfo['usergroup'] == 6) {
-				// ...
+				$Email = new Email($this->Core->config);
+				
+				String::PR($Email);
 			}
+
+			String::PR($registerInfo);
+			exit;
 
 			exit;
 			break;
