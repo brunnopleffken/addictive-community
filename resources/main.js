@@ -187,8 +187,56 @@ jQuery(document).ready(function($) {
 
 		}
 	});
-
+	
+	// ---------------------------------------------------
+	// LOGIN - Validates username and password
+	// ---------------------------------------------------
+	
+	$('#memberLoginForm').on('submit', function(event) {
+		var error      = false,
+		    $userField = $('#memberLoginForm .username'),
+		    $passField = $('#memberLoginForm .password'),
+		    timer;
+		
+		event.preventDefault();
+		
+		$.ajax({
+			url: 'index.php?module=login&act=validate',
+			type: 'post',
+			dataType: 'json',
+			data: { username: $userField.val(), password: $passField.val() }
+		})
+		.done(function(data){
+			if(data.authenticated == 'false') {
+				error = true;
+				
+				$userField.addClass('error');
+				$passField.addClass('error');
+				
+				$('#memberLoginForm input[type=submit]').attr('disabled', 'disabled').val('Username or password is wrong');
+				
+				clearTimeout(timer);
+				timer = setTimeout(function() {
+					$('#memberLoginForm input[type=submit]').removeAttr('disabled');
+					$('#memberLoginForm input[type=submit]').val('Log In');
+				}, 2000);
+			}
+		})
+		.fail(function(jqXHR, textStatus) {
+			throw new Error(textStatus);
+		})
+		.always(function() {
+			if(error == false) {
+				var form = document.getElementById('memberLoginForm');
+				form.submit();
+			}
+		});
+		
+	})
+	
+	// ---------------------------------------------------
 	// Remove .error class on focus
+	// ---------------------------------------------------
 
 	$('body').on('focus', '.error', function() {
 		$(this).removeClass('error');
