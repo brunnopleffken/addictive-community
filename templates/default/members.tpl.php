@@ -58,8 +58,9 @@
 </table>
 
 <div class="box">
-	<form action="index.php" class="validate">
-		Search by name: <input type="text" name="" class="small required">
+	<form action="index.php?module=members" method="get" class="validate">
+		<input type="hidden" name="module" value="members">
+		Search by name: <input type="text" name="username" class="small required">
 		<input type="submit" value="OK">
 	</form>
 </div>

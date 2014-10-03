@@ -77,6 +77,11 @@
 	else {
 		$order = "ORDER BY username";
 	}
+
+	if(Html::Request("username")) {
+		$username = Html::Request("username");
+		$order = "WHERE username LIKE '{username}%' {$order};";
+	}
 	
 	// Filter by first letter
 	
@@ -87,9 +92,9 @@
 				. "WHERE username LIKE '{$letter}%' {$order};");
 	}
 	else {
-	 		$this->Db->Query("SELECT * FROM c_members "
-					. "LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id) "
-					. "{$order};");
+		$this->Db->Query("SELECT * FROM c_members "
+				. "LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id) "
+				. "{$order};");
 	}
 
 	while($result = $this->Db->Fetch()) {
