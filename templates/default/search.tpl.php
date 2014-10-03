@@ -6,6 +6,8 @@
 	Your search for <b><?php __($keyword) ?></b> returned <b><?php __($numResults) ?></b> results.
 </div>
 
+<?php __($warning) ?>
+
 <?php
 	if($numResults > 0):
 	foreach($_result as $k => $w):
@@ -14,26 +16,24 @@
 <table class="threadItem search">
 	<tr>
 		<td class="stats min">
-			<img src="<?php __($this->p['IMG']) ?>/thread-replier.png">
-		</td>
-		<td class="stats min">
 			<div class="label">
 				<span class="value">
-					<a href="index.php?module=profile&id=<?php __($_result[$k]['m_id']) ?>" title="{$lang->show['last_post_by']} <?php __($_result[$k]['username']) ?>"><?php __($_result[$k]['username']) ?></a>
+					<i class="fa fa-user"></i>
+					<a href="index.php?module=profile&id=<?php __($_result[$k]['m_id']) ?>" title="Last post by <?php __($_result[$k]['username']) ?>"><?php __($_result[$k]['username']) ?></a>
 				</span>
 			</div>
 		</td>
 		<td class="stats min">
-			<img src="<?php __($this->p['IMG']) ?>/thread-date.png">
-		</td>
-		<td class="stats min">
 			<div class="label">
-				<span class="value"><a href="#" alt="Post date:"><?php __($_result[$k]['post_date']) ?></a></span>
+				<span class="value">
+					<i class="fa fa-clock-o"></i>
+					<?php __($_result[$k]['post_date']) ?>
+				</span>
 			</div>
 		</td>
 		<td class="stats right">
 			<div class="label">
-				<span class="value"><a href="#" alt="Relevance:">Relevance: <?php __($_result[$k]['relevance']) ?></a></span>
+				<span class="value">Relevance: <?php __($_result[$k]['relevance']) ?></span>
 			</div>
 		</td>
 	</tr>

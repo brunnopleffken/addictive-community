@@ -53,6 +53,8 @@
 			$this->Db->Insert("c_posts", $post);
 
 			// Update tables
+		
+			$this->Db->Query("COMMIT;");
 
 			$this->Db->Query("UPDATE c_threads SET replies = replies + 1,
 				lastpost_date = '{$post['post_date']}', lastpost_member_id = '{$post['author_id']}'

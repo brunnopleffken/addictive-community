@@ -48,7 +48,7 @@
 			<a href="index.php"><img src="<?php __($this->p['IMG'] . "/" . $this->Core->config['general_communitylogo']) ?>" class="logo" alt="<?php __($this->Core->config['general_communityname']) ?>"></a>
 			<div id="search">
 				<form action="index.php" method="get" class="validate">
-					<input type="text" name="q" size="25" class="required" placeholder="Search...">
+					<input type="text" name="q" size="25" class="required" value="<?php __(Html::Request("q")) ?>" placeholder="Search...">
 					<input type="hidden" name="module" value="search">
 					<input type="submit" class="transition" value="OK">
 				</form>

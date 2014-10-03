@@ -38,7 +38,7 @@
 	}
 
 	// Build query
-	
+	$warning = "";
 	$_result = array();
 	$keyword = $this->Core->QueryString("q");
 	$keyHighlight = explode(" ", $keyword);
@@ -47,15 +47,20 @@
 			. "MATCH(p.post) AGAINST ('{$keyword}') AS relevance FROM c_posts p "
 			. "INNER JOIN c_threads t ON (p.thread_id = t.t_id) "
 					. "INNER JOIN c_members m ON (p.author_id = m.m_id) "
-					. "WHERE {$where} MATCH(post) AGAINST ('{$keyword}') {$order};");
+					. "WHERE {$where} MATCH(post) AGAINST ('{$keyword}') {$order} "
+			. "LIMIT 100;");
+
+	if($this->Db->Rows() >= 90) {
+		$warning = Html::Notification("There are too many results for this search. Please try your search again with more specific keywords.", "warning", true);
+	}
 
 	while($result = $this->Db->Fetch()) {
 		$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 		$result['relevance'] = round($result['relevance'], 2);
 		
 		foreach($keyHighlight as $words) {
-			$result['post'] = str_ireplace($words, "<b style=\"background: #ffa\">" . $words . "</b>",
-				String::RemoveBBcode($result['post']));
+			$result['post'] = preg_replace("/{$words}/mi", "<b style='background: #ffa'>$0</b>", $result['post']);
+			$result['post'] = preg_replace("/\n/", "<br>", $result['post']);
 		}
 		
 		$_result[] = $result;
