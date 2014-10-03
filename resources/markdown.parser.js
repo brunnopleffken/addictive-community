@@ -19,9 +19,12 @@ function markdownReplace(content) {
 	content = content.replace(/\_\_(.+?)\_\_/gm, '<u>$1</u>');
 	content = content.replace(/\~\~(.+?)\~\~/gm, '<s>$1</s>');
 	
-	// [[links]]
-	content = content.replace(/\[\[(.+?)\|(.+?)\]\]/gm, '<a href="$1" target="_blank">$2</a>');
-	content = content.replace(/\[\[(.+?)\]\]/gm, '<a href="$1" target="_blank">$1</a>');
+	// [[links]] with http://
+	content = content.replace(/\[\[([http://].+?)\|(.+?)\]\]/gm, '<a href="$1" target="_blank" rel="nofollow">$2</a>');
+	content = content.replace(/\[\[([http://].+?)\]\]/gm, '<a href="$1" target="_blank" rel="nofollow">$1</a>');
+	// [[links]] without http://
+	content = content.replace(/\[\[(.+?)\|(.+?)\]\]/gm, '<a href="http://$1" target="_blank" rel="nofollow">$2</a>');
+	content = content.replace(/\[\[(.+?)\]\]/gm, '<a href="http://$1" target="_blank" rel="nofollow">http://$1</a>');
 	
 	// {{images}}
 	content = content.replace(/\{\{([^\}\{]+?)\|([0-9]+?)x([0-9]+?)\}\}/gm, '<img src="$1" width="$2" height="$3">');
