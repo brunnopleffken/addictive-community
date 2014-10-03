@@ -210,6 +210,12 @@ form {
 		cursor: default;
 		text-shadow: 1px 1px 0px #fff !important;
 	}
+	i {
+		font-size: 22px;
+		line-height: 1em;
+		margin-right: 6px;
+		vertical-align: middle;
+	}
 }
 
 // Small button localized in table TH
@@ -643,6 +649,7 @@ form {
 			color: #ffffff;
 			overflow: hidden;
 			padding: 1px;
+			white-space: nowrap;
 			img {
 				margin-top: 2px;
 			}

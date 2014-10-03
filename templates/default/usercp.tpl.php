@@ -157,7 +157,7 @@
 		<div class="inputBox">
 			<div class="label">Language</div>
 			<div class="field">
-				<select name="language" class="select2-no-search">
+				<select name="language" class="select2-no-search small">
 					<option value="en_US">English (US)</option>
 				</select>
 			</div>
@@ -165,7 +165,7 @@
 		<div class="inputBox">
 			<div class="label">Template</div>
 			<div class="field">
-				<select name="template" class="select2-no-search">
+				<select name="template" class="select2-no-search small">
 					<option value="default">Default</option>
 				</select>
 			</div>
