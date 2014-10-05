@@ -231,14 +231,13 @@ jQuery(document).ready(function($) {
 				form.submit();
 			}
 		});
-		
 	})
 	
 	// ---------------------------------------------------
 	// Remove .error class on focus
 	// ---------------------------------------------------
 
-	$('body').on('focus', '.error', function() {
+	$(document).on('focus', '.error', function() {
 		$(this).removeClass('error');
 	});
 
@@ -285,13 +284,12 @@ jQuery(document).ready(function($) {
 	});
 	
 	$('#pmTo').select2({
-		placeholder: "Username",
 		minimumInputLength: 2,
 		ajax: {
 			url: 'api/usernames.php',
 			dataType: 'json',
 			type: "POST",
-			quietMillis: 100,
+			quietMillis: 500,
 			data: function (term) {
 				return {
 					term: term
