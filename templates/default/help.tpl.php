@@ -20,11 +20,17 @@
 
 <?php
 	endforeach;
-	else:
+	elseif(isset($_help)):
 ?>
 
 <div class="box">
 	<p><?php __($_help['content']) ?></p>
+</div>
+
+<?php else: ?>
+
+<div class="box center">
+	<p>There are no help topics to show.</p>
 </div>
 
 <?php endif; ?>
