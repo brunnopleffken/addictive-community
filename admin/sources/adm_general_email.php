@@ -71,11 +71,11 @@
 					</tr>
 					<tr>
 						<td class="title-fixed">"Reply To" address<span class="title-desc">Usually the same used in authentication.</span></td>
-						<td><input type="text" name="general_email_smtp" class="medium" value="<?php echo $Admin->SelectConfig("general_email_smtp") ?>"></td>
+						<td><input type="text" name="general_email_reply_to" class="medium" value="<?php echo $Admin->SelectConfig("general_email_reply_to") ?>"></td>
 					</tr>
 					<tr>
 						<td class="title-fixed">"From" name</td>
-						<td><input type="text" name="general_email_smtp" class="medium" value="<?php echo $Admin->SelectConfig("general_email_smtp") ?>"></td>
+						<td><input type="text" name="general_email_from" class="medium" value="<?php echo $Admin->SelectConfig("general_email_from") ?>"></td>
 					</tr>
 				</table>
 				
