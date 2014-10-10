@@ -80,7 +80,7 @@
 
 	if(Html::Request("username")) {
 		$username = Html::Request("username");
-		$order = "WHERE username LIKE '{username}%' {$order};";
+		$order = "WHERE username LIKE '%{$username}%' {$order};";
 	}
 	
 	// Filter by first letter
