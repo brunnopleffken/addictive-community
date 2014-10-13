@@ -20,7 +20,7 @@ body .tiny { font-size: 11px; }
 body .min { width: 1% !important; white-space: nowrap; }
 body .noShadow { box-shadow: none; }
 
-a { color: #113377; text-decoration: none; }
+a { background-color: transparent; color: #113377; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 code { background-color: #eeeeee; padding: 0 2px; }
@@ -56,6 +56,8 @@ form textarea { overflow: auto; }
 .defaultButton { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000000; }
 .defaultButton:hover { background-color: #566380; text-decoration: none; }
 .defaultButton.disabled { background: #dddddd; color: #990000 !important; cursor: default; text-shadow: 1px 1px 0px #fff !important; }
+.defaultButton.grey { background: rgba(0, 0, 0, 0.05); color: #990000 !important; text-shadow: 1px 1px 0px #fff !important; }
+.defaultButton.grey:hover { background: rgba(0, 0, 0, 0.1); text-decoration: none; }
 .defaultButton i { font-size: 22px; line-height: 1em; margin-right: 6px; vertical-align: middle; }
 
 .smallButton { border-radius: 7px; color: #333333; cursor: pointer; font-size: 10px; padding: 4px 10px 5px 10px; }
@@ -278,5 +280,6 @@ form textarea { overflow: auto; }
 /** TEXTAREA TOOLBAR **/
 #textareaToolbar { font-size: 18px; margin-bottom: 5px; position: relative; user-select: none; }
 #textareaToolbar i { border: 1px solid #dddddd; border-radius: 4px; cursor: pointer; padding: 5px; width: 30px; }
+#textareaToolbar i:hover { background-color: rgba(0, 0, 0, 0.02); }
 
 #markdownPreview { white-space: initial; }

@@ -61,6 +61,7 @@ body {
 }
 
 a {
+	background-color: transparent;
 	color: #113377;
 	text-decoration: none;
 	&:hover {
@@ -209,6 +210,15 @@ form {
 		color: #990000 !important;
 		cursor: default;
 		text-shadow: 1px 1px 0px #fff !important;
+	}
+	&.grey {
+		background: rgba(0, 0, 0, 0.05);
+		color: #990000 !important;
+		text-shadow: 1px 1px 0px #fff !important;
+		&:hover {
+			background: rgba(0, 0, 0, 0.1);
+			text-decoration: none;
+		}
 	}
 	i {
 		font-size: 22px;
@@ -1215,6 +1225,9 @@ form {
 		cursor: pointer;
 		padding: 5px;
 		width: 30px;
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.02);
+		}
 	}
 }
 

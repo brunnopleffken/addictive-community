@@ -40,7 +40,7 @@
 		?>
 		<tr>
 			<td class="min" style="font-size: 17px"><i class="fa <?php __($pm['icon_class']) ?>"></i></td>
-			<td style="font-size: 14px;"><a href=""><?php __($pm['subject']) ?></a></td>
+			<td style="font-size: 14px;"><a href="index.php?module=messenger&read=<?php __($pm['pm_id']) ?>"><?php __($pm['subject']) ?></a></td>
 			<td><a href="index.php?module=profile&id=<?php __($pm['from_id']) ?>"><?php __($pm['username']) ?></a></td>
 			<td><?php __($pm['sent_date']) ?></td>
 			<td class="min"><input type="checkbox" name="pm[]" value="<?php __($pm['pm_id']) ?>" class="checkDeleteMessage"></td>
@@ -105,6 +105,45 @@
 			<input type="submit" value="Send Message">
 		</div>
 	</form>
+</div>
+
+<?php elseif($read): ?>
+
+<?php
+	$this->header .= '<script type="text/javascript" src="resources/markdown.parser.js"></script>';
+	$this->header .= '<script type="text/javascript">$(document).ready(function(){$(\'.parsing\').markdownParser()});</script>';
+?>
+
+<div class="roomTitleBar">
+	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span><?php __($message['subject']) ?></div>
+	<div class="buttons fright">
+		<a href="index.php?module=messenger&amp;act=reply&amp;message=<?php __($message['pm_id']) ?>" class="defaultButton transition">Reply</a>
+		<a href="index.php?module=messenger&amp;act=forward&amp;message=<?php __($message['pm_id']) ?>" class="defaultButton transition">Forward</a>
+		<a href="index.php?module=messenger&amp;act=delete&amp;message=<?php __($message['pm_id']) ?>" class="defaultButton grey transition">Delete</a>
+	</div>
+</div>
+
+<!--<div class="box">
+	From
+</div>-->
+
+<div class="postReply">
+	<div class="author">
+		<div class="photostack">
+			<a href="index.php?module=profile&amp;id=<?php __($message['from_id']) ?>">
+				<?php __(Html::Crop($message['avatar'], 96, 96, "avatar")) ?>
+			</a>
+		</div>
+		<p class="name"><a href="index.php?module=profile&amp;id=<?php __($message['from_id']) ?>"><?php __($message['username']) ?></a></p>
+		<p class="memberTitle"><?php __($message['member_title']) ?></p>
+	</div>
+	<div class="content">
+		<div class="date">Sent on <?php __($message['sent_date']) ?></div>
+		<div class="text">
+			<span class="parsing"><?php __($message['message']) ?></span>
+			<div class="signature parsing"><?php __($message['signature']) ?></div>
+		</div>
+	</div>
 </div>
 
 <?php endif;?>

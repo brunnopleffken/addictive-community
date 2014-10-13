@@ -27,6 +27,9 @@
 		case 1:
 			$notification = Html::Notification("Your personal message has been successfully sent.", "success");
 			break;
+		case 2:
+			$notification = Html::Notification("Unable to load the personal message.", "failure");
+			break;
 	}
 
 	// ---------------------------------------------------
@@ -44,6 +47,9 @@
 	$view = $this->Core->QueryString("view", "inbox");
 
 	switch($view) {
+		
+		// Messenger inbox
+		
 		case "inbox":
 			// Select personal messages
 			$this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username "
@@ -68,13 +74,56 @@
 
 			break;
 
-		case "compose":
+		// Replying messages
+
+		case "reply":
+			break;
+
+		// Forwarding messages
+
+		case "forward":
 			break;
 
 	}
 
 	// ---------------------------------------------------
-	// Set action
+	// Read message
+	// ---------------------------------------------------
+
+	$read = Html::Request("read");
+
+	if($read) {
+		// Hide "inbox" view
+		$view = null;
+
+		// Member ID
+		
+		// Get message info and post
+		$this->Db->Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type FROM c_messages p "
+			. "LEFT JOIN c_members m ON (p.from_id = m.m_id) "
+			. "WHERE pm_id = {$read} AND to_id = " . $this->member['m_id'] . ";");
+
+		if($this->Db->Rows() == 1) {
+			$message = $this->Db->Fetch();
+
+			// If not, set message as read
+			if($message['status'] == 1) {
+				$time = time();
+				$this->Db->Query("UPDATE c_messages SET status = 0, read_date = {$time} WHERE pm_id = {$read}");
+			}
+
+			// Format content
+			$message['sent_date'] = $this->Core->DateFormat($message['sent_date']);
+			$message['avatar'] = $this->Core->GetGravatar($message['email'], $message['photo'], 96, $message['photo_type']);
+		}
+		else {
+			header("Location: index.php?module=messenger&msg=2");
+			exit;
+		}
+	}
+
+	// ---------------------------------------------------
+	// Set actions
 	// ---------------------------------------------------
 
 	$act = Html::Request("act");
