@@ -2,18 +2,24 @@
 
 <div class="roomTitleBar">
 	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span>Messenger</div>
+	<div class="buttons fright">
+		<a href="index.php?module=messenger&view=compose" class="defaultButton transition">New Message</a>
+	</div>
 </div>
 
 <?php __($notification) ?>
 
-<div class="box">
-	<span class="fleft">
-		<div class="progressBar" style="width: 204px"><div class="fill" style="width: <?php __($percentageWidth) ?>"></div><span>Storage:  <?php __($numResults . " of " . $maxStorageSize) ?></span></div>
-	</span>
-	<form class="fright">
-		<input type="button" id="messengerDeleteMessages" class="cancel" value="Delete Selected Messages">
-		<input type="button" onclick="window.location.href='index.php?module=messenger&view=compose'" value="New Message">
-	</form>
+<div class="navigation">
+	<div class="navbar">
+		<a href="" class="transition selected">Folders</a>
+		<a href="" class="transition">Attachments</a>
+	</div>
+	<div class="subnav">
+		<a href="index.php?module=messenger" class="transition selected">Inbox</a>
+		<a href="index.php?module=messenger" class="transition">Sent</a>
+		<a href="index.php?module=messenger" class="transition">Drafts</a>
+		<div class="progressBar" style="width: 204px; float: right; margin-top: 9px"><div class="fill" style="width: <?php __($percentageWidth) ?>"></div><span>Storage:  <?php __($numResults . " of " . $maxStorageSize) ?></span></div>
+	</div>
 </div>
 
 <form action="index.php?module=messenger&act=delete" method="post" class="personalMessenger">
@@ -21,6 +27,7 @@
 		<tr>
 			<th colspan="7">
 				<div class="fright">
+					<a class="smallButton grey white transition" id="messengerDeleteMessages">Delete Selected Messages</a>
 					<a class="smallButton grey white transition" data-check="checkDeleteMessage">Select All</a>
 				</div>
 			</th>
@@ -30,8 +37,8 @@
 			<td class="min">&nbsp;</td>
 			<td>Subject</td>
 			<td width="20%">From</td>
-			<td width="22%">Last Message</td>
-			<td class="min"></td>
+			<td width="22%">Date</td>
+			<td class="min center"><i class="fa fa-check-square-o"></i></td>
 		</tr>
 
 		<?php
