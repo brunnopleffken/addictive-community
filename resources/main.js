@@ -49,10 +49,10 @@ jQuery(document).ready(function($) {
 		$element.after('<div class="tooltip" id="tooltip_' + i + '" style="left: ' + position.left +'px; top: ' + height + 'px">' + $element.data('tooltip') + '</div>');
 
 		$element.on('mouseenter', function() {
-			$('#tooltip_' + i).fadeIn();
+			$('#tooltip_' + i).stop(true).delay(500).fadeIn();
 		});
 		$element.on('mouseleave', function() {
-			$('#tooltip_' + i).stop().fadeOut();
+			$('#tooltip_' + i).stop(true).fadeOut();
 		});
 	});
 
