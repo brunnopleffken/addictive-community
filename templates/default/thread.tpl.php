@@ -78,7 +78,7 @@
 	<div class="content">
 		<div class="date">Posted on <?php __($_replyResult[$k]['post_date']) ?> <?php __($_replyResult[$k]['edited']) ?></div>
 		<div class="text">
-			<span class="parsing"><?php __($_replyResult[$k]['post']) ?></span>
+			<span class="parsing"><?php __(html_entity_decode($_replyResult[$k]['post'])) ?></span>
 			<div class="signature parsing"><?php __($_replyResult[$k]['signature']) ?></div>
 		</div>
 		<div class="footer">
