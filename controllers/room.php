@@ -125,7 +125,7 @@
 
 	// Get list of threads
 
-	$this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS author_email, author.m_id AS author_id, lastpost.username AS lastpost_name, "
+	$this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS author_email, author.photo_type AS author_type, author.photo AS author_photo, lastpost.username AS lastpost_name, "
 			. "(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post "
 			. "FROM c_threads INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id) "
 			. "INNER JOIN c_members AS lastpost ON (c_threads.lastpost_member_id = lastpost.m_id) "
@@ -141,7 +141,7 @@
 		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
 
 		// Author avatar
-		$result['author_avatar'] = $this->Core->GetGravatar($result['author_email'], $result['author_id'], 42);
+		$result['author_avatar'] = $this->Core->GetGravatar($result['author_email'], $result['author_photo'], 42, $result['author_type']);
 		$result['author_avatar'] = Html::Crop($result['author_avatar'], 42, 42, "image");
 
 		// Get the number of replies, not total number of posts... ;)
