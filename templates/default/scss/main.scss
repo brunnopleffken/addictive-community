@@ -611,7 +611,7 @@ form {
 	margin-bottom: 10px;
 	width: 100%;
 	.avatar {
-		padding: 0 5px 0 15px;
+		padding: 0 7px 0 15px;
 		.image {
 			box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 			padding: 1px;
@@ -839,6 +839,44 @@ form {
 		.text {
 			margin-bottom: 35px;
 			padding: 15px;
+			.attachments {
+				overflow: hidden;
+				.file {
+					border: 1px dashed #eeeeee;
+					float: left;
+					height: 100px;
+					margin: 10px 5px;
+					width: 90px;
+					.fileIcon {
+						color: #444444;
+						display: block;
+						font-family: FontAwesome;
+						font-size: 40px;
+						height: 80px;
+						padding-top: 35px;
+						text-align: center;
+						text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+						&.doc:after { content: "\F1C2"; }
+						&.img:after { content: "\F1C5"; }
+						&.mp3:after { content: "\F1C7"; }
+						&.pdf:after { content: "\F1C1"; }
+						&.ppt:after { content: "\F1C4"; }
+						&.txt:after { content: "\F0F6"; }
+						&.vid:after { content: "\F1C8"; }
+						&.xls:after { content: "\F1C3"; }
+						&.zip:after { content: "\F1C6"; }
+						&.blank:after { content: "\F016"; }
+					}
+					.fileName {
+						color: #000000;
+						display: block;
+						font-size: 11px;
+						overflow: hidden;
+						text-align: center;
+						text-overflow: ellipsis;
+					}
+				}
+			}
 			.signature {
 				border-top: 1px solid rgba(0, 0, 0, 0.1);
 				color: #777;

@@ -145,7 +145,7 @@ form textarea { overflow: auto; }
 
 /** ROOM PAGE **/
 .threadItem { background: #ffffff; border-spacing: 0; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); margin-bottom: 10px; width: 100%; /* THREAD STATUS */ }
-.threadItem .avatar { padding: 0 5px 0 15px; }
+.threadItem .avatar { padding: 0 7px 0 15px; }
 .threadItem .avatar .image { box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); padding: 1px; vertical-align: middle; }
 .threadItem .content { padding: 10px; position: relative; }
 .threadItem .content .title { display: block; font-size: 17px; font-weight: bold; line-height: 1em; }
@@ -195,6 +195,20 @@ form textarea { overflow: auto; }
 .postReply .content { display: table-cell; }
 .postReply .content .date { color: #666666; font-size: 11px; padding: 10px 5px; }
 .postReply .content .text { margin-bottom: 35px; padding: 15px; }
+.postReply .content .text .attachments { overflow: hidden; }
+.postReply .content .text .attachments .file { border: 1px dashed #eeeeee; float: left; height: 100px; margin: 10px 5px; width: 90px; }
+.postReply .content .text .attachments .file .fileIcon { color: #444444; display: block; font-family: FontAwesome; font-size: 40px; height: 80px; padding-top: 35px; text-align: center; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1); }
+.postReply .content .text .attachments .file .fileIcon.doc:after { content: "\F1C2"; }
+.postReply .content .text .attachments .file .fileIcon.img:after { content: "\F1C5"; }
+.postReply .content .text .attachments .file .fileIcon.mp3:after { content: "\F1C7"; }
+.postReply .content .text .attachments .file .fileIcon.pdf:after { content: "\F1C1"; }
+.postReply .content .text .attachments .file .fileIcon.ppt:after { content: "\F1C4"; }
+.postReply .content .text .attachments .file .fileIcon.txt:after { content: "\F0F6"; }
+.postReply .content .text .attachments .file .fileIcon.vid:after { content: "\F1C8"; }
+.postReply .content .text .attachments .file .fileIcon.xls:after { content: "\F1C3"; }
+.postReply .content .text .attachments .file .fileIcon.zip:after { content: "\F1C6"; }
+.postReply .content .text .attachments .file .fileIcon.blank:after { content: "\F016"; }
+.postReply .content .text .attachments .file .fileName { color: #000000; display: block; font-size: 11px; overflow: hidden; text-align: center; text-overflow: ellipsis; }
 .postReply .content .text .signature { border-top: 1px solid rgba(0, 0, 0, 0.1); color: #777; font-size: 0.8em; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
 .postReply .content .footer { background: rgba(0, 0, 0, 0.01); bottom: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); left: 0; padding: 5px 5px 8px 5px; position: absolute; right: 0; text-align: right; }
 .postReply.bestAnswer { background: #fafff8 url("../images/best-answer.png") no-repeat right top; border-left: 3px solid #009900; }

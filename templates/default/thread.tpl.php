@@ -79,6 +79,11 @@
 		<div class="date">Posted on <?php __($_replyResult[$k]['post_date']) ?> <?php __($_replyResult[$k]['edited']) ?></div>
 		<div class="text">
 			<span class="parsing"><?php __(html_entity_decode($_replyResult[$k]['post'])) ?></span>
+			<div class="attachments">
+				<?php // attach foreach start ?>
+					<!-- <div class="file"><a href=""><span class="fileIcon zip"></span><div class="fileName">teste_de_arquivo.jpg</div></a></div> -->
+				<?php // attach foreach end ?>
+			</div>
 			<div class="signature parsing"><?php __($_replyResult[$k]['signature']) ?></div>
 		</div>
 		<div class="footer">
