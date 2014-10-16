@@ -21,6 +21,15 @@
 	}
 
 	// ---------------------------------------------------
+	// SEO: If reading thread, META description should be
+	// the first 200 characters of the first post
+	// ---------------------------------------------------
+
+	if($this->info['module'] == "thread") {
+		$this->Core->config['seo_description'] = $firstPostInfo['post'];
+	}
+
+	// ---------------------------------------------------
 	// Format breadcrumbs
 	// ---------------------------------------------------
 	
