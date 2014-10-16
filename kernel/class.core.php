@@ -80,14 +80,12 @@
 
 		public function GetGravatar($email, $photo, $size = 96, $mode = "gravatar", $d = "mm", $r = "g")
 		{
-			if($mode == "gravatar")
-			{
+			if($mode == "gravatar") {
 				$url = "http://www.gravatar.com/avatar/";
 				$url .= md5(strtolower(trim($email)));
 				$url .= "?s={$size}&amp;d={$d}&amp;r={$r}";
 			}
-			elseif($mode == "custom")
-			{
+			elseif($mode == "custom") {
 				$url = "public/avatar/{$photo}";
 			}
 			

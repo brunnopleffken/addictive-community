@@ -23,7 +23,7 @@ body .noShadow { box-shadow: none; }
 a { background-color: transparent; color: #113377; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-code { background-color: #eeeeee; padding: 0 2px; }
+code { background-color: #eeeeee; display: inline-block; padding: 0 2px; }
 
 /** FORMS **/
 button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner { padding: 0 !important; border: 0 none !important; /* Fixes odd padding in FF */ }
@@ -145,6 +145,8 @@ form textarea { overflow: auto; }
 
 /** ROOM PAGE **/
 .threadItem { background: #ffffff; border-spacing: 0; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); margin-bottom: 10px; width: 100%; /* THREAD STATUS */ }
+.threadItem .avatar { padding: 0 5px 0 15px; }
+.threadItem .avatar .image { box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); padding: 1px; vertical-align: middle; }
 .threadItem .content { padding: 10px; position: relative; }
 .threadItem .content .title { display: block; font-size: 17px; font-weight: bold; line-height: 1em; }
 .threadItem .content .desc { color: #444444; display: block; font-size: 11px; font-style: italic; line-height: 30px; margin-right: -1000px; overflow: hidden; position: relative; text-overflow: ellipsis; width: 100%; white-space: nowrap; }

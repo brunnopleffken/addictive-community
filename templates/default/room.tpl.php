@@ -29,6 +29,9 @@
 
 <table class="threadItem <?php __($_thread[$k]['class']) ?>">
 	<tr>
+		<td class="min avatar">
+			<?php __($_thread[$k]['author_avatar']) ?>
+		</td>
 		<td class="content">
 			<a href="index.php?module=thread&amp;id=<?php __($_thread[$k]['t_id']) ?>" class="title"><?php __($_thread[$k]['title']) ?></a>
 			<div class="desc"><?php __($_thread[$k]['description']) ?></div>

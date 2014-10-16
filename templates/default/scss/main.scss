@@ -71,6 +71,7 @@ a {
 
 code {
 	background-color: #eeeeee;
+	display: inline-block;
 	padding: 0 2px;
 }
 
@@ -609,6 +610,14 @@ form {
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 	margin-bottom: 10px;
 	width: 100%;
+	.avatar {
+		padding: 0 5px 0 15px;
+		.image {
+			box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+			padding: 1px;
+			vertical-align: middle;
+		}
+	}
 	.content {
 		padding: 10px;
 		position: relative;
