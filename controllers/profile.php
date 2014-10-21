@@ -28,6 +28,7 @@
 
 	// Member avatar
 	$info['avatar'] = $this->Core->GetGravatar($info['email'], $info['photo'], 160, $info['photo_type']);
+	$info['cover'] = $this->Core->GetGravatar($info['email'], $info['photo'], 1024, $info['photo_type']);
 
 	// Readable join date
 	$info['joined'] = $this->Core->DateFormat($info['joined'], "short");
@@ -45,8 +46,6 @@
 		// ---------------------------------------------------
 
 		case "profile":
-
-
 			// Birthday and age
 			$info['birthday_timestamp'] = mktime(12, 0, 0, $info['b_month'], $info['b_day'], $info['b_year']);
 			$info['birthday'] = $this->Core->DateFormat($info['birthday_timestamp'], "short");

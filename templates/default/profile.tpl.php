@@ -1,10 +1,35 @@
 <?php
+	$this->header .= '<script type="text/javascript" src="thirdparty/Vague/Vague.js"></script>';
+	$this->header .= "<script>$(document).ready(function(){var vague = $('.profileHeader .background img').Vague({
+		    intensity:      30,      // Blur Intensity
+		    forceSVGUrl:    false,   // Force absolute path to the SVG filter,
+		    // default animation options
+		    animationOptions: {
+		      duration: 1000,
+		      easing: 'linear' // here you can use also custom jQuery easing functions
+		    }
+		});
+
+		vague.blur();});</script>";
 	$this->header .= '<script type="text/javascript" src="resources/markdown.parser.js"></script>';
 	$this->header .= '<script type="text/javascript">$(document).ready(function(){$(\'.parsing\').markdownParser()});</script>';
 ?>
 
+<!--
 <div class="roomTitleBar">
 	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span>View Profile</div>
+</div>
+-->
+
+<div class="profileHeader">
+	<div class="background" style="background-image: url('<? __($info['cover']) ?>')"><div class="cover"></div></div>
+	<?php __(Html::Crop($info['avatar'], 160, 160, "avatar")) ?>
+	<div class="memberInfo">
+		<span class="username"><?php __($info['username']) ?></span>
+		<div class="item"><span>Posts</span><?php __($info['posts']) ?></div>
+		<div class="item"><span>Registered</span><?php __($info['joined']) ?></div>
+		<div class="item"><span>Group</span><?php __($info['name']) ?></div>
+	</div>
 </div>
 
 <div class="navigation">
@@ -20,7 +45,13 @@
 
 <div class="tableLayer profileContainer">
 	<div class="box tCell profileSidebar">
-		<?php __(Html::Crop($info['avatar'], 160, 160, "avatar")) ?>
+		<div class="reputation">
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star-o"></i>
+		</div>
 		<ul class="userInfoList">
 			<li><b>Group</b> <?php __($info['name']) ?></li>
 			<li><b>Registered</b> <?php __($info['joined']) ?></li>
@@ -35,9 +66,7 @@
 		case "profile":
 	?>
 
-	<!-- MEMBER PROFILE -->
-
-		<h1><?php __($info['username']) ?></h1>
+		<!-- MEMBER PROFILE -->
 		<span><em><?php __($info['member_title']) ?></em></span>
 		<table class="tableList noShadow noBorders" style="margin-top: 15px">
 			<tr>
