@@ -59,7 +59,7 @@
 		<div class="inputBox">
 			<div class="label">Type</div>
 			<div class="field">
-				<select name="type">
+				<select name="type" class="select2">
 					<option value="public">Public (viewable by all)</option>
 					<option value="private">Private (viewable only by you)</option>
 				</select>

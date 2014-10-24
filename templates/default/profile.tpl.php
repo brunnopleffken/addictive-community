@@ -1,16 +1,4 @@
 <?php
-	$this->header .= '<script type="text/javascript" src="thirdparty/Vague/Vague.js"></script>';
-	$this->header .= "<script>$(document).ready(function(){var vague = $('.profileHeader .background img').Vague({
-		    intensity:      30,      // Blur Intensity
-		    forceSVGUrl:    false,   // Force absolute path to the SVG filter,
-		    // default animation options
-		    animationOptions: {
-		      duration: 1000,
-		      easing: 'linear' // here you can use also custom jQuery easing functions
-		    }
-		});
-
-		vague.blur();});</script>";
 	$this->header .= '<script type="text/javascript" src="resources/markdown.parser.js"></script>';
 	$this->header .= '<script type="text/javascript">$(document).ready(function(){$(\'.parsing\').markdownParser()});</script>';
 ?>
@@ -22,7 +10,7 @@
 -->
 
 <div class="profileHeader">
-	<div class="background" style="background-image: url('<? __($info['cover']) ?>')"><div class="cover"></div></div>
+	<div class="background" style="background-image: url('<?php __($info['cover']) ?>')"><div class="cover"></div></div>
 	<?php __(Html::Crop($info['avatar'], 160, 160, "avatar")) ?>
 	<div class="memberInfo">
 		<span class="username"><?php __($info['username']) ?></span>
@@ -112,15 +100,15 @@
 			</tr>
 			<tr>
 				<td class="min" style="font-size: 16px"><i class="fa fa-envelope-o"></i></td>
-				<td><a href="mailto:<?php __($info['email']) ?>"><?php __($info['email']) ?></a></td>
+				<td><?php __($info['email']) ?></td>
 			</tr>
 			<tr>
 				<td class="min" style="font-size: 16px"><i class="fa fa-facebook-square"></i></td>
-				<td><a href="http://www.facebook.com/<?php __($info['im_facebook']) ?>" target="_blank" rel="nofollow">fb.com/<?php __($info['im_facebook']) ?></a></td>
+				<td><a href="https://www.facebook.com/<?php __($info['im_facebook']) ?>" target="_blank" rel="nofollow">fb.com/<?php __($info['im_facebook']) ?></a></td>
 			</tr>
 			<tr>
 				<td class="min" style="font-size: 16px"><i class="fa fa-twitter"></i></td>
-				<td><a href="http://twitter.com/<?php __($info['im_twitter']) ?>" target="_blank" rel="nofollow">@<?php __($info['im_twitter']) ?></a></td>
+				<td><a href="https://twitter.com/<?php __($info['im_twitter']) ?>" target="_blank" rel="nofollow">@<?php __($info['im_twitter']) ?></a></td>
 			</tr>
 		</table>
 

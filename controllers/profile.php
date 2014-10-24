@@ -60,6 +60,14 @@
 
 			// Personal website link
 			$info['website'] = "<a href=\"{$info['website']}\" rel=\"nofollow\" target=\"_blank\">{$info['website']}</a>";
+		
+			// Member e-mail
+			if($info['show_email'] == 1) {
+				$info['email'] = "<a href='mailto:" . $info['email'] . "'>" . $info['email'] . "</a>";
+			}
+			else {
+				$info['email'] = "<em>Private</em>";
+			}
 
 			break;
 
