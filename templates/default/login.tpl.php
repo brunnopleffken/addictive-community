@@ -21,7 +21,7 @@
 			<td><strong></strong></td>
 			<td style="line-height: 1.6em">
 				<input type="checkbox" name="anonymous"> Anonymous login<br>
-				<input type="checkbox" name="remember"> Remember my current session
+				<input type="checkbox" name="remember" checked> Remember my current session
 			</td>
 		</tr>
 		<tr>
