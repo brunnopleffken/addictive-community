@@ -31,7 +31,7 @@ function markdownReplace(content) {
 	content = content.replace(/\{\{([^\}\{]+?)\}\}/gm, '<img src="$1">');
 	
 	// ``code``
-	content = content.replace(/\`\`(.*)\`\`/gm, '<code>$1</code>');
+	content = content.replace(/``(.+?)``/gm, '<code>$1</code>');
 	
 	// [color:value][/color]
 	content = content.replace(/\[color\:(.+?)\](.+?)\[\/color\]/gm, '<span style="color:$1">$2</span>');
