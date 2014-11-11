@@ -23,7 +23,7 @@ body .noShadow { box-shadow: none; }
 a { background-color: transparent; color: #113377; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-code { background-color: #eeeeee; display: inline-block; padding: 0 2px; }
+code { background-color: #eeeeee; font-family: monospace; display: inline-block; padding: 0 2px; }
 
 /** FORMS **/
 button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner { padding: 0 !important; border: 0 none !important; /* Fixes odd padding in FF */ }
@@ -195,23 +195,26 @@ form textarea { overflow: auto; }
 .postReply .content { display: table-cell; }
 .postReply .content .date { color: #666666; font-size: 11px; padding: 10px 5px; }
 .postReply .content .text { margin-bottom: 35px; padding: 15px; }
-.postReply .content .text .attachments { overflow: hidden; }
-.postReply .content .text .attachments .file { border: 1px dashed #eeeeee; float: left; height: 100px; margin: 10px 5px; width: 90px; }
-.postReply .content .text .attachments .file .fileIcon { color: #444444; display: block; font-family: FontAwesome; font-size: 40px; height: 80px; padding-top: 35px; text-align: center; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1); }
-.postReply .content .text .attachments .file .fileIcon.doc:after { content: "\F1C2"; }
-.postReply .content .text .attachments .file .fileIcon.img:after { content: "\F1C5"; }
-.postReply .content .text .attachments .file .fileIcon.mp3:after { content: "\F1C7"; }
-.postReply .content .text .attachments .file .fileIcon.pdf:after { content: "\F1C1"; }
-.postReply .content .text .attachments .file .fileIcon.ppt:after { content: "\F1C4"; }
-.postReply .content .text .attachments .file .fileIcon.txt:after { content: "\F0F6"; }
-.postReply .content .text .attachments .file .fileIcon.vid:after { content: "\F1C8"; }
-.postReply .content .text .attachments .file .fileIcon.xls:after { content: "\F1C3"; }
-.postReply .content .text .attachments .file .fileIcon.zip:after { content: "\F1C6"; }
-.postReply .content .text .attachments .file .fileIcon.blank:after { content: "\F016"; }
-.postReply .content .text .attachments .file .fileName { color: #000000; display: block; font-size: 11px; overflow: hidden; text-align: center; text-overflow: ellipsis; }
 .postReply .content .text .signature { border-top: 1px solid rgba(0, 0, 0, 0.1); color: #777; font-size: 0.8em; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
 .postReply .content .footer { background: rgba(0, 0, 0, 0.01); bottom: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); left: 0; padding: 5px 5px 8px 5px; position: absolute; right: 0; text-align: right; }
 .postReply.bestAnswer { background: #fafff8 url("../images/best-answer.png") no-repeat right top; border-left: 3px solid #009900; }
+
+.mainPost .attachments, .postReply .attachments { overflow: hidden; }
+.mainPost .attachments .file, .postReply .attachments .file { border: 1px dashed #eeeeee; float: left; margin-top: 20px; margin-right: 10px; padding: 10px; width: 230px; }
+.mainPost .attachments .file .fileIcon, .postReply .attachments .file .fileIcon { color: #444444; display: inline-block; font-family: FontAwesome; font-size: 40px; margin: 8px 8px 8px 0; text-align: center; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1); vertical-align: middle; }
+.mainPost .attachments .file .fileIcon.doc:after, .postReply .attachments .file .fileIcon.doc:after { content: "\F1C2"; }
+.mainPost .attachments .file .fileIcon.htm:after, .postReply .attachments .file .fileIcon.htm:after { content: "\F1C9"; }
+.mainPost .attachments .file .fileIcon.img:after, .postReply .attachments .file .fileIcon.img:after { content: "\F1C5"; }
+.mainPost .attachments .file .fileIcon.mp3:after, .postReply .attachments .file .fileIcon.mp3:after { content: "\F1C7"; }
+.mainPost .attachments .file .fileIcon.pdf:after, .postReply .attachments .file .fileIcon.pdf:after { content: "\F1C1"; }
+.mainPost .attachments .file .fileIcon.ppt:after, .postReply .attachments .file .fileIcon.ppt:after { content: "\F1C4"; }
+.mainPost .attachments .file .fileIcon.txt:after, .postReply .attachments .file .fileIcon.txt:after { content: "\F0F6"; }
+.mainPost .attachments .file .fileIcon.vid:after, .postReply .attachments .file .fileIcon.vid:after { content: "\F1C8"; }
+.mainPost .attachments .file .fileIcon.xls:after, .postReply .attachments .file .fileIcon.xls:after { content: "\F1C3"; }
+.mainPost .attachments .file .fileIcon.zip:after, .postReply .attachments .file .fileIcon.zip:after { content: "\F1C6"; }
+.mainPost .attachments .file .fileIcon.blank:after, .postReply .attachments .file .fileIcon.blank:after { content: "\F016"; }
+.mainPost .attachments .file .fileName, .postReply .attachments .file .fileName { color: #000000; display: inline-block; font-size: 11px; line-height: 1.4em; vertical-align: middle; width: 162px; }
+.mainPost .attachments .file .fileName span, .postReply .attachments .file .fileName span { display: block; font-size: 12px; font-weight: bold; overflow: hidden; text-overflow: ellipsis; }
 
 .relatedThreads { background: #ffffff; padding: 18px; }
 .relatedThreads h2 { margin-bottom: 18px; }

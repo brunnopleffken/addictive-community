@@ -34,6 +34,16 @@
 		<p class="title"><?php __($firstPostInfo['title']) ?></p>
 		<div class="text">
 			<span class="parsing"><?php __($firstPostInfo['post']) ?></span>
+			<div class="attachments">
+				<?php foreach($_firstPostAttachments as $file): ?>
+					<div class="file">
+						<a href="<?php __($file['url']) ?>" target="_blank" rel="nofollow">
+							<span class="fileIcon <?php __($file['type']) ?>"></span>
+							<div class="fileName"><span><?php __($file['name']) ?></span><?php __($file['size']) ?></div>
+						</a>
+					</div>
+				<?php endforeach; ?>
+			</div>
 		</div>
 	</div>
 	<div class="footer">
@@ -80,9 +90,14 @@
 		<div class="text">
 			<span class="parsing"><?php __(html_entity_decode($_replyResult[$k]['post'])) ?></span>
 			<div class="attachments">
-				<?php // attach foreach start ?>
-					<!-- <div class="file"><a href=""><span class="fileIcon zip"></span><div class="fileName">teste_de_arquivo.jpg</div></a></div> -->
-				<?php // attach foreach end ?>
+				<?php foreach($_replyAttachments as $file): ?>
+					<div class="file">
+						<a href="<?php __($file['url']) ?>" target="_blank" rel="nofollow">
+							<span class="fileIcon <?php __($file['type']) ?>"></span>
+							<div class="fileName"><span><?php __($file['name']) ?></span><?php __($file['size']) ?></div>
+						</a>
+					</div>
+				<?php endforeach; ?>
 			</div>
 			<div class="signature parsing"><?php __($_replyResult[$k]['signature']) ?></div>
 		</div>

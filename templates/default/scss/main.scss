@@ -71,6 +71,7 @@ a {
 
 code {
 	background-color: #eeeeee;
+	font-family: monospace;
 	display: inline-block;
 	padding: 0 2px;
 }
@@ -839,44 +840,6 @@ form {
 		.text {
 			margin-bottom: 35px;
 			padding: 15px;
-			.attachments {
-				overflow: hidden;
-				.file {
-					border: 1px dashed #eeeeee;
-					float: left;
-					height: 100px;
-					margin: 10px 5px;
-					width: 90px;
-					.fileIcon {
-						color: #444444;
-						display: block;
-						font-family: FontAwesome;
-						font-size: 40px;
-						height: 80px;
-						padding-top: 35px;
-						text-align: center;
-						text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
-						&.doc:after { content: "\F1C2"; }
-						&.img:after { content: "\F1C5"; }
-						&.mp3:after { content: "\F1C7"; }
-						&.pdf:after { content: "\F1C1"; }
-						&.ppt:after { content: "\F1C4"; }
-						&.txt:after { content: "\F0F6"; }
-						&.vid:after { content: "\F1C8"; }
-						&.xls:after { content: "\F1C3"; }
-						&.zip:after { content: "\F1C6"; }
-						&.blank:after { content: "\F016"; }
-					}
-					.fileName {
-						color: #000000;
-						display: block;
-						font-size: 11px;
-						overflow: hidden;
-						text-align: center;
-						text-overflow: ellipsis;
-					}
-				}
-			}
 			.signature {
 				border-top: 1px solid rgba(0, 0, 0, 0.1);
 				color: #777;
@@ -900,6 +863,56 @@ form {
 	&.bestAnswer {
 		background: #fafff8 url('../images/best-answer.png') no-repeat right top;
 		border-left: 3px solid #009900;
+	}
+}
+
+.mainPost, .postReply {
+	.attachments {
+		overflow: hidden;
+		.file {
+			border: 1px dashed #eeeeee;
+			float: left;
+			margin-top: 20px;
+			margin-right: 10px;
+			padding: 10px;
+			width: 230px;
+			.fileIcon {
+				color: #444444;
+				display: inline-block;
+				font-family: FontAwesome;
+				font-size: 40px;
+				margin: 8px 8px 8px 0;
+				text-align: center;
+				text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+				vertical-align: middle;
+				&.doc:after { content: "\F1C2"; }
+				&.htm:after { content: "\F1C9"; }
+				&.img:after { content: "\F1C5"; }
+				&.mp3:after { content: "\F1C7"; }
+				&.pdf:after { content: "\F1C1"; }
+				&.ppt:after { content: "\F1C4"; }
+				&.txt:after { content: "\F0F6"; }
+				&.vid:after { content: "\F1C8"; }
+				&.xls:after { content: "\F1C3"; }
+				&.zip:after { content: "\F1C6"; }
+				&.blank:after { content: "\F016"; }
+			}
+			.fileName {
+				color: #000000;
+				display: inline-block;
+				font-size: 11px;
+				line-height: 1.4em;
+				vertical-align: middle;
+				width: 162px;
+				span {
+					display: block;
+					font-size: 12px;
+					font-weight: bold;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+		}
 	}
 }
 
