@@ -113,9 +113,11 @@
 	$firstPostInfo = $this->Db->Fetch();
 
 	// Format first thread
-
 	$firstPostInfo['avatar'] = $this->Core->GetGravatar($firstPostInfo['email'], $firstPostInfo['photo'], 48, $firstPostInfo['photo_type']);
 	$firstPostInfo['post_date'] = $this->Core->DateFormat($firstPostInfo['post_date']);
+
+	// First post attachments
+	$_firstPostAttachments = array();
 
 	// ---------------------------------------------------
 	// Get replies
@@ -134,6 +136,9 @@
 		$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 96, $result['photo_type']);
 		$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 		$result['post_date'] = $this->Core->DateFormat($result['post_date']);
+
+		// Get post attachments
+		$_replyAttachments = array();
 
 		if(isset($result['edited'])) {
 			$result['edit_time'] = $this->Core->DateFormat($result['edit_time']);

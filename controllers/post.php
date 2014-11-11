@@ -17,18 +17,6 @@
 	$this->Session->NoGuest();
 
 	// ---------------------------------------------------
-	// Get thread information
-	// ---------------------------------------------------
-
-	$id = Html::Request("id");
-
-	$this->Db->Query("SELECT t.t_id, t.title, r.r_id, r.name FROM c_threads t "
-				. "LEFT JOIN c_rooms r ON (t.t_id = r.r_id) "
-				. "WHERE t_id = {$id};");
-
-	$threadInfo = $this->Db->Fetch();
-
-	// ---------------------------------------------------
 	// Get action
 	// ---------------------------------------------------
 
@@ -48,8 +36,10 @@
 				"first_post"  => 0
 			);
 
-			// Insert new post into DB
+			// Send attachments
+			$attachment = $this->Core->UploadAttachment(Html::File("attachment"));
 
+			// Insert new post into DB
 			$this->Db->Insert("c_posts", $post);
 
 			// Update tables
@@ -76,6 +66,18 @@
 
 			break;
 	}
+
+	// ---------------------------------------------------
+	// Get thread information
+	// ---------------------------------------------------
+
+	$id = Html::Request("id");
+
+	$this->Db->Query("SELECT t.t_id, t.title, r.r_id, r.name FROM c_threads t "
+				. "LEFT JOIN c_rooms r ON (t.t_id = r.r_id) "
+				. "WHERE t_id = {$id};");
+
+	$threadInfo = $this->Db->Fetch();
 
 	// ---------------------------------------------------
 	// Where are we?

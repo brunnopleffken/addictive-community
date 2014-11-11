@@ -49,6 +49,20 @@
 		}
 
 		// ---------------------------------------------------
+		// Get uploaded file
+		// ---------------------------------------------------
+		
+		public static function File($name)
+		{
+			if(isset($_FILES[$name]) && !empty($_FILES[$name])) {
+				return $_FILES[$name];
+			}
+			else {
+				return false;
+			}
+		}
+
+		// ---------------------------------------------------
 		// Remove all non-alphanumeric character
 		// ---------------------------------------------------
 

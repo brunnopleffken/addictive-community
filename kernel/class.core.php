@@ -113,6 +113,20 @@
 			
 			return $age;
 		}
+
+		// ---------------------------------------------------
+		// Upload file (default: /public/attachments/)
+		// ---------------------------------------------------
+		
+		public function UploadAttachment($file, $folder = "public/attachments")
+		{
+			if($file) {
+
+			}
+			else {
+				return null;
+			}
+		}
 	}
 
 ?>

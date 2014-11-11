@@ -8,7 +8,7 @@
 </div>
 
 <div class="box">
-	<form action="index.php?module=post&amp;act=add&amp;id=1" method="post" class="validate">
+	<form action="index.php?module=post&amp;act=add&amp;id=1" method="post" class="validate" enctype="multipart/form-data">
 		<div class="inputBox">
 			<div class="label">Post</div>
 			<div class="field">
