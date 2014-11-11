@@ -113,7 +113,7 @@
 	$firstPostInfo = $this->Db->Fetch();
 
 	// Format first thread
-	$firstPostInfo['avatar'] = $this->Core->GetGravatar($firstPostInfo['email'], $firstPostInfo['photo'], 48, $firstPostInfo['photo_type']);
+	$firstPostInfo['avatar'] = $this->Core->GetGravatar($firstPostInfo['email'], $firstPostInfo['photo'], 96, $firstPostInfo['photo_type']);
 	$firstPostInfo['post_date'] = $this->Core->DateFormat($firstPostInfo['post_date']);
 
 	// First post attachments
@@ -133,7 +133,7 @@
 		// Is this a best answer or a regular reply?
 		$result['bestanswer_class'] = ($result['best_answer'] == 1) ? "bestAnswer" : "";
 
-		$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 96, $result['photo_type']);
+		$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 192, $result['photo_type']);
 		$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 		$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 

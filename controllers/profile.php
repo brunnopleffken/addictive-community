@@ -27,7 +27,7 @@
 	$info = $this->Db->Fetch();
 
 	// Member avatar
-	$info['avatar'] = $this->Core->GetGravatar($info['email'], $info['photo'], 160, $info['photo_type']);
+	$info['avatar'] = $this->Core->GetGravatar($info['email'], $info['photo'], 320, $info['photo_type']);
 	$info['cover'] = $this->Core->GetGravatar($info['email'], $info['photo'], 1024, $info['photo_type']);
 
 	// Readable join date

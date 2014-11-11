@@ -98,7 +98,7 @@
 	}
 
 	while($result = $this->Db->Fetch()) {
-		$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 36, $result['photo_type']);
+		$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 72, $result['photo_type']);
 		$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 
 		$_result[] = $result;

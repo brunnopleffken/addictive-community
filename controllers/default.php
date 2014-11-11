@@ -46,7 +46,7 @@
 	if($this->member['m_id'] != 0) {
 		$m_id = $this->member['m_id'];
 		// Get user avatar
-		$this->member['avatar'] = $this->Core->GetGravatar($this->member['email'], $this->member['photo'], 30, $this->member['photo_type']);
+		$this->member['avatar'] = $this->Core->GetGravatar($this->member['email'], $this->member['photo'], 60, $this->member['photo_type']);
 
 		// Number of new messages
 		$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages WHERE to_id = '{$m_id}' AND status = 1;");

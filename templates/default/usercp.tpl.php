@@ -93,7 +93,7 @@
 			<div class="label">Gravatar settings</div>
 			<div class="field">
 				<div class="fleft" style="margin-right: 15px">
-					<img src="<?php __($photo_info['gravatar_img_url']) ?>">
+					<?php __(Html::Crop($photo_info['gravatar_img_url'], 120, 120)) ?>
 				</div>
 				<div class="fleft">
 					<b>Gravatar</b> is a service for providing globally unique avatars.<br>

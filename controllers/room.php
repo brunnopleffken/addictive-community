@@ -141,7 +141,7 @@
 		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
 
 		// Author avatar
-		$result['author_avatar'] = $this->Core->GetGravatar($result['author_email'], $result['author_photo'], 42, $result['author_type']);
+		$result['author_avatar'] = $this->Core->GetGravatar($result['author_email'], $result['author_photo'], 84, $result['author_type']);
 		$result['author_avatar'] = Html::Crop($result['author_avatar'], 42, 42, "image");
 
 		// Get the number of replies, not total number of posts... ;)
