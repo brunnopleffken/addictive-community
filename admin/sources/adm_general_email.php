@@ -70,12 +70,12 @@
 						<th colspan="2">E-mail Identification</th>
 					</tr>
 					<tr>
-						<td class="title-fixed">"Reply To" address<span class="title-desc">Usually the same used in authentication.</span></td>
-						<td><input type="text" name="general_email_reply_to" class="medium" value="<?php echo $Admin->SelectConfig("general_email_reply_to") ?>"></td>
+						<td class="title-fixed">"From" e-mail address<span class="title-desc">Usually the same used in authentication.</span></td>
+						<td><input type="text" name="general_email_from" class="medium" value="<?php echo $Admin->SelectConfig("general_email_from") ?>"></td>
 					</tr>
 					<tr>
 						<td class="title-fixed">"From" name</td>
-						<td><input type="text" name="general_email_from" class="medium" value="<?php echo $Admin->SelectConfig("general_email_from") ?>"></td>
+						<td><input type="text" name="general_email_from_name" class="medium" value="<?php echo $Admin->SelectConfig("general_email_from_name") ?>"></td>
 					</tr>
 				</table>
 				

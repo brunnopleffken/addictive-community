@@ -42,8 +42,8 @@
 
 			// Set sender information
 
-			$this->Mail->From     = $config['general_email_reply_to'];
-			$this->Mail->FromName = $config['general_email_from'];
+			$this->Mail->From     = $config['general_email_from'];
+			$this->Mail->FromName = $config['general_email_from_name'];
 
 			// Define content type
 
