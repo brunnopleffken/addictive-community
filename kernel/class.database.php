@@ -107,6 +107,25 @@
 		}
 		
 		// ---------------------------------------------------
+		// Return results from Query(string) command directly
+		// into an array
+		// ---------------------------------------------------
+		
+		public function FetchArray($result = "")
+		{
+			if($result == "") {
+				$result = $this->query;
+			}
+			
+			$resultArray = array();
+			while($iterate = $this->Fetch($result)) {
+				$resultArray[] = $iterate;
+			}
+			
+			return $resultArray;
+		}
+		
+		// ---------------------------------------------------
 		// Get number of affected rows
 		// ---------------------------------------------------
 
