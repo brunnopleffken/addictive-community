@@ -10,8 +10,8 @@ function markdownReplace(content) {
 	var newline = content.indexOf('\r\n') != -1 ? '\r\n' : content.indexOf('\n') != -1 ? '\n' : '';
 	
 	// Avoid HTML tags
-	content = content.replace(/\</gm, '&lt;');
-	content = content.replace(/\>/gm, '&gt;');
+	//content = content.replace(/\</gm, '&lt;');
+	//content = content.replace(/\>/gm, '&gt;');
 	
 	// **bold**, *italic*, __underline__ and ~~strikethrough~~
 	content = content.replace(/\*\*(.+?)\*\*/gm, '<b>$1</b>');

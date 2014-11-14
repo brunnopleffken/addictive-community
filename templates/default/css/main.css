@@ -195,6 +195,7 @@ form textarea { overflow: auto; }
 .postReply .content { display: table-cell; }
 .postReply .content .date { color: #666666; font-size: 11px; padding: 10px 5px; }
 .postReply .content .text { margin-bottom: 35px; padding: 15px; }
+.postReply .content .text img.emoticon { display: inline-block; height: 16px; vertical-align: text-bottom; width: 16px; }
 .postReply .content .text .signature { border-top: 1px solid rgba(0, 0, 0, 0.1); color: #777; font-size: 0.8em; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
 .postReply .content .footer { background: rgba(0, 0, 0, 0.01); bottom: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); left: 0; padding: 5px 5px 8px 5px; position: absolute; right: 0; text-align: right; }
 .postReply.bestAnswer { background: #fafff8 url("../images/best-answer.png") no-repeat right top; border-left: 3px solid #009900; }

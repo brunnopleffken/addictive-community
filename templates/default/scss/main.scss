@@ -840,6 +840,12 @@ form {
 		.text {
 			margin-bottom: 35px;
 			padding: 15px;
+			img.emoticon {
+				display: inline-block;
+				height: 16px;
+				vertical-align: text-bottom;
+				width: 16px;
+			}
 			.signature {
 				border-top: 1px solid rgba(0, 0, 0, 0.1);
 				color: #777;

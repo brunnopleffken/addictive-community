@@ -101,6 +101,14 @@
 	}
 
 	// ---------------------------------------------------
+	// Get emoticons, if exists
+	// ---------------------------------------------------
+
+	$this->Db->Query("SELECT * FROM c_emoticons WHERE
+		emoticon_set = '" . $this->Core->config['emoticon_default_set'] . "' AND display = '1';");
+	$emoticons = $this->Db->FetchArray();
+
+	// ---------------------------------------------------
 	// Get first post
 	// ---------------------------------------------------
 
@@ -115,6 +123,9 @@
 	// Format first thread
 	$firstPostInfo['avatar'] = $this->Core->GetGravatar($firstPostInfo['email'], $firstPostInfo['photo'], 96, $firstPostInfo['photo_type']);
 	$firstPostInfo['post_date'] = $this->Core->DateFormat($firstPostInfo['post_date']);
+
+	// Get emoticons
+	$firstPostInfo['post'] = $this->Core->ParseEmoticons($firstPostInfo['post'], $emoticons);
 
 	// First post attachments
 	$_firstPostAttachments = array();
@@ -136,6 +147,9 @@
 		$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 192, $result['photo_type']);
 		$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 		$result['post_date'] = $this->Core->DateFormat($result['post_date']);
+		
+		// Get emoticons
+		$result['post'] = $this->Core->ParseEmoticons($result['post'], $emoticons);
 
 		// Get post attachments
 		$_replyAttachments = array();

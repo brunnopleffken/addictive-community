@@ -91,6 +91,31 @@
 			
 			return $url;
 		}
+		
+		// ---------------------------------------------------
+		// Parse emoticons inside posts and messages :)
+		// ---------------------------------------------------
+		
+		public function ParseEmoticons($text, $emoticons)
+		{
+			if($this->config['thread_allow_emoticons'] == true) {
+				// Empty array to store emoticons :O
+				$translate = array();
+				
+				// Folder where images are located in ;)
+				$folder = "public/emoticons/" . $this->config['emoticon_default_set'];
+				
+				foreach($emoticons as $item) {
+					$shortcut = String::Sanitize($item['shortcut']);
+					$translate[$shortcut] = "<img src=\"{$folder}/{$item['filename']}\" class=\"emoticon\">";
+				}
+				
+				return strtr(html_entity_decode($text), $translate);
+			}
+			else {
+				return $text;
+			}
+		}
 
 		// ---------------------------------------------------
 		// Calculate member age from birthday timestamp
