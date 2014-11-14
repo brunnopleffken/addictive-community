@@ -47,7 +47,7 @@
 					</tr>
 					<tr>
 						<td class="title-fixed">Allow emoticons</td>
-						<td><label><?php echo $Admin->SelectCheckbox("thread_allow_emoticons") ?> Emoticons are allowed in posts and replies.</label></td>
+						<td><label><?php echo $Admin->SelectCheckbox("thread_allow_emoticons") ?> Emoticons are allowed in posts, replies and personal messages.</label></td>
 					</tr>
 					<tr>
 						<td class="title-fixed">Allow guests to reply</td>
