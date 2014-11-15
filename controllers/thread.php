@@ -113,9 +113,10 @@
 	// ---------------------------------------------------
 
 	$this->Db->Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id, "
-			. "c_threads.title, c_threads.locked, c_members.* FROM c_posts "
+			. "c_attachments.*, c_threads.title, c_threads.locked, c_members.* FROM c_posts "
 			. "INNER JOIN c_threads ON (c_posts.thread_id = c_threads.t_id) "
 			. "INNER JOIN c_members ON (c_posts.author_id = c_members.m_id) "
+			. "LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id) "
 			. "WHERE thread_id = '{$threadId}' AND first_post = '1' LIMIT 1;");
 
 	$firstPostInfo = $this->Db->Fetch();
@@ -127,15 +128,13 @@
 	// Get emoticons
 	$firstPostInfo['post'] = $this->Core->ParseEmoticons($firstPostInfo['post'], $emoticons);
 
-	// First post attachments
-	$_firstPostAttachments = array();
-
 	// ---------------------------------------------------
 	// Get replies
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT c_posts.*, c_members.* FROM c_posts "
+	$this->Db->Query("SELECT c_posts.*, c_attachments.*, c_members.* FROM c_posts "
 			. "INNER JOIN c_members ON (c_posts.author_id = c_members.m_id) "
+			. "LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id) "
 			. "WHERE thread_id = '{$threadId}' AND first_post = '0' "
 			. "ORDER BY best_answer DESC, post_date ASC LIMIT {$pSql},{$itemsPerPage};");
 
@@ -150,9 +149,6 @@
 		
 		// Get emoticons
 		$result['post'] = $this->Core->ParseEmoticons($result['post'], $emoticons);
-
-		// Get post attachments
-		$_replyAttachments = array();
 
 		if(isset($result['edited'])) {
 			$result['edit_time'] = $this->Core->DateFormat($result['edit_time']);

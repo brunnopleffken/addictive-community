@@ -35,14 +35,14 @@
 		<div class="text">
 			<span class="parsing"><?php __($firstPostInfo['post']) ?></span>
 			<div class="attachments">
-				<?php foreach($_firstPostAttachments as $file): ?>
+				<?php if($firstPostInfo['attach_id'] != 0): ?>
 					<div class="file">
 						<a href="<?php __($file['url']) ?>" target="_blank" rel="nofollow">
 							<span class="fileIcon <?php __($file['type']) ?>"></span>
 							<div class="fileName"><span><?php __($file['name']) ?></span><?php __($file['size']) ?></div>
 						</a>
 					</div>
-				<?php endforeach; ?>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
@@ -90,14 +90,14 @@
 		<div class="text">
 			<span class="parsing"><?php __(html_entity_decode($_replyResult[$k]['post'])) ?></span>
 			<div class="attachments">
-				<?php foreach($_replyAttachments as $file): ?>
+				<?php if($_replyResult[$k]['attach_id'] != 0): ?>
 					<div class="file">
-						<a href="<?php __($file['url']) ?>" target="_blank" rel="nofollow">
-							<span class="fileIcon <?php __($file['type']) ?>"></span>
-							<div class="fileName"><span><?php __($file['name']) ?></span><?php __($file['size']) ?></div>
+						<a href="<?php printf("public/attachments/%s/%s", $_replyResult[$k]['member_id'], $_replyResult[$k]['filename']) ?>" target="_blank" rel="nofollow">
+							<span class="fileIcon <?php __($_replyResult[$k]['type']) ?>"></span>
+							<div class="fileName"><span><?php __($_replyResult[$k]['filename']) ?></span><?php __(String::FileSizeFormat($_replyResult[$k]['size'])) ?></div>
 						</a>
 					</div>
-				<?php endforeach; ?>
+				<?php endif; ?>
 			</div>
 			<div class="signature parsing"><?php __($_replyResult[$k]['signature']) ?></div>
 		</div>
