@@ -37,7 +37,8 @@
 			);
 
 			// Send attachments
-			$attachment = $this->Core->UploadAttachment(Html::File("attachment"));
+			$Upload = new Upload($this->Db);
+			$post['attach_id'] = $Upload->Attachment(Html::File("attachment"), $post['author_id']);
 
 			// Insert new post into DB
 			$this->Db->Insert("c_posts", $post);
