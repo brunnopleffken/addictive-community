@@ -8,7 +8,7 @@
 </div>
 
 <div class="box">
-	<form action="index.php?module=newthread&amp;act=add&amp;room=<?php echo $roomInfo['r_id'] ?>" method="post" class="validate">
+	<form action="index.php?module=newthread&amp;act=add&amp;room=<?php echo $roomInfo['r_id'] ?>" method="post" class="validate" enctype="multipart/form-data">
 		<div class="inputBox">
 			<div class="label">Thread Title</div>
 			<div class="field"><input type="text" name="title" class="large required"></div>
