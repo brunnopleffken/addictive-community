@@ -107,7 +107,7 @@
 				
 				foreach($emoticons as $item) {
 					$shortcut = String::Sanitize($item['shortcut']);
-					$translate[$shortcut] = "<img src=\"{$folder}/{$item['filename']}\" class=\"emoticon\">";
+					$translate[$shortcut] = "<img src='{$folder}/{$item['filename']}' class='emoticon'>";
 				}
 				
 				return strtr(html_entity_decode($text), $translate);
