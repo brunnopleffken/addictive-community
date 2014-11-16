@@ -58,7 +58,7 @@
 				
 				// Get filename and extension
 				$filename = explode(".", $file['name']);
-				$this->fileExtension = end($filename);
+				$this->fileExtension = strtolower(end($filename));
 				
 				// Get attachment type (to use as CSS classes)
 				$this->fileType = $this->FileClass($this->fileExtension);
@@ -107,7 +107,7 @@
 			$types = array(
 				"doc" => array("doc", "docx", "rtf", "pages"),
 				"htm" => array("html", "xml", "css", "scss", "php", "js", "sql", "aspx"),
-				"img" => array("jpg", "png", "gif", "bmp", "svg"),
+				"img" => array("jpg", "png", "gif", "bmp", "svg", "ico"),
 				"mp3" => array("mp3", "ogg", "wma", "m4a", "wav", "aiff"),
 				"pdf" => array("pdf"),
 				"ppt" => array("ppt", "pptx", "key"),
@@ -160,7 +160,7 @@
 		// Set allowed extensions for file upload
 		// ---------------------------------------------------
 		
-		public function SetAllowedExt($extList)
+		public function SetAllowedExtensions($extList)
 		{
 			if(is_array($extList)) {
 				$this->allowedExtensions = $extList;
@@ -178,7 +178,8 @@
 		
 		public function UnlockForbiddenExtensions()
 		{
-			return $this->forbiddenExtensions = array();
+			$this->forbiddenExtensions = array();
+			return true;
 		}
 	}
 
