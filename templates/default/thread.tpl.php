@@ -37,9 +37,9 @@
 			<div class="attachments">
 				<?php if($firstPostInfo['attach_id'] != 0): ?>
 					<div class="file">
-						<a href="<?php __($file['url']) ?>" target="_blank" rel="nofollow">
-							<span class="fileIcon <?php __($file['type']) ?>"></span>
-							<div class="fileName"><span><?php __($file['name']) ?></span><?php __($file['size']) ?></div>
+						<a href="<?php __($firstPostInfo['url']) ?>" target="_blank" rel="nofollow">
+							<span class="fileIcon <?php __($firstPostInfo['type']) ?>"></span>
+							<div class="fileName"><span><?php __($firstPostInfo['filename']) ?></span><?php __(String::FileSizeFormat($firstPostInfo['size'])) ?></div>
 						</a>
 					</div>
 				<?php endif; ?>

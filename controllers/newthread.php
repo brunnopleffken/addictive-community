@@ -34,8 +34,7 @@
 
 	switch($act) {
 		case 'add':
-			String::PR($_POST);
-
+			// Insert new thread item
 			$thread = array(
 				"title"              => Html::Request("title"),
 				"author_member_id"   => $this->member['m_id'],
@@ -50,8 +49,9 @@
 				"approved"           => 1,
 				"with_bestanswer"    => 0
 			);
-
 			$this->Db->Insert("c_threads", $thread);
+
+			// Insert first post
 
 			$post = array(
 				"author_id"   => $this->member['m_id'],
@@ -62,6 +62,9 @@
 				"best_answer" => 0,
 				"first_post"  => 1
 			);
+
+			$Upload = new Upload($this->Db);
+			$post['attach_id'] = $Upload->Attachment(Html::File("attachment"), $post['author_id']);
 
 			$this->Db->Insert("c_posts", $post);
 
