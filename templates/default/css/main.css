@@ -176,6 +176,7 @@ form textarea { overflow: auto; }
 .mainPost .header .author .authorInfo a { display: inline-block; font-size: 15px; font-weight: bold; margin-bottom: 4px; }
 .mainPost .title { font-size: 22px; font-weight: bold; letter-spacing: 1px; padding: 20px 10px; }
 .mainPost .text { font-size: 14px; padding: 5px 30px 25px 30px; }
+.mainPost .text img.emoticon { display: inline-block; height: 16px; vertical-align: text-bottom; width: 16px; }
 .mainPost .footer { border-top: 1px solid #eeeeee; font-size: 11px; padding: 6px 10px; overflow: hidden; }
 .mainPost .footer i { font-size: 14px; }
 
@@ -214,7 +215,7 @@ form textarea { overflow: auto; }
 .mainPost .attachments .file .fileIcon.xls:after, .postReply .attachments .file .fileIcon.xls:after { content: "\F1C3"; }
 .mainPost .attachments .file .fileIcon.zip:after, .postReply .attachments .file .fileIcon.zip:after { content: "\F1C6"; }
 .mainPost .attachments .file .fileIcon.blank:after, .postReply .attachments .file .fileIcon.blank:after { content: "\F016"; }
-.mainPost .attachments .file .fileName, .postReply .attachments .file .fileName { color: #000000; display: inline-block; font-size: 11px; line-height: 1.4em; vertical-align: middle; width: 162px; }
+.mainPost .attachments .file .fileName, .postReply .attachments .file .fileName { color: #000000; display: inline-block; font-size: 11px; line-height: 1.4em; vertical-align: middle; width: 160px; }
 .mainPost .attachments .file .fileName span, .postReply .attachments .file .fileName span { display: block; font-size: 12px; font-weight: bold; overflow: hidden; text-overflow: ellipsis; }
 
 .relatedThreads { background: #ffffff; padding: 18px; }
@@ -263,6 +264,18 @@ form textarea { overflow: auto; }
 .profileContainer .profileSidebar .userInfoList li b { float: left; }
 .profileContainer .profileContent { vertical-align: top; }
 .profileContainer .profileContent h1 { margin-top: 5px; }
+.profileContainer .profileContent .fileIcon { color: #444444; display: inline-block; font-family: FontAwesome; font-size: 20px; text-align: center; vertical-align: middle; }
+.profileContainer .profileContent .fileIcon.doc:after { content: "\F1C2"; }
+.profileContainer .profileContent .fileIcon.htm:after { content: "\F1C9"; }
+.profileContainer .profileContent .fileIcon.img:after { content: "\F1C5"; }
+.profileContainer .profileContent .fileIcon.mp3:after { content: "\F1C7"; }
+.profileContainer .profileContent .fileIcon.pdf:after { content: "\F1C1"; }
+.profileContainer .profileContent .fileIcon.ppt:after { content: "\F1C4"; }
+.profileContainer .profileContent .fileIcon.txt:after { content: "\F0F6"; }
+.profileContainer .profileContent .fileIcon.vid:after { content: "\F1C8"; }
+.profileContainer .profileContent .fileIcon.xls:after { content: "\F1C3"; }
+.profileContainer .profileContent .fileIcon.zip:after { content: "\F1C6"; }
+.profileContainer .profileContent .fileIcon.blank:after { content: "\F016"; }
 
 /** CALENDAR **/
 .calendar { border-collapse: collapse; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 15px; width: 100%; }

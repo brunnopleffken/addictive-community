@@ -123,7 +123,21 @@
 		// Social networks updates
 		// ---------------------------------------------------
 
-		case "updates":
+		case "attachments":
+			// Instance of Upload() class
+			$Upload = new Upload($this->Db);
+
+			// Select all attachments of a user
+			$this->Db->Query("SELECT * FROM c_attachments WHERE member_id = '{$id}';");
+			while($result = $this->Db->Fetch()) {
+				$result['icon'] = "<div class='fileIcon {$result['type']}'></div>";
+				$result['filename'] = "<a href='public/attachments/{$id}/{$result['filename']}' target='_blank'>{$result['filename']}</a>";
+				$result['type'] = $Upload->TranslateFileType($result['type']);
+				$result['size'] = String::FileSizeFormat($result['size']);
+
+				$attachments[] = $result;
+			}
+
 			break;
 	}
 

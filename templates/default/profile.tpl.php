@@ -28,6 +28,7 @@
 	<div class="subnav">
 		<a href="index.php?module=profile&amp;id=<?php __($id) ?>" class="transition">My Profile</a>
 		<a href="index.php?module=profile&amp;id=<?php __($id) ?>&amp;act=posts" class="transition">Posts &amp; Threads</a>
+		<a href="index.php?module=profile&amp;id=<?php __($id) ?>&amp;act=attachments" class="transition">Attachments</a>
 	</div>
 </div>
 
@@ -99,15 +100,15 @@
 				<th colspan="2">Contact Information</th>
 			</tr>
 			<tr>
-				<td class="min" style="font-size: 16px"><i class="fa fa-envelope-o"></i></td>
+				<td class="min" style="font-size: 16px"><i class="fa fa-fw fa-envelope-o"></i></td>
 				<td><?php __($info['email']) ?></td>
 			</tr>
 			<tr>
-				<td class="min" style="font-size: 16px"><i class="fa fa-facebook-square"></i></td>
+				<td class="min" style="font-size: 16px"><i class="fa fa-fw fa-facebook-square"></i></td>
 				<td><a href="https://www.facebook.com/<?php __($info['im_facebook']) ?>" target="_blank" rel="nofollow">fb.com/<?php __($info['im_facebook']) ?></a></td>
 			</tr>
 			<tr>
-				<td class="min" style="font-size: 16px"><i class="fa fa-twitter"></i></td>
+				<td class="min" style="font-size: 16px"><i class="fa fa-fw fa-twitter"></i></td>
 				<td><a href="https://twitter.com/<?php __($info['im_twitter']) ?>" target="_blank" rel="nofollow">@<?php __($info['im_twitter']) ?></a></td>
 			</tr>
 		</table>
@@ -136,14 +137,34 @@
 
 	<?php
 		break;
-		case "updates":
+		case "attachments":
 	?>
 
-	<!-- STATUS UPDATES -->
-
-	<h1><?php __($info['username']) ?></h1>
-	<span><?php __($info['member_title']) ?></span>
-	
+	<table class="tableList noShadow">
+		<tr>
+			<th colspan="4">Attachments</th>
+		</tr>
+		<tr class="subtitle">
+			<td class="min"></td>
+			<td>Name</td>
+			<td>File Type</td>
+			<td>Size</td>
+		</tr>
+		<?php if(isset($attachments)): ?>
+			<?php foreach($attachments as $file): ?>
+				<tr>
+					<td><?php __($file['icon']) ?></td>
+					<td><?php __($file['filename']) ?></td>
+					<td><?php __($file['type']) ?></td>
+					<td><?php __($file['size']) ?></td>
+				</tr>
+			<?php endforeach; ?>
+		<?php else: ?>
+			<tr>
+				<td colspan="4" class="center">There are no attachments.</td>
+			</tr>
+		<?php endif; ?>
+	</table>
 
 	<?php
 		break;

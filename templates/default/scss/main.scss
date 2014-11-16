@@ -763,6 +763,12 @@ form {
 	.text {
 		font-size: 14px;
 		padding: 5px 30px 25px 30px;
+		img.emoticon {
+			display: inline-block;
+			height: 16px;
+			vertical-align: text-bottom;
+			width: 16px;
+		}
 	}
 	.footer {
 		border-top: 1px solid #eeeeee;
@@ -909,7 +915,7 @@ form {
 				font-size: 11px;
 				line-height: 1.4em;
 				vertical-align: middle;
-				width: 162px;
+				width: 160px;
 				span {
 					display: block;
 					font-size: 12px;
@@ -1138,6 +1144,25 @@ form {
 		vertical-align: top;
 		h1 {
 			margin-top: 5px;
+		}
+		.fileIcon {
+			color: #444444;
+			display: inline-block;
+			font-family: FontAwesome;
+			font-size: 20px;
+			text-align: center;
+			vertical-align: middle;
+			&.doc:after { content: "\F1C2"; }
+			&.htm:after { content: "\F1C9"; }
+			&.img:after { content: "\F1C5"; }
+			&.mp3:after { content: "\F1C7"; }
+			&.pdf:after { content: "\F1C1"; }
+			&.ppt:after { content: "\F1C4"; }
+			&.txt:after { content: "\F0F6"; }
+			&.vid:after { content: "\F1C8"; }
+			&.xls:after { content: "\F1C3"; }
+			&.zip:after { content: "\F1C6"; }
+			&.blank:after { content: "\F016"; }
 		}
 	}
 }

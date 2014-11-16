@@ -148,10 +148,10 @@
 		public static function FileSizeFormat($bytes)
 		{
 			if($bytes >= 1048576) {
-				$retval = round($bytes / 1048576 * 100) / 100 . "MB";
+				$retval = round($bytes / 1048576 * 100) / 100 . " MB";
 			}
 			elseif($bytes >= 1024) {
-				$retval = round($bytes / 1024 * 100) / 100 . "kB";
+				$retval = round($bytes / 1024 * 100) / 100 . " kB";
 			}
 			else {
 				$retval = $bytes . " bytes";

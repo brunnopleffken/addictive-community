@@ -49,7 +49,7 @@
 
 		public function Attachment($file, $member, $folder = "public/attachments/")
 		{
-			if(is_array($file)) {
+			if(is_array($file) && $file['name'] != "") {
 				// Full path
 				$fullPath = $folder . $member . "/";
 				if(!is_dir($fullPath)) {
@@ -102,7 +102,7 @@
 		// Get file type to use as CSS class
 		// ---------------------------------------------------
 		
-		public function FileClass($extension)
+		private function FileClass($extension)
 		{
 			$types = array(
 				"doc" => array("doc", "docx", "rtf", "pages"),
@@ -135,6 +135,25 @@
 			else {
 				return "blank";
 			}
+		}
+
+		public function TranslateFileType($filetype)
+		{
+			$types = array(
+				"doc" => "Document",
+				"htm" => "Script",
+				"img" => "Image",
+				"mp3" => "Music/Audio",
+				"pdf" => "Portable Document Format (PDF)",
+				"ppt" => "Presentation",
+				"txt" => "Text File",
+				"vid" => "Video",
+				"xls" => "Spreadsheet",
+				"zip" => "Compressed File",
+				"blank" => "File",
+			);
+
+			return $types[$filetype];
 		}
 
 		// ---------------------------------------------------
