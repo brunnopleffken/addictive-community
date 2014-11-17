@@ -12,6 +12,8 @@
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
+<?php __($obsoleteNotification) ?>
+
 <div class="mainPost">
 	<div class="header">
 		<div class="author">

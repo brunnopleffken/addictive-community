@@ -116,12 +116,12 @@ HTML;
 				<a href="main.php?act=general&amp;p=calendars">Calendars</a>
 				<a href="main.php?act=general&amp;p=community">Community</a>
 				<a href="main.php?act=general&amp;p=cookies">Cookies</a>
-				<a href="main.php?act=general&amp;p=date">Date &amp; Time</a>
+				<a href="main.php?act=general&amp;p=date">Date/Time</a>
 				<a href="main.php?act=general&amp;p=email">E-mail</a>
 				<a href="main.php?act=general&amp;p=pm">PM</a>
 				<a href="main.php?act=general&amp;p=profiles">Profiles</a>
 				<a href="main.php?act=general&amp;p=security">Security</a>
-				<a href="main.php?act=general&amp;p=topics_posts">Topics/Posts</a>
+				<a href="main.php?act=general&amp;p=topics_posts">Threads/Posts</a>
 				<a href="main.php?act=general&amp;p=warnings">Warnings</a>
 			</div>
 HTML;

@@ -66,9 +66,11 @@
 
 	// Check if it's an obsolete thread
 	
+	$obsoleteNotification = "";
 	$obsoleteSeconds = $this->Core->config['thread_obsolete_value'] * DAY;
 	if(($threadInfo['lastpost_date'] + $obsoleteSeconds) < time()) {
 		$threadInfo['obsolete'] = true;
+		$obsoleteNotification = Html::Notification("This thread is obsolete (last post is older than {$this->Core->config['thread_obsolete_value']} days).", "warning", true);
 	}
 	else {
 		$threadInfo['obsolete'] = false;
@@ -232,8 +234,6 @@
 	while($relatedThread = $this->Db->Fetch()) {
 		$relatedThread['thread_date'] = $this->Core->DateFormat($relatedThread['lastpost_date'], "short");
 		$_relatedThreadList[] = $relatedThread;
-
-		//Template::Add($this->Core->DateFormat($relatedThread['start_date'], "short") . " - " . $relatedThread['title'] . " - " . $relatedThread['t_id']);
 	}
 	
 	$threadList = Template::Get();

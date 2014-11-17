@@ -22,7 +22,7 @@
 	
 ?>
 
-	<h1>Topics and Posts</h1>
+	<h1>Threads and Posts</h1>
 	
 	<div id="content">
 	
@@ -43,7 +43,7 @@
 					</tr>
 					<tr>
 						<td class="title-fixed">Hot Thread (min. posts)</td>
-						<td><input type="text" name="thread_posts_hot" class="nano" value="<?php echo $Admin->SelectConfig("thread_posts_hot") ?>"> minumum replies for a thread become a Hot Thread.</td>
+						<td><input type="text" name="thread_posts_hot" class="nano" value="<?php echo $Admin->SelectConfig("thread_posts_hot") ?>"> minumum replies for a thread to become a Hot Thread.</td>
 					</tr>
 					<tr>
 						<td class="title-fixed">Allow emoticons</td>
