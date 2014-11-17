@@ -132,15 +132,6 @@
 			return ucwords(strtolower($string));
 		}
 
-		// ----------------------------------------
-		// Remove BBcodes, show pure text!
-		// ----------------------------------------
-		
-		public static function RemoveBBcode($string)
-		{
-			return preg_replace("#\[(.+)\](.+)\[\/(.+)\]#iUs", "$2", $string);
-		}
-
 		// --------------------------------------------
 		// Format file sizes (enter value in bytes)
 		// --------------------------------------------
