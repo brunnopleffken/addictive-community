@@ -57,10 +57,12 @@
 <div class="threadButtons">
 	<p class="replies fleft">Replies: <span><?php __($threadInfo['post_count_display']) ?></span></p>
 	<div class="fright">
-		<?php if($threadInfo['locked'] == 0 && $allowToReply): ?>
+		<?php if($threadInfo['obsolete']): ?>
+			<a href="javascript:void()" class="defaultButton disabled transition">Obsolete Thread</a>
+		<?php elseif($threadInfo['locked'] == 0 && $allowToReply): ?>
 			<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
 		<?php else: ?>
-			<a href="#" class="defaultButton disabled transition">Locked</a>
+			<a href="javascript:void()" class="defaultButton disabled transition">Locked</a>
 		<?php endif; ?>
 	</div>
 </div>
@@ -118,7 +120,13 @@
 <div class="threadButtons">
 	<div class="fleft"><?php __($pagination) ?></div>
 	<div class="fright">
-		<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
+		<?php if($threadInfo['obsolete']): ?>
+			<a href="javascript:void()" class="defaultButton disabled transition">Obsolete Thread</a>
+		<?php elseif($threadInfo['locked'] == 0 && $allowToReply): ?>
+			<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
+		<?php else: ?>
+			<a href="javascript:void()" class="defaultButton disabled transition">Locked</a>
+		<?php endif; ?>
 	</div>
 </div>
 

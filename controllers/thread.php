@@ -41,7 +41,7 @@
 	// Fetch thread general info
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT t.title, t.author_member_id, t.locked, r.r_id, r.name, r.perm_view, r.perm_reply, "
+	$this->Db->Query("SELECT t.title, t.author_member_id, t.locked, t.lastpost_date, r.r_id, r.name, r.perm_view, r.perm_reply, "
 			. "(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t "
 			. "INNER JOIN c_rooms r ON (r.r_id = t.room_id) "
 			. "WHERE t.t_id = '{$threadId}';");
@@ -62,6 +62,16 @@
 
 	if(!in_array($permissionValue, $threadInfo['perm_view'])) {
 		header("Location: " . $_SERVER['HTTP_REFERER']);
+	}
+
+	// Check if it's an obsolete thread
+	
+	$obsoleteSeconds = $this->Core->config['thread_obsolete_value'] * DAY;
+	if(($threadInfo['lastpost_date'] + $obsoleteSeconds) < time()) {
+		$threadInfo['obsolete'] = true;
+	}
+	else {
+		$threadInfo['obsolete'] = false;
 	}
 
 	// Permission to reply
