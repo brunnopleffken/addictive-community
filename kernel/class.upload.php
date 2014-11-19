@@ -105,16 +105,16 @@
 		private function FileClass($extension)
 		{
 			$types = array(
-				"doc" => array("doc", "docx", "rtf", "pages"),
+				"doc" => array("doc", "docx", "rtf", "pages", "odt", "epub"),
 				"htm" => array("html", "xml", "css", "scss", "php", "js", "sql", "aspx"),
 				"img" => array("jpg", "png", "gif", "bmp", "svg", "ico"),
 				"mp3" => array("mp3", "ogg", "wma", "m4a", "wav", "aiff"),
-				"pdf" => array("pdf"),
-				"ppt" => array("ppt", "pptx", "key"),
+				"pdf" => array("pdf", "xps"),
+				"ppt" => array("ppt", "pptx", "key", "odp"),
 				"txt" => array("txt", "csv", "md"),
 				"vid" => array("mp4", "mpeg", "avi", "mov", "wmv", "3gp"),
-				"xls" => array("xls", "xlsx", "numbers"),
-				"zip" => array("zip", "rar", "7z", "tar", "gz"),
+				"xls" => array("xls", "xlsx", "numbers", "ods"),
+				"zip" => array("zip", "rar", "7z", "tar", "gz", "tgz"),
 				"blank" => array(),
 			);
 			
