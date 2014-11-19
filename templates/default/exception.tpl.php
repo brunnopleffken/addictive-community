@@ -8,6 +8,12 @@
 	</div>
 <?php endif; ?>
 
+<?php if($success): ?>
+	<div class="notification success persistent">
+		<p><strong>SUCCESS!</strong> <?php __($message) ?></p>
+	</div>
+<?php endif; ?>
+
 <?php if($loginForm): ?>
 	<form action="index.php?module=login&amp;act=do" method="post" class="validate">
 		<div class="box">
