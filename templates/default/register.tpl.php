@@ -64,7 +64,7 @@
 		</div>
 		<div class="inputBox">
 			<div class="label">Re-type password</div>
-			<div class="field"><input type="password" name="password_conf" id="password_conf" class="required small" onblur="CheckPassword()"> &nbsp; <div id="passwdMatch" style="display:none; color:#bb0000; font-weight:bold;"><img src="<?php __($this->p['IMG']) ?>/exclamation.png" style="vertical-align: text-bottom"> Passwords does not match!</div></div>
+			<div class="field"><input type="password" name="password_conf" id="password_conf" class="required small" onblur="CheckPassword()"> &nbsp; <div id="passwdMatch" style="display:none; color:#bb0000; font-weight:bold;"><i class="fa fa-exclamation-triangle" style="font-weight:normal"></i> Passwords does not match!</div></div>
 		</div>
 		<div class="inputBox">
 			<div class="label">E-mail address</div>
@@ -91,9 +91,12 @@
 	</div>
 
 	<div class="inputBox center">
-		<img src="<?php __($this->p['IMG']) ?>/check.png"><br><br>
+		<i class="fa fa-check" style="font-size: 50px"></i><br><br>
 		<h2>Congratulations!</h2><br>
 		<h3>You have successfully registered your account.</h3>
+		<?php if($this->Core->config['general_security_validation'] == "true"): ?>
+			<h3>Please, check your e-mail to complete registration.</h3>
+		<?php endif; ?>
 	</div>
 
 </div>

@@ -68,7 +68,7 @@
 		// $to accepts both string and array ($email => $name)
 		// ---------------------------------------------------
 
-		public function Send($to, $subject, $body, $redirect = "")
+		public function Send($to, $subject, $body, $redirect = "index.php")
 		{
 			if(is_array($to)) {
 				foreach($to as $address => $username) {
@@ -85,13 +85,14 @@
 			if($this->Mail->send()) {
 				// Done!
 				header("Location: " . $redirect);
+				exit;
 			}
 			else {
 				// Error
-				if(!method_exists(Html, "Error")) {
+				if(!method_exists("Html", "Error")) {
 					require("class.html.php");
 				}
-				Html::Error("<b>Mailer Error:</b> " . $mail->ErrorInfo);
+				Html::Error("<b>Mailer Error:</b> " . $this->Mail->ErrorInfo);
 			}
 		}
 

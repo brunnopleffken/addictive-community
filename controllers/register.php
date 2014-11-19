@@ -27,6 +27,12 @@
 		case 1:
 			$notification = Html::Notification("Username or e-mail already exists. Try again.", "failure");
 			break;
+		case 2:
+			$notification = Html::Notification("Passwords doesn't match.", "failure");
+			break;
+		case 3:
+			$notification = Html::Notification("All fields are obligatory. If they're not filled in, registration cannot take place.", "failure");
+			break;
 	}
 
 	// ---------------------------------------------------
@@ -35,6 +41,18 @@
 
 	switch($act) {
 		case 'signup':
+
+			// User has entered with username and e-mail address
+			if(!Html::Request("username") && !Html::Request("email") && !Html::Request("password")) {
+				header("Location: index.php?module=register&step=2&error=3");
+				exit;
+			}
+
+			// Check if password/confirmation are equal
+			if(Html::Request("password") != Html::Request("password_conf")) {
+				header("Location: index.php?module=register&step=2&error=2");
+				exit;
+			}
 
 			// Check if Require Validation is TRUE in community settings
 			$usergroup = ($this->Core->config['general_security_validation'] == "true") ? 6 : 3;
@@ -71,22 +89,56 @@
 				exit;
 			}
 
-			// Insert new member on database
-
-			//$this->Db->Insert($registerInfo, "c_members");
-			//$this->Db->Query("UPDATE c_stats SET member_count = member_count + 1;");
-			//header("Location: index.php?module=register&step=3");
-
-			// TO DO: [ GENERATE RANDOM MD5 / SEND VALIDATION E-MAIL TO THE USER ]
+			// ---------------------------------------------------
+			// Save new member in the database
+			// ---------------------------------------------------
 
 			if($registerInfo['usergroup'] == 6) {
-				$Email = new Email($this->Core->config);
-				
-				String::PR($Email);
-			}
 
-			String::PR($registerInfo);
-			exit;
+				// ---------------------------------------------------
+				// Require validation
+				// ---------------------------------------------------
+
+				// Set Email() class with community config info
+				$Email = new Email($this->Core->config);
+
+				// Insert into database and update stats
+				$this->Db->Insert("c_members", $registerInfo);
+				$memberId = $this->Db->GetLastID();
+				$this->Db->Query("UPDATE c_stats SET member_count = member_count + 1;");
+
+				// Buid e-mail body
+
+				$validationUrl = $this->Core->config['general_communityurl']
+					. "?module=register&act=validate&m={$memberId}&token={$registerInfo['token']}";
+
+				$this->Db->Query("SELECT c_emails.content FROM c_emails WHERE type = 'validate';");
+				$emailRawContent = $this->Db->FetchArray();
+
+				$formattedBody = sprintf($emailRawContent[0]['content'],
+					$registerInfo['username'],
+					$this->Core->config['general_communityname'],
+					$validationUrl
+				);
+
+				// Send e-mail
+				$Email->Send(
+					$registerInfo['email'],
+					"[" . $this->Core->config['general_communityname'] . "] New Member Validation",
+					$formattedBody,
+					"index.php?module=register&step=3"
+				);
+			}
+			else {
+
+				// ---------------------------------------------------
+				// Does not require validation
+				// ---------------------------------------------------
+
+				$this->Db->Insert("c_members", $registerInfo);
+				$this->Db->Query("UPDATE c_stats SET member_count = member_count + 1;");
+				header("Location: index.php?module=register&step=3");
+			}
 
 			exit;
 			break;
@@ -94,15 +146,32 @@
 		case 'validate':
 
 			// Get member ID
-			$member = Html::Request("member");
+			$member = Html::Request("m");
 			$token  = Html::Request("token");
 
 			// Check if user has already validated
-			$this->Db->Query("SELECT m_id FROM c_members WHERE m_id = {$member} AND usergroup = 6;");
+			$this->Db->Query("SELECT m_id, usergroup, token FROM c_members WHERE m_id = {$member};");
 			$validationCount = $this->Db->Rows();
+			$validationResults = $this->Db->FetchArray();
 
 			if($validationCount > 0) {
-				// TO DO: [ VALIDATE RANDOM MD5 AND PROCESS VALIDATION ]
+				// Validate usergroup
+				if($validationResults[0]['usergroup'] != 6) {
+					Html::Error("This member is already validated.");
+				}
+
+				// Validate member's security token
+				if($validationResults[0]['token'] != $token) {
+					Html::Error("Security token did not match.");
+				}
+
+				// Validate and redirect
+				$this->Db->Query("UPDATE c_members SET usergroup = '3' WHERE m_id = '{$member}';");
+				header("Location: index.php?module=exception&message=1");
+				exit;
+			}
+			else {
+				Html::Error("Member not found.");
 			}
 
 			exit;
