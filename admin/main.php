@@ -181,7 +181,8 @@ HTML;
 			</div>
 			<div class="section-subnav">
 				<a href="main.php?act=templates&amp;p=manager">Template Manager</a>
-				<a href="main.php?act=templates&amp;p=emoticons">Emoticon Manager</a>
+				<a href="main.php?act=templates&amp;p=emails">E-mails</a>
+				<a href="main.php?act=templates&amp;p=emoticons">Emoticons</a>
 				<a href="main.php?act=templates&amp;p=help">Help Topics</a>
 				<a href="main.php?act=templates&amp;p=import">Import / Export</a>
 				<a href="main.php?act=templates&amp;p=tools">Tools</a>
