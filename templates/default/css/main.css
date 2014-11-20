@@ -161,11 +161,12 @@ form textarea { overflow: auto; }
 .threadItem .stats .label a { color: #ffffff; }
 .threadItem .stats .label i { font-size: 16px; width: 18px; vertical-align: text-top; }
 .threadItem > .center { padding: 15px; }
-.threadItem.hot .stats { background: #465068 url("../images/hot-thread.png") no-repeat top right; }
+.threadItem.hot .stats { background: #465068 url("../images/hot-thread.png") no-repeat top right; background-size: 32px; }
 .threadItem.unread { border-left: 2px solid #465068; }
 .threadItem.announcement { background: #f9f9ff; border-left: 2px solid #000099; }
 .threadItem.locked { background: #fff9f9; border-left: 2px solid #cc0000; }
 .threadItem.answered { background: #ffffff; border-left: 2px solid #009900; }
+.threadItem.answered .stats { background: #465068 url("../images/best-answer.png") no-repeat top right; background-size: 32px; }
 
 /** THREAD PAGE **/
 .mainPost { background: #ffffff; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); overflow: hidden; }

@@ -697,6 +697,7 @@ form {
 	&.hot {
 		.stats {
 			background: $colorFiord url('../images/hot-thread.png') no-repeat top right;
+			background-size: 32px;
 		}
 	}
 	&.unread {
@@ -713,6 +714,10 @@ form {
 	&.answered {
 		background: #ffffff;
 		border-left: 2px solid #009900;
+		.stats {
+			background: $colorFiord url('../images/best-answer.png') no-repeat top right;
+			background-size: 32px;
+		}
 	}
 }
 
