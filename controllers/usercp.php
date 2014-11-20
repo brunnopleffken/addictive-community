@@ -65,8 +65,8 @@
 			$photoType = Html::Request("photo_type");
 
 			// Do processes!
-			
-			if($photoType == "gravatar") {
+
+			if($photoType == "gravatar" || $photoType == "facebook") {
 				// Change photo type to 'gravatar'
 				$this->Db->Query("UPDATE c_members SET photo_type = '{$photoType}' WHERE m_id = '{$m_id}';");
 				header("Location: index.php?module=usercp&view=photo&m=2");
@@ -259,18 +259,30 @@
 
 			// Gravatar or custom photo?
 			$photo_info['gravatar'] = "";
+			$photo_info['facebook'] = "";
 			$photo_info['custom'] = "";
+		
+			// Notification if Facebook account is not set
+			$facebook_info = "";
 
 			if($this->member['photo_type'] == "gravatar") {
 				$photo_info['gravatar'] = "checked";
 			}
+			elseif($this->member['photo_type'] == "facebook") {
+				$photo_info['facebook'] = "checked";
+			}
 			else {
 				$photo_info['custom'] = "checked";
 			}
+		
+			if($this->member['im_facebook'] == "") {
+				$photo_info['facebook'] = "disabled";
+				$facebook_info = Html::Notification("You must fill in the \"Facebook\" text field in order to use your Facebook photo as avatar.", "info");
+			}
 
-			// Gravatar
-			$photo_info['gravatar_img_url'] = $this->Core->GetGravatar($this->member['email'], $this->member['photo'], 240, "gravatar");
-
+			// Gravatar and Facebook image
+			$photo_info['gravatar_image'] = $this->Core->GetGravatar($this->member['email'], $this->member['photo'], 240, "gravatar");
+			$photo_info['facebook_image'] = $this->Core->GetGravatar($this->member['email'], $this->member['photo'], 240, "facebook");
 
 			break;
 

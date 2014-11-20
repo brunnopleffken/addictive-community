@@ -75,7 +75,7 @@
 		}
 
 		// ---------------------------------------------------
-		// Get Gravatar or community avatar image path
+		// Get Gravatar, Facebook or uploaded avatar image path
 		// ---------------------------------------------------
 
 		public function GetGravatar($email, $photo, $size = 96, $mode = "gravatar", $d = "mm", $r = "g")
@@ -84,6 +84,11 @@
 				$url = "http://www.gravatar.com/avatar/";
 				$url .= md5(strtolower(trim($email)));
 				$url .= "?s={$size}&amp;d={$d}&amp;r={$r}";
+			}
+			elseif($mode == "facebook") {
+				$this->Db->Query("SELECT im_facebook FROM c_members WHERE email = '{$email}';");
+				$facebookPhoto = $this->Db->FetchArray();
+				$url = "https://graph.facebook.com/{$facebookPhoto[0]['im_facebook']}/picture?width={$size}&height={$size}";
 			}
 			elseif($mode == "custom") {
 				$url = "public/avatar/{$photo}";

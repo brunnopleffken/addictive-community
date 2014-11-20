@@ -64,7 +64,10 @@
 		</div>
 		<div class="inputBox">
 			<div class="label">Facebook</div>
-			<div class="field">http://www.facebook.com/ <input type="text" name="im_facebook" value="<?php __($this->member['im_facebook']) ?>" class="small"></div>
+			<div class="field">
+				http://www.facebook.com/ <input type="text" name="im_facebook" value="<?php __($this->member['im_facebook']) ?>" class="small">
+				<em>You'll be able to use your Facebook photo as avatar in <a href="?module=usercp&view=photo">Photo Settings</a>.</em>
+			</div>
 		</div>
 		<div class="inputBox">
 			<div class="label">Twitter</div>
@@ -80,25 +83,41 @@
 		break;
 		case "photo":
 	?>
+	
+	<?php echo $facebook_info ?>
 
 	<form action="" method="post" class="validate" enctype="multipart/form-data">
 		<div class="inputBox">
-			<div class="label">Photo type</div>
+			<div class="label">Photo source</div>
 			<div class="field">
 				<input type="radio" name="photo_type" class="photoSelect" value="gravatar" <?php __($photo_info['gravatar']) ?>> Gravatar<br>
-				<input type="radio" name="photo_type" class="photoSelect" value="custom" <?php __($photo_info['custom']) ?>> Custom
+				<input type="radio" name="photo_type" class="photoSelect" value="facebook" <?php __($photo_info['facebook']) ?>> Facebook<br>
+				<input type="radio" name="photo_type" class="photoSelect" value="custom" <?php __($photo_info['custom']) ?>> Upload custom photo
 			</div>
 		</div>
 		<div class="inputBox" id="gravatar" style="display: none">
 			<div class="label">Gravatar settings</div>
 			<div class="field">
 				<div class="fleft" style="margin-right: 15px">
-					<?php __(Html::Crop($photo_info['gravatar_img_url'], 120, 120)) ?>
+					<?php __(Html::Crop($photo_info['gravatar_image'], 120, 120)) ?>
 				</div>
 				<div class="fleft">
 					<b>Gravatar</b> is a service for providing globally unique avatars.<br>
-					Your gravatar is associated with <a href="index.php?module=usercp&do=profile">your e-mail address</a>.
+					Your gravatar is associated with <a href="?module=usercp&do=profile">your e-mail address</a>.
 					<br><br>Edit or create your Gravatar accessing <a href="https://www.gravatar.com" target="_blank" rel="nofollow">www.gravatar.com</a>.
+				</div>
+				<div class="fix"></div>
+			</div>
+		</div>
+		<div class="inputBox" id="facebook" style="display: none">
+			<div class="label">Facebook photo</div>
+			<div class="field">
+				<div class="fleft" style="margin-right: 15px">
+					<?php __(Html::Crop($photo_info['facebook_image'], 120, 120)) ?>
+				</div>
+				<div class="fleft">
+					In order to use Facebook images, you <strong>must</strong> fill in<br>the "Facebook" text field in <a href="?module=usercp">Profile (User Control Panel)</a>.<br><br>
+					Edit or create your Facebook photo accessing <a href="https://www.facebook.com" target="_blank" rel="nofollow">www.facebook.com</a>.
 				</div>
 				<div class="fix"></div>
 			</div>

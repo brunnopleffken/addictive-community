@@ -242,11 +242,13 @@ jQuery(document).ready(function($) {
 	});
 
 	// ---------------------------------------------------
-	// USER CP - GRAVATAR OR CUSTOM PHOTO
+	// USER CP - GRAVATAR, FACEBOOK OR CUSTOM PHOTO
 	// ---------------------------------------------------
 
 	if($('.photoSelect:checked').val() == "gravatar") {
 		$('#gravatar').show();
+	} else if($('.photoSelect:checked').val() == "facebook") {
+		$('#facebook').show();
 	} else if($('.photoSelect:checked').val() == "custom") {
 		$('#custom').show();
 	}
@@ -256,10 +258,17 @@ jQuery(document).ready(function($) {
 
 		if(value == "custom") {
 			$('#gravatar').fadeOut();
+			$('#facebook').fadeOut();
 			$('#custom').delay(400).fadeIn();
-		} else {
+		} else if(value == "gravatar") {
 			$('#custom').fadeOut();
+			$('#facebook').fadeOut();
 			$('#gravatar').delay(400).fadeIn();
+		}
+		else {
+			$('#custom').fadeOut();
+			$('#gravatar').fadeOut();
+			$('#facebook').delay(400).fadeIn();
 		}
 	});
 
