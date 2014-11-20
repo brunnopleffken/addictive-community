@@ -87,17 +87,17 @@
 	
 	if(Html::Request("letter")) {
 		$letter = Html::Request("letter");
-		$this->Db->Query("SELECT * FROM c_members "
+		$members = $this->Db->Query("SELECT * FROM c_members "
 				. "LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id)"
 				. "WHERE username LIKE '{$letter}%' {$order};");
 	}
 	else {
-		$this->Db->Query("SELECT * FROM c_members "
+		$members = $this->Db->Query("SELECT * FROM c_members "
 				. "LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id) "
 				. "{$order};");
 	}
 
-	while($result = $this->Db->Fetch()) {
+	while($result = $this->Db->Fetch($members)) {
 		$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 72, $result['photo_type']);
 		$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 

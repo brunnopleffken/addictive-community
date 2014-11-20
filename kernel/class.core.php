@@ -86,9 +86,9 @@
 				$url .= "?s={$size}&amp;d={$d}&amp;r={$r}";
 			}
 			elseif($mode == "facebook") {
-				$this->Db->Query("SELECT im_facebook FROM c_members WHERE email = '{$email}';");
-				$facebookPhoto = $this->Db->FetchArray();
-				$url = "https://graph.facebook.com/{$facebookPhoto[0]['im_facebook']}/picture?width={$size}&height={$size}";
+				$get_facebook = $this->Db->Query("SELECT im_facebook FROM c_members WHERE email = '{$email}';");
+				$facebook_photo = $this->Db->FetchArray($get_facebook);
+				$url = "https://graph.facebook.com/{$facebook_photo[0]['im_facebook']}/picture?width={$size}&height={$size}";
 			}
 			elseif($mode == "custom") {
 				$url = "public/avatar/{$photo}";

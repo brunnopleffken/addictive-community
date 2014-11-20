@@ -125,7 +125,8 @@
 
 	// Get list of threads
 
-	$this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS author_email, author.photo_type AS author_type, author.photo AS author_photo, lastpost.username AS lastpost_name, "
+	$threads = $this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS author_email, "
+			. "author.photo_type AS author_type, author.photo AS author_photo, lastpost.username AS lastpost_name, "
 			. "(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post "
 			. "FROM c_threads INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id) "
 			. "INNER JOIN c_members AS lastpost ON (c_threads.lastpost_member_id = lastpost.m_id) "
@@ -133,7 +134,7 @@
 
 	// Process data
 
-	while($result = $this->Db->Fetch()) {
+	while($result = $this->Db->Fetch($threads)) {
 		$result['class'] = "";
 		$result['description'] = html_entity_decode($result['post']);
 		$result['mobile_start_date'] = $this->Core->DateFormat($result['start_date'], "short");
