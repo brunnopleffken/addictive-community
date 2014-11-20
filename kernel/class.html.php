@@ -292,7 +292,8 @@
 		// Get current URL
 		// ---------------------------------------------------
 
-		public static function CurrentUrl() {
+		public static function CurrentUrl()
+		{
 			$pageUrl = (@$_SERVER['HTTPS'] == "on") ? "https" : "http";
 
 			$pageUrl .= "://";
@@ -310,7 +311,8 @@
 		// Build textarea toolbar
 		// ---------------------------------------------------
 
-		public static function Toolbar() {
+		public static function Toolbar()
+		{
 			$content = <<<HTML
 				<div id="textareaToolbar">
 					<i class="fa fa-fw fa-bold" data-tooltip="Bold"></i>
@@ -327,6 +329,19 @@
 HTML;
 
 			return $content;
+		}
+		
+		// ---------------------------------------------------
+		// Redirect to an specific URL
+		// ---------------------------------------------------
+		
+		public static function Redirect($url, $referer = false)
+		{
+			if($url = "") {
+				Html::Error("Html::Redirect() method doesn't contain an argument.");
+			}
+			header("Location: " . $url);
+			exit;
 		}
 	}
 
