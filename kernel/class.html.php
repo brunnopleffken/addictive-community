@@ -28,7 +28,7 @@
 		public static function Request($name, $numeric = false)
 		{
 			if(isset($_REQUEST[$name]) && $numeric == true && !is_numeric($_REQUEST[$name])) {
-				return false;
+				Html::Error("Variable '{$name}' must be an integer.");
 			}
 			
 			if(isset($_REQUEST[$name])) {
