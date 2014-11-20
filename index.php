@@ -199,6 +199,34 @@
 			$this->p['TPL'] = "templates/" . $this->info['template'];
 			$this->p['IMG'] = "templates/" . $this->info['template'] . "/images";
 		}
+		
+		// ---------------------------------------------------
+		// Check if user is logged in
+		// ---------------------------------------------------
+
+		public function IsMember()
+		{
+			if($this->member['m_id'] != 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		
+		// ---------------------------------------------------
+		// Check if an ID matches with logged member ID
+		// ---------------------------------------------------
+
+		public function EvaluateMember($id)
+		{
+			if($this->member['m_id'] == $id) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 	}
 
 	$main = new Main();
