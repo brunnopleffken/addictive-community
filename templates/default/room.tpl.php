@@ -1,6 +1,8 @@
 <div class="roomTitleBar">
 	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span><?php __($roomInfo['name']) ?></div>
-	<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php __($roomId) ?>" class="defaultButton transition">New Thread</a></div>
+	<?php if($this->IsMember()): ?>
+		<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php __($roomId) ?>" class="defaultButton transition">New Thread</a></div>
+	<?php endif; ?>
 </div>
 
 <?php
@@ -11,7 +13,7 @@
 <div class="navigation">
 	<div class="navbar">
 		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>" class="transition <?php __($menu[0]) ?>">All</a>
-		<?php __($myThreadsMenu) ?>
+		<?php if($this->IsMember()) __($myThreadsMenu) ?>
 	</div>
 	<div class="subnav">
 		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>" class="transition">Newest</a>
@@ -66,5 +68,7 @@
 ?>
 
 <div class="roomTitleBar">
-	<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php __($roomId) ?>" class="defaultButton transition">New Thread</a></div>
+	<?php if($this->IsMember()): ?>
+		<div class="buttons fright"><a href="index.php?module=newthread&amp;room=<?php __($roomId) ?>" class="defaultButton transition">New Thread</a></div>
+	<?php endif; ?>
 </div>
