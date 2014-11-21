@@ -67,7 +67,7 @@
 			</tr>
 			<tr>
 				<td class="tLabel">Birthday</td>
-				<td><?php __($info['birthday']) ?> (<?php __($info['age']) ?> years old)</td>
+				<td><?php if($has_birthday) printf("%s (%s years old)", $info['birthday'], $info['age']) ?></td>
 			</tr>
 			<tr>
 				<td class="tLabel">Gender</td>

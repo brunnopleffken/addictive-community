@@ -47,12 +47,16 @@
 
 		case "profile":
 			// Birthday and age
-			$info['birthday_timestamp'] = mktime(12, 0, 0, $info['b_month'], $info['b_day'], $info['b_year']);
-			$info['birthday'] = $this->Core->DateFormat($info['birthday_timestamp'], "short");
-			$info['age'] = $this->Core->MemberAge($info['birthday_timestamp']);
+			$has_birthday = ($info['b_year']) ? true : false;
+
+			if($has_birthday) {
+				$info['birthday_timestamp'] = mktime(12, 0, 0, $info['b_month'], $info['b_day'], $info['b_year']);
+				$info['birthday'] = $this->Core->DateFormat($info['birthday_timestamp'], "short");
+				$info['age'] = $this->Core->MemberAge($info['birthday_timestamp']);
+			}
 
 			// Member gender icon
-			$info['gender'] = "<img src=\"" . $this->p['IMG'] . "/gender-{$info['gender']}.png\" alt=\"{$info['gender']}\">";
+			$info['gender'] = ($info['gender']) ? "<img src='{$this->p['IMG']}/gender-{$info['gender']}.png' alt='{$info['gender']}'>" : "---";
 
 			// Location and Google Maps link
 			$info['location_encoded'] = urlencode($info['location']);
