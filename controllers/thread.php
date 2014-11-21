@@ -23,30 +23,63 @@
 
 	if($act) {
 		switch($act) {
+			
+			// ---------------------------------------------------
+			// Delete a post
+			// ---------------------------------------------------
+			
 			case 'delete':
-				# code...
+				$info = array(
+					"post"    => Html::Request("pid"),
+					"thread"  => Html::Request("tid"),
+					"member"  => Html::Request("mid"),
+					"referer" => $_SERVER['HTTP_REFERER']
+				);
+				
+				if($this->EvaluateMember($info['member'])) {
+					$this->Db->Query("DELETE FROM c_posts WHERE p_id = '{$info['post']}';");
+					$this->Db->Query("UPDATE c_threads SET replies = replies - 1 WHERE t_id = '{$info['thread']}';");
+					$this->Db->Query("UPDATE c_members SET posts = posts - 1 WHERE m_id = {$info['member']}");
+					$this->Db->Query("UPDATE c_stats SET total_posts = total_posts - 1;");
+					
+					header("Location: " . $info['referer']);
+				}
+				else {
+					Html::Error("The post you're trying to delete is not linked to your Member ID.");
+				}
+
 				break;
 			
+			// ---------------------------------------------------
+			// Set post as Best Answer
+			// ---------------------------------------------------
+
 			case 'setbestanswer':
 				# code...
 				break;
+			
+			// ---------------------------------------------------
+			// Unset post as Best Answer
+			// ---------------------------------------------------
 
 			case 'unsetbestanswer':
 				# code...
 				break;
 		}
+
+		exit;
 	}
 
 	// ---------------------------------------------------
 	// Fetch thread general info
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT t.title, t.author_member_id, t.locked, t.lastpost_date, r.r_id, r.name, r.perm_view, r.perm_reply, "
+	$thread = $this->Db->Query("SELECT t.title, t.author_member_id, t.locked, t.lastpost_date, r.r_id, r.name, r.perm_view, r.perm_reply, "
 			. "(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t "
 			. "INNER JOIN c_rooms r ON (r.r_id = t.room_id) "
 			. "WHERE t.t_id = '{$threadId}';");
 
-	$threadInfo = $this->Db->Fetch();
+	$threadInfo = $this->Db->Fetch($thread);
 
 	// Get number of replies
 	$threadInfo['post_count_display'] = $threadInfo['post_count'] - 1;
@@ -70,7 +103,9 @@
 	$obsoleteSeconds = $this->Core->config['thread_obsolete_value'] * DAY;
 	if(($threadInfo['lastpost_date'] + $obsoleteSeconds) < time()) {
 		$threadInfo['obsolete'] = true;
-		$obsoleteNotification = Html::Notification("This thread is obsolete (last post is older than {$this->Core->config['thread_obsolete_value']} days).", "warning", true);
+		$obsoleteNotification = Html::Notification(
+			"This thread is obsolete (last post is older than {$this->Core->config['thread_obsolete_value']} days).", "warning", true
+		);
 	}
 	else {
 		$threadInfo['obsolete'] = false;
@@ -93,7 +128,7 @@
 	// ---------------------------------------------------
 
 	$itemsPerPage = $this->Core->config['thread_posts_per_page'];
-	$totalPosts   = $threadInfo['post_count'];
+	$totalPosts   = $threadInfo['post_count'] - 1;
 	
 	// page number for SQL sentences
 	$pSql = (Html::Request("p")) ? Html::Request("p") * $itemsPerPage - $itemsPerPage : 0;
@@ -116,22 +151,22 @@
 	// Get emoticons, if exists
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT * FROM c_emoticons WHERE
-		emoticon_set = '" . $this->Core->config['emoticon_default_set'] . "' AND display = '1';");
-	$emoticons = $this->Db->FetchArray();
+	$emoticons = $this->Db->Query("SELECT * FROM c_emoticons WHERE "
+			. "emoticon_set = '" . $this->Core->config['emoticon_default_set'] . "' AND display = '1';");
+	$emoticons = $this->Db->FetchArray($emoticons);
 
 	// ---------------------------------------------------
 	// Get first post
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id, "
+	$first_post = $this->Db->Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id, "
 			. "c_attachments.*, c_threads.title, c_threads.locked, c_members.* FROM c_posts "
 			. "INNER JOIN c_threads ON (c_posts.thread_id = c_threads.t_id) "
 			. "INNER JOIN c_members ON (c_posts.author_id = c_members.m_id) "
 			. "LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id) "
 			. "WHERE thread_id = '{$threadId}' AND first_post = '1' LIMIT 1;");
 
-	$firstPostInfo = $this->Db->Fetch();
+	$firstPostInfo = $this->Db->Fetch($first_post);
 
 	// Format first thread
 	$firstPostInfo['avatar'] = $this->Core->GetGravatar($firstPostInfo['email'], $firstPostInfo['photo'], 96, $firstPostInfo['photo_type']);
@@ -144,17 +179,18 @@
 	// Get replies
 	// ---------------------------------------------------
 
-	$this->Db->Query("SELECT c_posts.*, c_attachments.*, c_members.* FROM c_posts "
+	$replies = $this->Db->Query("SELECT c_posts.*, c_attachments.*, c_members.* FROM c_posts "
 			. "INNER JOIN c_members ON (c_posts.author_id = c_members.m_id) "
 			. "LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id) "
 			. "WHERE thread_id = '{$threadId}' AND first_post = '0' "
 			. "ORDER BY best_answer DESC, post_date ASC LIMIT {$pSql},{$itemsPerPage};");
 
-	while($result = $this->Db->Fetch()) {
+	while($result = $this->Db->Fetch($replies)) {
 
 		// Is this a best answer or a regular reply?
 		$result['bestanswer_class'] = ($result['best_answer'] == 1) ? "bestAnswer" : "";
 
+		// Member information
 		$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 192, $result['photo_type']);
 		$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 		$result['post_date'] = $this->Core->DateFormat($result['post_date']);
@@ -162,6 +198,7 @@
 		// Get emoticons
 		$result['post'] = $this->Core->ParseEmoticons($result['post'], $emoticons);
 
+		// Show label if post was edited
 		if(isset($result['edited'])) {
 			$result['edit_time'] = $this->Core->DateFormat($result['edit_time']);
 			$result['edited']    = "<em>(Edited in " . $result['edit_time'] . " by " . $result['edit_author'] . ")</em>";
@@ -170,6 +207,22 @@
 			$result['edited'] = "";
 		}
 
+		// Build post/thread action controls
+		$result['post_controls'] = "";
+		$result['thread_controls'] = "";
+
+		// Post controls
+		if($result['author_id'] == $this->member['m_id']) {
+			$result['post_controls'] = "<a href='' class='smallButton grey transition'>Edit</a> "
+				. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$threadId}' data-member='{$result['author_id']}' class='fancybox deleteButton smallButton grey transition'>Delete</a>";
+		}
+
+		// Thread controls
+		if($threadInfo['author_member_id'] == $this->member['m_id']) {
+			$result['thread_controls'] = "<a href='' class='smallButton grey transition'>Set as Best Answer</a>";
+		}
+
+		// Return replies
 		$_replyResult[] = $result;
 	}
 

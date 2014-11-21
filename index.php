@@ -215,7 +215,7 @@
 		}
 		
 		// ---------------------------------------------------
-		// Check if an ID matches with logged member ID
+		// Check if a provided ID matches with logged member ID
 		// ---------------------------------------------------
 
 		public function EvaluateMember($id)

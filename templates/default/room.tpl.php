@@ -16,7 +16,7 @@
 		<?php if($this->IsMember()) __($myThreadsMenu) ?>
 	</div>
 	<div class="subnav">
-		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>" class="transition">Newest</a>
+		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>" class="transition">Last Reply</a>
 		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>&amp;act=topreplies" class="transition">Top Threads</a>
 		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>&amp;act=noreplies" class="transition">No Replies</a>
 		<a href="index.php?module=room&amp;id=<?php __($roomId) ?>&amp;act=bestanswered" class="transition">Answered</a>

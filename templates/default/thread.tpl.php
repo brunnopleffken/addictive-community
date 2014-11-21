@@ -59,12 +59,14 @@
 <div class="threadButtons">
 	<p class="replies fleft">Replies: <span><?php __($threadInfo['post_count_display']) ?></span></p>
 	<div class="fright">
-		<?php if($threadInfo['obsolete']): ?>
-			<a href="javascript:void()" class="defaultButton disabled transition">Obsolete Thread</a>
-		<?php elseif($threadInfo['locked'] == 0 && $allowToReply): ?>
-			<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
-		<?php else: ?>
-			<a href="javascript:void()" class="defaultButton disabled transition">Locked</a>
+		<?php if($this->IsMember()): ?>
+			<?php if($threadInfo['obsolete']): ?>
+				<a href="javascript:void()" class="defaultButton disabled transition">Obsolete Thread</a>
+			<?php elseif($threadInfo['locked'] == 0 && $allowToReply): ?>
+				<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
+			<?php else: ?>
+				<a href="javascript:void()" class="defaultButton disabled transition">Locked</a>
+			<?php endif; ?>
 		<?php endif; ?>
 	</div>
 </div>
@@ -103,15 +105,19 @@
 					</div>
 				<?php endif; ?>
 			</div>
-			<div class="signature parsing"><?php __($_replyResult[$k]['signature']) ?></div>
+			<?php if($_replyResult[$k]['signature']): ?>
+				<div class="signature parsing"><?php __($_replyResult[$k]['signature']) ?></div>
+			<?php endif; ?>
 		</div>
 		<div class="footer">
 			<div class="fleft">
-				<a href="index.php?module=report&amp;t_id=<?php __($threadId) ?>&amp;p_id=<?php __($_replyResult[$k]['p_id']) ?>" class="smallButton grey transition fancybox fancybox.ajax">Report this post</a>
+				<?php if($this->IsMember()): ?>
+					<a href="index.php?module=report&amp;t_id=<?php __($threadId) ?>&amp;p_id=<?php __($_replyResult[$k]['p_id']) ?>" class="smallButton grey transition fancybox fancybox.ajax">Report this post</a>
+				<?php endif; ?>
 			</div>
 			<div class="fright">
-				<a href="" class="smallButton grey transition">Edit</a>
-				<a href="" class="smallButton grey transition">Set as Best Answer</a>
+				<?php __($_replyResult[$k]['post_controls']) ?>
+				<?php __($_replyResult[$k]['thread_controls']) ?>
 			</div>
 		</div>
 	</div>
@@ -122,12 +128,14 @@
 <div class="threadButtons">
 	<div class="fleft"><?php __($pagination) ?></div>
 	<div class="fright">
-		<?php if($threadInfo['obsolete']): ?>
-			<a href="javascript:void()" class="defaultButton disabled transition">Obsolete Thread</a>
-		<?php elseif($threadInfo['locked'] == 0 && $allowToReply): ?>
-			<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
-		<?php else: ?>
-			<a href="javascript:void()" class="defaultButton disabled transition">Locked</a>
+		<?php if($this->IsMember()): ?>
+			<?php if($threadInfo['obsolete']): ?>
+				<a href="javascript:void()" class="defaultButton disabled transition">Obsolete Thread</a>
+			<?php elseif($threadInfo['locked'] == 0 && $allowToReply): ?>
+				<a href="index.php?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
+			<?php else: ?>
+				<a href="javascript:void()" class="defaultButton disabled transition">Locked</a>
+			<?php endif; ?>
 		<?php endif; ?>
 	</div>
 </div>
@@ -136,15 +144,39 @@
 
 <div class="relatedThreads">
 	<h2>Related Threads</h2>
-	<?php
-		if($_relatedThreadList):
-		foreach($_relatedThreadList as $k => $v):
-	?>
-		<div class="item"><span><?php __($_relatedThreadList[$k]['thread_date']) ?></span><a href="index.php?module=thread&amp;id=<?php echo $_relatedThreadList[$k]['t_id'] ?>"><?php __($_relatedThreadList[$k]['title']) ?></a></div>
-	<?php
-		endforeach;
-		else:
-	?>
+	<?php if($_relatedThreadList): ?>
+		<?php foreach($_relatedThreadList as $k => $v): ?>
+			<div class="item">
+				<span><?php __($_relatedThreadList[$k]['thread_date']) ?></span>
+				<a href="index.php?module=thread&amp;id=<?php echo $_relatedThreadList[$k]['t_id'] ?>"><?php __($_relatedThreadList[$k]['title']) ?></a>
+			</div>
+		<?php endforeach; ?>
+	<?php else: ?>
 		<div class="item"><span>There are no related threads to show.</span></div>
 	<?php endif; ?>
+</div>
+
+<!-- DELETE POST LIGHTBOX -->
+<div id="deleteThreadConfirm" style="display: none">
+	<form action="index.php?module=thread&amp;act=delete" method="post" class="validate">
+		<table class="tableList noBorders" style="width:350px; margin:0">
+			<tr>
+				<th>
+					<div class="fleft">Delete Post</div>
+					<div class="fright"><a href="javascript:jQuery.fancybox.close();" class="smallButton grey white transition">Close</a></div>
+				</th>
+			</tr>
+			<tr>
+				<td class="min">Do you want to delete this post? This operation <strong>cannot</strong> be undone!</td>
+			</tr>
+			<tr class="footer">
+				<td colspan="2" style="text-align:center; padding:10px">
+					<input type="hidden" name="pid" id="deletePostId" value="">
+					<input type="hidden" name="tid" id="deleteThreadId" value="">
+					<input type="hidden" name="mid" id="deleteMemberId" value="">
+					<input type="submit" value="Delete Post">
+				</td>
+			</tr>
+		</table>
+	</form>
 </div>

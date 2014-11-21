@@ -64,6 +64,20 @@ jQuery(document).ready(function($) {
 	});
 	
 	// ---------------------------------------------------
+	// Open lightbox when clicking in "Delete Post"
+	// ---------------------------------------------------
+	
+	$('a.deleteButton').on('click', function() {
+		var postId   = $(this).data('post'),
+		    threadId = $(this).data('thread'),
+		    memberId = $(this).data('member');
+		
+		$('input#deletePostId').val(postId);
+		$('input#deleteThreadId').val(threadId);
+		$('input#deleteMemberId').val(memberId);
+	});
+	
+	// ---------------------------------------------------
 	// INSERT MARKDOWN TAGS TO TEXTAREA
 	// ---------------------------------------------------
 	
