@@ -101,6 +101,7 @@
 										<?php __($_siderooms[$k]['name']) ?>
 									</a>
 									<span><?php __($_siderooms[$k]['threads']) ?></span>
+									<?php if($_siderooms[$k]['password']): ?><i class="fa fa-lock"></i><?php endif; ?>
 								</div>
 							<?php endforeach; ?>
 						</div>

@@ -411,8 +411,15 @@ form {
 						text-decoration: none;
 					}
 				}
+				i {
+					color: #aaabb0;
+					float: right;
+					line-height: 21px;
+					margin-right: 4px;
+				}
 				span {
-					background: #8a8b90; color: #f0eff4;
+					background: #8a8b90;
+					color: #f0eff4;
 					border-radius: 15px;
 					display: inline-block;
 					float: right;

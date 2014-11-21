@@ -57,7 +57,7 @@
 	// SIDEBAR: get list of rooms
 	// ---------------------------------------------------
 
-	$rooms = $this->Db->Query("SELECT c_rooms.r_id, c_rooms.name, "
+	$rooms = $this->Db->Query("SELECT c_rooms.r_id, c_rooms.name, c_rooms.password, "
 			. "(SELECT COUNT(*) FROM c_threads WHERE c_threads.room_id = c_rooms.r_id) AS threads "
 			. "FROM c_rooms WHERE invisible = 0;");
 

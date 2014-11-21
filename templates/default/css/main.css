@@ -102,6 +102,7 @@ form textarea { overflow: auto; }
 .sidebar .sidebarItem .list .item:last-child { border-radius: 0 0 7px 7px; }
 .sidebar .sidebarItem .list .item a { color: #707070; display: inline-block; font-weight: bold; margin-bottom: -5px; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; width: 180px; white-space: nowrap; }
 .sidebar .sidebarItem .list .item a:hover { text-decoration: none; }
+.sidebar .sidebarItem .list .item i { color: #aaabb0; float: right; line-height: 21px; margin-right: 4px; }
 .sidebar .sidebarItem .list .item span { background: #8a8b90; color: #f0eff4; border-radius: 15px; display: inline-block; float: right; font-size: 9px; padding: 1px 0; text-align: center; width: 35px; }
 .sidebar .sidebarItem .user { background: #303747 url("../images/bar-bg.png"); border-radius: 7px; color: #eeeeee; overflow: hidden; padding: 10px; }
 .sidebar .sidebarItem .user .avatar { background: url("../images/user_img_bg.png") no-repeat; float: left; height: 42px; width: 42px; }
