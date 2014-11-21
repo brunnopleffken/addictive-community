@@ -64,14 +64,18 @@
 		</div>
 		<div class="inputBox">
 			<div class="label">Facebook</div>
-			<div class="field">
-				http://www.facebook.com/ <input type="text" name="im_facebook" value="<?php __($this->member['im_facebook']) ?>" class="small">
+			<div class="field" style="position:relative">
+				<span style="position:absolute;top:6px;left:5px;color:#aaa">http://www.facebook.com/</span>
+				<input type="text" name="im_facebook" placeholder="username" value="<?php __($this->member['im_facebook']) ?>" class="medium" style="padding-left:153px">
 				<em>You'll be able to use your Facebook photo as avatar in <a href="?module=usercp&view=photo">Photo Settings</a>.</em>
 			</div>
 		</div>
 		<div class="inputBox">
 			<div class="label">Twitter</div>
-			<div class="field" style="position:relative"><span style="position:absolute;top:5px;left:5px;color:#999">@</span><input type="text" name="im_twitter" value="<?php __($this->member['im_twitter']) ?>" class="small" style="padding-left: 20px"></div>
+			<div class="field" style="position:relative">
+				<span style="position:absolute;top:6px;left:5px;color:#aaa">@</span>
+				<input type="text" name="im_twitter" placeholder="username" value="<?php __($this->member['im_twitter']) ?>" class="small" style="padding-left: 20px">
+			</div>
 		</div>
 		<div class="fleft">
 			<div class="errorMessage">You need to enter a valid e-mail address.</div>
