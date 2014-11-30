@@ -1,4 +1,4 @@
-$fontFamily: Arial, Helvetica, sans-serif;
+$fontFamily: 'Helvetica Neue', Arial, sans-serif;
 $colorFiord: #465068;
 
 /** RESET **/
@@ -293,8 +293,10 @@ form {
 	display: table;
 	margin: 20px 0;
 	width: 100%;
-	.logo-image {
+	.logo {
 		float: left;
+		height: 50px;
+		width: 300px;
 	}
 }
 
@@ -851,13 +853,13 @@ form {
 	.content {
 		display: table-cell;
 		.date {
-			color: #666666;
+			color: #999999;
 			font-size: 11px;
-			padding: 10px 5px;
+			padding: 15px 5px 0 5px;
 		}
 		.text {
 			margin-bottom: 35px;
-			padding: 15px;
+			padding: 10px 15px 15px 15px;
 			img.emoticon {
 				display: inline-block;
 				height: 16px;
@@ -865,7 +867,7 @@ form {
 				width: 16px;
 			}
 			.signature {
-				border-top: 1px solid rgba(0, 0, 0, 0.1);
+				border-top: 1px dashed rgba(0, 0, 0, 0.1);
 				color: #777;
 				font-size: 0.8em;
 				line-height: 1.4em;
@@ -1315,7 +1317,7 @@ form {
 
 /** PAGINATION ELEMENTS **/
 
-.pages { 
+.pages {
 	a {
 		background: url('../images/page.png') repeat-x;
 		border: 1px solid #ddd;

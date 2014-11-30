@@ -2,7 +2,7 @@
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; border: 0; margin: 0; outline: none; padding: 0; }
 
 /** GLOBAL **/
-body { background: #f1f1f1; font-family: Arial, Helvetica, sans-serif; font-size: 13px; /** HELPERS **/ }
+body { background: #f1f1f1; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 13px; /** HELPERS **/ }
 body h1 { margin-bottom: 8px; }
 body h2 { letter-spacing: 1px; margin-bottom: 15px; }
 body .transition { -webkit-transition: 300ms; -moz-transition: 300ms; -o-transition: 300ms; transition: 300ms; }
@@ -35,10 +35,10 @@ form .large { width: 420px; }
 form .medium { width: 300px; }
 form .small { width: 200px; }
 form .tiny { width: 90px; }
-form input[type=text], form input[type=password], form input[type=file], form select, form textarea { border: 1px solid #cccccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica, sans-serif; font-size: 13px; outline: none; padding: 6px; }
+form input[type=text], form input[type=password], form input[type=file], form select, form textarea { border: 1px solid #cccccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 13px; outline: none; padding: 6px; }
 form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form select:focus, form textarea:focus { border: 1px solid #aaaaaa; transition: 500ms; }
-form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: Arial, Helvetica, sans-serif; margin-top: -3px; }
-form input[type=button], form input[type=submit] { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #ffffff; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 12px; padding: 7px 12px; text-shadow: 1px 1px 0px #000000; }
+form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: "Helvetica Neue", Arial, sans-serif; margin-top: -3px; }
+form input[type=button], form input[type=submit] { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #ffffff; cursor: pointer; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 12px; padding: 7px 12px; text-shadow: 1px 1px 0px #000000; }
 form input[type=button].cancel, form input[type=submit].cancel { background: #eeeeee url("../images/button-bg.png") !important; color: #990000 !important; text-shadow: 1px 1px 0px #fff !important; }
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #ffffff; }
 form input[type=checkbox] { margin-right: 2px; vertical-align: text-top; }
@@ -53,7 +53,7 @@ form textarea { overflow: auto; }
 .inputBox .field.textOnly { padding: 5px 0; }
 .inputBox:last-child { margin: 0; }
 
-.defaultButton { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000000; }
+.defaultButton { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #ffffff; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000000; }
 .defaultButton:hover { background-color: #566380; text-decoration: none; }
 .defaultButton.disabled { background: #dddddd; color: #990000 !important; cursor: default; text-shadow: 1px 1px 0px #fff !important; }
 .defaultButton.grey { background: rgba(0, 0, 0, 0.05); color: #990000 !important; text-shadow: 1px 1px 0px #fff !important; }
@@ -75,7 +75,7 @@ form textarea { overflow: auto; }
 #topbar a:last-child { margin-right: 0; }
 
 #logo { display: table; margin: 20px 0; width: 100%; }
-#logo .logo-image { float: left; }
+#logo .logo { float: left; height: 50px; width: 300px; }
 
 #search { background: #303747; border-radius: 8px; float: right; font-size: 0; padding: 10px; }
 #search input[type=text] { background: white url("../images/lupa.jpg") no-repeat 5px 5px; border: 0; border-radius: 2px; font-size: 14px; height: 32px; padding: 0 4px 0 30px; width: 250px; }
@@ -196,10 +196,10 @@ form textarea { overflow: auto; }
 .postReply .author .userInfo li { padding: 0 3px; text-align: right; }
 .postReply .author .userInfo li b { float: left; }
 .postReply .content { display: table-cell; }
-.postReply .content .date { color: #666666; font-size: 11px; padding: 10px 5px; }
-.postReply .content .text { margin-bottom: 35px; padding: 15px; }
+.postReply .content .date { color: #999999; font-size: 11px; padding: 15px 5px 0 5px; }
+.postReply .content .text { margin-bottom: 35px; padding: 10px 15px 15px 15px; }
 .postReply .content .text img.emoticon { display: inline-block; height: 16px; vertical-align: text-bottom; width: 16px; }
-.postReply .content .text .signature { border-top: 1px solid rgba(0, 0, 0, 0.1); color: #777; font-size: 0.8em; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
+.postReply .content .text .signature { border-top: 1px dashed rgba(0, 0, 0, 0.1); color: #777; font-size: 0.8em; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
 .postReply .content .footer { background: rgba(0, 0, 0, 0.01); bottom: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); left: 0; padding: 5px 5px 8px 5px; position: absolute; right: 0; text-align: right; }
 .postReply.bestAnswer { background: #fafff8 url("../images/best-answer.png") no-repeat right top; border-left: 3px solid #009900; }
 
