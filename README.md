@@ -3,7 +3,7 @@ Addictive Community
 
 Discussion forum software, written in object-oriented PHP. This is an Alpha version (UNDER DEVELOPMENT) and has issues and incomplete features that will be fixed soon!
 
-![Addictive Community](https://raw.githubusercontent.com/brunnopleffken/addictive-community/ad30a574724fb463783a9278800b856f233728dd/templates/default/images/screenshot.png)
+![Addictive Community](https://raw.githubusercontent.com/brunnopleffken/addictive-community/3fd1ec6003d1bcb647dc1e36a89dd0506b81a5f1/templates/default/images/screenshot.png)
 
 ## Highlight features##
 
