@@ -204,6 +204,7 @@ HTML;
 			<div class="section-subnav">
 				<a href="main.php?act=languages&amp;p=manager">Language Manager</a>
 				<a href="main.php?act=languages&amp;p=import">Import / Export</a>
+				<a href="main.php?act=languages&amp;p=badwords">Bad Words</a>
 			</div>
 HTML;
 		}
