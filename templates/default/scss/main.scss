@@ -352,6 +352,7 @@ form {
 
 .sidebar {
 	display: table-cell;
+	min-width: 270px;
 	width: 270px;
 	.sidebarBg {
 		background: #ffffff;
@@ -373,9 +374,8 @@ form {
 		}
 		.text {
 			background: #fcfcfc;
-			border-bottom: 1px solid #dddddd;
-			border-left: 1px solid #dddddd;
-			border-right: 1px solid #dddddd;
+			border: 1px solid #dddddd;
+			border-top: 0;
 			border-radius: 0 0 5px 5px;
 			padding: 10px;
 			.subtitle {
@@ -394,9 +394,8 @@ form {
 		.list {
 			.item {
 				background: #fdfdfd;
-				border-bottom: 1px solid #eee;
-				border-left: 1px solid #eee;
-				border-right: 1px solid #eee;
+				border: 1px solid #eee;
+				border-top: 0;
 				padding: 8px 12px;
 				&:hover { background: #f7f7f7; }
 				&:last-child { border-radius: 0 0 7px 7px; }
@@ -628,7 +627,7 @@ form {
 			vertical-align: middle;
 		}
 	}
-	.content {
+	.middle {
 		padding: 10px;
 		position: relative;
 		.title {
@@ -636,18 +635,19 @@ form {
 			font-size: 17px;
 			font-weight: bold;
 			line-height: 1em;
+			margin-bottom: 30px;
 		}
 		.desc {
 			color: #444444;
-			display: block;
 			font-size: 11px;
 			font-style: italic;
+			left: 10px;
 			line-height: 30px;
-			margin-right: -1000px;
 			overflow: hidden;
-			position: relative;
+			position: absolute;
+			right: 10px;
 			text-overflow: ellipsis;
-			width: 100%;
+			top: 25px;
 			white-space: nowrap;
 		}
 		.author {

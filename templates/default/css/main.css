@@ -88,16 +88,16 @@ form textarea { overflow: auto; }
 .mainWrapper { display: table; line-height: 1.4em; width: 100%; }
 
 /** SIDEBAR **/
-.sidebar { display: table-cell; width: 270px; }
+.sidebar { display: table-cell; min-width: 270px; width: 270px; }
 .sidebar .sidebarBg { background: #ffffff; padding: 8px; }
 .sidebar .sidebarItem { display: block; margin-bottom: 10px; }
 .sidebar .sidebarItem:last-child { margin-bottom: 0; }
 .sidebar .sidebarItem .title { background: #465068 url("../images/bar-bg.png") repeat-x; border-radius: 5px 5px 0 0; color: #ffffff; font-size: 14px; font-weight: bold; padding: 8px 12px; }
-.sidebar .sidebarItem .text { background: #fcfcfc; border-bottom: 1px solid #dddddd; border-left: 1px solid #dddddd; border-right: 1px solid #dddddd; border-radius: 0 0 5px 5px; padding: 10px; }
+.sidebar .sidebarItem .text { background: #fcfcfc; border: 1px solid #dddddd; border-top: 0; border-radius: 0 0 5px 5px; padding: 10px; }
 .sidebar .sidebarItem .text .subtitle { color: #999; display: block; font-size: 14px; margin-bottom: 6px; }
 .sidebar .sidebarItem .text .onlineList { font-size: 12px; }
 .sidebar .sidebarItem .text .statsName { color: #888888; }
-.sidebar .sidebarItem .list .item { background: #fdfdfd; border-bottom: 1px solid #eee; border-left: 1px solid #eee; border-right: 1px solid #eee; padding: 8px 12px; }
+.sidebar .sidebarItem .list .item { background: #fdfdfd; border: 1px solid #eee; border-top: 0; padding: 8px 12px; }
 .sidebar .sidebarItem .list .item:hover { background: #f7f7f7; }
 .sidebar .sidebarItem .list .item:last-child { border-radius: 0 0 7px 7px; }
 .sidebar .sidebarItem .list .item a { color: #707070; display: inline-block; font-weight: bold; margin-bottom: -5px; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; width: 180px; white-space: nowrap; }
@@ -148,11 +148,11 @@ form textarea { overflow: auto; }
 .threadItem { background: #ffffff; border-spacing: 0; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); margin-bottom: 10px; width: 100%; /* THREAD STATUS */ }
 .threadItem .avatar { padding: 0 7px 0 15px; }
 .threadItem .avatar .image { box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); padding: 1px; vertical-align: middle; }
-.threadItem .content { padding: 10px; position: relative; }
-.threadItem .content .title { display: block; font-size: 17px; font-weight: bold; line-height: 1em; }
-.threadItem .content .desc { color: #444444; display: block; font-size: 11px; font-style: italic; line-height: 30px; margin-right: -1000px; overflow: hidden; position: relative; text-overflow: ellipsis; width: 100%; white-space: nowrap; }
-.threadItem .content .author { color: #888888; display: block; font-size: 10px; line-height: 1em; }
-.threadItem .content .author i { color: #000000; }
+.threadItem .middle { padding: 10px; position: relative; }
+.threadItem .middle .title { display: block; font-size: 17px; font-weight: bold; line-height: 1em; margin-bottom: 30px; }
+.threadItem .middle .desc { color: #444444; font-size: 11px; font-style: italic; left: 10px; line-height: 30px; overflow: hidden; position: absolute; right: 10px; text-overflow: ellipsis; top: 25px; white-space: nowrap; }
+.threadItem .middle .author { color: #888888; display: block; font-size: 10px; line-height: 1em; }
+.threadItem .middle .author i { color: #000000; }
 .threadItem .info { background: rgba(180, 180, 180, 0.1); font-size: 14px; font-weight: bold; text-align: center; width: 70px; }
 .threadItem .info i { font-size: 30px; }
 .threadItem .stats { background: #465068; padding: 5px; width: 170px; }
