@@ -26,8 +26,14 @@
 	// ---------------------------------------------------
 
 	if($this->info['module'] == "thread") {
-		$this->Core->config['seo_description'] = $firstPostInfo['post'];
+		$this->Core->config['seo_description'] = substr($firstPostInfo['post'], 0, 200);
 	}
+
+	// ---------------------------------------------------
+	// Set canonical tag in Thread
+	// ---------------------------------------------------
+	
+	$pageinfo['canonical_address'] = (isset($pageinfo['canonical_address'])) ?  "<link rel='canonical' href='{$pageinfo['canonical_address']}'>\n" : "";
 
 	// ---------------------------------------------------
 	// Format breadcrumbs

@@ -8,6 +8,7 @@
 	<meta name="description" content="<?php __($this->Core->config['seo_description']) ?>">
 	<meta name="keywords" content="<?php __($this->Core->config['seo_keywords']) ?>">
 	<link rel="shortcut icon" href="favicon.ico">
+	<?php __($pageinfo['canonical_address']) ?>
 	<!-- CSS -->
 	<link rel="stylesheet" href="<?php __($this->p['TPL']) ?>/css/main.css">
 	<link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">

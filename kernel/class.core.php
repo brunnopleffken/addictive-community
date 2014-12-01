@@ -143,6 +143,16 @@
 			
 			return $age;
 		}
+
+		// ---------------------------------------------------
+		// Create Canonical Tag URL
+		// ---------------------------------------------------
+
+		public function CanonicalTag($thread_id)
+		{
+			$url = $this->config['general_communityurl'] . "index.php?module=thread&id=" . $thread_id;
+			return $url;
+		}
 	}
 
 ?>

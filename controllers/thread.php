@@ -300,4 +300,7 @@
 	$pageinfo['title'] = $threadInfo['title'];
 	$pageinfo['bc'] = array($threadInfo['name'], $threadInfo['title']);
 
+	// Canonical
+	$pageinfo['canonical_address'] = $this->Core->CanonicalTag($threadId);
+
 ?>
