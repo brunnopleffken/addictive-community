@@ -20,7 +20,7 @@
 			<a href="#"><?php __(Html::Crop($firstPostInfo['avatar'], 42, 42, "avatar")) ?></a>
 			<div class="authorInfo">
 				<a href="index.php?module=profile&amp;id=<?php __($firstPostInfo['author_id']) ?>"><?php __($firstPostInfo['username']) ?></a><br>
-				<?php __($firstPostInfo['member_title']) ?><br>
+				<div><?php __($firstPostInfo['member_title']) ?></div>
 				<?php __($firstPostInfo['posts']) ?> posts
 			</div>
 			<div class="fright" style="margin-top: 12px">
