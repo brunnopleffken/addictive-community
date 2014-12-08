@@ -16,23 +16,23 @@
 	</div>
 	<div class="subnav">
 		<a href="index.php?module=messenger" class="transition selected">Inbox</a>
-		<a href="index.php?module=messenger" class="transition">Sent</a>
-		<a href="index.php?module=messenger" class="transition">Drafts</a>
+		<a href="index.php?module=messenger&amp;view=sent" class="transition">Sent</a>
+		<a href="index.php?module=messenger&amp;view=drafts" class="transition">Drafts</a>
 		<div class="progressBar" style="width: 204px; float: right; margin-top: 9px"><div class="fill" style="width: <?php __($percentageWidth) ?>"></div><span>Storage:  <?php __($numResults . " of " . $maxStorageSize) ?></span></div>
 	</div>
 </div>
 
-<form action="index.php?module=messenger&act=delete" method="post" class="personalMessenger">
+<form action="index.php?module=messenger&amp;act=delete" method="post" class="personalMessenger">
 	<table class="tableList">
 		<tr>
 			<th colspan="7">
+				<div class="fleft">Inbox</div>
 				<div class="fright">
 					<a class="smallButton grey white transition" id="messengerDeleteMessages">Delete Selected Messages</a>
 					<a class="smallButton grey white transition" data-check="checkDeleteMessage">Select All</a>
 				</div>
 			</th>
 		</tr>
-
 		<tr class="subtitle">
 			<td class="min">&nbsp;</td>
 			<td>Subject</td>
@@ -47,8 +47,8 @@
 		?>
 		<tr>
 			<td class="min" style="font-size: 17px"><i class="fa <?php __($pm['icon_class']) ?>"></i></td>
-			<td style="font-size: 14px;"><a href="index.php?module=messenger&read=<?php __($pm['pm_id']) ?>"><?php __($pm['subject']) ?></a></td>
-			<td><a href="index.php?module=profile&id=<?php __($pm['from_id']) ?>"><?php __($pm['username']) ?></a></td>
+			<td style="font-size: 14px;"><a href="index.php?module=messenger&amp;read=<?php __($pm['pm_id']) ?>"><?php __($pm['subject']) ?></a></td>
+			<td><a href="index.php?module=profile&amp;id=<?php __($pm['from_id']) ?>"><?php __($pm['username']) ?></a></td>
 			<td><?php __($pm['sent_date']) ?></td>
 			<td class="min"><input type="checkbox" name="pm[]" value="<?php __($pm['pm_id']) ?>" class="checkDeleteMessage"></td>
 		</tr>

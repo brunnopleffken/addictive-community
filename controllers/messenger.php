@@ -40,6 +40,47 @@
 	$m_id = $this->member['m_id'];
 
 	// ---------------------------------------------------
+	// Set back-end actions
+	// ---------------------------------------------------
+
+	$act = Html::Request("act");
+
+	switch($act) {
+		case "delete":
+			// Get selected messages
+			$messages = Html::Request("pm");
+
+			// Delete
+			foreach($messages as $v) {
+				$this->Db->Query("DELETE FROM c_messages WHERE pm_id = {$v} AND to_id = {$m_id}");
+			}
+
+			// Redirect
+			header("Location: index.php?module=messenger");
+			exit;
+			break;
+
+		case 'send':
+			// Build register
+			$pm = array(
+				"from_id"   => $this->member['m_id'],
+				"to_id"     => Html::Request("to", true),
+				"subject"   => Html::Request("subject"),
+				"status"    => 1,
+				"sent_date" => time(),
+				"message"   => Html::Request("post"),
+			);
+
+			// Insert into DB
+			$this->Db->Insert("c_messages", $pm);
+
+			// Redirect
+			header("Location: index.php?module=messenger&msg=1");
+			exit;
+			break;
+	}
+
+	// ---------------------------------------------------
 	// Which page is the user viewing?
 	// ---------------------------------------------------
 
@@ -47,9 +88,9 @@
 	$view = $this->Core->QueryString("view", "inbox");
 
 	switch($view) {
-		
+
 		// Messenger inbox
-		
+
 		case "inbox":
 			// Select personal messages
 			$this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username "
@@ -96,11 +137,9 @@
 		// Hide "inbox" view
 		$view = null;
 
-		// Member ID
-		
 		// Get message info and post
-		$this->Db->Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type FROM c_messages p "
-			. "LEFT JOIN c_members m ON (p.from_id = m.m_id) "
+		$this->Db->Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type "
+			. "FROM c_messages p LEFT JOIN c_members m ON (p.from_id = m.m_id) "
 			. "WHERE pm_id = {$read} AND to_id = " . $this->member['m_id'] . ";");
 
 		if($this->Db->Rows() == 1) {
@@ -120,47 +159,6 @@
 			header("Location: index.php?module=messenger&msg=2");
 			exit;
 		}
-	}
-
-	// ---------------------------------------------------
-	// Set actions
-	// ---------------------------------------------------
-
-	$act = Html::Request("act");
-
-	switch($act) {
-		case "delete":
-			// Get selected messages
-			$messages = Html::Request("pm");
-
-			// Delete
-			foreach($messages as $v) {
-				$this->Db->Query("DELETE FROM c_messages WHERE pm_id = {$v} AND to_id = {$m_id}");
-			}
-
-			// Redirect
-			header("Location: index.php?module=messenger");
-			exit;
-			break;
-
-		case 'send':
-			// Build register
-			$pm = array(
-				"from_id"   => $this->member['m_id'],
-				"to_id"     => Html::Request("to", true),
-				"subject"   => Html::Request("subject"),
-				"status"    => 1,
-				"sent_date" => time(),
-				"message"   => Html::Request("post"),
-			);
-
-			// Insert into DB
-			$this->Db->Insert("c_messages", $pm);
-
-			// Redirect
-			header("Location: index.php?module=messenger&msg=1");
-			exit;
-			break;
 	}
 
 	// ---------------------------------------------------
