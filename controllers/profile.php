@@ -124,7 +124,7 @@
 			break;
 
 		// ---------------------------------------------------
-		// Social networks updates
+		// Attachments sent by member
 		// ---------------------------------------------------
 
 		case "attachments":

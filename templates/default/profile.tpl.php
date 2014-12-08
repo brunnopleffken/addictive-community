@@ -12,6 +12,7 @@
 <div class="profileHeader">
 	<div class="background" style="background-image: url('<?php __($info['cover']) ?>')"><div class="cover"></div></div>
 	<?php __(Html::Crop($info['avatar'], 160, 160, "avatar")) ?>
+	<div class="memberTitle"><?php __($info['member_title']) ?></div>
 	<div class="memberInfo">
 		<span class="username"><?php __($info['username']) ?></span>
 		<div class="item"><span>Posts</span><?php __($info['posts']) ?></div>
@@ -27,27 +28,12 @@
 	</div>
 	<div class="subnav">
 		<a href="index.php?module=profile&amp;id=<?php __($id) ?>" class="transition">My Profile</a>
-		<a href="index.php?module=profile&amp;id=<?php __($id) ?>&amp;act=posts" class="transition">Posts &amp; Threads</a>
+		<a href="index.php?module=profile&amp;id=<?php __($id) ?>&amp;act=posts" class="transition">Last Posts &amp; Threads</a>
 		<a href="index.php?module=profile&amp;id=<?php __($id) ?>&amp;act=attachments" class="transition">Attachments</a>
 	</div>
 </div>
 
 <div class="tableLayer profileContainer">
-	<div class="box tCell profileSidebar">
-		<div class="reputation">
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star-o"></i>
-		</div>
-		<ul class="userInfoList">
-			<li><b>Group</b> <?php __($info['name']) ?></li>
-			<li><b>Registered</b> <?php __($info['joined']) ?></li>
-			<li><b>Posts</b> <?php __($info['posts']) ?> posts</li>
-		</ul>
-	</div>
-	<div class="tSpacer"></div>
 	<div class="box tCell profileContent">
 
 	<?php
@@ -56,8 +42,7 @@
 	?>
 
 		<!-- MEMBER PROFILE -->
-		<span><em><?php __($info['member_title']) ?></em></span>
-		<table class="tableList noShadow noBorders" style="margin-top: 15px">
+		<table class="tableList noShadow noBorders">
 			<tr>
 				<th colspan="2">My Profile</th>
 			</tr>
@@ -120,9 +105,7 @@
 
 	<!-- POSTS & THREADS -->
 
-	<h1><?php __($info['username']) ?></h1>
-	<span><?php __($info['member_title']) ?></span>
-	<table class="tableList noBorders noShadow" style="margin-top: 15px">
+	<table class="tableList noBorders noShadow">
 		<tr>
 			<th colspan="2">Last 5 threads by <?php __($info['username']) ?></th>
 		</tr>

@@ -1,4 +1,5 @@
-$fontFamily: 'Helvetica Neue', Arial, sans-serif;
+$fontFamily: Arial, Helvetica, sans-serif;
+$fontSerif: Georgia, serif;
 $colorFiord: #465068;
 
 /** RESET **/
@@ -1103,6 +1104,16 @@ form {
 		position: absolute;
 		z-index: 999;
 	}
+	.memberTitle {
+		bottom: 15px;
+		color: #ffffff;
+		font-family: $fontSerif;
+		font-size: 18px;
+		font-style: italic;
+		opacity: 0.5;
+		position: absolute;
+		right: 10px;
+	}
 	.memberInfo {
 		bottom: 15px;
 		color: #ffffff;
@@ -1132,27 +1143,14 @@ form {
 	.profileSidebar {
 		width: 180px;
 		vertical-align: top;
-		.reputation {
-			background-color: #fdfdfd;
-			border: 1px solid #f5f5f5;
-			color: #449944;
-			font-size: 18px;
-			padding: 10px;
-			text-align: center;
-		}
-		.userInfoList{
-			color: #444;
-			font-size: 11px;
-			list-style: none;
-			margin: 20px 0px;
-			li {
-				padding: 0 3px;
-				text-align: right;
-				b {
-					float: left;
-				}
-			}
-		}
+		// .reputation {
+		// 	background-color: #fdfdfd;
+		// 	border: 1px solid #f5f5f5;
+		// 	color: #449944;
+		// 	font-size: 18px;
+		// 	padding: 10px;
+		// 	text-align: center;
+		// }
 	}
 	.profileContent {
 		vertical-align: top;

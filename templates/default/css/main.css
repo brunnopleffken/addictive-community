@@ -2,7 +2,7 @@
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; border: 0; margin: 0; outline: none; padding: 0; }
 
 /** GLOBAL **/
-body { background: #f1f1f1; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 13px; /** HELPERS **/ }
+body { background: #f1f1f1; font-family: Arial, Helvetica, sans-serif; font-size: 13px; /** HELPERS **/ }
 body h1 { margin-bottom: 8px; }
 body h2 { letter-spacing: 1px; margin-bottom: 15px; }
 body .transition { -webkit-transition: 300ms; -moz-transition: 300ms; -o-transition: 300ms; transition: 300ms; }
@@ -35,10 +35,10 @@ form .large { width: 420px; }
 form .medium { width: 300px; }
 form .small { width: 200px; }
 form .tiny { width: 90px; }
-form input[type=text], form input[type=password], form input[type=file], form select, form textarea { border: 1px solid #cccccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 13px; outline: none; padding: 6px; }
+form input[type=text], form input[type=password], form input[type=file], form select, form textarea { border: 1px solid #cccccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica, sans-serif; font-size: 13px; outline: none; padding: 6px; }
 form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form select:focus, form textarea:focus { border: 1px solid #aaaaaa; transition: 500ms; }
-form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: "Helvetica Neue", Arial, sans-serif; margin-top: -3px; }
-form input[type=button], form input[type=submit] { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #ffffff; cursor: pointer; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 12px; padding: 7px 12px; text-shadow: 1px 1px 0px #000000; }
+form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: Arial, Helvetica, sans-serif; margin-top: -3px; }
+form input[type=button], form input[type=submit] { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #ffffff; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 12px; padding: 7px 12px; text-shadow: 1px 1px 0px #000000; }
 form input[type=button].cancel, form input[type=submit].cancel { background: #eeeeee url("../images/button-bg.png") !important; color: #990000 !important; text-shadow: 1px 1px 0px #fff !important; }
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #ffffff; }
 form input[type=checkbox] { margin-right: 2px; vertical-align: text-top; }
@@ -53,7 +53,7 @@ form textarea { overflow: auto; }
 .inputBox .field.textOnly { padding: 5px 0; }
 .inputBox:last-child { margin: 0; }
 
-.defaultButton { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #ffffff; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000000; }
+.defaultButton { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #ffffff; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000000; }
 .defaultButton:hover { background-color: #566380; text-decoration: none; }
 .defaultButton.disabled { background: #dddddd; color: #990000 !important; cursor: default; text-shadow: 1px 1px 0px #fff !important; }
 .defaultButton.grey { background: rgba(0, 0, 0, 0.05); color: #990000 !important; text-shadow: 1px 1px 0px #fff !important; }
@@ -78,7 +78,7 @@ form textarea { overflow: auto; }
 #logo .logo { float: left; height: 50px; width: 300px; }
 
 #search { background: #303747; border-radius: 8px; float: right; font-size: 0; padding: 10px; }
-#search input[type=text] { background: white url("../images/lupa.jpg") no-repeat 5px 5px; border: 0; border-radius: 2px; font-size: 14px; height: 32px; padding: 0 4px 0 30px; width: 250px; }
+#search input[type=text] { background: #ffffff url("../images/lupa.jpg") no-repeat 5px 5px; border: 0; border-radius: 2px; font-size: 14px; height: 32px; padding: 0 4px 0 30px; width: 250px; }
 #search input[type=submit] { background: #336699; border: 0; color: #ffffff; cursor: pointer; font-size: 11px; font-weight: bold; height: 32px; margin-left: 10px; padding: 0 8px; vertical-align: top; }
 #search input[type=submit]:hover { background: #3973ac; }
 
@@ -239,7 +239,7 @@ form textarea { overflow: auto; }
 .tableList tr td { background: #ffffff; border-bottom: 1px solid #eee; padding: 8px; }
 .tableList tr td .avatar { box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); margin-bottom: -3px; }
 .tableList tr td.tLabel { color: #888; text-align: right; white-space: nowrap; width: 1%; vertical-align: top; }
-.tableList tr.subtitle td { background: white url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; }
+.tableList tr.subtitle td { background: #ffffff url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; }
 .tableList tr:last-child td { border-bottom: 0; }
 .tableList.noBorders tr td { border-bottom: 0; padding: 9px 8px; }
 .tableList.noBorders tr.subtitle td { border-bottom: 1px solid #ccc; padding: 6px 8px; }
@@ -252,18 +252,15 @@ form textarea { overflow: auto; }
 /** MEMBER PROFILE **/
 .profileHeader { height: 250px; margin-bottom: 20px; position: relative; width: 100%; }
 .profileHeader .background { background-size: cover; background-position: center; overflow: hidden; position: absolute; height: 250px; width: 100%; z-index: -1; }
-.profileHeader .background .cover { background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 35%, black 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.5)), color-stop(35%, rgba(0, 0, 0, 0.5)), color-stop(100%, black)); background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 35%, black 100%); background: -o-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 35%, black 100%); background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 35%, black 100%); background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 35%, #000000 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#000000',GradientType=0 ); height: 100%; }
+.profileHeader .background .cover { background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 35%, black 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.5)), color-stop(35%, rgba(0, 0, 0, 0.5)), color-stop(100%, black)); background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 35%, black 100%); background: -o-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 35%, black 100%); background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 35%, black 100%); background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 35%, black 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80000000', endColorstr='#000000',GradientType=0 ); height: 100%; }
 .profileHeader .avatar { border: 3px solid #fff; bottom: 10px; left: 10px; position: absolute; z-index: 999; }
+.profileHeader .memberTitle { bottom: 15px; color: #ffffff; font-family: Georgia, serif; font-size: 18px; font-style: italic; opacity: 0.5; position: absolute; right: 10px; }
 .profileHeader .memberInfo { bottom: 15px; color: #ffffff; position: absolute; left: 190px; }
 .profileHeader .memberInfo .username { display: block; font-size: 36px; margin-bottom: 20px; }
 .profileHeader .memberInfo .item { float: left; font-size: 14px; margin-right: 30px; }
 .profileHeader .memberInfo .item span { color: #999999; display: block; font-size: 11px; line-height: 1em; text-transform: uppercase; }
 
 .profileContainer .profileSidebar { width: 180px; vertical-align: top; }
-.profileContainer .profileSidebar .reputation { background-color: #fdfdfd; border: 1px solid #f5f5f5; color: #449944; font-size: 18px; padding: 10px; text-align: center; }
-.profileContainer .profileSidebar .userInfoList { color: #444; font-size: 11px; list-style: none; margin: 20px 0px; }
-.profileContainer .profileSidebar .userInfoList li { padding: 0 3px; text-align: right; }
-.profileContainer .profileSidebar .userInfoList li b { float: left; }
 .profileContainer .profileContent { vertical-align: top; }
 .profileContainer .profileContent h1 { margin-top: 5px; }
 .profileContainer .profileContent .fileIcon { color: #444444; display: inline-block; font-family: FontAwesome; font-size: 20px; text-align: center; vertical-align: middle; }
@@ -282,7 +279,7 @@ form textarea { overflow: auto; }
 /** CALENDAR **/
 .calendar { border-collapse: collapse; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 15px; width: 100%; }
 .calendar th { background: #465068 url("../images/bar-bg.png") repeat-x; color: #ffffff; font-weight: bold; padding: 8px; text-align: left; }
-.calendar .week { background: white url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; width: 14%; }
+.calendar .week { background: #ffffff url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; width: 14%; }
 .calendar .day, .calendar .today { background: #ffffff; border: 1px solid #eee; padding: 20px; }
 .calendar .fill { background: #ffffff; border: 1px solid #eee; padding: 20px; }
 .calendar .today { background: #fcfcfc; box-shadow: 0px 0px 1px 1px #960000 inset; }
