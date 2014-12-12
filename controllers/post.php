@@ -44,7 +44,7 @@
 			$this->Db->Insert("c_posts", $post);
 
 			// Update tables
-		
+
 			$this->Db->Query("COMMIT;");
 
 			$this->Db->Query("UPDATE c_threads SET replies = replies + 1,
@@ -75,7 +75,7 @@
 	$id = Html::Request("id");
 
 	$this->Db->Query("SELECT t.t_id, t.title, r.r_id, r.name FROM c_threads t "
-				. "LEFT JOIN c_rooms r ON (t.t_id = r.r_id) "
+				. "INNER JOIN c_rooms r ON (t.room_id = r.r_id) "
 				. "WHERE t_id = {$id};");
 
 	$threadInfo = $this->Db->Fetch();
