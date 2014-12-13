@@ -10,40 +10,40 @@
 	## ---------------------------------------------------
 
 	// Get board overview
-	
+
 	$Db->Query("SELECT COUNT(*) AS total FROM c_members;");
 	$registered = $Db->Fetch();
-	
+
 	$Db->Query("SELECT COUNT(*) AS total FROM c_posts;");
 	$posts = $Db->Fetch();
-	
+
 	$Db->Query("SELECT COUNT(*) AS total FROM c_threads;");
 	$threads = $Db->Fetch();
 
-	$posts['average'] = $posts['total'] / $threads['total'];
-	
+	$posts['average'] = round($posts['total'] / $threads['total'], 1);
+
 	// System environment
-	
+
 	$phpversion = "PHP " . phpversion();
-	
+
 	$Db->Query("SELECT VERSION() AS version;");
 	$mysql_v = $Db->Fetch();
-	
+
 	$mysqlversion = "MySQL " . $mysql_v['version'];
-	
+
 	// Abuse reports
-	
+
 	$html = "";
-	
+
 	$Db->Query("SELECT r.*, m.username, t.title, p.post FROM c_reports r
 		INNER JOIN c_members m ON (m.m_id = r.sender_id)
 		INNER JOIN c_threads t ON (t.t_id = r.thread_id)
 		INNER JOIN c_posts p ON (p.p_id = r.post_id)
 		ORDER BY r.rp_id DESC LIMIT 15;");
-	
+
 	while($report = $Db->Fetch()){
 		$report['date'] = $Core->DateFormat($report['date']);
-		
+
 		$html .= "<tr>
 				<td rowspan=\"2\" style=\"border-bottom: 2px solid #eee\">{$report['rp_id']}</td>
 				<td rowspan=\"2\" style=\"border-right: 1px solid #eee; border-bottom: 2px solid #eee\" nowrap>{$report['username']}</td>
@@ -61,7 +61,7 @@
 ?>
 
 	<script type="text/javascript">
-	
+
 		function DeleteReport(id, thread) {
 			if(confirm("Are you sure you want to delete the report ID #" + id + "?\nThis action is permanent and cannot be undone.")) {
 				location.href = "process.php?do=deletereport&report=" + id + "&thread=" + thread;
@@ -70,13 +70,13 @@
 				return false;
 			}
 		}
-	
+
 	</script>
 
 	<h1>Dashboard</h1>
-	
+
 	<div id="content">
-	
+
 		<div class="grid-row">
 			<!-- LEFT -->
 			<div class="grid-half">
@@ -94,9 +94,9 @@
 					</tr>
 				</table>
 			</div>
-			
+
 			<div class="grid-spacing"></div>
-			
+
 			<!-- RIGHT -->
 			<div class="grid-half">
 				<table class="table-list">
@@ -105,7 +105,7 @@
 					</tr>
 					<tr>
 						<td class="title">Community Version</td>
-						<td>Addictive Community <?php echo VERSION; ?></td>
+						<td>Addictive Community <?php echo VERSION . "-" . CHANNEL; ?></td>
 					</tr>
 					<tr>
 						<td class="title">Server Software</td>
@@ -122,7 +122,7 @@
 				</table>
 			</div>
 		</div>
-		
+
 		<div class="grid-row">
 			<!-- LEFT -->
 			<div class="grid-full">
@@ -139,12 +139,12 @@
 						<td>Post</td>
 						<td class="min"></td>
 					</tr>
-					
+
 					<?php echo $html ?>
-					
+
 				</table>
 			</div>
-			
+
 		</div>
 
 	</div>
