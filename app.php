@@ -8,12 +8,13 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	// --------------------------------------------
 	// Application specific constants
 	// --------------------------------------------
 
-	define("VERSION", "v0.1-Alpha");
+	define("VERSION", "v0.1.0");
+	define("CHANNEL", "Alpha"); // e.g.: Alpha, Beta, Release Candidate, Final
 
 	// --------------------------------------------
 	// Are we in development or production env.?
@@ -34,21 +35,21 @@
 	define("YEAR", 31536000);
 
 	// ---------------------------------------------------
-	// List of mobile browsers user agents
+	// List of mobile browsers user agent fragments
 	// ---------------------------------------------------
 
 	$mobileBrowser = array(
 		"Android", "Windows Phone", "iPhone",
 		"MeeGo", "Symbian", "SymbianOS", "Opera Mini"
 		);
-	
+
 	// ---------------------------------------------------
 	// Shortcut for echo
 	// ---------------------------------------------------
-	
+
 	function __($string)
 	{
 		echo $string;
 	}
-	
+
 ?>
