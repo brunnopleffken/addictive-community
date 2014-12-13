@@ -17,10 +17,10 @@
 
 		// List of allowed extensions for upload
 		private $allowedExtensions = array();
-		
+
 		// Uploaded file extension
 		private $fileExtension = "";
-		
+
 		// Uploaded file type
 		private $fileType = "";
 
@@ -35,9 +35,9 @@
 		{
 			// List of dangerous file types by OS
 			$forbiddenMac = array("app", "command", "dmg");
-			$forbiddenWin = array("bat", "bin", "cmd", "com", "exe", "lnk", "msi", "pif", "src");
+			$forbiddenWin = array("bat", "bin", "cmd", "com", "exe", "lnk", "msi", "pif", "scr");
 			$this->forbiddenExtensions = array_merge($forbiddenWin, $forbiddenMac);
-			
+
 			// Store database class
 			$this->Db = &$databaseClass;
 		}
@@ -55,31 +55,31 @@
 				if(!is_dir($fullPath)) {
 					mkdir($fullPath, 0777);
 				}
-				
+
 				// Get filename and extension
 				$filename = explode(".", $file['name']);
 				$this->fileExtension = strtolower(end($filename));
-				
+
 				// Get attachment type (to use as CSS classes)
 				$this->fileType = $this->FileClass($this->fileExtension);
-				
+
 				// Check if it's not a forbidden extension
 				if(in_array($this->fileExtension, $this->forbiddenExtensions)) {
 					Html::Error("This file extension is not allowed (." . $this->fileExtension . ")!");
 				}
-				
+
 				// Delete special characters and diacritics
 				$file['name'] = preg_replace(
 						"/[^a-zA-Z0-9_.]/", "",
 						strtr($file['name'],
-								"áàãâäéêëíóôõöúüçñÁÀÃÂÄÉÊËÍÓÔÕÖÚÜÇ ",
-								"aaaaaeeeioooouucnAAAAAEEEIOOOOUUC_")
+							"áàãâäéêëíóôõöúüçñÁÀÃÂÄÉÊËÍÓÔÕÖÚÜÇ ",
+							"aaaaaeeeioooouucnAAAAAEEEIOOOOUUC_")
 						);
-				
+
 				// Move uploaded file to public member folder
 				move_uploaded_file($file['tmp_name'], $fullPath . $file['name']);
 				chmod($fullPath . $file['name'], 0666);
-				
+
 				// Insert new attachment in database
 				$attachment = array(
 					"member_id" => $member,
@@ -89,7 +89,7 @@
 					"clicks"    => 0,
 					"size"      => $file['size']
 				);
-				
+
 				$this->Db->Insert("c_attachments", $attachment);
 				return $this->Db->GetLastID();
 			}
@@ -97,11 +97,11 @@
 				return 0;
 			}
 		}
-		
+
 		// ---------------------------------------------------
 		// Get file type to use as CSS class
 		// ---------------------------------------------------
-		
+
 		private function FileClass($extension)
 		{
 			$types = array(
@@ -117,7 +117,7 @@
 				"zip" => array("zip", "rar", "7z", "tar", "gz", "tgz"),
 				"blank" => array(),
 			);
-			
+
 			foreach($types as $k => $v) {
 				if(in_array($extension, $v)) {
 					$found = true;
@@ -128,7 +128,7 @@
 					$found = false;
 				}
 			}
-			
+
 			if($found == true) {
 				return $ext;
 			}
@@ -136,6 +136,10 @@
 				return "blank";
 			}
 		}
+
+		// ---------------------------------------------------
+		// Get user-friendly file type description
+		// ---------------------------------------------------
 
 		public function TranslateFileType($filetype)
 		{
@@ -159,7 +163,7 @@
 		// ---------------------------------------------------
 		// Set allowed extensions for file upload
 		// ---------------------------------------------------
-		
+
 		public function SetAllowedExtensions($extList)
 		{
 			if(is_array($extList)) {
@@ -175,7 +179,7 @@
 		// USE IT CAREFULLY! Your members could send hazardous
 		// files to other users not warned in advance.
 		// ---------------------------------------------------
-		
+
 		public function UnlockForbiddenExtensions()
 		{
 			$this->forbiddenExtensions = array();
