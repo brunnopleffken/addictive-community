@@ -77,7 +77,20 @@
 			// ---------------------------------------------------
 
 			case 'unsetbestanswer':
-				# code...
+				$postId = Html::Request("id", true);
+
+				// Get thread ID
+				$this->Db->Query("SELECT thread_id FROM c_posts WHERE p_id = {$postId};");
+				$threadId = $this->Db->FetchArray();
+				$threadId = $threadId[0]['thread_id'];
+
+				// Update data
+				$this->Db->Query("UPDATE c_posts SET best_answer = 0 WHERE p_id = {$postId};");
+				$this->Db->Query("UPDATE c_threads SET with_bestanswer = 0 WHERE t_id = {$threadId};");
+
+				header("Location: " . $_SERVER['HTTP_REFERER']);
+				exit;
+
 				break;
 		}
 
@@ -233,8 +246,15 @@
 		}
 
 		// Thread controls
-		if($threadInfo['author_member_id'] == $this->member['m_id']) {
-			$result['thread_controls'] = "<a href='?module=thread&amp;act=setbestanswer&amp;id={$result['p_id']}' class='smallButton grey transition'>Set as Best Answer</a>";
+		if($threadInfo['author_member_id'] == $this->member['m_id'] && $result['author_id'] != $this->member['m_id']) {
+			if($result['best_answer'] == 0) {
+				// Set post as Best Answer
+				$result['thread_controls'] = "<a href='?module=thread&amp;act=setbestanswer&amp;id={$result['p_id']}' class='smallButton grey transition'>Set as Best Answer</a>";
+			}
+			else {
+				// Unset post as Best Answer
+				$result['thread_controls'] = "<a href='?module=thread&amp;act=unsetbestanswer&amp;id={$result['p_id']}' class='smallButton grey transition'>Unset Best Answer</a>";
+			}
 		}
 
 		// Return replies
