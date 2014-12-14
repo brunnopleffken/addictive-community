@@ -101,10 +101,9 @@
 	// Fetch thread general info
 	// ---------------------------------------------------
 
-	$thread = $this->Db->Query("SELECT t.title, t.author_member_id, t.locked, t.lastpost_date, r.r_id, r.name, r.perm_view, r.perm_reply, "
-			. "(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t "
-			. "INNER JOIN c_rooms r ON (r.r_id = t.room_id) "
-			. "WHERE t.t_id = '{$threadId}';");
+	$thread = $this->Db->Query("SELECT t.title, t.author_member_id, t.locked, t.lastpost_date, r.r_id, r.name, r.perm_view, r.perm_reply,
+			(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t
+			INNER JOIN c_rooms r ON (r.r_id = t.room_id) WHERE t.t_id = '{$threadId}';");
 
 	$threadInfo = $this->Db->Fetch($thread);
 
@@ -179,20 +178,20 @@
 	// Get emoticons, if exists
 	// ---------------------------------------------------
 
-	$emoticons = $this->Db->Query("SELECT * FROM c_emoticons WHERE "
-			. "emoticon_set = '" . $this->Core->config['emoticon_default_set'] . "' AND display = '1';");
+	$emoticons = $this->Db->Query("SELECT * FROM c_emoticons WHERE
+			emoticon_set = '" . $this->Core->config['emoticon_default_set'] . "' AND display = '1';");
 	$emoticons = $this->Db->FetchArray($emoticons);
 
 	// ---------------------------------------------------
 	// Get first post
 	// ---------------------------------------------------
 
-	$first_post = $this->Db->Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id, "
-			. "c_attachments.*, c_threads.title, c_threads.locked, c_members.* FROM c_posts "
-			. "INNER JOIN c_threads ON (c_posts.thread_id = c_threads.t_id) "
-			. "INNER JOIN c_members ON (c_posts.author_id = c_members.m_id) "
-			. "LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id) "
-			. "WHERE thread_id = '{$threadId}' AND first_post = '1' LIMIT 1;");
+	$first_post = $this->Db->Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id,
+			c_attachments.*, c_threads.title, c_threads.locked, c_members.* FROM c_posts
+			INNER JOIN c_threads ON (c_posts.thread_id = c_threads.t_id)
+			INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
+			LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
+			WHERE thread_id = '{$threadId}' AND first_post = '1' LIMIT 1;");
 
 	$firstPostInfo = $this->Db->Fetch($first_post);
 
@@ -207,11 +206,11 @@
 	// Get replies
 	// ---------------------------------------------------
 
-	$replies = $this->Db->Query("SELECT c_posts.*, c_attachments.*, c_members.* FROM c_posts "
-			. "INNER JOIN c_members ON (c_posts.author_id = c_members.m_id) "
-			. "LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id) "
-			. "WHERE thread_id = '{$threadId}' AND first_post = '0' "
-			. "ORDER BY best_answer DESC, post_date ASC LIMIT {$pSql},{$itemsPerPage};");
+	$replies = $this->Db->Query("SELECT c_posts.*, c_attachments.*, c_members.* FROM c_posts
+			INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
+			LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
+			WHERE thread_id = '{$threadId}' AND first_post = '0'
+			ORDER BY best_answer DESC, post_date ASC LIMIT {$pSql},{$itemsPerPage};");
 
 	while($result = $this->Db->Fetch($replies)) {
 
@@ -316,8 +315,8 @@
 
 	$threadSearch = implode(" ", $threadSearch);
 
-	$this->Db->Query("SELECT *, MATCH(title) AGAINST ('{$threadSearch}') AS relevance FROM c_threads "
-		. "WHERE t_id <> {$threadId} AND MATCH(title) AGAINST ('{$threadSearch}');");
+	$this->Db->Query("SELECT *, MATCH(title) AGAINST ('{$threadSearch}') AS relevance FROM c_threads
+			WHERE t_id <> {$threadId} AND MATCH(title) AGAINST ('{$threadSearch}');");
 
 	while($relatedThread = $this->Db->Fetch()) {
 		$relatedThread['thread_date'] = $this->Core->DateFormat($relatedThread['lastpost_date'], "short");
