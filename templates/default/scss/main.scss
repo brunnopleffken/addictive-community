@@ -616,6 +616,7 @@ form {
 
 .threadItem {
 	background: #ffffff;
+	border-left: 2px solid transparent;
 	border-spacing: 0;
 	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 	margin-bottom: 10px;
@@ -623,8 +624,7 @@ form {
 	.avatar {
 		padding: 0 7px 0 15px;
 		.image {
-			box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-			padding: 1px;
+			box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 			vertical-align: middle;
 		}
 	}
@@ -889,6 +889,7 @@ form {
 	}
 	&.bestAnswer {
 		background: #fafff8 url('../images/best-answer.png') no-repeat right top;
+		background-size: 32px;
 		border-left: 3px solid #009900;
 	}
 }

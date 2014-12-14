@@ -145,9 +145,9 @@ form textarea { overflow: auto; }
 .roomTitleBar .buttons { margin-top: 15px; }
 
 /** ROOM PAGE **/
-.threadItem { background: #ffffff; border-spacing: 0; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); margin-bottom: 10px; width: 100%; /* THREAD STATUS */ }
+.threadItem { background: #ffffff; border-left: 2px solid transparent; border-spacing: 0; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); margin-bottom: 10px; width: 100%; /* THREAD STATUS */ }
 .threadItem .avatar { padding: 0 7px 0 15px; }
-.threadItem .avatar .image { box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); padding: 1px; vertical-align: middle; }
+.threadItem .avatar .image { box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); vertical-align: middle; }
 .threadItem .middle { padding: 10px; position: relative; }
 .threadItem .middle .title { display: block; font-size: 17px; font-weight: bold; line-height: 1em; margin-bottom: 30px; }
 .threadItem .middle .desc { color: #444444; font-size: 11px; font-style: italic; left: 10px; line-height: 30px; overflow: hidden; position: absolute; right: 10px; text-overflow: ellipsis; top: 25px; white-space: nowrap; }
@@ -201,7 +201,7 @@ form textarea { overflow: auto; }
 .postReply .content .text img.emoticon { display: inline-block; height: 16px; vertical-align: text-bottom; width: 16px; }
 .postReply .content .text .signature { border-top: 1px dashed rgba(0, 0, 0, 0.1); color: #777; font-size: 0.8em; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
 .postReply .content .footer { background: rgba(0, 0, 0, 0.01); bottom: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); left: 0; padding: 5px 5px 8px 5px; position: absolute; right: 0; text-align: right; }
-.postReply.bestAnswer { background: #fafff8 url("../images/best-answer.png") no-repeat right top; border-left: 3px solid #009900; }
+.postReply.bestAnswer { background: #fafff8 url("../images/best-answer.png") no-repeat right top; background-size: 32px; border-left: 3px solid #009900; }
 
 .mainPost .attachments, .postReply .attachments { overflow: hidden; }
 .mainPost .attachments .file, .postReply .attachments .file { border: 1px dashed #eeeeee; float: left; margin-top: 20px; margin-right: 10px; padding: 10px; width: 230px; }
