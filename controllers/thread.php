@@ -8,7 +8,7 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	// ---------------------------------------------------
 	// Get thread ID
 	// ---------------------------------------------------
@@ -23,41 +23,55 @@
 
 	if($act) {
 		switch($act) {
-			
+
 			// ---------------------------------------------------
 			// Delete a post
 			// ---------------------------------------------------
-			
+
 			case 'delete':
 				$info = array(
-					"post"    => Html::Request("pid"),
-					"thread"  => Html::Request("tid"),
-					"member"  => Html::Request("mid"),
+					"post"    => Html::Request("pid", true),
+					"thread"  => Html::Request("tid", true),
+					"member"  => Html::Request("mid", true),
 					"referer" => $_SERVER['HTTP_REFERER']
 				);
-				
+
 				if($this->EvaluateMember($info['member'])) {
 					$this->Db->Query("DELETE FROM c_posts WHERE p_id = '{$info['post']}';");
 					$this->Db->Query("UPDATE c_threads SET replies = replies - 1 WHERE t_id = '{$info['thread']}';");
 					$this->Db->Query("UPDATE c_members SET posts = posts - 1 WHERE m_id = {$info['member']}");
 					$this->Db->Query("UPDATE c_stats SET total_posts = total_posts - 1;");
-					
+
 					header("Location: " . $info['referer']);
+					exit;
 				}
 				else {
 					Html::Error("The post you're trying to delete is not linked to your Member ID.");
 				}
 
 				break;
-			
+
 			// ---------------------------------------------------
 			// Set post as Best Answer
 			// ---------------------------------------------------
 
 			case 'setbestanswer':
-				# code...
+				$postId = Html::Request("id", true);
+
+				// Get thread ID
+				$this->Db->Query("SELECT thread_id FROM c_posts WHERE p_id = {$postId};");
+				$threadId = $this->Db->FetchArray();
+				$threadId = $threadId[0]['thread_id'];
+
+				// Update data
+				$this->Db->Query("UPDATE c_posts SET best_answer = 1 WHERE p_id = {$postId};");
+				$this->Db->Query("UPDATE c_threads SET with_bestanswer = 1 WHERE t_id = {$threadId};");
+
+				header("Location: " . $_SERVER['HTTP_REFERER']);
+				exit;
+
 				break;
-			
+
 			// ---------------------------------------------------
 			// Unset post as Best Answer
 			// ---------------------------------------------------
@@ -89,16 +103,17 @@
 	// ---------------------------------------------------
 
 	// Permission to view
-	
+
 	$threadInfo['perm_view'] = unserialize($threadInfo['perm_view']);
 	$permissionValue = "V_" . $this->member['usergroup'];
 
 	if(!in_array($permissionValue, $threadInfo['perm_view'])) {
 		header("Location: " . $_SERVER['HTTP_REFERER']);
+		exit;
 	}
 
 	// Check if it's an obsolete thread
-	
+
 	$obsoleteNotification = "";
 	$obsoleteSeconds = $this->Core->config['thread_obsolete_value'] * DAY;
 	if(($threadInfo['lastpost_date'] + $obsoleteSeconds) < time()) {
@@ -129,7 +144,7 @@
 
 	$itemsPerPage = $this->Core->config['thread_posts_per_page'];
 	$totalPosts   = $threadInfo['post_count'] - 1;
-	
+
 	// page number for SQL sentences
 	$pSql = (Html::Request("p")) ? Html::Request("p") * $itemsPerPage - $itemsPerPage : 0;
 
@@ -194,7 +209,7 @@
 		$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 192, $result['photo_type']);
 		$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 		$result['post_date'] = $this->Core->DateFormat($result['post_date']);
-		
+
 		// Get emoticons
 		$result['post'] = $this->Core->ParseEmoticons($result['post'], $emoticons);
 
@@ -219,7 +234,7 @@
 
 		// Thread controls
 		if($threadInfo['author_member_id'] == $this->member['m_id']) {
-			$result['thread_controls'] = "<a href='' class='smallButton grey transition'>Set as Best Answer</a>";
+			$result['thread_controls'] = "<a href='?module=thread&amp;act=setbestanswer&amp;id={$result['p_id']}' class='smallButton grey transition'>Set as Best Answer</a>";
 		}
 
 		// Return replies
@@ -229,18 +244,18 @@
 	// ---------------------------------------------------
 	// Pagination links
 	// ---------------------------------------------------
-	
+
 	$paginationNav = "";
-	
+
 	if($pages != 0) {
 		$paginationNav .= "<div class=\"pages\">Pages: ";
-		
+
 		// If it is not the first page, show link "Back"
 		if($pDisp != 1) {
 			$prev = $pDisp - 1;
 			$paginationNav .= "<a href=\"index.php?module=thread&id={$threadId}&p={$prev}\">&laquo;</a>\n";
 		}
-		
+
 		// Page numbers
 		for($i = 1; $i <= $pages; $i++) {
 			if($i == $pDisp) {
@@ -250,16 +265,16 @@
 				$paginationNav .= "<a href=\"index.php?module=thread&id={$threadId}&p={$i}\">{$i}</a>\n";
 			}
 		}
-		
+
 		// If it is not the last page, show link "Next"
 		if($pDisp != $i - 1) {
 			$next = $pDisp + 1;
 			$paginationNav .= "<a href=\"index.php?module=thread&id={$threadId}&p={$next}\">&raquo;</a>\n";
 		}
-		
+
 		$paginationNav .= "</div>";
 	}
-	
+
 	Template::Add($paginationNav);
 
 	$pagination = Template::Get();
@@ -288,14 +303,14 @@
 		$relatedThread['thread_date'] = $this->Core->DateFormat($relatedThread['lastpost_date'], "short");
 		$_relatedThreadList[] = $relatedThread;
 	}
-	
+
 	$threadList = Template::Get();
 	Template::Clean();
 
 	// ---------------------------------------------------
 	// Where are we?
 	// ---------------------------------------------------
-	
+
 	// Page information
 	$pageinfo['title'] = $threadInfo['title'];
 	$pageinfo['bc'] = array($threadInfo['name'], $threadInfo['title']);
