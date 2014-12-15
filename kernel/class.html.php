@@ -30,10 +30,10 @@
 			if(isset($_REQUEST[$name]) && $numeric == true && !is_numeric($_REQUEST[$name])) {
 				Html::Error("Variable '{$name}' must be an integer.");
 			}
-			
+
 			if(isset($_REQUEST[$name])) {
 				$text = $_REQUEST[$name];
-				
+
 				$text = str_replace("&", "&amp;", $text);
 				$text = str_replace("<", "&lt;", $text);
 				$text = str_replace(">", "&gt;", $text);
@@ -51,7 +51,7 @@
 		// ---------------------------------------------------
 		// Get uploaded file
 		// ---------------------------------------------------
-		
+
 		public static function File($name)
 		{
 			if(isset($_FILES[$name]) && !empty($_FILES[$name])) {
@@ -150,7 +150,7 @@
 
 			return $retval;
 		}
-		
+
 		// ---------------------------------------------------
 		// List of hours (00 to 23)
 		// ---------------------------------------------------
@@ -171,7 +171,7 @@
 
 			return $retval;
 		}
-		
+
 		// ---------------------------------------------------
 		// List of minutes (00 to 45)
 		// ---------------------------------------------------
@@ -213,7 +213,7 @@
 					$title = "INFORMATION:";
 					break;
 			}
-			
+
 			if($persistent) {
 				$persistent = "persistent";
 			}
@@ -223,14 +223,14 @@
 			}
 
 			$html = "<div class=\"notification " . $code . " " . $persistent . "\"><p><strong>" . $title . "</strong> " . $message . "</p></div>";
-			
+
 			return $html;
 		}
 
 		// ---------------------------------------------------
 		// "Forum Rules" template
 		// ---------------------------------------------------
-		
+
 		public static function ForumRules($title, $text)
 		{
 			$html = "<div class=\"notification warning\"><p><strong>" . $title . "</strong> " . $text . "</p></div>";
@@ -244,37 +244,37 @@
 		public static function ShowGDImage($content="")
 		{
 			flush();
-			
+
 			@header("Content-Type: image/jpeg");
-			
+
 			$font_style = 5;
 			$no_chars   = strlen($content);
-			
+
 			$charheight = ImageFontHeight($font_style);
 			$charwidth  = ImageFontWidth($font_style);
 			$strwidth   = $charwidth * intval($no_chars);
 			$strheight  = $charheight;
-			
+
 			$imgwidth   = $strwidth  + 15;
 			$imgheight  = $strheight + 15;
 			$img_c_x    = $imgwidth  / 2;
 			$img_c_y    = $imgheight / 2;
-			
+
 			$im       = ImageCreate($imgwidth, $imgheight);
 			$text_col = ImageColorAllocate($im, 0, 0, 0);
 			$back_col = ImageColorAllocate($im, 240,240,240);
-			
+
 			ImageFilledRectangle($im, 0, 0, $imgwidth, $imgheight, $text_col);
 			ImageFilledRectangle($im, 1, 1, $imgwidth - 2, $imgheight - 2, $back_col);
-			
+
 			$draw_pos_x = $img_c_x - ($strwidth  / 2) + 1;
 			$draw_pos_y = $img_c_y - ($strheight / 2);
-			
+
 			ImageString($im, $font_style, $draw_pos_x, $draw_pos_y, $content, $text_col);
-			
+
 			ImageJPEG($im);
 			ImageDestroy($im);
-			
+
 			exit();
 		}
 
@@ -330,11 +330,11 @@ HTML;
 
 			return $content;
 		}
-		
+
 		// ---------------------------------------------------
 		// Redirect to an specific URL
 		// ---------------------------------------------------
-		
+
 		public static function Redirect($url, $referer = false)
 		{
 			if($url = "") {
@@ -342,6 +342,16 @@ HTML;
 			}
 			header("Location: " . $url);
 			exit;
+		}
+
+		// ---------------------------------------------------
+		// Remove any trace of markdown elements
+		// For use in thread descriptions in Thread List
+		// ---------------------------------------------------
+
+		public static function RemoveMarkdown($string)
+		{
+			return preg_replace("/(__|\*\*|~~|\[\[|\]\]|{{|}}|\||``)/", "", html_entity_decode($string));
 		}
 	}
 

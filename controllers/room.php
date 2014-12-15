@@ -8,7 +8,7 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	// ---------------------------------------------------
 	// Get room ID and sorting
 	// ---------------------------------------------------
@@ -19,7 +19,7 @@
 	// ---------------------------------------------------
 	// Execute actions
 	// ---------------------------------------------------
-	
+
 	$execute = Html::Request("execute");
 
 	switch($execute) {
@@ -44,7 +44,7 @@
 			exit;
 			break;
 	}
-	
+
 	// ---------------------------------------------------
 	// Get general information
 	// ---------------------------------------------------
@@ -55,7 +55,7 @@
 	$roomInfo = $this->Db->Fetch();
 
 	// Is the room protected?
-	
+
 	if($roomInfo['password'] != "") {
 		$sessionName = "room_" . $roomInfo['r_id'];
 		if(!$this->Session->GetCookie($sessionName)) {
@@ -136,7 +136,7 @@
 
 	while($result = $this->Db->Fetch($threads)) {
 		$result['class'] = "";
-		$result['description'] = html_entity_decode($result['post']);
+		$result['description'] = Html::RemoveMarkdown($result['post']);
 		$result['mobile_start_date'] = $this->Core->DateFormat($result['start_date'], "short");
 		$result['start_date'] = $this->Core->DateFormat($result['start_date']);
 		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
