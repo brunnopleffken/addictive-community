@@ -93,9 +93,9 @@
 
 		case "inbox":
 			// Select personal messages
-			$this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username "
-					. "FROM c_messages m INNER JOIN c_members u ON (m.from_id = u.m_id) "
-					. "WHERE m.to_id = '{$m_id}' ORDER BY m.sent_date DESC;");
+			$this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username
+					FROM c_messages m INNER JOIN c_members u ON (m.from_id = u.m_id)
+					WHERE m.to_id = '{$m_id}' ORDER BY m.sent_date DESC;");
 
 			// Number of results
 			$numResults = $this->Db->Rows();
@@ -108,6 +108,30 @@
 			while($result = $this->Db->Fetch()) {
 				$result['icon_class'] = ($result['status'] == 1) ? "fa-envelope" : "fa-envelope-o";
 				$result['subject']    = ($result['status'] == 1) ? "<b>" . $result['subject'] . "<b>" : $result['subject'];
+				$result['sent_date']  = $this->Core->DateFormat($result['sent_date']);
+
+				$results[] = $result;
+			}
+
+			break;
+
+		// Messenger sent messages
+
+		case "sent":
+			// Select personal messages
+			$this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username
+					FROM c_messages m INNER JOIN c_members u ON (m.from_id = u.m_id)
+					WHERE m.from_id = '{$m_id}' ORDER BY m.sent_date DESC;");
+
+			// Number of results
+			$numResults = $this->Db->Rows();
+
+			// Used storage
+			$maxStorageSize = $this->Core->config['member_pm_storage'];
+			$percentageWidth = (200 / $maxStorageSize) * $numResults . "px";
+
+			// Results
+			while($result = $this->Db->Fetch()) {
 				$result['sent_date']  = $this->Core->DateFormat($result['sent_date']);
 
 				$results[] = $result;
@@ -138,9 +162,9 @@
 		$view = null;
 
 		// Get message info and post
-		$this->Db->Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type "
-			. "FROM c_messages p LEFT JOIN c_members m ON (p.from_id = m.m_id) "
-			. "WHERE pm_id = {$read} AND to_id = " . $this->member['m_id'] . ";");
+		$this->Db->Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type
+				FROM c_messages p LEFT JOIN c_members m ON (p.from_id = m.m_id)
+				WHERE pm_id = {$read} AND to_id = " . $this->member['m_id'] . ";");
 
 		if($this->Db->Rows() == 1) {
 			$message = $this->Db->Fetch();
