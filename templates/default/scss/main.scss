@@ -680,9 +680,6 @@ form {
 			overflow: hidden;
 			padding: 1px;
 			white-space: nowrap;
-			img {
-				margin-top: 2px;
-			}
 			.value {
 				display: inline-block;
 				font-size: 11px;
@@ -692,9 +689,9 @@ form {
 				color: #ffffff;
 			}
 			i {
-				font-size: 16px;
+				font-size: 14px;
 				width: 18px;
-				vertical-align: text-top;
+				vertical-align: baseline;
 			}
 		}
 	}
@@ -711,19 +708,18 @@ form {
 		}
 	}
 	&.unread {
-		border-left: 2px solid $colorFiord;
+		border-color: $colorFiord;
 	}
 	&.announcement {
 		background: #f9f9ff;
-		border-left: 2px solid #000099;
+		border-color: #000099;
 	}
 	&.locked {
 		background: #fff9f9;
-		border-left: 2px solid #cc0000;
+		border-color: #cc0000;
 	}
 	&.answered {
-		background: #ffffff;
-		border-left: 2px solid #009900;
+		border-color: #009900;
 		.stats {
 			background: $colorFiord url('../images/best-answer.png') no-repeat top right;
 			background-size: 32px;

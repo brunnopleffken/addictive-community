@@ -157,16 +157,15 @@ form textarea { overflow: auto; }
 .threadItem .info i { font-size: 30px; }
 .threadItem .stats { background: #465068; padding: 5px; width: 170px; }
 .threadItem .stats .label { color: #ffffff; overflow: hidden; padding: 1px; white-space: nowrap; }
-.threadItem .stats .label img { margin-top: 2px; }
 .threadItem .stats .label .value { display: inline-block; font-size: 11px; margin-left: 6px; }
 .threadItem .stats .label a { color: #ffffff; }
-.threadItem .stats .label i { font-size: 16px; width: 18px; vertical-align: text-top; }
+.threadItem .stats .label i { font-size: 14px; width: 18px; vertical-align: baseline; }
 .threadItem > .center { padding: 15px; }
 .threadItem.hot .stats { background: #465068 url("../images/hot-thread.png") no-repeat top right; background-size: 32px; }
-.threadItem.unread { border-left: 2px solid #465068; }
-.threadItem.announcement { background: #f9f9ff; border-left: 2px solid #000099; }
-.threadItem.locked { background: #fff9f9; border-left: 2px solid #cc0000; }
-.threadItem.answered { background: #ffffff; border-left: 2px solid #009900; }
+.threadItem.unread { border-color: #465068; }
+.threadItem.announcement { background: #f9f9ff; border-color: #000099; }
+.threadItem.locked { background: #fff9f9; border-color: #cc0000; }
+.threadItem.answered { border-color: #009900; }
 .threadItem.answered .stats { background: #465068 url("../images/best-answer.png") no-repeat top right; background-size: 32px; }
 
 /** THREAD PAGE **/

@@ -39,16 +39,22 @@
 			<div class="desc"><?php __($_thread[$k]['description']) ?></div>
 			<div class="author">
 				<i class="fa fa-user"></i>
-				By <?php __($_thread[$k]['author_name']) ?> &nbsp;
+				Started by <?php __($_thread[$k]['author_name']) ?> &nbsp;
 				<i class="fa fa-clock-o"></i>
-				Started on <?php __($_thread[$k]['start_date']) ?>
+				On <?php __($_thread[$k]['start_date']) ?>
 			</div>
 		</td>
 		<td class="info"><i class="fa fa-comments"></i><br><?php __($_thread[$k]['replies']) ?></td>
 		<td class="stats">
-			<div class="label"><i class="fa fa-fw fa-eye"></i><span class="value"><?php __($_thread[$k]['views']) ?> views</span></div>
-			<div class="label"><i class="fa fa-fw fa-user fleft"></i><span class="value"><a href="index.php?module=profile&amp;id=<?php __($_thread[$k]['lastpost_member_id']) ?>" title="Last post by <?php __($_thread[$k]['lastpost_name']) ?>"><?php __($_thread[$k]['lastpost_name']) ?></a></span></div>
-			<div class="label"><i class="fa fa-fw fa-clock-o fleft"></i><span class="value"><?php __($_thread[$k]['lastpost_date']) ?></span></div>
+			<div class="label">
+				<i class="fa fa-fw fa-eye"></i><span class="value"><?php __($_thread[$k]['views']) ?> views</span>
+			</div>
+			<div class="label">
+				<i class="fa fa-fw fa-user"></i><span class="value"><a href="index.php?module=profile&amp;id=<?php __($_thread[$k]['lastpost_member_id']) ?>" title="Last post by <?php __($_thread[$k]['lastpost_name']) ?>"><?php __($_thread[$k]['lastpost_name']) ?></a></span>
+			</div>
+			<div class="label">
+				<i class="fa fa-fw fa-clock-o"></i><span class="value"><?php __($_thread[$k]['lastpost_date']) ?></span>
+			</div>
 		</td>
 	</tr>
 </table>
