@@ -1,5 +1,5 @@
 <div class="roomTitleBar">
-	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span>Member List</div>
+	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span><?php __("M_TITLE") ?></div>
 </div>
 
 <div class="classification">
@@ -11,19 +11,19 @@
 	<tr>
 		<th colspan="7">
 			<div class="fright">
-				<a href="index.php?module=members" class="smallButton grey white transition">Member Name</a>
-				<a href="index.php?module=members&amp;order=join" class="smallButton grey white transition">Join Date</a>
-				<a href="index.php?module=members&amp;order=post" class="smallButton grey white transition">Post Count</a>
+				<a href="?module=members" class="smallButton grey white transition"><?php __("M_MEMBER_NAME") ?></a>
+				<a href="?module=members&amp;order=join" class="smallButton grey white transition"><?php __("M_JOIN_DATE") ?></a>
+				<a href="?module=members&amp;order=post" class="smallButton grey white transition"><?php __("M_POST_COUNT") ?></a>
 			</div>
 		</th>
 	</tr>
 	<tr class="subtitle">
 		<td class="min">&nbsp;</td>
-		<td>Member Name</td>
-		<td>Joined</td>
-		<td>Posts</td>
-		<td>Location</td>
-		<td>Group</td>
+		<td><?php __("M_MEMBER_NAME") ?></td>
+		<td><?php __("M_JOINED") ?></td>
+		<td><?php __("M_POSTS") ?></td>
+		<td><?php __("M_LOCATION") ?></td>
+		<td><?php __("M_GROUP") ?></td>
 		<td class="min">&nbsp;</td>
 	</tr>
 
@@ -34,21 +34,21 @@
 
 	<tr>
 		<td class="min"><?php __(Html::Crop($_result[$k]['avatar'], 42, 42, "avatar")) ?></td>
-		<td style="font-size: 14px;"><a href="index.php?module=profile&amp;id=<?php __($_result[$k]['m_id']) ?>"><b><?php __($_result[$k]['username']) ?></b></a></td>
+		<td style="font-size: 14px;"><a href="?module=profile&amp;id=<?php __($_result[$k]['m_id']) ?>"><b><?php __($_result[$k]['username']) ?></b></a></td>
 		<td><?php __($_result[$k]['joined']) ?></td>
 		<td><?php __($_result[$k]['posts']) ?></td>
 		<td><?php __($_result[$k]['location']) ?></td>
 		<td><?php __($_result[$k]['name']) ?></td>
-		<td class="min" style="font-size: 16px"><a href="index.php?module=profile&amp;id=1"><i class="fa fa-search"></i></a></td>
+		<td class="min" style="font-size: 16px"><a href="?module=profile&amp;id=1"><i class="fa fa-search"></i></a></td>
 	</tr>
-	
+
 	<?php
 		endforeach;
 		else:
 	?>
 
 	<tr>
-		<td colspan="7" class="center">Your search returned no results.</td>
+		<td colspan="7" class="center"><?php __("M_NO_RESULTS") ?></td>
 	</tr>
 
 	<?php
@@ -58,9 +58,9 @@
 </table>
 
 <div class="box">
-	<form action="index.php?module=members" method="get" class="validate">
+	<form action="?module=members" method="get" class="validate">
 		<input type="hidden" name="module" value="members">
-		Search by name: <input type="text" name="username" class="small required">
+		<?php __("M_SEARCH") ?>: <input type="text" name="username" class="small required">
 		<input type="submit" value="OK">
 	</form>
 </div>
