@@ -12,7 +12,7 @@
 		<img src="<?php __($this->p['IMG']) ?>/help.png" style="margin-top: 6px; margin-right: 15px;">
 	</div>
 	<div>
-		<b><a href="index.php?module=help&amp;id=<?php __($_topics[$k]['h_id']) ?>" style="font-size: 14px"><?php __($_topics[$k]['title']) ?></a></b>
+		<b><a href="?module=help&amp;id=<?php __($_topics[$k]['h_id']) ?>" style="font-size: 14px"><?php __($_topics[$k]['title']) ?></a></b>
 		<br>
 		<em><?php __($_topics[$k]['short_desc']) ?></em>
 	</div>
@@ -30,7 +30,7 @@
 <?php else: ?>
 
 <div class="box center">
-	<p>There are no help topics to show.</p>
+	<p><?php __("H_NO_TOPICS") ?></p>
 </div>
 
 <?php endif; ?>
