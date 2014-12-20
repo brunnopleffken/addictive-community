@@ -92,7 +92,7 @@
 
 		public function NoGuest()
 		{
-			if($this->Member['m_id'] == 0) {
+			if($this->sessionInfo['member_id'] == 0) {
 				header("Location: index.php?module=exception&errno=1");
 				exit;
 			}
@@ -168,13 +168,13 @@
 
 				// Get session information
 				$this->sessionInfo = array(
-					's_id'			=> $this->sessionId,
-					'member_id'		=> $userInfo['m_id'],
-					'ip_address'	=> getenv("REMOTE_ADDR"),
-					'browser'		=> getenv("HTTP_USER_AGENT"),
-					'activity_time'	=> time(),
-					'usergroup'		=> $userInfo['usergroup'],
-					'anonymous'		=> $userInfo['anonymous']
+					's_id'          => $this->sessionId,
+					'member_id'     => $userInfo['m_id'],
+					'ip_address'    => getenv("REMOTE_ADDR"),
+					'browser'       => getenv("HTTP_USER_AGENT"),
+					'activity_time' => time(),
+					'usergroup'     => $userInfo['usergroup'],
+					'anonymous'     => $userInfo['anonymous']
 				);
 
 				// Create new cookie with member ID
