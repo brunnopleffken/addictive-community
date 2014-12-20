@@ -22,7 +22,7 @@
 		{
 			if(array_key_exists($keyword, self::$dictionary)) {
 				if(!empty($variables)) {
-					return vprintf(self::$dictionary[$keyword], $variables);
+					return vsprintf(self::$dictionary[$keyword], $variables);
 				}
 				else {
 					return self::$dictionary[$keyword];
