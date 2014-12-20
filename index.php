@@ -68,42 +68,42 @@
 			// Load configuration file
 
 			if(is_file("config.php")) {
-				require_once("config.php");				
+				require_once("config.php");
 			}
 			else {
 				Html::Error("Configuration file is missing.");
 			}
-			
+
 			// If config.php is empty, go to AC installer
-			
+
 			if(filesize("config.php") == 0 || empty($config)) {
 				header("Location: install/");
 			}
 
 			// Define classes
-
 			$this->Db = new Database($config);
 			$this->Core = new Core($this->Db);
-			$this->Session = new Session($this->Db);
 
-			// ---------------------------------------------------
-			// Get module name and set user/guest session
-			// ---------------------------------------------------
-
+			// Current module name
 			$this->info['module'] = $this->Core->QueryString("module", "community");
 
-			$this->Session->UpdateSession($this->info);
-			
-			// Store member information in $this->member
-			
-			if($this->Session->sInfo['member_id']) {
-				$m_id = $this->Session->sInfo['member_id'];
-				
-				$this->Db->Query("SELECT * FROM c_members "
-						. "WHERE m_id = '{$m_id}';");
-					
+			// ---------------------------------------------------
+			// Create sessions!
+			// ---------------------------------------------------
+
+			// All right...
+			$this->Session = new Session($this->Db, $this->info);
+			$this->Session->UpdateSession();
+
+			// Store member information in $this->member (if exists)
+			if($this->Session->sessionInfo['member_id']) {
+				$this->Db->Query("SELECT * FROM c_members WHERE m_id = '{$this->Session->sessionInfo['member_id']}';");
 				$this->member = $this->Db->Fetch();
 			}
+
+			// =====
+			// NOTE: From now on, to get member ID, use $this->member['member_id']
+			// =====
 
 			// ---------------------------------------------------
 			// Get languages and template skin
@@ -124,13 +124,7 @@
 			$this->content = ob_get_clean();
 
 			// Check if a custom master template is defined
-
-			if(isset($define['layout'])) {
-				$layout = $define['layout'];
-			}
-			else {
-				$layout = "default";
-			}
+			$layout = (isset($define['layout'])) ? $define['layout'] : "default";
 
 			// Master template controller and template
 
@@ -144,7 +138,7 @@
 
 		private function GetLanguage($module)
 		{
-			if($this->Session->sInfo['member_id'] == 0) {
+			if($this->member['m_id'] == 0) {
 				// Default language
 				$this->info['language'] = "en_US";
 			}
@@ -155,7 +149,7 @@
 
 			include("languages/" . $this->info['language'] . "/global.lang.php");           // Global language file
 			@include("languages/" . $this->info['language'] . "/" . $module . ".lang.php"); // Module file, if exists
-			
+
 			foreach($t as $k => $v) {
 				$this->t[$k] = $v;
 			}
@@ -171,7 +165,7 @@
 
 			// Check if user is accessing from mobile device
 			$userBrowser = $_SERVER['HTTP_USER_AGENT'];
-			
+
 			foreach($mobileBrowser as $v) {
 				if(stristr($userBrowser, $v)) {
 					$isMobile = true;
@@ -187,7 +181,7 @@
 				$this->info['template'] = "mobile";
 			}
 			else {
-				if($this->Session->sInfo['member_id'] == 0) {
+				if($this->member['m_id'] == 0) {
 					$this->info['template'] = "default";
 				}
 				else {
@@ -199,9 +193,9 @@
 			$this->p['TPL'] = "templates/" . $this->info['template'];
 			$this->p['IMG'] = "templates/" . $this->info['template'] . "/images";
 		}
-		
+
 		// ---------------------------------------------------
-		// Check if user is logged in
+		// Check if user is a logged in member
 		// ---------------------------------------------------
 
 		public function IsMember()
@@ -213,9 +207,10 @@
 				return false;
 			}
 		}
-		
+
 		// ---------------------------------------------------
-		// Check if a provided ID matches with logged member ID
+		// Check if the provided ID ($id) matches with the
+		// currently logged in member ID
 		// ---------------------------------------------------
 
 		public function EvaluateMember($id)
@@ -230,5 +225,18 @@
 	}
 
 	$main = new Main();
+
+	// ---------------------------------------------------
+	// The awesome internationalization function!
+	// Translation INDEX is provided in $string to locate
+	// the corresponding translated string. If the INDEX
+	// does not exists, the value in $string is treated
+	// simply as string (shortcut for "echo"). ;)
+	// ---------------------------------------------------
+
+	function __($string, $values = array())
+	{
+		echo $string;
+	}
 
 ?>

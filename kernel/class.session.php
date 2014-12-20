@@ -11,54 +11,57 @@
 
 	class Session
 	{
-		// Database class
+		// Database class and Main->info array
 		private $Db;
+		private $Member;
+		private $Info;
 
-		// Session expiration time (in 30 days' time)
-		private $sExpires = 0;
+		// Session expiration time (defined in constructor)
+		private $sessionExpires = 0;
 
-		// Session activity time cut-off
-		private $sActivityCut = 0;
+		// Session activity time cut-off (defined in constructor)
+		private $sessionActivityCut = 0;
 
-		// Session ID (MD5)
-		public $sId = "";
+		// Session ID (MD5 format)
+		public $sessionId = "";
 
 		// Session information
-		public $sInfo = array();
+		public $sessionInfo = array();
 
-		// ----------------------------------------
+		// ---------------------------------------------------
 		// Constructor: get session config
-		// ----------------------------------------
-		
-		public function __construct($database)
+		// ---------------------------------------------------
+
+		public function __construct($database, $communityInfo)
 		{
 			// Store database class in $this->Db
 			$this->Db = $database;
+			$this->Info = $communityInfo;
 
 			// Session will expires in 30 days' time
-			$this->sExpires = time() + DAY * 30;
+			$this->sessionExpires = time() + DAY * 30;
 
 			// Activity cut-off set to past 20 minutes (by default)
-			$this->sActivityCut = time() - MINUTE * 20;
+			$this->sessionActivityCut = time() - MINUTE * 20;
 		}
 
-		// ----------------------------------------
-		// Sets a new cookie
-		// ----------------------------------------
-		
+		// ---------------------------------------------------
+		// HELPER: Sets a new cookie
+		// ---------------------------------------------------
+
 		public function CreateCookie($name, $value, $expire = 1)
 		{
 			if($expire == 1) {
-				$expire = $this->sExpires;
+				$expire = $this->sessionExpires;
 			}
-			
+
 			setcookie($name, String::Sanitize($value), $expire);
 		}
 
-		// ----------------------------------------
-		// Get cookie information
-		// ----------------------------------------
-		
+		// ---------------------------------------------------
+		// HELPER: Get cookie information
+		// ---------------------------------------------------
+
 		public function GetCookie($name)
 		{
 			if(isset($_COOKIE[$name])) {
@@ -69,10 +72,10 @@
 			}
 		}
 
-		// ----------------------------------------
-		// Unload cookie from client
-		// ----------------------------------------
-		
+		// ---------------------------------------------------
+		// HELPER: Unload cookie from client
+		// ---------------------------------------------------
+
 		public function UnloadCookie($name)
 		{
 			if(isset($_COOKIE[$name])) {
@@ -89,149 +92,201 @@
 
 		public function NoGuest()
 		{
-			if($this->sInfo['member_id'] == 0) {
+			if($this->Member['m_id'] == 0) {
 				header("Location: index.php?module=exception&errno=1");
 				exit;
 			}
 		}
 
-		// ----------------------------------------
-		// Creates a new guest session
-		// ----------------------------------------
-		
-		public function SetGuestSession()
+		// ---------------------------------------------------
+		// Update session (or create a new one).
+		// This is the MAIN method all over the class. From
+		// here, you'll define if user is a guest or member,
+		// create a new session or update an existing one.
+		// ---------------------------------------------------
+
+		public function UpdateSession()
 		{
-			$this->sId = md5(uniqid(microtime()));
-			
-			$this->sInfo = array(
-				's_id'			=> $this->sId,
-				'member_id'		=> 0,
-				'username'		=> "Guest",
-				'usergroup'		=> 5,
-				'anonymous'		=> 0,
-				'ip_address'	=> getenv("REMOTE_ADDR"),
-				'browser'		=> getenv("HTTP_USER_AGENT"),
-				'activity_time'	=> time()
-			);
-			
-			// Delete old sessions
-			
-			$this->Db->Query("DELETE FROM c_sessions
-				WHERE ip_address = '{$this->sInfo['ip_address']}'
-					OR ip_address = '{$this->sInfo['ip_address']}'
-					OR activity_time < '{$this->sActivityCut}';");
+			// Initialize session
+			session_start();
 
-			// Create new session
-			
-			$this->Db->Insert("c_sessions", $this->sInfo);
-			
-			try {
-				$this->CreateCookie("session_id", $this->sInfo['s_id'], 1);
-			} catch (Exception $ex) {
-				Html::Error($ex);
-			}
+			// Set flag if 'session_id' index is defined
+			$hasSession = (isset($_SESSION['session_id'])) ? true : false;
 
-		}
-
-		// ----------------------------------------
-		// Creates a new member session
-		// ----------------------------------------
-		
-		public function SetMemberSession($userInfo)
-		{
-			if($userInfo['m_id']) {
-				// Get user information
-				
-				$this->sId = md5(uniqid(microtime()));
-				$persistent = $userInfo['remember'];
-				
-				$this->sInfo = array(
-					'member_id'		=> $userInfo['m_id'],
-					'username'		=> $userInfo['username'],
-					'usergroup'		=> $userInfo['usergroup'],
-					'anonymous'		=> $userInfo['anonymous'],
-					's_id'			=> $this->sId,
-					'ip_address'	=> getenv("REMOTE_ADDR"),
-					'browser'		=> getenv("HTTP_USER_AGENT"),
-					'activity_time'	=> time()
-				);
-				
-				// Delete old sessions
-				
-				$this->Db->Query("DELETE FROM c_sessions
-					WHERE member_id = '{$this->sInfo['member_id']}'
-						OR ip_address = '{$this->sInfo['ip_address']}'
-						OR activity_time < '{$this->sActivityCut}';");
-				
-				// Create new session
-				
-				$this->Db->Insert("c_sessions", $this->sInfo);
-				
-				try {
-					$this->CreateCookie("session_id", $this->sInfo['s_id'], $persistent);
-					$this->CreateCookie("member_id", $this->sInfo['member_id'], $persistent);
-				} catch (Exception $ex) {
-					Html::Error($ex);
-				}
-				
+			// Create a new session ID if it does not exists in browser session
+			// If it exists, save in class property for further usage
+			if(!$hasSession) {
+				// Create new session ID and store it in browser session
+				$this->sessionId = md5(uniqid(microtime()));
+				$_SESSION['session_id'] = $this->sessionId;
 			}
 			else {
-				throw new Exception("SetMemberSession() could not receive member ID.");
+				// If session exists in browser session, store it on class property
+				$this->sessionId = $_SESSION['session_id'];
 			}
 
-		}
+			// Check cookies for Member ID (if user has already logged in)
+			$this->sessionInfo['member_id'] = $this->GetCookie("member_id");
 
-		// ----------------------------------------
-		// Update session (or create a new one)
-		// ----------------------------------------
-		
-		public function UpdateSession($community_info)
-		{
-			try {
-				$s_id = $this->GetCookie("session_id");
-				$m_id = $this->GetCookie("member_id");
-			} catch (Exception $ex) {
-				$s_id = 0;
-				$m_id = 0;
+			if($this->sessionInfo['member_id']) {
+				// Update existing member session
+				$this->UpdateMemberSession();
 			}
-			
-			// Check if the session is registered
-			
-			if($s_id) {
-				// Member or guest?
-				
-				if($m_id) {
-					// If member
-					$this->sInfo['activity_time'] = time();
-					$this->sInfo['member_id'] = $m_id;
-					
-					$this->Db->Query("UPDATE c_members "
-							. "SET last_activity = '{$this->sInfo['activity_time']}' "
-							. "WHERE m_id = '{$m_id}';");
-						
-					$this->Db->Query("UPDATE c_sessions SET "
-							. "activity_time = '{$this->sInfo['activity_time']}', "
-							. "location_type = '{$community_info['module']}' "
-							. "WHERE s_id = '{$s_id}';");
+			else {
+				// Delete old session data
+				$this->Db->Query("DELETE FROM c_sessions
+						WHERE activity_time < '{$this->sessionActivityCut}';");
+
+				if($hasSession) {
+					// Just a guest navigating...
+					$this->sessionId = $_SESSION['session_id'];
+					$this->UpdateGuestSession($this->sessionId);
 				}
 				else {
-					// If guest
-					$this->sInfo['activity_time'] = time();
-					$this->sInfo['member_id'] = 0;
-					
-					$this->Db->Query("UPDATE c_sessions SET "
-							. "activity_time = '{$this->sInfo['activity_time']}', "
-							. "location_type = '{$community_info['module']}' "
-							. "WHERE s_id = '{$s_id}';");
+					// Viewing page for the first time!
+					$this->CreateGuestSession();
 				}
+			}
+		}
+
+		// ---------------------------------------------------
+		// Create a new member session (with all cookies and
+		// sessions in the package) when the user log in
+		// ---------------------------------------------------
+
+		public function LoginMemberSession($userInfo)
+		{
+			if(is_array($userInfo)) {
+				// Delete all existing session register in DB with the same session ID
+				$this->Db->Query("DELETE FROM c_sessions
+						WHERE activity_time < '{$this->sessionActivityCut}'
+							OR s_id = '{$userInfo['session_id']}'
+							OR member_id = {$userInfo['m_id']};");
+
+				// Remember user session?
+				$persistent = $userInfo['remember'];
+
+				// Get session information
+				$this->sessionInfo = array(
+					's_id'			=> $this->sessionId,
+					'member_id'		=> $userInfo['m_id'],
+					'ip_address'	=> getenv("REMOTE_ADDR"),
+					'browser'		=> getenv("HTTP_USER_AGENT"),
+					'activity_time'	=> time(),
+					'usergroup'		=> $userInfo['usergroup'],
+					'anonymous'		=> $userInfo['anonymous']
+				);
+
+				// Create new cookie with member ID
+				$this->CreateCookie("member_id", $this->sessionInfo['member_id'], $persistent);
+
+				// Insert new information
+				$this->Db->Insert("c_sessions", $this->sessionInfo);
 			}
 			else {
-				try {
-					$this->SetGuestSession();
-				} catch (Exception $ex) {
-					Html::Error($ex);
-				}
+				Html::Error("Unable to run Session::CreateMemberSession(). '$userInfo' must be an array.");
 			}
+		}
+
+		// ---------------------------------------------------
+		// Destroy all sessions and remove all registers in DB
+		// ---------------------------------------------------
+
+		public function DestroySession($memberId)
+		{
+			// Delete session register in database
+			$this->Db->Query("DELETE FROM c_sessions WHERE member_id = {$memberId}");
+
+			// Delete cookie
+			$this->UnloadCookie("member_id");
+
+			// Delete browser session
+			session_destroy();
+		}
+
+		// ---------------------------------------------------
+		// Viewing page for the first time? Create a brand
+		// new session for him! :)
+		// ---------------------------------------------------
+
+		private function CreateGuestSession()
+		{
+			// Sets new guest session information
+			$this->sessionInfo = array(
+				's_id'          => $this->sessionId,
+				'member_id'     => 0,
+				'ip_address'    => getenv("REMOTE_ADDR"),
+				'browser'       => getenv("HTTP_USER_AGENT"),
+				'activity_time' => time(),
+				'usergroup'     => 5,
+				'anonymous'     => 0
+			);
+
+			// Insert new session on database
+			$this->Db->Insert("c_sessions", $this->sessionInfo);
+		}
+
+		// ---------------------------------------------------
+		// Update an existing guest session
+		// ---------------------------------------------------
+
+		private function UpdateGuestSession($sessionId)
+		{
+			// Get activity time
+			$this->sessionInfo['activity_time'] = time();
+
+			// Update session in database
+			$this->Db->Query("UPDATE c_sessions SET
+				activity_time = '{$this->sessionInfo['activity_time']}',
+				location_type = '{$this->Info['module']}'
+				WHERE s_id = '{$sessionId}';");
+		}
+
+		// ---------------------------------------------------
+		// Update an existing member session
+		// ---------------------------------------------------
+
+		private function UpdateMemberSession()
+		{
+			// Get activity time
+			$this->sessionInfo['activity_time'] = time();
+
+			// Delete old session data, except current logged in member
+			$this->Db->Query("DELETE FROM c_sessions WHERE activity_time < '{$this->sessionActivityCut}'
+					AND member_id <> {$this->sessionInfo['member_id']};");
+
+			// Running the method UpdateExistingMember() for the first time?
+			// Check if session register exists in database, if not, create it
+			// and create a session 'logged_in'.
+			if(!isset($_SESSION['logged_in'])) {
+				$this->Db->Query("SELECT EXISTS(SELECT 1 FROM c_sessions WHERE member_id = {$this->sessionInfo['member_id']});");
+				$result = $this->Db->Fetch();
+
+				// Ok, register does not exists. Let's create it!
+				if($result[key($result)] == 0) {
+					// Sets new member session information
+					$this->sessionInfo = array(
+						's_id'          => $this->sessionId,
+						'member_id'     => $this->sessionInfo['member_id'],
+						'ip_address'    => getenv("REMOTE_ADDR"),
+						'browser'       => getenv("HTTP_USER_AGENT"),
+						'activity_time' => time(),
+						'usergroup'     => 3,
+						'anonymous'     => 0
+					);
+
+					// Insert new session on database
+					$this->Db->Insert("c_sessions", $this->sessionInfo);
+				}
+
+				$_SESSION['logged_in'] = $this->sessionInfo['member_id'];
+			}
+
+			// Update session in database
+			$this->Db->Query("UPDATE c_sessions SET
+				activity_time = '{$this->sessionInfo['activity_time']}',
+				location_type = '{$this->Info['module']}'
+				WHERE member_id = '{$this->sessionInfo['member_id']}';");
 		}
 	}
 
