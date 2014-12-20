@@ -147,8 +147,8 @@
 				$this->info['language'] = $this->member['language'];
 			}
 
-			include("languages/" . $this->info['language'] . "/global.lang.php");           // Global language file
-			@include("languages/" . $this->info['language'] . "/" . $module . ".lang.php"); // Module file, if exists
+			include("languages/" . $this->info['language'] . "/default.php");           // Global language file
+			@include("languages/" . $this->info['language'] . "/" . $module . ".php");  // Module file, if exists
 
 			foreach($t as $k => $v) {
 				i18n::$dictionary[$k] = $v;
