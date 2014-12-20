@@ -35,10 +35,10 @@
 				<?php if($this->member['usergroup'] == 1): ?>
 					<a href="admin/" target="_blank" class="transition">Admin CP</a>
 				<?php endif; ?>
-				<a href="index.php?module=search" class="transition"><?php __("SEARCH") ?></a>
-				<a href="index.php?module=members" class="transition"><?php __("MEMBERLIST") ?></a>
-				<a href="index.php?module=calendar" class="transition"><?php __("CALENDAR") ?></a>
-				<a href="index.php?module=help" class="transition"><?php __("HELP") ?></a>
+				<a href="?module=search" class="transition"><?php __("SEARCH") ?></a>
+				<a href="?module=members" class="transition"><?php __("MEMBERLIST") ?></a>
+				<a href="?module=calendar" class="transition"><?php __("CALENDAR") ?></a>
+				<a href="?module=help" class="transition"><?php __("HELP") ?></a>
 			</div>
 			<div class="fix"></div>
 		</div>
@@ -71,7 +71,7 @@
 							<div class="user">
 								<div class="userInfo">
 									<b><?php __("SIDEBAR_WELCOME") ?></b><br>
-									<a class="fancybox fancybox.ajax" href="index.php?module=login"><?php __("SIDEBAR_LOGIN") ?></a> | <a href="index.php?module=register" class="highlight"><?php __("SIDEBAR_C_ACCOUNT") ?></a>
+									<a class="fancybox fancybox.ajax" href="?module=login"><?php __("SIDEBAR_LOGIN") ?></a> | <a href="?module=register" class="highlight"><?php __("SIDEBAR_C_ACCOUNT") ?></a>
 								</div>
 							</div>
 						</div>
@@ -82,8 +82,8 @@
 									<?php __(Html::Crop($this->member['avatar'], 30, 30, "img")) ?>
 								</div>
 								<div class="userInfo">
-									<b><a href="index.php?module=profile&amp;id=<?php echo $this->member['m_id'] ?>" title="<?php __("SIDEBAR_PROFILE", array($this->member['username'])) ?>"><?php __($this->member['username']) ?></a></b><br>
-									<a href="index.php?module=usercp"><?php __("SIDEBAR_USERCP") ?></a> | <a href="index.php?module=messenger"><?php __("SIDEBAR_INBOX", array($unreadMessages['total'])) ?></a> | <a href="index.php?module=login&amp;act=logout"><?php __("SIDEBAR_LOGOUT") ?></a>
+									<b><a href="?module=profile&amp;id=<?php echo $this->member['m_id'] ?>" title="<?php __("SIDEBAR_PROFILE", array($this->member['username'])) ?>"><?php __($this->member['username']) ?></a></b><br>
+									<a href="?module=usercp"><?php __("SIDEBAR_USERCP") ?></a> | <a href="?module=messenger"><?php __("SIDEBAR_INBOX", array($unreadMessages['total'])) ?></a> | <a href="?module=login&amp;act=logout"><?php __("SIDEBAR_LOGOUT") ?></a>
 								</div>
 							</div>
 						</div>
@@ -94,7 +94,7 @@
 						<div class="list">
 							<?php foreach($_siderooms as $k => $v): ?>
 								<div class="item transition">
-									<a href="index.php?module=room&amp;id=<?php echo $_siderooms[$k]['r_id'] ?>">
+									<a href="?module=room&amp;id=<?php echo $_siderooms[$k]['r_id'] ?>">
 										<?php echo $_siderooms[$k]['name'] ?>
 									</a>
 									<span><?php echo $_siderooms[$k]['threads'] ?></span>
@@ -119,7 +119,7 @@
 							<span class="statsName fleft"><?php __("SIDEBAR_S_THREADS") ?></span><b class="fright"><?php echo $_stats['threads'] ?></b><br>
 							<span class="statsName fleft"><?php __("SIDEBAR_S_REPLIES") ?></span><b class="fright"><?php echo $_stats['replies'] ?></b><br>
 							<span class="statsName fleft"><?php __("SIDEBAR_S_MEMBERS") ?></span><b class="fright"><?php echo $_stats['members'] ?></b><br>
-							<span class="statsName fleft"><?php __("SIDEBAR_S_LAST") ?></span><b class="fright"><a href="index.php?module=profile&amp;id=<?php echo $_stats['lastmemberid'] ?>"><?php echo $_stats['lastmembername'] ?></a></b>
+							<span class="statsName fleft"><?php __("SIDEBAR_S_LAST") ?></span><b class="fright"><a href="?module=profile&amp;id=<?php echo $_stats['lastmemberid'] ?>"><?php echo $_stats['lastmembername'] ?></a></b>
 							<div class="fix"></div>
 						</div>
 					</div>
