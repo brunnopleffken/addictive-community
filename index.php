@@ -151,7 +151,7 @@
 			@include("languages/" . $this->info['language'] . "/" . $module . ".lang.php"); // Module file, if exists
 
 			foreach($t as $k => $v) {
-				$this->t[$k] = $v;
+				i18n::$dictionary[$k] = $v;
 			}
 		}
 
@@ -225,18 +225,5 @@
 	}
 
 	$main = new Main();
-
-	// ---------------------------------------------------
-	// The awesome internationalization function!
-	// Translation INDEX is provided in $string to locate
-	// the corresponding translated string. If the INDEX
-	// does not exists, the value in $string is treated
-	// simply as string (shortcut for "echo"). ;)
-	// ---------------------------------------------------
-
-	function __($string, $values = array())
-	{
-		echo $string;
-	}
 
 ?>

@@ -44,12 +44,16 @@
 		);
 
 	// ---------------------------------------------------
-	// Shortcut for echo
+	// The awesome internationalization function!
+	// Translation INDEX is provided in $string to locate
+	// the corresponding translated string. If the INDEX
+	// does not exists, the value in $string is treated
+	// simply as string (shortcut for "echo"). ;)
 	// ---------------------------------------------------
 
-	function __($string)
+	function __($string, $variables = array())
 	{
-		echo $string;
+		echo i18n::Translate($string, $variables);
 	}
 
 ?>
