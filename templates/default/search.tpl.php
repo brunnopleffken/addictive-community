@@ -1,9 +1,9 @@
 <div class="roomTitleBar">
-	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span>Search</div>
+	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span><?php __("S_TITLE") ?></div>
 </div>
 
 <div class="box">
-	Your search for <b><?php __($keyword) ?></b> returned <b><?php __($numResults) ?></b> results.
+	<?php __("S_RESULTS", array($keyword, $numResults)) ?>
 </div>
 
 <?php __($warning) ?>
@@ -19,7 +19,7 @@
 			<div class="label">
 				<span class="value">
 					<i class="fa fa-user"></i>
-					<a href="index.php?module=profile&id=<?php __($_result[$k]['m_id']) ?>" title="Last post by <?php __($_result[$k]['username']) ?>"><?php __($_result[$k]['username']) ?></a>
+					<a href="?module=profile&id=<?php __($_result[$k]['m_id']) ?>"><?php __($_result[$k]['username']) ?></a>
 				</span>
 			</div>
 		</td>
@@ -33,13 +33,13 @@
 		</td>
 		<td class="stats right">
 			<div class="label">
-				<span class="value">Relevance: <?php __($_result[$k]['relevance']) ?></span>
+				<span class="value"><?php __("S_RELEVANCE", array($_result[$k]['relevance'])) ?></span>
 			</div>
 		</td>
 	</tr>
 	<tr>
 		<td class="content" colspan="5">
-			<a href="index.php?module=thread&amp;id=<?php __($_result[$k]['t_id']) ?>" class="title"><?php __($_result[$k]['title']) ?></a>
+			<a href="?module=thread&amp;id=<?php __($_result[$k]['t_id']) ?>" class="title"><?php __($_result[$k]['title']) ?></a>
 			<?php __($_result[$k]['post']) ?>
 		</td>
 	</tr>

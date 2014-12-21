@@ -57,15 +57,15 @@
 	while($result = $this->Db->Fetch()) {
 		$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 		$result['relevance'] = round($result['relevance'], 2);
-		
+
 		foreach($keyHighlight as $words) {
 			$result['post'] = preg_replace("/{$words}/mi", "<b style='background: #ffa'>$0</b>", $result['post']);
 			$result['post'] = preg_replace("/\n/", "<br>", $result['post']);
 		}
-		
+
 		$_result[] = $result;
 	}
-	
+
 	$numResults = count($_result);
 
 	// ---------------------------------------------------
@@ -73,7 +73,7 @@
 	// ---------------------------------------------------
 
 	// Page information
-	$pageinfo['title'] = "Search";
-	$pageinfo['bc'] = array("Search");
+	$pageinfo['title'] = i18n::Translate("S_TITLE");
+	$pageinfo['bc'] = array(i18n::Translate("S_TITLE"));
 
 ?>
