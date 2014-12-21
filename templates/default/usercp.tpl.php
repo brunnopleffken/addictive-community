@@ -4,11 +4,11 @@
 
 <div class="navigation">
 	<div class="navbar">
-		<a href="index.php?module=usercp" class="transition <?php __($menu[0]) ?>">Profile</a>
-		<a href="index.php?module=usercp&amp;view=photo" class="transition <?php __($menu[1]) ?>">Photo</a>
-		<a href="index.php?module=usercp&amp;view=signature" class="transition <?php __($menu[2]) ?>">Signature</a>
-		<a href="index.php?module=usercp&amp;view=settings" class="transition <?php __($menu[3]) ?>">Settings</a>
-		<a href="index.php?module=usercp&amp;view=password" class="transition <?php __($menu[4]) ?>">Password</a>
+		<a href="??module=usercp" class="transition <?php __($menu[0]) ?>"><?php __("C_PROFILE") ?></a>
+		<a href="??module=usercp&amp;view=photo" class="transition <?php __($menu[1]) ?>"><?php __("C_PHOTO") ?></a>
+		<a href="??module=usercp&amp;view=signature" class="transition <?php __($menu[2]) ?>"><?php __("C_SIGNATURE") ?></a>
+		<a href="??module=usercp&amp;view=settings" class="transition <?php __($menu[3]) ?>"><?php __("C_SETTINGS") ?></a>
+		<a href="??module=usercp&amp;view=password" class="transition <?php __($menu[4]) ?>"><?php __("C_PASSWORD") ?></a>
 	</div>
 </div>
 
@@ -23,19 +23,19 @@
 
 	<form action="" method="post" class="validate">
 		<div class="inputBox">
-			<div class="label">Member title</div>
+			<div class="label"><?php __("C_MEMBER_TITLE") ?></div>
 			<div class="field"><input type="text" name="member_title" value="<?php __($this->member['member_title']) ?>" class="large"></div>
 		</div>
 		<div class="inputBox">
-			<div class="label">About me</div>
+			<div class="label"><?php __("C_ABOUT_ME") ?></div>
 			<div class="field"><textarea name="profile" rows="5" class="large"><?php __($this->member['profile']) ?></textarea></div>
 		</div>
 		<div class="inputBox">
-			<div class="label">E-mail address</div>
+			<div class="label"><?php __("C_EMAIL_ADDR") ?></div>
 			<div class="field"><input type="text" name="email" value="<?php __($this->member['email']) ?>" class="required email medium"></div>
 		</div>
 		<div class="inputBox">
-			<div class="label">Birthday</div>
+			<div class="label"><?php __("C_BIRTHDATE") ?></div>
 			<div class="field">
 			<?php
 				__(Html::Days("b_day", $this->member['b_day']) . " ");
@@ -45,21 +45,21 @@
 			</div>
 		</div>
 		<div class="inputBox">
-			<div class="label">Gender</div>
+			<div class="label"><?php __("C_GENDER") ?></div>
 			<div class="field">
 				<select name="gender" class="select2-no-search">
 					<option value="0">---</option>
-					<option value="M" <?php __($profile['male']) ?>>Male</option>
-					<option value="F" <?php __($profile['female']) ?>>Female</option>
+					<option value="M" <?php __($profile['male']) ?>><?php __("C_GENDER_MALE") ?></option>
+					<option value="F" <?php __($profile['female']) ?>><?php __("C_GENDER_FEMALE") ?></option>
 				</select>
 			</div>
 		</div>
 		<div class="inputBox">
-			<div class="label">Location</div>
+			<div class="label"><?php __("C_LOCATION") ?></div>
 			<div class="field"><input type="text" name="location" value="<?php __($this->member['location']) ?>" class="medium"></div>
 		</div>
 		<div class="inputBox">
-			<div class="label">Website</div>
+			<div class="label"><?php __("C_WEBSITE") ?></div>
 			<div class="field"><input type="text" name="website" value="<?php __($this->member['website']) ?>" class="large"></div>
 		</div>
 		<div class="inputBox">
@@ -67,7 +67,7 @@
 			<div class="field" style="position:relative">
 				<span style="position:absolute;top:6px;left:5px;color:#aaa">http://www.facebook.com/</span>
 				<input type="text" name="im_facebook" placeholder="username" value="<?php __($this->member['im_facebook']) ?>" class="medium" style="padding-left:153px">
-				<em>You'll be able to use your Facebook photo as avatar in <a href="?module=usercp&view=photo">Photo Settings</a>.</em>
+				<em><?php __("C_FACEBOOK_TIP") ?></em>
 			</div>
 		</div>
 		<div class="inputBox">
@@ -78,9 +78,9 @@
 			</div>
 		</div>
 		<div class="fleft">
-			<div class="errorMessage">You need to enter a valid e-mail address.</div>
+			<div class="errorMessage"><?php __("C_EMAIL_MESSAGE") ?></div>
 		</div>
-		<div class="fright"><input type="hidden" name="act" value="profile"><input type="submit" value="Update Profile"></div>
+		<div class="fright"><input type="hidden" name="act" value="profile"><input type="submit" value="<?php __("C_UPDATE_PROFILE") ?>"></div>
 	</form>
 
 	<?php
@@ -92,42 +92,39 @@
 
 	<form action="" method="post" class="validate" enctype="multipart/form-data">
 		<div class="inputBox">
-			<div class="label">Photo source</div>
+			<div class="label"><?php __("C_PHOTO_SOURCE") ?></div>
 			<div class="field">
 				<input type="radio" name="photo_type" class="photoSelect" value="gravatar" <?php __($photo_info['gravatar']) ?>> Gravatar<br>
 				<input type="radio" name="photo_type" class="photoSelect" value="facebook" <?php __($photo_info['facebook']) ?>> Facebook<br>
-				<input type="radio" name="photo_type" class="photoSelect" value="custom" <?php __($photo_info['custom']) ?>> Upload custom photo
+				<input type="radio" name="photo_type" class="photoSelect" value="custom" <?php __($photo_info['custom']) ?>> <?php __("C_PHOTO_CUSTOM") ?>
 			</div>
 		</div>
 		<div class="inputBox" id="gravatar" style="display: none">
-			<div class="label">Gravatar settings</div>
+			<div class="label"><?php __("C_GRAVATAR_SETTINGS") ?></div>
 			<div class="field">
 				<div class="fleft" style="margin-right: 15px">
 					<?php __(Html::Crop($photo_info['gravatar_image'], 120, 120)) ?>
 				</div>
 				<div class="fleft">
-					<b>Gravatar</b> is a service for providing globally unique avatars.<br>
-					Your gravatar is associated with <a href="?module=usercp&do=profile">your e-mail address</a>.
-					<br><br>Edit or create your Gravatar accessing <a href="https://www.gravatar.com" target="_blank" rel="nofollow">www.gravatar.com</a>.
+					<?php __("C_GRAVATAR_MESSAGE") ?>
 				</div>
 				<div class="fix"></div>
 			</div>
 		</div>
 		<div class="inputBox" id="facebook" style="display: none">
-			<div class="label">Facebook photo</div>
+			<div class="label"><?php __("C_FACEBOOK_SETTINGS") ?></div>
 			<div class="field">
 				<div class="fleft" style="margin-right: 15px">
 					<?php __(Html::Crop($photo_info['facebook_image'], 120, 120)) ?>
 				</div>
 				<div class="fleft">
-					In order to use Facebook images, you <strong>must</strong> fill in<br>the "Facebook" text field in <a href="?module=usercp">Profile (User Control Panel)</a>.<br><br>
-					Edit or create your Facebook photo accessing <a href="https://www.facebook.com" target="_blank" rel="nofollow">www.facebook.com</a>.
+					<?php __("C_FACEBOOK_MESSAGE") ?>
 				</div>
 				<div class="fix"></div>
 			</div>
 		</div>
 		<div class="inputBox" id="custom" style="display: none">
-			<div class="label">Photo upload</div>
+			<div class="label"><?php __("C_PHOTO_UPLOAD") ?></div>
 			<div class="field">
 				<div class="fleft" style="margin-right: 15px">
 					<?php __(Html::Crop("public/avatar/" . $this->member['photo'], 120, 120)) ?>
@@ -136,7 +133,7 @@
 				<div class="fix"></div>
 			</div>
 		</div>
-		<div class="fright"><input type="hidden" name="act" value="photo"><input type="submit" value="Update Photo"></div>
+		<div class="fright"><input type="hidden" name="act" value="photo"><input type="submit" value="<?php __("C_UPDATE_PHOTO") ?>"></div>
 	</form>
 
 	<?php
@@ -151,16 +148,16 @@
 
 	<form action="" method="post" class="validate">
 		<div class="inputBox">
-			<div class="label">Current</div>
+			<div class="label"><?php __("C_SIGNATURE_CURRENT") ?></div>
 			<div class="field textOnly" id="markdownPreview"></div>
 		</div>
 		<div class="inputBox">
-			<div class="label">Edit signature</div>
+			<div class="label"><?php __("C_SIGNATURE_EDIT") ?></div>
 			<div class="field">
 				<textarea name="signature" rows="8" class="large" id="markdownTextarea"><?php __($this->member['signature']) ?></textarea>
 			</div>
 		</div>
-		<div class="fright"><input type="hidden" name="act" value="signature"><input type="submit" value="Update Signature"></div>
+		<div class="fright"><input type="hidden" name="act" value="signature"><input type="submit" value="<?php __("C_SIGNATURE_UPDATE") ?>"></div>
 	</form>
 
 	<?php
@@ -170,7 +167,7 @@
 
 	<form action="" method="post" class="validate">
 		<div class="inputBox">
-			<div class="label">Timezone</div>
+			<div class="label"><?php __("C_TIMEZONE") ?></div>
 			<div class="field">
 				<select name="timezone" class="select2" style="width:500px">
 					<?php echo $settings['tz_list'] ?>
@@ -178,7 +175,7 @@
 			</div>
 		</div>
 		<div class="inputBox">
-			<div class="label">Language</div>
+			<div class="label"><?php __("C_LANGUAGE") ?></div>
 			<div class="field">
 				<select name="language" class="select2-no-search small">
 					<?php echo $settings['lang_list'] ?>
@@ -186,14 +183,14 @@
 			</div>
 		</div>
 		<div class="inputBox">
-			<div class="label">Template</div>
+			<div class="label"><?php __("C_TEMPLATE") ?></div>
 			<div class="field">
 				<select name="template" class="select2-no-search small">
 					<?php echo $settings['template_list'] ?>
 				</select>
 			</div>
 		</div>
-		<div class="fright"><input type="hidden" name="act" value="settings"><input type="submit" value="Update Settings"></div>
+		<div class="fright"><input type="hidden" name="act" value="settings"><input type="submit" value="<?php __("C_UPDATE_SETTINGS") ?>"></div>
 	</form>
 
 	<?php
@@ -203,21 +200,21 @@
 
 	<form action="" method="post" class="validate">
 		<div class="inputBox">
-			<div class="label">Current password</div>
+			<div class="label"><?php __("C_PASSWORD_CURRENT") ?></div>
 			<div class="field"><input type="password" name="current" class="required small"></div>
 		</div>
 		<div class="inputBox">
-			<div class="label">New password</div>
+			<div class="label"><?php __("C_PASSWORD_NEW") ?></div>
 			<div class="field"><input type="password" name="new_password" class="required small"></div>
 		</div>
 		<div class="inputBox">
-			<div class="label">Re-type password</div>
+			<div class="label"><?php __("C_PASSWORD_RETYPE") ?></div>
 			<div class="field"><input type="password" name="c_password" class="required small"></div>
 		</div>
 		<div class="fleft">
-			<div class="errorMessage">Passwords doesn't match or fields are empty.</div>
+			<div class="errorMessage"><?php __("C_PASSWORD_EMPTY") ?></div>
 		</div>
-		<div class="fright"><input type="hidden" name="act" value="password"><input type="submit" value="Change Password"></div>
+		<div class="fright"><input type="hidden" name="act" value="password"><input type="submit" value="<?php __("C_CHANGE_PASSWORD") ?>"></div>
 	</form>
 
 	<?php

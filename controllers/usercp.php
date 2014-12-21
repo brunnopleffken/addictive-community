@@ -195,25 +195,25 @@
 
 	switch($m) {
 		case 1:
-			$notification = Html::Notification("Your member profile has been changed successfully.", "success");
+			$notification = Html::Notification(i18n::Translate("C_MESSAGE_1"), "success");
 			break;
 		case 2:
-			$notification = Html::Notification("Your photo has been changed successfully.", "success");
+			$notification = Html::Notification(i18n::Translate("C_MESSAGE_2"), "success");
 			break;
 		case 3:
-			$notification = Html::Notification("Your signature has been changed successfully.", "success");
+			$notification = Html::Notification(i18n::Translate("C_MESSAGE_3"), "success");
 			break;
 		case 4:
-			$notification = Html::Notification("Your settings has been changed successfully.", "success");
+			$notification = Html::Notification(i18n::Translate("C_MESSAGE_4"), "success");
 			break;
 		case 5:
-			$notification = Html::Notification("Your password has been changed successfully.", "success");
+			$notification = Html::Notification(i18n::Translate("C_MESSAGE_5"), "success");
 			break;
 		case 6:
-			$notification = Html::Notification("Your old password is incorrect. Please, try again.", "failure");
+			$notification = Html::Notification(i18n::Translate("C_MESSAGE_6"), "failure");
 			break;
 		case 7:
-			$notification = Html::Notification("The new password does not match (passwords are case-sensitive). Please, try again.", "failure");
+			$notification = Html::Notification(i18n::Translate("C_MESSAGE_7"), "failure");
 			break;
 		default:
 			$notification = "";
@@ -383,7 +383,7 @@
 	// ---------------------------------------------------
 
 	// Page information
-	$pageinfo['title'] = "Control Panel";
-	$pageinfo['bc'] = array("Control Panel");
+	$pageinfo['title'] = i18n::Translate("C_TITLE");
+	$pageinfo['bc'] = array(i18n::Translate("C_TITLE"));
 
 ?>
