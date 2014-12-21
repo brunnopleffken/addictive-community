@@ -87,7 +87,7 @@
 		break;
 		case "photo":
 	?>
-	
+
 	<?php echo $facebook_info ?>
 
 	<form action="" method="post" class="validate" enctype="multipart/form-data">
@@ -143,12 +143,12 @@
 		break;
 		case "signature":
 	?>
-	
+
 	<?php
 		$this->header .= '<script type="text/javascript" src="resources/markdown.parser.js"></script>';
 		$this->header .= '<script type="text/javascript">$(document).ready(function(){$(\'#markdownTextarea\').markdownRealTime()});</script>';
 	?>
-	
+
 	<form action="" method="post" class="validate">
 		<div class="inputBox">
 			<div class="label">Current</div>
@@ -173,7 +173,7 @@
 			<div class="label">Timezone</div>
 			<div class="field">
 				<select name="timezone" class="select2" style="width:500px">
-					<?php __($settings['tz_list']) ?>
+					<?php echo $settings['tz_list'] ?>
 				</select>
 			</div>
 		</div>
@@ -181,7 +181,7 @@
 			<div class="label">Language</div>
 			<div class="field">
 				<select name="language" class="select2-no-search small">
-					<option value="en_US">English (US)</option>
+					<?php echo $settings['lang_list'] ?>
 				</select>
 			</div>
 		</div>
@@ -189,7 +189,7 @@
 			<div class="label">Template</div>
 			<div class="field">
 				<select name="template" class="select2-no-search small">
-					<option value="default">Default</option>
+					<?php echo $settings['template_list'] ?>
 				</select>
 			</div>
 		</div>

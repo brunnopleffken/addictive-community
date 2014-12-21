@@ -12,7 +12,7 @@
 	// ---------------------------------------------------
 	// Define access method
 	// ---------------------------------------------------
-	
+
 	// Deny guest access
 	$this->Session->NoGuest();
 
@@ -29,11 +29,11 @@
 	$act = Html::Request("act");
 
 	switch($act) {
-		
+
 		// ---------------------------------------------------
 		// Edit member profile
 		// ---------------------------------------------------
-		
+
 		case "profile":
 			$info = array(
 				"email"			=> Html::Request("email"),
@@ -54,13 +54,13 @@
 
 			exit;
 			break;
-		
+
 		// ---------------------------------------------------
 		// Edit member photo
 		// ---------------------------------------------------
-		
+
 		case "photo":
-			
+
 			// Get photo type
 			$photoType = Html::Request("photo_type");
 
@@ -83,13 +83,13 @@
 					// Allowed extensions (JPEG, GIF and PNG)
 					$extAllow = array("jpg", "gif", "png");
 					$extFile = end(explode(".", $_FILES['file_upload']['name']));
-					
+
 					if(in_array($extFile, $extAllow)) {
 						// Select current photo, if exists
 						$this->Db->Query("SELECT photo FROM c_members WHERE m_id = '{$m_id}';");
 						$currentPhoto = $this->Db->Fetch();
 						$currentPhoto = ($currentPhoto['photo'] != "") ? $currentPhoto['photo'] : null;
-						
+
 						// Delete special characters and diacritics
 						$_FILES['file_upload']['name'] = ereg_replace(
 								"[^a-zA-Z0-9_.]", "",
@@ -97,35 +97,35 @@
 										"áàãâéêíóôõúüçÁÀÃÂÉÊÍÓÔÕÚÜÇ ",
 										"aaaaeeiooouucAAAAEEIOOOUUC_")
 								);
-						
+
 						// Delete current photo, if exists (avoid duplicate files)
 						if(file_exists("public/avatar/{$currentPhoto}")) {
 							unlink("public/avatar/{$currentPhoto}");
 						}
-						
+
 						// Do upload!
 						$newFileName = $m_id . "." . $extFile;
 						move_uploaded_file($_FILES['file_upload']['tmp_name'], "public/avatar/" . $newFileName);
 						chmod(__DIR__ . "/public/avatar/" . $newFileName, 0666);
-						
+
 						$this->Db->Query("UPDATE c_members SET photo_type = '{$photoType}',
 							photo = '{$newFileName}' WHERE m_id = '{$m_id}';");
-						
+
 						// Redirect
 						header("Location: index.php?module=usercp&view=photo&m=2");
 						exit;
 					}
-					
+
 					exit;
 				}
 			}
-			
+
 			break;
-		
+
 		// ---------------------------------------------------
 		// Edit signature
 		// ---------------------------------------------------
-		
+
 		case "signature":
 			$info = array(
 				"signature" => Html::Request("signature")
@@ -140,7 +140,7 @@
 		// ---------------------------------------------------
 		// Edit board settings
 		// ---------------------------------------------------
-		
+
 		case "settings":
 			$info = array(
 				"template" => Html::Request("template"),
@@ -153,20 +153,20 @@
 
 			exit;
 			break;
-		
+
 		// ---------------------------------------------------
 		// Alter password
 		// ---------------------------------------------------
-		
+
 		case "password":
 			$current = String::PasswordEncrypt(Html::Request("current"));
 			$new_pass = String::PasswordEncrypt(Html::Request("new_password"));
 			$c_pass = String::PasswordEncrypt(Html::Request("c_password"));
-			
+
 			$this->Db->Query("SELECT COUNT(*) AS result FROM c_members WHERE m_id = '{$m_id}' AND password = '{$current}';");
 			$count = $this->Db->Fetch();
 			$_count = $count['result'];
-			
+
 			if($_count == 0) {
 				// If old password is wrong: redirect and show error message
 				header("Location: index.php?module=usercp&view=password&m=6");
@@ -177,7 +177,7 @@
 				header("Location: index.php?module=usercp&view=password&m=7");
 				exit;
 			}
-			
+
 			// Continue...
 			$info = array("password" => $new_pass);
 			$this->Db->Update("c_members", $info, "m_id = {$m_id}");
@@ -223,10 +223,10 @@
 	// ---------------------------------------------------
 	// Which page are we viewing?
 	// ---------------------------------------------------
-	
+
 	// Which action is the user taking
 	$view = (Html::Request("view")) ? Html::Request("view") : "profile";
-	
+
 	switch($view) {
 
 		// ---------------------------------------------------
@@ -261,7 +261,7 @@
 			$photo_info['gravatar'] = "";
 			$photo_info['facebook'] = "";
 			$photo_info['custom'] = "";
-		
+
 			// Notification if Facebook account is not set
 			$facebook_info = "";
 
@@ -274,7 +274,7 @@
 			else {
 				$photo_info['custom'] = "checked";
 			}
-		
+
 			if($this->member['im_facebook'] == "") {
 				$photo_info['facebook'] = "disabled";
 				$facebook_info = Html::Notification("You must fill in the \"Facebook\" text field in order to use your Facebook photo as avatar.", "info");
@@ -306,6 +306,8 @@
 
 			$menu = array("", "", "", "selected", "");
 
+			// Timezone list
+
 			$tz_offset = array(
 				"-12"	=> "(UTC-12:00) International Date Line West",
 				"-11"	=> "(UTC-11:00) Midway Island, Samoa",
@@ -336,21 +338,33 @@
 				"11"	=> "(UTC+11:00) Magadan, Solomon Is., New Caledonia",
 				"12"	=> "(UTC+12:00) Auckland, Wellington, Fiji, Marshall Is."
 			);
-			
+
 			$settings['tz_list'] = "";
 
 			foreach($tz_offset as $value => $name) {
-				if($this->member['time_offset'] == $value) {
-					$selected = "selected";
-				}
-				else {
-					$selected = "";
-				}
-				
+				$selected = ($this->member['time_offset'] == $value) ? "selected" : "";
 				$settings['tz_list'] .= "<option value=\"{$value}\" {$selected}>{$name}</option>\n";
 			}
 
-			// ...
+			// Language list
+
+			$settings['lang_list'] = "";
+
+			$this->Db->Query("SELECT * FROM c_languages WHERE active = 1 ORDER BY name;");
+			while($lang = $this->Db->Fetch()) {
+				$selected = ($this->info['language'] == $lang['directory']) ? "selected" : "";
+				$settings['lang_list'] .= "<option value=\"{$lang['directory']}\" {$selected}>{$lang['name']}</option>\n";
+			}
+
+			// Template list
+
+			$settings['template_list'] = "";
+
+			$this->Db->Query("SELECT * FROM c_templates WHERE active = 1 ORDER BY name;");
+			while($template = $this->Db->Fetch()) {
+				$selected = ($this->info['template'] == $template['directory']) ? "selected" : "";
+				$settings['template_list'] .= "<option value=\"{$template['directory']}\" {$selected}>{$template['name']}</option>\n";
+			}
 
 			break;
 
@@ -367,7 +381,7 @@
 	// ---------------------------------------------------
 	// Where are we?
 	// ---------------------------------------------------
-	
+
 	// Page information
 	$pageinfo['title'] = "Control Panel";
 	$pageinfo['bc'] = array("Control Panel");
