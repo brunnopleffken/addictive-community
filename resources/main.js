@@ -44,7 +44,7 @@ jQuery(document).ready(function($) {
 		var $element = $(this),
 		    position = $element.position(),
 		    height   = $element.outerHeight() + 8;
-		
+
 		$element.attr('data-tooltip-identifier', i);
 		$element.after('<div class="tooltip" id="tooltip_' + i + '" style="left: ' + position.left +'px; top: ' + height + 'px">' + $element.data('tooltip') + '</div>');
 
@@ -62,32 +62,32 @@ jQuery(document).ready(function($) {
 
 		$tooltip.css('margin-left', '-' + width + 'px');
 	});
-	
+
 	// ---------------------------------------------------
 	// Open lightbox when clicking in "Delete Post"
 	// ---------------------------------------------------
-	
+
 	$('a.deleteButton').on('click', function() {
 		var postId   = $(this).data('post'),
 		    threadId = $(this).data('thread'),
 		    memberId = $(this).data('member');
-		
+
 		$('input#deletePostId').val(postId);
 		$('input#deleteThreadId').val(threadId);
 		$('input#deleteMemberId').val(memberId);
 	});
-	
+
 	// ---------------------------------------------------
 	// INSERT MARKDOWN TAGS TO TEXTAREA
 	// ---------------------------------------------------
-	
+
 	$('#textareaToolbar').each(function(i, v) {
 		var $toolbar  = $(this),
 		    $textarea = $toolbar.parent().find('textarea');
-		
+
 		$toolbar.find('i').on('click', function() {
 			var $button = $(this);
-			
+
 			if($button.hasClass('fa-bold')) { InsertMarkdown('post', '**', '**'); }
 			if($button.hasClass('fa-italic')) { InsertMarkdown('post', '*', '*'); }
 			if($button.hasClass('fa-underline')) { InsertMarkdown('post', '__', '__'); }
@@ -99,7 +99,7 @@ jQuery(document).ready(function($) {
 			if($button.hasClass('fa-list-ul')) { InsertMarkdown('post', '\n* ', ''); }
 		})
 	});
-	
+
 	function InsertMarkdown(elementID, openTag, closeTag) {
 		var textArea = document.getElementById(elementID),
 			contentPos = openTag.length;
@@ -109,7 +109,7 @@ jQuery(document).ready(function($) {
 			var selection = textArea.value.substr(textArea.selectionStart, textArea.selectionEnd - textArea.selectionStart);
 			var end = textArea.value.substr(textArea.selectionEnd);
 			textArea.value = begin + openTag + selection + closeTag + end;
-			
+
 			textArea.focus();
 			textArea.setSelectionRange(textArea.selectionStart + contentPos, textArea.selectionStart + contentPos)
 		}
@@ -201,19 +201,20 @@ jQuery(document).ready(function($) {
 
 		}
 	});
-	
+
 	// ---------------------------------------------------
 	// LOGIN - Validates username and password
 	// ---------------------------------------------------
-	
+
 	$('#memberLoginForm').on('submit', function(event) {
 		var error      = false,
 		    $userField = $('#memberLoginForm .username'),
 		    $passField = $('#memberLoginForm .password'),
+		    $submit    = $('#memberLoginForm input[type=submit]'),
 		    timer;
-		
+
 		event.preventDefault();
-		
+
 		$.ajax({
 			url: 'index.php?module=login&act=validate',
 			type: 'post',
@@ -223,12 +224,12 @@ jQuery(document).ready(function($) {
 		.done(function(data){
 			if(data.authenticated == 'false') {
 				error = true;
-				
+
 				$userField.addClass('error');
 				$passField.addClass('error');
-				
-				$('#memberLoginForm input[type=submit]').attr('disabled', 'disabled').val('Username or password is wrong');
-				
+
+				$submit.attr('disabled', 'disabled').val($submit.data('error-message'));
+
 				clearTimeout(timer);
 				timer = setTimeout(function() {
 					$('#memberLoginForm input[type=submit]').removeAttr('disabled');
@@ -246,7 +247,7 @@ jQuery(document).ready(function($) {
 			}
 		});
 	})
-	
+
 	// ---------------------------------------------------
 	// Remove .error class on focus
 	// ---------------------------------------------------
@@ -305,7 +306,7 @@ jQuery(document).ready(function($) {
 			$(this).attr('checked', 'checked');
 		});
 	});
-	
+
 	$('#pmTo').select2({
 		minimumInputLength: 2,
 		ajax: {
