@@ -50,7 +50,7 @@
 	</div>
 	<div class="footer">
 		<p class="fleft"><i class="fa fa-clock-o"></i> Posted on <?php __($firstPostInfo['post_date']) ?></p>
-		<?php if($this->Session->sInfo['member_id'] != 0): ?>
+		<?php if($this->member['m_id'] != 0): ?>
 			<p class="fright"><i class="fa fa-warning"></i> <a href="index.php?module=report&amp;t_id=<?php __($threadId) ?>" class="fancybox fancybox.ajax">Report abuse</a></p>
 		<?php endif; ?>
 	</div>
