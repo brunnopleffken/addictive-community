@@ -85,7 +85,7 @@
 	// ---------------------------------------------------
 
 	// Page information
-	$pageinfo['title'] = "Add Reply";
-	$pageinfo['bc'] = array($threadInfo['name'], $threadInfo['title'], "Add Reply");
+	$pageinfo['title'] = i18n::Translate("P_TITLE");
+	$pageinfo['bc'] = array($threadInfo['name'], $threadInfo['title'], i18n::Translate("P_TITLE"));
 
 ?>
