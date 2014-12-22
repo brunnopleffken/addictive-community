@@ -34,7 +34,7 @@
 	$t["C_UPDATE_SETTINGS"] = "Update Settings";
 	$t["C_PASSWORD_CURRENT"] = "Current Password";
 	$t["C_PASSWORD_NEW"] = "New Password";
-	$t["C_PASSWORD_RETYPE"] = "Re-type Password";
+	$t["C_PASSWORD_RETYPE"] = "Retype Password";
 	$t["C_PASSWORD_EMPTY"] = "Passwords doesn't match or fields are empty.";
 	$t["C_CHANGE_PASSWORD"] = "Change Password";
 	$t["C_MESSAGE_1"] = "Your member profile has been changed successfully.";
