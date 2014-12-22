@@ -22,7 +22,7 @@
 		case 1:
 			$success      = false;
 			$notification = true;
-			$message      = "Username or password is wrong. Please, try again.";
+			$message      = i18n::Translate("E_MESSAGE_LOGIN_ERROR");
 			$loginForm    = true;
 			break;
 
@@ -30,7 +30,7 @@
 		case 2:
 			$success      = false;
 			$notification = true;
-			$message      = "This room is protected.";
+			$message      = i18n::Translate("E_MESSAGE_PROTECTED");
 			$loginForm    = false;
 			$roomPassword = true;
 			break;
@@ -48,7 +48,7 @@
 		case 1:
 			$success      = true;
 			$notification = false;
-			$message      = "Your e-mail address has been successfully validated.";
+			$message      = i18n::Translate("E_MESSAGE_VALIDATED");
 			$loginForm    = true;
 			break;
 	}
@@ -56,9 +56,9 @@
 	// ---------------------------------------------------
 	// Where are we?
 	// ---------------------------------------------------
-	
+
 	// Page information
-	$pageinfo['title'] = "An error occoured";
-	$pageinfo['bc'] = array("An error occoured");
+	$pageinfo['title'] = i18n::Translate("E_TITLE");
+	$pageinfo['bc'] = array(i18n::Translate("E_TITLE"));
 
 ?>

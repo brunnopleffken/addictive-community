@@ -8,7 +8,7 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	// ---------------------------------------------------
 	// Define access method
 	// ---------------------------------------------------
@@ -92,7 +92,7 @@
 	// ---------------------------------------------------
 
 	// Page information
-	$pageinfo['title'] = "New Thread";
-	$pageinfo['bc'] = array("New Thread");
+	$pageinfo['title'] = i18n::Translate("T_TITLE");
+	$pageinfo['bc'] = array(i18n::Translate("T_TITLE"));
 
 ?>

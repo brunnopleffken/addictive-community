@@ -26,6 +26,4 @@
 	$t["R_VALIDATE_ALREADY"] = "This member is already validated.";
 	$t["R_VALIDATE_NOT_MATCH"] = "Security token did not match.";
 	$t["R_VALIDATE_NOT_FOUND"] = "Member not found.";
-	$t[""] = "";
-	$t[""] = "";
 ?>

@@ -131,7 +131,7 @@
 	if(($threadInfo['lastpost_date'] + $obsoleteSeconds) < time()) {
 		$threadInfo['obsolete'] = true;
 		$obsoleteNotification = Html::Notification(
-			"This thread is obsolete (last post is older than {$this->Core->config['thread_obsolete_value']} days).", "warning", true
+			i18n::Translate("T_OBSOLETE", array($this->Core->config['thread_obsolete_value'])), "warning", true
 		);
 	}
 	else {
@@ -228,7 +228,7 @@
 		// Show label if post was edited
 		if(isset($result['edited'])) {
 			$result['edit_time'] = $this->Core->DateFormat($result['edit_time']);
-			$result['edited']    = "<em>(Edited in " . $result['edit_time'] . " by " . $result['edit_author'] . ")</em>";
+			$result['edited']    = "<em>(" . i18n::Translate("T_EDITED", array($result['edit_time'], $result['edit_author'])) . ")</em>";
 		}
 		else {
 			$result['edited'] = "";
@@ -240,19 +240,19 @@
 
 		// Post controls
 		if($result['author_id'] == $this->member['m_id']) {
-			$result['post_controls'] = "<a href='' class='smallButton grey transition'>Edit</a> "
-				. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$threadId}' data-member='{$result['author_id']}' class='fancybox deleteButton smallButton grey transition'>Delete</a>";
+			$result['post_controls'] = "<a href='' class='smallButton grey transition'>" . i18n::Translate("T_EDIT") . "</a> "
+				. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$threadId}' data-member='{$result['author_id']}' class='fancybox deleteButton smallButton grey transition'>" . i18n::Translate("T_DELETE") . "</a>";
 		}
 
 		// Thread controls
 		if($threadInfo['author_member_id'] == $this->member['m_id'] && $result['author_id'] != $this->member['m_id']) {
 			if($result['best_answer'] == 0) {
 				// Set post as Best Answer
-				$result['thread_controls'] = "<a href='?module=thread&amp;act=setbestanswer&amp;id={$result['p_id']}' class='smallButton grey transition'>Set as Best Answer</a>";
+				$result['thread_controls'] = "<a href='?module=thread&amp;act=setbestanswer&amp;id={$result['p_id']}' class='smallButton grey transition'>" . i18n::Translate("T_BEST_SET") . "</a>";
 			}
 			else {
 				// Unset post as Best Answer
-				$result['thread_controls'] = "<a href='?module=thread&amp;act=unsetbestanswer&amp;id={$result['p_id']}' class='smallButton grey transition'>Unset Best Answer</a>";
+				$result['thread_controls'] = "<a href='?module=thread&amp;act=unsetbestanswer&amp;id={$result['p_id']}' class='smallButton grey transition'>" . i18n::Translate("T_BEST_UNSET") . "</a>";
 			}
 		}
 
@@ -267,28 +267,28 @@
 	$paginationNav = "";
 
 	if($pages != 0) {
-		$paginationNav .= "<div class=\"pages\">Pages: ";
+		$paginationNav .= "<div class=\"pages\">" . i18n::Translate("T_PAGES") . ": ";
 
 		// If it is not the first page, show link "Back"
 		if($pDisp != 1) {
 			$prev = $pDisp - 1;
-			$paginationNav .= "<a href=\"index.php?module=thread&id={$threadId}&p={$prev}\">&laquo;</a>\n";
+			$paginationNav .= "<a href=\"?module=thread&id={$threadId}&p={$prev}\">&laquo;</a>\n";
 		}
 
 		// Page numbers
 		for($i = 1; $i <= $pages; $i++) {
 			if($i == $pDisp) {
-				$paginationNav .= "<a href=\"index.php?module=thread&id={$threadId}&p={$i}\" class=\"page-selected\">{$i}</a>\n";
+				$paginationNav .= "<a href=\"?module=thread&id={$threadId}&p={$i}\" class=\"page-selected\">{$i}</a>\n";
 			}
 			else {
-				$paginationNav .= "<a href=\"index.php?module=thread&id={$threadId}&p={$i}\">{$i}</a>\n";
+				$paginationNav .= "<a href=\"?module=thread&id={$threadId}&p={$i}\">{$i}</a>\n";
 			}
 		}
 
 		// If it is not the last page, show link "Next"
 		if($pDisp != $i - 1) {
 			$next = $pDisp + 1;
-			$paginationNav .= "<a href=\"index.php?module=thread&id={$threadId}&p={$next}\">&raquo;</a>\n";
+			$paginationNav .= "<a href=\"?module=thread&id={$threadId}&p={$next}\">&raquo;</a>\n";
 		}
 
 		$paginationNav .= "</div>";

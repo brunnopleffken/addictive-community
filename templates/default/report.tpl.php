@@ -1,4 +1,4 @@
-<form action="index.php?module=report&amp;act=send" method="post" class="validate">
+<form action="?module=report&amp;act=send" method="post" class="validate">
 	<table class="tableList noBorders" style="width:350px; margin:0">
 		<tr>
 			<th colspan="7">

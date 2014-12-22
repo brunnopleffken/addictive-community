@@ -3,33 +3,26 @@
 	$this->header .= '<script type="text/javascript">$(document).ready(function(){$(\'.parsing\').markdownParser()});</script>';
 ?>
 
-<!--
-<div class="roomTitleBar">
-	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span>View Profile</div>
-</div>
--->
-
 <div class="profileHeader">
 	<div class="background" style="background-image: url('<?php __($info['cover']) ?>')"><div class="cover"></div></div>
 	<?php __(Html::Crop($info['avatar'], 160, 160, "avatar")) ?>
 	<div class="memberTitle"><?php __($info['member_title']) ?></div>
 	<div class="memberInfo">
 		<span class="username"><?php __($info['username']) ?></span>
-		<div class="item"><span>Posts</span><?php __($info['posts']) ?></div>
-		<div class="item"><span>Registered</span><?php __($info['joined']) ?></div>
-		<div class="item"><span>Group</span><?php __($info['name']) ?></div>
+		<div class="item"><span><?php __("P_POSTS") ?></span><?php __($info['posts']) ?></div>
+		<div class="item"><span><?php __("P_REGISTERED") ?></span><?php __($info['joined']) ?></div>
+		<div class="item"><span><?php __("P_USERGROUP") ?></span><?php __($info['name']) ?></div>
 	</div>
 </div>
 
 <div class="navigation">
 	<div class="navbar">
-		<a href="index.php?module=profile&amp;id=<?php __($id) ?>" class="transition selected">Profile</a>
-		<!-- <a href="index.php?module=profile&amp;id=<?php __($id) ?>&amp;act=updates" class="transition">Status Updates</a> -->
+		<a href="?module=profile&amp;id=<?php __($id) ?>" class="transition selected"><?php __("P_PROFILE") ?></a>
 	</div>
 	<div class="subnav">
-		<a href="index.php?module=profile&amp;id=<?php __($id) ?>" class="transition">My Profile</a>
-		<a href="index.php?module=profile&amp;id=<?php __($id) ?>&amp;act=posts" class="transition">Last Posts &amp; Threads</a>
-		<a href="index.php?module=profile&amp;id=<?php __($id) ?>&amp;act=attachments" class="transition">Attachments</a>
+		<a href="?module=profile&amp;id=<?php __($id) ?>" class="transition"><?php __("P_MY_PROFILE") ?></a>
+		<a href="?module=profile&amp;id=<?php __($id) ?>&amp;act=posts" class="transition"><?php __("P_LAST_POSTS") ?></a>
+		<a href="?module=profile&amp;id=<?php __($id) ?>&amp;act=attachments" class="transition"><?php __("P_ATTACHMENTS") ?></a>
 	</div>
 </div>
 
@@ -44,45 +37,45 @@
 		<!-- MEMBER PROFILE -->
 		<table class="tableList noShadow noBorders">
 			<tr>
-				<th colspan="2">My Profile</th>
+				<th colspan="2"><?php __("P_MY_PROFILE") ?></th>
 			</tr>
 			<tr>
-				<td class="tLabel">About Me</td>
+				<td class="tLabel"><?php __("P_ABOUT_ME") ?></td>
 				<td><?php __($info['profile']) ?></td>
 			</tr>
 			<tr>
-				<td class="tLabel">Birthday</td>
-				<td><?php if($has_birthday) printf("%s (%s years old)", $info['birthday'], $info['age']) ?></td>
+				<td class="tLabel"><?php __("P_BIRTHDATE") ?></td>
+				<td><?php if($has_birthday) __("P_AGE", array($info['birthday'], $info['age'])) ?></td>
 			</tr>
 			<tr>
-				<td class="tLabel">Gender</td>
+				<td class="tLabel"><?php __("P_GENDER") ?></td>
 				<td><?php __($info['gender']) ?></td>
 			</tr>
 			<tr>
-				<td class="tLabel">Location</td>
+				<td class="tLabel"><?php __("P_LOCATION") ?></td>
 				<td><?php __($info['location']) ?></td>
 			</tr>
 			<tr>
-				<td class="tLabel">Website</td>
+				<td class="tLabel"><?php __("P_WEBSITE") ?></td>
 				<td><?php __($info['website']) ?></td>
 			</tr>
 			<tr>
-				<td class="tLabel">Signature</td>
+				<td class="tLabel"><?php __("P_SIGNATURE") ?></td>
 				<td class="parsing"><?php __($info['signature']) ?></td>
 			</tr>
 		</table>
 		<table class="tableList noShadow noShadow" style="margin-top: 15px">
 			<tr>
-				<th colspan="2">Community Statistics</th>
+				<th colspan="2"><?php __("P_STATS") ?></th>
 			</tr>
 			<tr>
-				<td class="tLabel">Best Answers</td>
-				<td><?php __($info['bestanswers']) ?> post(s)</td>
+				<td class="tLabel"><?php __("P_BEST_ANSWERS") ?></td>
+				<td><?php __("P_BEST_POSTS", array($info['bestanswers'])) ?></td>
 			</tr>
 		</table>
 		<table class="tableList noShadow noShadow" style="margin-top: 15px">
 			<tr>
-				<th colspan="2">Contact Information</th>
+				<th colspan="2"><?php __("P_CONTACT_INFO") ?></th>
 			</tr>
 			<tr>
 				<td class="min" style="font-size: 16px"><i class="fa fa-fw fa-envelope-o"></i></td>
@@ -107,13 +100,13 @@
 
 	<table class="tableList noBorders noShadow">
 		<tr>
-			<th colspan="2">Last 5 threads by <?php __($info['username']) ?></th>
+			<th colspan="2"><?php __("P_LAST_THREADS_BY", array($info['username'])) ?></th>
 		</tr>
 		<?php __($threadList) ?>
 	</table>
 	<table class="tableList noBorders noShadow">
 		<tr>
-			<th colspan="2">Last 5 posts by <?php __($info['username']) ?></th>
+			<th colspan="2"><?php __("P_LAST_POSTS_BY", array($info['username'])) ?></th>
 		</tr>
 		<?php __($postList) ?>
 	</table>
@@ -125,13 +118,13 @@
 
 	<table class="tableList noShadow">
 		<tr>
-			<th colspan="4">Attachments</th>
+			<th colspan="4"><?php __("P_ATTACHMENTS") ?></th>
 		</tr>
 		<tr class="subtitle">
 			<td class="min"></td>
-			<td>Name</td>
-			<td>File Type</td>
-			<td>Size</td>
+			<td><?php __("P_NAME") ?></td>
+			<td><?php __("P_FILETYPE") ?></td>
+			<td><?php __("P_FILESIZE") ?></td>
 		</tr>
 		<?php if(isset($attachments)): ?>
 			<?php foreach($attachments as $file): ?>
@@ -144,7 +137,7 @@
 			<?php endforeach; ?>
 		<?php else: ?>
 			<tr>
-				<td colspan="4" class="center">There are no attachments.</td>
+				<td colspan="4" class="center"><?php __("P_NO_ATTACHMENTS") ?></td>
 			</tr>
 		<?php endif; ?>
 	</table>
