@@ -1,5 +1,5 @@
 <div class="roomTitleBar">
-	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span>Create Account</div>
+	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span><?php __("R_TITLE") ?></div>
 </div>
 
 <?php
@@ -8,18 +8,18 @@
 
 <div class="box">
 	<div class="stepBox">
-		<div class="current"><h3>Step 1</h3><span class="tiny">Agreement</span></div>
-		<div class="next"><h3>Step 2</h3><span class="tiny">Your Account</span></div>
-		<div class="next"><h3>Step 3</h3><span class="tiny">Confirmation</span></div>
+		<div class="current"><h3><?php __("R_STEP_1") ?></h3><span class="tiny"><?php __("R_STEP_AGREEMENT") ?></span></div>
+		<div class="next"><h3><?php __("R_STEP_2") ?></h3><span class="tiny"><?php __("R_STEP_YOUR_ACCOUNT") ?></span></div>
+		<div class="next"><h3><?php __("R_STEP_3") ?></h3><span class="tiny"><?php __("R_STEP_CONFIRMATION") ?></span></div>
 	</div>
 
 	<form>
 		<div class="inputBox center">
-			<textarea style="width: 550px; height: 200px" readonly>We are not responsible for any messages posted. The messages express the views of the author of the message, not necessarily the views of this community. Messages that harass, abuse or threaten other members; have obscene or otherwise objectionable content; have spam, commercial or advertising content or links may be removed and may result in the loss of your account. Please do not post any private information unless you want it to be available publicly. Never assume that you are completely anonymous and cannot be identified by your posts.</textarea>
+			<textarea style="width: 550px; height: 200px" readonly><?php __("R_EULA") ?></textarea>
 		</div>
 		<div class="inputBox center">
-			<input type="button" value="Agree" onclick="javascript:location.href='index.php?module=register&amp;step=2'"> &nbsp;
-			<input type="submit" value="Disagree" class="cancel" onclick="javascript:location.href='index.php'">
+			<input type="button" value="<?php __("R_AGREE") ?>" onclick="javascript:location.href='?module=register&amp;step=2'"> &nbsp;
+			<input type="submit" value="<?php __("R_DISAGREE") ?>" class="cancel" onclick="javascript:location.href='index.php'">
 		</div>
 	</form>
 </div>
@@ -46,34 +46,34 @@
 
 <div class="box">
 	<div class="stepBox">
-		<div class="previous"><h3>Step 1</h3><span class="tiny">Agreement</span></div>
-		<div class="current"><h3>Step 2</h3><span class="tiny">Your Account</span></div>
-		<div class="next"><h3>Step 3</h3><span class="tiny">Confirmation</span></div>
+		<div class="previous"><h3><?php __("R_STEP_1") ?></h3><span class="tiny"><?php __("R_STEP_AGREEMENT") ?></span></div>
+		<div class="current"><h3><?php __("R_STEP_2") ?></h3><span class="tiny"><?php __("R_STEP_YOUR_ACCOUNT") ?></span></div>
+		<div class="next"><h3><?php __("R_STEP_3") ?></h3><span class="tiny"><?php __("R_STEP_CONFIRMATION") ?></span></div>
 	</div>
 
 	<?php echo $notification ?>
 
 	<form action="index.php" method="post" class="validate">
 		<div class="inputBox">
-			<div class="label">Username</div>
-			<div class="field"><input type="text" name="username" class="required small" maxlength="26"> &nbsp; <em>Between 3 and 26 characters</em></div>
+			<div class="label"><?php __("R_USERNAME") ?></div>
+			<div class="field"><input type="text" name="username" class="required small" maxlength="26"> &nbsp; <em><?php __("R_USERNAME_NOTICE") ?></em></div>
 		</div>
 		<div class="inputBox">
-			<div class="label">Password</div>
-			<div class="field"><input type="password" name="password" id="password" class="required small"> &nbsp; <em>Between 6 and 32 characters</em></div>
+			<div class="label"><?php __("R_PASSWORD") ?></div>
+			<div class="field"><input type="password" name="password" id="password" class="required small"> &nbsp; <em><?php __("R_PASSWORD_NOTICE") ?></em></div>
 		</div>
 		<div class="inputBox">
-			<div class="label">Re-type password</div>
-			<div class="field"><input type="password" name="password_conf" id="password_conf" class="required small" onblur="CheckPassword()"> &nbsp; <div id="passwdMatch" style="display:none; color:#bb0000; font-weight:bold;"><i class="fa fa-exclamation-triangle" style="font-weight:normal"></i> Passwords does not match!</div></div>
+			<div class="label"><?php __("R_RETYPE_PASSWD") ?></div>
+			<div class="field"><input type="password" name="password_conf" id="password_conf" class="required small" onblur="CheckPassword()"> &nbsp; <div id="passwdMatch" style="display:none; color:#bb0000; font-weight:bold;"><i class="fa fa-exclamation-triangle" style="font-weight:normal"></i> <?php __("R_PASSWORD_ERROR") ?></div></div>
 		</div>
 		<div class="inputBox">
-			<div class="label">E-mail address</div>
+			<div class="label"><?php __("R_EMAIL_ADDR") ?></div>
 			<div class="field"><input type="text" name="email" class="required email medium"></div>
 		</div>
 		<div class="inputBox center">
 			<input type="hidden" name="module" value="register">
 			<input type="hidden" name="act" value="signup">
-			<input type="submit" id="formSubmit" value="Create Account">
+			<input type="submit" id="formSubmit" value="<?php __("R_STEP_2_SEND") ?>">
 		</div>
 	</form>
 </div>
@@ -85,17 +85,17 @@
 
 <div class="box">
 	<div class="stepBox">
-		<div class="previous"><h3>Step 1</h3><span class="tiny">Agreement</span></div>
-		<div class="previous"><h3>Step 2</h3><span class="tiny">Your Account</span></div>
-		<div class="current"><h3>Step 3</h3><span class="tiny">Confirmation</span></div>
+		<div class="previous"><h3><?php __("R_STEP_1") ?></h3><span class="tiny"><?php __("R_STEP_AGREEMENT") ?></span></div>
+		<div class="previous"><h3><?php __("R_STEP_2") ?></h3><span class="tiny"><?php __("R_STEP_YOUR_ACCOUNT") ?></span></div>
+		<div class="current"><h3><?php __("R_STEP_3") ?></h3><span class="tiny"><?php __("R_STEP_CONFIRMATION") ?></span></div>
 	</div>
 
 	<div class="inputBox center">
 		<i class="fa fa-check" style="font-size: 50px"></i><br><br>
-		<h2>Congratulations!</h2><br>
-		<h3>You have successfully registered your account.</h3>
+		<h2><?php __("R_DONE_CONGRATULATIONS") ?></h2><br>
+		<h3><?php __("R_DONE_SUCCESS") ?></h3>
 		<?php if($this->Core->config['general_security_validation'] == "true"): ?>
-			<h3>Please, check your e-mail to complete registration.</h3>
+			<h3><?php __("R_DONE_VALIDATE") ?></h3>
 		<?php endif; ?>
 	</div>
 

@@ -8,7 +8,7 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	// ---------------------------------------------------
 	// Get step number
 	// ---------------------------------------------------
@@ -25,13 +25,13 @@
 
 	switch($error) {
 		case 1:
-			$notification = Html::Notification("Username or e-mail already exists. Try again.", "failure");
+			$notification = Html::Notification(i18n::Translate("R_ERROR_1"), "failure");
 			break;
 		case 2:
-			$notification = Html::Notification("Passwords doesn't match.", "failure");
+			$notification = Html::Notification(i18n::Translate("R_ERROR_2"), "failure");
 			break;
 		case 3:
-			$notification = Html::Notification("All fields are obligatory. If they're not filled in, registration cannot take place.", "failure");
+			$notification = Html::Notification(i18n::Translate("R_ERROR_3"), "failure");
 			break;
 	}
 
@@ -157,12 +157,12 @@
 			if($validationCount > 0) {
 				// Validate usergroup
 				if($validationResults[0]['usergroup'] != 6) {
-					Html::Error("This member is already validated.");
+					Html::Error(i18n::Translate("R_VALIDATE_ALREADY"));
 				}
 
 				// Validate member's security token
 				if($validationResults[0]['token'] != $token) {
-					Html::Error("Security token did not match.");
+					Html::Error(i18n::Translate("R_VALIDATE_NOT_MATCH"));
 				}
 
 				// Validate and redirect
@@ -171,7 +171,7 @@
 				exit;
 			}
 			else {
-				Html::Error("Member not found.");
+				Html::Error(i18n::Translate("R_VALIDATE_NOT_FOUND"));
 			}
 
 			exit;
@@ -181,9 +181,9 @@
 	// ---------------------------------------------------
 	// Where are we?
 	// ---------------------------------------------------
-	
+
 	// Page information
-	$pageinfo['title'] = "Create Account";
-	$pageinfo['bc'] = array("Create Account");
+	$pageinfo['title'] = i18n::Translate("R_TITLE");
+	$pageinfo['bc'] = array(i18n::Translate("R_TITLE"));
 
 ?>
