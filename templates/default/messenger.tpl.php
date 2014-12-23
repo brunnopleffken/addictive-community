@@ -12,12 +12,10 @@
 <div class="navigation">
 	<div class="navbar">
 		<a href="?module=messenger" class="transition selected"><?php __("M_FOLDERS") ?></a>
-		<a href="" class="transition"><?php __("M_ATTACHMENTS") ?></a>
 	</div>
 	<div class="subnav">
 		<a href="?module=messenger" class="transition selected"><?php __("M_FOLDER_INBOX") ?></a>
 		<a href="?module=messenger&amp;view=sent" class="transition"><?php __("M_FOLDER_SENT") ?></a>
-		<a href="?module=messenger&amp;view=drafts" class="transition"><?php __("M_FOLDER_DRAFTS") ?></a>
 		<div class="progressBar" style="width: 204px; float: right; margin-top: 9px"><div class="fill" style="width: <?php __($percentageWidth) ?>"></div><span><?php __("M_STORAGE", array($numResults, $maxStorageSize)) ?></span></div>
 	</div>
 </div>
