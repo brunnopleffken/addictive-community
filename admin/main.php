@@ -1,5 +1,5 @@
 <?php
-	
+
 	## ---------------------------------------------------
 	#  ADDICTIVE COMMUNITY
 	## ---------------------------------------------------
@@ -8,27 +8,27 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	// First... check if the login sessions exists!
-	
+
 	session_start();
-	
+
 	if(!isset($_SESSION['admin_m_id'])) {
 		header("Location: index.php?error=2");
 	}
-	
+
 	// If we have a validate session, check the running time.
 	// If it's older than 30 minutes, ask for a log in
-	
+
 	$minutes = 30;
 
 	if($_SESSION['admin_time'] < (time() - 60 * $minutes)) {
 		session_destroy();
 		header("Location: index.php?error=3");
 	}
-	
+
 	// Call files
-	
+
 	require_once("../init.php");
 	require_once("../app.php");
 	require_once("../config.php");
@@ -43,47 +43,48 @@
 	$Init->Load("html", true);
 	$Init->Load("template", true);
 	$Init->Load("admin", true);
+	$Init->Load("i18n", true);
 
 	$Db = new Database($config);
 	$Core = new Core($Db);
 	$Admin = new Admin($Db);
 
 	require_once("sources/template.php");
-	
+
 	// Update session time
-	
+
 	$_SESSION['admin_time'] = time();
-	
+
 	// Admin info
-	
+
 	$Db->Query("SELECT username, time_offset FROM c_members
 		WHERE m_id = '{$_SESSION['admin_m_id']}';");
-		
+
 	$admin_info = $Db->Fetch();
 
 	// Get HTML header template
-	
+
 	__($template['header']);
-	
+
 	// Get page content
-			
+
 	$act = (Html::Request("act")) ? Html::Request("act") : "dashboard";
 	$p   = (Html::Request("p")) ? Html::Request("p") : "main";
-	
+
 	__(CreateMenu($act));
 
 	require_once("sources/adm_{$act}_{$p}.php");
 
 	// Get HTML footer template
-	
+
 	__($template['footer']);
-	
+
 	// Navigation menu template
 
 	function CreateMenu($section)
 	{
 		$nav = "<div class=\"section-nav-container\">";
-		
+
 		if($section == "dashboard") {
 		$nav .= <<<HTML
 			<div class="section-navbar">
@@ -100,7 +101,7 @@
 			</div>
 HTML;
 		}
-		
+
 		if($section == "general") {
 		$nav .= <<<HTML
 			<div class="section-navbar">
@@ -126,7 +127,7 @@ HTML;
 			</div>
 HTML;
 		}
-		
+
 		if($section == "rooms") {
 		$nav .= <<<HTML
 			<div class="section-navbar">
@@ -145,7 +146,7 @@ HTML;
 			</div>
 HTML;
 		}
-		
+
 		if($section == "members") {
 		$nav .= <<<HTML
 			<div class="section-navbar">
@@ -167,7 +168,7 @@ HTML;
 			</div>
 HTML;
 		}
-		
+
 		if($section == "templates") {
 		$nav .= <<<HTML
 			<div class="section-navbar">
@@ -189,7 +190,7 @@ HTML;
 			</div>
 HTML;
 		}
-		
+
 		if($section == "languages") {
 		$nav .= <<<HTML
 			<div class="section-navbar">
@@ -208,7 +209,7 @@ HTML;
 			</div>
 HTML;
 		}
-		
+
 		if($section == "system") {
 		$nav .= <<<HTML
 			<div class="section-navbar">
@@ -229,9 +230,9 @@ HTML;
 			</div>
 HTML;
 		}
-		
+
 		$nav .= "</div>";
-		
+
 		return $nav;
 	}
 
