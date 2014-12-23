@@ -11,7 +11,4 @@
 	$t["C_NEW_PUBLIC"] = "Public (viewable by all)";
 	$t["C_NEW_PRIVATE"] = "Private (viewable only by you)";
 	$t["C_NEW_DESC"] = "Description";
-	$t["C_NEW_TITLE"] = "";
-	$t["C_NEW_TITLE"] = "";
-	$t["C_NEW_TITLE"] = "";
 ?>

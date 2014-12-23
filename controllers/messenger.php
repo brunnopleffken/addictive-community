@@ -25,10 +25,10 @@
 
 	switch ($msg) {
 		case 1:
-			$notification = Html::Notification("Your personal message has been successfully sent.", "success");
+			$notification = Html::Notification(i18n::Translate("M_MESSAGE_1"), "success");
 			break;
 		case 2:
-			$notification = Html::Notification("Unable to load the personal message.", "failure");
+			$notification = Html::Notification(i18n::Translate("M_MESSAGE_2"), "failure");
 			break;
 	}
 
@@ -68,7 +68,7 @@
 				"subject"   => Html::Request("subject"),
 				"status"    => 1,
 				"sent_date" => time(),
-				"message"   => Html::Request("post"),
+				"message"   => Html::Request("post")
 			);
 
 			// Insert into DB
@@ -190,7 +190,7 @@
 	// ---------------------------------------------------
 
 	// Page information
-	$pageinfo['title'] = "Messenger";
-	$pageinfo['bc'] = array("Messenger");
+	$pageinfo['title'] = i18n::Translate("M_TITLE");
+	$pageinfo['bc'] = array(i18n::Translate("M_TITLE"));
 
 ?>
