@@ -90,7 +90,7 @@
 					</tr>
 					<tr>
 						<td class="title">Post Statistics</td>
-						<td><?php __($posts['total']) ?> posts in <?php __($threads['total']) ?> threads <em>(avg. <?php __($posts['average']) ?> posts per topic)</em></td>
+						<td><?php __($posts['total']) ?> posts in <?php __($threads['total']) ?> threads <em>(avg. <?php echo $posts['average'] ?> posts per topic)</em></td>
 					</tr>
 				</table>
 			</div>

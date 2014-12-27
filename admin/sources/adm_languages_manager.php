@@ -8,15 +8,15 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	// List of languages
-	
+
 	$Db->Query("SELECT * FROM c_languages ORDER BY name ASC;");
-	
+
 	while($lang = $Db->Fetch()) {
 		$lang['active']  = ($lang['active'] == 1) ? "<img src=\"images/tick.png\">" : "";
 		$lang['default'] = ($lang['default'] == 1) ? "<img src=\"images/tick.png\">" : "";
-		
+
 		Template::Add("<tr>
 				<td><a href=\"main.php?act=languages&p=edit&id={$lang['l_id']}\"><b>{$lang['name']}</b></a></td>
 				<td>/languages/{$lang['directory']}</td>
@@ -28,14 +28,14 @@
 				<td><a href=\"main.php?act=languages&p=delete&id={$lang['l_id']}\"><img src=\"images/delete.png\"></a></td>
 			</tr>");
 	}
-	
+
 ?>
 
 	<h1>Language Manager</h1>
-	
+
 	<div id="content">
 		<div class="grid-row">
-			
+
 			<table class="table-list">
 				<tr>
 					<th colspan="10">
@@ -55,6 +55,6 @@
 				</tr>
 				<?php echo Template::Get() ?>
 			</table>
-			
+
 		</div>
 	</div>

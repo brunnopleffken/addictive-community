@@ -8,36 +8,36 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	// Get language info
-	
+
 	$id = Html::Request("id");
-	
+
 	$Db->Query("SELECT * FROM c_languages WHERE l_id = '{$id}';");
 	$lang = $Db->Fetch();
-	
+
 	// Get list of files
-	
+
 	$handle = opendir("../languages/" . $lang['directory']);
-	
+
 	while($file = readdir($handle)) {
-		if($file != "." && $file != ".." && $file != "index.html") {
-			$url = preg_replace("#lang\.(.+)\.php#", "$1", $file);
-			
+		if($file != "." && $file != ".." && $file != "index.html" && $file != "_language.json") {
+			$url = preg_replace("#(.+)\.php#", "$1", $file);
+
 			Template::Add("<tr>
-					<td><a href=\"main.php?act=languages&p=file&id={$url}&dir={$lang['directory']}\"><b>{$file}</b></a></td>
-					<td><a href=\"main.php?act=languages&p=file&id={$url}&dir={$lang['directory']}\"><img src=\"images/edit.png\"></a></td>
+					<td><a href=\"?act=languages&p=file&id={$url}&dir={$lang['directory']}\"><b>{$file}</b></a></td>
+					<td><a href=\"?act=languages&p=file&id={$url}&dir={$lang['directory']}\"><img src=\"images/edit.png\"></a></td>
 				</tr>");
 		}
 	}
-	
+
 ?>
 
 	<h1>Manage Language: <?php echo $lang['name'] ?></h1>
-	
+
 	<div id="content">
 		<div class="grid-row">
-			
+
 			<table class="table-list">
 				<tr>
 					<th colspan="10">
@@ -50,7 +50,7 @@
 				</tr>
 				<?php echo Template::Get() ?>
 			</table>
-			
+
 			<table class="table-list">
 				<tr>
 					<th colspan="10">
@@ -66,6 +66,6 @@
 					<td>/languages/ <input type="text" name="name" class="tiny" value="<?php __($lang['directory']) ?>"></td>
 				</tr>
 			</table>
-			
+
 		</div>
 	</div>
