@@ -175,8 +175,8 @@ form textarea { overflow: auto; }
 .mainPost .header .author .avatar { border: 1px solid #dddddd; float: left; height: 48px; padding: 2px; width: 48px; }
 .mainPost .header .author .authorInfo { float: left; font-size: 10px; line-height: 1.2em; margin-left: 5px; margin-top: 2px; }
 .mainPost .header .author .authorInfo a { display: inline-block; font-size: 15px; font-weight: bold; margin-bottom: 4px; }
-.mainPost .title { font-size: 22px; font-weight: bold; letter-spacing: 1px; padding: 20px 10px; }
-.mainPost .text { font-size: 14px; padding: 5px 30px 25px 30px; }
+.mainPost .title { font-size: 22px; font-weight: bold; letter-spacing: 1px; padding: 20px 15px; }
+.mainPost .text { font-size: 14px; padding: 0px 30px 20px 15px; }
 .mainPost .text img.emoticon { display: inline-block; height: 16px; vertical-align: text-bottom; width: 16px; }
 .mainPost .footer { border-top: 1px solid #eeeeee; font-size: 11px; padding: 6px 10px; overflow: hidden; }
 .mainPost .footer i { font-size: 14px; }
