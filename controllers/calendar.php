@@ -33,6 +33,7 @@
 						Html::Request("month"),
 						Html::Request("day"),
 						Html::Request("year")),
+				"added"		=> time(),
 				"text"		=> Html::Request("text"),
 			);
 
