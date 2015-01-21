@@ -43,14 +43,14 @@
 	$keyword = $this->Core->QueryString("q");
 	$keyHighlight = explode(" ", $keyword);
 
-	$this->Db->Query("SELECT t.t_id, t.title, m.m_id, m.username, m.email, p.author_id, p.post_date, p.post, "
-			. "MATCH(p.post) AGAINST ('{$keyword}') AS relevance FROM c_posts p "
-			. "INNER JOIN c_threads t ON (p.thread_id = t.t_id) "
-					. "INNER JOIN c_members m ON (p.author_id = m.m_id) "
-					. "WHERE {$where} MATCH(post) AGAINST ('{$keyword}') {$order} "
-			. "LIMIT 100;");
+	$this->Db->Query("SELECT t.t_id, t.title, m.m_id, m.username, m.email, p.author_id, p.post_date, p.post,
+			MATCH(p.post) AGAINST ('{$keyword}') AS relevance FROM c_posts p
+			INNER JOIN c_threads t ON (p.thread_id = t.t_id)
+			INNER JOIN c_members m ON (p.author_id = m.m_id)
+			WHERE {$where} MATCH(post) AGAINST ('{$keyword}') {$order}
+			LIMIT 100;");
 
-	if($this->Db->Rows() >= 90) {
+	if($this->Db->Rows() > 100) {
 		$warning = Html::Notification("There are too many results for this search. Please try your search again with more specific keywords.", "warning", true);
 	}
 
