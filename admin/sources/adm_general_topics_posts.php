@@ -72,7 +72,7 @@
 					</tr>
 					
 					<tr>
-						<td class="title-fixed">Enable "Obsolete Thread"<span class="title-desc">After X days without answer, members cannot reply a thread anymore. A new thread must be opened.</span></td>
+						<td class="title-fixed">Enable "Obsolete Thread"<span class="title-desc">Prevent old threads in the community rooms from being bumped.</span></td>
 						<td><label><?php echo $Admin->SelectCheckbox("thread_obsolete") ?> Allows a thread to become obsolete after X days (replies are not allowed).</label></td>
 					</tr>
 					<tr>
