@@ -163,7 +163,7 @@ jQuery(document).ready(function($) {
 
 			$(this).find('.email').filter('.required').each(function(){
 				var str = this.value;
-				var pattern = new RegExp(/[a-z0-9_\.\-]+\@[a-z0-9_\.\-]+\.[a-z]{2,3}/);
+				var pattern = new RegExp(/^[a-z0-9_\.\-]+\@[a-z0-9_\.\-]+\.[a-z]{2,3}$/gm);
 				var result = pattern.test(str);
 
 				if(!result) {
