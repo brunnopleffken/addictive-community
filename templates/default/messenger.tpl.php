@@ -3,7 +3,7 @@
 <div class="roomTitleBar">
 	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span><?php __("M_TITLE") ?></div>
 	<div class="buttons fright">
-		<a href="?module=messenger&amp;view=compose" class="defaultButton transition"><?php __("M_NEW_MESSAGE") ?></a>
+		<a href="messenger/compose" class="defaultButton transition"><?php __("M_NEW_MESSAGE") ?></a>
 	</div>
 </div>
 
@@ -11,11 +11,11 @@
 
 <div class="navigation">
 	<div class="navbar">
-		<a href="?module=messenger" class="transition selected"><?php __("M_FOLDERS") ?></a>
+		<a href="messenger" class="transition selected"><?php __("M_FOLDERS") ?></a>
 	</div>
 	<div class="subnav">
-		<a href="?module=messenger" class="transition selected"><?php __("M_FOLDER_INBOX") ?></a>
-		<a href="?module=messenger&amp;view=sent" class="transition"><?php __("M_FOLDER_SENT") ?></a>
+		<a href="messenger" class="transition selected"><?php __("M_FOLDER_INBOX") ?></a>
+		<a href="messenger/sent" class="transition"><?php __("M_FOLDER_SENT") ?></a>
 		<div class="progressBar" style="width: 204px; float: right; margin-top: 9px"><div class="fill" style="width: <?php __($percentageWidth) ?>"></div><span><?php __("M_STORAGE", array($numResults, $maxStorageSize)) ?></span></div>
 	</div>
 </div>
@@ -45,7 +45,7 @@
 		?>
 		<tr>
 			<td class="min" style="font-size: 17px"><i class="fa <?php __($pm['icon_class']) ?>"></i></td>
-			<td style="font-size: 14px;"><a href="?module=messenger&amp;read=<?php __($pm['pm_id']) ?>"><?php __($pm['subject']) ?></a></td>
+			<td style="font-size: 14px;"><a href="messenger/<?php __($pm['pm_id']) ?>"><?php __($pm['subject']) ?></a></td>
 			<td><a href="?module=profile&amp;id=<?php __($pm['from_id']) ?>"><?php __($pm['username']) ?></a></td>
 			<td><?php __($pm['sent_date']) ?></td>
 			<td class="min"><input type="checkbox" name="pm[]" value="<?php __($pm['pm_id']) ?>" class="checkDeleteMessage"></td>
@@ -68,7 +68,7 @@
 <div class="roomTitleBar">
 	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span><?php __("M_TITLE") ?></div>
 	<div class="buttons fright">
-		<a href="?module=messenger&amp;view=compose" class="defaultButton transition"><?php __("M_NEW_MESSAGE") ?></a>
+		<a href="messenger/compose" class="defaultButton transition"><?php __("M_NEW_MESSAGE") ?></a>
 	</div>
 </div>
 
@@ -77,12 +77,10 @@
 <div class="navigation">
 	<div class="navbar">
 		<a href="?module=messenger" class="transition selected"><?php __("M_FOLDERS") ?></a>
-		<a href="" class="transition"><?php __("M_ATTACHMENTS") ?></a>
 	</div>
 	<div class="subnav">
-		<a href="?module=messenger" class="transition"><?php __("M_FOLDER_INBOX") ?></a>
-		<a href="?module=messenger&amp;view=sent" class="transition selected"><?php __("M_FOLDER_SENT") ?></a>
-		<a href="?module=messenger&amp;view=drafts" class="transition"><?php __("M_FOLDER_DRAFTS") ?></a>
+		<a href="messenger" class="transition"><?php __("M_FOLDER_INBOX") ?></a>
+		<a href="messenger/sent" class="transition selected"><?php __("M_FOLDER_SENT") ?></a>
 		<div class="progressBar" style="width: 204px; float: right; margin-top: 9px"><div class="fill" style="width: <?php __($percentageWidth) ?>"></div><span><?php __("M_STORAGE", array($numResults, $maxStorageSize)) ?></span></div>
 	</div>
 </div>
@@ -110,7 +108,7 @@
 				foreach($results as $pm):
 		?>
 		<tr>
-			<td style="font-size: 14px;"><a href="?module=messenger&amp;read=<?php __($pm['pm_id']) ?>"><?php __($pm['subject']) ?></a></td>
+			<td style="font-size: 14px;"><a href="messenger/<?php __($pm['pm_id']) ?>"><?php __($pm['subject']) ?></a></td>
 			<td><a href="?module=profile&amp;id=<?php __($pm['from_id']) ?>"><?php __($pm['username']) ?></a></td>
 			<td><?php __($pm['sent_date']) ?></td>
 			<td class="min"><input type="checkbox" name="pm[]" value="<?php __($pm['pm_id']) ?>" class="checkDeleteMessage"></td>
@@ -177,7 +175,7 @@
 	</form>
 </div>
 
-<?php elseif($read): ?>
+<?php elseif($id): ?>
 
 <?php
 	$this->header .= '<script type="text/javascript" src="resources/markdown.parser.js"></script>';

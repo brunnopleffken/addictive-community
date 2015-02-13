@@ -4,11 +4,11 @@
 
 <div class="navigation">
 	<div class="navbar">
-		<a href="?module=usercp" class="transition <?php __($menu[0]) ?>"><?php __("C_PROFILE") ?></a>
-		<a href="?module=usercp&amp;view=photo" class="transition <?php __($menu[1]) ?>"><?php __("C_PHOTO") ?></a>
-		<a href="?module=usercp&amp;view=signature" class="transition <?php __($menu[2]) ?>"><?php __("C_SIGNATURE") ?></a>
-		<a href="?module=usercp&amp;view=settings" class="transition <?php __($menu[3]) ?>"><?php __("C_SETTINGS") ?></a>
-		<a href="?module=usercp&amp;view=password" class="transition <?php __($menu[4]) ?>"><?php __("C_PASSWORD") ?></a>
+		<a href="usercp" class="transition <?php __($menu[0]) ?>"><?php __("C_PROFILE") ?></a>
+		<a href="usercp/photo" class="transition <?php __($menu[1]) ?>"><?php __("C_PHOTO") ?></a>
+		<a href="usercp/signature" class="transition <?php __($menu[2]) ?>"><?php __("C_SIGNATURE") ?></a>
+		<a href="usercp/settings" class="transition <?php __($menu[3]) ?>"><?php __("C_SETTINGS") ?></a>
+		<a href="usercp/password" class="transition <?php __($menu[4]) ?>"><?php __("C_PASSWORD") ?></a>
 	</div>
 </div>
 

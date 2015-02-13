@@ -34,12 +34,12 @@
 
 	<tr>
 		<td class="min"><?php __(Html::Crop($_result[$k]['avatar'], 42, 42, "avatar")) ?></td>
-		<td style="font-size: 14px;"><a href="?module=profile&amp;id=<?php __($_result[$k]['m_id']) ?>"><b><?php __($_result[$k]['username']) ?></b></a></td>
+		<td style="font-size: 14px;"><a href="profile/<?php __($_result[$k]['m_id']) ?>"><b><?php __($_result[$k]['username']) ?></b></a></td>
 		<td><?php __($_result[$k]['joined']) ?></td>
 		<td><?php __($_result[$k]['posts']) ?></td>
 		<td><?php __($_result[$k]['location']) ?></td>
 		<td><?php __($_result[$k]['name']) ?></td>
-		<td class="min" style="font-size: 16px"><a href="?module=profile&amp;id=1"><i class="fa fa-search"></i></a></td>
+		<td class="min" style="font-size: 16px"><a href="profile/<?php __($_result[$k]['m_id']) ?>"><i class="fa fa-search"></i></a></td>
 	</tr>
 
 	<?php

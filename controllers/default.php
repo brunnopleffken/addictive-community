@@ -88,7 +88,7 @@
 			ORDER BY s.activity_time DESC;");
 
 	while($members = $this->Db->Fetch($members_online)) {
-		$online[] = "<a href=\"index.php?module=profile&amp;id={$members['member_id']}\">{$members['username']}</a>";
+		$online[] = "<a href=\"profile/{$members['member_id']}\">{$members['username']}</a>";
 	}
 
 	$memberCount = count($online);

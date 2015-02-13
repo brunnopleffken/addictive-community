@@ -19,7 +19,7 @@
 		<div class="author">
 			<a href="#"><?php __(Html::Crop($firstPostInfo['avatar'], 42, 42, "avatar")) ?></a>
 			<div class="authorInfo">
-				<a href="?module=profile&amp;id=<?php __($firstPostInfo['author_id']) ?>"><?php __($firstPostInfo['username']) ?></a><br>
+				<a href="profile/<?php __($firstPostInfo['author_id']) ?>"><?php __($firstPostInfo['username']) ?></a><br>
 				<div><?php __($firstPostInfo['member_title']) ?></div>
 				<?php __($firstPostInfo['posts']) ?> <?php __("T_POSTS_LOWCASE") ?>
 			</div>
@@ -63,7 +63,7 @@
 			<?php if($threadInfo['obsolete']): ?>
 				<a href="javascript:void()" class="defaultButton disabled transition"><?php __("T_BTN_OBSOLETE") ?></a>
 			<?php elseif($threadInfo['locked'] == 0 && $allowToReply): ?>
-				<a href="?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition"><?php __("T_BTN_ADD") ?></a>
+				<a href="post/<?php __($threadId) ?>/thread" class="defaultButton transition"><?php __("T_BTN_ADD") ?></a>
 			<?php else: ?>
 				<a href="javascript:void()" class="defaultButton disabled transition"><?php __("T_BTN_LOCKED") ?></a>
 			<?php endif; ?>
@@ -79,11 +79,11 @@
 <div class="postReply <?php __($_replyResult[$k]['bestanswer_class']) ?>">
 	<div class="author">
 		<div class="photostack">
-			<a href="?module=profile&amp;id=<?php __($_replyResult[$k]['author_id']) ?>">
+			<a href="profile/<?php __($_replyResult[$k]['author_id']) ?>">
 				<?php __(Html::Crop($_replyResult[$k]['avatar'], 96, 96, "avatar")) ?>
 			</a>
 		</div>
-		<p class="name"><a href="?module=profile&amp;id=<?php __($_replyResult[$k]['author_id']) ?>"><?php __($_replyResult[$k]['username']) ?></a></p>
+		<p class="name"><a href="profile/<?php __($_replyResult[$k]['author_id']) ?>"><?php __($_replyResult[$k]['username']) ?></a></p>
 		<p class="memberTitle"><?php __($_replyResult[$k]['member_title']) ?></p>
 		<ul class="userInfo">
 			<li><b><?php __("T_POST_POSTS") ?></b> <?php __($_replyResult[$k]['posts']) ?> <?php __("T_POSTS_LOWCASE") ?></li>
@@ -132,7 +132,7 @@
 			<?php if($threadInfo['obsolete']): ?>
 				<a href="javascript:void()" class="defaultButton disabled transition">Obsolete Thread</a>
 			<?php elseif($threadInfo['locked'] == 0 && $allowToReply): ?>
-				<a href="?module=post&amp;act=thread&amp;id=<?php __($threadId) ?>" class="defaultButton transition">Add Reply</a>
+				<a href="post/<?php __($threadId) ?>/thread" class="defaultButton transition">Add Reply</a>
 			<?php else: ?>
 				<a href="javascript:void()" class="defaultButton disabled transition">Locked</a>
 			<?php endif; ?>
@@ -148,7 +148,7 @@
 		<?php foreach($_relatedThreadList as $k => $v): ?>
 			<div class="item">
 				<span><?php __($_relatedThreadList[$k]['thread_date']) ?></span>
-				<a href="?module=thread&amp;id=<?php echo $_relatedThreadList[$k]['t_id'] ?>"><?php __($_relatedThreadList[$k]['title']) ?></a>
+				<a href="thread/<?php echo $_relatedThreadList[$k]['t_id'] ?>"><?php __($_relatedThreadList[$k]['title']) ?></a>
 			</div>
 		<?php endforeach; ?>
 	<?php else: ?>

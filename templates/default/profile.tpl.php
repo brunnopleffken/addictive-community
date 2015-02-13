@@ -17,12 +17,12 @@
 
 <div class="navigation">
 	<div class="navbar">
-		<a href="?module=profile&amp;id=<?php __($id) ?>" class="transition selected"><?php __("P_PROFILE") ?></a>
+		<a href="profile/<?php __($id) ?>" class="transition selected"><?php __("P_PROFILE") ?></a>
 	</div>
 	<div class="subnav">
-		<a href="?module=profile&amp;id=<?php __($id) ?>" class="transition"><?php __("P_MY_PROFILE") ?></a>
-		<a href="?module=profile&amp;id=<?php __($id) ?>&amp;act=posts" class="transition"><?php __("P_LAST_POSTS") ?></a>
-		<a href="?module=profile&amp;id=<?php __($id) ?>&amp;act=attachments" class="transition"><?php __("P_ATTACHMENTS") ?></a>
+		<a href="profile/<?php __($id) ?>" class="transition"><?php __("P_MY_PROFILE") ?></a>
+		<a href="profile/<?php __($id) ?>/posts" class="transition"><?php __("P_LAST_POSTS") ?></a>
+		<a href="profile/<?php __($id) ?>/attachments" class="transition"><?php __("P_ATTACHMENTS") ?></a>
 	</div>
 </div>
 

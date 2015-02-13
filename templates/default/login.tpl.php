@@ -25,7 +25,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" class="center"><?php __("L_NO_ACCOUNT", array("?module=register")) ?></td>
+			<td colspan="2" class="center"><?php __("L_NO_ACCOUNT", array("register")) ?></td>
 		</tr>
 		<tr>
 			<td colspan="2" class="center">

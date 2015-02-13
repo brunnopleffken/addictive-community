@@ -23,8 +23,8 @@
 
 <div class="fright">
 	<form>
-		<input type="button" onclick="window.location.href='?module=calendar&view=addevent'" value="<?php __("C_ADD") ?>">
-		<input type="button" onclick="window.location.href='?module=calendar'" value="<?php __("C_SHOW") ?>">
+		<input type="button" onclick="window.location.href='calendar/addevent'" value="<?php __("C_ADD") ?>">
+		<input type="button" onclick="window.location.href='calendar'" value="<?php __("C_SHOW") ?>">
 	</form>
 </div>
 

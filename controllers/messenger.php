@@ -155,16 +155,16 @@
 	// Read message
 	// ---------------------------------------------------
 
-	$read = Html::Request("read");
+	$id = Html::Request("id");
 
-	if($read) {
+	if($id) {
 		// Hide "inbox" view
 		$view = null;
 
 		// Get message info and post
 		$this->Db->Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type
 				FROM c_messages p LEFT JOIN c_members m ON (p.from_id = m.m_id)
-				WHERE pm_id = {$read} AND to_id = " . $this->member['m_id'] . ";");
+				WHERE pm_id = {$id} AND to_id = " . $this->member['m_id'] . ";");
 
 		if($this->Db->Rows() == 1) {
 			$message = $this->Db->Fetch();
@@ -172,7 +172,7 @@
 			// If not, set message as read
 			if($message['status'] == 1) {
 				$time = time();
-				$this->Db->Query("UPDATE c_messages SET status = 0, read_date = {$time} WHERE pm_id = {$read}");
+				$this->Db->Query("UPDATE c_messages SET status = 0, read_date = {$time} WHERE pm_id = {$id}");
 			}
 
 			// Format content

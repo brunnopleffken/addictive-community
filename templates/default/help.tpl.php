@@ -12,7 +12,7 @@
 		<img src="<?php __($this->p['IMG']) ?>/help.png" style="margin-top: 6px; margin-right: 15px;">
 	</div>
 	<div>
-		<b><a href="?module=help&amp;id=<?php __($_topics[$k]['h_id']) ?>" style="font-size: 14px"><?php __($_topics[$k]['title']) ?></a></b>
+		<b><a href="help/<?php __($_topics[$k]['h_id']) ?>" style="font-size: 14px"><?php __($_topics[$k]['title']) ?></a></b>
 		<br>
 		<em><?php __($_topics[$k]['short_desc']) ?></em>
 	</div>

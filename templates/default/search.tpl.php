@@ -19,7 +19,7 @@
 			<div class="label">
 				<span class="value">
 					<i class="fa fa-user"></i>
-					<a href="?module=profile&id=<?php __($_result[$k]['m_id']) ?>"><?php __($_result[$k]['username']) ?></a>
+					<a href="profile/<?php __($_result[$k]['m_id']) ?>"><?php __($_result[$k]['username']) ?></a>
 				</span>
 			</div>
 		</td>
@@ -39,7 +39,7 @@
 	</tr>
 	<tr>
 		<td class="content" colspan="5">
-			<a href="?module=thread&amp;id=<?php __($_result[$k]['t_id']) ?>" class="title"><?php __($_result[$k]['title']) ?></a>
+			<a href="thread/<?php __($_result[$k]['t_id']) ?>" class="title"><?php __($_result[$k]['title']) ?></a>
 			<?php __($_result[$k]['post']) ?>
 		</td>
 	</tr>

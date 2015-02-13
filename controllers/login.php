@@ -40,7 +40,7 @@
 						header("Location: " . getenv("HTTP_REFERER"));
 					}
 					else {
-						header("Location: index.php");
+						header("Location: " . $this->Core->config['general_communityurl']);
 					}
 				}
 				else {
@@ -55,6 +55,7 @@
 			break;
 
 		case "logout":
+
 			// Get referrer URL and member ID
 			$from = getenv('HTTP_REFERER');
 			$m_id = $this->member['m_id'];
@@ -63,7 +64,7 @@
 			$this->Session->DestroySession($m_id);
 
 			// Redirect
-			header("Location: " . $from);
+			header("Location: " . $this->Core->config['general_communityurl']);
 
 			exit;
 			break;

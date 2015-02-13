@@ -248,11 +248,11 @@
 		if($threadInfo['author_member_id'] == $this->member['m_id'] && $result['author_id'] != $this->member['m_id']) {
 			if($result['best_answer'] == 0) {
 				// Set post as Best Answer
-				$result['thread_controls'] = "<a href='?module=thread&amp;act=setbestanswer&amp;id={$result['p_id']}' class='smallButton grey transition'>" . i18n::Translate("T_BEST_SET") . "</a>";
+				$result['thread_controls'] = "<a href='thread/{$result['p_id']}/setbestanswer' class='smallButton grey transition'>" . i18n::Translate("T_BEST_SET") . "</a>";
 			}
 			else {
 				// Unset post as Best Answer
-				$result['thread_controls'] = "<a href='?module=thread&amp;act=unsetbestanswer&amp;id={$result['p_id']}' class='smallButton grey transition'>" . i18n::Translate("T_BEST_UNSET") . "</a>";
+				$result['thread_controls'] = "<a href='thread/{$result['p_id']}/unsetbestanswer' class='smallButton grey transition'>" . i18n::Translate("T_BEST_UNSET") . "</a>";
 			}
 		}
 

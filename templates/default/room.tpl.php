@@ -12,14 +12,14 @@
 
 <div class="navigation">
 	<div class="navbar">
-		<a href="?module=room&amp;id=<?php __($roomId) ?>" class="transition <?php __($menu[0]) ?>"><?php __("R_ALL") ?></a>
+		<a href="room/<?php __($roomId) ?>" class="transition <?php __($menu[0]) ?>"><?php __("R_ALL") ?></a>
 		<?php if($this->IsMember()) __($myThreadsMenu) ?>
 	</div>
 	<div class="subnav">
-		<a href="?module=room&amp;id=<?php __($roomId) ?>" class="transition"><?php __("R_LAST_REPLY") ?></a>
-		<a href="?module=room&amp;id=<?php __($roomId) ?>&amp;act=topreplies" class="transition"><?php __("R_TOP_THREADS") ?></a>
-		<a href="?module=room&amp;id=<?php __($roomId) ?>&amp;act=noreplies" class="transition"><?php __("R_NO_REPLIES") ?></a>
-		<a href="?module=room&amp;id=<?php __($roomId) ?>&amp;act=bestanswered" class="transition"><?php __("R_ANSWERED") ?></a>
+		<a href="room/<?php __($roomId) ?>" class="transition"><?php __("R_LAST_REPLY") ?></a>
+		<a href="room/<?php __($roomId) ?>/topreplies" class="transition"><?php __("R_TOP_THREADS") ?></a>
+		<a href="room/<?php __($roomId) ?>/noreplies" class="transition"><?php __("R_NO_REPLIES") ?></a>
+		<a href="room/<?php __($roomId) ?>/bestanswered" class="transition"><?php __("R_ANSWERED") ?></a>
 	</div>
 </div>
 
@@ -35,7 +35,7 @@
 			<?php __($_thread[$k]['author_avatar']) ?>
 		</td>
 		<td class="middle">
-			<a href="?module=thread&amp;id=<?php __($_thread[$k]['t_id']) ?>" class="title"><?php __($_thread[$k]['title']) ?></a>
+			<a href="thread/<?php __($_thread[$k]['t_id']) ?>" class="title"><?php __($_thread[$k]['title']) ?></a>
 			<div class="desc"><?php __($_thread[$k]['description']) ?></div>
 			<div class="author">
 				<i class="fa fa-user"></i>
@@ -50,7 +50,7 @@
 				<i class="fa fa-fw fa-eye"></i><span class="value"><?php __("R_VIEWS", array($_thread[$k]['views'])) ?></span>
 			</div>
 			<div class="label">
-				<i class="fa fa-fw fa-user"></i><span class="value"><a href="?module=profile&amp;id=<?php __($_thread[$k]['lastpost_member_id']) ?>" title="<?php __("R_LAST_POST_BY", array($_thread[$k]['lastpost_name'])) ?>"><?php __($_thread[$k]['lastpost_name']) ?></a></span>
+				<i class="fa fa-fw fa-user"></i><span class="value"><a href="profile/<?php __($_thread[$k]['lastpost_member_id']) ?>" title="<?php __("R_LAST_POST_BY", array($_thread[$k]['lastpost_name'])) ?>"><?php __($_thread[$k]['lastpost_name']) ?></a></span>
 			</div>
 			<div class="label">
 				<i class="fa fa-fw fa-clock-o"></i><span class="value"><?php __($_thread[$k]['lastpost_date']) ?></span>

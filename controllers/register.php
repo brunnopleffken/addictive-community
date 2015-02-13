@@ -79,9 +79,9 @@
 			);
 
 			// Find for already registered email address
-			$this->Db->Query("SELECT email FROM c_members "
-							 . "WHERE email = '{$registerInfo['email']}' OR "
-							 . "username = '{$registerInfo['username']}';");
+			$this->Db->Query("SELECT email FROM c_members
+					WHERE email = '{$registerInfo['email']}' OR
+					username = '{$registerInfo['username']}';");
 			$emailExistsCount = $this->Db->Rows();
 
 			if($emailExistsCount > 0) {

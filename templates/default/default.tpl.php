@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title><?php echo $html['title'] . $this->Core->config['general_communityname'] ?> (Powered by Addictive Community)</title>
+	<base href="<?php echo $this->Core->config['general_communityurl'] ?>">
 	<!-- META -->
 	<meta name="generator" content="Addictive Community <?php VERSION ?>">
 	<meta name="description" content="<?php echo $this->Core->config['seo_description'] ?>">
@@ -35,10 +36,10 @@
 				<?php if($this->member['usergroup'] == 1): ?>
 					<a href="admin/" target="_blank" class="transition">Admin CP</a>
 				<?php endif; ?>
-				<a href="?module=search" class="transition"><?php __("SEARCH") ?></a>
-				<a href="?module=members" class="transition"><?php __("MEMBERLIST") ?></a>
-				<a href="?module=calendar" class="transition"><?php __("CALENDAR") ?></a>
-				<a href="?module=help" class="transition"><?php __("HELP") ?></a>
+				<a href="search" class="transition"><?php __("SEARCH") ?></a>
+				<a href="members" class="transition"><?php __("MEMBERLIST") ?></a>
+				<a href="calendar" class="transition"><?php __("CALENDAR") ?></a>
+				<a href="help" class="transition"><?php __("HELP") ?></a>
 			</div>
 			<div class="fix"></div>
 		</div>
@@ -46,7 +47,7 @@
 
 	<div id="logo">
 		<div class="wrapper">
-			<a href="index.php"><img src="<?php echo $this->p['IMG'] . "/" . $this->Core->config['general_communitylogo'] ?>" class="logo" alt="<?php echo $this->Core->config['general_communityname'] ?>"></a>
+			<a href="#"><img src="<?php echo $this->p['IMG'] . "/" . $this->Core->config['general_communitylogo'] ?>" class="logo" alt="<?php echo $this->Core->config['general_communityname'] ?>"></a>
 			<div id="search">
 				<form action="index.php" method="get" class="validate">
 					<input type="text" name="q" size="25" class="required" value="<?php echo Html::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>">
@@ -58,7 +59,7 @@
 	</div>
 
 	<div class="wrapper">
-		<div id="breadcrumb"><a href="index.php"><?php echo $this->Core->config['general_communityname'] ?></a> <?php echo $html['breadcrumb'] ?></div>
+		<div id="breadcrumb"><a href="#"><?php echo $this->Core->config['general_communityname'] ?></a> <?php echo $html['breadcrumb'] ?></div>
 	</div>
 
 	<div class="wrapper">
@@ -71,7 +72,7 @@
 							<div class="user">
 								<div class="userInfo">
 									<b><?php __("SIDEBAR_WELCOME") ?></b><br>
-									<a class="fancybox fancybox.ajax" href="?module=login"><?php __("SIDEBAR_LOGIN") ?></a> | <a href="?module=register" class="highlight"><?php __("SIDEBAR_C_ACCOUNT") ?></a>
+									<a class="fancybox fancybox.ajax" href="login"><?php __("SIDEBAR_LOGIN") ?></a> | <a href="register" class="highlight"><?php __("SIDEBAR_C_ACCOUNT") ?></a>
 								</div>
 							</div>
 						</div>
@@ -82,8 +83,8 @@
 									<?php __(Html::Crop($this->member['avatar'], 30, 30, "img")) ?>
 								</div>
 								<div class="userInfo">
-									<b><a href="?module=profile&amp;id=<?php echo $this->member['m_id'] ?>" title="<?php __("SIDEBAR_PROFILE", array($this->member['username'])) ?>"><?php __($this->member['username']) ?></a></b><br>
-									<a href="?module=usercp"><?php __("SIDEBAR_USERCP") ?></a> | <a href="?module=messenger"><?php __("SIDEBAR_INBOX", array($unreadMessages['total'])) ?></a> | <a href="?module=login&amp;act=logout"><?php __("SIDEBAR_LOGOUT") ?></a>
+									<b><a href="profile/<?php echo $this->member['m_id'] ?>" title="<?php __("SIDEBAR_PROFILE", array($this->member['username'])) ?>"><?php __($this->member['username']) ?></a></b><br>
+									<a href="usercp"><?php __("SIDEBAR_USERCP") ?></a> | <a href="messenger"><?php __("SIDEBAR_INBOX", array($unreadMessages['total'])) ?></a> | <a href="logout"><?php __("SIDEBAR_LOGOUT") ?></a>
 								</div>
 							</div>
 						</div>
@@ -94,7 +95,7 @@
 						<div class="list">
 							<?php foreach($_siderooms as $k => $v): ?>
 								<div class="item transition">
-									<a href="?module=room&amp;id=<?php echo $_siderooms[$k]['r_id'] ?>">
+									<a href="room/<?php echo $_siderooms[$k]['r_id'] ?>">
 										<?php echo $_siderooms[$k]['name'] ?>
 									</a>
 									<span><?php echo $_siderooms[$k]['threads'] ?></span>
@@ -119,7 +120,7 @@
 							<span class="statsName fleft"><?php __("SIDEBAR_S_THREADS") ?></span><b class="fright"><?php echo $_stats['threads'] ?></b><br>
 							<span class="statsName fleft"><?php __("SIDEBAR_S_REPLIES") ?></span><b class="fright"><?php echo $_stats['replies'] ?></b><br>
 							<span class="statsName fleft"><?php __("SIDEBAR_S_MEMBERS") ?></span><b class="fright"><?php echo $_stats['members'] ?></b><br>
-							<span class="statsName fleft"><?php __("SIDEBAR_S_LAST") ?></span><b class="fright"><a href="?module=profile&amp;id=<?php echo $_stats['lastmemberid'] ?>"><?php echo $_stats['lastmembername'] ?></a></b>
+							<span class="statsName fleft"><?php __("SIDEBAR_S_LAST") ?></span><b class="fright"><a href="profile/<?php echo $_stats['lastmemberid'] ?>"><?php echo $_stats['lastmembername'] ?></a></b>
 							<div class="fix"></div>
 						</div>
 					</div>

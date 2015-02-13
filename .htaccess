@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# AdminCP is... well... admin! Do not rewrite it!
+RewriteRule ^(admin|user)($|/) - [L]
+
+# /logout is not a controller, just a shortcut
+RewriteRule ^(logout)$ index.php?module=login&act=logout
+RewriteRule ^(logout)/$ index.php?module=login&act=logout
+
+# /foo = index.php?module=foo
+RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?module=$1
+RewriteRule ^([a-zA-Z0-9_-]+)/$ index.php?module=$1
+
+# /foo/2 = index.php?module=foo&id=2
+RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)$ index.php?module=$1&id=$2
+RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)/$ index.php?module=$1&id=$2
+
+# /foo/bar = index.php?module=foo&view=bar
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z]+)$ index.php?module=$1&view=$2
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z]+)/$ index.php?module=$1&view=$2
+
+# /foo/2/bar = index.php?module=foo&id=2&act=bar
+RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)/([a-zA-Z0-9_-]+)$ index.php?module=$1&id=$2&act=$3
+RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)/([a-zA-Z0-9_-]+)/$ index.php?module=$1&id=$2&act=$3
+
+# Thread specific URLs (SEO friendly)
+# /thread/1-lorem-ipsum-dolor-sit-amet = index.php?module=thread&id=1
+RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)\-([a-zA-Z0-9-]+)$ index.php?module=$1&id=$2
+</IfModule>

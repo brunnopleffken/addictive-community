@@ -92,7 +92,7 @@
 
 				Template::Add ("<tr>
 					<td class=\"tLabel\">{$threads['start_date']}</td>
-					<td><a href=\"index.php?module=thread&amp;id={$threads['t_id']}\">{$threads['title']}</a></td>
+					<td><a href=\"thread/{$threads['t_id']}\">{$threads['title']}</a></td>
 				</tr>");
 			}
 
@@ -111,7 +111,7 @@
 
 				Template::Add("<tr>
 					<td class=\"tLabel\">{$posts['post_date']}</td>
-					<td><a href=\"index.php?module=thread&amp;id={$posts['t_id']}\"><b>{$posts['title']}</b></a></td>
+					<td><a href=\"thread/{$posts['t_id']}\"><b>{$posts['title']}</b></a></td>
 				</tr>
 				<tr>
 					<td colspan=\"2\" class=\"parsing\" style=\"border-bottom: 1px solid #eee; padding: 10px 10px 20px 10px\">{$posts['post']}</td>
