@@ -78,7 +78,7 @@
 			// Get current date/year, if not set
 			// ---------------------------------------------------
 
-			$c_month	= (Html::Request("month")) ? Html::Request("month") : date("n");
+			$c_month	= (Html::Request("month")) ? Html::Request("month") : date("m");
 			$c_year		= (Html::Request("year")) ? Html::Request("year") : date("Y");
 
 			/// ---------------------------------------------------
@@ -169,7 +169,7 @@
 				}
 				else {
 					Template::Add("<td class='day' rel='{$date}' {$eventMarker}>
-						<a href=\"index.php?module=calendar&amp;act=event&amp;date={$date}\">{$currentDay}</a></td>");
+						<a href=\"calendar/event/{$date}\">{$currentDay}</a></td>");
 				}
 
 				// Increment counters

@@ -10,8 +10,7 @@
 ?>
 
 <div class="box">
-	<form action="index.php" method="get">
-		<input type="hidden" name="module" value="calendar">
+	<form action="" method="post" id="calendarSetDate">
 		<?php __("C_GOTO") ?>:
 		<?php __(Html::Months("month", false, $this->t, $c_month)) ?>
 		<?php __(Html::Years("year", 3, 3)) ?>

@@ -333,4 +333,15 @@ jQuery(document).ready(function($) {
 		}
 	});
 
+	// ---------------------------------------------------
+	// SET MONTH AND YEAR ON CALENDAR
+	// ---------------------------------------------------
+
+	$('#calendarSetDate').submit(function(event) {
+		var data = $(this).serializeArray();
+		window.location.href = 'calendar/' + data[0].value + '/' + data[1].value;
+
+		event.preventDefault();
+	})
+
 });
