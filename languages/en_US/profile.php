@@ -13,7 +13,7 @@
 	$t["P_LOCATION"] = "Location";
 	$t["P_WEBSITE"] = "Website";
 	$t["P_SIGNATURE"] = "Signature";
-	$t["P_STATS"] = "Community Statistics";
+	$t["P_STATS"] = "Member Statistics";
 	$t["P_BEST_ANSWERS"] = "Best Answers";
 	$t["P_BEST_POSTS"] = "%d post(s)";
 	$t["P_CONTACT_INFO"] = "Contact Information";
