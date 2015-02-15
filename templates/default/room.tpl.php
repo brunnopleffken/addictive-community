@@ -1,7 +1,7 @@
 <div class="roomTitleBar">
 	<div class="title fleft"><span><?php __($this->Core->config['general_communityname']) ?></span><?php __($roomInfo['name']) ?></div>
 	<?php if($this->IsMember()): ?>
-		<div class="buttons fright"><a href="?module=newthread&amp;room=<?php __($roomId) ?>" class="defaultButton transition"><?php __("R_NEW_THREAD") ?></a></div>
+		<div class="buttons fright"><a href="newthread/<?php __($roomId) ?>" class="defaultButton transition"><?php __("R_NEW_THREAD") ?></a></div>
 	<?php endif; ?>
 </div>
 
@@ -75,6 +75,6 @@
 
 <div class="roomTitleBar">
 	<?php if($this->IsMember()): ?>
-		<div class="buttons fright"><a href="?module=newthread&amp;room=<?php __($roomId) ?>" class="defaultButton transition"><?php __("R_NEW_THREAD") ?></a></div>
+		<div class="buttons fright"><a href="newthread/<?php __($roomId) ?>" class="defaultButton transition"><?php __("R_NEW_THREAD") ?></a></div>
 	<?php endif; ?>
 </div>

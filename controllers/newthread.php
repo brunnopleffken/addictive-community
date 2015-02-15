@@ -21,7 +21,7 @@
 	// ---------------------------------------------------
 
 	// Get room ID
-	$roomId = Html::Request("room", true);
+	$roomId = Html::Request("id", true);
 
 	$this->Db->Query("SELECT r_id, name FROM c_rooms WHERE r_id = {$roomId};");
 	$roomInfo = $this->Db->Fetch();
