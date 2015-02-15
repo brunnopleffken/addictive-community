@@ -56,7 +56,15 @@
 			}
 
 			// Member gender icon
-			$info['gender'] = ($info['gender']) ? "<img src='{$this->p['IMG']}/gender-{$info['gender']}.png' alt='{$info['gender']}'>" : "---";
+			if($info['gender'] == "M") {
+				$info['gender'] = "<i class='fa fa-fw fa-mars'></i> Male";
+			}
+			elseif($info['gender'] == "F") {
+				$info['gender'] = "<i class='fa fa-fw fa-venus'></i> Female";
+			}
+			else {
+				$info['gender'] = "---";
+			}
 
 			// Location and Google Maps link
 			$info['location_encoded'] = urlencode($info['location']);

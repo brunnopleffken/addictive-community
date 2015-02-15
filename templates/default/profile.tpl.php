@@ -82,7 +82,7 @@
 				<td><?php __($info['email']) ?></td>
 			</tr>
 			<tr>
-				<td class="min" style="font-size: 16px"><i class="fa fa-fw fa-facebook-square"></i></td>
+				<td class="min" style="font-size: 16px"><i class="fa fa-fw fa-facebook-official"></i></td>
 				<td><a href="https://www.facebook.com/<?php __($info['im_facebook']) ?>" target="_blank" rel="nofollow">fb.com/<?php __($info['im_facebook']) ?></a></td>
 			</tr>
 			<tr>
