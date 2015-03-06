@@ -228,7 +228,7 @@ jQuery(document).ready(function($) {
 				$userField.addClass('error');
 				$passField.addClass('error');
 
-				$submit.attr('disabled', 'disabled').val($submit.data('error-message'));
+				$submit.attr('disabled', 'disabled').val(data.message);
 
 				clearTimeout(timer);
 				timer = setTimeout(function() {

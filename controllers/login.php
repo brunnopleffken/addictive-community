@@ -79,10 +79,18 @@
 						WHERE username = '{$username}' AND password = '{$password}';");
 
 				if($this->Db->Rows()) {
-					$data = array("authenticated" => "true");
+
+					$user_info = $this->Db->FetchArray();
+
+					if($user_info[0]['usergroup'] == 4) {
+						$data = array("authenticated" => "false", "message" => "You've been banned");
+					}
+					else {
+						$data = array("authenticated" => "true");
+					}
 				}
 				else {
-					$data = array("authenticated" => "false");
+					$data = array("authenticated" => "false", "message" => "Wrong username or password");
 				}
 			}
 
