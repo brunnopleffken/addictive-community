@@ -162,9 +162,7 @@ HTML;
 				<a href="main.php?act=members&amp;p=add">Add New Member</a>
 				<a href="main.php?act=members&amp;p=ban">Ban Member</a>
 				<a href="main.php?act=members&amp;p=manage">Manage Members</a>
-				<a href="main.php?act=members&amp;p=ranks">Ranks</a>
 				<a href="main.php?act=members&amp;p=usergroups">User Groups</a>
-				<a href="main.php?act=members&amp;p=subscriptions">Subscriptions</a>
 			</div>
 HTML;
 		}
