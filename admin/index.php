@@ -1,5 +1,5 @@
 <?php
-	
+
 	## ---------------------------------------------------
 	#  ADDICTIVE COMMUNITY
 	## ---------------------------------------------------
@@ -8,16 +8,16 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	require_once("../init.php");
 	require_once("../kernel/class.html.php");
-	
+
 	// Display error messages
 	// e.g.: index.php?error=1
-	
+
 	if(Html::Request("error")) {
 		$error = Html::Request("error");
-		
+
 		switch($error) {
 			case 1:
 				$message = Html::Notification("Wrong username and/or password. Please, try again!", "failure");
@@ -27,6 +27,9 @@
 				break;
 			case 3:
 				$message = Html::Notification("This administrator session has expired.", "warning");
+				break;
+			case 4:
+				$message = Html::Notification("You don't have permission to access Admin CP.", "failure");
 				break;
 		}
 	}
@@ -58,7 +61,7 @@
 			<div class="fright"><a href="../" target="_blank" class="toplinks transition">Back to Community &raquo;</a></div>
 			<div class="fix"></div>
 	</div>
-	
+
 	<div id="login-wrapper">
 		<div style="display: table-row">
 			<div style="display: table-cell; vertical-align: middle;">
@@ -85,7 +88,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 
 </body>
 </html>
