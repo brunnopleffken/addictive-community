@@ -31,7 +31,7 @@ Discussion forum software, written in object-oriented PHP. This is an Alpha vers
 
 ### Requirements ###
 
-* Webserver running on any major Operating System with support for PHP;
+* Apache 2 webserver running on any major Operating System;
 * PHP 5.3 or higher;
 * MySQL 5.1 or higher;
 
