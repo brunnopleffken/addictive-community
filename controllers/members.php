@@ -30,10 +30,10 @@
 	// If there is a letter selected, don't let "All" selected
 
 	if(Html::Request("letter")) {
-		$first = "<a href=\"?module=members\">" . i18n::Translate("M_ALL") . "</a>\n";
+		$first = "<a href=\"members\">" . i18n::Translate("M_ALL") . "</a>\n";
 	}
 	else {
-		$first = "<a href=\"?module=members\" class=\"page-selected\">" . i18n::Translate("M_ALL") . "</a>\n";
+		$first = "<a href=\"members\" class=\"page-selected\">" . i18n::Translate("M_ALL") . "</a>\n";
 	}
 
 	// Make letter list
@@ -49,13 +49,13 @@
 		}
 
 		if(Html::Request("order")) {
-			$order = "&amp;order=" . $_REQUEST['order'];
+			$order = "/filter/" . $_REQUEST['order'];
 		}
 		else {
 			$order = "";
 		}
 
-		$letterList .= "<a href=\"?module=members&amp;letter={$value}{$order}\" {$selected}>{$label}</a>\n";
+		$letterList .= "<a href=\"members/letter/{$value}{$order}\" {$selected}>{$label}</a>\n";
 	}
 
 	// ---------------------------------------------------
@@ -114,6 +114,5 @@
 	// Page information
 	$pageinfo['title'] = i18n::Translate("M_TITLE");
 	$pageinfo['bc'] = array(i18n::Translate("M_TITLE"));
-
 
 ?>

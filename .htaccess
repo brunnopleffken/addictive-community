@@ -7,7 +7,15 @@ RewriteRule ^(admin|user)($|/) - [L]
 # /logout is not a controller, just a shortcut
 RewriteRule ^(logout)/?$ index.php?module=login&act=logout
 
-# Calendar specifig URLs
+# Member list specific URLs
+# /members/filter/[join|post]
+RewriteRule ^(members)/(filter)/([a-zA-Z]+)/?$ index.php?module=members&order=$3
+# /members/letter/a/filter/[join|post]
+RewriteRule ^(members)/(letter)/([a-zA-Z]+)/(filter)/([a-zA-Z]+)/?$ index.php?module=members&letter=$3&order=$5
+# /members/letter/a
+RewriteRule ^(members)/(letter)/([a-zA-Z]+)/?$ index.php?module=members&letter=$3
+
+# Calendar specific URLs
 # /calendar/event/yyyy-mm-dd
 RewriteRule ^(calendar)/(event)/([a-zA-Z0-9_-]+)/?$ index.php?module=calendar&act=event&date=$3
 # /calendar/5/2015

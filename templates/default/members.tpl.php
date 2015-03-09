@@ -11,9 +11,9 @@
 	<tr>
 		<th colspan="7">
 			<div class="fright">
-				<a href="?module=members" class="smallButton grey white transition"><?php __("M_MEMBER_NAME") ?></a>
-				<a href="?module=members&amp;order=join" class="smallButton grey white transition"><?php __("M_JOIN_DATE") ?></a>
-				<a href="?module=members&amp;order=post" class="smallButton grey white transition"><?php __("M_POST_COUNT") ?></a>
+				<a href="members" class="smallButton grey white transition"><?php __("M_MEMBER_NAME") ?></a>
+				<a href="members/filter/join" class="smallButton grey white transition"><?php __("M_JOIN_DATE") ?></a>
+				<a href="members/filter/post" class="smallButton grey white transition"><?php __("M_POST_COUNT") ?></a>
 			</div>
 		</th>
 	</tr>
