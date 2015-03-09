@@ -30,7 +30,8 @@
 	// Get member list
 
 	$Db->Query("SELECT m.m_id, m.username, m.email, m.joined, m.posts, m.usergroup, u.g_id, u.name
-			FROM c_members m INNER JOIN c_usergroups u ON (m.usergroup = u.g_id);");
+			FROM c_members m INNER JOIN c_usergroups u ON (m.usergroup = u.g_id)
+			ORDER BY m_id DESC LIMIT 10;");
 
 	while($member = $Db->Fetch()) {
 		$member['joined'] = $Core->DateFormat($member['joined']);
@@ -57,7 +58,7 @@
 			<form action="process.php?do=optimize" method="post">
 				<table class="table-list">
 					<tr>
-						<th colspan="8">Registered Members</th>
+						<th colspan="8">Last 10 Registered Members</th>
 					</tr>
 					<tr class="subtitle">
 						<td width="1%"></td>
