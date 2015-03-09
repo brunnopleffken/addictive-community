@@ -14,7 +14,7 @@
 	$Db->Query("SELECT * FROM c_templates ORDER BY name ASC;");
 
 	while($template = $Db->Fetch()) {
-		$template['active']  = ($template['active'] == 1) ? "<img src=\"images/tick.png\">" : "";
+		$template['active']  = ($template['active'] == 1) ? "<i class='fa fa-check'></i>" : "";
 		//$template['default'] = ($template['default'] == 1) ? "<img src=\"images/tick.png\">" : "";
 
 		Template::Add("<tr>
@@ -23,9 +23,9 @@
 				<td>{$template['author_name']}</td>
 				<td>{$template['active']}</td>
 				<td></td>
-				<td><a href=\"main.php?act=languages&p=edit&id={$template['tpl_id']}\"><img src=\"images/edit.png\"></a></td>
-				<td><a href=\"main.php?act=languages&p=download&id={$template['tpl_id']}\"><img src=\"images/download-files.png\"></a></td>
-				<td><!-- <a href=\"main.php?act=languages&p=delete&id={$template['tpl_id']}\"><img src=\"images/delete.png\"></a> --></td>
+				<td><a href='main.php?act=languages&p=edit&id={$template['tpl_id']}'><i class='fa fa-pencil'></i></a></td>
+				<td><a href='main.php?act=languages&p=download&id={$template['tpl_id']}'><i class='fa fa-download'></i></a></td>
+				<td><!-- <a href='main.php?act=languages&p=delete&id={$template['tpl_id']}'><i class='fa fa-remove'></i></a> --></td>
 			</tr>");
 	}
 

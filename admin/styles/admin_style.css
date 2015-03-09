@@ -115,6 +115,7 @@ input[type=file]:focus, textarea:focus { border: 1px solid #aaaaaa; transition: 
 .table-list tr th { text-align: left; padding: 10px; background: #465068 url('../images/bar-bg.png') repeat-x; color:#ffffff; font-weight: bold; }
 .table-list .subtitle td { font-weight: bold; font-size: 11px; padding: 5px 8px; background: #ffffff url('../images/bar-bg.png'); border-bottom: 1px solid #ccc; }
 .table-list tr td { padding: 8px; background: #ffffff; border-bottom: 1px solid #eee; }
+.table-list tr td i { color: #000; font-size: 18px; }
 .table-list tr td .avatar { box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2); margin-bottom: -3px; }
 .title { width: 1%; white-space: nowrap; text-align: right; font-weight: bold; }
 .title-fixed { width: 23%; font-weight: bold; }

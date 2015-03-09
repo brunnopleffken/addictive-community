@@ -14,18 +14,18 @@
 	$Db->Query("SELECT * FROM c_languages ORDER BY name ASC;");
 
 	while($lang = $Db->Fetch()) {
-		$lang['active']  = ($lang['active'] == 1) ? "<img src=\"images/tick.png\">" : "";
-		$lang['default'] = ($lang['default'] == 1) ? "<img src=\"images/tick.png\">" : "";
+		$lang['active']  = ($lang['active'] == 1) ? "<i class='fa fa-check'></i>" : "";
+		$lang['default'] = ($lang['default'] == 1) ? "<i class='fa fa-check'></i>" : "";
 
 		Template::Add("<tr>
-				<td><a href=\"main.php?act=languages&p=edit&id={$lang['l_id']}\"><b>{$lang['name']}</b></a></td>
+				<td><a href='main.php?act=languages&p=edit&id={$lang['l_id']}'><b>{$lang['name']}</b></a></td>
 				<td>/languages/{$lang['directory']}</td>
 				<td>{$lang['author_name']}</td>
 				<td>{$lang['active']}</td>
 				<td>{$lang['default']}</td>
-				<td><a href=\"main.php?act=languages&p=edit&id={$lang['l_id']}\"><img src=\"images/edit.png\"></a></td>
-				<td><a href=\"main.php?act=languages&p=download&id={$lang['l_id']}\"><img src=\"images/download-files.png\"></a></td>
-				<td><a href=\"main.php?act=languages&p=delete&id={$lang['l_id']}\"><img src=\"images/delete.png\"></a></td>
+				<td><a href='main.php?act=languages&p=edit&id={$lang['l_id']}'><i class='fa fa-pencil'></i></a></td>
+				<td><a href='main.php?act=languages&p=download&id={$lang['l_id']}'><i class='fa fa-download'></i></a></td>
+				<td><a href='main.php?act=languages&p=delete&id={$lang['l_id']}'><i class='fa fa-remove'></i></a></td>
 			</tr>");
 	}
 

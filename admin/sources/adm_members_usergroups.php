@@ -27,11 +27,11 @@
 	$Db->Query("SELECT * FROM c_usergroups");
 
 	while($group = $Db->Fetch()) {
-		$delete = ($group['stock'] == 0) ? "<img src=\"images/delete.png\">" : "-";
+		$delete = ($group['stock'] == 0) ? "<i class='fa fa-remove'></i>" : "-";
 
 		Template::Add("<tr>
 				<td><b>{$group['name']}</b></td>
-				<td><img src=\"images/edit.png\"></td>
+				<td><i class='fa fa-pencil'></i></td>
 				<td>{$delete}</td>
 			</tr>");
 	}

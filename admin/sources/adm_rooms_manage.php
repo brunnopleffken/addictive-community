@@ -8,11 +8,11 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	// Messages
-	
+
 	$msg = (Html::Request("msg")) ? Html::Request("msg") : "";
-	
+
 	switch($msg) {
 		case 1:
 			$message = Html::Notification("The new room has been created successfully.", "success");
@@ -27,38 +27,38 @@
 			$message = "";
 			break;
 	}
-	
+
 	// Room list
-	
+
 	$Db->Query("SELECT * FROM c_rooms ORDER BY name;");
-	
+
 	while($room = $Db->Fetch()) {
 		Template::Add("
 			<tr>
-			<td class=\"min\"><input type=\"checkbox\" name=\"check\" value=\"{$room['r_id']}\"></td>
+			<td class='min'><input type='checkbox' name='check' value='{$room['r_id']}'></td>
 			<td>
 				<b>{$room['name']}</b><br>
 				{$room['description']}
 			</td>
-			<td class=\"min\"><a href=\"main.php?act=rooms&p=edit&id={$room['r_id']}\"><img src=\"images/edit.png\" title=\"Edit\"></a></td>
-			<td class=\"min\"><a href=\"main.php?act=rooms&p=delete&id={$room['r_id']}\"><img src=\"images/delete.png\" title=\"Delete\"></a></td>
-			<td class=\"min\"><a href=\"main.php?act=rooms&p=resync&id={$room['r_id']}\"><img src=\"images/sync.png\" title=\"Resynchronize\"></a></td>
+			<td class='min'><a href='main.php?act=rooms&p=edit&id={$room['r_id']}'><i class='fa fa-pencil'></i></a></td>
+			<td class='min'><a href='main.php?act=rooms&p=delete&id={$room['r_id']}'><i class='fa fa-remove'></i></a></td>
+			<td class='min'><a href='main.php?act=rooms&p=resync&id={$room['r_id']}'><i class='fa fa-refresh'></i></a></td>
 		</tr>
 		");
 	}
-	
+
 ?>
 
 	<h1>Manage Rooms</h1>
-	
+
 	<div id="content">
-	
+
 		<div class="grid-row">
 			<!-- LEFT -->
 			<form action="process.php?do=newroom" method="post">
-			
+
 				<?php echo $message; ?>
-			
+
 				<table class="table-list">
 					<tr>
 						<th colspan="5">
@@ -73,7 +73,7 @@
 					</tr>
 					<?php echo Template::Get(); ?>
 				</table>
-				
+
 				<table>
 					<tr>
 						<td>Selected items:
@@ -81,14 +81,14 @@
 								<option>Resynchronize</option>
 								<option>Delete</option>
 								<option>Set Invisible</option>
-								
+
 							</select>
 							<input type="hidden" name="id" value="">
 							<input type="submit" value="OK">
 						</td>
 					</tr>
 				</table>
-				
+
 			</form>
 		</div>
 
