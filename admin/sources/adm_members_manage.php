@@ -9,6 +9,8 @@
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
 
+	$username = "";
+
 	// Execute queries, if defined
 
 	$do = (Html::Request("do")) ? Html::Request("do") : false;
@@ -43,8 +45,8 @@
 				<td>{$member['joined']}</td>
 				<td>{$member['name']}</td>
 				<td>{$member['posts']}</td>
-				<td><a href=\"?act=members&amp;p=manage&amp;do=edit&amp;id={$member['m_id']}\"><img src='images/edit.png'></a></td>
-				<td><a href=\"?act=members&amp;p=manage&amp;do=delete&amp;id={$member['m_id']}\"><img src='images/delete.png'></a></td>
+				<td><a href='?act=members&amp;p=manage&amp;do=edit&amp;id={$member['m_id']}'><i class='fa fa-pencil'></i></a></td>
+				<td><a href='?act=members&amp;p=manage&amp;do=delete&amp;id={$member['m_id']}'><i class='fa fa-remove'></i></a></td>
 			</tr>");
 	}
 
@@ -54,6 +56,20 @@
 
 	<div id="content">
 		<div class="grid-row">
+			<!-- SEARCH -->
+			<form action="#" method="post">
+				<div class="input-box">
+					<div class="input-box-label">Search</div>
+					<div class="input-box-field">
+						<input type="text" name="username" class="small" value="<?php echo $username ?>">
+						<i>Type at least 2 characters.</i>
+						<div class="fright"><input type="submit" value="Find Member"></div>
+					</div>
+				</div>
+			</form>
+
+			<br>
+
 			<!-- LEFT -->
 			<form action="process.php?do=optimize" method="post">
 				<table class="table-list">
