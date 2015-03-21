@@ -31,7 +31,7 @@
 				"thread_id"   => Html::Request("id", true),
 				"post_date"   => time(),
 				"ip_address"  => $_SERVER['REMOTE_ADDR'],
-				"post"        => String::Sanitize(Html::Request("post")),
+				"post"        => $_POST['post'],
 				"best_answer" => 0,
 				"first_post"  => 0
 			);
