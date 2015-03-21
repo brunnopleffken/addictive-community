@@ -781,6 +781,27 @@ form {
 			vertical-align: text-bottom;
 			width: 16px;
 		}
+		p { margin-bottom: 8px; }
+		blockquote {
+			color: #666;
+			font-family: Georgia, sans-serif;
+			font-style: italic;
+			margin: 20px 60px 0 30px;
+			position: relative;
+			&:after {
+				color: #ddd;
+				content: ('\201C');
+				font-family: Georgia, serif;
+				font-size: 60px;
+				left: -30px;
+				position: absolute;
+				top: 10px;
+			}
+		}
+		ol, ul {
+			margin-left: 25px;
+			margin-bottom: 10px;
+		}
 	}
 	.footer {
 		border-top: 1px solid #eeeeee;
@@ -871,6 +892,27 @@ form {
 				line-height: 1.4em;
 				margin-top: 15px;
 				padding: 10px 0 0 0;
+			}
+			p { margin-bottom: 8px; }
+			blockquote {
+				color: #666;
+				font-family: Georgia, sans-serif;
+				font-style: italic;
+				margin: 20px 60px 0 30px;
+				position: relative;
+				&:after {
+					color: #ddd;
+					content: ('\201C');
+					font-family: Georgia, serif;
+					font-size: 60px;
+					left: -30px;
+					position: absolute;
+					top: 10px;
+				}
+			}
+			ol, ul {
+				margin-left: 25px;
+				margin-bottom: 10px;
 			}
 		}
 		.footer {

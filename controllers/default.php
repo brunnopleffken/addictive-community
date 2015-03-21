@@ -26,7 +26,7 @@
 	// ---------------------------------------------------
 
 	if($this->info['module'] == "thread") {
-		$this->Core->config['seo_description'] = substr($firstPostInfo['post'], 0, 200);
+		$this->Core->config['seo_description'] = substr(strip_tags($firstPostInfo['post']), 0, 200);
 	}
 
 	// ---------------------------------------------------

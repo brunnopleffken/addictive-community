@@ -1,6 +1,5 @@
 <?php
-	$this->header .= '<script type="text/javascript" src="resources/markdown.parser.js"></script>';
-	$this->header .= '<script type="text/javascript">$(document).ready(function(){$(\'#post\').markdownRealTime()});</script>';
+	$this->header = '<script type="text/javascript" src="resources/post.js"></script>';
 ?>
 
 <div class="roomTitleBar">
@@ -12,19 +11,12 @@
 		<div class="inputBox">
 			<div class="label"><?php __("P_POST") ?></div>
 			<div class="field">
-				<?php echo Html::Toolbar() ?>
-				<textarea name="post" id="post" class="full required" rows="12"></textarea>
+				<textarea name="post" id="post" class="full" rows="12"></textarea>
 			</div>
 		</div>
 		<div class="inputBox">
 			<div class="label"><?php __("P_ATTACHMENTS") ?></div>
 			<div class="field"><input type="file" name="attachment"></div>
-		</div>
-		<div class="inputBox">
-			<div class="label"><?php __("P_PREVIEW") ?></div>
-			<div class="field textOnly">
-				<div id="markdownPreview"></div>
-			</div>
 		</div>
 		<div class="fleft">
 			<div class="errorMessage"><?php __("P_ERROR") ?></div>

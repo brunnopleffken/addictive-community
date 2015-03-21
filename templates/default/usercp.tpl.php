@@ -142,19 +142,14 @@
 	?>
 
 	<?php
-		$this->header .= '<script type="text/javascript" src="resources/markdown.parser.js"></script>';
-		$this->header .= '<script type="text/javascript">$(document).ready(function(){$(\'#markdownTextarea\').markdownRealTime()});</script>';
+		$this->header = '<script type="text/javascript" src="resources/usercp.js"></script>';
 	?>
 
 	<form action="" method="post" class="validate">
 		<div class="inputBox">
-			<div class="label"><?php __("C_SIGNATURE_CURRENT") ?></div>
-			<div class="field textOnly" id="markdownPreview"></div>
-		</div>
-		<div class="inputBox">
 			<div class="label"><?php __("C_SIGNATURE_EDIT") ?></div>
 			<div class="field">
-				<textarea name="signature" rows="8" class="large" id="markdownTextarea"><?php __($this->member['signature']) ?></textarea>
+				<textarea name="signature" class="signature large" id="signatureTextarea"><?php __($this->member['signature']) ?></textarea>
 			</div>
 		</div>
 		<div class="fright"><input type="hidden" name="act" value="signature"><input type="submit" value="<?php __("C_SIGNATURE_UPDATE") ?>"></div>

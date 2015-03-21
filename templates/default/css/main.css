@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /** RESET **/
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; border: 0; margin: 0; outline: none; padding: 0; }
 
@@ -178,6 +179,10 @@ form textarea { overflow: auto; }
 .mainPost .title { font-size: 22px; font-weight: bold; letter-spacing: 1px; padding: 20px 15px; }
 .mainPost .text { font-size: 14px; padding: 0px 30px 20px 15px; }
 .mainPost .text img.emoticon { display: inline-block; height: 16px; vertical-align: text-bottom; width: 16px; }
+.mainPost .text p { margin-bottom: 8px; }
+.mainPost .text blockquote { color: #666; font-family: Georgia, sans-serif; font-style: italic; margin: 20px 60px 0 30px; position: relative; }
+.mainPost .text blockquote:after { color: #ddd; content: "“"; font-family: Georgia, serif; font-size: 60px; left: -30px; position: absolute; top: 10px; }
+.mainPost .text ol, .mainPost .text ul { margin-left: 25px; margin-bottom: 10px; }
 .mainPost .footer { border-top: 1px solid #eeeeee; font-size: 11px; padding: 6px 10px; overflow: hidden; }
 .mainPost .footer i { font-size: 14px; }
 
@@ -199,6 +204,10 @@ form textarea { overflow: auto; }
 .postReply .content .text { margin-bottom: 35px; padding: 10px 15px 15px 15px; }
 .postReply .content .text img.emoticon { display: inline-block; height: 16px; vertical-align: text-bottom; width: 16px; }
 .postReply .content .text .signature { border-top: 1px dashed rgba(0, 0, 0, 0.1); color: #777; font-size: 0.8em; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
+.postReply .content .text p { margin-bottom: 8px; }
+.postReply .content .text blockquote { color: #666; font-family: Georgia, sans-serif; font-style: italic; margin: 20px 60px 0 30px; position: relative; }
+.postReply .content .text blockquote:after { color: #ddd; content: "“"; font-family: Georgia, serif; font-size: 60px; left: -30px; position: absolute; top: 10px; }
+.postReply .content .text ol, .postReply .content .text ul { margin-left: 25px; margin-bottom: 10px; }
 .postReply .content .footer { background: rgba(0, 0, 0, 0.01); bottom: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); left: 0; padding: 5px 5px 8px 5px; position: absolute; right: 0; text-align: right; }
 .postReply.bestAnswer { background: #fafff8 url("../images/best-answer.png") no-repeat right top; background-size: 32px; border-left: 3px solid #009900; }
 

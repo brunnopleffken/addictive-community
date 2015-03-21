@@ -15,6 +15,8 @@
 	<link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="resources/select2/select2.css">
 	<link rel="stylesheet" href="resources/fancybox/jquery.fancybox.css" type="text/css" media="screen">
+	<!-- JS CDN -->
+	<script src="resources/tinymce/tinymce.min.js"></script>
 	<!-- JS -->
 	<script src="resources/jquery.min.js" type="text/javascript"></script>
 	<script src="resources/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>

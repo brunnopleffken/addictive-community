@@ -17,16 +17,6 @@
 	$this->Session->NoGuest();
 
 	// ---------------------------------------------------
-	// Get user and room information
-	// ---------------------------------------------------
-
-	// Get room ID
-	$roomId = Html::Request("id", true);
-
-	$this->Db->Query("SELECT r_id, name FROM c_rooms WHERE r_id = {$roomId};");
-	$roomInfo = $this->Db->Fetch();
-
-	// ---------------------------------------------------
 	// Get action
 	// ---------------------------------------------------
 
@@ -58,7 +48,7 @@
 				"thread_id"   => $this->Db->GetLastID(),
 				"post_date"   => $thread['lastpost_date'],
 				"ip_address"  => $_SERVER['REMOTE_ADDR'],
-				"post"        => String::Sanitize(Html::Request("post")),
+				"post"        => $_POST['post'],
 				"best_answer" => 0,
 				"first_post"  => 1
 			);
@@ -86,6 +76,16 @@
 
 			break;
 	}
+
+	// ---------------------------------------------------
+	// Get user and room information
+	// ---------------------------------------------------
+
+	// Get room ID
+	$roomId = Html::Request("id", true);
+
+	$this->Db->Query("SELECT r_id, name FROM c_rooms WHERE r_id = {$roomId};");
+	$roomInfo = $this->Db->Fetch();
 
 	// ---------------------------------------------------
 	// Where are we?
