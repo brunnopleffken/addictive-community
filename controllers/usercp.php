@@ -47,7 +47,7 @@
 				"website"		=> Html::Request("website"),
 				"im_facebook"	=> Html::Request("im_facebook"),
 				"im_twitter"	=> Html::Request("im_twitter")
-				);
+			);
 
 			$this->Db->Update("c_members", $info, "m_id = {$m_id}");
 			header("Location: index.php?module=usercp&m=1");
@@ -128,11 +128,11 @@
 
 		case "signature":
 			$info = array(
-				"signature" => Html::Request("signature")
-				);
+				"signature" => $_POST['signature']
+			);
 
 			$this->Db->Update("c_members", $info, "m_id = {$m_id}");
-			header("Location: index.php?module=usercp&view=signature&m=3");
+			Html::Redirect("usercp/signature");
 
 			exit;
 			break;
@@ -146,7 +146,7 @@
 				"template" => Html::Request("template"),
 				"language" => Html::Request("language"),
 				"time_offset" => Html::Request("timezone")
-				);
+			);
 
 			$this->Db->Update("c_members", $info, "m_id = {$m_id}");
 			header("Location: index.php?module=usercp&view=settings&m=4");
