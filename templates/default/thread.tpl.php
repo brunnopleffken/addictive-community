@@ -1,8 +1,3 @@
-<?php
-	$this->header .= '<script type="text/javascript" src="resources/markdown.parser.js"></script>';
-	$this->header .= '<script type="text/javascript">$(document).ready(function(){$(\'.parsing\').markdownParser()});</script>';
-?>
-
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
 	var js, fjs = d.getElementsByTagName(s)[0];
@@ -35,7 +30,7 @@
 	<div>
 		<p class="title"><?php __($firstPostInfo['title']) ?></p>
 		<div class="text">
-			<span class="parsing"><?php __($firstPostInfo['post']) ?></span>
+			<span><?php __($firstPostInfo['post']) ?></span>
 			<div class="attachments">
 				<?php if($firstPostInfo['attach_id'] != 0): ?>
 					<div class="file">

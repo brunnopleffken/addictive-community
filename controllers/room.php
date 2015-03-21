@@ -136,7 +136,7 @@
 
 	while($result = $this->Db->Fetch($threads)) {
 		$result['class'] = "";
-		$result['description'] = Html::RemoveMarkdown($result['post']);
+		$result['description'] = strip_tags($result['post']);
 		$result['mobile_start_date'] = $this->Core->DateFormat($result['start_date'], "short");
 		$result['start_date'] = $this->Core->DateFormat($result['start_date']);
 		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
