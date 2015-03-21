@@ -337,11 +337,16 @@ HTML;
 
 		public static function Redirect($url, $referer = false)
 		{
-			if($url = "") {
+			if(!$referer && $url = "") {
 				Html::Error("Html::Redirect() method doesn't contain an argument.");
 			}
+			else {
+				header("Location: " . $_SERVER['HTTP_REFERER']);
+				return true;
+			}
+
 			header("Location: " . $url);
-			exit;
+			return true;
 		}
 
 		// ---------------------------------------------------
