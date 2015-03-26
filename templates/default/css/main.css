@@ -102,7 +102,7 @@ form textarea { overflow: auto; }
 .sidebar .sidebar-item .text { background: #fcfcfc; border: 1px solid #ddd; border-top: 0; border-radius: 0 0 5px 5px; padding: 10px; }
 .sidebar .sidebar-item .text .subtitle { color: #999; display: block; font-size: 14px; margin-bottom: 6px; }
 .sidebar .sidebar-item .text .online-list { font-size: 12px; }
-.sidebar .sidebar-item .text .statsName { color: #888888; }
+.sidebar .sidebar-item .text .stats-name { color: #888; }
 .sidebar .sidebar-item .list .item { background: #fdfdfd; border: 1px solid #eee; border-top: 0; padding: 8px 12px; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
 .sidebar .sidebar-item .list .item:hover { background: #f7f7f7; }
 .sidebar .sidebar-item .list .item:last-child { border-radius: 0 0 7px 7px; }

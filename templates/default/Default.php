@@ -11,7 +11,6 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="templates/default/css/main.css">
 	<link rel="stylesheet" href="thirdparty/Font-Awesome/css/font-awesome.min.css">
-	<!-- JS CDN -->
 	<!-- JS -->
 	<script src="thirdparty/jquery/jquery.min.js"></script>
 	<script src="thirdparty/tinymce/tinymce.min.js"></script>
@@ -93,10 +92,10 @@
 					<div class="sidebar-item">
 						<div class="title"><?php __("SIDEBAR_STATISTICS") ?></div>
 						<div class="text">
-							<span class="statsName fleft"><?php __("SIDEBAR_S_THREADS") ?></span><b class="fright"><?php echo $stats['threads'] ?></b><br>
-							<span class="statsName fleft"><?php __("SIDEBAR_S_REPLIES") ?></span><b class="fright"><?php echo $stats['replies'] ?></b><br>
-							<span class="statsName fleft"><?php __("SIDEBAR_S_MEMBERS") ?></span><b class="fright"><?php echo $stats['members'] ?></b><br>
-							<span class="statsName fleft"><?php __("SIDEBAR_S_LAST") ?></span><b class="fright"><a href="profile/<?php echo $stats['lastmemberid'] ?>"><?php echo $stats['lastmembername'] ?></a></b>
+							<span class="stats-name fleft"><?php __("SIDEBAR_S_THREADS") ?></span><b class="fright"><?php echo $stats['threads'] ?></b><br>
+							<span class="stats-name fleft"><?php __("SIDEBAR_S_REPLIES") ?></span><b class="fright"><?php echo $stats['replies'] ?></b><br>
+							<span class="stats-name fleft"><?php __("SIDEBAR_S_MEMBERS") ?></span><b class="fright"><?php echo $stats['members'] ?></b><br>
+							<span class="stats-name fleft"><?php __("SIDEBAR_S_LAST") ?></span><b class="fright"><a href="profile/<?php echo $stats['lastmemberid'] ?>"><?php echo $stats['lastmembername'] ?></a></b>
 							<div class="fix"></div>
 						</div>
 					</div>
