@@ -1,229 +1,241 @@
 <?php
 
-	## ---------------------------------------------------
-	#  ADDICTIVE COMMUNITY
-	## ---------------------------------------------------
-	#  Developed by Brunno Pleffken Hosti
-	#  File: index.php
-	#  Release: v1.0.0
-	#  Copyright: (c) 2014 - Addictive Software
-	## ---------------------------------------------------
+## -------------------------------------------------------
+#  ADDICTIVE COMMUNITY
+## -------------------------------------------------------
+#  Created by Brunno Pleffken Hosti
+#  http://github.com/brunnopleffken/addictive-community
+#
+#  File: index.php
+#  Release: v1.0.0
+#  Copyright: (c) 2015 - Addictive Software
+## -------------------------------------------------------
 
-	include("init.php");
-	include("app.php");
+// Absolute path on server filesystem
+define("BASEPATH", dirname(__FILE__));
 
-	class Main
+// Run initialization file before loading Main()
+require("init.php");
+
+class Main
+{
+	// Controller, Action and ID
+	public $controller = "";
+	public $action = "";
+	public $id = "";
+
+	// Current template and language
+	public $template;
+	public $language;
+
+	// Database class
+	public $Core;
+	public $Db;
+	public $Session;
+
+	// Configurations
+	public $Config = array();
+
+	// Controller instance
+	private $instance;
+
+	// Page content
+	private $content;
+	private $head;
+
+	// Defined variables inside controller
+	private $view_data;
+
+	// Development environment
+	const DEBUG = true;
+
+	/**
+	 * --------------------------------------------------------------------
+	 * MAIN CLASS CONSTRUCTOR
+	 * --------------------------------------------------------------------
+	 */
+	public function __construct()
 	{
-		// ---------------------------------------------------
-		// Properties
-		// ---------------------------------------------------
+		// Load kernel classes
+		$this->_LoadKernel();
 
-		protected $Db;
-		protected $Core;
-		protected $Session;
+		// Load configuration file
+		require("config.php");
 
-		// Community info
-		public $info = array(
-			"module"     => "",
-			"language"   => "",
-			"template"   => "",
-			"section_id" => 0,
-			"room_id"    => 0
-			);
+		// Instance of Database() class
+		$this->Db = new Database($config);
 
-		// Default member/guest info
-		// Usergroups: 1 - Admin; 2 - Mod; 3 - Member; 4 - Banned; 5 - Guest
-		public $member = array(
-			"m_id"      => 0,
-			"usergroup" => 5
-		);
+		// Get query strings from URL
+		$this->controller = strtolower(Html::Request("c"));
+		$this->action = strtolower(Html::Request("act"));
+		$this->id = strtolower(Html::Request("id"));
 
-		// Languages/dictionary array
-		public $t = array();
+		// If there isn't any controller defined
+		if(!$this->controller) {
+			$this->controller = "community";
+		}
 
-		// Paths
-		public $p = array(
-			"IMG" => "",
-			"TPL" => ""
-		);
+		// Initialize Session() class
+		$this->Session = new Session($this->Db, $this->controller);
+		$this->Session->UpdateSession();
 
-		// Sections (HTML)
-		private $header  = "";
-		private $sidebar = "";
-		private $content = "";
+		// Get settings from database
+		$this->_GetConfig();
+		$this->Core = new Core($this->Db, $this->Config);
 
-		// ---------------------------------------------------
-		// Main constructor
-		// ---------------------------------------------------
+		// Get current template and language
+		$this->_GetTemplate();
+		$this->_GetLanguage();
 
-		public function __construct()
-		{
-			// ---------------------------------------------------
-			// Initial configuration
-			// ---------------------------------------------------
+		// OK, let's go...
+		$this->_LoadController($this->controller, $this->action);
+		$this->_LoadView($this->controller, $this->action);
+	}
 
-			$init = new Init();
-			$init->Load();
+	/**
+	 * --------------------------------------------------------------------
+	 * LOAD MAIN KERNEL/CORE MODULES
+	 * --------------------------------------------------------------------
+	 */
+	private function _LoadKernel()
+	{
+		require("kernel/Core.php");
+		require("kernel/Database.php");
+		require("kernel/Html.php");
+		require("kernel/i18n.php");
+		require("kernel/Session.php");
+		require("kernel/String.php");
+		require("kernel/Template.php");
+		require("kernel/Upload.php");
+	}
 
-			// Load configuration file
+	/**
+	 * --------------------------------------------------------------------
+	 * LOAD CONTROLLER AND FIRST METHOD
+	 * --------------------------------------------------------------------
+	 */
+	private function _LoadController($controller, $action = "")
+	{
+		// Controllers' name are in UpperCamelCase, but URLs in lowercase
+		$_controller = $this->controller = ucwords($controller);
 
-			if(is_file("config.php")) {
-				require_once("config.php");
+		// Load Application controller
+		require("controllers/Application.php");
+
+		// Load controller
+		require("controllers/" . $_controller . ".php");
+		$this->instance = new $_controller();
+
+		// Get and execute action passed by URL, if any
+		if($action != "") {
+			$action = $this->_FormatActionName($this->action);
+		}
+		else {
+			$action = $this->action = "Main";
+		}
+
+		// Create an instance of Database, Core and Session in Application controller
+		$this->instance->Db = $this->Db;
+		$this->instance->Core = $this->Core;
+		$this->instance->Session = $this->Session;
+
+		// Create a copy of community settings in Application controller
+		$this->instance->config = $this->Config;
+
+		// Execute Controller::_beforeFilter() method
+		if(method_exists($this->instance, "_beforeFilter")) {
+			$this->instance->_beforeFilter();
+		}
+
+		// Execute Controller with the provided method
+		$this->instance->Run();
+		$this->instance->$action($this->id);
+
+		// Execute Controller::_afterFilter() method
+		if(method_exists($this->instance, "_afterFilter")) {
+			$this->instance->_afterFilter();
+		}
+
+		// Get defined variables
+		$this->view_data = $this->instance->Get();
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * LOAD MASTER PAGE AND VIEW
+	 * --------------------------------------------------------------------
+	 */
+	private function _LoadView($controller, $action)
+	{
+		if($this->instance->HasLayout()) {
+			// Get defined variables in controller
+			foreach($this->view_data as $k => $v) {
+				$$k = $v;
 			}
-			else {
-				Html::Error("Configuration file is missing.");
-			}
 
-			// If config.php is empty, go to AC installer
-
-			if(filesize("config.php") == 0 || empty($config)) {
-				header("Location: install/");
-			}
-
-			// Define classes
-			$this->Db = new Database($config);
-			$this->Core = new Core($this->Db);
-
-			// Current module name
-			$this->info['module'] = $this->Core->QueryString("module", "community");
-
-			// ---------------------------------------------------
-			// Create sessions!
-			// ---------------------------------------------------
-
-			// All right...
-			$this->Session = new Session($this->Db, $this->info);
-			$this->Session->UpdateSession();
-
-			// Store member information in $this->member (if exists)
-			if($this->Session->sessionInfo['member_id']) {
-				$this->Db->Query("SELECT * FROM c_members WHERE m_id = '{$this->Session->sessionInfo['member_id']}';");
-				$this->member = $this->Db->Fetch();
-			}
-
-			// =====
-			// NOTE: From now on, to get member ID, use $this->member['member_id']
-			// =====
-
-			// ---------------------------------------------------
-			// Get languages and template skin
-			// ---------------------------------------------------
-
-			$this->GetLanguage($this->info['module']);
-			$this->GetTemplate();
-
-			// ---------------------------------------------------
-			// Load views and controllers
-			// ---------------------------------------------------
-
-			// Get module view/controller
-
+			// Load page content
 			ob_start();
-			require_once("controllers/" . $this->info['module'] . ".php");
-			require_once($this->p['TPL'] . "/" . $this->info['module'] . ".tpl.php");
+			require("templates/" . $this->template . "/" . $this->controller . "." . ucwords($this->action) . ".php");
 			$this->content = ob_get_clean();
 
-			// Check if a custom master template is defined
-			$layout = (isset($define['layout'])) ? $define['layout'] : "default";
-
-			// Master template controller and template
-
-			require_once("controllers/" . $layout . ".php");
-			require_once($this->p['TPL'] . "/" . $layout . ".tpl.php");
-		}
-
-		// ---------------------------------------------------
-		// Get community default language
-		// ---------------------------------------------------
-
-		private function GetLanguage($module)
-		{
-			if($this->member['m_id'] == 0) {
-				// Default language
-				$this->info['language'] = "en_US";
-			}
-			else {
-				// User defined language
-				$this->info['language'] = $this->member['language'];
-			}
-
-			include("languages/" . $this->info['language'] . "/default.php");           // Global language file
-			@include("languages/" . $this->info['language'] . "/" . $module . ".php");  // Module file, if exists
-
-			foreach($t as $k => $v) {
-				i18n::$dictionary[$k] = $v;
-			}
-		}
-
-		// ---------------------------------------------------
-		// Get community default template
-		// ---------------------------------------------------
-
-		private function GetTemplate()
-		{
-			global $mobileBrowser;
-
-			// Check if user is accessing from mobile device
-			$userBrowser = $_SERVER['HTTP_USER_AGENT'];
-
-			foreach($mobileBrowser as $v) {
-				if(stristr($userBrowser, $v)) {
-					$isMobile = true;
-					break;
-				}
-				else {
-					$isMobile = false;
-				}
-			}
-
-			// Load mobile template or default desktop/tablet template
-			if($isMobile) {
-				$this->info['template'] = "mobile";
-			}
-			else {
-				if($this->member['m_id'] == 0) {
-					$this->info['template'] = "default";
-				}
-				else {
-					$this->info['template'] = $this->member['template'];
-				}
-			}
-
-			// Get full template path
-			$this->p['TPL'] = "templates/" . $this->info['template'];
-			$this->p['IMG'] = "templates/" . $this->info['template'] . "/images";
-		}
-
-		// ---------------------------------------------------
-		// Check if user is a logged in member
-		// ---------------------------------------------------
-
-		public function IsMember()
-		{
-			if($this->member['m_id'] != 0) {
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-
-		// ---------------------------------------------------
-		// Check if the provided ID ($id) matches with the
-		// currently logged in member ID
-		// ---------------------------------------------------
-
-		public function EvaluateMember($id)
-		{
-			if($this->member['m_id'] == $id) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			// Load master page
+			require("templates/" . $this->template . "/" . $this->instance->master . ".php");
 		}
 	}
 
-	$main = new Main();
+	/**
+	 * --------------------------------------------------------------------
+	 * CONVERT string_with_underscore TO StringWithUnderscore
+	 * --------------------------------------------------------------------
+	 */
+	private function _FormatActionName($action_name)
+	{
+		$action_name = preg_replace("/(_)/", " ", $action_name);
+		$action_name = preg_replace("/([\s])/", "", ucwords($action_name));
+		return $action_name;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * GET DEFAULT TEMPLATE OR, IF LOGGED IN, THE ONE DEFINED BY MEMBER
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetTemplate()
+	{
+		$this->template = "default";
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * GET CONFIGURATIONS FROM DATABASE
+	 * --------------------------------------------------------------------
+	 */
+	public function _GetConfig()
+	{
+		$this->Db->Query("SELECT * FROM c_config;");
+		$this->Config = $this->Db->FetchArray();
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * GET DEFUALT LANGUAGE OR, IF LOGGED IN, THE ONE DEFINED BY MEMBER
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetLanguage()
+	{
+		$this->language = "en_US";
+
+		// Load language files
+		include("languages/" . $this->language . "/default.php");
+		@include("languages/" . $this->language . "/" . $this->controller . ".php");
+
+		// Populate dictionary array
+		foreach($t as $k => $v) {
+			i18n::$dictionary[$k] = $v;
+		}
+	}
+}
+
+$main = new Main();
 
 ?>
