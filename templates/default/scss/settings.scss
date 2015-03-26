@@ -1,0 +1,13 @@
+// VARIABLES
+
+$fontSans: Arial, Helvetica, sans-serif;
+$fontSerif: Georgia, serif;
+$colorFiord: #465068;
+
+// MIXINS
+
+@mixin transition($ms) {
+	-webkit-transition: $ms;
+	-moz-transition: $ms;
+	transition: $ms;
+}
