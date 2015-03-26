@@ -12,15 +12,22 @@
 	$t["T_POST_REGISTERED"] = "Registered";
 	$t["T_POST_LOCATION"] = "Location";
 	$t["T_REPORT_POST"] = "Report this post";
+	$t["T_NO_REPLIES"] = "This thread has no replies. Be the first one!";
 	$t["T_EDIT"] = "Edit";
 	$t["T_DELETE"] = "Delete";
 	$t["T_BEST_SET"] = "Set as Best Answer";
 	$t["T_BEST_UNSET"] = "Unset as Best Answer";
 	$t["T_PAGES"] = "Pages";
 	$t["T_RELATED"] = "Related Threads";
-	$t["T_NO_RELATED"] = "There are no related threads to show.ss";
+	$t["T_NO_RELATED"] = "There are no related threads to show.";
 	$t["T_DELETE_POST"] = "Delete Post";
 	$t["T_CLOSE"] = "Close";
 	$t["T_DELETE_NOTICE"] = "Do you want to delete this post? This operation <strong>cannot</strong> be undone!";
 	$t["T_DELETE_POST"] = "Delete Post";
+	$t["P_TITLE"] = "Add Reply";
+	$t["P_POST"] = "Post";
+	$t["P_ERROR"] = "Your message is empty.";
+	$t["P_ATTACHMENTS"] = "Attachments";
+	$t["P_PREVIEW"] = "Post Preview";
+	$t["P_ADD_REPLY"] = "Add Reply";
 ?>
