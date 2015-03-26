@@ -147,5 +147,3 @@ class Room extends Application
 		return $_thread;
 	}
 }
-
-?>
