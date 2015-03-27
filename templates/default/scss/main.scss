@@ -196,11 +196,11 @@ form {
 		text-shadow: 1px 1px 0px #fff !important;
 	}
 	&.grey {
-		background: rgba(0, 0, 0, 0.05);
+		background: rgba(#000, 0.05);
 		color: #900 !important;
 		text-shadow: 1px 1px 0px #fff !important;
 		&:hover {
-			background: rgba(0, 0, 0, 0.1);
+			background: rgba(#000, 0.1);
 			text-decoration: none;
 		}
 	}
@@ -219,16 +219,16 @@ form {
 	padding: 4px 10px 5px 10px;
 	@include transition(300ms);
 	&.grey {
-		background: rgba(0, 0, 0, 0.1);
+		background: rgba(#000, 0.1);
 		text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
 		&:hover {
-			background: rgba(0, 0, 0, 0.2);
+			background: rgba(#000, 0.2);
 			text-decoration: none;
 		}
 		&.white {
 			color: #fff;
 			font-weight: bold;
-			text-shadow: 1px 1px 1px rgba(0, 0, 0, 1);
+			text-shadow: 1px 1px 1px rgba(#000, 1);
 		}
 	}
 }
@@ -237,7 +237,7 @@ form {
 
 .table-list {
 	border-spacing: 0;
-	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	box-shadow: 2px 2px 5px rgba(#000, 0.1);
 	margin-bottom: 15px;
 	width: 100%;
 	tr {
@@ -253,7 +253,7 @@ form {
 			border-bottom: 1px solid #eee;
 			padding: 8px;
 			.avatar {
-				box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+				box-shadow: 1px 1px 2px rgba(#000, 0.2);
 				margin-bottom: -3px;
 			}
 			&.table-label {
@@ -560,7 +560,7 @@ form {
 .room-item {
 	background: #fff;
 	border-spacing: 0;
-	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	box-shadow: 2px 2px 5px rgba(#000, 0.1);
 	margin-bottom: 15px;
 	width: 100%;
 	&:last-child {
@@ -642,13 +642,13 @@ form {
 	background: #fff;
 	border-left: 2px solid transparent;
 	border-spacing: 0;
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+	box-shadow: 2px 2px 2px rgba(#000, 0.1);
 	margin-bottom: 10px;
 	width: 100%;
 	.avatar {
 		padding: 0 7px 0 15px;
 		.image {
-			box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+			box-shadow: 1px 1px 3px rgba(#000, 0.2);
 			vertical-align: middle;
 		}
 	}
@@ -755,7 +755,7 @@ form {
 
 .thread-first-post {
 	background: #fff;
-	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+	box-shadow: 1px 1px 5px rgba(#000, 0.1);
 	overflow: hidden;
 	.header {
 		background: #f6f6f6;
@@ -850,7 +850,7 @@ form {
 }
 .thread-post-reply {
 	background: #fff;
-	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	box-shadow: 2px 2px 5px rgba(#000, 0.1);
 	display: table;
 	margin-bottom: 10px;
 	position: relative;
@@ -907,7 +907,7 @@ form {
 				width: 16px;
 			}
 			.signature {
-				border-top: 1px dashed rgba(0, 0, 0, 0.1);
+				border-top: 1px dashed rgba(#000, 0.1);
 				color: #777;
 				font-size: 0.8em;
 				line-height: 1.4em;
@@ -937,9 +937,9 @@ form {
 			}
 		}
 		.footer {
-			background: rgba(0, 0, 0, 0.01);
+			background: rgba(#000, 0.01);
 			bottom: 0;
-			border-top: 1px solid rgba(0, 0, 0, 0.1);
+			border-top: 1px solid rgba(#000, 0.1);
 			left: 0;
 			padding: 5px 5px 8px 5px;
 			position: absolute;
@@ -1073,7 +1073,7 @@ form {
 	a {
 		background: url('../images/page.png') repeat-x;
 		border: 1px solid #ddd;
-		box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+		box-shadow: 0px 0px 2px rgba(#000, 0.1);
 		color: #444;
 		display: inline-block;
 		font-size: 11px;
@@ -1087,7 +1087,7 @@ form {
 	}
 	.page-selected {
 		background: transparent;
-		box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2) inset;
+		box-shadow: 0px 0px 3px rgba(#000, 0.2) inset;
 	}
 }
 
@@ -1193,7 +1193,7 @@ form {
 	a {
 		background: url('../images/page.png') repeat-x;
 		border: 1px solid #ddd;
-		box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+		box-shadow: 0px 0px 2px rgba(#000, 0.1);
 		color: #444;
 		display: inline-block;
 		font-weight: bold; font-size: 11px;
@@ -1206,7 +1206,7 @@ form {
 		}
 		&.page-selected {
 			background: transparent;
-			box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2) inset;
+			box-shadow: 0px 0px 8px rgba(#000, 0.2) inset;
 			}
 	}
 }
