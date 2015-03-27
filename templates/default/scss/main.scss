@@ -49,7 +49,7 @@ body {
 	.small { font-size: 12px; }
 	.tiny { font-size: 11px; }
 	.min { width: 1% !important; white-space: nowrap; }
-	.noShadow { box-shadow: none; }
+	.no-shadow { box-shadow: none; }
 }
 
 a {
@@ -256,7 +256,7 @@ form {
 				box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 				margin-bottom: -3px;
 			}
-			&.tLabel {
+			&.table-label {
 				color: #888;
 				text-align: right;
 				white-space: nowrap;
@@ -277,7 +277,7 @@ form {
 			td { border-bottom: 0; }
 		}
 	}
-	&.noBorders {
+	&.no-borders {
 		tr {
 			td {
 				border-bottom: 0;
@@ -975,6 +975,93 @@ form {
 			font-weight: bold;
 			margin-left: 15px;
 		}
+	}
+}
+
+.profile-header {
+	height: 250px;
+	margin-bottom: 20px;
+	position: relative;
+	width: 100%;
+	.background {
+		background-size: cover;
+		background-position: center;
+		height: 250px;
+		overflow: hidden;
+		position: absolute;
+		width: 100%;
+		z-index: -1;
+		.cover {
+			background: -moz-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,1) 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.5)), color-stop(35%,rgba(0,0,0,0.5)), color-stop(100%,rgba(0,0,0,1)));
+			background: -webkit-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,1) 100%);
+			background: -o-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,1) 100%);
+			background: -ms-linear-gradient(top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,1) 100%);
+			background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#000000', GradientType=0);
+			height: 100%;
+		}
+	}
+	.avatar {
+		border: 3px solid #fff;
+		bottom: 10px;
+		left: 10px;
+		position: absolute;
+		z-index: 999;
+	}
+	.member-title {
+		bottom: 15px;
+		color: #fff;
+		font-family: $fontSerif;
+		font-size: 18px;
+		font-style: italic;
+		opacity: 0.5;
+		position: absolute;
+		right: 10px;
+	}
+	.member-info {
+		bottom: 15px;
+		color: #fff;
+		position: absolute;
+		left: 190px;
+		.username {
+			display: block;
+			font-size: 36px;
+			margin-bottom: 20px;
+		}
+		.item {
+			float: left;
+			font-size: 14px;
+			margin-right: 30px;
+			span {
+				color: #999;
+				display: block;
+				font-size: 11px;
+				line-height: 1em;
+				text-transform: uppercase;
+			}
+		}
+	}
+}
+.profile {
+	.file-icon {
+		color: #444;
+		display: inline-block;
+		font-family: FontAwesome;
+		font-size: 20px;
+		text-align: center;
+		vertical-align: middle;
+		&.doc:after { content: "\F1C2"; }
+		&.htm:after { content: "\F1C9"; }
+		&.img:after { content: "\F1C5"; }
+		&.mp3:after { content: "\F1C7"; }
+		&.pdf:after { content: "\F1C1"; }
+		&.ppt:after { content: "\F1C4"; }
+		&.txt:after { content: "\F0F6"; }
+		&.vid:after { content: "\F1C8"; }
+		&.xls:after { content: "\F1C3"; }
+		&.zip:after { content: "\F1C6"; }
+		&.blank:after { content: "\F016"; }
 	}
 }
 
