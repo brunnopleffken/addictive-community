@@ -76,6 +76,20 @@ class Application
 	 */
 	public function Run()
 	{
+		// SIDEBAR: member info
+		// Get user avatar
+		$this->Session->member_info['avatar'] = $this->Core->GetGravatar(
+			$this->Session->member_info['email'], $this->Session->member_info['photo'], 60, $this->Session->member_info['photo_type']
+		);
+
+		// Number of new private messages
+		$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 1;");
+		$unread_messages = $this->Db->Fetch();
+
+		$this->Set("member_id", $this->Session->member_info['m_id']);
+		$this->Set("member_info", $this->Session->member_info);
+		$this->Set("unread_messages", $unread_messages['total']);
+
 		// SIDEBAR: get list of rooms
 
 		$rooms = $this->Db->Query("SELECT c_rooms.r_id, c_rooms.name, c_rooms.password,

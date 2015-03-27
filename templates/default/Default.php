@@ -59,14 +59,28 @@
 		<div class="container">
 			<div class="sidebar">
 				<div class="sidebar-background">
-					<div class="sidebar-item">
-						<div class="user">
-							<div class="user-info">
-								<b><?php __("SIDEBAR_WELCOME") ?></b><br>
-								<a class="fancybox fancybox.ajax" href="login"><?php __("SIDEBAR_LOGIN") ?></a> | <a href="register" class="highlight"><?php __("SIDEBAR_C_ACCOUNT") ?></a>
+					<?php if($member_id == 0): ?>
+						<div class="sidebar-item">
+							<div class="user">
+								<div class="user-info">
+									<b><?php __("SIDEBAR_WELCOME") ?></b><br>
+									<a class="fancybox fancybox.ajax" href="login"><?php __("SIDEBAR_LOGIN") ?></a> | <a href="register" class="highlight"><?php __("SIDEBAR_C_ACCOUNT") ?></a>
+								</div>
 							</div>
 						</div>
-					</div>
+					<?php else: ?>
+						<div class="sidebar-item">
+							<div class="user">
+								<div class="avatar">
+									<?php __(Html::Crop($member_info['avatar'], 30, 30, "img")) ?>
+								</div>
+								<div class="user-info">
+									<b><a href="profile/<?php echo $member_info['m_id'] ?>" title="<?php __("SIDEBAR_PROFILE", array($member_info['username'])) ?>"><?php __($member_info['username']) ?></a></b><br>
+									<a href="usercp"><?php __("SIDEBAR_USERCP") ?></a> | <a href="messenger"><?php __("SIDEBAR_INBOX", array($unread_messages)) ?></a> | <a href="logout"><?php __("SIDEBAR_LOGOUT") ?></a>
+								</div>
+							</div>
+						</div>
+					<?php endif; ?>
 					<div class="sidebar-item">
 						<div class="title"><?php __("SIDEBAR_ROOMS") ?></div>
 						<div class="list">

@@ -28,7 +28,7 @@ class Main
 	public $template;
 	public $language;
 
-	// Database class
+	// Instances of non-static Kernel classes
 	public $Core;
 	public $Db;
 	public $Session;
@@ -134,7 +134,7 @@ class Main
 			$action = $this->action = "Main";
 		}
 
-		// Create an instance of Database, Core and Session in Application controller
+		// Create an instance of non-static Kernel classes in Application controller
 		$this->instance->Db = $this->Db;
 		$this->instance->Core = $this->Core;
 		$this->instance->Session = $this->Session;
@@ -144,7 +144,7 @@ class Main
 
 		// Execute Controller::_beforeFilter() method
 		if(method_exists($this->instance, "_beforeFilter")) {
-			$this->instance->_beforeFilter();
+			$this->instance->_beforeFilter($this->id);
 		}
 
 		// Execute Controller with the provided method
@@ -153,7 +153,7 @@ class Main
 
 		// Execute Controller::_afterFilter() method
 		if(method_exists($this->instance, "_afterFilter")) {
-			$this->instance->_afterFilter();
+			$this->instance->_afterFilter($this->id);
 		}
 
 		// Get defined variables
