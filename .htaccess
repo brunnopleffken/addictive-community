@@ -4,8 +4,8 @@ RewriteEngine On
 # AdminCP is... well... admin! Do not rewrite it!
 RewriteRule ^(admin|user)($|/) - [L]
 
-# /logout is not a controller, just a shortcut
-RewriteRule ^(logout)/?$ index.php?module=login&act=logout
+# /logout is not a controller, just a shortcut to Login::Logout()
+RewriteRule ^(logout)$ index.php?c=login&act=logout
 
 # Controller, Actions and IDs
 RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?c=$1 [QSA]
