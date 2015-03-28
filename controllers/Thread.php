@@ -73,12 +73,27 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * ADD NEW THREAD
+	 * --------------------------------------------------------------------
+	 */
+	public function Add($room_id)
+	{
+		$this->Db->Query("SELECT r_id, name FROM c_rooms WHERE r_id = {$room_id};");
+		$room_info = $this->Db->Fetch();
+
+		// Return variables
+		$this->Set("community_name", $this->config['general_communityname']);
+		$this->Set("room_info", $room_info);
+		$this->Set("member_info", $this->Session->member_info);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * INSERT NEW REPLY INTO DATABASE
 	 * --------------------------------------------------------------------
 	 */
 	public function Save($id)
 	{
-		// This page is back-end only
 		$this->layout = false;
 
 		// Get room ID
@@ -121,6 +136,65 @@ class Thread extends Application
 
 		// Redirect back to post
 		$this->Core->Redirect("thread/" . $id);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * INSERT NEW THREAD INTO DATABASE
+	 * --------------------------------------------------------------------
+	 */
+	public function SaveThread($room_id)
+	{
+		$this->layout = false;
+
+		// Insert new thread item
+		$thread = array(
+			"title"              => Html::Request("title"),
+			"author_member_id"   => $this->Session->member_info['m_id'],
+			"replies"            => 1,
+			"views"              => 0,
+			"start_date"         => time(),
+			"room_id"            => Html::Request("room_id", true),
+			"announcement"       => Html::Request("announcement", true),
+			"lastpost_date"      => time(),
+			"lastpost_member_id" => $this->Session->member_info['m_id'],
+			"locked"             => Html::Request("locked", true),
+			"approved"           => 1,
+			"with_bestanswer"    => 0
+		);
+		//$this->Db->Insert("c_threads", $thread);
+
+		// Insert first post
+		$post = array(
+			"author_id"   => $this->Session->member_info['m_id'],
+			"thread_id"   => $this->Db->GetLastID(),
+			"post_date"   => $thread['lastpost_date'],
+			"ip_address"  => $_SERVER['REMOTE_ADDR'],
+			"post"        => $_POST['post'],
+			"best_answer" => 0,
+			"first_post"  => 1
+		);
+
+		$Upload = new Upload($this->Db);
+		$post['attach_id'] = $Upload->Attachment(Html::File("attachment"), $post['author_id']);
+
+		String::PR($Upload);
+
+		//$this->Db->Insert("c_posts", $post);
+
+		// Update tables
+		/*
+		$this->Db->Query("UPDATE c_rooms SET lastpost_date = '{$post['post_date']}',
+				lastpost_thread = '{$post['thread_id']}', lastpost_member = '{$post['author_id']}'
+				WHERE r_id = '{$thread['room_id']}';");
+
+		$this->Db->Query("UPDATE c_stats SET total_posts = total_posts + 1, total_threads = total_threads + 1;");
+
+		$this->Db->Query("UPDATE c_members SET posts = posts + 1, lastpost_date = '{$post['post_date']}'
+				WHERE m_id = '{$post['author_id']}';");
+		*/
+		// Redirect
+		//$this->Core->Redirect("thread/" . $post['thread_id']);
 	}
 
 	/**

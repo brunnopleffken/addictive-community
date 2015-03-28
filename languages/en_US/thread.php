@@ -30,4 +30,14 @@
 	$t["P_ATTACHMENTS"] = "Attachments";
 	$t["P_PREVIEW"] = "Post Preview";
 	$t["P_ADD_REPLY"] = "Add Reply";
+	$t["T_NEW_TITLE"] = "New Thread";
+	$t["T_NEW_THREAD_TITLE"] = "Thread Title";
+	$t["T_NEW_POST"] = "Post";
+	$t["T_NEW_ATTACHMENTS"] = "Attachments";
+	$t["T_NEW_POST_PREVIEW"] = "Post Preview";
+	$t["T_NEW_OPTIONS"] = "Thread Options";
+	$t["T_NEW_SET_ANNOUNCEMENT"] = "Set thread as Announcement";
+	$t["T_NEW_LOCK"] = "Lock thread";
+	$t["T_NEW_ERROR"] = "Name and post content are required fields.";
+	$t["T_NEW_SUBMIT"] = "Add New Thread";
 ?>

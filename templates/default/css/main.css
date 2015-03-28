@@ -26,7 +26,7 @@ a:hover { text-decoration: underline; }
 button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner { padding: 0 !important; border: 0 none !important; /* Fixes odd padding in FF */ }
 
 form .error { border-color: #c00 !important; box-shadow: 0px 0px 5px rgba(255, 0, 0, 0.2) !important; }
-form .errorMessage { color: #c00; display: none; font-weight: bold; margin-left: 10px; }
+form .error-message { color: #c00; display: none; font-weight: bold; margin-left: 10px; }
 form .full { width: 90%; }
 form .large { width: 420px; }
 form .medium { width: 300px; }
