@@ -63,7 +63,7 @@ class Html
 	{
 		$allow = null;
 		if(!empty($allowed)) {
-			foreach ($allowed as $value) {
+			foreach($allowed as $value) {
 				$allow .= "\\$value";
 			}
 		}
@@ -99,14 +99,14 @@ class Html
 	 * $lang IS REQUIRED IF $numeric = false
 	 * --------------------------------------------------------------------
 	 */
-	public static function Months($name, $numeric = true, $lang = array(), $current = 1)
+	public static function Months($name, $numeric = true, $current = 1)
 	{
 		$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\" style=\"width: 110px\">";
 		for($i = 1; $i <= 12; $i++) {
 			$selected = ($i == $current) ? "selected" : "";
 			if(!$numeric) {
-				$monthName = i18n::Translate("M_" . $i);
-				$retval .= "<option value=\"{$i}\" {$selected}>{$monthName}</option>";
+				$month_name = i18n::Translate("M_" . $i);
+				$retval .= "<option value=\"{$i}\" {$selected}>{$month_name}</option>";
 			}
 			else {
 				$retval .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
@@ -177,7 +177,7 @@ class Html
 	 * SHOW NOTIFICATION MESSAGE
 	 * --------------------------------------------------------------------
 	 */
-	public static function Notification($message, $code, $persistent = false, $customTitle = "")
+	public static function Notification($message, $code, $persistent = false, $custom_title = "")
 	{
 		switch($code) {
 			case "warning":
@@ -196,8 +196,8 @@ class Html
 		if($persistent) {
 			$persistent = "persistent";
 		}
-		if($customTitle != "") {
-			$title = $customTitle;
+		if($custom_title != "") {
+			$title = $custom_title;
 		}
 		$html = "<div class=\"notification " . $code . " " . $persistent . "\"><p><strong>" . $title . "</strong> " . $message . "</p></div>";
 		return $html;
@@ -232,14 +232,14 @@ class Html
 	 */
 	public static function CurrentUrl()
 	{
-		$pageUrl = (@$_SERVER['HTTPS'] == "on") ? "https" : "http";
-		$pageUrl .= "://";
+		$page_url = (@$_SERVER['HTTPS'] == "on") ? "https" : "http";
+		$page_url .= "://";
 		if($_SERVER['SERVER_PORT'] != "80") {
-			$pageUrl .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+			$page_url .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
 		}
 		else {
-			$pageUrl .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+			$page_url .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
 		}
-		return $pageUrl;
+		return $page_url;
 	}
 }
