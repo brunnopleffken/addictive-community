@@ -11,19 +11,23 @@
 
 
 $(document).ready(function() {
-	// REPLACE ALL REGULAR <select> FIELDS WITH A FANCY ONE
+	/**
+	 * REPLACE ALL REGULAR <select> FIELDS WITH A FANCY ONE
+	 */
+
 	$('.select2').select2({ 'width': 'element' });
 	$('.select2-no-search').select2({ 'minimumResultsForSearch': -1, 'width': 'element' });
 
-	// FADE OUT ALL NOTIFICATIONS AFTER 3 SECONDS IF HAS NOT .persistent CLASS
+	/**
+	 * FADE OUT ALL NOTIFICATIONS AFTER 3 SECONDS IF HAS NOT .persistent CLASS
+	 */
+
 	$('.notification').not('.persistent').delay(3000).fadeOut(1000);
 
-	// REMOVE .error CLASS ON FOCUS (FOR input[type=text] ELEMENTS)
-	$(document).on('focus', '.error', function() {
-		$(this).removeClass('error');
-	});
+	/**
+	 * LOGIN - VALIDATE USERNAME AND PASSWORD BEFORE SEND
+	 */
 
-	// LOGIN - VALIDATE USERNAME AND PASSWORD BEFORE SEND
 	$('#memberLoginForm').on('submit', function(event) {
 		var error      = false,
 		    $userField = $('#memberLoginForm .username'),
@@ -31,10 +35,8 @@ $(document).ready(function() {
 		    $submit    = $('#memberLoginForm input[type=submit]'),
 		    timer;
 
-		event.preventDefault();
-
 		$.ajax({
-			url: 'index.php?module=login&act=validate',
+			url: 'login/validate',
 			type: 'post',
 			dataType: 'json',
 			data: { username: $userField.val(), password: $passField.val() }
@@ -64,9 +66,14 @@ $(document).ready(function() {
 				form.submit();
 			}
 		});
+
+		event.preventDefault();
 	});
 
-	// USER CONTROL PANEL
+	/**
+	 * USER CONTROL PANEL FUNCTIONS
+	 */
+
 	if($('.photoSelect:checked').val() == "gravatar") {
 		$('#gravatar').show();
 	} else if($('.photoSelect:checked').val() == "facebook") {
@@ -94,7 +101,117 @@ $(document).ready(function() {
 		}
 	});
 
-	// LOAD COMPLETE TINYMCE ON THREAD/REPLY POSTS
+	/**
+	 * CSS CLASSES FOR VALIDATION
+	 * input.url      Validates http://xxx.com or http://xxx.com.br
+	 * input.email    Validates me@me.com or me@me.com.br
+	 * input.numeric  Validates if the value is numeric only
+	 */
+
+	$('form').on('submit', function(event) {
+		if($(this).hasClass('validate')) {
+
+			var stopSend = false;
+
+			// Validade INPUT text, INPUT password and TEXTAREAs
+
+			$(this).find('input[type=text], input[type=password], textarea, select').filter('.required').each(function(){
+				if(this.value == '') {
+					$(this).addClass('error');
+					stopSend = true;
+				}
+				else {
+					$(this).removeClass('error');
+				}
+			});
+
+			// Is the URL valid?
+
+			$(this).find('.url').filter('.required').each(function(){
+				var str = this.value;
+				var pattern = new RegExp(/(http:\/\/)([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2,3}/);
+				var result = pattern.test(str);
+
+				if(!result) {
+					$(this).addClass('error');
+					stopSend = true;
+				}
+				else {
+					$(this).removeClass('error');
+				}
+			});
+
+			// Is the e-mail address valid?
+
+			$(this).find('.email').filter('.required').each(function(){
+				var str = this.value;
+				var pattern = new RegExp(/^[a-z0-9_\.\-]+\@[a-z0-9_\.\-]+\.[a-z]{2,3}$/gm);
+				var result = pattern.test(str);
+
+				if(!result) {
+					$(this).addClass('error');
+					stopSend = true;
+				}
+				else {
+					$(this).removeClass('error');
+				}
+			});
+
+			// Numeric only field
+
+			$(this).find('.numeric').filter('.required').each(function(){
+				var str = this.value;
+				var pattern = new RegExp(/([0-9]*)/);
+				var result = pattern.test(str);
+
+				if(!result) {
+					$(this).addClass('error');
+					stopSend = true;
+				}
+				else {
+					$(this).removeClass('error');
+				}
+			});
+
+			// Alphanumerics ONLY
+
+			$(this).find('.alphanumeric').filter('.required').each(function(){
+				var str = this.value;
+				var pattern = new RegExp(/([a-zA-Z0-9\s]*)/);
+				var result = pattern.test(str);
+
+				if(!result) {
+					$(this).addClass('error');
+					stopSend = true;
+				}
+				else {
+					$(this).removeClass('error');
+				}
+			});
+
+			// IF there is an error, show message!
+			// ...otherwise, send form as it should be
+
+			if(stopSend == true) {
+				event.preventDefault();
+				$(this).find('.error-message').css('display', 'inline-block').hide().fadeIn();
+			}
+
+		}
+	});
+
+	/**
+	 * REMOVE .error CLASS ON FOCUS (FOR input[type=text] ELEMENTS)
+	 */
+
+	$(document).on('focus', '.error', function() {
+		$(this).removeClass('error');
+	});
+
+	/**
+	 * LOAD COMPLETE TINYMCE ON THREAD/REPLY POSTS
+	 */
+
 	tinymce.init({
 		entity_encoding: 'raw',
 		link_title: false,
@@ -108,7 +225,10 @@ $(document).ready(function() {
 		toolbar: 'bold italic underline strikethrough | alignleft aligncenter alignright | link image | bullist numlist | blockquote | subscript superscript | removeformat'
 	});
 
-	// LOAD REDUCED TINYMCE FOR MEMBER SIGNATURES
+	/**
+	 * LOAD REDUCED TINYMCE FOR MEMBER SIGNATURES
+	 */
+
 	tinymce.init({
 		entity_encoding: 'raw',
 		link_title: false,
