@@ -58,9 +58,9 @@ form textarea { overflow: auto; }
 .default-button.grey:hover { background: rgba(0, 0, 0, 0.1); text-decoration: none; }
 .default-button i { font-size: 22px; line-height: 1em; margin-right: 6px; vertical-align: middle; }
 
-.small-button { border-radius: 7px; color: #333; cursor: pointer; font-size: 10px; padding: 4px 10px 5px 10px; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
-.small-button.grey { background: rgba(0, 0, 0, 0.1); text-shadow: 1px 1px 1px white; }
-.small-button.grey:hover { background: rgba(0, 0, 0, 0.2); text-decoration: none; }
+.small-button { border-radius: 7px; color: #333; cursor: pointer; font-size: 10px; padding: 4px 10px 5px 10px; -webkit-transition: 200ms; -moz-transition: 200ms; transition: 200ms; }
+.small-button.grey { background: rgba(0, 0, 0, 0.1); text-shadow: 1px 1px 0 white; }
+.small-button.grey:hover { background: rgba(0, 0, 0, 0.2); text-decoration: none; text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5); }
 .small-button.grey.white { color: #fff; font-weight: bold; text-shadow: 1px 1px 1px black; }
 
 /** TABLES **/
