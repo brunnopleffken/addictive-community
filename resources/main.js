@@ -66,6 +66,34 @@ $(document).ready(function() {
 		});
 	});
 
+	// USER CONTROL PANEL
+	if($('.photoSelect:checked').val() == "gravatar") {
+		$('#gravatar').show();
+	} else if($('.photoSelect:checked').val() == "facebook") {
+		$('#facebook').show();
+	} else if($('.photoSelect:checked').val() == "custom") {
+		$('#custom').show();
+	}
+
+	$('.photoSelect').on('change', function(){
+		var value = $(this).val();
+
+		if(value == "custom") {
+			$('#gravatar').fadeOut();
+			$('#facebook').fadeOut();
+			$('#custom').delay(400).fadeIn();
+		} else if(value == "gravatar") {
+			$('#custom').fadeOut();
+			$('#facebook').fadeOut();
+			$('#gravatar').delay(400).fadeIn();
+		}
+		else {
+			$('#custom').fadeOut();
+			$('#gravatar').fadeOut();
+			$('#facebook').delay(400).fadeIn();
+		}
+	});
+
 	// LOAD COMPLETE TINYMCE ON THREAD/REPLY POSTS
 	tinymce.init({
 		entity_encoding: 'raw',
