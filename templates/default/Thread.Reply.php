@@ -18,7 +18,7 @@
 			<div class="field"><input type="file" name="attachment"></div>
 		</div>
 		<div class="fleft">
-			<div class="errorMessage"><?php __("P_ERROR") ?></div>
+			<div class="error-message"><?php __("P_ERROR") ?></div>
 		</div>
 		<div class="fright">
 			<input type="hidden" name="room_id" value="<?php echo $thread_info['r_id'] ?>">
