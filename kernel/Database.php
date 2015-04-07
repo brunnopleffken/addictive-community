@@ -20,8 +20,10 @@ interface IDatabase
 {
 	public function Query($query);
 	public function Fetch($result = "");
+	public function FetchArray($result = "");
 	public function Rows($result = "");
 	public function Insert($table, $array);
+	public function Update($table, $array, $where);
 	public function GetLastID();
 }
 
@@ -198,6 +200,29 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
+	 * UPDATE DATABASE TABLE FROM AN ARRAY
+	 * --------------------------------------------------------------------
+	 */
+	public function Update($table, $array, $where)
+	{
+		foreach($array as $f => $v) {
+			$fields[] = $f . " = '" . $v . "'";
+		}
+
+		$sql_query = "UPDATE {$table} SET " . implode(", ", $fields) . " WHERE {$where};";
+		$this->query = $this->Query($sql_query);
+
+		if(!$this->query) {
+			$this->Exception("An error occoured on the following query: " . $sql);
+		}
+
+		$this->log[] = $this->query;
+
+		return $this->query;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * GET LAST ID FROM LAST QUERY() COMMAND
 	 * --------------------------------------------------------------------
 	 */
@@ -212,8 +237,13 @@ class Database implements IDatabase
 	 * SHOW MYSQL ERROR MESSAGE
 	 * --------------------------------------------------------------------
 	 */
-	private function Exception($message)
+	private function Exception($message = "")
 	{
-		Html::Error($message);
+		if($message == "") {
+			Html::Error(mysqli_error());
+		}
+		else {
+			Html::Error($message);
+		}
 	}
 }
