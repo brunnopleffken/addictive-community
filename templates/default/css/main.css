@@ -252,7 +252,7 @@ form textarea { overflow: auto; }
 .classification .page-selected { background: transparent; box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2) inset; }
 
 /** NOTIFICATIONS **/
-.notification { margin-bottom: 20px; border: 1px solid #000; }
+.notification { margin-bottom: 10px; border: 1px solid transparent; }
 .notification p { color: #565656; font-size: 12px; margin: 0px; padding: 10px 25px 10px 54px; }
 .notification strong { margin-right: 5px; }
 .notification.warning { background: #ffe9ad url("../images/notifications/error.png") no-repeat 15px center; border-color: #eac572; color: #826200; }
