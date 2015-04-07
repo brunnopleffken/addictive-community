@@ -242,4 +242,15 @@ class Html
 		}
 		return $page_url;
 	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * SHOW ERROR MESSAGE
+	 * --------------------------------------------------------------------
+	 */
+	public static function Error($message)
+	{
+		echo "<h1>Error!</h1><p>" . $message . "</p><hr><em>Addictive Community - (c) " . date("Y") . " All rights reserved.</em>";
+		exit;
+	}
 }
