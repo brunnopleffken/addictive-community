@@ -117,7 +117,7 @@ class Application
 		}
 
 		$member_count = count($online);
-		$member_list  = implode(", ", $online);
+		$member_list  = String::ToList($online);
 		$this->Set("member_count", $member_count);
 		$this->Set("member_list", $member_list);
 
