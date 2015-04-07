@@ -1,6 +1,6 @@
 <div class="room-title-bar">
 	<div class="title fleft">
-		<span><?php __($community_name) ?></span>Control Panel
+		<span><?php __($community_name) ?></span><?php __("C_TITLE") ?>
 	</div>
 </div>
 
@@ -15,6 +15,7 @@
 </div>
 
 <div class="box no-shadow">
+	<?php __($notification) ?>
 	<form action="usercp/save_password" method="post" class="validate">
 		<div class="input-box">
 			<div class="label"><?php __("C_PASSWORD_CURRENT") ?></div>
@@ -26,11 +27,11 @@
 		</div>
 		<div class="input-box">
 			<div class="label"><?php __("C_PASSWORD_RETYPE") ?></div>
-			<div class="field"><input type="password" name="c_password" class="required small"></div>
+			<div class="field"><input type="password" name="conf_password" class="required small"></div>
 		</div>
 		<div class="fleft">
 			<div class="error-message"><?php __("C_PASSWORD_EMPTY") ?></div>
 		</div>
-		<div class="fright"><input type="hidden" name="act" value="password"><input type="submit" value="<?php __("C_CHANGE_PASSWORD") ?>"></div>
+		<div class="fright"><input type="submit" value="<?php __("C_CHANGE_PASSWORD") ?>"></div>
 	</form>
 </div>
