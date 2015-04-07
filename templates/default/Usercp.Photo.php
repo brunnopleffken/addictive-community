@@ -15,7 +15,8 @@
 </div>
 
 <div class="box no-shadow">
-	<form action="usercp/save_signature" method="post" class="validate" enctype="multipart/form-data">
+	<?php __($notification) ?>
+	<form action="usercp/save_photo" method="post" class="validate" enctype="multipart/form-data">
 		<div class="input-box">
 			<div class="label"><?php __("C_PHOTO_SOURCE") ?></div>
 			<div class="field">
@@ -52,12 +53,12 @@
 			<div class="label"><?php __("C_PHOTO_UPLOAD") ?></div>
 			<div class="field">
 				<div class="fleft" style="margin-right: 15px">
-					<?php __(Html::Crop("public/avatar/" . $this->member['photo'], 120, 120)) ?>
+					<?php __(Html::Crop("public/avatar/" . $member_info['photo'], 120, 120)) ?>
 				</div>
 				<div class="fleft" style="border:1px dashed #eee;"><input type="file" name="file_upload"></div>
 				<div class="fix"></div>
 			</div>
 		</div>
-		<div class="fright"><input type="hidden" name="act" value="photo"><input type="submit" value="<?php __("C_UPDATE_PHOTO") ?>"></div>
+		<div class="fright"><input type="submit" value="<?php __("C_UPDATE_PHOTO") ?>"></div>
 	</form>
 </div>

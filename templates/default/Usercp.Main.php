@@ -15,6 +15,7 @@
 </div>
 
 <div class="box no-shadow">
+	<?php __($notification) ?>
 	<form action="usercp/save_profile" method="post" class="validate">
 		<div class="input-box">
 			<div class="label"><?php __("C_MEMBER_TITLE") ?></div>

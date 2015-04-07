@@ -15,13 +15,14 @@
 </div>
 
 <div class="box no-shadow">
+	<?php __($notification) ?>
 	<form action="usercp/save_signature" method="post" class="validate">
 		<div class="input-box">
 			<div class="label"><?php __("C_SIGNATURE_EDIT") ?></div>
 			<div class="field">
-				<textarea name="signature" class="signature large" id="signature"><?php __($member_info['signature']) ?></textarea>
+				<textarea name="signature" class="signature large" id="signature" rows="10"><?php __($member_info['signature']) ?></textarea>
 			</div>
 		</div>
-		<div class="fright"><input type="hidden" name="act" value="signature"><input type="submit" value="<?php __("C_SIGNATURE_UPDATE") ?>"></div>
+		<div class="fright"><input type="submit" value="<?php __("C_SIGNATURE_UPDATE") ?>"></div>
 	</form>
 </div>

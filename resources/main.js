@@ -196,7 +196,6 @@ $(document).ready(function() {
 				event.preventDefault();
 				$(this).find('.error-message').css('display', 'inline-block').hide().fadeIn();
 			}
-
 		}
 	});
 

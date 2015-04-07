@@ -15,6 +15,7 @@
 </div>
 
 <div class="box no-shadow">
+	<?php __($notification) ?>
 	<form action="usercp/save_settings" method="post" class="validate">
 		<div class="input-box">
 			<div class="label"><?php __("C_TIMEZONE") ?></div>
@@ -40,6 +41,6 @@
 				</select>
 			</div>
 		</div>
-		<div class="fright"><input type="hidden" name="act" value="settings"><input type="submit" value="<?php __("C_UPDATE_SETTINGS") ?>"></div>
+		<div class="fright"><input type="submit" value="<?php __("C_UPDATE_SETTINGS") ?>"></div>
 	</form>
 </div>
