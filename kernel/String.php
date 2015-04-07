@@ -46,6 +46,16 @@ class String
 
 	/**
 	 * --------------------------------------------------------------------
+	 * ONE-WAY PASSWORD ENCRYPT
+	 * --------------------------------------------------------------------
+	 */
+	public static function PasswordEncrypt($password)
+	{
+		return hash("sha512", base64_decode("Ly9hZGRpY3RpdmU=") . $password);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * CREATE A RANDOM 8 CHAR PASSWORD
 	 * --------------------------------------------------------------------
 	 */
@@ -89,5 +99,19 @@ class String
 		}
 
 		return $age;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * CREATES A COMMA-SEPARATED LIST WHERE THE LAST TWO ITEMS
+	 * ARE JOINED WITH 'AND'.
+	 * --------------------------------------------------------------------
+	 */
+	public static function ToList($list, $and = "and", $separator = ", ")
+	{
+		if(count($list) > 1) {
+			return implode($separator, array_slice($list, null, -1)) . " " . $and . " " . array_pop($list);
+		}
+		return array_pop($list);
 	}
 }
