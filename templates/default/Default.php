@@ -11,10 +11,12 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="templates/default/css/main.css">
 	<link rel="stylesheet" href="thirdparty/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="thirdparty/fancybox/jquery.fancybox.css">
 	<link rel="stylesheet" href="thirdparty/select2/select2.css">
 	<!-- JS -->
 	<script src="thirdparty/jquery/jquery.min.js"></script>
 	<script src="thirdparty/tinymce/tinymce.min.js"></script>
+	<script src="thirdparty/fancybox/jquery.fancybox.pack.js"></script>
 	<script src="thirdparty/select2/select2.js"></script>
 	<script src="resources/main.js"></script>
 	<?php echo $this->head ?>

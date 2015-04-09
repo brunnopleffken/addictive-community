@@ -25,6 +25,17 @@ $(document).ready(function() {
 	$('.notification').not('.persistent').delay(3000).fadeOut(1000);
 
 	/**
+	 * BUILD LIGHTBOX WHEN LINK HAS .fancybox
+	 */
+
+	$('.fancybox').fancybox({
+		autoSize: true,
+		closeBtn: false,
+		modal: false,
+		padding: 2
+	});
+
+	/**
 	 * LOGIN - VALIDATE USERNAME AND PASSWORD BEFORE SEND
 	 */
 
