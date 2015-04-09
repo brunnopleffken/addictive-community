@@ -76,19 +76,25 @@ class Application
 	 */
 	public function Run()
 	{
-		// SIDEBAR: member info
-		// Get user avatar
-		$this->Session->member_info['avatar'] = $this->Core->GetGravatar(
-			$this->Session->member_info['email'], $this->Session->member_info['photo'], 60, $this->Session->member_info['photo_type']
-		);
+		// If member is logged in
+		if($this->Session->IsMember()) {
+			// SIDEBAR: member info
+			// Get user avatar
+			$this->Session->member_info['avatar'] = $this->Core->GetGravatar(
+				$this->Session->member_info['email'], $this->Session->member_info['photo'], 60, $this->Session->member_info['photo_type']
+			);
 
-		// Number of new private messages
-		$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 1;");
-		$unread_messages = $this->Db->Fetch();
+			// Number of new private messages
+			$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 1;");
+			$unread_messages = $this->Db->Fetch();
 
-		$this->Set("member_id", $this->Session->member_info['m_id']);
-		$this->Set("member_info", $this->Session->member_info);
-		$this->Set("unread_messages", $unread_messages['total']);
+			$this->Set("member_id", $this->Session->member_info['m_id']);
+			$this->Set("member_info", $this->Session->member_info);
+			$this->Set("unread_messages", $unread_messages['total']);
+		}
+		else {
+			$this->Set("member_id", 0);
+		}
 
 		// SIDEBAR: get list of rooms
 

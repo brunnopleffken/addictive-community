@@ -31,7 +31,10 @@ class Session
 	public $session_info = array();
 
 	// Member information
-	public $member_info = array();
+	public $member_info = array(
+		'm_id' => 0,
+		'usergroup' => 5
+	);
 
 	/**
 	 * --------------------------------------------------------------------
@@ -102,7 +105,7 @@ class Session
 	public function NoGuest()
 	{
 		if($this->session_info['member_id'] == 0) {
-			header("Location: index.php?module=exception&errno=1");
+			header("Location: error?m=1");
 			exit;
 		}
 	}
