@@ -152,5 +152,3 @@ class Application
 		$this->Set("stats", $_stats);
 	}
 }
-
-?>
