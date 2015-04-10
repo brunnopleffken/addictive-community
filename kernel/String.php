@@ -21,7 +21,7 @@ class String
 	public static function PR($var)
 	{
 		echo "<pre style='font-size:11px;'>";
-		var_dump($var);
+		print_r($var);
 		echo "</pre>";
 	}
 
