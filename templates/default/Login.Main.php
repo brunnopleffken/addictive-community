@@ -1,9 +1,9 @@
-<form action="login/do" method="post" class="validate" id="memberLoginForm">
+<form action="login/authenticate" method="post" class="validate" id="memberLoginForm">
 	<table class="table-list no-borders" style="width:380px; margin:0">
 		<tr>
 			<th colspan="7">
 				<div class="fleft"><?php __("L_TITLE") ?></div>
-				<div class="fright"><a href="javascript:parent.$.fancybox.close();" class="small-button grey white transition"><?php __("L_CLOSE") ?></a></div>
+				<div class="fright"><a href="javascript:$.fancybox.close();" class="small-button grey white"><?php __("L_CLOSE") ?></a></div>
 				<div class="clear"></div>
 			</th>
 		</tr>

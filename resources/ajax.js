@@ -16,21 +16,26 @@ $(document).ready(function() {
 	 */
 
 	$('#memberLoginForm').on('submit', function(event) {
-		var error      = false,
+		var $form      = $(this),
 		    $userField = $('#memberLoginForm .username'),
 		    $passField = $('#memberLoginForm .password'),
 		    $submit    = $('#memberLoginForm input[type=submit]'),
+		    stopSend   = false,
 		    timer;
+
+		// Prevent form's default behavior
+		event.preventDefault();
 
 		$.ajax({
 			url: 'login/validate',
 			type: 'post',
 			dataType: 'json',
-			data: { username: $userField.val(), password: $passField.val() }
+			data: { username: $userField.val(), password: $passField.val() },
+			context: $form
 		})
 		.done(function(data){
-			if(data.authenticated == 'false') {
-				error = true;
+			if(data.authenticated == false) {
+				stopSend = true;
 
 				$userField.addClass('error');
 				$passField.addClass('error');
@@ -45,16 +50,16 @@ $(document).ready(function() {
 			}
 		})
 		.fail(function(jqXHR, textStatus) {
-			throw new Error(textStatus);
+			// In case of errors, show on console
+			console.error(textStatus);
 		})
 		.always(function() {
-			if(error == false) {
-				var form = document.getElementById('memberLoginForm');
-				form.submit();
+			// If there is no errors, submit!
+			if(stopSend == false) {
+				this.off('submit');
+				this.submit();
 			}
 		});
-
-		event.preventDefault();
 	});
 
 	/**

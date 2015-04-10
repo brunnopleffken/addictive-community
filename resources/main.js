@@ -36,52 +36,6 @@ $(document).ready(function() {
 	});
 
 	/**
-	 * LOGIN - VALIDATE USERNAME AND PASSWORD BEFORE SEND
-	 */
-
-	$('#memberLoginForm').on('submit', function(event) {
-		var error      = false,
-		    $userField = $('#memberLoginForm .username'),
-		    $passField = $('#memberLoginForm .password'),
-		    $submit    = $('#memberLoginForm input[type=submit]'),
-		    timer;
-
-		$.ajax({
-			url: 'login/validate',
-			type: 'post',
-			dataType: 'json',
-			data: { username: $userField.val(), password: $passField.val() }
-		})
-		.done(function(data){
-			if(data.authenticated == 'false') {
-				error = true;
-
-				$userField.addClass('error');
-				$passField.addClass('error');
-
-				$submit.attr('disabled', 'disabled').val(data.message);
-
-				clearTimeout(timer);
-				timer = setTimeout(function() {
-					$('#memberLoginForm input[type=submit]').removeAttr('disabled');
-					$('#memberLoginForm input[type=submit]').val('Log In');
-				}, 2000);
-			}
-		})
-		.fail(function(jqXHR, textStatus) {
-			throw new Error(textStatus);
-		})
-		.always(function() {
-			if(error == false) {
-				var form = document.getElementById('memberLoginForm');
-				form.submit();
-			}
-		});
-
-		event.preventDefault();
-	});
-
-	/**
 	 * USER CONTROL PANEL FUNCTIONS
 	 */
 

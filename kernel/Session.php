@@ -32,7 +32,7 @@ class Session
 
 	// Member information
 	public $member_info = array(
-		'm_id' => 0,
+		'm_id'      => 0,
 		'usergroup' => 5
 	);
 
@@ -64,7 +64,7 @@ class Session
 		if($expire == 1) {
 			$expire = $this->session_expires;
 		}
-		setcookie($name, String::Sanitize($value), $expire);
+		setcookie($name, String::Sanitize($value), $expire, "/");
 	}
 
 	/**
@@ -105,7 +105,7 @@ class Session
 	public function NoGuest()
 	{
 		if($this->session_info['member_id'] == 0) {
-			header("Location: error?m=1");
+			header("Location: error?t=not_allowed");
 			exit;
 		}
 	}
@@ -149,21 +149,23 @@ class Session
 			$_SESSION['session_id'] = $this->session_id;
 		}
 		else {
-			// If session exists in browser session, store it on class property
+			// If session exists in browser session, store it on $this->session_id
 			$this->session_id = $_SESSION['session_id'];
 		}
 
 		// Check cookies for Member ID (if user has already logged in)
-		$this->session_info['member_id'] = $this->GetCookie("member_id");
-
-		if($this->session_info['member_id']) {
-			// Update existing member session
+		if($this->GetCookie("member_id")) {
+			// Member has already logged in
+			$this->session_info['member_id'] = $this->GetCookie("member_id");
 			$this->UpdateMemberSession();
 		}
 		else {
-			// Delete old session data
-			$this->Db->Query("DELETE FROM c_sessions
-					WHERE activity_time < '{$this->session_activity_cut}';");
+			// Ok, is a guest, so... member ID is zero!
+			$this->session_info['member_id'] = 0;
+
+			// Delete old session data from other users
+			$this->Db->Query("DELETE FROM c_sessions WHERE activity_time < '{$this->session_activity_cut}';");
+
 			if($has_session) {
 				// Just a guest navigating...
 				$this->session_id = $_SESSION['session_id'];
@@ -182,7 +184,7 @@ class Session
 	 * PACKAGE) WHEN THE USER LOGS IN
 	 * --------------------------------------------------------------------
 	 */
-	public function LoginMemberSession($user_info)
+	public function CreateMemberSession($user_info)
 	{
 		if(is_array($user_info)) {
 			// Delete all existing session register in DB with the same session ID
@@ -282,7 +284,7 @@ class Session
 		// Set activity time
 		$this->session_info['activity_time'] = time();
 
-		// Delete old session data, except current logged in member
+		// Delete all old session data, except current logged in member
 		$this->Db->Query("DELETE FROM c_sessions WHERE activity_time < '{$this->session_activity_cut}'
 				AND member_id <> {$this->session_info['member_id']};");
 
@@ -309,6 +311,7 @@ class Session
 				// Insert new session on database
 				$this->Db->Insert("c_sessions", $this->session_info);
 			}
+
 			$_SESSION['logged_in'] = $this->session_info['member_id'];
 		}
 
