@@ -90,7 +90,8 @@ class Session
 	public function UnloadCookie($name)
 	{
 		if(isset($_COOKIE[$name])) {
-			setcookie($name, "0", -1);
+			unset($_COOKIE[$name]);
+			setcookie($name, "", 1, "/");
 		}
 		else {
 			throw new Exception("Could not unload cookie '" . $name . "'.");

@@ -102,4 +102,19 @@ class Login extends Application
 
 		echo json_encode($data);
 	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * REMOVE ALL MEMBER SESSIONS/COOKIES AND LOG OUT
+	 * --------------------------------------------------------------------
+	 */
+	public function Logout()
+	{
+		$this->layout = false;
+
+		// Destroy everything
+		$this->Session->DestroySession($this->Session->member_info['m_id']);
+
+		$this->Core->Redirect("");
+	}
 }
