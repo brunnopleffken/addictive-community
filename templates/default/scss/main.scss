@@ -977,6 +977,56 @@ form {
 	}
 }
 
+.main-post, .thread-post-reply {
+	.attachments {
+		overflow: hidden;
+		.file {
+			border: 1px dashed #eeeeee;
+			float: left;
+			margin-top: 20px;
+			margin-right: 10px;
+			padding: 10px;
+			width: 230px;
+			.fileIcon {
+				color: #444444;
+				display: inline-block;
+				font-family: FontAwesome;
+				font-size: 40px;
+				margin: 8px 8px 8px 0;
+				text-align: center;
+				text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+				vertical-align: middle;
+				&.doc:after { content: "\F1C2"; }
+				&.htm:after { content: "\F1C9"; }
+				&.img:after { content: "\F1C5"; }
+				&.mp3:after { content: "\F1C7"; }
+				&.pdf:after { content: "\F1C1"; }
+				&.ppt:after { content: "\F1C4"; }
+				&.txt:after { content: "\F0F6"; }
+				&.vid:after { content: "\F1C8"; }
+				&.xls:after { content: "\F1C3"; }
+				&.zip:after { content: "\F1C6"; }
+				&.blank:after { content: "\F016"; }
+			}
+			.fileName {
+				color: #000000;
+				display: inline-block;
+				font-size: 11px;
+				line-height: 1.4em;
+				vertical-align: middle;
+				width: 160px;
+				span {
+					display: block;
+					font-size: 12px;
+					font-weight: bold;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+		}
+	}
+}
+
 .profile-header {
 	height: 250px;
 	margin-bottom: 20px;

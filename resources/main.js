@@ -205,4 +205,43 @@ $(document).ready(function() {
 		],
 		toolbar: 'bold italic underline strikethrough | link image | subscript superscript | removeformat'
 	});
+
+	/**
+	 * MESSENGER
+	 */
+	$('#delete-messages').on('click', function(event){
+		if($('.checkDeleteMessage:checked').length == 0) {
+			alert('You need to select at least one message.');
+			event.preventDefault();
+		}
+		else {
+			$('form.personal-messenger').submit();
+		}
+	});
+
+	$('#pmTo').select2({
+		minimumInputLength: 2,
+		ajax: {
+			url: 'messenger/get_usernames',
+			dataType: 'json',
+			type: "POST",
+			quietMillis: 500,
+			data: function (term) {
+				return {
+					term: term
+				};
+			},
+			results: function (data) {
+				return {
+					results: $.map(data, function (item) {
+						return {
+							text: item.username,
+							slug: item.username,
+							id: item.m_id
+						}
+					})
+				};
+			}
+		}
+	});
 });
