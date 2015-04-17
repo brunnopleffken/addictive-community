@@ -207,8 +207,17 @@ $(document).ready(function() {
 	});
 
 	/**
-	 * MESSENGER
+	 * MESSENGER: SELECT ALL MESSAGES
 	 */
+
+	$('#check-messages').on('click', function() {
+		$('.del-message-checkbox').attr('checked', true);
+	});
+
+	/**
+	 * MESSENGER: DELETE SELECTED MESSAGES
+	 */
+
 	$('#delete-messages').on('click', function(event){
 		if($('.checkDeleteMessage:checked').length == 0) {
 			alert('You need to select at least one message.');
@@ -218,6 +227,10 @@ $(document).ready(function() {
 			$('form.personal-messenger').submit();
 		}
 	});
+
+	/**
+	 * MESSENGER: FIND MEMBER BY USERNAME
+	 */
 
 	$('#pmTo').select2({
 		minimumInputLength: 2,

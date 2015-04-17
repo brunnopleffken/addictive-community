@@ -60,6 +60,8 @@ class Messenger extends Application
 		$percentage_width = (200 / $max_storage_size) * $num_results . "px";
 
 		// Results
+		$results = array();
+
 		while($result = $this->Db->Fetch()) {
 			$result['icon_class'] = ($result['status'] == 1) ? "fa-envelope" : "fa-envelope-o";
 			$result['subject']    = ($result['status'] == 1) ? "<b>" . $result['subject'] . "<b>" : $result['subject'];

@@ -77,11 +77,11 @@ class Profile extends Application
 		$this->info['website'] = "<a href=\"{$this->info['website']}\" rel=\"nofollow\" target=\"_blank\">{$this->info['website']}</a>";
 
 		// Member e-mail
-		if($this->info['show_email'] == 1) {
-			$this->info['email'] = "<a href='mailto:" . $this->info['email'] . "'>" . $this->info['email'] . "</a>";
+		if($this->info['hide_email'] == 1) {
+			$this->info['email'] = "<em>" . i18n::Translate("P_PRIVATE") . "</em>";
 		}
 		else {
-			$this->info['email'] = "<em>" . i18n::Translate("P_PRIVATE") . "</em>";
+			$this->info['email'] = "<a href='mailto:" . $this->info['email'] . "'>" . $this->info['email'] . "</a>";
 		}
 
 		$this->Set("info", $this->info);

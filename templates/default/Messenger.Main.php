@@ -27,7 +27,7 @@
 				<div class="fleft"><?php __("M_FOLDER_INBOX") ?></div>
 				<div class="fright">
 					<a class="small-button grey white" id="delete-messages"><?php __("M_DELETE_SELECTED") ?></a>
-					<a class="small-button grey white" data-check="check-messages"><?php __("M_SELECT_ALL") ?></a>
+					<a class="small-button grey white" id="check-messages"><?php __("M_SELECT_ALL") ?></a>
 				</div>
 			</th>
 		</tr>
@@ -45,7 +45,7 @@
 					<td style="font-size: 14px;"><a href="messenger/read/<?php __($pm['pm_id']) ?>"><?php __($pm['subject']) ?></a></td>
 					<td><a href="profile/<?php __($pm['from_id']) ?>"><?php __($pm['username']) ?></a></td>
 					<td><?php __($pm['sent_date']) ?></td>
-					<td class="min"><input type="checkbox" name="pm[]" value="<?php __($pm['pm_id']) ?>" class="checkDeleteMessage"></td>
+					<td class="min"><input type="checkbox" name="pm[]" value="<?php __($pm['pm_id']) ?>" class="del-message-checkbox"></td>
 				</tr>
 			<?php endforeach; ?>
 			<?php else: ?>

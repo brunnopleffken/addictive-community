@@ -70,14 +70,18 @@
 				<td class="min" style="font-size: 16px"><i class="fa fa-fw fa-envelope-o"></i></td>
 				<td><?php __($info['email']) ?></td>
 			</tr>
-			<tr>
-				<td class="min" style="font-size: 16px"><i class="fa fa-fw fa-facebook-official"></i></td>
-				<td><a href="https://www.facebook.com/<?php __($info['im_facebook']) ?>" target="_blank" rel="nofollow">fb.com/<?php __($info['im_facebook']) ?></a></td>
-			</tr>
-			<tr>
-				<td class="min" style="font-size: 16px"><i class="fa fa-fw fa-twitter"></i></td>
-				<td><a href="https://twitter.com/<?php __($info['im_twitter']) ?>" target="_blank" rel="nofollow">@<?php __($info['im_twitter']) ?></a></td>
-			</tr>
+			<?php if($info['im_facebook']): ?>
+				<tr>
+					<td class="min" style="font-size: 16px"><i class="fa fa-fw fa-facebook-official"></i></td>
+					<td><a href="https://www.facebook.com/<?php __($info['im_facebook']) ?>" target="_blank" rel="nofollow">fb.com/<?php __($info['im_facebook']) ?></a></td>
+				</tr>
+			<?php endif; ?>
+			<?php if($info['im_twitter']): ?>
+				<tr>
+					<td class="min" style="font-size: 16px"><i class="fa fa-fw fa-twitter"></i></td>
+					<td><a href="https://twitter.com/<?php __($info['im_twitter']) ?>" target="_blank" rel="nofollow">@<?php __($info['im_twitter']) ?></a></td>
+				</tr>
+			<?php endif; ?>
 		</table>
 	</div>
 </div>

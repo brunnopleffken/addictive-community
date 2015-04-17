@@ -125,7 +125,7 @@ class Thread extends Application
 		// Update: room stats
 		$this->Db->Query("UPDATE c_rooms SET lastpost_date = '{$post['post_date']}',
 				lastpost_thread = '{$post['thread_id']}', lastpost_member = '{$post['author_id']}'
-				WHERE r_id = '{$roomId}';");
+				WHERE r_id = '{$room_id}';");
 
 		// Update: member stats
 		$this->Db->Query("UPDATE c_members SET posts = posts + 1, lastpost_date = '{$post['post_date']}'

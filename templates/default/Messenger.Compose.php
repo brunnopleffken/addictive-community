@@ -19,7 +19,7 @@
 		<div class="input-box">
 			<div class="label"><?php __("M_MESSAGE") ?></div>
 			<div class="field">
-				<textarea name="post" id="post" class="full required" rows="12"></textarea>
+				<textarea name="post" id="post" class="full" rows="12"></textarea>
 			</div>
 		</div>
 		<div class="fleft">

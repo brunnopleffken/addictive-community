@@ -71,7 +71,7 @@ class Register extends Application
 			"username"      => Html::Request("username"),
 			"password"      => String::PasswordEncrypt(Html::Request("password")),
 			"email"         => Html::Request("email"),
-			"hide_email"    => 0,
+			"hide_email"    => 1,
 			"ip_address"    => $_SERVER['REMOTE_ADDR'],
 			"joined"        => time(),
 			"usergroup"     => $usergroup,
@@ -81,7 +81,6 @@ class Register extends Application
 			"language"      => $this->config['language'],
 			"time_offset"   => $this->config['date_default_offset'],
 			"dst"           => 0,
-			"show_email"    => 1,
 			"show_birthday" => 1,
 			"show_gender"   => 1,
 			"token"         => md5(microtime())

@@ -3,7 +3,7 @@
 	var js, fjs = d.getElementsByTagName(s)[0];
 	if (d.getElementById(id)) return;
 	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+	js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
@@ -19,7 +19,7 @@
 				<?php __($first_post_info['posts']) ?> <?php __("T_POSTS_LOWCASE") ?>
 			</div>
 			<div class="fright" style="margin-top: 12px">
-				<div class="fb-share-button" data-href="<?php echo Html::CurrentUrl() ?>" data-type="button_count"></div>
+				<div class="fb-share-button" data-href="<?php echo Html::CurrentUrl() ?>" data-layout="button_count"></div>
 			</div>
 			<div class="fright" style="margin-top: 12px">
 				<a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>

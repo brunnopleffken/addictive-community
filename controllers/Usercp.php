@@ -319,7 +319,7 @@ class Usercp extends Application
 					);
 
 					// Delete current photo, if exists (avoid duplicate files)
-					if(file_exists("public/avatar/{$current_photo}")) {
+					if(is_file("public/avatar/{$current_photo}")) {
 						unlink("public/avatar/{$current_photo}");
 					}
 
