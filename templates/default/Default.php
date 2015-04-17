@@ -2,11 +2,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Addictive Community (Powered by Addictive Community)</title>
+	<title><?php __($community_name) ?> (Powered by Addictive Community)</title>
 	<base href="http://localhost/addictive-community/">
 	<!-- META -->
 	<meta name="generator" content="Addictive Community <?php echo VERSION ?>">
-	<meta name="description" content="">
+	<meta name="description" content="<?php __($meta_description) ?>">
 	<link rel="icon" href="favicon.ico">
 	<!-- CSS -->
 	<link rel="stylesheet" href="templates/default/css/main.css">
@@ -27,8 +27,8 @@
 	<div id="topbar">
 		<div class="wrapper">
 			<div class="fleft">
-				<a href="" target="_blank">
-					Addictive Community
+				<a href="<?php __($website_url) ?>" target="_blank">
+					<?php __($website_name) ?>
 				</a>
 			</div>
 			<div class="fright">
@@ -54,7 +54,7 @@
 		</div>
 	</div>
 	<div class="wrapper">
-		<div id="breadcrumb"><a href="#">Addictive Community</a></div>
+		<div id="breadcrumb"><a href="#"><?php __($community_name) ?></a></div>
 	</div>
 
 	<!-- CONTENT -->
@@ -126,6 +126,7 @@
 	<div id="footer">
 		<div class="wrapper center">
 			Powered by Addictive Community <?php echo VERSION ?> &copy; <?php echo date("Y") ?> - All rights reserved.
+			<div class="fright"><a href="community/about" class="fancybox fancybox.ajax"><?php __("FOOTER_ABOUT") ?></a></div>
 		</div>
 	</div>
 </body>

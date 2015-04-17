@@ -150,5 +150,12 @@ class Application
 		$_stats['lastmembername'] = $stats_result_temp['username'];
 
 		$this->Set("stats", $_stats);
+
+		// RETURN COMMON VARIABLES
+		$this->Set("community_name", $this->config['general_communityname']);
+		$this->Set("meta_description", $this->config['seo_description']);
+		$this->Set("meta_keywords", $this->config['seo_keywords']);
+		$this->Set("website_name", $this->config['general_websitename']);
+		$this->Set("website_url", $this->config['general_websiteurl']);
 	}
 }
