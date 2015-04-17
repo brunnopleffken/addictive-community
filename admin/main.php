@@ -30,23 +30,22 @@
 	// Call files
 
 	require_once("../init.php");
-	require_once("../app.php");
 	require_once("../config.php");
-
-	$Init = new Init();
 
 	// Load kernel drivers
 
-	$Init->Load("database", true);
-	$Init->Load("core", true);
-	$Init->Load("string", true);
-	$Init->Load("html", true);
-	$Init->Load("template", true);
-	$Init->Load("admin", true);
-	$Init->Load("i18n", true);
+	require("../kernel/Admin.php");
+	require("../kernel/Database.php");
+	require("../kernel/Core.php");
+	require("../kernel/Html.php");
+	require("../kernel/i18n.php");
+	require("../kernel/String.php");
+	require("../kernel/Template.php");
 
 	$Db = new Database($config);
-	$Core = new Core($Db);
+
+	$Db->Query("SELECT * FROM c_config;");
+	$Core = new Core($Db, $Db->FetchArray());
 	$Admin = new Admin($Db);
 
 	require_once("sources/template.php");

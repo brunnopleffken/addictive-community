@@ -32,7 +32,7 @@
 				// Exit
 
 				$Admin->RegisterLog("Executed system optimization: member counting.");
-				echo $notification->ShowNotif("Registered members have been recounted successfully.", "success");
+				echo Html::Notification("Registered members have been recounted successfully.", "success");
 
 				break;
 

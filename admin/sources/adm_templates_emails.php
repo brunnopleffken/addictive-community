@@ -15,11 +15,11 @@
 
 	if($_POST) {
 		foreach($_POST as $k => $v) {
-			$content = nl2br(String::Sanitize($v));
+			$content = $v;
 			$Db->Query("UPDATE c_emails SET content = '{$content}' WHERE type = '{$k}';");
 		}
 
-		$message = Html::Notification("E-mail templates has been updates successfully.", "success");
+		$message = Html::Notification("E-mail templates has been updated successfully.", "success");
 	}
 
 	// List of e-mail messages
@@ -30,7 +30,7 @@
 		$template['content'] = str_replace("<br />", "", $template['content']);
 		Template::Add("<tr>
 				<td>{$template['description']}</td>
-				<td><textarea name='{$template['type']}' rows='10' style='width:500px'>{$template['content']}</textarea></td>
+				<td><textarea name='{$template['type']}' rows='8' style='width:500px'>{$template['content']}</textarea></td>
 			</tr>");
 	}
 
@@ -42,7 +42,7 @@
 
 	<div id="content">
 		<div class="grid-row">
-			<?php echo Html::Notification("<u>Do not</u> change the order of the variables (%s or %d markers). E-mail messages are written in HTML, e.g: line breaks, use &lt;br&gt;", "warning"); ?>
+			<?php echo Html::Notification("<u>Do not</u> change the position of the variables (%s or %d markers). You can use HTML tags, e.g: line breaks, use &lt;br&gt;.", "warning"); ?>
 			<form action="main.php?act=templates&p=emails" method="post">
 				<table class="table-list">
 					<tr>

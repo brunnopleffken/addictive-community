@@ -12,9 +12,9 @@
 	// Include files...
 
 	require_once("../config.php");
-	require_once("../kernel/class.string.php");
-	require_once("../kernel/class.html.php");
-	require_once("../kernel/class.database.php");
+	require_once("../kernel/String.php");
+	require_once("../kernel/Html.php");
+	require_once("../kernel/Database.php");
 
 	// Load MySQL driver and connect
 

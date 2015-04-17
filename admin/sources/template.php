@@ -16,7 +16,7 @@ $template['header'] = <<<HTML
 	<title>Addictive Community - Administration Panel</title>
 	<meta charset="utf-8">
 	<link href="styles/admin_style.css" type="text/css" rel="stylesheet">
-	<link href="../resources/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+	<link href="../thirdparty/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
