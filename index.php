@@ -101,6 +101,7 @@ class Main
 	{
 		require("kernel/Core.php");
 		require("kernel/Database.php");
+		require("kernel/Email.php");
 		require("kernel/Html.php");
 		require("kernel/i18n.php");
 		require("kernel/Session.php");
@@ -203,6 +204,7 @@ class Main
 	private function _GetTemplate()
 	{
 		$this->template = "default";
+		$this->Config['template'] = $this->template;
 	}
 
 	/**
@@ -224,6 +226,9 @@ class Main
 	private function _GetLanguage()
 	{
 		$this->language = "en_US";
+
+		// Store selected language in $this->Config
+		$this->Config['language'] = $this->language;
 
 		// Load language files
 		include("languages/" . $this->language . "/default.php");
