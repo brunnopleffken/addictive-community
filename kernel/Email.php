@@ -68,7 +68,7 @@ class Email
 	 * $to ACCEPTS BOTH STRING AND ARRAY ($email => $name)
 	 * --------------------------------------------------------------------
 	 */
-	public function Send($to, $subject, $body, $redirect = "index.php")
+	public function Send($to, $subject, $body)
 	{
 		if(is_array($to)) {
 			foreach($to as $address => $username) {
@@ -84,8 +84,7 @@ class Email
 
 		if($this->Mail->send()) {
 			// Done!
-			header("Location: " . $redirect);
-			exit;
+			return true;
 		}
 		else {
 			// Error
