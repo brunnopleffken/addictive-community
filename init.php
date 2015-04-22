@@ -24,6 +24,7 @@
 	 */
 	define("VERSION", "v0.1.0");
 	define("CHANNEL", "Alpha"); // e.g.: Alpha, Beta, Release Candidate, Final
+	define("CODENAME", "Nile"); // Version codename :)
 
 	/**
 	 * --------------------------------------------------------------------
