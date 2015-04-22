@@ -113,7 +113,8 @@ form {
 		cursor: pointer;
 		font-family: $fontSans;
 		font-size: 12px;
-		padding: 7px 12px;
+		line-height: 30px;
+		padding: 0 12px;
 		text-shadow: 1px 1px 0px #000;
 		&.cancel {
 			background: #eee url('../images/button-bg.png') !important;
@@ -981,14 +982,14 @@ form {
 	.attachments {
 		overflow: hidden;
 		.file {
-			border: 1px dashed #eeeeee;
+			border: 1px dashed #eee;
 			float: left;
 			margin-top: 20px;
 			margin-right: 10px;
 			padding: 10px;
 			width: 230px;
 			.fileIcon {
-				color: #444444;
+				color: #444;
 				display: inline-block;
 				font-family: FontAwesome;
 				font-size: 40px;
@@ -1155,6 +1156,44 @@ form {
 		&:last-child {
 			margin-bottom: 0;
 		}
+	}
+}
+
+/** CALENDAR **/
+
+.calendar {
+	border-collapse: collapse;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	margin-bottom: 20px;
+	width: 100%;
+	th {
+		background: $colorFiord url('../images/bar-bg.png') repeat-x;
+		color:#fff;
+		font-weight: bold;
+		padding: 8px;
+		text-align: left;
+	}
+	.week {
+		background: #fff url('../images/bar-bg.png');
+		border-bottom: 1px solid #ccc;
+		font-size: 11px;
+		font-weight: bold;
+		padding: 5px 8px;
+		width: 14%;
+	}
+	.day {
+		background: #fff;
+		border: 1px solid #eee;
+		padding: 20px;
+		&.today {
+			background: #fcfcfc;
+			box-shadow: 0px 0px 1px 1px rgba(150, 0, 0, 1) inset;
+		}
+	}
+	.fill {
+		background: #fff;
+		border: 1px solid #eee;
+		padding: 20px;
 	}
 }
 
