@@ -5,6 +5,8 @@
 	</div>
 </div>
 
+<?php __($notification) ?>
+
 <div class="box">
 	<form action="" method="post" id="calendar-set-date">
 		<?php __("C_GOTO") ?>:
@@ -18,7 +20,7 @@
 
 <div class="fright">
 	<form>
-		<input type="button" onclick="window.location.href='calendar/addevent'" value="<?php __("C_ADD") ?>">
+		<input type="button" onclick="window.location.href='calendar/add'" value="<?php __("C_ADD") ?>">
 		<input type="button" onclick="window.location.href='calendar'" value="<?php __("C_SHOW") ?>">
 	</form>
 </div>
