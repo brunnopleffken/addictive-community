@@ -32,8 +32,8 @@ form .large { width: 420px; }
 form .medium { width: 300px; }
 form .small { width: 200px; }
 form .tiny { width: 90px; }
-form input[type=text], form input[type=password], form input[type=file], form select, form textarea { border: 1px solid #ccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica, sans-serif; font-size: 13px; outline: none; padding: 6px; }
-form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form select:focus, form textarea:focus { border: 1px solid #aaa; transition: 500ms; }
+form input[type=text], form input[type=password], form input[type=file], form textarea { border: 1px solid #ccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica, sans-serif; font-size: 13px; outline: none; padding: 6px; }
+form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form textarea:focus { border: 1px solid #aaa; transition: 500ms; }
 form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: Arial, Helvetica, sans-serif; margin-top: -3px; }
 form input[type=button], form input[type=submit] { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #fff; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 30px; padding: 0 12px; text-shadow: 1px 1px 0px #000; }
 form input[type=button].cancel, form input[type=submit].cancel { background: #eee url("../images/button-bg.png") !important; color: #900 !important; text-shadow: 1px 1px 0px #fff !important; }
@@ -75,9 +75,9 @@ form textarea { overflow: auto; }
 .table-list.no-borders tr.subtitle td { border-bottom: 1px solid #ccc; padding: 6px 8px; }
 
 /** HEADER **/
-#topbar { background: #000; color: #ccc; font-size: 11px; padding: 8px; }
-#topbar a { color: #ccc; margin-right: 25px; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
-#topbar a:hover { color: #fff; text-decoration: none; }
+#topbar { background: #000; color: #ccc; font-size: 11px; }
+#topbar a { color: #ccc; display: inline-block; margin-right: 10px; padding: 8px 10px; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
+#topbar a:hover { background-color: #282828; color: #fff; text-decoration: none; }
 #topbar a:last-child { margin-right: 0; }
 
 #logo { display: table; margin: 20px 0; width: 100%; }
@@ -85,8 +85,8 @@ form textarea { overflow: auto; }
 
 #search { background: #303747; border-radius: 8px; float: right; font-size: 0; padding: 10px; }
 #search input[type=text] { background: #fff url("../images/magnifier.png") no-repeat 5px 5px; background-size: 20px; border: 0; border-radius: 2px; font-size: 14px; height: 32px; padding: 0 4px 0 32px; width: 250px; }
-#search input[type=submit] { background: #369; border: 0; color: #fff; cursor: pointer; font-size: 11px; font-weight: bold; height: 32px; margin-left: 10px; padding: 0 8px; vertical-align: top; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
-#search input[type=submit]:hover { background: #3973ac; }
+#search input[type=submit] { background: #5b6786; border: 0; color: #fff; cursor: pointer; font-size: 11px; font-weight: bold; height: 32px; margin-left: 10px; padding: 0 8px; vertical-align: top; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
+#search input[type=submit]:hover { background: #657395; }
 
 #breadcrumb { background: #fff; color: #666; font-size: 11px; margin: 10px 0; padding: 8px 10px; }
 
@@ -142,7 +142,7 @@ form textarea { overflow: auto; }
 .room-item .info .last-post { border-top: 1px solid #eee; font-size: 11px; margin-bottom: -10px; margin-top: 10px; padding: 7px 0 0px 0; position: relative; }
 .room-item .info .last-post span { margin-right: 15px; }
 .room-item .room-stats { background: #465068; vertical-align: top; width: 100px; }
-.room-item .room-stats .item { border-bottom: 1px dotted #ccc; color: #fff; font-weight: bold; font-size: 15px; overflow: hidden; padding: 15px; text-align: center; }
+.room-item .room-stats .item { border-bottom: 1px dotted rgba(255, 255, 255, 0.5); color: #fff; font-weight: bold; font-size: 15px; overflow: hidden; padding: 15px; text-align: center; }
 
 /** ROOM PAGE **/
 .room-title-bar { overflow: hidden; padding: 5px 0 18px 0; vertical-align: bottom; }
@@ -281,6 +281,15 @@ form textarea { overflow: auto; }
 .calendar .day { background: #fff; border: 1px solid #eee; padding: 20px; }
 .calendar .day.today { background: #fcfcfc; box-shadow: 0px 0px 1px 1px #960000 inset; }
 .calendar .fill { background: #fff; border: 1px solid #eee; padding: 20px; }
+
+.calendar-events { display: table; width: 100%; }
+.calendar-events .time { display: table-cell; font-size: 22px; font-weight: bold; vertical-align: middle; white-space: nowrap; width: 1%; }
+.calendar-events .marker { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVQIW2N0C8zwYQACAAhlAU0RIoPTAAAAAElFTkSuQmCC) repeat-y center; display: table-cell; position: relative; width: 80px; }
+.calendar-events .marker span { background-color: #465068; border-radius: 50%; display: block; height: 12px; left: 50%; margin-left: -6px; margin-top: -6px; position: absolute; top: 50%; width: 12px; }
+.calendar-events .details { background-color: #fff; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); display: table-cell; padding: 15px; }
+.calendar-events:first-child .marker:before { background-color: #f1f1f1; content: ""; display: block; height: 50%; position: absolute; top: 0; width: 70px; }
+.calendar-events:last-child .marker:before { background-color: #f1f1f1; bottom: 0; content: ""; display: block; height: 50%; position: absolute; width: 70px; }
+.calendar-events:only-child .marker { background: transparent; }
 
 /** NOTIFICATIONS **/
 .notification { margin-bottom: 10px; border: 1px solid transparent; }

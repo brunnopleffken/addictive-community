@@ -26,7 +26,7 @@
 		<div class="input-box">
 			<div class="label"><?php __("C_NEW_TYPE") ?></div>
 			<div class="field">
-				<select name="type" class="select2">
+				<select name="type" class="select2 medium">
 					<option value="public"><?php __("C_NEW_PUBLIC") ?></option>
 					<option value="private"><?php __("C_NEW_PRIVATE") ?></option>
 				</select>

@@ -43,6 +43,39 @@ class Calendar extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * VIEW DAY
+	 * --------------------------------------------------------------------
+	 */
+	public function View()
+	{
+		// Get date and convert to array
+		$date = explode("-", Html::Request("date"));
+
+		// Get all events
+		$this->Db->Query("SELECT e.*, m.username FROM c_events e
+				INNER JOIN c_members m ON (e.author = m.m_id)
+				WHERE year = {$date[0]}
+					AND month = {$date[1]}
+					AND day = {$date[2]}
+				ORDER BY timestamp ASC;");
+
+		$events_count = ($this->Db->Rows() > 0) ? true : false;
+		$events_result = $this->Db->FetchToArray();
+
+		// Format date to make it readable for human beings
+		$formatted_date = date(
+			$this->config['date_short_format'],
+			mktime(0, 0, 0, $date[1], $date[2], $date[0])
+		);
+
+		// Return variables
+		$this->Set("count", $events_count);
+		$this->Set("events", $events_result);
+		$this->Set("formatted_date", $formatted_date);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * ADD NEW EVENT TO CALENDAR
 	 * --------------------------------------------------------------------
 	 */
@@ -180,7 +213,7 @@ class Calendar extends Application
 			$event_count = $event_count['event_number'];
 
 			if($event_count != 0) {
-				$marker = "style=\"background: #f8fcff url('templates/" . $this->config['template'] . "/images/star.png') no-repeat 95% 15%;\"";
+				$marker = "style='background: #f8fcff;'";
 			}
 			else {
 				$marker = "";
@@ -191,11 +224,11 @@ class Calendar extends Application
 				$current_year == $today_info['year'] &&
 				$current_day == $today_info['mday']
 			) {
-				Template::Add("<td class='day today' rel='{$date}' {$marker}><b><a href=\"calendar/date/{$date}\">{$current_day}</a></b></td>");
+				Template::Add("<td class='day today' rel='{$date}' {$marker}><b><a href='calendar/view?date={$date}'>{$current_day}</a></b></td>");
 			}
 			else {
 				Template::Add("<td class='day' rel='{$date}' {$marker}>
-					<a href=\"calendar/date/{$date}\">{$current_day}</a></td>");
+					<a href='calendar/view?date={$date}'>{$current_day}</a></td>");
 			}
 
 			// Increment counters

@@ -84,10 +84,10 @@ class Html
 	 */
 	public static function Days($name, $current = 1)
 	{
-		$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\" style=\"width: 60px\">";
+		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 60px'>";
 		for($i = 1; $i <= 31; $i++) {
 			$selected = ($i == $current) ? "selected" : "";
-			$retval .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
+			$retval .= "<option value='{$i}' {$selected}>{$i}</option>";
 		}
 		$retval .= "</select>";
 		return $retval;
@@ -101,15 +101,15 @@ class Html
 	 */
 	public static function Months($name, $numeric = true, $current = 1)
 	{
-		$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\" style=\"width: 110px\">";
+		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 110px'>";
 		for($i = 1; $i <= 12; $i++) {
 			$selected = ($i == $current) ? "selected" : "";
 			if(!$numeric) {
 				$month_name = i18n::Translate("M_" . $i);
-				$retval .= "<option value=\"{$i}\" {$selected}>{$month_name}</option>";
+				$retval .= "<option value='{$i}' {$selected}>{$month_name}</option>";
 			}
 			else {
-				$retval .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
+				$retval .= "<option value='{$i}' {$selected}>{$i}</option>";
 			}
 		}
 		$retval .= "</select>";
@@ -125,10 +125,10 @@ class Html
 	{
 		$now = date("Y", time());
 		$current = ($current == 0) ? $now : $current;
-		$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\" style=\"width: 75px\">";
+		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 75px'>";
 		for($i = $now - $before; $i <= $now + $after; $i++) {
 			$selected = ($i == $current) ? "selected" : "";
-			$retval .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
+			$retval .= "<option value='{$i}' {$selected}>{$i}</option>";
 		}
 		$retval .= "</select>";
 		return $retval;
@@ -141,13 +141,13 @@ class Html
 	 */
 	public static function Hours($name, $current = 0)
 	{
-		$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\">";
+		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 55px'>";
 		for($i = 0; $i <= 23; $i++) {
 			$selected = ($i == $current) ? "selected" : "";
 			if($i < 10) {
 				$i = "0" . $i;
 			}
-			$retval .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
+			$retval .= "<option value='{$i}' {$selected}>{$i}</option>";
 		}
 		$retval .= "</select>";
 		return $retval;
@@ -160,13 +160,13 @@ class Html
 	 */
 	public static function Minutes($name, $current = 0)
 	{
-		$retval = "<select name=\"{$name}\" id=\"{$name}\" class=\"select2-no-search\">";
+		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 55px'>";
 		for($i = 0; $i <= 45; $i += 15) {
 			$selected = ($i == $current) ? "selected" : "";
 			if($i < 10) {
 				$i = "0" . $i;
 			}
-			$retval .= "<option value=\"{$i}\" {$selected}>{$i}</option>";
+			$retval .= "<option value='{$i}' {$selected}>{$i}</option>";
 		}
 		$retval .= "</select>";
 		return $retval;
@@ -199,7 +199,7 @@ class Html
 		if($custom_title != "") {
 			$title = $custom_title;
 		}
-		$html = "<div class=\"notification " . $code . " " . $persistent . "\"><p><strong>" . $title . "</strong> " . $message . "</p></div>";
+		$html = "<div class='notification " . $code . " " . $persistent . "'><p><strong>" . $title . "</strong> " . $message . "</p></div>";
 		return $html;
 	}
 
@@ -210,7 +210,7 @@ class Html
 	 */
 	public static function ForumRules($title, $text)
 	{
-		$html = "<div class=\"notification warning\"><p><strong>" . $title . "</strong> " . $text . "</p></div>";
+		$html = "<div class='notification warning'><p><strong>" . $title . "</strong> " . $text . "</p></div>";
 		return $html;
 	}
 
@@ -221,7 +221,7 @@ class Html
 	 */
 	public static function Crop($image, $w, $h, $class = "")
 	{
-		$html = "<div style=\"display:inline-block; width:{$w}px; height:{$h}px; background: url('{$image}') no-repeat center top; background-size:cover; image-rendering: optimizeQuality;\" class=\"{$class}\"></div>";
+		$html = "<div style=\"display:inline-block; width:{$w}px; height:{$h}px; background: url('{$image}') no-repeat center top; background-size:cover; image-rendering: optimizeQuality;\" class='{$class}'></div>";
 		return $html;
 	}
 
