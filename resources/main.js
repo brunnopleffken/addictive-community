@@ -1,123 +1,70 @@
-// ---------------------------------------------------
-//  ADDICTIVE COMMUNITY
-// ---------------------------------------------------
-// Developed by Brunno Pleffken Hosti
-// File: main.js
-// Release: v1.0.0
-// Copyright: (c) 2014 - Addictive Software
-// ---------------------------------------------------
+/**
+ * ADDICTIVE COMMUNITY
+ * -------------------------------------------------------
+ * Created by Brunno Pleffken Hosti
+ * http://github.com/brunnopleffken/addictive-community
+ *
+ * File: main.js
+ * Release: v1.0.0
+ * Copyright: (c) 2015 - Addictive Software
+ */
 
 
-jQuery(document).ready(function($) {
-
-	// ---------------------------------------------------
-	// Replace regular <select> with a nice one!
-	// ---------------------------------------------------
+$(document).ready(function() {
+	/**
+	 * REPLACE ALL REGULAR <select> FIELDS WITH A FANCY ONE
+	 */
 
 	$('.select2').select2({ 'width': 'element' });
 	$('.select2-no-search').select2({ 'minimumResultsForSearch': -1, 'width': 'element' });
 
-	// ---------------------------------------------------
-	// Fade out notifications after 3 seconds
-	// ---------------------------------------------------
+	/**
+	 * FADE OUT ALL NOTIFICATIONS AFTER 3 SECONDS IF HAS NOT .persistent CLASS
+	 */
 
 	$('.notification').not('.persistent').delay(3000).fadeOut(1000);
 
-	// ---------------------------------------------------
-	// Build lightbox when .fancybox exists
-	// ---------------------------------------------------
+	/**
+	 * BUILD LIGHTBOX WHEN LINK HAS .fancybox
+	 */
 
-	if(typeof $.fancybox != 'undefined') {
-		$('.fancybox').fancybox({
-			autoSize: true,
-			closeBtn: false,
-			modal: false,
-			padding: 2
-		});
+	$('.fancybox').fancybox({
+		autoSize: true,
+		closeBtn: false,
+		modal: false,
+		padding: 2
+	});
+
+	/**
+	 * USER CONTROL PANEL FUNCTIONS
+	 */
+
+	if($('.photoSelect:checked').val() == "gravatar") {
+		$('#gravatar').show();
+	} else if($('.photoSelect:checked').val() == "facebook") {
+		$('#facebook').show();
+	} else if($('.photoSelect:checked').val() == "custom") {
+		$('#custom').show();
 	}
 
-	// ---------------------------------------------------
-	// Automatic tooltips
-	// ---------------------------------------------------
+	$('.photoSelect').on('change', function(){
+		var value = $(this).val();
 
-	$('*[data-tooltip]').each(function(i, v) {
-		var $element = $(this),
-		    position = $element.position(),
-		    height   = $element.outerHeight() + 8;
-
-		$element.attr('data-tooltip-identifier', i);
-		$element.after('<div class="tooltip" id="tooltip_' + i + '" style="left: ' + position.left +'px; top: ' + height + 'px">' + $element.data('tooltip') + '</div>');
-
-		$element.on('mouseenter', function() {
-			$('#tooltip_' + i).stop(true).delay(500).fadeIn();
-		});
-		$element.on('mouseleave', function() {
-			$('#tooltip_' + i).stop(true).fadeOut();
-		});
-	});
-
-	$('.tooltip').each(function(i, v) {
-		var $tooltip = $(this),
-		    width    = $tooltip.outerWidth() / 2 - 15;
-
-		$tooltip.css('margin-left', '-' + width + 'px');
-	});
-
-	// ---------------------------------------------------
-	// Open lightbox when clicking in "Delete Post"
-	// ---------------------------------------------------
-
-	$('a.deleteButton').on('click', function() {
-		var postId   = $(this).data('post'),
-		    threadId = $(this).data('thread'),
-		    memberId = $(this).data('member');
-
-		$('input#deletePostId').val(postId);
-		$('input#deleteThreadId').val(threadId);
-		$('input#deleteMemberId').val(memberId);
-	});
-
-	// ---------------------------------------------------
-	// INSERT MARKDOWN TAGS TO TEXTAREA
-	// ---------------------------------------------------
-
-	$('#textareaToolbar').each(function(i, v) {
-		var $toolbar  = $(this),
-		    $textarea = $toolbar.parent().find('textarea');
-
-		$toolbar.find('i').on('click', function() {
-			var $button = $(this);
-
-			if($button.hasClass('fa-bold')) { InsertMarkdown('post', '**', '**'); }
-			if($button.hasClass('fa-italic')) { InsertMarkdown('post', '*', '*'); }
-			if($button.hasClass('fa-underline')) { InsertMarkdown('post', '__', '__'); }
-			if($button.hasClass('fa-strikethrough')) { InsertMarkdown('post', '~~', '~~'); }
-			if($button.hasClass('fa-link')) { InsertMarkdown('post', '[[', ']]'); }
-			if($button.hasClass('fa-image')) { InsertMarkdown('post', '{{', '}}'); }
-			if($button.hasClass('fa-paint-brush')) { InsertMarkdown('post', '[color:red]', '[/color]'); }
-			if($button.hasClass('fa-code')) { InsertMarkdown('post', '``', '``'); }
-			if($button.hasClass('fa-list-ul')) { InsertMarkdown('post', '\n* ', ''); }
-		})
-	});
-
-	function InsertMarkdown(elementID, openTag, closeTag) {
-		var textArea = document.getElementById(elementID),
-			contentPos = openTag.length;
-
-		if (typeof(textArea.selectionStart) != "undefined") {
-			var begin = textArea.value.substr(0, textArea.selectionStart);
-			var selection = textArea.value.substr(textArea.selectionStart, textArea.selectionEnd - textArea.selectionStart);
-			var end = textArea.value.substr(textArea.selectionEnd);
-			textArea.value = begin + openTag + selection + closeTag + end;
-
-			textArea.focus();
-			textArea.setSelectionRange(textArea.selectionStart + contentPos, textArea.selectionStart + contentPos)
+		if(value == "custom") {
+			$('#gravatar').fadeOut();
+			$('#facebook').fadeOut();
+			$('#custom').delay(400).fadeIn();
+		} else if(value == "gravatar") {
+			$('#custom').fadeOut();
+			$('#facebook').fadeOut();
+			$('#gravatar').delay(400).fadeIn();
 		}
-	}
-
-	// ---------------------------------------------------
-	// FORM VALIDATION - REQUIRED FIELDS
-	// ---------------------------------------------------
+		else {
+			$('#custom').fadeOut();
+			$('#gravatar').fadeOut();
+			$('#facebook').delay(400).fadeIn();
+		}
+	});
 
 	/**
 	 * CSS CLASSES FOR VALIDATION
@@ -191,126 +138,104 @@ jQuery(document).ready(function($) {
 				}
 			});
 
+			// Alphanumerics ONLY
+
+			$(this).find('.alphanumeric').filter('.required').each(function(){
+				var str = this.value;
+				var pattern = new RegExp(/([a-zA-Z0-9\s]*)/);
+				var result = pattern.test(str);
+
+				if(!result) {
+					$(this).addClass('error');
+					stopSend = true;
+				}
+				else {
+					$(this).removeClass('error');
+				}
+			});
+
 			// IF there is an error, show message!
 			// ...otherwise, send form as it should be
 
 			if(stopSend == true) {
 				event.preventDefault();
-				$(this).find('.errorMessage').css('display', 'inline-block').hide().fadeIn();
+				$(this).find('.error-message').css('display', 'inline-block').hide().fadeIn();
 			}
-
 		}
 	});
 
-	// ---------------------------------------------------
-	// LOGIN - Validates username and password
-	// ---------------------------------------------------
-
-	$('#memberLoginForm').on('submit', function(event) {
-		var error      = false,
-		    $userField = $('#memberLoginForm .username'),
-		    $passField = $('#memberLoginForm .password'),
-		    $submit    = $('#memberLoginForm input[type=submit]'),
-		    timer;
-
-		event.preventDefault();
-
-		$.ajax({
-			url: 'index.php?module=login&act=validate',
-			type: 'post',
-			dataType: 'json',
-			data: { username: $userField.val(), password: $passField.val() }
-		})
-		.done(function(data){
-			if(data.authenticated == 'false') {
-				error = true;
-
-				$userField.addClass('error');
-				$passField.addClass('error');
-
-				$submit.attr('disabled', 'disabled').val(data.message);
-
-				clearTimeout(timer);
-				timer = setTimeout(function() {
-					$('#memberLoginForm input[type=submit]').removeAttr('disabled');
-					$('#memberLoginForm input[type=submit]').val('Log In');
-				}, 2000);
-			}
-		})
-		.fail(function(jqXHR, textStatus) {
-			throw new Error(textStatus);
-		})
-		.always(function() {
-			if(error == false) {
-				var form = document.getElementById('memberLoginForm');
-				form.submit();
-			}
-		});
-	})
-
-	// ---------------------------------------------------
-	// Remove .error class on focus
-	// ---------------------------------------------------
+	/**
+	 * REMOVE .error CLASS ON FOCUS (FOR input[type=text] ELEMENTS)
+	 */
 
 	$(document).on('focus', '.error', function() {
 		$(this).removeClass('error');
 	});
 
-	// ---------------------------------------------------
-	// USER CP - GRAVATAR, FACEBOOK OR CUSTOM PHOTO
-	// ---------------------------------------------------
+	/**
+	 * LOAD COMPLETE TINYMCE ON THREAD/REPLY POSTS
+	 */
 
-	if($('.photoSelect:checked').val() == "gravatar") {
-		$('#gravatar').show();
-	} else if($('.photoSelect:checked').val() == "facebook") {
-		$('#facebook').show();
-	} else if($('.photoSelect:checked').val() == "custom") {
-		$('#custom').show();
-	}
-
-	$('.photoSelect').on('change', function(){
-		var value = $(this).val();
-
-		if(value == "custom") {
-			$('#gravatar').fadeOut();
-			$('#facebook').fadeOut();
-			$('#custom').delay(400).fadeIn();
-		} else if(value == "gravatar") {
-			$('#custom').fadeOut();
-			$('#facebook').fadeOut();
-			$('#gravatar').delay(400).fadeIn();
-		}
-		else {
-			$('#custom').fadeOut();
-			$('#gravatar').fadeOut();
-			$('#facebook').delay(400).fadeIn();
-		}
+	tinymce.init({
+		entity_encoding: 'raw',
+		link_title: false,
+		plugins: ['link image'],
+		menubar: false,
+		selector: '#post',
+		statusbar: false,
+		target_list: [
+			{title: 'New page', value: '_blank'},
+		],
+		toolbar: 'bold italic underline strikethrough | alignleft aligncenter alignright | link image | bullist numlist | blockquote | subscript superscript | removeformat'
 	});
 
-	// ---------------------------------------------------
-	// MESSENGER
-	// ---------------------------------------------------
+	/**
+	 * LOAD REDUCED TINYMCE FOR MEMBER SIGNATURES
+	 */
 
-	$('#messengerDeleteMessages').on('click', function(event){
+	tinymce.init({
+		entity_encoding: 'raw',
+		link_title: false,
+		plugins: ['link image'],
+		menubar: false,
+		selector: '#signature',
+		statusbar: false,
+		target_list: [
+			{title: 'New page', value: '_blank'},
+		],
+		toolbar: 'bold italic underline strikethrough | link image | subscript superscript | removeformat'
+	});
+
+	/**
+	 * MESSENGER: SELECT ALL MESSAGES
+	 */
+
+	$('#check-messages').on('click', function() {
+		$('.del-message-checkbox').attr('checked', true);
+	});
+
+	/**
+	 * MESSENGER: DELETE SELECTED MESSAGES
+	 */
+
+	$('#delete-messages').on('click', function(event){
 		if($('.checkDeleteMessage:checked').length == 0) {
 			alert('You need to select at least one message.');
 			event.preventDefault();
 		}
 		else {
-			$('form.personalMessenger').submit();
+			$('form.personal-messenger').submit();
 		}
 	});
 
-	$('a[data-check]').on('click', function() {
-		$('.' + $(this).data('check')).each(function(index, value){
-			$(this).attr('checked', 'checked');
-		});
-	});
+	/**
+	 * MESSENGER: FIND MEMBER BY USERNAME
+	 */
 
 	$('#pmTo').select2({
 		minimumInputLength: 2,
 		ajax: {
-			url: 'api/usernames.php',
+			url: 'messenger/get_usernames',
 			dataType: 'json',
 			type: "POST",
 			quietMillis: 500,
@@ -332,16 +257,4 @@ jQuery(document).ready(function($) {
 			}
 		}
 	});
-
-	// ---------------------------------------------------
-	// SET MONTH AND YEAR ON CALENDAR
-	// ---------------------------------------------------
-
-	$('#calendarSetDate').submit(function(event) {
-		var data = $(this).serializeArray();
-		window.location.href = 'calendar/' + data[0].value + '/' + data[1].value;
-
-		event.preventDefault();
-	})
-
 });

@@ -20,6 +20,7 @@
 	$t["SIDEBAR_S_REPLIES"] = "Replies";
 	$t["SIDEBAR_S_MEMBERS"] = "Members";
 	$t["SIDEBAR_S_LAST"] = "Last Member";
+	$t["FOOTER_ABOUT"] = "About";
 	$t["M_1"] = "January";
 	$t["M_2"] = "February";
 	$t["M_3"] = "March";

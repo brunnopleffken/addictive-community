@@ -3,13 +3,14 @@
 /public/attachments/*
 /public/avatar/*
 /uploads/*
+config.php
 
 # Don't remove index.html files
 !index.html
 
 # SASS #
 *.sass-cache
-config.rb
+prepros.cfg
 
 # Folder config file #
 Desktop.ini

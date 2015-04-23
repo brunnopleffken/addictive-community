@@ -2,39 +2,14 @@
 RewriteEngine On
 
 # AdminCP is... well... admin! Do not rewrite it!
-RewriteRule ^(admin|user)($|/) - [L]
+RewriteRule ^(admin|install)($|/) - [L]
 
-# /logout is not a controller, just a shortcut
-RewriteRule ^(logout)/?$ index.php?module=login&act=logout
+# /logout is not a controller, just a shortcut to Login::Logout()
+RewriteRule ^(logout)$ index.php?c=login&act=logout
 
-# Member list specific URLs
-# /members/filter/[join|post]
-RewriteRule ^(members)/(filter)/([a-zA-Z]+)/?$ index.php?module=members&order=$3
-# /members/letter/a/filter/[join|post]
-RewriteRule ^(members)/(letter)/([a-zA-Z]+)/(filter)/([a-zA-Z]+)/?$ index.php?module=members&letter=$3&order=$5
-# /members/letter/a
-RewriteRule ^(members)/(letter)/([a-zA-Z]+)/?$ index.php?module=members&letter=$3
-
-# Calendar specific URLs
-# /calendar/event/yyyy-mm-dd
-RewriteRule ^(calendar)/(event)/([a-zA-Z0-9_-]+)/?$ index.php?module=calendar&act=event&date=$3
-# /calendar/5/2015
-RewriteRule ^(calendar)/([0-9]+)/([0-9]+)/?$ index.php?module=calendar&month=$2&year=$3
-
-# /foo = index.php?module=foo
-RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?module=$1
-
-# /foo/2 = index.php?module=foo&id=2
-RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)/?$ index.php?module=$1&id=$2
-
-# /foo/bar = index.php?module=foo&view=bar
-RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z]+)/?$ index.php?module=$1&view=$2
-
-# /foo/2/bar = index.php?module=foo&id=2&act=bar
-RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)/([a-zA-Z0-9_-]+)/?$ index.php?module=$1&id=$2&act=$3
-
-# Thread specific URLs (SEO friendly)
-# /thread/1-lorem-ipsum-dolor-sit-amet = index.php?module=thread&id=1
-RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)\-([a-zA-Z0-9-]+)/?$ index.php?module=$1&id=$2
-
+# Controller, Actions and IDs
+RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?c=$1 [QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)$ index.php?c=$1&id=$2 [QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z_]+)$ index.php?c=$1&act=$2 [QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z_]+)/([0-9]+)$ index.php?c=$1&act=$2&id=$3 [QSA]
 </IfModule>
