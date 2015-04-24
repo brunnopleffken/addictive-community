@@ -283,12 +283,14 @@ form textarea { overflow: auto; }
 .calendar .fill { background: #fff; border: 1px solid #eee; padding: 20px; }
 
 .calendar-events { display: table; width: 100%; }
-.calendar-events .time { display: table-cell; font-size: 22px; font-weight: bold; vertical-align: middle; white-space: nowrap; width: 1%; }
-.calendar-events .marker { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVQIW2N0C8zwYQACAAhlAU0RIoPTAAAAAElFTkSuQmCC) repeat-y center; display: table-cell; position: relative; width: 80px; }
+.calendar-events .time { float: left; font-size: 22px; font-weight: bold; height: 55px; line-height: 1em; margin-right: 20px; padding-top: 1px; vertical-align: middle; white-space: nowrap; }
+.calendar-events .marker { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVQIW2N0C8zwYQACAAhlAU0RIoPTAAAAAElFTkSuQmCC) repeat-y center; display: table-cell; position: relative; width: 60px; }
 .calendar-events .marker span { background-color: #465068; border-radius: 50%; display: block; height: 12px; left: 50%; margin-left: -6px; margin-top: -6px; position: absolute; top: 50%; width: 12px; }
-.calendar-events .details { background-color: #fff; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); display: table-cell; padding: 15px; }
-.calendar-events:first-child .marker:before { background-color: #f1f1f1; content: ""; display: block; height: 50%; position: absolute; top: 0; width: 70px; }
-.calendar-events:last-child .marker:before { background-color: #f1f1f1; bottom: 0; content: ""; display: block; height: 50%; position: absolute; width: 70px; }
+.calendar-events .details { display: table-cell; }
+.calendar-events .details .box { margin: 5px 0; }
+.calendar-events .details .tiny { color: #bbb; margin-bottom: 5px; }
+.calendar-events:first-child .marker:before { background-color: #f1f1f1; content: ""; display: block; height: 50%; position: absolute; top: 0; width: 50px; }
+.calendar-events:last-child .marker:before { background-color: #f1f1f1; bottom: 0; content: ""; display: block; height: 50%; position: absolute; width: 50px; }
 .calendar-events:only-child .marker { background: transparent; }
 
 /** SEARCH ENGINE **/

@@ -27,9 +27,6 @@ class Search extends Application
 		// Get keyword
 		$keyword = Html::Request("q");
 
-		// Split keyword for highlighting
-		$keyword_highlight = explode(" ", $keyword);
-
 		// Are we searching in an specific post?
 		$mode = Html::Request("mode");
 		switch($mode) {
@@ -51,6 +48,9 @@ class Search extends Application
 				$order = "";
 				break;
 		}
+
+		// Split keyword for highlighting
+		$keyword_highlight = explode(" ", $keyword);
 
 		// Perform database query
 		$this->Db->Query("SELECT t.t_id, t.title, m.m_id, m.username, m.email, p.author_id, p.post_date, p.post,

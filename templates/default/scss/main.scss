@@ -1202,18 +1202,21 @@ form {
 	display: table;
 	width: 100%;
 	.time {
-		display: table-cell;
+		float: left;
 		font-size: 22px;
 		font-weight: bold;
+		height: 55px;
+		line-height: 1em;
+		margin-right: 20px;
+		padding-top: 1px;
 		vertical-align: middle;
 		white-space: nowrap;
-		width: 1%;
 	}
 	.marker {
 		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVQIW2N0C8zwYQACAAhlAU0RIoPTAAAAAElFTkSuQmCC) repeat-y center;
 		display: table-cell;
 		position: relative;
-		width: 80px;
+		width: 60px;
 		span {
 			background-color: $colorFiord;
 			border-radius: 50%;
@@ -1228,10 +1231,12 @@ form {
 		}
 	}
 	.details {
-		background-color: #fff;
-		box-shadow: 0px 2px 5px rgba(#000, 0.1);
 		display: table-cell;
-		padding: 15px;
+		.box { margin: 5px 0; }
+		.tiny {
+			color: #bbb;
+			margin-bottom: 5px;
+		}
 	}
 	&:first-child {
 		.marker {
@@ -1242,7 +1247,7 @@ form {
 				height: 50%;
 				position: absolute;
 				top: 0;
-				width: 70px;
+				width: 50px;
 			}
 		}
 	}
@@ -1255,14 +1260,12 @@ form {
 				display: block;
 				height: 50%;
 				position: absolute;
-				width: 70px;
+				width: 50px;
 			}
 		}
 	}
 	&:only-child {
-		.marker {
-			background: transparent;
-		}
+		.marker { background: transparent; }
 	}
 }
 

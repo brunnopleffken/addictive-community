@@ -20,30 +20,14 @@
 	<div class="events-container">
 	<?php foreach($events as $event): ?>
 		<div class="calendar-events">
-			<div class="time"><?php __(date("H:i", $event['timestamp'])) ?></div>
 			<div class="marker"><span></span></div>
 			<div class="details">
-				<h3><?php __($event['title']) ?></h3>
-				<div class="tiny"><?php __("C_VIEW_BY", $event['username']) ?></div>
-				<?php __($event['text']) ?>
-			</div>
-		</div>
-		<div class="calendar-events">
-			<div class="time"><?php __(date("H:i", $event['timestamp'])) ?></div>
-			<div class="marker"><span></span></div>
-			<div class="details">
-				<h3><?php __($event['title']) ?></h3>
-				<div class="tiny"><?php __("C_VIEW_BY", $event['username']) ?></div>
-				<?php __($event['text']) ?>
-			</div>
-		</div>
-		<div class="calendar-events">
-			<div class="time"><?php __(date("H:i", $event['timestamp'])) ?></div>
-			<div class="marker"><span></span></div>
-			<div class="details">
-				<h3><?php __($event['title']) ?></h3>
-				<div class="tiny"><?php __("C_VIEW_BY", $event['username']) ?></div>
-				<?php __($event['text']) ?>
+				<div class="box">
+					<div class="time"><?php __(date("H:i", $event['timestamp'])) ?></div>
+					<h3><?php __($event['title']) ?></h3>
+					<div class="tiny"><?php __("C_VIEW_BY", $event['username']) ?></div>
+					<?php __($event['text']) ?>
+				</div>
 			</div>
 		</div>
 		<!--
