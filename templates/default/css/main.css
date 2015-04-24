@@ -291,6 +291,15 @@ form textarea { overflow: auto; }
 .calendar-events:last-child .marker:before { background-color: #f1f1f1; bottom: 0; content: ""; display: block; height: 50%; position: absolute; width: 70px; }
 .calendar-events:only-child .marker { background: transparent; }
 
+/** SEARCH ENGINE **/
+.search { border: 0; margin-bottom: 15px; }
+.search .subtitle .value { margin-right: 20px; }
+.search .subtitle .value:last-child { margin: 0; }
+.search .content { padding: 15px 10px; }
+.search .content ul, .search .content ol { margin-left: 20px; }
+.search .content p { margin-bottom: 5px; }
+.search .content p:last-child { margin: 0; }
+
 /** NOTIFICATIONS **/
 .notification { margin-bottom: 10px; border: 1px solid transparent; }
 .notification p { color: #565656; font-size: 12px; margin: 0px; padding: 10px 25px 10px 54px; }

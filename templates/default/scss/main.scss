@@ -1266,6 +1266,25 @@ form {
 	}
 }
 
+/** SEARCH ENGINE **/
+
+.search {
+	border: 0;
+	margin-bottom: 15px;
+	.subtitle {
+		.value {
+			margin-right: 20px;
+			&:last-child { margin: 0; }
+
+		}
+	}
+	.content {
+		padding: 15px 10px;
+		ul, ol { margin-left: 20px; }
+		p { margin-bottom: 5px; &:last-child { margin: 0; } }
+	}
+}
+
 /** NOTIFICATIONS **/
 
 .notification {

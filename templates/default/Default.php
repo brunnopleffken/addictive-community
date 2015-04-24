@@ -45,9 +45,8 @@
 		<div class="wrapper">
 			<a href="#"><img src="templates/default/images/logo.png" class="logo" alt="Addictive Community"></a>
 			<div id="search">
-				<form action="index.php" method="get" class="validate">
+				<form action="search" method="get" class="validate">
 					<input type="text" name="q" size="25" class="required" value="<?php echo Html::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>">
-					<input type="hidden" name="module" value="search">
 					<input type="submit" value="OK">
 				</form>
 			</div>
