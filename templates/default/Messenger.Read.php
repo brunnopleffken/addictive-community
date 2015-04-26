@@ -1,4 +1,4 @@
-<div class="room-title-bar">
+<div class="title-bar">
 	<div class="title fleft"><span><?php __($community_name) ?></span><?php __($message['subject']) ?></div>
 	<div class="buttons fright">
 		<a href="messenger/reply/<?php __($message['pm_id']) ?>" class="default-button"><?php __("M_REPLY") ?></a>

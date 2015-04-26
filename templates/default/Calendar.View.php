@@ -1,4 +1,4 @@
-<div class="room-title-bar">
+<div class="title-bar">
 	<div class="title fleft">
 		<span><?php __($community_name) ?></span>
 		<?php __("C_TITLE") ?>: <?php __($formatted_date) ?>
