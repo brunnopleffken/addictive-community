@@ -212,23 +212,18 @@ class Calendar extends Application
 			$event_count = $this->Db->Fetch();
 			$event_count = $event_count['event_number'];
 
-			if($event_count != 0) {
-				$marker = "style='background: #f8fcff;'";
-			}
-			else {
-				$marker = "";
-			}
+			// If day has an event, add class .event to it
+			$event_class = ($event_count != 0) ? "event" : "";
 
 			// Create table cell
 			if( $current_month == $today_info['mon'] &&
-				$current_year == $today_info['year'] &&
-				$current_day == $today_info['mday']
+				$current_year  == $today_info['year'] &&
+				$current_day   == $today_info['mday']
 			) {
-				Template::Add("<td class='day today' rel='{$date}' {$marker}><b><a href='calendar/view?date={$date}'>{$current_day}</a></b></td>");
+				Template::Add("<td class='day today {$event_class}'><a href='calendar/view?date={$date}'>{$current_day}</a></td>");
 			}
 			else {
-				Template::Add("<td class='day' rel='{$date}' {$marker}>
-					<a href='calendar/view?date={$date}'>{$current_day}</a></td>");
+				Template::Add("<td class='day {$event_class}'><a href='calendar/view?date={$date}'>{$current_day}</a></td>");
 			}
 
 			// Increment counters

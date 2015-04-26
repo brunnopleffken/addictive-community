@@ -277,10 +277,14 @@ form textarea { overflow: auto; }
 /** CALENDAR **/
 .calendar { border-collapse: collapse; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 20px; width: 100%; }
 .calendar th { background: #465068 url("../images/bar-bg.png") repeat-x; color: #fff; font-weight: bold; padding: 8px; text-align: left; }
-.calendar .week { background: #fff url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; width: 14%; }
-.calendar .day { background: #fff; border: 1px solid #eee; padding: 20px; }
-.calendar .day.today { background: #fcfcfc; box-shadow: 0px 0px 1px 1px #960000 inset; }
-.calendar .fill { background: #fff; border: 1px solid #eee; padding: 20px; }
+.calendar .week { background: #fff url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; text-align: center; width: 14%; }
+.calendar .day { background: #fff; font-size: 16px; padding: 20px 0; text-align: center; }
+.calendar .day a { border-right: 1px solid #eee; color: #000; display: block; }
+.calendar .day.today a { color: #b00; }
+.calendar .day.event { font-weight: bold; }
+.calendar .day.event a { color: #465068; }
+.calendar .day:last-child a { border: 0; }
+.calendar .fill { background: #fff; padding: 20px; }
 
 .calendar-events { display: table; width: 100%; }
 .calendar-events .time { float: left; font-size: 22px; font-weight: bold; height: 55px; line-height: 1em; margin-right: 20px; padding-top: 1px; vertical-align: middle; white-space: nowrap; }
