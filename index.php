@@ -203,17 +203,6 @@ class Main
 
 	/**
 	 * --------------------------------------------------------------------
-	 * GET DEFAULT TEMPLATE OR, IF LOGGED IN, THE ONE DEFINED BY MEMBER
-	 * --------------------------------------------------------------------
-	 */
-	private function _GetTemplate()
-	{
-		$this->template = "default";
-		$this->Config['template'] = $this->template;
-	}
-
-	/**
-	 * --------------------------------------------------------------------
 	 * GET CONFIGURATIONS FROM DATABASE
 	 * --------------------------------------------------------------------
 	 */
@@ -221,6 +210,17 @@ class Main
 	{
 		$this->Db->Query("SELECT * FROM c_config;");
 		$this->Config = $this->Db->FetchArray();
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * GET DEFAULT TEMPLATE OR, IF LOGGED IN, THE ONE DEFINED BY MEMBER
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetTemplate()
+	{
+		$this->template = "default";
+		$this->Config['template'] = $this->template;
 	}
 
 	/**

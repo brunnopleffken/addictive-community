@@ -62,7 +62,7 @@
 			<div class="field" style="position:relative">
 				<span style="position:absolute;top:6px;left:5px;color:#aaa">http://www.facebook.com/</span>
 				<input type="text" name="im_facebook" placeholder="username" value="<?php __($member['im_facebook']) ?>" class="medium" style="padding-left:153px">
-				<em><?php __("C_FACEBOOK_TIP") ?></em>
+				<em class="tiny"><?php __("C_FACEBOOK_TIP") ?></em>
 			</div>
 		</div>
 		<div class="input-box">
@@ -75,6 +75,6 @@
 		<div class="fleft">
 			<div class="error-message"><?php __("C_EMAIL_MESSAGE") ?></div>
 		</div>
-		<div class="fright"><input type="hidden" name="act" value="profile"><input type="submit" value="<?php __("C_UPDATE_PROFILE") ?>"></div>
+		<div class="fright"><input type="submit" value="<?php __("C_UPDATE_PROFILE") ?>"></div>
 	</form>
 </div>

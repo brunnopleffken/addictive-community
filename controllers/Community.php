@@ -76,11 +76,15 @@ class Community extends Application
 
 			// Is this room a protected room?
 			if($result['password'] != "") {
-				$result['icon']  = "<i class=\"fa fa-lock fa-fw fleft\"></i>";
+				$result['icon']  = "<i class=\"fa fa-lock fa-fw\"></i>";
 				$result['title'] = "<em>Protected room</em>";
 			}
+			elseif($result['read_only'] == 1) {
+				$result['icon']  = "<i class=\"fa fa-file-text-o fa-fw\"></i>";
+				// $result['icon'] = "<span class='fa-stack'><i class='fa fa-comments-o fa-stack-1x'></i><i class='fa fa-ban fa-stack-2x text-danger'></i></span>";
+			}
 			else {
-				$result['icon']  = "<i class=\"fa fa-comment-o fa-fw fleft\"></i>";
+				$result['icon']  = "<i class=\"fa fa-comment-o fa-fw\"></i>";
 				$result['title'] = "<a href=\"thread/{$result['t_id']}\">{$result['title']}</a>";
 			}
 

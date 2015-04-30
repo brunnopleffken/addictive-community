@@ -43,11 +43,9 @@ h4 { font-size: 14px; margin-bottom: 15px; }
 
 /** FORM **/
 
-@-moz-document url-prefix(http://) {
-    button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner {
-        padding: 0 !important;
-        border: 0 none !important;
-    }
+button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner {
+    padding: 0 !important;
+    border: 0 none !important;
 }
 
 textarea { overflow: auto; }
@@ -112,7 +110,7 @@ input[type=file]:focus, textarea:focus { border: 1px solid #aaaaaa; transition: 
 #content { background: #ffffff; box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1); margin: auto; padding: 15px; }
 
 .table-list { width: 100%; border-spacing: 0; margin-bottom: 15px; }
-.table-list tr th { text-align: left; padding: 10px; background: #465068 url('../images/bar-bg.png') repeat-x; color:#ffffff; font-weight: bold; }
+.table-list tr th { text-align: left; padding: 10px; background: #465068; color:#ffffff; font-weight: bold; }
 .table-list .subtitle td { font-weight: bold; font-size: 11px; padding: 5px 8px; background: #ffffff url('../images/bar-bg.png'); border-bottom: 1px solid #ccc; }
 .table-list tr td { padding: 8px; background: #ffffff; border-bottom: 1px solid #eee; }
 .table-list tr td i { color: #000; font-size: 18px; }

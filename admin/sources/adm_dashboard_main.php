@@ -104,8 +104,8 @@
 						<th colspan="2">Server Environment</th>
 					</tr>
 					<tr>
-						<td class="title">Community Version</td>
-						<td>Addictive Community <?php echo VERSION . "-" . CHANNEL; ?></td>
+						<td class="title">Software Version</td>
+						<td>Addictive Community <?php echo VERSION . "-" . CHANNEL; ?> (<?php echo CODENAME; ?>)</td>
 					</tr>
 					<tr>
 						<td class="title">Server Software</td>

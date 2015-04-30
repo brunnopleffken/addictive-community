@@ -113,9 +113,10 @@ form {
 		cursor: pointer;
 		font-family: $fontSans;
 		font-size: 12px;
-		line-height: 30px;
+		line-height: 29px;
 		padding: 0 12px;
 		text-shadow: 1px 1px 0px #000;
+		vertical-align: top;
 		&.cancel {
 			background: #eee url('../images/button-bg.png') !important;
 			color: #900 !important;
@@ -193,7 +194,7 @@ form {
 	&.disabled {
 		background: #ddd;
 		color: #900 !important;
-		cursor: default;
+		cursor: not-allowed;
 		text-shadow: 1px 1px 0px #fff !important;
 	}
 	&.grey {
@@ -213,7 +214,7 @@ form {
 	}
 }
 .small-button {
-	border-radius: 7px;
+	border-radius: 5px;
 	color: #333;
 	cursor: pointer;
 	font-size: 10px;
@@ -304,11 +305,13 @@ form {
 	a {
 		color: #ccc;
 		display: inline-block;
+		font-size: 10px;
 		margin-right: 10px;
 		padding: 8px 10px;
+		text-transform: uppercase;
 		@include transition(300ms);
 		&:hover {
-			background-color: #282828;
+			background-color: #2a2a2a;
 			color: #fff;
 			text-decoration: none;
 		}
@@ -450,11 +453,12 @@ form {
 				}
 				span {
 					background: #8a8b90;
-					color: #f0eff4;
-					border-radius: 15px;
-					display: inline-block;
+					color: #eff0f4;
+					border-radius: 10px;
+					display: block;
 					float: right;
 					font-size: 9px;
+					line-height: 18px;
 					padding: 1px 0;
 					text-align: center;
 					width: 35px;
@@ -479,18 +483,16 @@ form {
 				}
 			}
 			.user-info {
+				color: #eef;
 				float: left;
 				font-size: 11px;
 				margin-left: 8px;
-				margin-top: 2px;
-				a {
-					color: #eef;
-				}
+				margin-top: 4px;
+				.highlight { font-weight: bold; }
+				a { color: inherit; }
 				b {
 					font-size: 15px;
-				}
-				.highlight {
-					font-weight: bold;
+					display: block;
 				}
 			}
 		}
@@ -569,20 +571,21 @@ form {
 	width: 100%;
 	&:last-child { margin: 0; }
 	.image {
-		font-size: 35px;
+		font-size: 36px;
 		padding: 0 16px;
 		text-align: center;
 		width: 1%;
 	}
 	.info {
-		padding: 15px 10px 15px 0;
+		padding: 15px 15px 0 0;
 		vertical-align: top;
 		.title {
 			display: block;
-			font-size: 18px;
+			font-size: 19px;
 			font-weight: bold;
 			letter-spacing: 1px;
-			margin-bottom: 8px;
+			line-height: 1em;
+			margin-bottom: 10px;
 		}
 		.description {
 			color: #333;
@@ -590,11 +593,11 @@ form {
 		}
 		.last-post {
 			border-top: 1px solid #eee;
-			font-size: 11px;
-			margin-bottom: -10px;
+			font-size: 10px;
+			line-height: 28px;
 			margin-top: 10px;
-			padding: 7px 0 0px 0;
 			position: relative;
+			text-transform: uppercase;
 			span {
 				margin-right: 15px;
 			}
@@ -616,103 +619,111 @@ form {
 	}
 }
 
-/** ROOM PAGE **/
+/** GLOBAL TITLE BAR **/
 
-.room-title-bar {
+.title-bar {
 	overflow: hidden;
 	padding: 5px 0 18px 0;
 	vertical-align: bottom;
 	.title {
-		font-size: 20px;
+		font-size: 23px;
 		font-weight: bold;
 		letter-spacing: 2px;
 		margin-right: 120px;
 		span {
 			color: #bbb;
 			display: block;
-			font-size: 12px;
+			font-size: 10px;
 			font-weight: normal;
 			letter-spacing: 1px;
-			margin-bottom: 2px;
+			margin-bottom: 4px;
+			text-transform: uppercase;
 		}
 	}
 	.buttons {
 		margin-top: 15px;
 	}
 }
+
+/** ROOM PAGE **/
+
 .thread-item {
 	background: #fff;
 	border-left: 2px solid transparent;
-	border-spacing: 0;
 	box-shadow: 2px 2px 2px rgba(#000, 0.1);
+	display: table;
 	margin-bottom: 10px;
+	table-layout: fixed;
 	width: 100%;
 	.avatar {
-		padding: 0 7px 0 15px;
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+		width: 80px;
 		.image {
 			box-shadow: 1px 1px 3px rgba(#000, 0.2);
-			vertical-align: middle;
 		}
 	}
 	.middle {
-		padding: 10px;
-		position: relative;
+		display: table-cell;
+		padding: 10px 10px 10px 2px;
 		.title {
 			display: block;
-			font-size: 17px;
+			font-size: 18px;
 			font-weight: bold;
 			line-height: 1em;
-			margin-bottom: 30px;
 		}
-		.desc {
+		.description {
 			color: #444;
 			font-size: 11px;
-			font-style: italic;
-			left: 10px;
 			line-height: 30px;
 			overflow: hidden;
-			position: absolute;
-			right: 10px;
 			text-overflow: ellipsis;
-			top: 25px;
 			white-space: nowrap;
+			width: 100%;
 		}
 		.author {
-			color: #888;
-			display: block;
-			font-size: 10px;
+			color: #999;
+			font-size: 9px;
 			line-height: 1em;
+			text-transform: uppercase;
 			i {
-				color: #000;
+				color: #666;
+				margin-right: 3px;
+				&:last-child { margin-left: 10px; }
 			}
 		}
 	}
 	.info {
 		background: rgba(180, 180, 180, 0.1);
+		display: table-cell;
 		font-size: 14px;
 		font-weight: bold;
 		text-align: center;
 		width: 70px;
+		vertical-align: middle;
 		i {
 			font-size: 30px;
 		}
 	}
 	.stats {
 		background: $colorFiord;
-		padding: 5px;
+		display: table-cell;
+		padding: 0 5px;
+		line-height: 1em;
 		width: 170px;
 		.label {
 			color: #fff;
 			overflow: hidden;
-			padding: 1px;
+			padding: 2px 0;
 			white-space: nowrap;
 			.value {
 				display: inline-block;
 				font-size: 11px;
 				margin-left: 6px;
-			}
-			a {
-				color: #fff;
+				a {
+					color: #fff;
+				}
 			}
 			i {
 				font-size: 14px;
@@ -778,23 +789,26 @@ form {
 			}
 			.author-info {
 				float: left;
-				font-size: 10px;
-				line-height: 1.2em;
+				font-size: 9px;
+				line-height: 1.4em;
 				margin-left: 8px;
-				margin-top: 2px;
+				margin-top: 3px;
 				a {
 					display: inline-block;
-					font-size: 15px;
+					font-size: 16px;
 					font-weight: bold;
 					margin-bottom: 4px;
+				}
+				> div {
+					text-transform: uppercase;
 				}
 			}
 		}
 	}
 	.title {
-		font-size: 22px;
+		font-size: 25px;
 		font-weight: bold;
-		letter-spacing: 1px;
+		letter-spacing: 2px;
 		padding: 20px 15px;
 	}
 	.text {
@@ -830,11 +844,14 @@ form {
 	}
 	.footer {
 		border-top: 1px solid #eee;
-		font-size: 11px;
-		padding: 6px 10px;
+		color: #333;
+		font-size: 10px;
+		padding: 8px 10px;
+		line-height: 1em;
 		overflow: hidden;
+		text-transform: uppercase;
 		i {
-			font-size: 14px;
+			font-size: 12px;
 		}
 	}
 }
@@ -864,18 +881,21 @@ form {
 		width: 180px;
 		.photostack {
 			background: url('../images/photo-stack.png') no-repeat;
+			height: 128px;
 			margin: auto;
-			width: 128px; height: 128px;
+			margin-bottom: 5px;
+			width: 128px;
 			.avatar {
 				margin: 16px;
 			}
 		}
 		.name {
-			font-size: 14px;
+			font-size: 15px;
 			font-weight: bold;
 		}
 		.member-title {
-			font-size: 10px;
+			font-size: 9px;
+			text-transform: uppercase;
 		}
 		.user-info {
 			color: #444;
@@ -895,13 +915,14 @@ form {
 	.content {
 		display: table-cell;
 		.date {
-			color: #999;
-			font-size: 11px;
-			padding: 15px 5px 0 5px;
+			color: #ccc;
+			font-size: 10px;
+			line-height: 50px;
+			text-transform: uppercase;
 		}
 		.text {
 			margin-bottom: 35px;
-			padding: 10px 15px 15px 15px;
+			padding: 0px 15px 15px 0px;
 			img.emoticon {
 				display: inline-block;
 				height: 16px;
@@ -1195,7 +1216,7 @@ form {
 			display: block;
 		}
 		&.today {
-			a { color: #b00; }
+			a { color: #c00 !important; }
 		}
 		&.event {
 			font-weight: bold;
@@ -1377,7 +1398,7 @@ form {
 	border: 1px solid #303747;
 	color: #bbb;
 	display: inline-block;
-	font-size: 10px;
+	font-size: 9px;
 	line-height: 15px;
 	margin-top: 6px;
 	overflow: hidden;
@@ -1385,7 +1406,7 @@ form {
 	position: relative;
 	.fill {
 		background: $colorFiord;
-		display: inline-block;
+		display: block;
 		float: left;
 		height: 15px;
 	}
@@ -1393,6 +1414,7 @@ form {
 		float: right;
 		position: absolute;
 		right: 3px;
+		text-transform: uppercase;
 	}
 }
 

@@ -1,5 +1,6 @@
 <?php
 	$t["R_NEW_THREAD"] = "New Thread";
+	$t["R_READ_ONLY"] = "Read Only";
 	$t["R_ALL"] = "All";
 	$t["R_MY_THREADS"] = "My Threads";
 	$t["R_LAST_REPLY"] = "Last Reply";

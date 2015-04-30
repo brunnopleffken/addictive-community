@@ -11,7 +11,7 @@
 
 ?>
 
-	<h1>Languages Settings</h1>
+	<h1>Language Settings</h1>
 
 	<div id="content">
 

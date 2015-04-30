@@ -31,7 +31,7 @@
 
 ?>
 
-	<h1>Editing Language File: <?php echo $name ?></h1>
+	<h1>Editing language file: <?php echo ucwords($name) ?></h1>
 
 	<div id="content">
 		<div class="grid-row">
@@ -45,7 +45,7 @@
 						</th>
 					</tr>
 					<tr class="subtitle">
-						<td>Index</td>
+						<td>Index Name</td>
 						<td>Translation</td>
 					</tr>
 					<?php echo Template::Get() ?>

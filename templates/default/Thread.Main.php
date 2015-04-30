@@ -14,9 +14,9 @@
 		<div class="author">
 			<a href="#"><?php __(Html::Crop($first_post_info['avatar'], 42, 42, "avatar")) ?></a>
 			<div class="author-info">
-				<a href="profile/<?php __($first_post_info['author_id']) ?>"><?php __($first_post_info['username']) ?></a><br>
+				<a href="profile/<?php __($first_post_info['author_id']) ?>"><?php __($first_post_info['username']) ?></a>
 				<div><?php __($first_post_info['member_title']) ?></div>
-				<?php __($first_post_info['posts']) ?> <?php __("T_POSTS_LOWCASE") ?>
+				<div><?php __($first_post_info['posts']) ?> <?php __("T_POSTS_LOWCASE") ?></div>
 			</div>
 			<div class="fright" style="margin-top: 12px">
 				<div class="fb-share-button" data-href="<?php echo Html::CurrentUrl() ?>" data-layout="button_count"></div>

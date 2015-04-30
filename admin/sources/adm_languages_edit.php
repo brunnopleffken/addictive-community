@@ -25,8 +25,8 @@
 			$url = preg_replace("#(.+)\.php#", "$1", $file);
 
 			Template::Add("<tr>
-					<td><a href=\"?act=languages&p=file&id={$url}&dir={$lang['directory']}\"><b>{$file}</b></a></td>
-					<td><a href=\"?act=languages&p=file&id={$url}&dir={$lang['directory']}\"><img src=\"images/edit.png\"></a></td>
+					<td><a href='?act=languages&p=file&id={$url}&dir={$lang['directory']}'><b>{$file}</b></a></td>
+					<td><a href='?act=languages&p=file&id={$url}&dir={$lang['directory']}'><i class='fa fa-pencil'></i></a></td>
 				</tr>");
 		}
 	}

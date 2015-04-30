@@ -24,9 +24,9 @@ $template['header'] = <<<HTML
 	<div id="topbar">
 		<div class="wrapper">
 			<div class="fleft">
-				<a href="https://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">Addictive Comunity on GitHub</a>
+				<a href="../" target="_blank" class="toplinks transition">&laquo; Back to your Community</a>
 			</div>
-			<div class="fright"><a href="../" target="_blank" class="toplinks transition">Back to your 	Community &raquo;</a></div>
+			<div class="fright"><a href="https://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">View Addictive Comunity on GitHub</a></div>
 			<div class="fix"></div>
 		</div>
 	</div>
@@ -45,8 +45,8 @@ HTML;
 	</div>
 
 	<div id="footer">
-		<div class="wrapper">
-			<span class="fright">Powered by Addictive Community &copy; 2014 - All rights reserved.</span>
+		<div class="wrapper center">
+			<span>Powered by Addictive Community &copy; 2014 - All rights reserved.</span>
 		</div>
 	</div>
 

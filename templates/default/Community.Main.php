@@ -12,8 +12,14 @@
 				</div>
 			</td>
 			<td class="room-stats">
-				<div class="item"><i class="fa fa-comments fleft"></i><span class="fright"><?php __($rooms[$k]['thread_count']) ?></span></div>
-				<div class="item"><i class="fa fa-eye fleft"></i><span class="fright">0</span></div>
+				<div class="item">
+					<i class="fa fa-comments fleft"></i>
+					<span class="fright"><?php __($rooms[$k]['thread_count']) ?></span>
+				</div>
+				<div class="item">
+					<i class="fa fa-eye fleft"></i>
+					<span class="fright">0</span>
+				</div>
 			</td>
 		</tr>
 	</table>

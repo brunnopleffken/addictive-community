@@ -144,6 +144,8 @@ class Database implements IDatabase
 	 */
 	public function FetchToArray($result = "")
 	{
+		$_retval = array();
+
 		// If any SQL command is passed as parameter...
 		if($result == "") {
 			$result = $this->query;

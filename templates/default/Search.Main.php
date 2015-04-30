@@ -16,7 +16,10 @@
 	<?php foreach($results as $result): ?>
 		<table class="table-list search">
 			<tr>
-				<th>Thread: "<?php __($result['title']) ?>"</th>
+				<th>
+					<?php __("S_THREAD") ?>: "<?php __($result['title']) ?>"
+					<div class="fright"><a href="thread/<?php __($result['t_id']) ?>" class="small-button grey white"><?php __("S_READ") ?></a></div>
+				</th>
 			</tr>
 			<tr class="subtitle">
 				<td>
