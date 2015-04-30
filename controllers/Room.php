@@ -42,6 +42,11 @@ class Room extends Application
 		// Get list of threads
 		$threads = $this->_GetThreads($id);
 
+		// Page info
+		$page_info['title'] = $room_info['name'];
+		$page_info['bc'] = array($room_info['name']);
+		$this->Set("page_info", $page_info);
+
 		// Return variables
 		$this->Set("room_id", $id);
 		$this->Set("room_info", $room_info);

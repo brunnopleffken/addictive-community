@@ -69,6 +69,11 @@ class Messenger extends Application
 			$results[] = $result;
 		}
 
+		// Page info
+		$page_info['title'] = i18n::Translate("M_TITLE");
+		$page_info['bc'] = array(i18n::Translate("M_TITLE"));
+		$this->Set("page_info", $page_info);
+
 		// Return variables
 		$this->Set("num_results", $num_results);
 		$this->Set("max_storage_size", $max_storage_size);
@@ -106,6 +111,11 @@ class Messenger extends Application
 			$this->Core->Redirect("messenger?m=2");
 		}
 
+		// Page info
+		$page_info['title'] = i18n::Translate("M_TITLE");
+		$page_info['bc'] = array(i18n::Translate("M_TITLE"), $message['subject']);
+		$this->Set("page_info", $page_info);
+
 		// Return variables
 		$this->Set("message", $message);
 	}
@@ -117,7 +127,10 @@ class Messenger extends Application
 	 */
 	public function Compose()
 	{
-		return true;
+		// Page info
+		$page_info['title'] = i18n::Translate("M_TITLE");
+		$page_info['bc'] = array(i18n::Translate("M_TITLE"), i18n::Translate("M_COMPOSE"));
+		$this->Set("page_info", $page_info);
 	}
 
 	/**

@@ -63,6 +63,11 @@ class Members extends Application
 		// Get member list
 		$results = $this->_GetMemberList();
 
+		// Page info
+		$page_info['title'] = i18n::Translate("M_TITLE");
+		$page_info['bc'] = array(i18n::Translate("M_TITLE"));
+		$this->Set("page_info", $page_info);
+
 		// Return variables
 		$this->Set("community_name", $this->config['general_communityname']);
 		$this->Set("letter_first", $first);

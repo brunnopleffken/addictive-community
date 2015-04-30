@@ -29,6 +29,11 @@ class Help extends Application
 			$_topics[] = $help;
 		}
 
+		// Page info
+		$page_info['title'] = i18n::Translate("H_TITLE");
+		$page_info['bc'] = array(i18n::Translate("H_TITLE"));
+		$this->Set("page_info", $page_info);
+
 		// Return variables
 		$this->Set("topics", $_topics);
 	}
@@ -43,6 +48,11 @@ class Help extends Application
 		// Get the topic
 		$this->Db->Query("SELECT * FROM c_help WHERE h_id = '{$id}';");
 		$help = $this->Db->Fetch();
+
+		// Page info
+		$page_info['title'] = i18n::Translate("H_TITLE");
+		$page_info['bc'] = array(i18n::Translate("H_TITLE"), $help['title']);
+		$this->Set("page_info", $page_info);
 
 		// Return variables
 		$this->Set("help", $help);

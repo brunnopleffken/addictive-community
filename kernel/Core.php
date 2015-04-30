@@ -126,4 +126,31 @@ class Core
 		$url = $this->config['general_communityurl'] . "index.php?module=thread&id=" . $thread_id;
 		return $url;
 	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * CREATE CANONICAL TAG URL
+	 * --------------------------------------------------------------------
+	 */
+	public function Breadcrumb($page_info = array()) {
+		$breadcrumb = "";
+
+		if(!empty($page_info)) {
+			foreach($page_info['bc'] as $item) {
+				$breadcrumb .= " &raquo; " . $item;
+			}
+		}
+
+		return $breadcrumb;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * CREATE CANONICAL TAG URL
+	 * --------------------------------------------------------------------
+	 */
+	public function PageTitle($page_info) {
+		$title = (isset($page_info['title'])) ? $page_info['title'] . " - " : "";
+		return $title;
+	}
 }

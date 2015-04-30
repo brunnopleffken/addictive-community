@@ -60,6 +60,11 @@ class Usercp extends Application
 			$profile['male'] = "selected";
 		}
 
+		// Page info
+		$page_info['title'] = i18n::Translate("C_TITLE");
+		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$this->Set("page_info", $page_info);
+
 		// Return variables
 		$this->Set("menu", $menu);
 		$this->Set("member", $this->Session->member_info);
@@ -115,6 +120,11 @@ class Usercp extends Application
 			$this->Session->member_info['email'], $this->Session->member_info['photo'], 240, "facebook"
 		);
 
+		// Page info
+		$page_info['title'] = i18n::Translate("C_TITLE");
+		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$this->Set("page_info", $page_info);
+
 		// Return variables
 		$this->Set("menu", $menu);
 		$this->Set("photo_info", $photo_info);
@@ -136,6 +146,11 @@ class Usercp extends Application
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_3"), "success")
 		);
+
+		// Page info
+		$page_info['title'] = i18n::Translate("C_TITLE");
+		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$this->Set("page_info", $page_info);
 
 		// Return variables
 		$this->Set("menu", $menu);
@@ -216,6 +231,11 @@ class Usercp extends Application
 			$settings['template_list'] .= "<option value=\"{$template['directory']}\" {$selected}>{$template['name']}</option>\n";
 		}
 
+		// Page info
+		$page_info['title'] = i18n::Translate("C_TITLE");
+		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$this->Set("page_info", $page_info);
+
 		// Return variables
 		$this->Set("menu", $menu);
 		$this->Set("settings", $settings);
@@ -239,6 +259,11 @@ class Usercp extends Application
 			Html::Notification(i18n::Translate("C_MESSAGE_6"), "failure"),
 			Html::Notification(i18n::Translate("C_MESSAGE_7"), "failure")
 		);
+
+		// Page info
+		$page_info['title'] = i18n::Translate("C_TITLE");
+		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$this->Set("page_info", $page_info);
 
 		// Return variables
 		$this->Set("menu", $menu);

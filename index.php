@@ -169,10 +169,15 @@ class Main
 	private function _LoadView($controller, $action)
 	{
 		if($this->instance->HasLayout()) {
+			$page_info = array();
+			
 			// Get defined variables in controller
 			foreach($this->view_data as $k => $v) {
 				$$k = $v;
 			}
+
+			$breadcrumb = $this->Core->Breadcrumb($page_info);
+			$page_title = $this->Core->PageTitle($page_info);
 
 			// Load page content
 			ob_start();

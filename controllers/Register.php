@@ -32,6 +32,11 @@ class Register extends Application
 			Html::Notification(i18n::Translate("R_ERROR_4"), "failure", true)
 		);
 
+		// Page info
+		$page_info['title'] = i18n::Translate("R_TITLE");
+		$page_info['bc'] = array(i18n::Translate("R_TITLE"));
+		$this->Set("page_info", $page_info);
+
 		// Return variables
 		$this->Set("community_name", $this->config['general_communityname']);
 		$this->Set("step", $step);

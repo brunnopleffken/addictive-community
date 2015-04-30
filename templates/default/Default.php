@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title><?php __($community_name) ?> (Powered by Addictive Community)</title>
+	<title><?php __($page_title) ?><?php __($community_name) ?> (Powered by Addictive Community)</title>
 	<base href="http://localhost/addictive-community/">
 	<!-- META -->
 	<meta name="generator" content="Addictive Community <?php echo VERSION ?>">
@@ -53,7 +53,7 @@
 		</div>
 	</div>
 	<div class="wrapper">
-		<div id="breadcrumb"><a href="#"><?php __($community_name) ?></a></div>
+		<div id="breadcrumb"><a href="#"><?php __($community_name) ?></a> <?php __($breadcrumb) ?></div>
 	</div>
 
 	<!-- CONTENT -->

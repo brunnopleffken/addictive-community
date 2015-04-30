@@ -26,6 +26,11 @@ class Calendar extends Application
 			Html::Notification(i18n::Translate("C_MESSAGE_1"), "success")
 		);
 
+		// Page info
+		$page_info['title'] = i18n::Translate("C_TITLE");
+		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$this->Set("page_info", $page_info);
+
 		$this->Set("calendar", $this->_GenerateCalendar());
 		$this->Set("notification", $notification[$message_id]);
 	}
@@ -39,6 +44,11 @@ class Calendar extends Application
 	{
 		// Do not allow guests to view this page
 		$this->Session->NoGuest();
+
+		// Page info
+		$page_info['title'] = i18n::Translate("C_ADD");
+		$page_info['bc'] = array(i18n::Translate("C_TITLE"), i18n::Translate("C_ADD"));
+		$this->Set("page_info", $page_info);
 	}
 
 	/**
@@ -67,6 +77,11 @@ class Calendar extends Application
 			$this->config['date_short_format'],
 			mktime(0, 0, 0, $date[1], $date[2], $date[0])
 		);
+
+		// Page info
+		$page_info['title'] = i18n::Translate("C_TITLE");
+		$page_info['bc'] = array(i18n::Translate("C_TITLE"), $formatted_date);
+		$this->Set("page_info", $page_info);
 
 		// Return variables
 		$this->Set("count", $events_count);

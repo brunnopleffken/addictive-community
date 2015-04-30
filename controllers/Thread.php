@@ -47,6 +47,11 @@ class Thread extends Application
 		// Get related threads
 		$related_thread_list = $this->_RelatedThreads($id, $thread_info);
 
+		// Page info
+		$page_info['title'] = $thread_info['title'];
+		$page_info['bc'] = array($thread_info['name'], $thread_info['title']);
+		$this->Set("page_info", $page_info);
+
 		$this->Set("thread_id", $id);
 		$this->Set("thread_info", $thread_info);
 		$this->Set("first_post_info", $first_post_info);

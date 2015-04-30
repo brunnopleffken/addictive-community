@@ -84,6 +84,12 @@ class Profile extends Application
 			$this->info['email'] = "<a href='mailto:" . $this->info['email'] . "'>" . $this->info['email'] . "</a>";
 		}
 
+		// Page info
+		$page_info['title'] = $this->info['username'];
+		$page_info['bc'] = array(i18n::Translate("P_PROFILE") . ": " . $this->info['username']);
+		$this->Set("page_info", $page_info);
+
+		// Return variables
 		$this->Set("info", $this->info);
 		$this->Set("has_birthday", $has_birthday);
 	}
@@ -131,6 +137,11 @@ class Profile extends Application
 		$post_list = Template::Get();
 		Template::Clean();
 
+		// Page info
+		$page_info['title'] = $this->info['username'];
+		$page_info['bc'] = array(i18n::Translate("P_PROFILE") . ": " . $this->info['username']);
+		$this->Set("page_info", $page_info);
+
 		// Return HTML templates
 		$this->Set("info", $this->info);
 		$this->Set("thread_list", $thread_list);
@@ -159,6 +170,11 @@ class Profile extends Application
 			$result['size'] = String::FileSizeFormat($result['size']);
 			$attachments[] = $result;
 		}
+
+		// Page info
+		$page_info['title'] = $this->info['username'];
+		$page_info['bc'] = array(i18n::Translate("P_PROFILE") . ": " . $this->info['username']);
+		$this->Set("page_info", $page_info);
 
 		// Return variables
 		$this->Set("info", $this->info);
