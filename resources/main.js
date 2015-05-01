@@ -10,7 +10,7 @@
  */
 
 
-$(document).ready(function() {
+$(document).ready(function($) {
 	/**
 	 * REPLACE ALL REGULAR <select> FIELDS WITH A FANCY ONE
 	 */
@@ -39,32 +39,34 @@ $(document).ready(function() {
 	 * USER CONTROL PANEL FUNCTIONS
 	 */
 
-	if($('.photoSelect:checked').val() == "gravatar") {
-		$('#gravatar').show();
-	} else if($('.photoSelect:checked').val() == "facebook") {
-		$('#facebook').show();
-	} else if($('.photoSelect:checked').val() == "custom") {
-		$('#custom').show();
-	}
-
-	$('.photoSelect').on('change', function(){
-		var value = $(this).val();
-
-		if(value == "custom") {
-			$('#gravatar').fadeOut();
-			$('#facebook').fadeOut();
-			$('#custom').delay(400).fadeIn();
-		} else if(value == "gravatar") {
-			$('#custom').fadeOut();
-			$('#facebook').fadeOut();
-			$('#gravatar').delay(400).fadeIn();
+	(function() {
+		if($('.photoSelect:checked').val() == "gravatar") {
+			$('#gravatar').show();
+		} else if($('.photoSelect:checked').val() == "facebook") {
+			$('#facebook').show();
+		} else if($('.photoSelect:checked').val() == "custom") {
+			$('#custom').show();
 		}
-		else {
-			$('#custom').fadeOut();
-			$('#gravatar').fadeOut();
-			$('#facebook').delay(400).fadeIn();
-		}
-	});
+
+		$('.photoSelect').on('change', function(){
+			var value = $(this).val();
+
+			if(value == "custom") {
+				$('#gravatar').fadeOut();
+				$('#facebook').fadeOut();
+				$('#custom').delay(400).fadeIn();
+			} else if(value == "gravatar") {
+				$('#custom').fadeOut();
+				$('#facebook').fadeOut();
+				$('#gravatar').delay(400).fadeIn();
+			}
+			else {
+				$('#custom').fadeOut();
+				$('#gravatar').fadeOut();
+				$('#facebook').delay(400).fadeIn();
+			}
+		});
+	}).call(this);
 
 	/**
 	 * CSS CLASSES FOR VALIDATION
@@ -173,38 +175,69 @@ $(document).ready(function() {
 	});
 
 	/**
+	 * REPLACE INPUT[FILE] FIELDS WITH A CUSTOM ONE
+	 */
+
+	(function() {
+		$('input[type=file]').each(function() {
+			var $field = $(this);
+			console.log($field);
+
+			// Hide input[file] field
+			$field.hide();
+
+			// Add an text field and a button
+			$field.parent().append('<input type="text" name="attachment_filename" id="attachment_filename" class="medium" readonly> ');
+			$field.parent().append('<button id="attachment_button"><i class="fa fa-upload"></i> Upload</button>');
+		});
+
+		$(document).on('click', 'button#attachment_button', function(event) {
+			$(this).parent().find('input[type=file]').click();
+			event.preventDefault();
+		});
+		$(document).on('change', 'input[type=file]', function() {
+			var $val = $(this).val().split('\\');
+			$('input#attachment_filename').val($val[$val.length - 1]);
+		});
+	}).call(this);
+
+	/**
 	 * LOAD COMPLETE TINYMCE ON THREAD/REPLY POSTS
 	 */
 
-	tinymce.init({
-		entity_encoding: 'raw',
-		link_title: false,
-		plugins: ['link image'],
-		menubar: false,
-		selector: '#post',
-		statusbar: false,
-		target_list: [
-			{title: 'New page', value: '_blank'},
-		],
-		toolbar: 'bold italic underline strikethrough | alignleft aligncenter alignright | link image | bullist numlist | blockquote | subscript superscript | removeformat'
-	});
+	(function() {
+		tinymce.init({
+			entity_encoding: 'raw',
+			link_title: false,
+			plugins: ['link image'],
+			menubar: false,
+			selector: '#post',
+			statusbar: false,
+			target_list: [
+				{title: 'New page', value: '_blank'},
+			],
+			toolbar: 'bold italic underline strikethrough | alignleft aligncenter alignright | link image | bullist numlist | blockquote | subscript superscript | removeformat'
+		});
+	}).call(this);
 
 	/**
 	 * LOAD REDUCED TINYMCE FOR MEMBER SIGNATURES
 	 */
 
-	tinymce.init({
-		entity_encoding: 'raw',
-		link_title: false,
-		plugins: ['link image'],
-		menubar: false,
-		selector: '#signature',
-		statusbar: false,
-		target_list: [
-			{title: 'New page', value: '_blank'},
-		],
-		toolbar: 'bold italic underline strikethrough | link image | subscript superscript | removeformat'
-	});
+	(function() {
+		tinymce.init({
+			entity_encoding: 'raw',
+			link_title: false,
+			plugins: ['link image'],
+			menubar: false,
+			selector: '#signature',
+			statusbar: false,
+			target_list: [
+				{title: 'New page', value: '_blank'},
+			],
+			toolbar: 'bold italic underline strikethrough | link image | subscript superscript | removeformat'
+		});
+	}).call(this);
 
 	/**
 	 * MESSENGER: SELECT ALL MESSAGES
@@ -239,19 +272,19 @@ $(document).ready(function() {
 			dataType: 'json',
 			type: "POST",
 			quietMillis: 500,
-			data: function (term) {
+			data: function(term) {
 				return {
 					term: term
 				};
 			},
-			results: function (data) {
+			results: function(data) {
 				return {
-					results: $.map(data, function (item) {
+					results: $.map(data, function(item) {
 						return {
 							text: item.username,
 							slug: item.username,
 							id: item.m_id
-						}
+						};
 					})
 				};
 			}
