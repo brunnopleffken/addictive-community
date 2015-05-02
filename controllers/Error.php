@@ -30,6 +30,9 @@ class Error extends Application
 			),
 			'validated' => array(
 				Html::Notification(i18n::Translate("E_MESSAGE_VALIDATED"), "success", true), "login"
+			),
+			'protected_room' => array(
+				Html::Notification(i18n::Translate("E_MESSAGE_PROTECTED"), "failure", true), "protected"
 			)
 		);
 

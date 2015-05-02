@@ -26,9 +26,9 @@ class Room extends Application
 
 		// Is the room protected?
 		if($room_info['password'] != "") {
-			$session_name = "room_" . $room_info['r_id'];
-			if(!$this->Session->GetCookie($session_name)) {
-				header("Location: exception/2");
+			$room_session_name = "room_" . $room_info['r_id'];
+			if(!$this->Session->GetCookie($room_session_name)) {
+				$this->Core->Redirect("error?t=protected_room&room=" . $id);
 			}
 		}
 
@@ -51,6 +51,33 @@ class Room extends Application
 		$this->Set("room_id", $id);
 		$this->Set("room_info", $room_info);
 		$this->Set("threads", $threads);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * UNLOCK PROTECTED ROOMS
+	 * --------------------------------------------------------------------
+	 */
+	public function Unlock()
+	{
+		$this->layout = false;
+
+		$password = Html::Request("password");
+		$room_id  = Html::Request("room");
+
+		$this->Db->Query("SELECT password FROM c_rooms WHERE r_id = {$room_id}");
+		$room_info = $this->Db->Fetch();
+
+		if($password == $room_info['password']) {
+			$room_session_name = "room_" . $room_id;
+			$this->Session->CreateCookie($room_session_name, 1);
+			$this->Core->Redirect("room/" . $room_id);
+			exit;
+		}
+		else {
+			$this->Core->Redirect("error?t=protected_room&room=" . $room_id);
+			exit;
+		}
 	}
 
 	/**
