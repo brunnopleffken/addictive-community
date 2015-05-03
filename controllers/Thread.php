@@ -167,7 +167,7 @@ class Thread extends Application
 			"approved"           => 1,
 			"with_bestanswer"    => 0
 		);
-		//$this->Db->Insert("c_threads", $thread);
+		$this->Db->Insert("c_threads", $thread);
 
 		// Insert first post
 		$post = array(
@@ -183,12 +183,10 @@ class Thread extends Application
 		$Upload = new Upload($this->Db);
 		$post['attach_id'] = $Upload->Attachment(Html::File("attachment"), $post['author_id']);
 
-		String::PR($Upload);
-
-		//$this->Db->Insert("c_posts", $post);
+		$this->Db->Insert("c_posts", $post);
 
 		// Update tables
-		/*
+
 		$this->Db->Query("UPDATE c_rooms SET lastpost_date = '{$post['post_date']}',
 				lastpost_thread = '{$post['thread_id']}', lastpost_member = '{$post['author_id']}'
 				WHERE r_id = '{$thread['room_id']}';");
@@ -197,9 +195,9 @@ class Thread extends Application
 
 		$this->Db->Query("UPDATE c_members SET posts = posts + 1, lastpost_date = '{$post['post_date']}'
 				WHERE m_id = '{$post['author_id']}';");
-		*/
+
 		// Redirect
-		//$this->Core->Redirect("thread/" . $post['thread_id']);
+		$this->Core->Redirect("thread/" . $post['thread_id']);
 	}
 
 	/**
@@ -255,6 +253,19 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * RETURNS AN ARRAY OF BADWORDS
+	 * --------------------------------------------------------------------
+	 */
+	public function _FilterBadWords($text)
+	{
+		$bad_words = explode("\n", $this->config['language_bad_words']);
+		$bad_words_list = preg_replace("/(\r|\n)/i", "", "/(" . implode("|", $bad_words) . ")/i");
+
+		return preg_replace($bad_words_list, $this->config['language_bad_words_replacement'], $text);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * GET FIRST POST CONTENT
 	 * --------------------------------------------------------------------
 	 */
@@ -275,6 +286,9 @@ class Thread extends Application
 		// Format first thread
 		$first_post_info['avatar'] = $this->Core->GetGravatar($first_post_info['email'], $first_post_info['photo'], 96, $first_post_info['photo_type']);
 		$first_post_info['post_date'] = $this->Core->DateFormat($first_post_info['post_date']);
+
+		// Block bad words
+		$first_post_info['post'] = $this->_FilterBadWords($first_post_info['post']);
 
 		// Get emoticons
 		$first_post_info['post'] = $this->Core->ParseEmoticons($first_post_info['post'], $emoticons);
@@ -305,6 +319,9 @@ class Thread extends Application
 			$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 192, $result['photo_type']);
 			$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 			$result['post_date'] = $this->Core->DateFormat($result['post_date']);
+
+			// Block bad words
+			$result['post'] = $this->_FilterBadWords($result['post']);
 
 			// Get emoticons
 			$result['post'] = $this->Core->ParseEmoticons($result['post'], $emoticons);
