@@ -46,11 +46,28 @@ class Messenger extends Application
 			Html::Notification(i18n::Translate("M_MESSAGE_1"), "success"),
 			Html::Notification(i18n::Translate("M_MESSAGE_2"), "failure")
 		);
+		
+		$folder = (Html::Request("folder")) ? Html::Request("folder") : "inbox";
 
-		// Select personal messages
-		$this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username
-				FROM c_messages m INNER JOIN c_members u ON (m.from_id = u.m_id)
-				WHERE m.to_id = '{$this->member_id}' ORDER BY m.sent_date DESC;");
+		// Get personal messages
+		if($folder == "sent") {
+			$selected_folder[0] = "";
+			$selected_folder[1] = "class='selected'";
+
+			// Select SENT personal messages
+			$this->Db->Query("SELECT m.pm_id, m.to_id, m.subject, m.status, m.sent_date, u.username
+					FROM c_messages m INNER JOIN c_members u ON (m.to_id = u.m_id)
+					WHERE m.from_id = '{$this->member_id}' ORDER BY m.sent_date DESC;");
+		}
+		else {
+			$selected_folder[0] = "class='selected'";
+			$selected_folder[1] = "";
+
+			// Select INBOX personal messages
+			$this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username
+					FROM c_messages m INNER JOIN c_members u ON (m.from_id = u.m_id)
+					WHERE m.to_id = '{$this->member_id}' ORDER BY m.sent_date DESC;");
+		}
 
 		// Number of results
 		$num_results = $this->Db->Rows();
@@ -63,8 +80,8 @@ class Messenger extends Application
 		$results = array();
 
 		while($result = $this->Db->Fetch()) {
-			$result['icon_class'] = ($result['status'] == 1) ? "fa-envelope" : "fa-envelope-o";
-			$result['subject']    = ($result['status'] == 1) ? "<b>" . $result['subject'] . "<b>" : $result['subject'];
+			$result['icon_class'] = ($result['status'] == 1 && $folder == "inbox") ? "fa-envelope" : "fa-envelope-o";
+			$result['subject']    = ($result['status'] == 1 && $folder == "inbox") ? "<b>" . $result['subject'] . "<b>" : $result['subject'];
 			$result['sent_date']  = $this->Core->DateFormat($result['sent_date']);
 			$results[] = $result;
 		}
@@ -75,6 +92,8 @@ class Messenger extends Application
 		$this->Set("page_info", $page_info);
 
 		// Return variables
+		$this->Set("folder", $folder);
+		$this->Set("selected_folder", $selected_folder);
 		$this->Set("num_results", $num_results);
 		$this->Set("max_storage_size", $max_storage_size);
 		$this->Set("percentage_width", $percentage_width);
@@ -92,7 +111,7 @@ class Messenger extends Application
 		// Get message info and post
 		$this->Db->Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type
 				FROM c_messages p LEFT JOIN c_members m ON (p.from_id = m.m_id)
-				WHERE pm_id = {$id} AND to_id = {$this->member_id};");
+				WHERE pm_id = {$id} AND (to_id = {$this->member_id} OR from_id = {$this->member_id});");
 
 		if($this->Db->Rows() == 1) {
 			$message = $this->Db->Fetch();

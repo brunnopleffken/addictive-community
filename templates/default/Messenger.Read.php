@@ -1,10 +1,12 @@
 <div class="title-bar">
 	<div class="title fleft"><span><?php __($community_name) ?></span><?php __($message['subject']) ?></div>
-	<div class="buttons fright">
-		<a href="messenger/reply/<?php __($message['pm_id']) ?>" class="default-button"><?php __("M_REPLY") ?></a>
-		<a href="messenger/forward/<?php __($message['pm_id']) ?>" class="default-button"><?php __("M_FORWARD") ?></a>
-		<a href="messenger/delete/<?php __($message['pm_id']) ?>" class="default-button grey"><?php __("M_DELETE") ?></a>
-	</div>
+	<?php if(Html::Request("is") != "sent"): ?>
+		<div class="buttons fright">
+			<a href="messenger/reply/<?php __($message['pm_id']) ?>" class="default-button"><?php __("M_REPLY") ?></a>
+			<a href="messenger/forward/<?php __($message['pm_id']) ?>" class="default-button"><?php __("M_FORWARD") ?></a>
+			<a href="messenger/delete/<?php __($message['pm_id']) ?>" class="default-button grey"><?php __("M_DELETE") ?></a>
+		</div>
+	<?php endif; ?>
 </div>
 
 <div class="thread-post-reply">
