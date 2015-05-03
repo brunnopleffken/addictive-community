@@ -35,12 +35,12 @@ form .tiny { width: 90px; }
 form input[type=text], form input[type=password], form input[type=file], form textarea { border: 1px solid #ccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica, sans-serif; font-size: 13px; outline: none; padding: 6px; }
 form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form textarea:focus { border: 1px solid #aaa; transition: 500ms; }
 form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: Arial, Helvetica, sans-serif; margin-top: -3px; }
-form input[type=button], form input[type=submit] { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #fff; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 29px; padding: 0 12px; text-shadow: 1px 1px 0px #000; vertical-align: top; }
-form input[type=button].cancel, form input[type=submit].cancel { background: #eee url("../images/button-bg.png") !important; color: #900 !important; text-shadow: 1px 1px 0px #fff !important; }
+form input[type=button], form input[type=submit], form button { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #fff; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 29px; padding: 0 12px; text-shadow: 1px 1px 0px #000; vertical-align: top; }
+form input[type=button].cancel, form input[type=submit].cancel, form button.cancel { background: #eee url("../images/button-bg.png") !important; color: #900 !important; text-shadow: 1px 1px 0px #fff !important; }
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #fff; }
 form input[type=checkbox] { margin-right: 2px; vertical-align: text-top; }
 form option { padding-right: 10px; }
-form textarea { overflow: auto; }
+form textarea { overflow: auto; resize: none; }
 
 .input-box { background: #fdfdfd; border: 1px solid #eee; display: table; margin-bottom: 10px; padding: 10px; width: 100%; }
 .input-box .label { display: table-cell; font-size: 15px; font-weight: bold; line-height: 30px; margin-bottom: 15px; vertical-align: top; white-space: nowrap; width: 140px; }
@@ -75,7 +75,7 @@ form textarea { overflow: auto; }
 .table-list.no-borders tr.subtitle td { border-bottom: 1px solid #ccc; padding: 6px 8px; }
 
 /** HEADER **/
-#topbar { background: #000; color: #ccc; font-size: 11px; }
+#topbar { background: #000; border-top: 1px solid transparent; color: #ccc; font-size: 11px; }
 #topbar a { color: #ccc; display: inline-block; font-size: 10px; margin-right: 10px; padding: 8px 10px; text-transform: uppercase; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
 #topbar a:hover { background-color: #2a2a2a; color: #fff; text-decoration: none; }
 #topbar a:last-child { margin-right: 0; }
@@ -138,7 +138,7 @@ form textarea { overflow: auto; }
 .room-item .image { font-size: 36px; padding: 0 16px; text-align: center; width: 1%; }
 .room-item .info { padding: 15px 15px 0 0; vertical-align: top; }
 .room-item .info .title { display: block; font-size: 19px; font-weight: bold; letter-spacing: 1px; line-height: 1em; margin-bottom: 10px; }
-.room-item .info .description { color: #333; font-size: 12px; }
+.room-item .info .description { color: #333; font-size: 13px; }
 .room-item .info .last-post { border-top: 1px solid #eee; font-size: 10px; line-height: 28px; margin-top: 10px; position: relative; text-transform: uppercase; }
 .room-item .info .last-post span { margin-right: 15px; }
 .room-item .room-stats { background: #465068; vertical-align: top; width: 100px; }
@@ -190,6 +190,8 @@ form textarea { overflow: auto; }
 .thread-first-post .text blockquote { color: #666; font-family: Georgia, sans-serif; font-style: italic; margin: 20px 60px 0 30px; position: relative; }
 .thread-first-post .text blockquote:after { color: #ddd; content: "“"; font-family: Georgia, serif; font-size: 60px; left: -30px; position: absolute; top: 10px; }
 .thread-first-post .text ol, .thread-first-post .text ul { margin-left: 25px; margin-bottom: 10px; }
+.thread-first-post .text .signature { border-top: 1px dashed rgba(0, 0, 0, 0.1); color: #777; font-size: 11px; line-height: 1.4em; margin-top: 20px; padding: 10px 0 0 0; }
+.thread-first-post .text .signature p { margin-bottom: 2px; }
 .thread-first-post .footer { border-top: 1px solid #eee; color: #333; font-size: 10px; padding: 8px 10px; line-height: 1em; overflow: hidden; text-transform: uppercase; }
 .thread-first-post .footer i { font-size: 12px; }
 
@@ -207,10 +209,11 @@ form textarea { overflow: auto; }
 .thread-post-reply .author .user-info li { padding: 0 3px; text-align: right; }
 .thread-post-reply .author .user-info li b { float: left; }
 .thread-post-reply .content { display: table-cell; }
-.thread-post-reply .content .date { color: #ccc; font-size: 10px; line-height: 50px; text-transform: uppercase; }
+.thread-post-reply .content .date { color: #ccc; font-size: 10px; letter-spacing: 1px; line-height: 50px; text-transform: uppercase; }
 .thread-post-reply .content .text { margin-bottom: 35px; padding: 0px 15px 15px 0px; }
 .thread-post-reply .content .text img.emoticon { display: inline-block; height: 16px; vertical-align: text-bottom; width: 16px; }
-.thread-post-reply .content .text .signature { border-top: 1px dashed rgba(0, 0, 0, 0.1); color: #777; font-size: 0.8em; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
+.thread-post-reply .content .text .signature { border-top: 1px dashed rgba(0, 0, 0, 0.1); color: #777; font-size: 10px; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
+.thread-post-reply .content .text .signature p { margin-bottom: 4px; }
 .thread-post-reply .content .text p { margin-bottom: 8px; }
 .thread-post-reply .content .text blockquote { color: #666; font-family: Georgia, sans-serif; font-style: italic; margin: 20px 60px 0 30px; position: relative; }
 .thread-post-reply .content .text blockquote:after { color: #ddd; content: "“"; font-family: Georgia, serif; font-size: 60px; left: -30px; position: absolute; top: 10px; }
@@ -226,7 +229,8 @@ form textarea { overflow: auto; }
 .thread-related .item a { display: inline-block; font-weight: bold; margin-left: 15px; }
 
 .main-post .attachments, .thread-post-reply .attachments { overflow: hidden; }
-.main-post .attachments .file, .thread-post-reply .attachments .file { border: 1px dashed #eee; float: left; margin-top: 20px; margin-right: 10px; padding: 10px; width: 230px; }
+.main-post .attachments .title, .thread-post-reply .attachments .title { color: #777; display: block; font-size: 10px; margin-left: 2px; margin-top: 20px; text-transform: uppercase; }
+.main-post .attachments .file, .thread-post-reply .attachments .file { border: 1px dotted #eee; float: left; margin-right: 10px; padding: 10px; width: 230px; }
 .main-post .attachments .file .fileIcon, .thread-post-reply .attachments .file .fileIcon { color: #444; display: inline-block; font-family: FontAwesome; font-size: 40px; margin: 8px 8px 8px 0; text-align: center; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1); vertical-align: middle; }
 .main-post .attachments .file .fileIcon.doc:after, .thread-post-reply .attachments .file .fileIcon.doc:after { content: "\F1C2"; }
 .main-post .attachments .file .fileIcon.htm:after, .thread-post-reply .attachments .file .fileIcon.htm:after { content: "\F1C9"; }
@@ -290,12 +294,14 @@ form textarea { overflow: auto; }
 .calendar .fill { background: #fff; padding: 20px; }
 
 .calendar-events { display: table; width: 100%; }
-.calendar-events .time { float: left; font-size: 22px; font-weight: bold; height: 55px; line-height: 1em; margin-right: 20px; padding-top: 1px; vertical-align: middle; white-space: nowrap; }
 .calendar-events .marker { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVQIW2N0C8zwYQACAAhlAU0RIoPTAAAAAElFTkSuQmCC) repeat-y center; display: table-cell; position: relative; width: 60px; }
 .calendar-events .marker span { background-color: #465068; border-radius: 50%; display: block; height: 12px; left: 50%; margin-left: -6px; margin-top: -6px; position: absolute; top: 50%; width: 12px; }
 .calendar-events .details { display: table-cell; }
-.calendar-events .details .box { margin: 5px 0; }
-.calendar-events .details .tiny { color: #bbb; margin-bottom: 5px; }
+.calendar-events .details .box { display: table; margin: 5px 0; width: 100%; }
+.calendar-events .details .box .event-time { display: table-cell; font-size: 22px; font-weight: bold; vertical-align: middle; width: 80px; }
+.calendar-events .details .box .event-content { display: table-cell; }
+.calendar-events .details .box .event-content h3 { font-size: 22px; letter-spacing: 1px; margin: 2px 0 5px 0; }
+.calendar-events .details .box .event-content .tiny { color: #bbb; font-size: 10px; line-height: 1em; margin-bottom: 6px; text-transform: uppercase; }
 .calendar-events:first-child .marker:before { background-color: #f1f1f1; content: ""; display: block; height: 50%; position: absolute; top: 0; width: 50px; }
 .calendar-events:last-child .marker:before { background-color: #f1f1f1; bottom: 0; content: ""; display: block; height: 50%; position: absolute; width: 50px; }
 .calendar-events:only-child .marker { background: transparent; }

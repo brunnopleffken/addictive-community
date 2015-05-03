@@ -41,6 +41,9 @@
 					</div>
 				<?php endif; ?>
 			</div>
+			<?php if($first_post_info['signature']): ?>
+				<div class="signature"><?php __($first_post_info['signature']) ?></div>
+			<?php endif; ?>
 		</div>
 	</div>
 	<div class="footer">
@@ -93,6 +96,7 @@
 					<span><?php __(html_entity_decode($reply[$k]['post'])) ?></span>
 					<div class="attachments">
 						<?php if($reply[$k]['attach_id'] != 0): ?>
+							<span class="title">Attachment</span>
 							<div class="file">
 								<a href="<?php printf("public/attachments/%s/%s", $reply[$k]['member_id'], $reply[$k]['filename']) ?>" target="_blank" rel="nofollow">
 									<span class="fileIcon <?php __($reply[$k]['type']) ?>"></span>

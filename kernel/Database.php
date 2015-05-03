@@ -64,7 +64,7 @@ class Database implements IDatabase
 		$this->data = $config;
 
 		// Connect to MySQL server
-		$this->link = mysqli_connect(
+		$this->link = @mysqli_connect(
 			$this->data['db_server'],
 			$this->data['db_username'],
 			$this->data['db_password'],

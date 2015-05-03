@@ -43,11 +43,11 @@
 	<?php endforeach; ?>
 <?php else: ?>
 	<div class="box">
-		<form action="search" method="get">
+		<form action="search" method="get" class="validate">
 			<div class="input-box">
 				<div class="label"><?php __("S_DO") ?></div>
 				<div class="field">
-					<input type="text" name="q" class="large">
+					<input type="text" name="q" class="required large">
 					<div class="fright"><input type="submit" value="<?php __("S_TITLE") ?>"></div>
 				</div>
 			</div>

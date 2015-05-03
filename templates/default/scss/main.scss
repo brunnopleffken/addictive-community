@@ -104,7 +104,7 @@ form {
 		font-family: $fontSans;
 		margin-top: -3px;
 	}
-	input[type=button], input[type=submit] {
+	input[type=button], input[type=submit], button {
 		background: $colorFiord url('../images/button-bg.png');
 		border: 0;
 		border-radius: 4px;
@@ -137,6 +137,7 @@ form {
 	}
 	textarea {
 		overflow: auto;
+		resize: none;
 	}
 }
 .input-box {
@@ -300,6 +301,7 @@ form {
 
 #topbar {
 	background: #000;
+	border-top: 1px solid transparent;
 	color: #ccc;
 	font-size: 11px;
 	a {
@@ -589,7 +591,7 @@ form {
 		}
 		.description {
 			color: #333;
-			font-size: 12px;
+			font-size: 13px;
 		}
 		.last-post {
 			border-top: 1px solid #eee;
@@ -841,6 +843,15 @@ form {
 			margin-left: 25px;
 			margin-bottom: 10px;
 		}
+		.signature {
+			border-top: 1px dashed rgba(#000, 0.1);
+			color: #777;
+			font-size: 11px;
+			line-height: 1.4em;
+			margin-top: 20px;
+			padding: 10px 0 0 0;
+			p { margin-bottom: 2px; }
+		}
 	}
 	.footer {
 		border-top: 1px solid #eee;
@@ -917,6 +928,7 @@ form {
 		.date {
 			color: #ccc;
 			font-size: 10px;
+			letter-spacing: 1px;
 			line-height: 50px;
 			text-transform: uppercase;
 		}
@@ -932,10 +944,11 @@ form {
 			.signature {
 				border-top: 1px dashed rgba(#000, 0.1);
 				color: #777;
-				font-size: 0.8em;
+				font-size: 10px;
 				line-height: 1.4em;
 				margin-top: 15px;
 				padding: 10px 0 0 0;
+				p { margin-bottom: 4px; }
 			}
 			p { margin-bottom: 8px; }
 			blockquote {
@@ -1004,10 +1017,17 @@ form {
 .main-post, .thread-post-reply {
 	.attachments {
 		overflow: hidden;
-		.file {
-			border: 1px dashed #eee;
-			float: left;
+		.title {
+			color: #777;
+			display: block;
+			font-size: 10px;
+			margin-left: 2px;
 			margin-top: 20px;
+			text-transform: uppercase;
+		}
+		.file {
+			border: 1px dotted #eee;
+			float: left;
 			margin-right: 10px;
 			padding: 10px;
 			width: 230px;
@@ -1234,17 +1254,6 @@ form {
 .calendar-events {
 	display: table;
 	width: 100%;
-	.time {
-		float: left;
-		font-size: 22px;
-		font-weight: bold;
-		height: 55px;
-		line-height: 1em;
-		margin-right: 20px;
-		padding-top: 1px;
-		vertical-align: middle;
-		white-space: nowrap;
-	}
 	.marker {
 		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVQIW2N0C8zwYQACAAhlAU0RIoPTAAAAAElFTkSuQmCC) repeat-y center;
 		display: table-cell;
@@ -1265,10 +1274,32 @@ form {
 	}
 	.details {
 		display: table-cell;
-		.box { margin: 5px 0; }
-		.tiny {
-			color: #bbb;
-			margin-bottom: 5px;
+		.box {
+			display: table;
+			margin: 5px 0;
+			width: 100%;
+			.event-time {
+				display: table-cell;
+				font-size: 22px;
+				font-weight: bold;
+				vertical-align: middle;
+				width: 80px;
+			}
+			.event-content {
+				display: table-cell;
+				h3 {
+					font-size: 22px;
+					letter-spacing: 1px;
+					margin: 2px 0 5px 0;
+				}
+				.tiny {
+					color: #bbb;
+					font-size: 10px;
+					line-height: 1em;
+					margin-bottom: 6px;
+					text-transform: uppercase;
+				}
+			}
 		}
 	}
 	&:first-child {

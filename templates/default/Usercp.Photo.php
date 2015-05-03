@@ -55,7 +55,7 @@
 				<div class="fleft" style="margin-right: 15px">
 					<?php __(Html::Crop("public/avatar/" . $member_info['photo'], 120, 120)) ?>
 				</div>
-				<div class="fleft" style="border:1px dashed #eee;"><input type="file" name="file_upload"></div>
+				<div class="fleft"><input type="file" name="file_upload"></div>
 				<div class="fix"></div>
 			</div>
 		</div>

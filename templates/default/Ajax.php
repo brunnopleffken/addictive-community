@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Addictive Community (Powered by Addictive Community)</title>
-	<base href="http://localhost/addictive-community/">
+	<base href="<?php __($community_url) ?>">
 	<link rel="icon" href="favicon.ico">
 	<!-- CSS -->
 	<link rel="stylesheet" href="templates/default/css/main.css">

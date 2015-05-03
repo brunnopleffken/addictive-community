@@ -1,6 +1,6 @@
 <div class="profile-header">
 	<div class="background" style="background-image: url('<?php __($info['cover']) ?>')"><div class="cover"></div></div>
-	<?php __(Html::Crop($info['avatar'], 160, 160, "avatar")) ?>
+	<a href="<?php __($info['avatar']) ?>" class="fancybox fancybox.image"><?php __(Html::Crop($info['avatar'], 160, 160, "avatar")) ?></a>
 	<div class="member-title"><?php __($info['member_title']) ?></div>
 	<div class="member-info">
 		<span class="username"><?php __($info['username']) ?></span>

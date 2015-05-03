@@ -21,7 +21,7 @@
 	$t["C_PHOTO_CUSTOM"] = "Upload custom photo";
 	$t["C_GRAVATAR_SETTINGS"] = "Gravatar Settings";
 	$t["C_GRAVATAR_MESSAGE"] = "<b>Gravatar</b> is a service for providing globally unique avatars.<br>Your gravatar is associated with <a href='usercp'>your e-mail address</a>.<br><br>Edit or create your Gravatar accessing <a href='https://www.gravatar.com' target='_blank' rel='nofollow'>www.gravatar.com</a>.";
-	$t["C_FACEBOOK_MESSAGE"] = "In order to use Facebook images, you <strong>must</strong> fill in<br>the \"Facebook\" text field in <a href='?module=usercp'>Profile (User Control Panel)</a>.<br><br>Edit or create your Facebook photo accessing <a href='https://www.facebook.com' target='_blank' rel='nofollow'>www.facebook.com</a>.";
+	$t["C_FACEBOOK_MESSAGE"] = "In order to use Facebook images, you <strong>must</strong> fill in<br>the \"Facebook\" text field in <a href='?module=usercp'>Profile (User Control Panel)</a>.<br><br>Edit or create your Facebook photo by accessing <a href='https://www.facebook.com' target='_blank' rel='nofollow'>www.facebook.com</a>.";
 	$t["C_FACEBOOK_SETTINGS"] = "Facebook Photo";
 	$t["C_PHOTO_UPLOAD"] = "Photo Upload";
 	$t["C_UPDATE_PHOTO"] = "Update Photo";

@@ -27,7 +27,6 @@
 		<td><?php __("M_POSTS") ?></td>
 		<td><?php __("M_LOCATION") ?></td>
 		<td><?php __("M_GROUP") ?></td>
-		<td class="min">&nbsp;</td>
 	</tr>
 	<?php if(!empty($results)): ?>
 		<?php foreach($results as $k => $v): ?>
@@ -40,7 +39,6 @@
 				<td><?php __($results[$k]['posts']) ?></td>
 				<td><?php __($results[$k]['location']) ?></td>
 				<td><?php __($results[$k]['name']) ?></td>
-				<td class="min" style="font-size: 16px"><a href="profile/<?php __($results[$k]['m_id']) ?>"><i class="fa fa-search"></i></a></td>
 			</tr>
 		<?php endforeach; ?>
 	<?php else: ?>
