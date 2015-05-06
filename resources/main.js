@@ -200,6 +200,41 @@ $(document).ready(function($) {
 			$('input#attachment_filename').val($val[$val.length - 1]);
 		});
 	}).call(this);
+	
+	/**
+	 * REPLACE CHECKBOXES WITH A CUSTOM ONE
+	 */
+	(function() {
+		$('input[type=checkbox]').each(function(i, v) {
+			var $checkbox = $(this);
+
+			// Hide checkbox and prepend it with <A>
+			$checkbox.addClass('checkbox-' + i).hide();
+			$('<a class="checkbox" id="checkbox-' + i + '"></a>').insertBefore($checkbox);
+
+			// If the checkbox is already checked
+			if($checkbox.is('[checked]')) {
+				$('a#checkbox-' + i).addClass('checked');
+			}
+		});
+		
+		$(document).on('click', 'a.checkbox', function(event) {
+			var $link = $(this);
+			var $checkbox = $('input[type=checkbox].' + $link.attr('id'));
+
+			// Add/remove class .checked from the element <a>
+			$link.toggleClass('checked');
+
+			// Add/remove attribute CHECKED from the corresponding INPUT[type=checkbox]
+			if($checkbox.hasClass('checked')) {
+				$checkbox.removeAttr('checked').removeClass('checked');
+			} else {
+				$checkbox.attr('checked', true).addClass('checked');
+			}
+
+			event.preventDefault();
+		});
+	}).call(this);
 
 	/**
 	 * LOAD COMPLETE TINYMCE ON THREAD/REPLY POSTS

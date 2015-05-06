@@ -38,9 +38,10 @@ form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: 
 form input[type=button], form input[type=submit], form button { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #fff; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 29px; padding: 0 12px; text-shadow: 1px 1px 0px #000; vertical-align: top; }
 form input[type=button].cancel, form input[type=submit].cancel, form button.cancel { background: #eee url("../images/button-bg.png") !important; color: #900 !important; text-shadow: 1px 1px 0px #fff !important; }
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #fff; }
-form input[type=checkbox] { margin-right: 2px; vertical-align: text-top; }
 form option { padding-right: 10px; }
 form textarea { overflow: auto; resize: none; }
+form .checkbox { background: transparent url("../images/checkbox.png") no-repeat center; background-size: 12px 12px; border: 1px solid #ccc; border-radius: 3px; cursor: pointer; display: inline-block; height: 16px; width: 16px; vertical-align: text-bottom; -webkit-transition: 200ms; -moz-transition: 200ms; transition: 200ms; }
+form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 
 .input-box { background: #fdfdfd; border: 1px solid #eee; display: table; margin-bottom: 10px; padding: 10px; width: 100%; }
 .input-box .label { display: table-cell; font-size: 15px; font-weight: bold; line-height: 30px; margin-bottom: 15px; vertical-align: top; white-space: nowrap; width: 140px; }

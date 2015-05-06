@@ -128,16 +128,28 @@ form {
 		color: #aaa;
 		text-shadow: 1px 1px 1px #fff;
 	}
-	input[type=checkbox] {
-		margin-right: 2px;
-		vertical-align: text-top;
-	}
 	option {
 		padding-right: 10px;
 	}
 	textarea {
 		overflow: auto;
 		resize: none;
+	}
+	.checkbox {
+		background: transparent url('../images/checkbox.png') no-repeat center;
+		background-size: 12px 12px;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		cursor: pointer;
+		display: inline-block;
+		height: 16px;
+		width: 16px;
+		vertical-align: text-bottom;
+		@include transition(200ms);
+		&.checked {
+			background-color: $colorFiord;
+			border: 1px solid $colorFiord;
+		}
 	}
 }
 .input-box {
