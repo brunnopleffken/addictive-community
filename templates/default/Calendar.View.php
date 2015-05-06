@@ -10,7 +10,7 @@
 		<a href="room/" class="selected"><?php __("C_VIEW") ?></a>
 	</div>
 	<div class="subnav">
-		<a href="room/" class="selected"><?php __("C_VIEW_ALL") ?></a>
+		<a href="room/"><?php __("C_VIEW_ALL") ?></a>
 	</div>
 </div>
 

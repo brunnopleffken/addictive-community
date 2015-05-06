@@ -17,7 +17,7 @@
 		<?php endif; ?>
 	</div>
 	<div class="subnav">
-		<a href="room/<?php __($room_id) ?>" class="selected"><?php __("R_LAST_REPLY") ?></a>
+		<a href="room/<?php __($room_id) ?>"><?php __("R_LAST_REPLY") ?></a>
 		<a href="room/<?php __($room_id) ?>?view=topreplies"><?php __("R_TOP_THREADS") ?></a>
 		<a href="room/<?php __($room_id) ?>?view=noreplies"><?php __("R_NO_REPLIES") ?></a>
 		<a href="room/<?php __($room_id) ?>?view=bestanswered"><?php __("R_ANSWERED") ?></a>

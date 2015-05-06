@@ -25,6 +25,21 @@ $(document).ready(function($) {
 	$('.notification').not('.persistent').delay(3000).fadeOut(1000);
 
 	/**
+	 * AUTOMATICALLY SELECT TABS IN THE NAVIGATION BAR
+	 */
+
+	(function() {
+		$('.navigation .subnav a').each(function() {
+			var elementUrl = new RegExp("(" + ($(this).attr('href')).replace("?", "\\?") + ")$");
+			var browserUrl = window.location.href;
+
+			if(elementUrl.test(browserUrl)) {
+				$(this).addClass('selected');
+			}
+		});
+	}).call(this);
+
+	/**
 	 * BUILD LIGHTBOX WHEN LINK HAS .fancybox
 	 */
 
@@ -200,10 +215,11 @@ $(document).ready(function($) {
 			$('input#attachment_filename').val($val[$val.length - 1]);
 		});
 	}).call(this);
-	
+
 	/**
 	 * REPLACE CHECKBOXES WITH A CUSTOM ONE
 	 */
+
 	(function() {
 		$('input[type=checkbox]').each(function(i, v) {
 			var $checkbox = $(this);
