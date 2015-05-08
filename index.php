@@ -60,7 +60,17 @@ class Main
 		$this->_LoadKernel();
 
 		// Load configuration file
-		require("config.php");
+		if(is_file("config.php")) {
+			require_once("config.php");
+		}
+		else {
+			Html::Error("Configuration file is missing.");
+		}
+
+		// If config.php is empty, go to Addictive Community installer
+		if(filesize("config.php") == 0 || empty($config)) {
+			header("Location: install/");
+		}
 
 		// Instance of Database() class
 		$this->Db = new Database($config);
