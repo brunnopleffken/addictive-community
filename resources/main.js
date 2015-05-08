@@ -43,12 +43,16 @@ $(document).ready(function($) {
 	 * BUILD LIGHTBOX WHEN LINK HAS .fancybox
 	 */
 
-	$('.fancybox').fancybox({
-		autoSize: true,
-		closeBtn: false,
-		modal: false,
-		padding: 2
-	});
+	try {
+		$('.fancybox').fancybox({
+			autoSize: true,
+			closeBtn: false,
+			modal: false,
+			padding: 2
+		});
+	} catch(e) {
+		console.log(e);
+	}
 
 	/**
 	 * USER CONTROL PANEL FUNCTIONS
@@ -257,18 +261,22 @@ $(document).ready(function($) {
 	 */
 
 	(function() {
-		tinymce.init({
-			entity_encoding: 'raw',
-			link_title: false,
-			plugins: ['link image'],
-			menubar: false,
-			selector: '#post',
-			statusbar: false,
-			target_list: [
-				{title: 'New page', value: '_blank'},
-			],
-			toolbar: 'bold italic underline strikethrough | alignleft aligncenter alignright | link image | bullist numlist | blockquote | subscript superscript | removeformat'
-		});
+		try {
+			tinymce.init({
+				entity_encoding: 'raw',
+				link_title: false,
+				plugins: ['link image'],
+				menubar: false,
+				selector: '#post',
+				statusbar: false,
+				target_list: [
+					{title: 'New page', value: '_blank'},
+				],
+				toolbar: 'bold italic underline strikethrough | alignleft aligncenter alignright | link image | bullist numlist | blockquote | subscript superscript | removeformat'
+			});
+		} catch(e) {
+			console.log(e);
+		}
 	}).call(this);
 
 	/**
@@ -276,18 +284,22 @@ $(document).ready(function($) {
 	 */
 
 	(function() {
-		tinymce.init({
-			entity_encoding: 'raw',
-			link_title: false,
-			plugins: ['link image'],
-			menubar: false,
-			selector: '#signature',
-			statusbar: false,
-			target_list: [
-				{title: 'New page', value: '_blank'},
-			],
-			toolbar: 'bold italic underline strikethrough | link image | subscript superscript | removeformat'
-		});
+		try {
+			tinymce.init({
+				entity_encoding: 'raw',
+				link_title: false,
+				plugins: ['link image'],
+				menubar: false,
+				selector: '#signature',
+				statusbar: false,
+				target_list: [
+					{title: 'New page', value: '_blank'},
+				],
+				toolbar: 'bold italic underline strikethrough | link image | subscript superscript | removeformat'
+			});
+		} catch(e) {
+			console.log(e);
+		}
 	}).call(this);
 
 	/**
