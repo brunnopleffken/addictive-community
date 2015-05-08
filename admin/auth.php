@@ -53,5 +53,3 @@
 
 		header("Location: main.php");
 	}
-
-?>

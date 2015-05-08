@@ -232,5 +232,3 @@ HTML;
 
 		return $nav;
 	}
-
-?>

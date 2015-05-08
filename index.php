@@ -180,7 +180,7 @@ class Main
 	{
 		if($this->instance->HasLayout()) {
 			$page_info = array();
-			
+
 			// Get defined variables in controller
 			foreach($this->view_data as $k => $v) {
 				$$k = $v;

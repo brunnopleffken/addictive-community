@@ -1,17 +1,7 @@
-* {
-	margin: 0;
-	padding: 0;
-	border: 0;
-}
+* { margin: 0; padding: 0; border: 0; }
 
-body {
-	background: #ededed;
-}
-
-body, td {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
-}
+body { background: #ededed; }
+body, td { font-family: Arial, Helvetica, sans-serif; font-size: 13px; }
 
 a { color: #224488; text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -43,10 +33,7 @@ h4 { font-size: 14px; margin-bottom: 15px; }
 
 /** FORM **/
 
-button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner {
-    padding: 0 !important;
-    border: 0 none !important;
-}
+button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner { padding: 0 !important; border: 0 none !important; }
 
 textarea { overflow: auto; }
 input[type=text], input[type=password], input[type=file],

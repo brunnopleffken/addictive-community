@@ -46,7 +46,7 @@ class Messenger extends Application
 			Html::Notification(i18n::Translate("M_MESSAGE_1"), "success"),
 			Html::Notification(i18n::Translate("M_MESSAGE_2"), "failure")
 		);
-		
+
 		$folder = (Html::Request("folder")) ? Html::Request("folder") : "inbox";
 
 		// Get personal messages
