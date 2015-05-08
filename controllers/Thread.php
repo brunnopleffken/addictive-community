@@ -258,10 +258,15 @@ class Thread extends Application
 	 */
 	public function _FilterBadWords($text)
 	{
-		$bad_words = explode("\n", $this->config['language_bad_words']);
-		$bad_words_list = preg_replace("/(\r|\n)/i", "", "/(" . implode("|", $bad_words) . ")/i");
-
-		return preg_replace($bad_words_list, $this->config['language_bad_words_replacement'], $text);
+		if($this->config['language_bad_words'] != "") {
+			$bad_words = explode("\n", $this->config['language_bad_words']);
+			$bad_words_list = preg_replace("/(\r|\n)/i", "", "/(" . implode("|", $bad_words) . ")/i");
+	
+			return preg_replace($bad_words_list, $this->config['language_bad_words_replacement'], $text);
+		}
+		else {
+			return $text;
+		}
 	}
 
 	/**
