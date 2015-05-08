@@ -9,35 +9,45 @@
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
 
-	// ---------------------------------------------------
-	// Initialize
-	// ---------------------------------------------------
+	/**
+	 * --------------------------------------------------------------------
+	 * INITIALIZE
+	 * --------------------------------------------------------------------
+	 */
 
 	// Load kernel modules
-	require_once("../kernel/class.core.php");
-	require_once("../kernel/class.html.php");
-	require_once("../kernel/class.string.php");
-	require_once("../kernel/class.database.php");
+	require_once("../kernel/Core.php");
+	require_once("../kernel/Html.php");
+	require_once("../kernel/String.php");
+	require_once("../kernel/Database.php");
 
 	// Get step number
 	$step = Html::Request("step");
+
 	// Get user data
 	$data = $_POST;
 
-	// --------------------------------------------
-	// OK, let's do it!
-	// --------------------------------------------
+
+	/**
+	 * --------------------------------------------------------------------
+	 * OK, LET'S DO IT
+	 * --------------------------------------------------------------------
+	 */
 
 	switch($step) {
-		// --------------------------------------------
-		// Save configuration file
-		// --------------------------------------------
+
+		/**
+		 * --------------------------------------------------------------------
+		 * SAVE CONFIGURATION FILE
+		 * --------------------------------------------------------------------
+		 */
+
 		case 1:
 			// Check if config.php is writable (CHMOD 777)
 			if(is_writable("../config.php")) {
 				$handle = fopen("../config.php", "w");
-				
-				$fileContent = "<?php
+
+				$file_content = "<?php
 	// Addictive Community configuration file for MySQL
 	\$config['db_server']   = \"{$data['db_server']}\";
 	\$config['db_username'] = \"{$data['db_username']}\";
@@ -46,7 +56,7 @@
 	\$config['db_prefix']   = \"c_\";
 ?>";
 
-				if(fwrite($handle, $fileContent)) {
+				if(fwrite($handle, $file_content)) {
 					$status = 1;
 					fclose($handle);
 				}
@@ -61,9 +71,13 @@
 			$description = "Save configuration file";
 			break;
 
-		// --------------------------------------------
-		// Check information and connect to database
-		// --------------------------------------------
+
+		/**
+		 * --------------------------------------------------------------------
+		 * CHECK SAVED INFORMATION AND TRY TO CONNECT TO DATABASE
+		 * --------------------------------------------------------------------
+		 */
+
 		case 2:
 			// Get brand new config.php file
 			require("../config.php");
@@ -74,9 +88,13 @@
 			$description = "Check information and connect to database";
 			break;
 
-		// --------------------------------------------
-		// Extract table structure
-		// --------------------------------------------
+
+		/**
+		 * --------------------------------------------------------------------
+		 * EXTRACT TABLES
+		 * --------------------------------------------------------------------
+		 */
+
 		case 3:
 			// Get config file and connect to Database
 			require("../config.php");
@@ -90,8 +108,8 @@
 			$handle = fopen($file, "r");
 
 			if($handle) {
-				$sqlQuery = fread($handle, filesize($file));
-				$queries = explode("\n", $sqlQuery);
+				$sql_query = fread($handle, filesize($file));
+				$queries = explode("\n", $sql_query);
 
 				foreach($queries as $value) {
 					$query = $database->Query($value);
@@ -106,9 +124,13 @@
 			$description = "Extract table structure";
 			break;
 
-		// --------------------------------------------
-		// Insert initial data and settings
-		// --------------------------------------------
+
+		/**
+		 * --------------------------------------------------------------------
+		 * INSERT INITIAL DATA AND SETTINGS
+		 * --------------------------------------------------------------------
+		 */
+
 		case 4:
 			// Get config file and connect to Database
 			require("../config.php");
@@ -121,8 +143,8 @@
 			$handle = fopen($file, "r");
 
 			if($handle) {
-				$sqlQuery = fread($handle, filesize($file));
-				$queries = explode("\n", $sqlQuery);
+				$sql_query = fread($handle, filesize($file));
+				$queries = explode("\n", $sql_query);
 
 				foreach($queries as $value) {
 					$query = $database->Query($value);
@@ -132,11 +154,7 @@
 				}
 			}
 
-			// --------------------------------------------
-			// Insert dynamic data
-			// --------------------------------------------
-
-			$communityInfo = array(
+			$community_info = array(
 				'timestamp'      => time(),
 				'community_name' => String::Sanitize($data['community_name']),
 				'community_url'  => String::Sanitize($data['community_url'])
@@ -144,21 +162,21 @@
 
 			// Insert sample room, thread and post
 
-			$sql[] = "INSERT INTO `c_rooms` (`r_id`, `name`, `description`, `url`, `order_n`, `lastpost_date`, `lastpost_thread`, `lastpost_member`, `invisible`, `rules_title`, `rules_text`, `rules_visible`, `read_only`, `password`, `upload`, `perm_view`, `perm_post`, `perm_reply`) VALUES (1, 'A Test Room', 'You can edit or remove this room at any time.', NULL, 1, {$communityInfo['timestamp']}, 1, 1, 0, '', '', 0, 0, '', 1, 'a:5:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";i:3;s:3:\"V_4\";i:4;s:3:\"V_5\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}');";
-			$sql[] = "INSERT INTO `c_threads` (`t_id`, `title`, `author_member_id`, `replies`, `views`, `start_date`, `room_id`, `tags`, `announcement`, `lastpost_date`, `lastpost_member_id`, `moved_to`, `locked`, `approved`, `with_bestanswer`) VALUES (1, 'Welcome', 1, 1, 0, {$communityInfo['timestamp']}, 1, NULL, 0, {$communityInfo['timestamp']}, 1, NULL, 0, 1, 0);";
-			$sql[] = "INSERT INTO `c_posts` (`p_id`, `author_id`, `thread_id`, `post_date`, `attach_id`, `attach_clicks`, `ip_address`, `post`, `edit_time`, `edit_author`, `best_answer`, `first_post`) VALUES (1, 1, 1, {$communityInfo['timestamp']}, NULL, NULL, '127.0.0.1', 'Welcome to your new Addictive Community.\nThis is simply a test message confirming that the installation was successful.', NULL, NULL, 0, 1);";
+			$sql[] = "INSERT INTO `c_rooms` (`r_id`, `name`, `description`, `url`, `order_n`, `lastpost_date`, `lastpost_thread`, `lastpost_member`, `invisible`, `rules_title`, `rules_text`, `rules_visible`, `read_only`, `password`, `upload`, `perm_view`, `perm_post`, `perm_reply`) VALUES (1, 'A Test Room', 'You can edit or remove this room at any time.', NULL, 1, {$community_info['timestamp']}, 1, 1, 0, '', '', 0, 0, '', 1, 'a:5:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";i:3;s:3:\"V_4\";i:4;s:3:\"V_5\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}');";
+			$sql[] = "INSERT INTO `c_threads` (`t_id`, `title`, `author_member_id`, `replies`, `views`, `start_date`, `room_id`, `tags`, `announcement`, `lastpost_date`, `lastpost_member_id`, `moved_to`, `locked`, `approved`, `with_bestanswer`) VALUES (1, 'Welcome', 1, 1, 0, {$community_info['timestamp']}, 1, NULL, 0, {$community_info['timestamp']}, 1, NULL, 0, 1, 0);";
+			$sql[] = "INSERT INTO `c_posts` (`p_id`, `author_id`, `thread_id`, `post_date`, `attach_id`, `attach_clicks`, `ip_address`, `post`, `edit_time`, `edit_author`, `best_answer`, `first_post`) VALUES (1, 1, 1, {$community_info['timestamp']}, NULL, NULL, '127.0.0.1', '<p>Welcome to your new Addictive Community.</p><p>This is simply a test message confirming that the installation was successful.</p>', NULL, NULL, 0, 1);";
 
 			// Insert configuration file
 
-			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_communityname', '{$communityInfo['community_name']}');";
-			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_communityurl', '{$communityInfo['community_url']}');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_communityname', '{$community_info['community_name']}');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_communityurl', '{$community_info['community_url']}');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_websitename', 'My Website');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_websiteurl', 'http://');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_communitylogo', 'logo.png');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_sidebar_online', 'true');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_sidebar_stats', 'true');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('date_long_format', 'd M Y, H:i');";
-			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('date_default_offset', '-3');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('date_default_offset', '0');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_posts_hot', '15');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('seo_description', '');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('seo_keywords', '');";
@@ -187,6 +205,8 @@
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_email_from_name', '');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_security_validation', 'false');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_warning_max', '5');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('language_bad_words', '');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('language_bad_words_replacement', '#####');";
 
 			foreach($sql as $value) {
 				$query = $database->Query($value);
@@ -199,16 +219,20 @@
 			$description = "Insert initial data and settings";
 			break;
 
-		// --------------------------------------------
-		// Save user information
-		// --------------------------------------------
+
+		/**
+		 * --------------------------------------------------------------------
+		 * SAVE USER INFORMATION
+		 * --------------------------------------------------------------------
+		 */
+
 		case 5:
 			// Get config file and connect to Database
 			require("../config.php");
 			$database = new Database($config);
 
 			// Get administrator account data
-			$adminInfo = array(
+			$admin_info = array(
 				'username' => String::Sanitize($data['admin_username']),
 				'password' => String::PasswordEncrypt($data['admin_password']),
 				'email'    => String::Sanitize($data['admin_email']),
@@ -217,17 +241,21 @@
 
 			// Build SQL
 
-			$sqlInsertAdmin = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_windowslive`, `im_skype`, `im_facebook`, `im_twitter`, `im_yim`, `im_aol`, `posts`, `lastpost_date`, `signature`, `template`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_email`, `show_birthday`, `show_gender`, `token`) VALUES ('{$adminInfo['username']}', '{$adminInfo['password']}', '{$adminInfo['email']}', 0, '', {$adminInfo['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', '', '', '', '', 1, 1367848084, '', 'default', 'en_US', NULL, NULL, 0, '0', 0, 1, 1, 1, '')";
+			$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_windowslive`, `im_skype`, `im_facebook`, `im_twitter`, `im_yim`, `im_aol`, `posts`, `lastpost_date`, `signature`, `template`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', '', '', '', '', 1, 1367848084, '', 'default', 'en_US', NULL, NULL, 0, '0', 0, 1, 1, '')";
 
-			$insertAdmin = $database->Query($sqlInsertAdmin);
+			$insert_admin = $database->Query($insert_admin_query);
 
-			$status      = ($insertAdmin) ? 1 : 0;
+			$status      = ($insert_admin) ? 1 : 0;
 			$description = "Save user information";
 			break;
 
-		// --------------------------------------------
-		// Lock installer
-		// --------------------------------------------
+
+		/**
+		 * --------------------------------------------------------------------
+		 * LOCK INSTALLER
+		 * --------------------------------------------------------------------
+		 */
+
 		case 6:
 			$status = (fopen(".lock", "w")) ? 1 : 0;
 			$description = "Lock installer";

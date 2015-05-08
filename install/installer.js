@@ -1,14 +1,64 @@
-// ---------------------------------------------------
-//  ADDICTIVE COMMUNITY
-// ---------------------------------------------------
-// Developed by Brunno Pleffken Hosti
-// File: installer.js
-// Release: v1.0.0
-// Copyright: (c) 2014 - Addictive Software
-// ---------------------------------------------------
+/**
+ * ADDICTIVE COMMUNITY
+ * -------------------------------------------------------
+ * Created by Brunno Pleffken Hosti
+ * http://github.com/brunnopleffken/addictive-community
+ *
+ * File: installer.js
+ * Release: v1.0.0
+ * Copyright: (c) 2015 - Addictive Software
+ */
+
+
+$(document).ready(function($) {
+
+	// Check if database is up using Ajax
+
+	$('#database-form').on('submit', function(event) {
+		var $form = $(this);
+		var isDatabaseUp = false;
+
+		$.ajax("tests.php?task=test_database", {
+			method: 'post',
+			dataType: 'json',
+			data: $form.serialize(),
+			context: $form,
+			beforeSend: function() {
+				$('input[type=submit]').attr('disabled', true);
+			}
+		})
+		.done(function(data) {
+			console.log(data.status);
+			if(data.status == 0) {
+				isDatabaseUp = false;
+				alert('ERROR: Could not establish connection to database.');
+			}
+			else {
+				isDatabaseUp = true;
+			}
+		})
+		.always(function() {
+			$('input[type=submit]').removeAttr('disabled');
+
+			// If there is no errors, submit!
+			if(isDatabaseUp == true) {
+				this.off('submit');
+				this.submit();
+			}
+		});
+
+		event.preventDefault();
+	});
+});
+
+
+// Agree to the EULA
 
 function eula() {
 	var checkbox = document.getElementById("agree");
+
+	console.log(checkbox.checked);
+
 	if(checkbox.checked == false) {
 		alert("You must agree to the EULA to proceed with installation.");
 		return false;
@@ -17,6 +67,8 @@ function eula() {
 		window.location.replace("index.php?step=2");
 	}
 }
+
+// Check if typed passwords are equal
 
 function checkPasswordMatch() {
 	var password = document.getElementById("adm_password"),
@@ -50,7 +102,7 @@ function installModule(id) {
 	};
 
 	$.ajax({
-		url: 'execute.php?step=' + id,
+		url: 'installer.php?step=' + id,
 		dataType: 'json',
 		type: 'post',
 		data: installData,

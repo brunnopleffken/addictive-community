@@ -55,10 +55,15 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * CONNECT TO MYSQL DATABASE
+	 * OPEN A CONNECTION TO A MYSQL SERVER
 	 * --------------------------------------------------------------------
 	 */
 	public function __construct($config = array())
+	{
+		$this->_Connect($config);
+	}
+
+	protected function _Connect($config = array())
 	{
 		// Store configuration info as class property
 		$this->data = $config;
@@ -83,7 +88,7 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * SDASDASADSDA
+	 * SENDS A UNIQUE QUERY TO THE CURRENTLY ACTIVE DATABASE
 	 * --------------------------------------------------------------------
 	 */
 	public function Query($sql)
@@ -102,7 +107,7 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * RETURN RESULTS FROM QUERY() COMMAND
+	 * FETCH A RESULT ROW AS AN ASSOCIATIVE/NUMERATIVE ARRAY
 	 * --------------------------------------------------------------------
 	 */
 	public function Fetch($result = "")
@@ -120,7 +125,7 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * RETURN RESULTS FROM QUERY() COMMAND AND STORE INTO AN ARRAY
+	 * FETCH A RESULT ROW AS AN ASSOCIATIVE ARRAY
 	 * --------------------------------------------------------------------
 	 */
 	public function FetchArray($result = "")
@@ -139,7 +144,7 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * FETCH RESULTS INTO AN ARRAY
+	 * FETCH A RESULT ROW AS AN ASSOCIATIVE ARRAY
 	 * --------------------------------------------------------------------
 	 */
 	public function FetchToArray($result = "")
@@ -160,7 +165,7 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * GET NUMBER OF AFFECTED ROWS
+	 * GET NUMBER OF ROWS IN RESULT
 	 * --------------------------------------------------------------------
 	 */
 	public function Rows($result = "")
@@ -225,7 +230,7 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * GET LAST ID FROM LAST QUERY() COMMAND
+	 * GET THE ID GENERATED IN THE LAST QUERY
 	 * --------------------------------------------------------------------
 	 */
 	public function GetLastID()
