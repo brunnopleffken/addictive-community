@@ -243,9 +243,9 @@ $(document).ready(function($) {
 
 			// Add/remove attribute CHECKED from the corresponding INPUT[type=checkbox]
 			if($checkbox.hasClass('checked')) {
-				$checkbox.removeAttr('checked').removeClass('checked');
+				$checkbox.prop('checked', false).removeClass('checked');
 			} else {
-				$checkbox.attr('checked', true).addClass('checked');
+				$checkbox.prop('checked', true).addClass('checked');
 			}
 
 			event.preventDefault();

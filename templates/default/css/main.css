@@ -40,7 +40,7 @@ form input[type=button].cancel, form input[type=submit].cancel, form button.canc
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #fff; }
 form option { padding-right: 10px; }
 form textarea { overflow: auto; resize: none; }
-form .checkbox { background: transparent url("../images/checkbox.png") no-repeat center; background-size: 12px 12px; border: 1px solid #ccc; border-radius: 3px; cursor: pointer; display: inline-block; height: 16px; width: 16px; vertical-align: text-bottom; -webkit-transition: 200ms; -moz-transition: 200ms; transition: 200ms; }
+form .checkbox { background: transparent url("../images/checkbox.png") no-repeat center; background-size: 10px 10px; border: 1px solid #ccc; border-radius: 3px; cursor: pointer; display: inline-block; height: 16px; width: 16px; vertical-align: text-bottom; -webkit-transition: 200ms; -moz-transition: 200ms; transition: 200ms; }
 form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 
 .input-box { background: #fdfdfd; border: 1px solid #eee; display: table; margin-bottom: 10px; padding: 10px; width: 100%; }
