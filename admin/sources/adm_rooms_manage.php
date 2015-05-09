@@ -40,9 +40,9 @@
 				<b>{$room['name']}</b><br>
 				{$room['description']}
 			</td>
-			<td class='min'><a href='main.php?act=rooms&p=edit&id={$room['r_id']}'><i class='fa fa-pencil'></i></a></td>
-			<td class='min'><a href='main.php?act=rooms&p=delete&id={$room['r_id']}'><i class='fa fa-remove'></i></a></td>
-			<td class='min'><a href='main.php?act=rooms&p=resync&id={$room['r_id']}'><i class='fa fa-refresh'></i></a></td>
+			<td class='min'><a href='main.php?act=rooms&p=edit&id={$room['r_id']}' title='Edit'><i class='fa fa-pencil'></i></a></td>
+			<td class='min'><a href='main.php?act=rooms&p=delete&id={$room['r_id']}' title='Delete'><i class='fa fa-remove'></i></a></td>
+			<td class='min'><a href='main.php?act=rooms&p=resync&id={$room['r_id']}' title='Resynchronize'><i class='fa fa-refresh'></i></a></td>
 		</tr>
 		");
 	}
@@ -72,21 +72,6 @@
 						<td colspan="3">Options</td>
 					</tr>
 					<?php echo Template::Get(); ?>
-				</table>
-
-				<table>
-					<tr>
-						<td>Selected items:
-							<select>
-								<option>Resynchronize</option>
-								<option>Delete</option>
-								<option>Set Invisible</option>
-
-							</select>
-							<input type="hidden" name="id" value="">
-							<input type="submit" value="OK">
-						</td>
-					</tr>
 				</table>
 
 			</form>

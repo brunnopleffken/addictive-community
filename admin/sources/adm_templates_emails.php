@@ -42,7 +42,7 @@
 
 	<div id="content">
 		<div class="grid-row">
-			<?php echo Html::Notification("<u>Do not</u> change the position of the variables (%s or %d markers). You can use HTML tags, e.g: line breaks, use &lt;br&gt;.", "warning"); ?>
+			<?php echo Html::Notification("<u>Do not</u> change the position of the variables (%s and %d symbols are variables). You can use HTML tags, e.g: for line breaks, use &lt;br&gt;.", "warning"); ?>
 			<form action="main.php?act=templates&p=emails" method="post">
 				<table class="table-list">
 					<tr>

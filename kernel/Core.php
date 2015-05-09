@@ -71,7 +71,7 @@ class Core
 	 * GET GRAVATAR, FACEBOOK OR UPLOADED MEMBER IMAGE PATH
 	 * --------------------------------------------------------------------
 	 */
-	public function GetGravatar($email, $photo, $size = 96, $mode = "gravatar", $d = "mm", $r = "g")
+	public function GetGravatar($email, $photo, $size = 96, $mode = "gravatar", $section = "public", $d = "mm", $r = "g")
 	{
 		if($mode == "gravatar") {
 			$url = "http://www.gravatar.com/avatar/";
@@ -84,7 +84,13 @@ class Core
 			$url = "https://graph.facebook.com/{$facebook_photo['im_facebook']}/picture?width={$size}&height={$size}";
 		}
 		elseif($mode == "custom") {
-			$url = "public/avatar/{$photo}";
+			// Modify relative path when viewing in Admin CP
+			if($section == "public") {
+				$url = "public/avatar/{$photo}";
+			}
+			else {
+				$url = "../public/avatar/{$photo}";
+			}
 		}
 
 		return $url;

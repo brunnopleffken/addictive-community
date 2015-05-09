@@ -40,7 +40,6 @@
 				<tr>
 					<th colspan="10">
 						<div class="fleft">Installed Languages</div>
-						<div class="fright"><a href="main.php?act=rooms&p=add" class="button-grey-default white transition">Add Language</a></div>
 					</th>
 				</tr>
 				<tr class="subtitle">

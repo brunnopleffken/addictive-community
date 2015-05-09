@@ -20,7 +20,7 @@
 	
 ?>
 
-	<h1>Delete Room</h1>
+	<h1>Delete Room: <?php echo $room_info['name'] ?></h1>
 	
 	<div id="content">
 	

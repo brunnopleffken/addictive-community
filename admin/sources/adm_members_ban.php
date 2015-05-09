@@ -31,22 +31,24 @@
 	if(isset($_POST['username']) && strlen($_POST['username']) >= 2) {
 		$username = String::Sanitize($_POST['username']);
 
-		$Db->Query("SELECT m.m_id, m.username, m.email, m.joined, m.posts, m.usergroup, u.g_id, u.name
+		$Db->Query("SELECT m.m_id, m.username, m.email, m.joined, m.photo, m.photo_type, m.posts, m.usergroup, u.g_id, u.name
 				FROM c_members m INNER JOIN c_usergroups u ON (m.usergroup = u.g_id)
-				WHERE username LIKE '%{$username}%';");
+				WHERE username LIKE '%{$username}%' AND m_id <> 1;");
 
 		while($member = $Db->Fetch()) {
 			$member['joined'] = $Core->DateFormat($member['joined']);
 
 			if($member['usergroup'] == 4) {
-				$member['ban_button'] = "<a href='?act=members&amp;p=ban&amp;do=remove&amp;id={$member['m_id']}' class='button-grey-default'>Remove Ban</a>";
+				$member['ban_button'] = "<a href='?act=members&amp;p=ban&amp;do=remove&amp;id={$member['m_id']}' class='button-grey-default transition'>Remove Ban</a>";
 			}
 			else {
-				$member['ban_button'] = "<a href='?act=members&amp;p=ban&amp;do=banishment&amp;id={$member['m_id']}' class='button-grey-default'>Ban Member</a>";
+				$member['ban_button'] = "<a href='?act=members&amp;p=ban&amp;do=banishment&amp;id={$member['m_id']}' class='button-grey-default transition'>Ban Member</a>";
 			}
 
 			Template::Add("<tr>
-					<td>" . Html::Crop($Core->GetGravatar($member['email'], $member['m_id'], 36), 36, 36) . "</td>
+					<td>" . Html::Crop($Core->GetGravatar(
+							$member['email'], $member['photo'], 36, $member['photo_type'], "admin"
+						), 36, 36) . "</td>
 					<td style='font-size:15px'><b>{$member['username']}</b></td>
 					<td>{$member['email']}</td>
 					<td>{$member['joined']}</td>

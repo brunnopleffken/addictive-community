@@ -640,7 +640,7 @@ form {
 	padding: 5px 0 18px 0;
 	vertical-align: bottom;
 	.title {
-		font-size: 23px;
+		font-size: 24px;
 		font-weight: bold;
 		letter-spacing: 2px;
 		margin-right: 120px;
@@ -680,25 +680,26 @@ form {
 	}
 	.middle {
 		display: table-cell;
-		padding: 10px 10px 10px 2px;
+		padding: 12px 10px 12px 2px;
 		.title {
 			display: block;
-			font-size: 18px;
+			font-size: 20px;
 			font-weight: bold;
 			line-height: 1em;
 		}
 		.description {
 			color: #444;
 			font-size: 11px;
-			line-height: 30px;
+			line-height: 1em;
 			overflow: hidden;
+			padding: 12px 0 14px 0;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			width: 100%;
 		}
 		.author {
 			color: #999;
-			font-size: 9px;
+			font-size: 10px;
 			line-height: 1em;
 			text-transform: uppercase;
 			i {
@@ -725,11 +726,12 @@ form {
 		display: table-cell;
 		padding: 0 5px;
 		line-height: 1em;
+		vertical-align: middle;
 		width: 170px;
 		.label {
 			color: #fff;
 			overflow: hidden;
-			padding: 2px 0;
+			padding: 3px 0;
 			white-space: nowrap;
 			.value {
 				display: inline-block;
@@ -827,7 +829,7 @@ form {
 	}
 	.text {
 		font-size: 14px;
-		padding: 0px 30px 20px 15px;
+		padding: 0px 30px 10px 15px;
 		img.emoticon {
 			display: inline-block;
 			height: 16px;

@@ -196,16 +196,24 @@
 			$file = Html::Request("file");
 			$dir  = Html::Request("dir");
 
+			$file_path = "../languages/" . $dir . "/" . $file . ".php";
+
 			// Language file content
 
-			echo "<?php\n\n";
-
+			$file_content = "<?php\n";
 			foreach(Html::Request("index") as $key) {
-				echo "\t\$translate['" . $key . "'] = \"" . $_REQUEST[$key] . "\";\n";
+				$file_content .= "\t\$t[\"" . $key . "\"] = \"" . $_REQUEST[$key] . "\";\n";
+			}
+			$file_content .= "?>\n";
+
+			// Open file and write
+			$handle = fopen($file_path, "w");
+			if(fwrite($handle, $file_content)) {
+				fclose($handle);
 			}
 
-			echo "\n?>";
-
+			header("Location: " . $_SERVER['HTTP_REFERER']);
 			exit;
+
 			break;
 	}

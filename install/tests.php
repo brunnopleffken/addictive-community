@@ -31,6 +31,3 @@ if($task == "test_database") {
 
 	echo json_encode($return_data);
 }
-
-
-?>

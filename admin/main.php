@@ -141,7 +141,7 @@ HTML;
 			<div class="section-subnav">
 				<a href="main.php?act=rooms&amp;p=add">Add New Room</a>
 				<a href="main.php?act=rooms&amp;p=manage">Manage Rooms</a>
-				<a href="main.php?act=rooms&amp;p=moderators">Moderators</a>
+				<!-- <a href="main.php?act=rooms&amp;p=moderators">Moderators</a> -->
 			</div>
 HTML;
 		}
@@ -201,7 +201,7 @@ HTML;
 			</div>
 			<div class="section-subnav">
 				<a href="main.php?act=languages&amp;p=manager">Language Manager</a>
-				<a href="main.php?act=languages&amp;p=import">Import / Export</a>
+				<!-- <a href="main.php?act=languages&amp;p=import">Import / Export</a> -->
 				<a href="main.php?act=languages&amp;p=badwords">Bad Words</a>
 			</div>
 HTML;
@@ -221,7 +221,7 @@ HTML;
 			<div class="section-subnav">
 				<a href="main.php?act=system&amp;p=database">Database Toolbox</a>
 				<a href="main.php?act=system&amp;p=logs">Logs</a>
-				<a href="main.php?act=system&amp;p=statistics">Statistics</a>
+				<!-- <a href="main.php?act=system&amp;p=statistics">Statistics</a> -->
 				<a href="main.php?act=system&amp;p=server">Server Environment</a>
 				<a href="main.php?act=system&amp;p=optimization">System Optimization</a>
 			</div>

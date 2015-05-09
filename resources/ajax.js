@@ -46,7 +46,7 @@ $(document).ready(function() {
 				timer = setTimeout(function() {
 					$('#memberLoginForm input[type=submit]').removeAttr('disabled');
 					$('#memberLoginForm input[type=submit]').val('Log In');
-				}, 2000);
+				}, 3000);
 			}
 		})
 		.fail(function(jqXHR, textStatus) {

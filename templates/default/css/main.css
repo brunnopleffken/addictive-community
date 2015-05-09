@@ -3,7 +3,7 @@
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; border: 0; margin: 0; outline: none; padding: 0; }
 
 /** GLOBAL **/
-body { background: #f1f1f1; font-family: Arial, Helvetica, sans-serif; font-size: 13px; /** HELPERS **/ }
+body { background: #f1f1f1; font-family: Arial, Helvetica Neue, sans-serif; font-size: 13px; /** HELPERS **/ }
 body h1 { margin-bottom: 8px; }
 body h2 { letter-spacing: 1px; margin-bottom: 15px; }
 body .wrapper { margin: 0 auto; min-width: 960px; width: 95%; }
@@ -32,10 +32,10 @@ form .large { width: 420px; }
 form .medium { width: 300px; }
 form .small { width: 200px; }
 form .tiny { width: 90px; }
-form input[type=text], form input[type=password], form input[type=file], form textarea { border: 1px solid #ccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica, sans-serif; font-size: 13px; outline: none; padding: 6px; }
+form input[type=text], form input[type=password], form input[type=file], form textarea { border: 1px solid #ccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica Neue, sans-serif; font-size: 13px; outline: none; padding: 6px; }
 form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form textarea:focus { border: 1px solid #aaa; transition: 500ms; }
-form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: Arial, Helvetica, sans-serif; margin-top: -3px; }
-form input[type=button], form input[type=submit], form button:not([role]) { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #fff; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 29px; padding: 0 12px; text-shadow: 1px 1px 0px #000; vertical-align: top; }
+form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: Arial, Helvetica Neue, sans-serif; margin-top: -3px; }
+form input[type=button], form input[type=submit], form button:not([role]) { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #fff; cursor: pointer; font-family: Arial, Helvetica Neue, sans-serif; font-size: 12px; line-height: 29px; padding: 0 12px; text-shadow: 1px 1px 0px #000; vertical-align: top; }
 form input[type=button].cancel, form input[type=submit].cancel, form button:not([role]).cancel { background: #eee url("../images/button-bg.png") !important; color: #900 !important; text-shadow: 1px 1px 0px #fff !important; }
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #fff; }
 form option { padding-right: 10px; }
@@ -52,7 +52,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .input-box:last-child { margin: 0; }
 
 /** BUTTONS **/
-.default-button { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #fff; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
+.default-button { background: #465068 url("../images/button-bg.png") repeat-x; border-radius: 7px; color: #fff; font-family: Arial, Helvetica Neue, sans-serif; font-size: 14px; font-weight: bold; padding: 10px 15px; text-shadow: 1px 1px 0px #000; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
 .default-button:hover { background-color: #566380; text-decoration: none; }
 .default-button.disabled { background: #ddd; color: #900 !important; cursor: not-allowed; text-shadow: 1px 1px 0px #fff !important; }
 .default-button.grey { background: rgba(0, 0, 0, 0.05); color: #900 !important; text-shadow: 1px 1px 0px #fff !important; }
@@ -147,7 +147,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 
 /** GLOBAL TITLE BAR **/
 .title-bar { overflow: hidden; padding: 5px 0 18px 0; vertical-align: bottom; }
-.title-bar .title { font-size: 23px; font-weight: bold; letter-spacing: 2px; margin-right: 120px; }
+.title-bar .title { font-size: 24px; font-weight: bold; letter-spacing: 2px; margin-right: 120px; }
 .title-bar .title span { color: #bbb; display: block; font-size: 10px; font-weight: normal; letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; }
 .title-bar .buttons { margin-top: 15px; }
 
@@ -155,16 +155,16 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-item { background: #fff; border-left: 2px solid transparent; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); display: table; margin-bottom: 10px; table-layout: fixed; width: 100%; /* THREAD STATUS */ }
 .thread-item .avatar { display: table-cell; text-align: center; vertical-align: middle; width: 80px; }
 .thread-item .avatar .image { box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }
-.thread-item .middle { display: table-cell; padding: 10px 10px 10px 2px; }
-.thread-item .middle .title { display: block; font-size: 18px; font-weight: bold; line-height: 1em; }
-.thread-item .middle .description { color: #444; font-size: 11px; line-height: 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%; }
-.thread-item .middle .author { color: #999; font-size: 9px; line-height: 1em; text-transform: uppercase; }
+.thread-item .middle { display: table-cell; padding: 12px 10px 12px 2px; }
+.thread-item .middle .title { display: block; font-size: 20px; font-weight: bold; line-height: 1em; }
+.thread-item .middle .description { color: #444; font-size: 11px; line-height: 1em; overflow: hidden; padding: 12px 0 14px 0; text-overflow: ellipsis; white-space: nowrap; width: 100%; }
+.thread-item .middle .author { color: #999; font-size: 10px; line-height: 1em; text-transform: uppercase; }
 .thread-item .middle .author i { color: #666; margin-right: 3px; }
 .thread-item .middle .author i:last-child { margin-left: 10px; }
 .thread-item .info { background: rgba(180, 180, 180, 0.1); display: table-cell; font-size: 14px; font-weight: bold; text-align: center; width: 70px; vertical-align: middle; }
 .thread-item .info i { font-size: 30px; }
-.thread-item .stats { background: #465068; display: table-cell; padding: 0 5px; line-height: 1em; width: 170px; }
-.thread-item .stats .label { color: #fff; overflow: hidden; padding: 2px 0; white-space: nowrap; }
+.thread-item .stats { background: #465068; display: table-cell; padding: 0 5px; line-height: 1em; vertical-align: middle; width: 170px; }
+.thread-item .stats .label { color: #fff; overflow: hidden; padding: 3px 0; white-space: nowrap; }
 .thread-item .stats .label .value { display: inline-block; font-size: 11px; margin-left: 6px; }
 .thread-item .stats .label .value a { color: #fff; }
 .thread-item .stats .label i { font-size: 14px; width: 18px; vertical-align: baseline; }
@@ -185,7 +185,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-first-post .header .author .author-info a { display: inline-block; font-size: 16px; font-weight: bold; margin-bottom: 4px; }
 .thread-first-post .header .author .author-info > div { text-transform: uppercase; }
 .thread-first-post .title { font-size: 25px; font-weight: bold; letter-spacing: 2px; padding: 20px 15px; }
-.thread-first-post .text { font-size: 14px; padding: 0px 30px 20px 15px; }
+.thread-first-post .text { font-size: 14px; padding: 0px 30px 10px 15px; }
 .thread-first-post .text img.emoticon { display: inline-block; height: 16px; vertical-align: text-bottom; width: 16px; }
 .thread-first-post .text p { margin-bottom: 8px; }
 .thread-first-post .text blockquote { color: #666; font-family: Georgia, sans-serif; font-style: italic; margin: 20px 60px 0 30px; position: relative; }
