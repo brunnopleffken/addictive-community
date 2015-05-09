@@ -4,3 +4,7 @@
 # Exclude Sass files from language stats
 templates/default/scss/* linguist-vendored
 templates/mobile/scss/* linguist-vendored
+
+# Exclude these files from releases...
+.gitignore export-ignore
+.gitattributes export-ignore
