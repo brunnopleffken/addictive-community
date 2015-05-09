@@ -35,8 +35,8 @@ form .tiny { width: 90px; }
 form input[type=text], form input[type=password], form input[type=file], form textarea { border: 1px solid #ccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica, sans-serif; font-size: 13px; outline: none; padding: 6px; }
 form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form textarea:focus { border: 1px solid #aaa; transition: 500ms; }
 form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: Arial, Helvetica, sans-serif; margin-top: -3px; }
-form input[type=button], form input[type=submit], form button { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #fff; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 29px; padding: 0 12px; text-shadow: 1px 1px 0px #000; vertical-align: top; }
-form input[type=button].cancel, form input[type=submit].cancel, form button.cancel { background: #eee url("../images/button-bg.png") !important; color: #900 !important; text-shadow: 1px 1px 0px #fff !important; }
+form input[type=button], form input[type=submit], form button:not([role]) { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #fff; cursor: pointer; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 29px; padding: 0 12px; text-shadow: 1px 1px 0px #000; vertical-align: top; }
+form input[type=button].cancel, form input[type=submit].cancel, form button:not([role]).cancel { background: #eee url("../images/button-bg.png") !important; color: #900 !important; text-shadow: 1px 1px 0px #fff !important; }
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #fff; }
 form option { padding-right: 10px; }
 form textarea { overflow: auto; resize: none; }

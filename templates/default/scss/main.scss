@@ -104,7 +104,7 @@ form {
 		font-family: $fontSans;
 		margin-top: -3px;
 	}
-	input[type=button], input[type=submit], button {
+	input[type=button], input[type=submit], button:not([role]) {
 		background: $colorFiord url('../images/button-bg.png');
 		border: 0;
 		border-radius: 4px;
