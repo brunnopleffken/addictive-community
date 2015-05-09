@@ -38,7 +38,7 @@ class Register extends Application
 		$this->Set("page_info", $page_info);
 
 		// Return variables
-		$this->Set("community_name", $this->config['general_communityname']);
+		$this->Set("community_name", $this->config['general_community_name']);
 		$this->Set("step", $step);
 		$this->Set("notification", $notification[$message_id]);
 		$this->Set("general_security_validation", $this->config['general_security_validation']);
@@ -113,7 +113,7 @@ class Register extends Application
 			$this->Db->Query("UPDATE c_stats SET member_count = member_count + 1;");
 
 			// Buid e-mail body
-			$validation_url = $this->config['general_communityurl']
+			$validation_url = $this->config['general_community_url']
 					. "register/validate?m={$new_member_id}&token={$register_info['token']}";
 
 			$this->Db->Query("SELECT content FROM c_emails WHERE type = 'validate';");
@@ -121,14 +121,14 @@ class Register extends Application
 
 			$email_formatted_content = sprintf($email_raw_content['content'],
 				$register_info['username'],
-				$this->config['general_communityname'],
+				$this->config['general_community_name'],
 				$validation_url
 			);
 
 			// Send e-mail
 			$Email->Send(
 				$register_info['email'],
-				"[" . $this->config['general_communityname'] . "] New Member Validation",
+				"[" . $this->config['general_community_name'] . "] New Member Validation",
 				$email_formatted_content
 			);
 

@@ -38,7 +38,7 @@ class Core
 	 */
 	public function Redirect($url)
 	{
-		$url = $this->config['general_communityurl'] . $url;
+		$url = $this->config['general_community_url'] . $url;
 		header("Location: " . $url);
 		exit;
 	}
@@ -123,7 +123,7 @@ class Core
 	 */
 	public function CanonicalTag($thread_id)
 	{
-		$url = $this->config['general_communityurl'] . "index.php?module=thread&id=" . $thread_id;
+		$url = $this->config['general_community_url'] . "index.php?module=thread&id=" . $thread_id;
 		return $url;
 	}
 

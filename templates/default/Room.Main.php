@@ -1,5 +1,5 @@
 <div class="title-bar">
-	<div class="title fleft"><span><?php __($this->Config['general_communityname']) ?></span><?php __($room_info['name']) ?></div>
+	<div class="title fleft"><span><?php __($this->Config['general_community_name']) ?></span><?php __($room_info['name']) ?></div>
 	<?php if($this->Session->IsMember()): ?>
 		<?php if($room_info['read_only']): ?>
 			<div class="buttons fright"><a class="default-button disabled"><?php __("R_READ_ONLY") ?></a></div>

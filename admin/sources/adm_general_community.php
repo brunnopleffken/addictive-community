@@ -8,9 +8,9 @@
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
-	
+
 	$msg = (Html::Request("msg")) ? Html::Request("msg") : "";
-	
+
 	switch($msg) {
 		case 1:
 			$message = Html::Notification("The settings has been changed successfully.", "success");
@@ -23,53 +23,53 @@
 ?>
 
 	<h1>Community</h1>
-	
+
 	<div id="content">
-	
+
 		<div class="grid-row">
 			<!-- LEFT -->
 			<form action="process.php?do=save" method="post">
-			
+
 				<?php echo $message ?>
-			
+
 				<table class="table-list">
 					<tr>
 						<th colspan="2">General Settings</th>
 					</tr>
-					
+
 					<tr>
 						<td class="title-fixed">Community name</td>
-						<td><input type="text" name="general_communityname" value="<?php echo $Admin->SelectConfig("general_communityname") ?>" class="medium"></td>
+						<td><input type="text" name="general_community_name" value="<?php echo $Admin->SelectConfig("general_community_name") ?>" class="medium"></td>
 					</tr>
 					<tr>
 						<td class="title-fixed">Root path (URL)<span class="title-desc">Absolute URL of your community</span></td>
-						<td><input type="text" name="general_communityurl" value="<?php echo $Admin->SelectConfig("general_communityurl") ?>" class="large"></td>
+						<td><input type="text" name="general_community_url" value="<?php echo $Admin->SelectConfig("general_community_url") ?>" class="large"></td>
 					</tr>
 				</table>
-				
+
 				<table class="table-list">
 					<tr>
 						<th colspan="2">Host Website Information</th>
 					</tr>
-					
+
 					<tr>
 						<td class="title-fixed">Website name</td>
-						<td><input type="text" name="general_websitename" value="<?php echo $Admin->SelectConfig("general_websitename") ?>" class="medium"></td>
+						<td><input type="text" name="general_website_name" value="<?php echo $Admin->SelectConfig("general_website_name") ?>" class="medium"></td>
 					</tr>
 					<tr>
 						<td class="title-fixed">Website URL</td>
-						<td><input type="text" name="general_websiteurl" value="<?php echo $Admin->SelectConfig("general_websiteurl") ?>" class="medium"></td>
+						<td><input type="text" name="general_website_url" value="<?php echo $Admin->SelectConfig("general_website_url") ?>" class="medium"></td>
 					</tr>
 				</table>
-				
+
 				<table class="table-list">
 					<tr>
 						<th colspan="2">Interface Elements</th>
 					</tr>
-					
+
 					<tr>
 						<td class="title-fixed">Logo image name</td>
-						<td><input type="text" name="general_communitylogo" value="<?php echo $Admin->SelectConfig("general_communitylogo") ?>" class="small"></td>
+						<td><input type="text" name="general_community_logo" value="<?php echo $Admin->SelectConfig("general_community_logo") ?>" class="small"></td>
 					</tr>
 					<tr>
 						<td class="title-fixed">Breadcrumb separator</td>
@@ -84,12 +84,12 @@
 						<td><label><?php echo $Admin->SelectCheckbox("general_sidebar_stats") ?> Show community statistics in sidebar.</label></td>
 					</tr>
 				</table>
-				
+
 				<table class="table-list">
 					<tr>
 						<th colspan="2">SEO (Search Engine Optimization) Settings</th>
 					</tr>
-					
+
 					<tr>
 						<td class="title-fixed">META Description</td>
 						<td><textarea name="seo_description" class="large" rows="3"><?php echo $Admin->SelectConfig("seo_description") ?></textarea></td>
@@ -99,9 +99,9 @@
 						<td><textarea name="seo_keywords" class="large" rows="3"><?php echo $Admin->SelectConfig("seo_keywords") ?></textarea></td>
 					</tr>
 				</table>
-				
+
 				<div class="box fright"><input type="submit" value="Save Settings"></div>
-				
+
 			</form>
 		</div>
 

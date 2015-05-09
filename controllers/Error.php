@@ -45,7 +45,7 @@ class Error extends Application
 		}
 
 		// Return variables
-		$this->Set("community_name", $this->config['general_communityname']);
+		$this->Set("community_name", $this->config['general_community_name']);
 		$this->Set("title", $title);
 		$this->Set("error", $errors[$type][0]);
 		$this->Set("action", $errors[$type][1]);

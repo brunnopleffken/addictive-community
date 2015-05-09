@@ -69,7 +69,7 @@ class Members extends Application
 		$this->Set("page_info", $page_info);
 
 		// Return variables
-		$this->Set("community_name", $this->config['general_communityname']);
+		$this->Set("community_name", $this->config['general_community_name']);
 		$this->Set("letter_first", $first);
 		$this->Set("letter_list", $letter_list);
 		$this->Set("results", $results);

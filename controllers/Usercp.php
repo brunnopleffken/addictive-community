@@ -30,7 +30,7 @@ class Usercp extends Application
 		$this->member_id= $this->Session->member_info['m_id'];
 
 		// Community name in all pages
-		$this->Set("community_name", $this->config['general_communityname']);
+		$this->Set("community_name", $this->config['general_community_name']);
 	}
 
 	/**
