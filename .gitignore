@@ -2,7 +2,6 @@
 /install/.lock
 /public/attachments/*
 /public/avatar/*
-/uploads/*
 config.php
 
 # Don't remove index.html files

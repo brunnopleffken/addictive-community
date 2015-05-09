@@ -22,7 +22,7 @@ Discussion forum software, written in object-oriented PHP. This is an Alpha vers
 ## Installing ##
 
 1. Download the latest version of Addictive Community. Upload all the files contained in this archive (retaining the directory structure).
-2. Change the following files/folders permissions to read and write (CHMOD 777 or -rwxrwxrwx): `config.php`, `/install`, `/uploads`, `/public/attachments` and `/public/avatar`.
+2. Change the following files/folders permissions to read and write (CHMOD 777 or -rwxrwxrwx): `config.php`, `/install`, `/public/attachments` and `/public/avatar`.
 3. Run your Addictive Community (e.g. http://www.mywebsite.com/forum). You should be redirected to the installer (if not, read below). Please, have the login data of the MySQL server (host server, username and password), as well as the database name.
 4. Follow the steps and wait until the installer gets your community ready.
 5. Addictive Community should now be available!

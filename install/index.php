@@ -263,15 +263,6 @@ HTML;
 			}
 
 			// root/public/attachments
-			if(is_writable("../uploads/")) {
-				$dir_uploads = "<span style='color: #090'>Writable</span>";
-			}
-			else {
-				$dir_uploads = "<span style='color: #C00'>Not writable</span>";
-				$disabled = "disabled='disabled'";
-			}
-
-			// root/public/attachments
 			if(is_writable("../public/attachments/")) {
 				$dir_attach = "<span style='color: #090'>Writable</span>";
 			}
@@ -294,7 +285,6 @@ HTML;
 			$folders .= "<tr><td>/install</td><td>{$dir_install}</td></tr>";
 			$folders .= "<tr><td>/public/attachments</td><td>{$dir_attach}</td></tr>";
 			$folders .= "<tr><td>/public/avatar</td><td>{$dir_avatar}</td></tr>";
-			$folders .= "<tr><td>/uploads</td><td>{$dir_uploads}</td></tr>";
 			$folders .= "</table>";
 
 			if($disabled != "") {
