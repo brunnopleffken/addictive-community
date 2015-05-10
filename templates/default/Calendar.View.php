@@ -14,8 +14,21 @@
 	</div>
 </div>
 
-<?php if($count): ?>
+<?php if($count || $bday_count): ?>
 	<div class="events-container">
+	<?php foreach($birthdays as $birthday): ?>
+		<div class="calendar-events">
+			<div class="marker"><span></span></div>
+			<div class="details">
+				<div class="box">
+					<div class="event-time" style="text-align: center; font-size: 28px;"><i class="fa fa-birthday-cake"></i></div>
+					<div class="event-content" style="padding: 15px 0 15px 10px">
+						<h3 style="margin:0">Birthday of <a href="profile/<?php __($birthday['m_id']) ?>"><?php __($birthday['username']) ?></a></h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php endforeach; ?>
 	<?php foreach($events as $event): ?>
 		<div class="calendar-events">
 			<div class="marker"><span></span></div>

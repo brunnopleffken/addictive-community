@@ -77,6 +77,13 @@ class Calendar extends Application
 			$this->config['date_short_format'],
 			mktime(0, 0, 0, $date[1], $date[2], $date[0])
 		);
+		
+		// Get all birthdays
+		$this->Db->Query("SELECT m_id, username FROM c_members
+				WHERE b_day = {$date[2]} AND b_month = {$date[1]};");
+
+		$birthday_count = ($this->Db->Rows() > 0) ? true : false;
+		$birthday_result = $this->Db->FetchToArray();
 
 		// Page info
 		$page_info['title'] = i18n::Translate("C_TITLE");
@@ -86,6 +93,8 @@ class Calendar extends Application
 		// Return variables
 		$this->Set("count", $events_count);
 		$this->Set("events", $events_result);
+		$this->Set("bday_count", $birthday_count);
+		$this->Set("birthdays", $birthday_result);
 		$this->Set("formatted_date", $formatted_date);
 	}
 
@@ -218,17 +227,20 @@ class Calendar extends Application
 			$current_day_formatted = str_pad($current_day, 2, "0", STR_PAD_LEFT);
 			$date = "{$current_year}-{$current_month}-{$current_day_formatted}";
 
-			// Do we have any event this day?
-			$this->Db->Query("SELECT COUNT(e_id) AS event_number FROM c_events
-					WHERE day = '{$current_day_formatted}'
-						AND month = '{$current_month}'
-						AND year = '{$current_year}';");
+			$this->Db->Query("SELECT
+					(SELECT COUNT(*) FROM c_events
+						WHERE day = '{$current_day_formatted}'
+							AND month = '{$current_month}'
+							AND year = '{$current_year}') AS event_number,
+					(SELECT COUNT(*) FROM c_members
+						WHERE b_day = {$current_day_formatted} AND b_month = {$current_month}) AS birthday_number,
+					(SELECT SUM(event_number + birthday_number)) AS events_total;");
 
 			$event_count = $this->Db->Fetch();
-			$event_count = $event_count['event_number'];
+			$event_total = $event_count['events_total'];
 
 			// If day has an event, add class .event to it
-			$event_class = ($event_count != 0) ? "event" : "";
+			$event_class = ($event_total != 0) ? "event" : "";
 
 			// Create table cell
 			if( $current_month == $today_info['mon'] &&
