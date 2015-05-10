@@ -36,7 +36,6 @@
 	while($file = readdir($handle)) {
 		if($file != "." &&
 			$file != ".." &&
-			$file != "index.html" &&
 			$file != "_language.json" &&
 			$file != ".DS_Store"
 		) {
