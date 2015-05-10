@@ -32,9 +32,8 @@ form .large { width: 420px; }
 form .medium { width: 300px; }
 form .small { width: 200px; }
 form .tiny { width: 90px; }
-form input[type=text], form input[type=password], form input[type=file], form textarea { border: 1px solid #ccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica Neue, sans-serif; font-size: 13px; outline: none; padding: 6px; }
-form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form textarea:focus { border: 1px solid #aaa; transition: 500ms; }
-form input[type=file] { border: 1px dashed #ccc; box-shadow: none; font-family: Arial, Helvetica Neue, sans-serif; margin-top: -3px; }
+form input[type=text], form input[type=password], form input[type=file], form textarea { border: 1px solid #ccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, Helvetica Neue, sans-serif; font-size: 13px; outline: none; padding: 6px; -webkit-transition: 500ms; -moz-transition: 500ms; transition: 500ms; }
+form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form textarea:focus { border: 1px solid #aaa; }
 form input[type=button], form input[type=submit], form button:not([role]) { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #fff; cursor: pointer; font-family: Arial, Helvetica Neue, sans-serif; font-size: 12px; line-height: 29px; padding: 0 12px; text-shadow: 1px 1px 0px #000; vertical-align: top; }
 form input[type=button].cancel, form input[type=submit].cancel, form button:not([role]).cancel { background: #eee url("../images/button-bg.png") !important; color: #900 !important; text-shadow: 1px 1px 0px #fff !important; }
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #fff; }
@@ -230,23 +229,23 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-related .item span { color: #bbb; font-size: 11px; }
 .thread-related .item a { display: inline-block; font-weight: bold; margin-left: 15px; }
 
-.main-post .attachments, .thread-post-reply .attachments { overflow: hidden; }
-.main-post .attachments .title, .thread-post-reply .attachments .title { color: #777; display: block; font-size: 10px; margin-left: 2px; margin-top: 20px; text-transform: uppercase; }
-.main-post .attachments .file, .thread-post-reply .attachments .file { border: 1px dotted #eee; float: left; margin-right: 10px; padding: 10px; width: 230px; }
-.main-post .attachments .file .fileIcon, .thread-post-reply .attachments .file .fileIcon { color: #444; display: inline-block; font-family: FontAwesome; font-size: 40px; margin: 8px 8px 8px 0; text-align: center; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1); vertical-align: middle; }
-.main-post .attachments .file .fileIcon.doc:after, .thread-post-reply .attachments .file .fileIcon.doc:after { content: "\F1C2"; }
-.main-post .attachments .file .fileIcon.htm:after, .thread-post-reply .attachments .file .fileIcon.htm:after { content: "\F1C9"; }
-.main-post .attachments .file .fileIcon.img:after, .thread-post-reply .attachments .file .fileIcon.img:after { content: "\F1C5"; }
-.main-post .attachments .file .fileIcon.mp3:after, .thread-post-reply .attachments .file .fileIcon.mp3:after { content: "\F1C7"; }
-.main-post .attachments .file .fileIcon.pdf:after, .thread-post-reply .attachments .file .fileIcon.pdf:after { content: "\F1C1"; }
-.main-post .attachments .file .fileIcon.ppt:after, .thread-post-reply .attachments .file .fileIcon.ppt:after { content: "\F1C4"; }
-.main-post .attachments .file .fileIcon.txt:after, .thread-post-reply .attachments .file .fileIcon.txt:after { content: "\F0F6"; }
-.main-post .attachments .file .fileIcon.vid:after, .thread-post-reply .attachments .file .fileIcon.vid:after { content: "\F1C8"; }
-.main-post .attachments .file .fileIcon.xls:after, .thread-post-reply .attachments .file .fileIcon.xls:after { content: "\F1C3"; }
-.main-post .attachments .file .fileIcon.zip:after, .thread-post-reply .attachments .file .fileIcon.zip:after { content: "\F1C6"; }
-.main-post .attachments .file .fileIcon.blank:after, .thread-post-reply .attachments .file .fileIcon.blank:after { content: "\F016"; }
-.main-post .attachments .file .fileName, .thread-post-reply .attachments .file .fileName { color: #000000; display: inline-block; font-size: 11px; line-height: 1.4em; vertical-align: middle; width: 160px; }
-.main-post .attachments .file .fileName span, .thread-post-reply .attachments .file .fileName span { display: block; font-size: 12px; font-weight: bold; overflow: hidden; text-overflow: ellipsis; }
+.thread-first-post .attachments, .thread-post-reply .attachments { overflow: hidden; }
+.thread-first-post .attachments .title, .thread-post-reply .attachments .title { color: #777; display: block; font-size: 10px; margin-left: 2px; margin-top: 20px; text-transform: uppercase; }
+.thread-first-post .attachments .file, .thread-post-reply .attachments .file { border: 1px dotted #eee; float: left; margin-right: 10px; padding: 10px; width: 230px; }
+.thread-first-post .attachments .file .fileIcon, .thread-post-reply .attachments .file .fileIcon { color: #444; display: inline-block; font-family: FontAwesome; font-size: 40px; margin: 8px 8px 8px 0; text-align: center; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1); vertical-align: middle; }
+.thread-first-post .attachments .file .fileIcon.doc:after, .thread-post-reply .attachments .file .fileIcon.doc:after { content: "\F1C2"; }
+.thread-first-post .attachments .file .fileIcon.htm:after, .thread-post-reply .attachments .file .fileIcon.htm:after { content: "\F1C9"; }
+.thread-first-post .attachments .file .fileIcon.img:after, .thread-post-reply .attachments .file .fileIcon.img:after { content: "\F1C5"; }
+.thread-first-post .attachments .file .fileIcon.mp3:after, .thread-post-reply .attachments .file .fileIcon.mp3:after { content: "\F1C7"; }
+.thread-first-post .attachments .file .fileIcon.pdf:after, .thread-post-reply .attachments .file .fileIcon.pdf:after { content: "\F1C1"; }
+.thread-first-post .attachments .file .fileIcon.ppt:after, .thread-post-reply .attachments .file .fileIcon.ppt:after { content: "\F1C4"; }
+.thread-first-post .attachments .file .fileIcon.txt:after, .thread-post-reply .attachments .file .fileIcon.txt:after { content: "\F0F6"; }
+.thread-first-post .attachments .file .fileIcon.vid:after, .thread-post-reply .attachments .file .fileIcon.vid:after { content: "\F1C8"; }
+.thread-first-post .attachments .file .fileIcon.xls:after, .thread-post-reply .attachments .file .fileIcon.xls:after { content: "\F1C3"; }
+.thread-first-post .attachments .file .fileIcon.zip:after, .thread-post-reply .attachments .file .fileIcon.zip:after { content: "\F1C6"; }
+.thread-first-post .attachments .file .fileIcon.blank:after, .thread-post-reply .attachments .file .fileIcon.blank:after { content: "\F016"; }
+.thread-first-post .attachments .file .fileName, .thread-post-reply .attachments .file .fileName { color: #000000; display: inline-block; font-size: 11px; line-height: 1.4em; vertical-align: middle; width: 160px; }
+.thread-first-post .attachments .file .fileName span, .thread-post-reply .attachments .file .fileName span { display: block; font-size: 12px; font-weight: bold; overflow: hidden; text-overflow: ellipsis; }
 
 .profile-header { height: 250px; margin-bottom: 20px; position: relative; width: 100%; }
 .profile-header .background { background-size: cover; background-position: center; height: 250px; overflow: hidden; position: absolute; width: 100%; z-index: -1; }

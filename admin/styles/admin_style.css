@@ -26,10 +26,10 @@ h4 { font-size: 14px; margin-bottom: 15px; }
 
 /** HEADER **/
 
-#topbar { background: #000000; padding: 8px; color: #cccccc; font-size: 11px; }
-#topbar a { color: #cccccc; margin-right: 25px; }
+#topbar { background: #000; border-top: 1px solid transparent; color: #ccc; font-size: 11px; }
+#topbar a { color: #ccc; display: inline-block; font-size: 10px; margin-right: 10px; padding: 8px 10px; text-transform: uppercase; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
+#topbar a:hover { background-color: #2a2a2a; color: #fff; text-decoration: none; }
 #topbar a:last-child { margin-right: 0; }
-#topbar a:hover { color: #ffffff; text-decoration: none; }
 
 /** FORM **/
 

@@ -28,15 +28,15 @@
 			$title .= "<td>{$view_g['name']}</td>";
 
 			if($view_g['view_board'] == 1) {
-				$checkboxes .= "<td class=\"center\"><input type=\"checkbox\" name=\"view[]\" value=\"V_{$view_g['g_id']}\" checked></td>";
+				$checkboxes .= "<td class='center'><input type='checkbox' name='view[]' value='V_{$view_g['g_id']}' checked></td>";
 			}
 			else {
-				$checkboxes .= "<td class=\"center\"><input type=\"checkbox\" name=\"view[]\" value=\"V_{$view_g['g_id']}\"></td>";
+				$checkboxes .= "<td class='center'><input type='checkbox' name='view[]' value='V_{$view_g['g_id']}'></td>";
 			}
 		}
 		
 		$view = "
-		<table cellspacing=\"0\"><tr>
+		<table cellspacing='0'><tr>
 			{$title}
 			</tr><tr>
 			{$checkboxes}
@@ -60,15 +60,15 @@
 			$title .= "<td>{$view_g['name']}</td>";
 			
 			if($view_g['post_new_threads'] == 1) {
-				$checkboxes .= "<td class=\"center\"><input type=\"checkbox\" name=\"post[]\" value=\"V_{$view_g['g_id']}\" checked></td>";
+				$checkboxes .= "<td class='center'><input type='checkbox' name='post[]' value='V_{$view_g['g_id']}' checked></td>";
 			}
 			else {
-				$checkboxes .= "<td class=\"center\"><input type=\"checkbox\" name=\"post[]\" value=\"V_{$view_g['g_id']}\"></td>";
+				$checkboxes .= "<td class='center'><input type='checkbox' name='post[]' value='V_{$view_g['g_id']}'></td>";
 			}
 		}
 		
 		$post = "
-		<table cellspacing=\"0\"><tr>
+		<table cellspacing='0'><tr>
 			{$title}
 			</tr><tr>
 			{$checkboxes}
@@ -92,15 +92,15 @@
 			$title .= "<td>{$view_g['name']}</td>";
 			
 			if($view_g['reply_threads'] == 1) {
-				$checkboxes .= "<td class=\"center\"><input type=\"checkbox\" name=\"reply[]\" value=\"V_{$view_g['g_id']}\" checked></td>";
+				$checkboxes .= "<td class='center'><input type='checkbox' name='reply[]' value='V_{$view_g['g_id']}' checked></td>";
 			}
 			else {
-				$checkboxes .= "<td class=\"center\"><input type=\"checkbox\" name=\"reply[]\" value=\"V_{$view_g['g_id']}\"></td>";
+				$checkboxes .= "<td class='center'><input type='checkbox' name='reply[]' value='V_{$view_g['g_id']}'></td>";
 			}
 		}
 		
 		$reply = "
-		<table cellspacing=\"0\"><tr>
+		<table cellspacing='0'><tr>
 			{$title}
 			</tr><tr>
 			{$checkboxes}

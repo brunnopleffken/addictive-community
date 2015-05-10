@@ -31,7 +31,10 @@
 				$Db->Query("OPTIMIZE TABLE {$tables};");
 				$Admin->RegisterLog("Database optimization.");
 				
-				echo Html::Notification("Tables have been optimized successfully.<br><span style=\"font-family: monospace\">OPTIMIZE TABLE {$tables};</span>", "success");
+				echo Html::Notification(
+					"Tables have been optimized successfully.<br><span style='font-family: monospace'>OPTIMIZE TABLE {$tables};</span>",
+					"success"
+				);
 				
 				break;
 				
@@ -51,7 +54,10 @@
 				$Db->Query("REPAIR TABLE {$tables};");
 				$Admin->RegisterLog("Database repairing.");
 				
-				echo Html::Notification("Tables have been repaired successfully.<br><span style=\"font-family: monospace\">REPAIR TABLE {$tables};</span>", "success");
+				echo Html::Notification(
+					"Tables have been repaired successfully.<br><span style='font-family: monospace'>REPAIR TABLE {$tables};</span>",
+					"success"
+				);
 				
 				break;
 		}
@@ -97,33 +103,25 @@
 	<h1>Database Toolbox</h1>
 	
 	<div id="content">
-	
 		<div class="grid-row">
 			<!-- LEFT -->
 			<form action="process.php?do=optimize" method="post">
-				
 				<div style="text-align: right; margin-bottom: 15px">
 					<input type="button" value="Optimize Tables" onclick="Optimize()">
 					<input type="button" value="Repair Corrupted Tables" onclick="Repair()">
 				</div>
-				
 				<table class="table-list">
 					<tr>
 						<th colspan="4">Tables in Database</th>
 					</tr>
-					
 					<tr class="subtitle">
 						<td>Table Name</td>
 						<td>Entries</td>
 						<td>Engine</td>
 						<td>Collation</td>
 					</tr>
-					
 					<?php echo $html ?>
-					
 				</table>
-				
 			</form>
 		</div>
-
 	</div>

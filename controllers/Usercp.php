@@ -210,7 +210,7 @@ class Usercp extends Application
 
 		foreach($tz_offset as $tz_value => $tz_name) {
 			$selected = ($this->Session->member_info['time_offset'] == $tz_value) ? "selected" : "";
-			$settings['tz_list'] .= "<option value=\"{$tz_value}\" {$selected}>{$tz_name}</option>\n";
+			$settings['tz_list'] .= "<option value='{$tz_value}' {$selected}>{$tz_name}</option>\n";
 		}
 
 		// Language list
@@ -219,7 +219,7 @@ class Usercp extends Application
 
 		while($lang = $this->Db->Fetch()) {
 			$selected = ($this->Session->member_info['language'] == $lang['directory']) ? "selected" : "";
-			$settings['lang_list'] .= "<option value=\"{$lang['directory']}\" {$selected}>{$lang['name']}</option>\n";
+			$settings['lang_list'] .= "<option value='{$lang['directory']}' {$selected}>{$lang['name']}</option>\n";
 		}
 
 		// Template list
@@ -228,7 +228,7 @@ class Usercp extends Application
 
 		while($template = $this->Db->Fetch()) {
 			$selected = ($this->Session->member_info['template'] == $template['directory']) ? "selected" : "";
-			$settings['template_list'] .= "<option value=\"{$template['directory']}\" {$selected}>{$template['name']}</option>\n";
+			$settings['template_list'] .= "<option value='{$template['directory']}' {$selected}>{$template['name']}</option>\n";
 		}
 
 		// Page info

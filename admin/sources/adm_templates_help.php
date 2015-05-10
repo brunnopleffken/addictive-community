@@ -29,13 +29,13 @@
 	while($topic = $Db->Fetch()) {
 		Template::Add("
 			<tr>
-			<td>
-				<b>{$topic['title']}</b><br>
-				{$topic['short_desc']}
-			</td>
-			<td class=\"min\"><a href=\"main.php?act=rooms&p=edit&id={$topic['h_id']}\"><img src=\"images/edit.png\" title=\"Edit\"></a></td>
-			<td class=\"min\"><a href=\"main.php?act=rooms&p=delete&id={$topic['h_id']}\"><img src=\"images/delete.png\" title=\"Delete\"></a></td>
-		</tr>
+				<td>
+					<b>{$topic['title']}</b><br>
+					{$topic['short_desc']}
+				</td>
+				<td class='min'><a href='main.php?act=templates&p=helpedit&id={$topic['h_id']}'><i class='fa fa-pencil'></i></a></td>
+				<td class='min'><a href='main.php?act=templates&p=helpdelete&id={$topic['h_id']}'><i class='fa fa-remove'></i></a></td>
+			</tr>
 		");
 	}
 	
@@ -44,7 +44,6 @@
 	<h1>Help Topics</h1>
 	
 	<div id="content">
-	
 		<div class="grid-row">
 			<!-- LEFT -->
 			<form action="process.php?do=newroom" method="post">
@@ -55,19 +54,17 @@
 					<tr>
 						<th colspan="5">
 							<div class="fleft">Help Topic List</div>
-							<div class="fright"><a href="main.php?act=templates&p=helpadd" class="button-grey-default white transition">Add New Topic</a></div>
-</th>
+							<div class="fright">
+								<a href="main.php?act=templates&p=helpadd" class="button-grey-default white transition">Add New Topic</a>
+							</div>
+						</th>
 					</tr>
-					
 					<tr class="subtitle">
 						<td>Topic</td>
 						<td colspan="3" class="min">Options</td>
 					</tr>
-					
 					<?php echo Template::Get(); ?>
 				</table>
-				
 			</form>
 		</div>
-
 	</div>

@@ -45,7 +45,7 @@ class Thread extends Application
 		$pagination = $this->_BuildPaginationLinks($pages, $id);
 
 		// Get related threads
-		$related_thread_list = $this->_RelatedThreads($id, $thread_info);
+		$related_thread_list = $this->_RelatedThreads($id, $thread_info['title']);
 
 		// Page info
 		$page_info['title'] = $thread_info['title'];
@@ -397,28 +397,28 @@ class Thread extends Application
 	{
 		$html = "";
 		if($pages['total'] != 0) {
-			$html .= "<div class=\"pages\">" . i18n::Translate("T_PAGES") . ": ";
+			$html .= "<div class='pages'>" . i18n::Translate("T_PAGES") . ": ";
 
 			// If it is not the first page, show link "Back"
 			if($pages['display'] != 1) {
 				$prev = $pages['display'] - 1;
-				$html .= "<a href=\"thread/{$thread_id}?p={$prev}\">&laquo;</a>\n";
+				$html .= "<a href='thread/{$thread_id}?p={$prev}'>&laquo;</a>\n";
 			}
 
 			// Page numbers
 			for($i = 1; $i <= $pages['total']; $i++) {
 				if($i == $pages['display']) {
-					$html .= "<a href=\"thread/{$thread_id}?p={$i}\" class=\"page-selected\">{$i}</a>\n";
+					$html .= "<a href='thread/{$thread_id}?p={$i}' class='page-selected'>{$i}</a>\n";
 				}
 				else {
-					$html .= "<a href=\"thread/{$thread_id}?p={$i}\">{$i}</a>\n";
+					$html .= "<a href='thread/{$thread_id}?p={$i}'>{$i}</a>\n";
 				}
 			}
 
 			// If it is not the last page, show link "Next"
 			if($pages['display'] != $i - 1) {
 				$next = $pages['display'] + 1;
-				$html .= "<a href=\"thread/{$thread_id}?p={$next}\">&raquo;</a>\n";
+				$html .= "<a href='thread/{$thread_id}?p={$next}'>&raquo;</a>\n";
 			}
 
 			$html .= "</div>";
@@ -432,10 +432,10 @@ class Thread extends Application
 	 * GET LIST OF RELATED THREADS
 	 * --------------------------------------------------------------------
 	 */
-	private function _RelatedThreads($id, $thread_info)
+	private function _RelatedThreads($id, $thread_title)
 	{
 		$thread_list = "";
-		$thread_search = explode(" ", String::Sanitize($thread_info['title']));
+		$thread_search = explode(" ", strtolower($thread_title));
 		$related_thread_list = array();
 
 		foreach($thread_search as $key => $value) {

@@ -24,8 +24,8 @@
 
 	foreach($t as $k => $v) {
 		Template::Add("<tr>
-				<td class=\"title-fixed\">{$k}<input type=\"hidden\" name=\"index[]\" value=\"{$k}\"></td>
-				<td><textarea name=\"{$k}\" rows=\"3\" cols=\"64\">{$v}</textarea></td>
+				<td class='title-fixed'>{$k}<input type='hidden' name='index[]' value='{$k}'></td>
+				<td><textarea name='{$k}' rows='3' cols='64'>{$v}</textarea></td>
 			</tr>");
 	}
 
@@ -35,9 +35,7 @@
 
 	<div id="content">
 		<div class="grid-row">
-
 			<form action="process.php?do=savelang" method="post">
-
 				<table class="table-list">
 					<tr>
 						<th colspan="10">
@@ -50,14 +48,11 @@
 					</tr>
 					<?php echo Template::Get() ?>
 				</table>
-
 				<div class="box fright">
 					<input type="hidden" name="file" value="<?php echo $name ?>">
 					<input type="hidden" name="dir" value="<?php echo $dir ?>">
 					<input type="submit" value="Save File">
 				</div>
-
 			</form>
-
 		</div>
 	</div>

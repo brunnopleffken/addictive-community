@@ -9,23 +9,32 @@
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
 
-	// List of languages
+	// List of templates
 
 	$Db->Query("SELECT * FROM c_templates ORDER BY name ASC;");
 
 	while($template = $Db->Fetch()) {
 		$template['active']  = ($template['active'] == 1) ? "<i class='fa fa-check'></i>" : "";
-		//$template['default'] = ($template['default'] == 1) ? "<img src=\"images/tick.png\">" : "";
+
+		// Do not allow to remove default templates
+		if($template['directory'] == $Admin->SelectConfig("template_default_set")) {
+			$template['default'] = "<i class='fa fa-check'></i>";
+			$template['remove'] = "-";
+		}
+		else {
+			$template['default'] = "";
+			$template['remove']= "<a href='main.php?act=templates&p=delete&id={$template['tpl_id']}'><i class='fa fa-remove'></i></a>";
+		}
 
 		Template::Add("<tr>
-				<td><a href=\"main.php?act=languages&p=edit&id={$template['tpl_id']}\"><b>{$template['name']}</b></a></td>
-				<td>/languages/{$template['directory']}</td>
-				<td>{$template['author_name']}</td>
+				<td><a href=\"main.php?act=templates&p=edit&id={$template['tpl_id']}\"><b>{$template['name']}</b></a></td>
+				<td>/templates/{$template['directory']}</td>
+				<td>{$template['author_name']} ({$template['author_email']})</td>
 				<td>{$template['active']}</td>
-				<td></td>
-				<td><a href='main.php?act=languages&p=edit&id={$template['tpl_id']}'><i class='fa fa-pencil'></i></a></td>
-				<td><a href='main.php?act=languages&p=download&id={$template['tpl_id']}'><i class='fa fa-download'></i></a></td>
-				<td><!-- <a href='main.php?act=languages&p=delete&id={$template['tpl_id']}'><i class='fa fa-remove'></i></a> --></td>
+				<td>{$template['default']}</td>
+				<td><a href='main.php?act=templates&p=edit&id={$template['tpl_id']}'><i class='fa fa-pencil'></i></a></td>
+				<td><a href='main.php?act=templates&p=download&id={$template['tpl_id']}'><i class='fa fa-download'></i></a></td>
+				<td>{$template['remove']}</td>
 			</tr>");
 	}
 
@@ -35,7 +44,6 @@
 
 	<div id="content">
 		<div class="grid-row">
-
 			<table class="table-list">
 				<tr>
 					<th colspan="10">
@@ -55,6 +63,5 @@
 				</tr>
 				<?php echo Template::Get() ?>
 			</table>
-
 		</div>
 	</div>

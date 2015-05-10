@@ -45,16 +45,16 @@
 		$report['date'] = $Core->DateFormat($report['date']);
 
 		$html .= "<tr>
-				<td rowspan=\"2\" style=\"border-bottom: 2px solid #eee\">{$report['rp_id']}</td>
-				<td rowspan=\"2\" style=\"border-right: 1px solid #eee; border-bottom: 2px solid #eee\" nowrap>{$report['username']}</td>
+				<td rowspan='2' style='border-bottom: 2px solid #eee'>{$report['rp_id']}</td>
+				<td rowspan='2' style='border-right: 1px solid #eee; border-bottom: 2px solid #eee' nowrap>{$report['username']}</td>
 				<td nowrap>{$report['date']}</td>
 				<td>{$report['ip_address']}</td>
-				<td><a href=\"../index.php?module=thread&amp;id={$report['thread_id']}\">{$report['title']}</a></td>
+				<td><a href='../index.php?module=thread&amp;id={$report['thread_id']}'>{$report['title']}</a></td>
 				<td>{$report['post']}</td>
-				<td rowspan=\"2\" style=\"border-left: 1px solid #eee; border-bottom: 2px solid #eee\"><a href=\"#\" onclick=\"DeleteReport({$report['rp_id']},{$report['thread_id']})\"><img src=\"images/trash.png\"></a></td>
+				<td rowspan='2' style='border-left: 1px solid #eee; border-bottom: 2px solid #eee'><a href='#' onclick='DeleteReport({$report['rp_id']},{$report['thread_id']})'><img src='images/trash.png'></a></td>
 			</tr>
 			<tr>
-				<td colspan=\"4\" style=\"border-bottom: 2px solid #eee\"><em>{$report['description']}</em></td>
+				<td colspan='4' style='border-bottom: 2px solid #eee'><em>{$report['description']}</em></td>
 			</tr>";
 	}
 
@@ -76,7 +76,6 @@
 	<h1>Dashboard</h1>
 
 	<div id="content">
-
 		<div class="grid-row">
 			<!-- LEFT -->
 			<div class="grid-half">
@@ -139,12 +138,8 @@
 						<td>Post</td>
 						<td class="min"></td>
 					</tr>
-
 					<?php echo $html ?>
-
 				</table>
 			</div>
-
 		</div>
-
 	</div>

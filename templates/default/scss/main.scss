@@ -93,16 +93,10 @@ form {
 		font-size: 13px;
 		outline: none;
 		padding: 6px;
+		@include transition(500ms);
 		&:focus {
 			border: 1px solid #aaa;
-			transition: 500ms;
 		}
-	}
-	input[type=file] {
-		border: 1px dashed #ccc;
-		box-shadow: none;
-		font-family: $fontSans;
-		margin-top: -3px;
 	}
 	input[type=button], input[type=submit], button:not([role]) {
 		background: $colorFiord url('../images/button-bg.png');
@@ -1029,7 +1023,7 @@ form {
 	}
 }
 
-.main-post, .thread-post-reply {
+.thread-first-post, .thread-post-reply {
 	.attachments {
 		overflow: hidden;
 		.title {

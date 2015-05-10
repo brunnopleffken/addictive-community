@@ -16,10 +16,10 @@
 	
 	while($group = $Db->Fetch()) {
 		if($group['g_id'] == 3) {
-			$list .= "<option value=\"{$group['g_id']}\" selected>{$group['name']}</option>";
+			$list .= "<option value='{$group['g_id']}' selected>{$group['name']}</option>";
 		}
 		else {
-			$list .= "<option value=\"{$group['g_id']}\">{$group['name']}</option>";
+			$list .= "<option value='{$group['g_id']}'>{$group['name']}</option>";
 		}
 	}
 	
@@ -28,16 +28,13 @@
 	<h1>Add New Member</h1>
 	
 	<div id="content">
-	
 		<div class="grid-row">
 			<!-- LEFT -->
 			<form action="process.php?do=save" method="post">
-			
 				<table class="table-list">
 					<tr>
 						<th colspan="2">New Member Information</th>
 					</tr>
-					
 					<tr>
 						<td class="title-fixed">Username</td>
 						<td><input type="text" name="username" class="small"></td>
@@ -59,10 +56,7 @@
 						</td>
 					</tr>
 				</table>
-				
 				<div class="box fright"><input type="submit" value="Register New Member"></div>
-				
 			</form>
 		</div>
-
 	</div>

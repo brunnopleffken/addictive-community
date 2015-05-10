@@ -71,10 +71,10 @@ class Profile extends Application
 
 		// Location and Google Maps link
 		$this->info['location_encoded'] = urlencode($this->info['location']);
-		$this->info['location'] = "<a href=\"https://maps.google.com/maps?q={$this->info['location_encoded']}\" target=\"_blank\">{$this->info['location']}</a>";
+		$this->info['location'] = "<a href='https://maps.google.com/maps?q={$this->info['location_encoded']}' target='_blank'>{$this->info['location']}</a>";
 
 		// Personal website link
-		$this->info['website'] = "<a href=\"{$this->info['website']}\" rel=\"nofollow\" target=\"_blank\">{$this->info['website']}</a>";
+		$this->info['website'] = "<a href='{$this->info['website']}' rel='nofollow' target='_blank'>{$this->info['website']}</a>";
 
 		// Member e-mail
 		if($this->info['hide_email'] == 1) {
@@ -109,8 +109,8 @@ class Profile extends Application
 		while($threads = $this->Db->Fetch()) {
 			$threads['start_date'] = $this->Core->DateFormat($threads['start_date'], "long");
 			Template::Add ("<tr>
-				<td class=\"table-label\">{$threads['start_date']}</td>
-				<td><a href=\"thread/{$threads['t_id']}\">{$threads['title']}</a></td>
+				<td class='table-label'>{$threads['start_date']}</td>
+				<td><a href='thread/{$threads['t_id']}'>{$threads['title']}</a></td>
 			</tr>");
 		}
 
@@ -126,11 +126,11 @@ class Profile extends Application
 		while($posts = $this->Db->Fetch()) {
 			$posts['post_date'] = $this->Core->DateFormat($posts['post_date'], "long");
 			Template::Add("<tr>
-				<td class=\"table-label\">{$posts['post_date']}</td>
-				<td><a href=\"thread/{$posts['t_id']}\"><b>{$posts['title']}</b></a></td>
+				<td class='table-label'>{$posts['post_date']}</td>
+				<td><a href='thread/{$posts['t_id']}'><b>{$posts['title']}</b></a></td>
 			</tr>
 			<tr>
-				<td colspan=\"2\" class=\"parsing\" style=\"border-bottom: 1px solid #eee; padding: 10px 10px 20px 10px\">{$posts['post']}</td>
+				<td colspan='2' class='parsing' style='border-bottom: 1px solid #eee; padding: 10px 10px 20px 10px'>{$posts['post']}</td>
 			</tr>");
 		}
 

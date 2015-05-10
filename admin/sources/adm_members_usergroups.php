@@ -48,7 +48,7 @@
 					<tr>
 						<th colspan="5">
 							<div class="fleft">User Groups Overview</div>
-							<div class="fright"><a href="main.php?act=rooms&p=add" class="button-grey-default white transition">New User Group</a></div>
+							<div class="fright"><a href="main.php?act=members&p=newusergroup" class="button-grey-default white transition">New User Group</a></div>
 						</th>
 					</tr>
 					<tr class="subtitle">
