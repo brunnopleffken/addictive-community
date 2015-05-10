@@ -85,7 +85,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 #logo .logo { float: left; height: 50px; width: 300px; }
 
 #search { background: #303747; border-radius: 8px; float: right; font-size: 0; padding: 10px; }
-#search input[type=text] { background: #fff url("../images/magnifier.png") no-repeat 5px 5px; background-size: 20px; border: 0; border-radius: 2px; font-size: 14px; height: 32px; padding: 0 4px 0 32px; width: 250px; }
+#search input[type=text] { background: #fff url("../images/magnifier.png") no-repeat 5px center; background-size: 20px; border: 0; border-radius: 2px; font-size: 14px; height: 32px; padding: 0 4px 0 32px; width: 250px; }
 #search input[type=submit] { background: #5b6786; border: 0; color: #fff; cursor: pointer; font-size: 11px; font-weight: bold; height: 32px; margin-left: 10px; padding: 0 8px; vertical-align: top; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
 #search input[type=submit]:hover { background: #657395; }
 
@@ -131,6 +131,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .navigation .subnav { background: #fff; margin-bottom: 15px; padding: 0 10px; }
 .navigation .subnav a { border-bottom: 2px solid #fff; color: #000; display: inline-block; font-size: 12px; font-weight: bold; padding: 10px 15px 7px 15px; text-transform: uppercase; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
 .navigation .subnav a:hover { border-bottom: 2px solid #eff5fb; text-decoration: none; }
+.navigation .subnav a.rss { color: #ff6600; }
 .navigation .subnav .selected { border-bottom: 2px solid #afc1de; }
 
 /** COMMUNITY PAGE **/
@@ -156,8 +157,8 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-item .avatar { display: table-cell; text-align: center; vertical-align: middle; width: 80px; }
 .thread-item .avatar .image { box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }
 .thread-item .middle { display: table-cell; padding: 12px 10px 12px 2px; }
-.thread-item .middle .title { display: block; font-size: 20px; font-weight: bold; line-height: 1em; }
-.thread-item .middle .description { color: #444; font-size: 11px; line-height: 1em; overflow: hidden; padding: 12px 0 14px 0; text-overflow: ellipsis; white-space: nowrap; width: 100%; }
+.thread-item .middle .title { display: block; font-size: 19px; font-weight: bold; line-height: 1em; }
+.thread-item .middle .description { color: #444; font-size: 11px; line-height: 1em; overflow: hidden; padding: 10px 0 12px 0; text-overflow: ellipsis; white-space: nowrap; width: 100%; }
 .thread-item .middle .author { color: #999; font-size: 10px; line-height: 1em; text-transform: uppercase; }
 .thread-item .middle .author i { color: #666; margin-right: 3px; }
 .thread-item .middle .author i:last-child { margin-left: 10px; }

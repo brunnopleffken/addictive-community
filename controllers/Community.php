@@ -50,11 +50,11 @@ class Community extends Application
 	private function _GetRooms()
 	{
 		// If member is Admin, show invisible rooms too
-		if($this->Session->IsMember() && $this->Session->member_info['usergroup'] != 1) {
-			$visibility = "WHERE invisible = '0'";
+		if($this->Session->IsMember() && $this->Session->member_info['usergroup'] == 1) {
+			$visibility = "";
 		}
 		else {
-			$visibility = "";
+			$visibility = "WHERE invisible <> '1'";
 		}
 
 		$rooms_result = $this->Db->Query("SELECT c_rooms.*, c_members.m_id, c_members.username, c_threads.title, c_threads.t_id,
@@ -66,28 +66,42 @@ class Community extends Application
 		// Process data
 
 		while($result = $this->Db->Fetch($rooms_result)) {
-			// If last post timestamp is diff. from zero
+			// If last post timestamp is not zero / no posts
 			if($result['lastpost_date'] > 0) {
 				$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
 			}
 			else {
 				$result['lastpost_date'] = "---";
 			}
+			
+			// If thread and/or last poster username is empty, show dashes instead
+			if($result['title'] == null) {
+				$result['title'] = "---";
+			}
+			if($result['username'] == null) {
+				$result['username'] = "---";
+			}
 
-			// Is this room a protected room?
-			if($result['password'] != "") {
+			// Is this room a read only, protected or invisible room?
+			// The order of relevance is from down to up
+			if($result['read_only'] == 1) {
+				$result['icon']  = "<i class='fa fa-file-text-o fa-fw'></i>";
+				$result['title'] = "<a href='thread/{$result['t_id']}'>{$result['title']}</a>";
+			}
+			elseif($result['password'] != "") {
 				$result['icon']  = "<i class='fa fa-lock fa-fw'></i>";
 				$result['title'] = "<em>Protected room</em>";
 			}
-			elseif($result['read_only'] == 1) {
-				$result['icon']  = "<i class='fa fa-file-text-o fa-fw'></i>";
+			elseif($result['invisible'] == 1) {
+				$result['icon']  = "<i class='fa fa-user-secret fa-fw'></i>";
+				$result['title'] = "<a href='thread/{$result['t_id']}'>{$result['title']}</a>";
 			}
 			else {
 				$result['icon']  = "<i class='fa fa-comment-o fa-fw'></i>";
 				$result['title'] = "<a href='thread/{$result['t_id']}'>{$result['title']}</a>";
 			}
 
-			// Store result in array
+			// Save result in array
 			$_rooms[] = $result;
 		}
 

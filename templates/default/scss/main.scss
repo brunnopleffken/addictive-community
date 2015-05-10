@@ -353,7 +353,7 @@ form {
 	font-size: 0;
 	padding: 10px;
 	input[type=text] {
-		background: #fff url('../images/magnifier.png') no-repeat 5px 5px;
+		background: #fff url('../images/magnifier.png') no-repeat 5px center;
 		background-size: 20px;
 		border: 0;
 		border-radius: 2px;
@@ -568,6 +568,7 @@ form {
 				border-bottom: 2px solid #eff5fb;
 				text-decoration: none;
 			}
+			&.rss { color: #ff6600; }
 		}
 		.selected {
 			border-bottom: 2px solid #afc1de;
@@ -683,7 +684,7 @@ form {
 		padding: 12px 10px 12px 2px;
 		.title {
 			display: block;
-			font-size: 20px;
+			font-size: 19px;
 			font-weight: bold;
 			line-height: 1em;
 		}
@@ -692,7 +693,7 @@ form {
 			font-size: 11px;
 			line-height: 1em;
 			overflow: hidden;
-			padding: 12px 0 14px 0;
+			padding: 10px 0 12px 0;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 			width: 100%;

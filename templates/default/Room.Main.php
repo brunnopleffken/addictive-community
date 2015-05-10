@@ -9,6 +9,10 @@
 	<?php endif; ?>
 </div>
 
+<?php if($room_info['rules_visible']): ?>
+	<?php echo Html::Notification($room_info['rules_text'], "warning", true, $room_info['rules_title']) ?>
+<?php endif; ?>
+
 <div class="navigation">
 	<div class="navbar">
 		<a href="room/<?php __($room_id) ?>" class="<?php __($menu[0]) ?>"><?php __("R_ALL") ?></a>
@@ -21,6 +25,7 @@
 		<a href="room/<?php __($room_id) ?>?view=topreplies"><?php __("R_TOP_THREADS") ?></a>
 		<a href="room/<?php __($room_id) ?>?view=noreplies"><?php __("R_NO_REPLIES") ?></a>
 		<a href="room/<?php __($room_id) ?>?view=bestanswered"><?php __("R_ANSWERED") ?></a>
+		<!-- <div class="fright"><a href="rss/room/<?php __($room_id) ?>" class="rss"><i class="fa fa-rss"></i></a></div> -->
 	</div>
 </div>
 
