@@ -30,7 +30,7 @@
 	$t["C_SIGNATURE_UPDATE"] = "Update Signature";
 	$t["C_TIMEZONE"] = "Timezone";
 	$t["C_LANGUAGE"] = "Language";
-	$t["C_TEMPLATE"] = "Template";
+	$t["C_THEME"] = "Theme";
 	$t["C_UPDATE_SETTINGS"] = "Update Settings";
 	$t["C_PASSWORD_CURRENT"] = "Current Password";
 	$t["C_PASSWORD_NEW"] = "New Password";

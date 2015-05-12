@@ -4,7 +4,7 @@
 	#  ADDICTIVE COMMUNITY
 	## ---------------------------------------------------
 	#  Developed by Brunno Pleffken Hosti
-	#  File: adm_languages_manager.php
+	#  File: adm_templates_templates.php
 	#  Release: v1.0.0
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
@@ -12,8 +12,9 @@
 	// List of templates
 
 	$Db->Query("SELECT * FROM c_templates ORDER BY name ASC;");
+	$templates = $Db->FetchToArray();
 
-	while($template = $Db->Fetch()) {
+	foreach($templates as $template) {
 		$template['active']  = ($template['active'] == 1) ? "<i class='fa fa-check'></i>" : "";
 
 		// Do not allow to remove default templates
@@ -43,6 +44,7 @@
 	<h1>Template Manager</h1>
 
 	<div id="content">
+		<?php echo Html::Notification("If you want to change the general appearance of your community (like images and colors), you might be looking for <a href='main.php?act=templates&p=themes'>Themes</a> instead.", "info") ?>
 		<div class="grid-row">
 			<table class="table-list">
 				<tr>

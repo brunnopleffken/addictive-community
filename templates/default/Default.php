@@ -9,7 +9,7 @@
 	<meta name="description" content="<?php __($meta_description) ?>">
 	<link rel="icon" href="favicon.ico">
 	<!-- CSS -->
-	<link rel="stylesheet" href="templates/default/css/main.css">
+	<link rel="stylesheet" href="themes/<?php __($theme) ?>/css/main.css">
 	<link rel="stylesheet" href="thirdparty/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="thirdparty/fancybox/jquery.fancybox.css">
 	<link rel="stylesheet" href="thirdparty/select2/select2.css">
@@ -42,7 +42,7 @@
 	</div>
 	<div id="logo">
 		<div class="wrapper">
-			<a href="#"><img src="templates/default/images/logo.png" class="logo" alt="Addictive Community"></a>
+			<a href="#"><img src="themes/<?php __($theme) ?>/images/logo.png" class="logo" alt="Addictive Community"></a>
 			<div id="search">
 				<form action="search" method="get" class="validate">
 					<input type="text" name="q" size="25" class="required" value="<?php echo Html::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>">

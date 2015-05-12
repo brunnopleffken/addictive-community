@@ -28,16 +28,16 @@
 		<div class="input-box">
 			<div class="label"><?php __("C_LANGUAGE") ?></div>
 			<div class="field">
-				<select name="language" class="select2-no-search small">
+				<select name="language" class="select2-no-search" style="width: 180px">
 					<?php echo $settings['lang_list'] ?>
 				</select>
 			</div>
 		</div>
 		<div class="input-box">
-			<div class="label"><?php __("C_TEMPLATE") ?></div>
+			<div class="label"><?php __("C_THEME") ?></div>
 			<div class="field">
-				<select name="template" class="select2-no-search small">
-					<?php echo $settings['template_list'] ?>
+				<select name="theme" class="select2-no-search" style="width: 180px">
+					<?php echo $settings['theme_list'] ?>
 				</select>
 			</div>
 		</div>

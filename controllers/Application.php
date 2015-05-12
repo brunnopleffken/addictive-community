@@ -154,6 +154,7 @@ class Application
 		// RETURN COMMON VARIABLES
 		$this->Set("community_name", $this->config['general_community_name']);
 		$this->Set("community_url", $this->config['general_community_url']);
+		$this->Set("theme", $this->config['theme']);
 		$this->Set("meta_description", $this->config['seo_description']);
 		$this->Set("meta_keywords", $this->config['seo_keywords']);
 		$this->Set("website_name", $this->config['general_website_name']);

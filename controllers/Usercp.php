@@ -223,12 +223,12 @@ class Usercp extends Application
 		}
 
 		// Template list
-		$settings['template_list'] = "";
-		$this->Db->Query("SELECT * FROM c_templates WHERE active = 1 ORDER BY name;");
+		$settings['theme_list'] = "";
+		$this->Db->Query("SELECT * FROM c_themes WHERE active = 1 ORDER BY name;");
 
-		while($template = $this->Db->Fetch()) {
-			$selected = ($this->Session->member_info['template'] == $template['directory']) ? "selected" : "";
-			$settings['template_list'] .= "<option value='{$template['directory']}' {$selected}>{$template['name']}</option>\n";
+		while($theme = $this->Db->Fetch()) {
+			$selected = ($this->Session->member_info['theme'] == $theme['directory']) ? "selected" : "";
+			$settings['theme_list'] .= "<option value='{$theme['directory']}' {$selected}>{$theme['name']}</option>\n";
 		}
 
 		// Page info
@@ -393,7 +393,7 @@ class Usercp extends Application
 
 		// Get values
 		$info = array(
-			"template"    => Html::Request("template"),
+			"theme"       => Html::Request("theme"),
 			"language"    => Html::Request("language"),
 			"time_offset" => Html::Request("timezone")
 		);

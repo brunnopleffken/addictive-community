@@ -83,6 +83,7 @@ class Register extends Application
 			"photo_type"    => "gravatar",
 			"posts"         => 0,
 			"template"      => $this->config['template'],
+			"theme"         => $this->config['theme'],
 			"language"      => $this->config['language'],
 			"time_offset"   => $this->config['date_default_offset'],
 			"dst"           => 0,

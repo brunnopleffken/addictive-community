@@ -91,7 +91,7 @@
 				<a href="main.php?act=general" class="transition">General</a>
 				<a href="main.php?act=rooms" class="transition">Rooms</a>
 				<a href="main.php?act=members" class="transition">Members</a>
-				<a href="main.php?act=templates" class="transition">Templates</a>
+				<a href="main.php?act=templates" class="transition">Themes & Templates</a>
 				<a href="main.php?act=languages" class="transition">Languages</a>
 				<a href="main.php?act=system" class="transition">System</a>
 			</div>
@@ -108,7 +108,7 @@ HTML;
 				<a href="main.php?act=general" class="nav-selected">General</a>
 				<a href="main.php?act=rooms" class="transition">Rooms</a>
 				<a href="main.php?act=members" class="transition">Members</a>
-				<a href="main.php?act=templates" class="transition">Templates</a>
+				<a href="main.php?act=templates" class="transition">Themes & Templates</a>
 				<a href="main.php?act=languages" class="transition">Languages</a>
 				<a href="main.php?act=system" class="transition">System</a>
 			</div>
@@ -134,7 +134,7 @@ HTML;
 				<a href="main.php?act=general" class="transition">General</a>
 				<a href="main.php?act=rooms" class="nav-selected">Rooms</a>
 				<a href="main.php?act=members" class="transition">Members</a>
-				<a href="main.php?act=templates" class="transition">Templates</a>
+				<a href="main.php?act=templates" class="transition">Themes & Templates</a>
 				<a href="main.php?act=languages" class="transition">Languages</a>
 				<a href="main.php?act=system" class="transition">System</a>
 			</div>
@@ -153,7 +153,7 @@ HTML;
 				<a href="main.php?act=general" class="transition">General</a>
 				<a href="main.php?act=rooms" class="transition">Rooms</a>
 				<a href="main.php?act=members" class="nav-selected">Members</a>
-				<a href="main.php?act=templates" class="transition">Templates</a>
+				<a href="main.php?act=templates" class="transition">Themes & Templates</a>
 				<a href="main.php?act=languages" class="transition">Languages</a>
 				<a href="main.php?act=system" class="transition">System</a>
 			</div>
@@ -173,12 +173,13 @@ HTML;
 				<a href="main.php?act=general" class="transition">General</a>
 				<a href="main.php?act=rooms" class="transition">Rooms</a>
 				<a href="main.php?act=members" class="transition">Members</a>
-				<a href="main.php?act=templates" class="nav-selected">Templates</a>
+				<a href="main.php?act=templates" class="nav-selected">Themes & Templates</a>
 				<a href="main.php?act=languages" class="transition">Languages</a>
 				<a href="main.php?act=system" class="transition">System</a>
 			</div>
 			<div class="section-subnav">
-				<a href="main.php?act=templates&amp;p=manager">Template Manager</a>
+				<a href="main.php?act=templates&amp;p=themes">Theme Manager</a>
+				<a href="main.php?act=templates&amp;p=templates">Templates</a>
 				<a href="main.php?act=templates&amp;p=emails">E-mails</a>
 				<a href="main.php?act=templates&amp;p=emoticons">Emoticons</a>
 				<a href="main.php?act=templates&amp;p=help">Help Topics</a>
@@ -195,7 +196,7 @@ HTML;
 				<a href="main.php?act=general" class="transition">General</a>
 				<a href="main.php?act=rooms" class="transition">Rooms</a>
 				<a href="main.php?act=members" class="transition">Members</a>
-				<a href="main.php?act=templates" class="transition">Templates</a>
+				<a href="main.php?act=templates" class="transition">Themes & Templates</a>
 				<a href="main.php?act=languages" class="nav-selected">Languages</a>
 				<a href="main.php?act=system" class="transition">System</a>
 			</div>
@@ -214,7 +215,7 @@ HTML;
 				<a href="main.php?act=general" class="transition">General</a>
 				<a href="main.php?act=rooms" class="transition">Rooms</a>
 				<a href="main.php?act=members" class="transition">Members</a>
-				<a href="main.php?act=templates" class="transition">Templates</a>
+				<a href="main.php?act=templates" class="transition">Themes & Templates</a>
 				<a href="main.php?act=languages" class="transition">Languages</a>
 				<a href="main.php?act=system" class="nav-selected">System</a>
 			</div>

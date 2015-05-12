@@ -17,6 +17,13 @@ $template['header'] = <<<HTML
 	<meta charset="utf-8">
 	<link href="styles/admin_style.css" type="text/css" rel="stylesheet">
 	<link href="../thirdparty/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+	<script src="../thirdparty/jquery/jquery.min.js"></script>
+	<!-- Code Mirror -->
+	<script src="../thirdparty/codemirror/codemirror.js"></script>
+	<link href="../thirdparty/codemirror/codemirror.css" type="text/css" rel="stylesheet">
+	<script src="../thirdparty/codemirror/mode/css/css.js"></script>
+	<!-- Admin JS -->
+	<script src="admin.js"></script>
 </head>
 
 <body>

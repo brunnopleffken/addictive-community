@@ -216,4 +216,8 @@
 			exit;
 
 			break;
+
+		case "editcss":
+			String::PR($_REQUEST);
+			break;
 	}

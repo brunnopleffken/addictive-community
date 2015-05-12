@@ -24,7 +24,8 @@ class Main
 	public $action = "";
 	public $id = "";
 
-	// Current template and language
+	// Current theme, template and language
+	public $theme;
 	public $template;
 	public $language;
 
@@ -229,8 +230,20 @@ class Main
 	 */
 	private function _GetTemplate()
 	{
-		$this->template = "default";
-		$this->Config['template'] = $this->template;
+		if($this->Session->session_info['member_id']) {
+			$this->theme = $this->Session->member_info['theme'];
+			$this->Config['theme'] = $this->theme;
+
+			$this->template = $this->Session->member_info['template'];
+			$this->Config['template'] = $this->template;
+		}
+		else {
+			$this->theme = $this->Config['theme_default_set'];
+			$this->Config['theme'] = $this->theme;
+
+			$this->template = $this->Config['template_default_set'];
+			$this->Config['template'] = $this->template;
+		}
 	}
 
 	/**
