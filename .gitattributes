@@ -2,8 +2,7 @@
 * text=auto
 
 # Exclude Sass files from language stats
-templates/default/scss/* linguist-vendored
-templates/mobile/scss/* linguist-vendored
+themes/default-light/scss/* linguist-vendored
 
 # Exclude these files from releases...
 .gitignore export-ignore
