@@ -56,6 +56,7 @@ class Application
 			return false;
 		}
 		$this->view_data[$name] = $value;
+		return true;
 	}
 
 	/**
@@ -76,16 +77,46 @@ class Application
 	 */
 	public function Run()
 	{
+		// SIDEBAR: member info
+		$this->_GetMemberInfo();
+
+		// SIDEBAR: get list of rooms
+		$this->_GetRooms();
+
+		// SIDEBAR: get members online
+		$this->_GetMembersOnline();
+
+		// SIDEBAR: get community statistics
+		$this->_GetStats();
+
+		// RETURN COMMON VARIABLES
+		$this->Set("community_name", $this->config['general_community_name']);
+		$this->Set("community_url", $this->config['general_community_url']);
+		$this->Set("theme", $this->config['theme']);
+		$this->Set("meta_description", $this->config['seo_description']);
+		$this->Set("meta_keywords", $this->config['seo_keywords']);
+		$this->Set("website_name", $this->config['general_website_name']);
+		$this->Set("website_url", $this->config['general_website_url']);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * SIDEBAR: get member information (if logged in)
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetMemberInfo()
+	{
 		// If member is logged in
 		if($this->Session->IsMember()) {
-			// SIDEBAR: member info
 			// Get user avatar
 			$this->Session->member_info['avatar'] = $this->Core->GetGravatar(
 				$this->Session->member_info['email'], $this->Session->member_info['photo'], 60, $this->Session->member_info['photo_type']
 			);
 
 			// Number of new private messages
-			$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 1;");
+			$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages
+					WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 1;");
+
 			$unread_messages = $this->Db->Fetch();
 
 			$this->Set("member_id", $this->Session->member_info['m_id']);
@@ -95,9 +126,15 @@ class Application
 		else {
 			$this->Set("member_id", 0);
 		}
+	}
 
-		// SIDEBAR: get list of rooms
-
+	/**
+	 * --------------------------------------------------------------------
+	 * SIDEBAR: get list of rooms and count number of threads in each
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetRooms()
+	{
 		$rooms = $this->Db->Query("SELECT c_rooms.r_id, c_rooms.name, c_rooms.password,
 				(SELECT COUNT(*) FROM c_threads WHERE c_threads.room_id = c_rooms.r_id) AS threads
 				FROM c_rooms WHERE invisible = 0;");
@@ -106,10 +143,15 @@ class Application
 			$_sidebar_rooms[] = $result;
 		}
 		$this->Set("sidebar_rooms", $_sidebar_rooms);
+	}
 
-
-		// SIDEBAR: get members online
-
+	/**
+	 * --------------------------------------------------------------------
+	 * SIDEBAR: get members and guests online
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetMembersOnline()
+	{
 		$online = array();
 		$session_expiration = $this->config['general_session_expiration'];
 
@@ -132,10 +174,15 @@ class Application
 		$guests_count = $this->Db->Fetch();
 		$guests_count = $guests_count['count'];
 		$this->Set("guests_count", $guests_count);
+	}
 
-
-		// SIDEBAR: get community statistics
-
+	/**
+	 * --------------------------------------------------------------------
+	 * SIDEBAR: get community statistics
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetStats()
+	{
 		$this->Db->Query("SELECT * FROM c_stats;");
 		$stats_result_temp = $this->Db->Fetch();
 
@@ -150,14 +197,5 @@ class Application
 		$_stats['lastmembername'] = $stats_result_temp['username'];
 
 		$this->Set("stats", $_stats);
-
-		// RETURN COMMON VARIABLES
-		$this->Set("community_name", $this->config['general_community_name']);
-		$this->Set("community_url", $this->config['general_community_url']);
-		$this->Set("theme", $this->config['theme']);
-		$this->Set("meta_description", $this->config['seo_description']);
-		$this->Set("meta_keywords", $this->config['seo_keywords']);
-		$this->Set("website_name", $this->config['general_website_name']);
-		$this->Set("website_url", $this->config['general_website_url']);
 	}
 }
