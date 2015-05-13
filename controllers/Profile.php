@@ -39,8 +39,8 @@ class Profile extends Application
 
 		$this->info = $info;
 
-		// Return $member_id in all pages
-		$this->Set("member_id", $id);
+		// Return $profile_member_id in all pages
+		$this->Set("profile_member_id", $id);
 	}
 
 	/**

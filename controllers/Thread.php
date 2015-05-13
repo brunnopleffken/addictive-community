@@ -71,7 +71,7 @@ class Thread extends Application
 				INNER JOIN c_rooms r ON (t.room_id = r.r_id) WHERE t_id = {$id};");
 		$thread_info = $this->Db->Fetch();
 
-		$this->Set("community_name", $this->config['general_community_name']);
+		// Return variables
 		$this->Set("thread_id", $id);
 		$this->Set("thread_info", $thread_info);
 	}
@@ -87,9 +87,7 @@ class Thread extends Application
 		$room_info = $this->Db->Fetch();
 
 		// Return variables
-		$this->Set("community_name", $this->config['general_community_name']);
 		$this->Set("room_info", $room_info);
-		$this->Set("member_info", $this->Session->member_info);
 	}
 
 	/**

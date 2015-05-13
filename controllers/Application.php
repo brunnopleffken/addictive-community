@@ -98,6 +98,8 @@ class Application
 		$this->_GetStats();
 
 		// RETURN COMMON VARIABLES
+		// This variables will be returned in all controllers
+		// Treat them as reserved words when declaring variables! ;)
 		$this->Set("community_name", $this->config['general_community_name']);
 		$this->Set("community_url", $this->config['general_community_url']);
 		$this->Set("theme", $this->config['theme']);

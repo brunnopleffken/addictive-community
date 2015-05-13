@@ -38,7 +38,6 @@ class Register extends Application
 		$this->Set("page_info", $page_info);
 
 		// Return variables
-		$this->Set("community_name", $this->config['general_community_name']);
 		$this->Set("step", $step);
 		$this->Set("notification", $notification[$message_id]);
 		$this->Set("general_security_validation", $this->config['general_security_validation']);

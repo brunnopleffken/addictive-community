@@ -12,12 +12,12 @@
 
 <div class="navigation">
 	<div class="navbar">
-		<a href="profile/<?php __($member_id) ?>" class="transition selected"><?php __("P_PROFILE") ?></a>
+		<a href="profile/<?php __($profile_member_id) ?>" class="transition selected"><?php __("P_PROFILE") ?></a>
 	</div>
 	<div class="subnav">
-		<a href="profile/<?php __($member_id) ?>"><?php __("P_MY_PROFILE") ?></a>
-		<a href="profile/posts/<?php __($member_id) ?>"><?php __("P_LAST_POSTS") ?></a>
-		<a href="profile/attachments/<?php __($member_id) ?>"><?php __("P_ATTACHMENTS") ?></a>
+		<a href="profile/<?php __($profile_member_id) ?>"><?php __("P_MY_PROFILE") ?></a>
+		<a href="profile/posts/<?php __($profile_member_id) ?>"><?php __("P_LAST_POSTS") ?></a>
+		<a href="profile/attachments/<?php __($profile_member_id) ?>"><?php __("P_ATTACHMENTS") ?></a>
 	</div>
 </div>
 

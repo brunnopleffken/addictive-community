@@ -28,9 +28,6 @@ class Usercp extends Application
 
 		// Save logged in member ID into $member_id
 		$this->member_id= $this->Session->member_info['m_id'];
-
-		// Community name in all pages
-		$this->Set("community_name", $this->config['general_community_name']);
 	}
 
 	/**
@@ -154,7 +151,6 @@ class Usercp extends Application
 
 		// Return variables
 		$this->Set("menu", $menu);
-		$this->Set("member_info", $this->Session->member_info);
 		$this->Set("notification", $notification[$message_id]);
 	}
 
