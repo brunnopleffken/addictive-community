@@ -33,7 +33,7 @@
 		}
 		else {
 			$lang['is_default'] = "";
-			$lang['remove'] = "<a href='main.php?act=languages&p=delete&id={$lang['l_id']}'><i class='fa fa-fw fa-remove'></i></a>";
+			$lang['remove'] = "<a href='process.php?do=uninstall_language&id={$lang['l_id']}'><i class='fa fa-fw fa-remove'></i></a>";
 		}
 
 		if(in_array($lang['directory'], $dir_list)) {

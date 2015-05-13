@@ -265,12 +265,17 @@ class Main
 		$this->Config['language'] = $this->language;
 
 		// Load language files
-		include("languages/" . $this->language . "/default.php");
+		@include("languages/" . $this->language . "/default.php");
 		@include("languages/" . $this->language . "/" . $this->controller . ".php");
 
 		// Populate dictionary array
-		foreach($t as $k => $v) {
-			i18n::$dictionary[$k] = $v;
+		if(@is_array($t)) {
+			foreach($t as $k => $v) {
+				i18n::$dictionary[$k] = $v;
+			}
+		}
+		else {
+			echo Html::Notification("Language files or keywords are missing for <b>" . $this->language . "</b>.", "failure", true);
 		}
 	}
 }

@@ -245,4 +245,26 @@
 			exit;
 
 			break;
+
+		case "uninstall_language":
+
+			// Get locale code
+			$id = $_REQUEST['id'];
+
+			// Transfer all members using this language to default
+			$default_language = $Admin->SelectConfig("language_default_set");
+
+			$Db->Query("SELECT directory FROM c_languages WHERE l_id = {$id};");
+			$language_directory = $Db->Fetch();
+
+			$Db->Query("UPDATE c_members SET language = '{$default_language}' WHERE language = '{$language_directory['directory']}';");
+
+			// Delete from database
+			$Db->Query("DELETE FROM c_languages WHERE l_id = {$id};");
+
+
+			header("Location: " . $_SERVER['HTTP_REFERER']);
+			exit;
+
+			break;
 	}
