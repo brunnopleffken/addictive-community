@@ -192,11 +192,11 @@ class Main
 
 			// Load page content
 			ob_start();
-			require("templates/" . $this->template . "/" . $this->controller . "." . ucwords($this->action) . ".php");
+			require("templates/" . $this->template . "/" . $this->controller . "." . ucwords($this->action) . ".phtml");
 			$this->content = ob_get_clean();
 
 			// Load master page
-			require("templates/" . $this->template . "/" . $this->instance->master . ".php");
+			require("templates/" . $this->template . "/" . $this->instance->master . ".phtml");
 		}
 	}
 
