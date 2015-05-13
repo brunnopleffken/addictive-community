@@ -8,14 +8,13 @@ Great to have you here! We'd love for you to contribute to our source code, so h
 - [Coding Guidelines](#coding)
 
 ## <a name="issue"></a> Issues and Bugs
-If your issue appears to be a bug, and hasn't been reported, [open a new issue](https://github.com/brunnopleffken/addictive-community/issues/new). Help us to maximize the effort we can spend fixing issues and adding new features, by not reporting duplicate issues.
-Look at [existing bugs](https://github.com/brunnopleffken/addictive-community/issues) and help us understand if "The bug is reproducible? Is it reproducible in other environments (browsers)? What are the steps to reproduce?".
+If your issue appears to be a bug, and hasn't been reported, [open a new issue](https://github.com/brunnopleffken/addictive-community/issues/new). Help us to maximize the effort we can spend fixing issues and adding new features by not reporting duplicate issues. Look at [existing bugs](https://github.com/brunnopleffken/addictive-community/issues) and help us understand if "The bug is reproducible? Is it reproducible in other environments (browsers)? What are the steps to reproduce?".
 
 
 ## <a name="translations"></a> Translations
 You can help us translate our project creating new language packs or improving existing ones here: https://github.com/brunnopleffken/addictive-community-languages.
 
-In the future you will also be able to send customized themes.
+In the future you will also be able to create customized themes.
 
 
 ## <a name="pullrequest"></a> Submitting a Pull Request
