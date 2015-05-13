@@ -51,10 +51,18 @@ class Application
 	 */
 	public function Set($name, $value)
 	{
+		// Of course, you can't name a variable as $this
 		if($name == "this") {
 			Html::Error("The provided variable name ('" . $name . "') cannot be defined.");
 			return false;
 		}
+
+		// Check if array key already exists
+		if(array_key_exists($name, $this->view_data)) {
+			Html::Error("The provided variable name <b>" . $name . "</b> already exists. Overwriting output variables is a bad practice.");
+			return false;
+		}
+
 		$this->view_data[$name] = $value;
 		return true;
 	}
