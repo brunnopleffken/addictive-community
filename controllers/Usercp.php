@@ -211,7 +211,7 @@ class Usercp extends Application
 
 		// Language list
 		$settings['lang_list'] = "";
-		$this->Db->Query("SELECT * FROM c_languages WHERE active = 1 ORDER BY name;");
+		$this->Db->Query("SELECT * FROM c_languages WHERE is_active = 1 ORDER BY name;");
 
 		while($lang = $this->Db->Fetch()) {
 			$selected = ($this->Session->member_info['language'] == $lang['directory']) ? "selected" : "";

@@ -253,7 +253,13 @@ class Main
 	 */
 	private function _GetLanguage()
 	{
-		$this->language = "en_US";
+		// Get default or member set language
+		if($this->Session->session_info['member_id']) {
+			$this->language = $this->Session->member_info['language'];
+		}
+		else {
+			$this->language = $this->Config['language_default_set'];
+		}
 
 		// Store selected language in $this->Config
 		$this->Config['language'] = $this->language;

@@ -220,4 +220,29 @@
 		case "editcss":
 			String::PR($_REQUEST);
 			break;
+
+		case "install_language":
+
+			// Get locale code
+			$code = $_REQUEST['id'];
+
+			// Get array from language JSON manifest
+			$language_info = json_decode(file_get_contents("../languages/" . $code . "/_language.json"), true);
+
+			// Insert new language into DB
+			$language = array(
+				"name"         => $language_info['name'],
+				"directory"    => $language_info['directory'],
+				"author_name"  => $language_info['author_name'],
+				"author_email" => $language_info['author_email'],
+				"is_active"    => 1,
+				"is_default"   => 0
+			);
+
+			$Db->Insert("c_languages", $language);
+
+			header("Location: " . $_SERVER['HTTP_REFERER']);
+			exit;
+
+			break;
 	}
