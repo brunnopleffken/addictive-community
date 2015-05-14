@@ -9,34 +9,68 @@
 	#  Copyright: (c) 2014 - Addictive Software
 	## ---------------------------------------------------
 
+	// List of directories
+
+	$dir_list = array();
+	$dir = scandir("../themes");
+
+	foreach($dir as $k => $v) {
+		if(!in_array($v, array(".", "..")) && is_dir("../themes/" . $v)) {
+			$dir_list[] = $v;
+		}
+	}
+
 	// List of themes
 
 	$Db->Query("SELECT * FROM c_themes ORDER BY name ASC;");
 	$themes = $Db->FetchToArray();
 
 	foreach($themes as $theme) {
-		$theme['active']  = ($theme['active'] == 1) ? "<i class='fa fa-check'></i>" : "";
+		$theme['active']  = ($theme['active'] == 1) ? "<i class='fa fa-fw fa-check'></i>" : "";
+
+		if(in_array($theme['directory'], $dir_list)) {
+			$dir_list = array_diff($dir_list, array($theme['directory']));
+		}
 
 		// Do not allow to remove default themes
 		if($theme['directory'] == $Admin->SelectConfig("theme_default_set")) {
-			$theme['default'] = "<i class='fa fa-check'></i>";
+			$theme['default'] = "<i class='fa fa-fw fa-check'></i>";
 			$theme['remove'] = "-";
 		}
 		else {
 			$theme['default'] = "";
-			$theme['remove']= "<a href='main.php?act=templates&p=theme_remove&id={$theme['theme_id']}'><i class='fa fa-remove'></i></a>";
+			$theme['remove']= "<a href='main.php?act=templates&p=theme_remove&id={$theme['theme_id']}'><i class='fa fa-fw fa-remove'></i></a>";
 		}
 
 		Template::Add("<tr>
-				<td><a href=\"main.php?act=templates&p=theme_edit&id={$theme['theme_id']}\"><b>{$theme['name']}</b></a></td>
+				<td><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><b>{$theme['name']}</b></a></td>
 				<td>/themes/{$theme['directory']}</td>
 				<td>{$theme['author_name']} ({$theme['author_email']})</td>
 				<td>{$theme['active']}</td>
 				<td>{$theme['default']}</td>
-				<td><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><i class='fa fa-pencil'></i></a></td>
-				<td><a href='main.php?act=templates&p=theme_download&id={$theme['theme_id']}'><i class='fa fa-download'></i></a></td>
+				<td><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
+				<td><a href='main.php?act=templates&p=theme_download&id={$theme['theme_id']}'><i class='fa fa-fw fa-download'></i></a></td>
 				<td>{$theme['remove']}</td>
 			</tr>");
+	}
+
+	// If there is uninstalled languages, show on list
+
+	$not_installed_languages = "";
+
+	if(!empty($dir_list)) {
+		$not_installed_languages = Html::Notification("There are theme packs available to install.", "warning");
+		foreach($dir_list as $theme) {
+			$theme_info = json_decode(file_get_contents("../themes/" . $theme . "/_theme.json"), true);
+
+			Template::Add("<tr>
+					<td style='color:#bbb'><b>{$theme_info['name']}</b></td>
+					<td style='color:#bbb'>/themes/{$theme}</td>
+					<td style='color:#bbb'>{$theme_info['author']} ({$theme_info['email']})</td>
+					<td style='color:#bbb' colspan='2'>Not installed</td>
+					<td colspan='3'><a href=''><i class='fa fa-fw fa-gears'></i></a></td>
+				</tr>");
+		}
 	}
 
 ?>
@@ -45,6 +79,7 @@
 
 	<div id="content">
 		<div class="grid-row">
+			<?php echo $not_installed_languages ?>
 			<table class="table-list">
 				<tr>
 					<th colspan="10">
