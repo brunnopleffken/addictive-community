@@ -20,11 +20,20 @@
 
 	$Db = new Database($config);
 
+	// Get security hash key
+	$Db->Query("SELECT * FROM c_config c WHERE `index` = 'security_salt_hash' OR `index` = 'security_salt_key';");
+	$_salt = $Db->FetchToArray();
+
+	$salt = array(
+		"hash" => $_salt[0]['value'],
+		"key"  => $_salt[1]['value']
+	);
+
 	// Get form information
 
 	if(Html::Request("username") && Html::Request("password")) {
 		$username = Html::Request("username");
-		$password = String::PasswordEncrypt(Html::Request("password"));
+		$password = String::PasswordEncrypt(Html::Request("password"), $salt);
 	}
 
 	$now = time();

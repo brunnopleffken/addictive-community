@@ -33,9 +33,15 @@ class Login extends Application
 	{
 		$this->layout = false;
 
+		// Hash
+		$salt = array(
+			"hash" => $this->config['security_salt_hash'],
+			"key"  => $this->config['security_salt_key']
+		);
+
 		if(Html::Request("username") && Html::Request("password")) {
 			$username = Html::Request("username");
-			$password = String::PasswordEncrypt(Html::Request("password"));
+			$password = String::PasswordEncrypt(Html::Request("password"), $salt);
 
 			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");
@@ -77,9 +83,15 @@ class Login extends Application
 	{
 		$this->layout = false;
 
+		// Hash
+		$salt = array(
+			"hash" => $this->config['security_salt_hash'],
+			"key"  => $this->config['security_salt_key']
+		);
+
 		if(Html::Request("username") && Html::Request("password")) {
 			$username = Html::Request("username");
-			$password = String::PasswordEncrypt(Html::Request("password"));
+			$password = String::PasswordEncrypt(Html::Request("password"), $salt);
 
 			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");

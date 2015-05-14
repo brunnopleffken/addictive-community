@@ -47,11 +47,17 @@ class String
 	/**
 	 * --------------------------------------------------------------------
 	 * ONE-WAY PASSWORD ENCRYPT
+	 * $salt must be an array containing [ "hash", "key" ]
 	 * --------------------------------------------------------------------
 	 */
-	public static function PasswordEncrypt($password)
+	public static function PasswordEncrypt($password, $salt = array())
 	{
-		return hash("sha512", base64_decode("Ly9hZGRpY3RpdmU=") . $password);
+		$hash = $password . $salt['hash'];
+		for($i = 0; $i < $salt['key']; $i++) {
+			$hash = hash("sha512", $password . $hash . $salt['hash']);
+		}
+
+		return $hash;
 	}
 
 	/**

@@ -139,6 +139,10 @@
 			$database = new Database($config);
 			$errors = false;
 
+			// Generate a random security hash and key
+			$salt_hash = hash("sha1", mt_rand() . microtime());
+			$salt_key  = mt_rand(1,99);
+
 			// Insert static data from data.sql
 
 			$file = "sql/data.sql";
@@ -170,6 +174,8 @@
 
 			// Insert configuration file
 
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('security_salt_hash', '{$salt_hash}');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('security_salt_key', '{$salt_key}');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_community_name', '{$community_info['community_name']}');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_community_url', '{$community_info['community_url']}');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_website_name', 'My Website');";
@@ -236,10 +242,19 @@
 			require("../config.php");
 			$database = new Database($config);
 
+			// Get security hash key
+			$Db->Query("SELECT * FROM c_config c WHERE `index` = 'security_salt_hash' OR `index` = 'security_salt_key';");
+			$_salt = $Db->FetchToArray();
+
+			$salt = array(
+				"hash" => $_salt[0]['value'],
+				"key"  => $_salt[1]['value']
+			);
+
 			// Get administrator account data
 			$admin_info = array(
 				'username' => String::Sanitize($data['admin_username']),
-				'password' => String::PasswordEncrypt($data['admin_password']),
+				'password' => String::PasswordEncrypt($data['admin_password'], $salt),
 				'email'    => String::Sanitize($data['admin_email']),
 				'joined'   => time()
 			);

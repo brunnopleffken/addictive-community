@@ -408,10 +408,16 @@ class Usercp extends Application
 	{
 		$this->layout = false;
 
+		// Hash
+		$salt = array(
+			"hash" => $this->config['security_salt_hash'],
+			"key"  => $this->config['security_salt_key']
+		);
+
 		// Get values
-		$current = String::PasswordEncrypt(Html::Request("current"));
-		$new_pass = String::PasswordEncrypt(Html::Request("new_password"));
-		$conf_pass = String::PasswordEncrypt(Html::Request("conf_password"));
+		$current = String::PasswordEncrypt(Html::Request("current"), $salt);
+		$new_pass = String::PasswordEncrypt(Html::Request("new_password"), $salt);
+		$conf_pass = String::PasswordEncrypt(Html::Request("conf_password"), $salt);
 
 		// Check if member and password matches
 		$this->Db->Query("SELECT COUNT(*) AS result FROM c_members WHERE m_id = '{$this->member_id}' AND password = '{$current}';");
