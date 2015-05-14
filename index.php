@@ -281,5 +281,3 @@ class Main
 }
 
 $main = new Main();
-
-?>
