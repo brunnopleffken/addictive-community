@@ -152,7 +152,9 @@
 		<?php foreach($related_thread_list as $k => $v): ?>
 			<div class="item">
 				<span><?php __($related_thread_list[$k]['thread_date']) ?></span>
-				<a href="thread/<?php echo $related_thread_list[$k]['t_id'] ?>"><?php __($related_thread_list[$k]['title']) ?></a>
+				<a href="thread/<?php __($related_thread_list[$k]['t_id'] . "-" . $related_thread_list[$k]['slug']) ?>">
+					<?php __($related_thread_list[$k]['title']) ?>
+				</a>
 			</div>
 		<?php endforeach; ?>
 	<?php else: ?>

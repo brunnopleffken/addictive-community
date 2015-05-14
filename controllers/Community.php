@@ -57,7 +57,8 @@ class Community extends Application
 			$visibility = "WHERE invisible <> '1'";
 		}
 
-		$rooms_result = $this->Db->Query("SELECT c_rooms.*, c_members.m_id, c_members.username, c_threads.title, c_threads.t_id,
+		$rooms_result = $this->Db->Query("SELECT c_rooms.*, c_members.m_id, c_members.username,
+				c_threads.title, c_threads.t_id, c_threads.slug,
 				(SELECT COUNT(*) FROM c_threads WHERE room_id = c_rooms.r_id) AS thread_count
 				FROM c_rooms LEFT JOIN c_members ON (c_members.m_id = c_rooms.lastpost_member)
 				LEFT JOIN c_threads ON (c_threads.t_id = c_rooms.lastpost_thread)
@@ -86,7 +87,7 @@ class Community extends Application
 			// The order of relevance is from down to up
 			if($result['read_only'] == 1) {
 				$result['icon']  = "<i class='fa fa-file-text-o fa-fw'></i>";
-				$result['title'] = "<a href='thread/{$result['t_id']}'>{$result['title']}</a>";
+				$result['title'] = "<a href='thread/{$result['t_id']}-{$result['slug']}'>{$result['title']}</a>";
 			}
 			elseif($result['password'] != "") {
 				$result['icon']  = "<i class='fa fa-lock fa-fw'></i>";
@@ -94,11 +95,11 @@ class Community extends Application
 			}
 			elseif($result['invisible'] == 1) {
 				$result['icon']  = "<i class='fa fa-user-secret fa-fw'></i>";
-				$result['title'] = "<a href='thread/{$result['t_id']}'>{$result['title']}</a>";
+				$result['title'] = "<a href='thread/{$result['t_id']}-{$result['slug']}'>{$result['title']}</a>";
 			}
 			else {
 				$result['icon']  = "<i class='fa fa-comment-o fa-fw'></i>";
-				$result['title'] = "<a href='thread/{$result['t_id']}'>{$result['title']}</a>";
+				$result['title'] = "<a href='thread/{$result['t_id']}-{$result['slug']}'>{$result['title']}</a>";
 			}
 
 			// Save result in array

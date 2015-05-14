@@ -102,7 +102,7 @@ class Profile extends Application
 	public function Posts($id)
 	{
 		// Select threads
-		$this->Db->Query("SELECT t_id, title, start_date FROM c_threads
+		$this->Db->Query("SELECT t_id, title, slug, start_date FROM c_threads
 				WHERE author_member_id = '{$id}' AND approved = '1'
 				ORDER BY start_date DESC LIMIT 5;");
 
@@ -110,7 +110,7 @@ class Profile extends Application
 			$threads['start_date'] = $this->Core->DateFormat($threads['start_date'], "long");
 			Template::Add ("<tr>
 				<td class='table-label'>{$threads['start_date']}</td>
-				<td><a href='thread/{$threads['t_id']}'>{$threads['title']}</a></td>
+				<td><a href='thread/{$threads['t_id']}-{$threads['slug']}'>{$threads['title']}</a></td>
 			</tr>");
 		}
 
@@ -118,7 +118,7 @@ class Profile extends Application
 		Template::Clean();
 
 		// Select posts
-		$this->Db->Query("SELECT p.post_date, p.post, t.t_id, t.title FROM c_posts p
+		$this->Db->Query("SELECT p.post_date, p.post, t.t_id, t.title, t.slug FROM c_posts p
 				INNER JOIN c_threads t ON (t.t_id = p.thread_id)
 				WHERE author_id = '{$id}'
 				ORDER BY post_date DESC LIMIT 5;");
@@ -127,7 +127,7 @@ class Profile extends Application
 			$posts['post_date'] = $this->Core->DateFormat($posts['post_date'], "long");
 			Template::Add("<tr>
 				<td class='table-label'>{$posts['post_date']}</td>
-				<td><a href='thread/{$posts['t_id']}'><b>{$posts['title']}</b></a></td>
+				<td><a href='thread/{$posts['t_id']}-{$posts['slug']}'><b>{$posts['title']}</b></a></td>
 			</tr>
 			<tr>
 				<td colspan='2' class='parsing' style='border-bottom: 1px solid #eee; padding: 10px 10px 20px 10px'>{$posts['post']}</td>
@@ -158,13 +158,13 @@ class Profile extends Application
 		$attachments = array();
 
 		// Instance of Upload() class
-		//$Upload = new Upload($this->Db);
+		$Upload = new Upload($this->Db);
 
 		// Select all attachments of a user
 		$this->Db->Query("SELECT * FROM c_attachments WHERE member_id = '{$id}';");
 
 		while($result = $this->Db->Fetch()) {
-			$result['icon'] = "<div class='fileIcon {$result['type']}'></div>";
+			$result['icon'] = "<div class='file-icon {$result['type']}'></div>";
 			$result['filename'] = "<a href='public/attachments/{$id}/{$result['filename']}' target='_blank'>{$result['filename']}</a>";
 			$result['type'] = $Upload->TranslateFileType($result['type']);
 			$result['size'] = String::FileSizeFormat($result['size']);

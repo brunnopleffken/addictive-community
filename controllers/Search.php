@@ -53,7 +53,7 @@ class Search extends Application
 		$keyword_highlight = explode(" ", $keyword);
 
 		// Perform database query
-		$this->Db->Query("SELECT t.t_id, t.title, m.m_id, m.username, m.email, p.author_id, p.post_date, p.post,
+		$this->Db->Query("SELECT t.t_id, t.title, t.slug, m.m_id, m.username, m.email, p.author_id, p.post_date, p.post,
 				MATCH(p.post) AGAINST ('{$keyword}') AS relevance FROM c_posts p
 				INNER JOIN c_threads t ON (p.thread_id = t.t_id)
 				INNER JOIN c_members m ON (p.author_id = m.m_id)

@@ -153,6 +153,7 @@ class Thread extends Application
 		// Insert new thread item
 		$thread = array(
 			"title"              => Html::Request("title"),
+			"slug"               => String::Slug(Html::Request("title")),
 			"author_member_id"   => $this->Session->member_info['m_id'],
 			"replies"            => 1,
 			"views"              => 0,
@@ -195,7 +196,7 @@ class Thread extends Application
 				WHERE m_id = '{$post['author_id']}';");
 
 		// Redirect
-		$this->Core->Redirect("thread/" . $post['thread_id']);
+		$this->Core->Redirect("thread/" . $post['thread_id'] . "-" . $post['slug']);
 	}
 
 	/**
