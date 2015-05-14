@@ -1040,7 +1040,7 @@ form {
 			margin-right: 10px;
 			padding: 10px;
 			width: 230px;
-			.fileIcon {
+			.file-icon {
 				color: #444;
 				display: inline-block;
 				font-family: FontAwesome;
@@ -1061,7 +1061,7 @@ form {
 				&.zip:after { content: "\F1C6"; }
 				&.blank:after { content: "\F016"; }
 			}
-			.fileName {
+			.file-name {
 				color: #000000;
 				display: inline-block;
 				font-size: 11px;

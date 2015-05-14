@@ -35,8 +35,11 @@
 				<?php if($first_post_info['attach_id'] != 0): ?>
 					<div class="file">
 						<a href="<?php printf("public/attachments/%s/%s", $first_post_info['member_id'], $first_post_info['filename']) ?>" target="_blank" rel="nofollow">
-							<span class="fileIcon <?php __($first_post_info['type']) ?>"></span>
-							<div class="fileName"><span><?php __($first_post_info['filename']) ?></span><?php __(String::FileSizeFormat($first_post_info['size'])) ?></div>
+							<span class="file-icon <?php __($first_post_info['type']) ?>"></span>
+							<div class="file-name">
+								<span><?php __($first_post_info['filename']) ?></span>
+								<?php __(String::FileSizeFormat($first_post_info['size'])) ?>
+							</div>
 						</a>
 					</div>
 				<?php endif; ?>
@@ -99,8 +102,11 @@
 							<span class="title">Attachment</span>
 							<div class="file">
 								<a href="<?php printf("public/attachments/%s/%s", $reply[$k]['member_id'], $reply[$k]['filename']) ?>" target="_blank" rel="nofollow">
-									<span class="fileIcon <?php __($reply[$k]['type']) ?>"></span>
-									<div class="fileName"><span><?php __($reply[$k]['filename']) ?></span><?php __(String::FileSizeFormat($reply[$k]['size'])) ?></div>
+									<span class="file-icon <?php __($reply[$k]['type']) ?>"></span>
+									<div class="file-name">
+										<span><?php __($reply[$k]['filename']) ?></span>
+										<?php __(String::FileSizeFormat($reply[$k]['size'])) ?>
+									</div>
 								</a>
 							</div>
 						<?php endif; ?>
