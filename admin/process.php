@@ -217,7 +217,7 @@
 
 			break;
 
-		case "editcss":
+		case "edit_css":
 			String::PR($_REQUEST);
 			break;
 

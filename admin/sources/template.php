@@ -9,7 +9,7 @@
 #  Copyright: (c) 2014 - Addictive Software
 ## ---------------------------------------------------
 
-$template['header'] = <<<HTML
+$layout['header'] = <<<HTML
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +48,7 @@ $template['header'] = <<<HTML
 HTML;
 
 
-	$template['footer'] = <<<HTML
+$layout['footer'] = <<<HTML
 	</div>
 
 	<div id="footer">

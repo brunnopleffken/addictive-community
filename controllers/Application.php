@@ -59,7 +59,10 @@ class Application
 
 		// Check if array key already exists
 		if(array_key_exists($name, $this->view_data)) {
-			Html::Error("The provided variable name <b>" . $name . "</b> already exists. Overwriting output variables is a bad practice.");
+			Html::Error(
+				"The provided variable name <b>" . $name . "</b> already exists. " .
+				"Overwriting output variables is a bad practice."
+			);
 			return false;
 		}
 
@@ -120,7 +123,10 @@ class Application
 		if($this->Session->IsMember()) {
 			// Get user avatar
 			$this->Session->member_info['avatar'] = $this->Core->GetGravatar(
-				$this->Session->member_info['email'], $this->Session->member_info['photo'], 60, $this->Session->member_info['photo_type']
+				$this->Session->member_info['email'],
+				$this->Session->member_info['photo'],
+				60,
+				$this->Session->member_info['photo_type']
 			);
 
 			// Number of new private messages

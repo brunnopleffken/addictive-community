@@ -63,7 +63,7 @@
 
 	// Get HTML header template
 
-	__($template['header']);
+	__($layout['header']);
 
 	// Get page content
 
@@ -76,7 +76,7 @@
 
 	// Get HTML footer template
 
-	__($template['footer']);
+	__($layout['footer']);
 
 	// Navigation menu template
 

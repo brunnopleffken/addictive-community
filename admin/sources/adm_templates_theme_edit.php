@@ -15,9 +15,9 @@
 
 	$Db->Query("SELECT * FROM c_themes WHERE theme_id = {$id};");
 	$themes = $Db->Fetch();
-	
+
 	// Get CSS content
-	
+
 	$content = file_get_contents("../themes/" . $themes['directory'] . "/css/main.css");
 
 ?>
@@ -27,7 +27,7 @@
 	<div id="content">
 		<?php echo Html::Notification("The Element Inspector (DevTools) of your browser is your friend. Use it to isolate specific elements or tags and view the corresponding CSS styles.", "info"); ?>
 		<div class="grid-row">
-			<form action="process.php?do=editcss" method="post">
+			<form action="process.php?do=edit_css" method="post">
 				<table class="table-list">
 					<tr>
 						<th colspan="10">

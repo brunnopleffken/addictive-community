@@ -18,10 +18,10 @@
 
 	while($group = $Db->Fetch()) {
 		if($group['g_id'] == 3) {
-			$list .= "<option value=\"{$group['g_id']}\" selected>{$group['name']}</option>";
+			$list .= "<option value='{$group['g_id']}' selected>{$group['name']}</option>";
 		}
 		else {
-			$list .= "<option value=\"{$group['g_id']}\">{$group['name']}</option>";
+			$list .= "<option value='{$group['g_id']}'>{$group['name']}</option>";
 		}
 	}
 

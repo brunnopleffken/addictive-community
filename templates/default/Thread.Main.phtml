@@ -12,16 +12,18 @@
 <div class="thread-first-post">
 	<div class="header">
 		<div class="author">
-			<a href="#"><?php __(Html::Crop($first_post_info['avatar'], 42, 42, "avatar")) ?></a>
+			<a href="profile/<?php __($first_post_info['author_id']) ?>">
+				<?php __(Html::Crop($first_post_info['avatar'], 42, 42, "avatar")) ?>
+			</a>
 			<div class="author-info">
 				<a href="profile/<?php __($first_post_info['author_id']) ?>"><?php __($first_post_info['username']) ?></a>
 				<div><?php __($first_post_info['member_title']) ?></div>
 				<div><?php __($first_post_info['posts']) ?> <?php __("T_POSTS_LOWCASE") ?></div>
 			</div>
-			<div class="fright" style="margin-top: 12px">
+			<div class="fright" style="margin-top: 11px">
 				<div class="fb-share-button" data-href="<?php echo Html::CurrentUrl() ?>" data-layout="button_count"></div>
 			</div>
-			<div class="fright" style="margin-top: 12px">
+			<div class="fright" style="margin-top: 11px; margin-right: 10px">
 				<a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
 				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 			</div>
@@ -52,7 +54,12 @@
 	<div class="footer">
 		<p class="fleft"><i class="fa fa-clock-o"></i> <?php __("T_POSTED_ON", array($first_post_info['post_date'])) ?></p>
 		<?php if($this->Session->member_info['m_id'] != 0): ?>
-			<p class="fright"><i class="fa fa-warning"></i> <a href="?module=report&amp;t_id=<?php __($thread_id) ?>" class="fancybox fancybox.ajax"><?php __("T_REPORT_ABUSE") ?></a></p>
+			<p class="fright">
+				<i class="fa fa-warning"></i>
+				<a href="report/<?php __($thread_id) ?>" class="fancybox fancybox.ajax">
+					<?php __("T_REPORT_ABUSE") ?>
+				</a>
+			</p>
 		<?php endif; ?>
 	</div>
 </div>
