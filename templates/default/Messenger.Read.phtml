@@ -22,8 +22,10 @@
 	<div class="content">
 		<div class="date"><?php __("M_SENT_ON", array($message['sent_date'])) ?></div>
 		<div class="text">
-			<span class="parsing"><?php __($message['message']) ?></span>
-			<div class="signature parsing"><?php __($message['signature']) ?></div>
+			<span><?php __($message['message']) ?></span>
+			<?php if($message['signature'] && $enable_signature == "true"): ?>
+				<div class="signature"><?php __($message['signature']) ?></div>
+			<?php endif; ?>
 		</div>
 	</div>
 </div>

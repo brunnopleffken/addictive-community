@@ -126,6 +126,7 @@ class Usercp extends Application
 		$this->Set("menu", $menu);
 		$this->Set("photo_info", $photo_info);
 		$this->Set("notification", $notification[$message_id]);
+		$this->Set("enable_upload", $this->config['general_member_enable_avatar_upload']);
 	}
 
 	/**

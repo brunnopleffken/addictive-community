@@ -174,8 +174,6 @@
 
 			// Insert configuration file
 
-			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('security_salt_hash', '{$salt_hash}');";
-			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('security_salt_key', '{$salt_key}');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_community_name', '{$community_info['community_name']}');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_community_url', '{$community_info['community_url']}');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_website_name', 'My Website');";
@@ -190,10 +188,12 @@
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('seo_description', '');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('seo_keywords', '');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('date_long_format', 'd M Y, H:i');";
-			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('date_default_offset', '0');";
-			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_posts_hot', '15');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('date_short_format', 'd M Y');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('date_default_offset', '0');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_session_expiration', '900');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_member_enable_signature', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_member_enable_avatar_upload', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_posts_hot', '15');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_posts_per_page', '10');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_best_answer_all_pages', 'false');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_obsolete', 'false');";
@@ -216,6 +216,8 @@
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_email_from_name', '');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_security_validation', 'false');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_warning_max', '5');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('security_salt_hash', '{$salt_hash}');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('security_salt_key', '{$salt_key}');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('language_bad_words', '');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('language_bad_words_replacement', '#####');";
 

@@ -46,7 +46,7 @@
 					</div>
 				<?php endif; ?>
 			</div>
-			<?php if($first_post_info['signature']): ?>
+			<?php if($first_post_info['signature'] && $enable_signature == "true"): ?>
 				<div class="signature"><?php __($first_post_info['signature']) ?></div>
 			<?php endif; ?>
 		</div>
@@ -118,7 +118,7 @@
 							</div>
 						<?php endif; ?>
 					</div>
-					<?php if($reply[$k]['signature']): ?>
+					<?php if($reply[$k]['signature'] && $enable_signature == "true"): ?>
 						<div class="signature"><?php __($reply[$k]['signature']) ?></div>
 					<?php endif; ?>
 				</div>

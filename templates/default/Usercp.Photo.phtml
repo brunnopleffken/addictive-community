@@ -22,7 +22,9 @@
 			<div class="field">
 				<input type="radio" name="photo_type" class="photoSelect" value="gravatar" <?php __($photo_info['gravatar']) ?>> Gravatar<br>
 				<input type="radio" name="photo_type" class="photoSelect" value="facebook" <?php __($photo_info['facebook']) ?>> Facebook<br>
-				<input type="radio" name="photo_type" class="photoSelect" value="custom" <?php __($photo_info['custom']) ?>> <?php __("C_PHOTO_CUSTOM") ?>
+				<?php if($enable_upload == "true"): ?>
+					<input type="radio" name="photo_type" class="photoSelect" value="custom" <?php __($photo_info['custom']) ?>> <?php __("C_PHOTO_CUSTOM") ?>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="input-box" id="gravatar" style="display: none">

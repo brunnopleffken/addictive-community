@@ -54,6 +54,7 @@ class Thread extends Application
 
 		$this->Set("thread_id", $id);
 		$this->Set("thread_info", $thread_info);
+		$this->Set("enable_signature", $this->config['general_member_enable_signature']);
 		$this->Set("first_post_info", $first_post_info);
 		$this->Set("reply", $replies);
 		$this->Set("pagination", $pagination);

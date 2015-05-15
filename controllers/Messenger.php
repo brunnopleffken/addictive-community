@@ -134,6 +134,7 @@ class Messenger extends Application
 
 		// Return variables
 		$this->Set("message", $message);
+		$this->Set("enable_signature", $this->config['general_member_enable_signature']);
 	}
 
 	/**
