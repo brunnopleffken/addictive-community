@@ -9,8 +9,21 @@
  * Copyright: (c) 2015 - Addictive Software
  */
 
+/* global $, tinymce */
+
 
 $(document).ready(function($) {
+
+	/**
+	 * ADD .is-mac WHEN USER IS VIEWING ON A DEVICE RUNNING MAC OS X
+	 */
+
+	(function() {
+		if(navigator.platform.toLowerCase().indexOf('mac') >= 0) {
+			$('body').addClass('is-mac');
+		}
+	}).call(this);
+
 	/**
 	 * REPLACE ALL REGULAR <select> FIELDS WITH A FANCY ONE
 	 */
@@ -30,7 +43,7 @@ $(document).ready(function($) {
 
 	(function() {
 		$('.navigation .subnav a').each(function() {
-			var elementUrl = new RegExp("(" + ($(this).attr('href')).replace("?", "\\?") + ")$");
+			var elementUrl = new RegExp('(' + ($(this).attr('href')).replace('?', '\\?') + ')$');
 			var browserUrl = window.location.href;
 
 			if(elementUrl.test(browserUrl)) {
@@ -59,22 +72,22 @@ $(document).ready(function($) {
 	 */
 
 	(function() {
-		if($('.photoSelect:checked').val() == "gravatar") {
+		if($('.photoSelect:checked').val() == 'gravatar') {
 			$('#gravatar').show();
-		} else if($('.photoSelect:checked').val() == "facebook") {
+		} else if($('.photoSelect:checked').val() == 'facebook') {
 			$('#facebook').show();
-		} else if($('.photoSelect:checked').val() == "custom") {
+		} else if($('.photoSelect:checked').val() == 'custom') {
 			$('#custom').show();
 		}
 
 		$('.photoSelect').on('change', function(){
 			var value = $(this).val();
 
-			if(value == "custom") {
+			if(value == 'custom') {
 				$('#gravatar').fadeOut();
 				$('#facebook').fadeOut();
 				$('#custom').delay(400).fadeIn();
-			} else if(value == "gravatar") {
+			} else if(value == 'gravatar') {
 				$('#custom').fadeOut();
 				$('#facebook').fadeOut();
 				$('#gravatar').delay(400).fadeIn();
@@ -333,7 +346,7 @@ $(document).ready(function($) {
 		ajax: {
 			url: 'messenger/get_usernames',
 			dataType: 'json',
-			type: "POST",
+			type: 'POST',
 			quietMillis: 500,
 			data: function(term) {
 				return {

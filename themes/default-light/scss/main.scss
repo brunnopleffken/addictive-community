@@ -38,7 +38,7 @@ body {
 		padding: 10px;
 	}
 
-	/** HELPERS **/
+	// HELPERS
 
 	.fleft { float: left; }
 	.fright { float: right; }
@@ -50,6 +50,16 @@ body {
 	.tiny { font-size: 11px; }
 	.min { width: 1% !important; white-space: nowrap; }
 	.no-shadow { box-shadow: none; }
+
+	// MAC ONLY DEFINITIONS
+
+	&.is-mac {
+		font-family: $fontMac;
+		form input[type=text], form input[type=password], form input[type=file], form textarea,
+		form input[type=button], form input[type=submit], form button:not([role]), .default-button {
+			font-family: $fontMac;
+		}
+	}
 }
 
 a {
