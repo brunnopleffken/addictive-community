@@ -220,7 +220,7 @@ class Main
 	public function _GetConfig()
 	{
 		$this->Db->Query("SELECT * FROM c_config;");
-		$this->Config = $this->Db->FetchArray();
+		$this->Config = $this->Db->FetchConfig();
 	}
 
 	/**

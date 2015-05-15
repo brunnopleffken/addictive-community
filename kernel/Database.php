@@ -20,7 +20,8 @@ interface IDatabase
 {
 	public function Query($query);
 	public function Fetch($result = "");
-	public function FetchArray($result = "");
+	public function FetchConfig($result = "");
+	public function FetchToArray($result = "");
 	public function Rows($result = "");
 	public function Insert($table, $array);
 	public function Update($table, $array, $where);
@@ -107,7 +108,7 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * FETCH A RESULT ROW AS AN ASSOCIATIVE/NUMERATIVE ARRAY
+	 * FETCH A RESULT ROW AS AN ASSOCIATIVE ARRAY (USED IN "WHILE" LOOPS)
 	 * --------------------------------------------------------------------
 	 */
 	public function Fetch($result = "")
@@ -125,10 +126,10 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * FETCH A RESULT ROW AS AN ASSOCIATIVE ARRAY
+	 * FETCH A RESULT ROW AS AN ASSOCIATIVE ARRAY TO BE USED IN CONFIG
 	 * --------------------------------------------------------------------
 	 */
-	public function FetchArray($result = "")
+	public function FetchConfig($result = "")
 	{
 		// If any SQL command is passed as parameter...
 		if($result == "") {
@@ -144,7 +145,7 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * FETCH A RESULT ROW AS AN ASSOCIATIVE ARRAY
+	 * FETCH A RESULT ROW AS AS A REGULAR ASSOCIATIVE ARRAY
 	 * --------------------------------------------------------------------
 	 */
 	public function FetchToArray($result = "")

@@ -45,7 +45,7 @@
 	$Db = new Database($config);
 
 	$Db->Query("SELECT * FROM c_config;");
-	$Core = new Core($Db, $Db->FetchArray());
+	$Core = new Core($Db, $Db->FetchConfig());
 	$Admin = new Admin($Db);
 
 	require_once("sources/template.php");
