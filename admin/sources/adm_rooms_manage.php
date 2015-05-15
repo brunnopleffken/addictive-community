@@ -23,6 +23,9 @@
 		case 3:
 			$message = Html::Notification("The room has been deleted successfully.", "success");
 			break;
+		case 4:
+			$message = Html::Notification("The room has been resynchronized successfully.", "success");
+			break;
 		default:
 			$message = "";
 			break;

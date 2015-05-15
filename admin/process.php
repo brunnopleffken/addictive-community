@@ -113,13 +113,11 @@
 			$Db2 = clone($Db);
 
 			// Register room exclusion in Admin log
-
 			$Db->Query("SELECT name FROM c_rooms WHERE r_id = {$r_id}");
 			$room = $Db->Fetch();
 			$Admin->RegisterLog("Deleted room: " . $room['name']);
 
 			// Delete all related posts
-
 			$Db->Query("SELECT t_id FROM c_threads WHERE room_id = '{$r_id}';");
 
 			while($threads = $Db->Fetch()) {
@@ -127,7 +125,6 @@
 			}
 
 			// Delete threads and room itself
-
 			$Db->Query("DELETE FROM c_threads WHERE room_id = '{$r_id}';");
 			$Db->Query("DELETE FROM c_rooms WHERE r_id = '{$r_id}';");
 
@@ -136,28 +133,39 @@
 
 			break;
 
-		case "resyncroom":
+		case "resync_room":
 
-			$r_id = Html::Request("r_id");
+			$id = Html::Request("r_id");
 
-			echo $r_id . "<br><br>";
+			// Clone Database class for secondary tasks
+			$Db2 = clone($Db);
 
-			$sql->Query("SELECT * FROM c_threads WHERE room_id = '{$r_id}';");
-			$num_threads = $Db->NumRows();
+			// Count and update number of threads
+			$Db->Query("SELECT t_id FROM c_threads WHERE room_id = '{$id}';");
+			$num_threads = $Db->Rows();
+			$Db2->Query("UPDATE c_rooms SET threads = {$num_threads} WHERE r_id = {$id};");
 
-			print_r($num_threads);
-			/*
-			while($threads = $sql->Fetch())
-			{
-				$sql->
+			// Iterate between threads
+			while($thread = $Db->Fetch()) {
+				// Count and update number of replies
+				$Db2->Query("SELECT COUNT(*) AS total FROM c_posts WHERE thread_id = {$thread['t_id']}; ");
+				$posts = $Db2->Fetch();
+				$Db2->Query("UPDATE c_threads SET replies = {$posts['total']} WHERE t_id = {$thread['t_id']};");
+
+				// Get and update last post info
+				$Db2->Query("SELECT p.author_id, p.post_date FROM c_posts p
+						LEFT JOIN c_members m ON (p.author_id = m.m_id)
+						WHERE p.thread_id = {$thread['t_id']}
+						ORDER BY p.post_date DESC LIMIT 1");
+
+				$last_post = $Db2->Fetch();
+				$Db2->Query("UPDATE c_threads
+						SET lastpost_date = {$last_post['post_date']}, lastpost_member_id = {$last_post['author_id']}
+						WHERE t_id = {$thread['t_id']};");
 			}
-			*/
-			echo "<br><br>";
 
-
-
-			//header("Location: main.php?act=rooms&p=manage&msg=3");
-			//exit;
+			header("Location: main.php?act=rooms&p=manage&msg=4");
+			exit;
 
 			break;
 
