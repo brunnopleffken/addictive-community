@@ -57,9 +57,9 @@
 <body onload="javascript:autofocus('username')">
 
 	<div id="topbar">
-			<div class="fleft"><a href="http://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">Addictive Community</a></div>
-			<div class="fright"><a href="../" target="_blank" class="toplinks transition">Back to Community &raquo;</a></div>
-			<div class="fix"></div>
+		<div class="fleft"><a href="http://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">Addictive Community</a></div>
+		<div class="fright"><a href="../" target="_blank" class="toplinks transition">Back to Community &raquo;</a></div>
+		<div class="fix"></div>
 	</div>
 
 	<div id="login-wrapper">
@@ -88,7 +88,6 @@
 			</div>
 		</div>
 	</div>
-
 
 </body>
 </html>

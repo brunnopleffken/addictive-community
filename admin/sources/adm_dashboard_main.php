@@ -60,19 +60,6 @@
 
 ?>
 
-	<script type="text/javascript">
-
-		function DeleteReport(id, thread) {
-			if(confirm("Are you sure you want to delete the report ID #" + id + "?\nThis action is permanent and cannot be undone.")) {
-				location.href = "process.php?do=deletereport&report=" + id + "&thread=" + thread;
-			}
-			else {
-				return false;
-			}
-		}
-
-	</script>
-
 	<h1>Dashboard</h1>
 
 	<div id="content">

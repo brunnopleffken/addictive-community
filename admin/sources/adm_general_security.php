@@ -39,8 +39,7 @@
 					
 					<tr>
 						<td class="title-fixed">Require e-mail validation<span class="title-desc">You <strong>must</strong> configure your <a href="main.php?act=general&p=email">E-mail (SMTP) settings</a>, otherwise you will not be able to send e-mails.</span></td>
-						<td><label><?php echo $Admin->SelectCheckbox("general_security_validation") ?> Send validation e-mail to new members.</label><br>
-						<em></em></td>
+						<td><label><?php echo $Admin->SelectCheckbox("general_security_validation") ?> Send validation e-mail to new members.</label></td>
 					</tr>
 				</table>
 			
