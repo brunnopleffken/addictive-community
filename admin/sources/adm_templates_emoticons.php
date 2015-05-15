@@ -14,13 +14,19 @@
 	$Db->Query("SELECT * FROM c_emoticons ORDER BY filename;");
 
 	while($emoticon = $Db->Fetch()) {
+		if($emoticon['display']) {
+			$disable = "<a href='process.php?do=disable_emoticon&id={$emoticon['id']}'><i class='fa fa-ban'></i></a>";
+		}
+		else {
+			$disable = "<a href='process.php?do=enable_emoticon&id={$emoticon['id']}'><i class='fa fa-check'></i></a>";
+		}
+		
 		Template::Add("<tr>
 				<td>{$emoticon['filename']}</td>
 				<td>{$emoticon['shortcut']}</td>
 				<td><img src='../public/emoticons/default/{$emoticon['filename']}' width='16'></td>
 				<td>" . $Admin->FriendlyBool($emoticon['display']) . "</td>
-				<td><a href=''><i class='fa fa-pencil'></i></a></td>
-				<td><a href=''><i class='fa fa-close'></i></a></td>
+				<td style='text-align:center'>{$disable}</td>
 			</tr>");
 	}
 
@@ -33,7 +39,7 @@
 			<table class="table-list">
 				<tr>
 					<th colspan="10">
-						<div class="fleft">List of bad words</div>
+						<div class="fleft">List of emoticons</div>
 					</th>
 				</tr>
 				<tr class="subtitle">
@@ -41,12 +47,12 @@
 					<td>Shortcut</td>
 					<td>Image</td>
 					<td>Active</td>
-					<td class="min">Edit</td>
-					<td class="min">Delete</td>
+					<td class="min">Enable/Disable</td>
 				</tr>
 				<?php echo Template::Get() ?>
 			</table>
 		</div>
+		<!--
 		<div class="grid-row">
 			<table class="table-list">
 				<tr>
@@ -59,7 +65,7 @@
 					<td><input type="file" name=""></td>
 				</tr>
 				<tr>
-					<td class="title-fixed">Shortcut <span class="title-desc">Be careful! All occourences of the word will be replaced by ":)".</span></td>
+					<td class="title-fixed">Shortcut <span class="title-desc">Be careful! All occourences of the word will be replaced by an image.</span></td>
 					<td><input type="text" name="" class="medium"></td>
 				</tr>
 				<tr>
@@ -68,4 +74,5 @@
 				</tr>
 			</table>
 		</div>
+		-->
 	</div>

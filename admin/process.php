@@ -267,4 +267,30 @@
 			exit;
 
 			break;
+
+		case "disable_emoticon":
+
+			// Get emoticon ID
+			$id = $_REQUEST['id'];
+
+			// Disable emoticon
+			$Db->Query("UPDATE c_emoticons SET display = 0 WHERE id = {$id};");
+
+			header("Location: " . $_SERVER['HTTP_REFERER']);
+			exit;
+
+			break;
+
+		case "enable_emoticon":
+
+			// Get emoticon ID
+			$id = $_REQUEST['id'];
+
+			// Disable emoticon
+			$Db->Query("UPDATE c_emoticons SET display = 1 WHERE id = {$id};");
+
+			header("Location: " . $_SERVER['HTTP_REFERER']);
+			exit;
+
+			break;
 	}
