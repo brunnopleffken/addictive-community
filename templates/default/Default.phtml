@@ -96,24 +96,32 @@
 							<?php endforeach; ?>
 						</div>
 					</div>
-					<div class="sidebar-item">
-						<div class="title"><?php __("SIDEBAR_MEMBERS_ONLINE") ?></div>
-						<div class="text">
-							<span class="subtitle"><?php __("SIDEBAR_MEMBER_COUNT", array($member_count)) ?></span>
-							<div class="online-list"><?php echo $member_list ?></div>
-							<span class="subtitle" style="margin-top: 10px"><?php __("SIDEBAR_GUEST_COUNT", array($guests_count)) ?></span>
+					<?php if($show_members_online == "true"): ?>
+						<div class="sidebar-item">
+							<div class="title"><?php __("SIDEBAR_MEMBERS_ONLINE") ?></div>
+							<div class="text">
+								<span class="subtitle"><?php __("SIDEBAR_MEMBER_COUNT", array($member_count)) ?></span>
+								<div class="online-list"><?php echo $member_list ?></div>
+								<span class="subtitle" style="margin-top: 10px"><?php __("SIDEBAR_GUEST_COUNT", array($guests_count)) ?></span>
+							</div>
 						</div>
-					</div>
-					<div class="sidebar-item">
-						<div class="title"><?php __("SIDEBAR_STATISTICS") ?></div>
-						<div class="text">
-							<span class="stats-name fleft"><?php __("SIDEBAR_S_THREADS") ?></span><b class="fright"><?php echo $stats['threads'] ?></b><br>
-							<span class="stats-name fleft"><?php __("SIDEBAR_S_REPLIES") ?></span><b class="fright"><?php echo $stats['replies'] ?></b><br>
-							<span class="stats-name fleft"><?php __("SIDEBAR_S_MEMBERS") ?></span><b class="fright"><?php echo $stats['members'] ?></b><br>
-							<span class="stats-name fleft"><?php __("SIDEBAR_S_LAST") ?></span><b class="fright"><a href="profile/<?php echo $stats['lastmemberid'] ?>"><?php echo $stats['lastmembername'] ?></a></b>
-							<div class="fix"></div>
+					<?php endif; ?>
+					<?php if($show_statistics == "true"): ?>
+						<div class="sidebar-item">
+							<div class="title"><?php __("SIDEBAR_STATISTICS") ?></div>
+							<div class="text">
+								<span class="stats-name fleft"><?php __("SIDEBAR_S_THREADS") ?></span>
+								<b class="fright"><?php echo $stats['threads'] ?></b><br>
+								<span class="stats-name fleft"><?php __("SIDEBAR_S_REPLIES") ?></span>
+								<b class="fright"><?php echo $stats['replies'] ?></b><br>
+								<span class="stats-name fleft"><?php __("SIDEBAR_S_MEMBERS") ?></span>
+								<b class="fright"><?php echo $stats['members'] ?></b><br>
+								<span class="stats-name fleft"><?php __("SIDEBAR_S_LAST") ?></span>
+								<b class="fright"><a href="profile/<?php echo $stats['lastmemberid'] ?>"><?php echo $stats['lastmembername'] ?></a></b>
+								<div class="fix"></div>
+							</div>
 						</div>
-					</div>
+					<?php endif; ?>
 				</div>
 			</div>
 			<div class="content">

@@ -110,6 +110,8 @@ class Application
 		$this->Set("meta_keywords", $this->config['seo_keywords']);
 		$this->Set("website_name", $this->config['general_website_name']);
 		$this->Set("website_url", $this->config['general_website_url']);
+		$this->Set("show_members_online", $this->config['general_sidebar_online']);
+		$this->Set("show_statistics", $this->config['general_sidebar_stats']);
 	}
 
 	/**
