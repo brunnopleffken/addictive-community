@@ -66,6 +66,23 @@ class Admin
 
 	/**
 	 * --------------------------------------------------------------------
+	 * IF 1, THEN CHECKBOX IS CHECKED, OTHERWISE SHOW IT UNCHECKED
+	 * --------------------------------------------------------------------
+	 */
+	public function BooleanCheckbox($field_name, $field_value)
+	{
+		if($field_value == 1 or $field_value == "true") {
+			$str = "<input type=\"hidden\" name=\"{$field_name}\" value=\"false\"><input type=\"checkbox\" name=\"{$field_name}\" value=\"true\" checked>";
+		}
+		else {
+			$str = "<input type=\"hidden\" name=\"{$field_name}\" value=\"false\"><input type=\"checkbox\" name=\"{$field_name}\" value=\"true\">";
+		}
+
+		return $str;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * UPDATE CONFIGURATION TABLE
 	 * FORMAT $config['index'] = "value" MUST BE USED!
 	 * --------------------------------------------------------------------
