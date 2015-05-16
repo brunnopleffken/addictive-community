@@ -75,6 +75,11 @@ class Thread extends Application
 				INNER JOIN c_rooms r ON (t.room_id = r.r_id) WHERE t_id = {$id};");
 		$thread_info = $this->Db->Fetch();
 
+		// Page info
+		$page_info['title'] = i18n::Translate("P_ADD_REPLY") . ": " . $thread_info['title'];
+		$page_info['bc'] = array($thread_info['name'], i18n::Translate("P_ADD_REPLY") . ": " . $thread_info['title']);
+		$this->Set("page_info", $page_info);
+
 		// Return variables
 		$this->Set("thread_id", $id);
 		$this->Set("thread_info", $thread_info);
@@ -90,6 +95,11 @@ class Thread extends Application
 	{
 		$this->Db->Query("SELECT r_id, name, upload FROM c_rooms WHERE r_id = {$room_id};");
 		$room_info = $this->Db->Fetch();
+
+		// Page info
+		$page_info['title'] = i18n::Translate("P_NEW_THREAD") . ": " . $room_info['name'];
+		$page_info['bc'] = array($room_info['name'], i18n::Translate("P_NEW_THREAD"));
+		$this->Set("page_info", $page_info);
 
 		// Return variables
 		$this->Set("room_info", $room_info);
@@ -269,7 +279,7 @@ class Thread extends Application
 	 * RETURNS AN ARRAY OF BADWORDS
 	 * --------------------------------------------------------------------
 	 */
-	public function _FilterBadWords($text)
+	private function _FilterBadWords($text)
 	{
 		if($this->config['language_bad_words'] != "") {
 			$bad_words = explode("\n", $this->config['language_bad_words']);
