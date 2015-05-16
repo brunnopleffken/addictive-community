@@ -68,13 +68,14 @@ class Thread extends Application
 	 */
 	public function Reply($id)
 	{
-		$this->Db->Query("SELECT t.t_id, t.title, r.r_id, r.name FROM c_threads t
+		$this->Db->Query("SELECT t.t_id, t.title, r.r_id, r.name, r.upload FROM c_threads t
 				INNER JOIN c_rooms r ON (t.room_id = r.r_id) WHERE t_id = {$id};");
 		$thread_info = $this->Db->Fetch();
 
 		// Return variables
 		$this->Set("thread_id", $id);
 		$this->Set("thread_info", $thread_info);
+		$this->Set("allow_uploads", $thread_info['upload']);
 	}
 
 	/**
@@ -84,11 +85,12 @@ class Thread extends Application
 	 */
 	public function Add($room_id)
 	{
-		$this->Db->Query("SELECT r_id, name FROM c_rooms WHERE r_id = {$room_id};");
+		$this->Db->Query("SELECT r_id, name, upload FROM c_rooms WHERE r_id = {$room_id};");
 		$room_info = $this->Db->Fetch();
 
 		// Return variables
 		$this->Set("room_info", $room_info);
+		$this->Set("allow_uploads", $room_info['upload']);
 	}
 
 	/**

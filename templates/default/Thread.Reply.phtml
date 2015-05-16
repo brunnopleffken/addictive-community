@@ -13,10 +13,12 @@
 				<textarea name="post" id="post" class="full" rows="12"></textarea>
 			</div>
 		</div>
-		<div class="input-box">
-			<div class="label"><?php __("P_ATTACHMENTS") ?></div>
-			<div class="field"><input type="file" name="attachment"></div>
-		</div>
+		<?php if($allow_uploads): ?>
+			<div class="input-box">
+				<div class="label"><?php __("P_ATTACHMENTS") ?></div>
+				<div class="field"><input type="file" name="attachment"></div>
+			</div>
+		<?php endif; ?>
 		<div class="fleft">
 			<div class="error-message"><?php __("P_ERROR") ?></div>
 		</div>

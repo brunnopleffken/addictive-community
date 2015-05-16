@@ -17,10 +17,12 @@
 				<textarea name="post" id="post" class="full" rows="12"></textarea>
 			</div>
 		</div>
-		<div class="input-box">
-			<div class="label"><?php __("T_NEW_ATTACHMENTS") ?></div>
-			<div class="field"><input type="file" name="attachment"></div>
-		</div>
+		<?php if($allow_uploads): ?>
+			<div class="input-box">
+				<div class="label"><?php __("T_NEW_ATTACHMENTS") ?></div>
+				<div class="field"><input type="file" name="attachment"></div>
+			</div>
+		<?php endif; ?>
 		<?php if($member_info['usergroup'] == 1 || $member_info['usergroup'] == 2): ?>
 			<div class="input-box">
 				<div class="label"><?php __("T_NEW_OPTIONS") ?></div>
