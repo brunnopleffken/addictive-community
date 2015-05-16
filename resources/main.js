@@ -123,6 +123,16 @@ $(document).ready(function($) {
 					$(this).removeClass('error');
 				}
 			});
+			
+			// Validate TinyMCE textarea
+			
+			if(tinymce.get('post').getContent() == "") {
+				$('.mce-edit-area').addClass('error');
+				stopSend = true;
+			}
+			else {
+				$('.mce-edit-area').removeClass('error');
+			}
 
 			// Is the URL valid?
 
@@ -213,7 +223,6 @@ $(document).ready(function($) {
 	(function() {
 		$('input[type=file]').each(function() {
 			var $field = $(this);
-			console.log($field);
 
 			// Hide input[file] field
 			$field.hide();
