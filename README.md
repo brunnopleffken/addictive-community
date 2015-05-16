@@ -1,7 +1,7 @@
 Addictive Community
 ===================
 
-Free discussion forum software, written in object-oriented PHP. We're almost ready to release our first Beta version! Meanwhile, run `git clone`, read our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md) and be part of it.
+Free open-source discussion board (forum) software, written in object-oriented PHP. We're almost ready to release our first Beta version! Meanwhile, run `git clone`, read our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md) and be part of it.
 
 ![Addictive Community](https://raw.githubusercontent.com/brunnopleffken/addictive-community/3fd1ec6003d1bcb647dc1e36a89dd0506b81a5f1/templates/default/images/screenshot.png)
 
@@ -14,7 +14,7 @@ Free discussion forum software, written in object-oriented PHP. We're almost rea
 * Built-in mobile support;
 * API extension system for third-party tools and add-ins;
 * Integrated database maintenance tools;
-* Themes and languages customization;
+* Third-party themes and languages packs;
 * Built-in Search Engine Optimization (SEO) tools;
 * RSS syndication;
 * And much more!
@@ -22,8 +22,8 @@ Free discussion forum software, written in object-oriented PHP. We're almost rea
 ## Installing ##
 
 1. Download the latest version of Addictive Community. Upload all the files contained in this archive (retaining the directory structure).
-2. Change the following files/folders permissions to read and write (CHMOD 777 or -rwxrwxrwx): `config.php`, `/install`, `/public/attachments` and `/public/avatar`.
-3. Run your Addictive Community (e.g. http://www.mywebsite.com/forum). You should be redirected to the installer (if not, read below). Please, have the login data of the MySQL server (host server, username and password), as well as the database name.
+2. Change the following files/directories permissions to read and write (CHMOD 777 or -rwxrwxrwx): `config.php`, `/install`, `/public/attachments` and `/public/avatar`.
+3. Run your Addictive Community (e.g. http://www.mywebsite.com/forum). You should be redirected to the installer (if not, read the note below). Please, have the login data of the MySQL server (host server, username and password), as well as the database name.
 4. Follow the steps and wait until the installer gets your community ready.
 5. Enjoy your fresh install of Addictive Community!
 
@@ -37,7 +37,7 @@ Free discussion forum software, written in object-oriented PHP. We're almost rea
 
 ## Contribute
 
-We're glad you're interested to help develop Addictive Community to grow. Be part of it reading our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md).
+We're glad you're interested to help develop Addictive Community. Be part of it reading our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md).
 
 ## About the Author ##
 
