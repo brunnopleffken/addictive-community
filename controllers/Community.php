@@ -67,6 +67,14 @@ class Community extends Application
 		// Process data
 
 		while($result = $this->Db->Fetch($rooms_result)) {
+			$Db = clone($this->Db);
+
+			// Get number of users online
+			$Db->Query("SELECT COUNT(*) AS total FROM c_sessions
+					WHERE location_type IN ('room', 'thread') AND location_room_id = {$result['r_id']};");
+
+			$result['online'] = $Db->Fetch();
+
 			// If last post timestamp is not zero / no posts
 			if($result['lastpost_date'] > 0) {
 				$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
@@ -74,7 +82,7 @@ class Community extends Application
 			else {
 				$result['lastpost_date'] = "---";
 			}
-			
+
 			// If thread and/or last poster username is empty, show dashes instead
 			if($result['title'] == null) {
 				$result['title'] = "---";

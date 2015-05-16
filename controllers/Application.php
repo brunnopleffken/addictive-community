@@ -179,7 +179,8 @@ class Application
 				ORDER BY s.activity_time DESC;");
 
 		while($members = $this->Db->Fetch($members_online)) {
-			$online[] = "<a href='profile/{$members['member_id']}'>{$members['username']}</a>";
+			$viewing = i18n::Translate("SIDEBAR_MEMBER_VIEWING") . ": " . ucwords($members['location_type']);
+			$online[] = "<a href='profile/{$members['member_id']}' title='{$viewing}'>{$members['username']}</a>";
 		}
 
 		$member_count = count($online);

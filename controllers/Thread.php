@@ -22,6 +22,9 @@ class Thread extends Application
 	{
 		// Get thread information
 		$thread_info = $this->_GetThreadInfo($id);
+		
+		// Update session table with room ID
+		$this->_UpdateSessionTable($thread_info);
 
 		// Avoid page navigation from incrementing visit counter
 		$_SERVER['HTTP_REFERER'] = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : false;
@@ -211,7 +214,8 @@ class Thread extends Application
 	private function _GetThreadInfo($id)
 	{
 		// Select thread info from database
-		$thread = $this->Db->Query("SELECT t.title, t.author_member_id, t.locked, t.lastpost_date, r.r_id, r.name, r.perm_view, r.perm_reply,
+		$thread = $this->Db->Query("SELECT t.title, t.room_id, t.author_member_id, t.locked, t.lastpost_date,
+				r.r_id, r.name, r.perm_view, r.perm_reply,
 				(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t
 				INNER JOIN c_rooms r ON (r.r_id = t.room_id) WHERE t.t_id = '{$id}';");
 		$thread_info = $this->Db->Fetch($thread);
@@ -251,6 +255,13 @@ class Thread extends Application
 		}
 
 		return $thread_info;
+	}
+	
+	private function _UpdateSessionTable($thread_info)
+	{
+		// Update session table with room ID
+		$session = $this->Session->session_id;
+		$this->Db->Query("UPDATE c_sessions SET location_room_id = {$thread_info['room_id']} WHERE s_id = '{$session}';");
 	}
 
 	/**

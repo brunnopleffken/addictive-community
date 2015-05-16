@@ -15,6 +15,19 @@ class Room extends Application
 {
 	/**
 	 * --------------------------------------------------------------------
+	 * RUN BEFORE MAIN()
+	 * --------------------------------------------------------------------
+	 */
+	public function _beforeFilter()
+	{
+		// Update session table with room ID
+		$id = Html::Request("id");
+		$session = $this->Session->session_id;
+		$this->Db->Query("UPDATE c_sessions SET location_room_id = {$id} WHERE s_id = '{$session}';");
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * VIEW ROOM (THREAD LIST)
 	 * --------------------------------------------------------------------
 	 */

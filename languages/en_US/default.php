@@ -14,6 +14,7 @@
 	$t["SIDEBAR_ROOMS"] = "Rooms";
 	$t["SIDEBAR_MEMBERS_ONLINE"] = "Members Online";
 	$t["SIDEBAR_MEMBER_COUNT"] = "Members (%d)";
+	$t["SIDEBAR_MEMBER_VIEWING"] = "Viewing";
 	$t["SIDEBAR_GUEST_COUNT"] = "Guests (%d)";
 	$t["SIDEBAR_STATISTICS"] = "Statistics";
 	$t["SIDEBAR_S_THREADS"] = "Threads";
