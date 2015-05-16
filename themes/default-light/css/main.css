@@ -232,6 +232,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-related .item a { display: inline-block; font-weight: bold; margin-left: 15px; }
 
 .thread-first-post .attachments, .thread-post-reply .attachments { overflow: hidden; }
+.thread-first-post .attachments a:hover, .thread-post-reply .attachments a:hover { text-decoration: none; }
 .thread-first-post .attachments .title, .thread-post-reply .attachments .title { color: #777; display: block; font-size: 10px; margin-left: 2px; margin-top: 20px; text-transform: uppercase; }
 .thread-first-post .attachments .file, .thread-post-reply .attachments .file { border: 1px dotted #eee; float: left; margin-right: 10px; padding: 10px; width: 230px; }
 .thread-first-post .attachments .file .file-icon, .thread-post-reply .attachments .file .file-icon { color: #444; display: inline-block; font-family: FontAwesome; font-size: 40px; margin: 8px 8px 8px 0; text-align: center; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1); vertical-align: middle; }

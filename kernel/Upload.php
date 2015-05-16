@@ -54,8 +54,11 @@ class Upload
 	public function Attachment($file, $member, $folder = "public/attachments/")
 	{
 		if(is_array($file) && $file['name'] != "") {
+			// Get timestamp
+			$timestamp = time();
+
 			// Full path
-			$full_path = $folder . $member . "/";
+			$full_path = $folder . $member . "/" . $timestamp . "/";
 			if(!is_dir($full_path)) {
 				mkdir($full_path, 0777);
 			}

@@ -32,11 +32,11 @@
 	<div>
 		<p class="title"><?php __($first_post_info['title']) ?></p>
 		<div class="text">
-			<span><?php __($first_post_info['post']) ?></span>
+			<div><?php __($first_post_info['post']) ?></div>
 			<div class="attachments">
 				<?php if($first_post_info['attach_id'] != 0): ?>
 					<div class="file">
-						<a href="<?php printf("public/attachments/%s/%s", $first_post_info['member_id'], $first_post_info['filename']) ?>" target="_blank" rel="nofollow">
+						<a href="<?php __($first_post_info['attachment_link']) ?>" target="_blank" rel="nofollow">
 							<span class="file-icon <?php __($first_post_info['type']) ?>"></span>
 							<div class="file-name">
 								<span><?php __($first_post_info['filename']) ?></span>
@@ -103,12 +103,12 @@
 			<div class="content">
 				<div class="date"><?php __("T_POSTED_ON", array($reply[$k]['post_date'])) ?> <?php __($reply[$k]['edited']) ?></div>
 				<div class="text">
-					<span><?php __(html_entity_decode($reply[$k]['post'])) ?></span>
+					<div><?php __(html_entity_decode($reply[$k]['post'])) ?></div>
 					<div class="attachments">
 						<?php if($reply[$k]['attach_id'] != 0): ?>
 							<span class="title">Attachment</span>
 							<div class="file">
-								<a href="<?php printf("public/attachments/%s/%s", $reply[$k]['member_id'], $reply[$k]['filename']) ?>" target="_blank" rel="nofollow">
+								<a href="<?php __($reply[$k]['attachment_link']) ?>" target="_blank" rel="nofollow">
 									<span class="file-icon <?php __($reply[$k]['type']) ?>"></span>
 									<div class="file-name">
 										<span><?php __($reply[$k]['filename']) ?></span>

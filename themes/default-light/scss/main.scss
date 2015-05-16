@@ -1036,6 +1036,7 @@ form {
 .thread-first-post, .thread-post-reply {
 	.attachments {
 		overflow: hidden;
+		a:hover { text-decoration: none; }
 		.title {
 			color: #777;
 			display: block;

@@ -22,7 +22,7 @@ class Thread extends Application
 	{
 		// Get thread information
 		$thread_info = $this->_GetThreadInfo($id);
-		
+
 		// Update session table with room ID
 		$this->_UpdateSessionTable($thread_info);
 
@@ -212,7 +212,7 @@ class Thread extends Application
 				WHERE m_id = '{$post['author_id']}';");
 
 		// Redirect
-		$this->Core->Redirect("thread/" . $post['thread_id'] . "-" . $post['slug']);
+		$this->Core->Redirect("thread/" . $post['thread_id'] . "-" . $thread['slug']);
 	}
 
 	/**
@@ -266,7 +266,7 @@ class Thread extends Application
 
 		return $thread_info;
 	}
-	
+
 	private function _UpdateSessionTable($thread_info)
 	{
 		// Update session table with room ID
@@ -321,6 +321,11 @@ class Thread extends Application
 		// Get emoticons
 		$first_post_info['post'] = $this->Core->ParseEmoticons($first_post_info['post'], $emoticons);
 
+		// Get attachment link, if there is one
+		if($first_post_info['attach_id'] != 0) {
+			$first_post_info['attachment_link'] = $this->_GetAttachment($first_post_info);
+		}
+
 		return $first_post_info;
 	}
 
@@ -353,6 +358,11 @@ class Thread extends Application
 
 			// Get emoticons
 			$result['post'] = $this->Core->ParseEmoticons($result['post'], $emoticons);
+
+			// Get attachment link, if there is one
+			if($result['attach_id'] != 0) {
+				$result['attachment_link'] = $this->_GetAttachment($result);
+			}
 
 			// Show label if post was edited
 			if(isset($result['edited'])) {
@@ -389,6 +399,20 @@ class Thread extends Application
 		}
 
 		return $reply_result;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * GET ATTACHMENT LINK
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetAttachment($post_info) {
+		return sprintf(
+			"public/attachments/%s/%s/%s",
+			$post_info['member_id'],
+			$post_info['date'],
+			$post_info['filename']
+		);
 	}
 
 	/**
