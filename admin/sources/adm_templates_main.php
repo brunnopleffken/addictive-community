@@ -12,7 +12,7 @@
 ?>
 
 	<h1>Templates Settings</h1>
-	
+
 	<div id="content">
 		<?php echo Html::Notification("<b>Themes</b> are packages of CSS styles and image files, this is where you go if you want to change the colors and foreground/background images. <b>Templates</b> are HTML and front-end PHP files and variables (the page structure).", "info") ?>
 		<div class="grid-row">

@@ -20,7 +20,7 @@
 		else {
 			$disable = "<a href='process.php?do=enable_emoticon&id={$emoticon['id']}'><i class='fa fa-check'></i></a>";
 		}
-		
+
 		Template::Add("<tr>
 				<td>{$emoticon['filename']}</td>
 				<td>{$emoticon['shortcut']}</td>
@@ -39,7 +39,7 @@
 			<table class="table-list">
 				<tr>
 					<th colspan="10">
-						<div class="fleft">List of emoticons</div>
+						<div class="fleft">List of Emoticons</div>
 					</th>
 				</tr>
 				<tr class="subtitle">

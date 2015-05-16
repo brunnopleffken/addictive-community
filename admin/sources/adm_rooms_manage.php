@@ -38,15 +38,14 @@
 	while($room = $Db->Fetch()) {
 		Template::Add("
 			<tr>
-			<td class='min'><input type='checkbox' name='check' value='{$room['r_id']}'></td>
-			<td>
-				<b>{$room['name']}</b><br>
-				{$room['description']}
-			</td>
-			<td class='min'><a href='main.php?act=rooms&p=edit&id={$room['r_id']}' title='Edit'><i class='fa fa-pencil'></i></a></td>
-			<td class='min'><a href='main.php?act=rooms&p=delete&id={$room['r_id']}' title='Delete'><i class='fa fa-remove'></i></a></td>
-			<td class='min'><a href='main.php?act=rooms&p=resync&id={$room['r_id']}' title='Resynchronize'><i class='fa fa-refresh'></i></a></td>
-		</tr>
+				<td>
+					<b style='font-size:15px'>{$room['name']}</b><br>
+					{$room['description']}
+				</td>
+				<td class='min'><a href='main.php?act=rooms&p=edit&id={$room['r_id']}' title='Edit'><i class='fa fa-pencil'></i></a></td>
+				<td class='min'><a href='main.php?act=rooms&p=delete&id={$room['r_id']}' title='Delete'><i class='fa fa-remove'></i></a></td>
+				<td class='min'><a href='main.php?act=rooms&p=resync&id={$room['r_id']}' title='Resynchronize'><i class='fa fa-refresh'></i></a></td>
+			</tr>
 		");
 	}
 
@@ -70,9 +69,10 @@
 						</th>
 					</tr>
 					<tr class="subtitle">
-						<td class="min"></td>
 						<td>Room</td>
-						<td colspan="3">Options</td>
+						<td>Edit</td>
+						<td>Delete</td>
+						<td>Resync</td>
 					</tr>
 					<?php echo Template::Get(); ?>
 				</table>

@@ -31,8 +31,8 @@
 
 		Template::Add("<tr>
 				<td><b>{$group['name']}</b></td>
-				<td><i class='fa fa-pencil'></i></td>
-				<td>{$delete}</td>
+				<td class='min'><i class='fa fa-pencil'></i></td>
+				<td class='min'>{$delete}</td>
 			</tr>");
 	}
 
@@ -53,8 +53,8 @@
 					</tr>
 					<tr class="subtitle">
 						<td>Name</td>
-						<td width="1%"></td>
-						<td width="1%"></td>
+						<td width="1%">Edit</td>
+						<td width="1%">Delete</td>
 					</tr>
 					<?php echo Template::Get() ?>
 				</table>

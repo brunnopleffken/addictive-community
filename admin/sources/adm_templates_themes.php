@@ -42,15 +42,21 @@
 			$theme['remove']= "<a href='main.php?act=templates&p=theme_remove&id={$theme['theme_id']}'><i class='fa fa-fw fa-remove'></i></a>";
 		}
 
+		// Never allow to remove English language pack
+		// We use English language as fallback in case of faulty i18n packs
+		if($theme['directory'] == "en_US") {
+			$theme['remove'] = "-";
+		}
+
 		Template::Add("<tr>
 				<td><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><b>{$theme['name']}</b></a></td>
 				<td>/themes/{$theme['directory']}</td>
 				<td>{$theme['author_name']} ({$theme['author_email']})</td>
-				<td>{$theme['active']}</td>
-				<td>{$theme['default']}</td>
-				<td><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
-				<td><a href='main.php?act=templates&p=theme_download&id={$theme['theme_id']}'><i class='fa fa-fw fa-download'></i></a></td>
-				<td>{$theme['remove']}</td>
+				<td class='min'>{$theme['active']}</td>
+				<td class='min'>{$theme['default']}</td>
+				<td class='min'><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
+				<td class='min'><a href='main.php?act=templates&p=theme_download&id={$theme['theme_id']}'><i class='fa fa-fw fa-download'></i></a></td>
+				<td class='min'>{$theme['remove']}</td>
 			</tr>");
 	}
 
@@ -93,9 +99,9 @@
 					<td>Author</td>
 					<td>Active</td>
 					<td>Default</td>
-					<td class="min"></td>
-					<td class="min"></td>
-					<td class="min"></td>
+					<td class="min">Edit</td>
+					<td class="min">Download</td>
+					<td class="min">Delete</td>
 				</tr>
 				<?php echo Template::Get() ?>
 			</table>

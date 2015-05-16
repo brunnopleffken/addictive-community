@@ -32,7 +32,7 @@
 				<table class="table-list">
 					<tr>
 						<th colspan="10">
-							<div class="fleft">List of bad words</div>
+							<div class="fleft">List of Bad Words</div>
 						</th>
 					</tr>
 					<tr>

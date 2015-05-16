@@ -45,7 +45,7 @@
 
 	while($member = $Db->Fetch()) {
 		$member['joined'] = $Core->DateFormat($member['joined']);
-		
+
 		if($member['m_id'] != 1) {
 			$remove = "<a href='?act=members&amp;p=manage&amp;do=delete&amp;id={$member['m_id']}'><i class='fa fa-remove'></i></a>";
 		}
@@ -62,8 +62,8 @@
 				<td>{$member['joined']}</td>
 				<td>{$member['name']}</td>
 				<td>{$member['posts']}</td>
-				<td><a href='?act=members&amp;p=manage&amp;do=edit&amp;id={$member['m_id']}'><i class='fa fa-pencil'></i></a></td>
-				<td>{$remove}</td>
+				<td class='min'><a href='?act=members&amp;p=manage&amp;do=edit&amp;id={$member['m_id']}'><i class='fa fa-pencil'></i></a></td>
+				<td class='min'>{$remove}</td>
 			</tr>");
 	}
 
@@ -103,8 +103,8 @@
 						<td>Joined</td>
 						<td>Usergroup</td>
 						<td>Posts</td>
-						<td width="1%"></td>
-						<td width="1%"></td>
+						<td class="min">Edit</td>
+						<td class="min">Delete</td>
 					</tr>
 					<?php echo Template::Get() ?>
 				</table>
