@@ -143,7 +143,7 @@ class Core
 
 		if(!empty($page_info)) {
 			foreach($page_info['bc'] as $item) {
-				$breadcrumb .= " &raquo; " . $item;
+				$breadcrumb .= " " . $this->config['general_bread_separator'] . " " . $item;
 			}
 		}
 

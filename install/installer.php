@@ -202,7 +202,7 @@
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_allow_guest_post', 'false');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_offline', 'false');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_disable_registrations', 'false');";
-			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_bread_separator', '>');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_bread_separator', '&rang;');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('member_pm_enable', 'true');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('member_pm_storage', '100');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_calendar_enable', 'true');";
