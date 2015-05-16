@@ -12,7 +12,7 @@
 
 <table class="table-list">
 	<tr>
-		<th colspan="7">
+		<th colspan="6">
 			<div class="fright">
 				<a href="members" class="small-button grey white"><?php __("M_MEMBER_NAME") ?></a>
 				<a href="members?order=join" class="small-button grey white"><?php __("M_JOIN_DATE") ?></a>
@@ -32,7 +32,7 @@
 		<?php foreach($results as $k => $v): ?>
 			<tr>
 				<td class="min"><?php __(Html::Crop($results[$k]['avatar'], 42, 42, "avatar")) ?></td>
-				<td style="font-size: 14px;">
+				<td style="font-size: 15px;">
 					<a href="profile/<?php __($results[$k]['m_id']) ?>"><b><?php __($results[$k]['username']) ?></b></a>
 				</td>
 				<td><?php __($results[$k]['joined']) ?></td>
@@ -43,7 +43,7 @@
 		<?php endforeach; ?>
 	<?php else: ?>
 		<tr>
-			<td colspan="7" class="center"><?php __("M_NO_RESULTS") ?></td>
+			<td colspan="6" class="center"><?php __("M_NO_RESULTS") ?></td>
 		</tr>
 	<?php endif; ?>
 </table>
