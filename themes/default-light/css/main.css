@@ -131,7 +131,8 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .navigation .navbar .selected:hover { background: #fff; text-decoration: none; }
 .navigation .subnav { background: #fff; margin-bottom: 15px; padding: 0 10px; }
 .navigation .subnav a { border-bottom: 2px solid #fff; color: #000; display: inline-block; font-size: 12px; font-weight: bold; padding: 10px 15px 7px 15px; text-transform: uppercase; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
-.navigation .subnav a:hover { border-bottom: 2px solid #eff5fb; text-decoration: none; }
+.navigation .subnav a:hover { text-decoration: none; }
+.navigation .subnav a:not(.selected):hover { border-bottom: 2px solid #eff5fb; }
 .navigation .subnav a.rss { color: #ff6600; }
 .navigation .subnav .selected { border-bottom: 2px solid #afc1de; }
 
@@ -155,7 +156,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 
 /** ROOM PAGE **/
 .thread-item { background: #fff; border-left: 2px solid transparent; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); display: table; margin-bottom: 10px; table-layout: fixed; width: 100%; /* THREAD STATUS */ }
-.thread-item .avatar { display: table-cell; text-align: center; vertical-align: middle; width: 80px; }
+.thread-item .avatar { display: table-cell; padding-top: 4px; text-align: center; vertical-align: middle; width: 80px; }
 .thread-item .avatar .image { box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }
 .thread-item .middle { display: table-cell; padding: 12px 10px 12px 2px; }
 .thread-item .middle .title { display: block; font-size: 19px; font-weight: bold; line-height: 1em; }

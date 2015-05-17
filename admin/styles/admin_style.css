@@ -69,6 +69,12 @@ input[type=file]:focus, textarea:focus { border: 1px solid #aaaaaa; transition: 
 .input-box-field:last-child { margin-bottom: 0 }
 .input-box:last-child { margin: 0; }
 
+.update-message { display: none; line-height: 16px; }
+.loader { color: #999; display: none; line-height: 16px; }
+.loader img { float: left; height: 16px; margin-right: 5px; width: 16px; }
+.fail { color: #b00 }
+.done { color: #090; }
+
 /** LOGIN **/
 
 #login-wrapper { display: table; position: fixed; width: 100%; height: 80%; top: 30px; }

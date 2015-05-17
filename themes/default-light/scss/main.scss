@@ -568,10 +568,8 @@ form {
 			padding: 10px 15px 7px 15px;
 			text-transform: uppercase;
 			@include transition(300ms);
-			&:hover {
-				border-bottom: 2px solid #eff5fb;
-				text-decoration: none;
-			}
+			&:hover { text-decoration: none; }
+			&:not(.selected):hover { border-bottom: 2px solid #eff5fb; }
 			&.rss { color: #ff6600; }
 		}
 		.selected {
@@ -676,6 +674,7 @@ form {
 	width: 100%;
 	.avatar {
 		display: table-cell;
+		padding-top: 4px;
 		text-align: center;
 		vertical-align: middle;
 		width: 80px;

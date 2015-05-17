@@ -94,8 +94,13 @@
 						<td>Addictive Community <?php echo VERSION . "-" . CHANNEL; ?> (<?php echo CODENAME; ?>)</td>
 					</tr>
 					<tr>
-						<td class="title">Server Software</td>
-						<td><?php __($_SERVER['SERVER_SOFTWARE']); ?></td>
+						<td class="title">Software Updates</td>
+						<td>
+							<div class="loader"><img src="images/loader.gif"> Checking...</div>
+							<div class="update-message fail">Unable to connect to GitHub servers.</div>
+							<div class="update-message no-updates">There is no software update available.</div>
+							<div class="update-message done">New update available to <span>v1.0.0</span>.</div>
+						</td>
 					</tr>
 					<tr>
 						<td class="title">PHP Version</td>

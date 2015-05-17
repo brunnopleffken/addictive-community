@@ -1,3 +1,4 @@
+/// <reference path="../typings/jquery/jquery.d.ts"/>
 /**
  * ADDICTIVE COMMUNITY
  * -------------------------------------------------------
@@ -16,10 +17,38 @@ $(document).ready(function() {
 	/**
 	 * THEMES: CodeMirror when editing CSS files
 	 */
-	var textarea = document.getElementById("css");
-	var textareaCodeMirror = CodeMirror.fromTextArea(textarea, {
-		lineNumbers: true
-	});
+	try {
+		var textarea = document.getElementById("css");
+		var textareaCodeMirror = CodeMirror.fromTextArea(textarea, {
+			lineNumbers: true
+		});
+	} catch(e) {
+		console.log(e);
+	}
+
+	/**
+	 * Check updates
+	 */
+	(function() {
+		$.ajax("https://api.github.com/repos/brunnopleffken/addictive-community/releases/latest", {
+			dataType: 'json',
+			beforeSend: function() {
+				$('.loader').show();
+			}
+		})
+		.done(function(data) {
+			if(data) {
+				$('.update-message.done span').html(data.name);
+				$('.update-message.done').show();
+			}
+		})
+		.fail(function() {
+			$('.update-message.fail').show();
+		})
+		.always(function() {
+			$('.loader').hide();
+		});
+	}).call(this);
 });
 
 /**
