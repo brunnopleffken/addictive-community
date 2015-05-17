@@ -74,20 +74,23 @@ $(document).ready(function($) {
 	(function() {
 		if($('.photoSelect:checked').val() == 'gravatar') {
 			$('#gravatar').show();
-		} else if($('.photoSelect:checked').val() == 'facebook') {
+		}
+		else if($('.photoSelect:checked').val() == 'facebook') {
 			$('#facebook').show();
-		} else if($('.photoSelect:checked').val() == 'custom') {
+		}
+		else if($('.photoSelect:checked').val() == 'custom') {
 			$('#custom').show();
 		}
 
-		$('.photoSelect').on('change', function(){
+		$('.photoSelect').on('change', function() {
 			var value = $(this).val();
 
 			if(value == 'custom') {
 				$('#gravatar').fadeOut();
 				$('#facebook').fadeOut();
 				$('#custom').delay(400).fadeIn();
-			} else if(value == 'gravatar') {
+			}
+			else if(value == 'gravatar') {
 				$('#custom').fadeOut();
 				$('#facebook').fadeOut();
 				$('#gravatar').delay(400).fadeIn();
@@ -114,7 +117,7 @@ $(document).ready(function($) {
 
 			// Validade INPUT text, INPUT password and TEXTAREAs
 
-			$(this).find('input[type=text], input[type=password], textarea, select').filter('.required').each(function(){
+			$(this).find('input[type=text], input[type=password], textarea, select').filter('.required').each(function() {
 				if(this.value == '') {
 					$(this).addClass('error');
 					stopSend = true;
@@ -123,9 +126,9 @@ $(document).ready(function($) {
 					$(this).removeClass('error');
 				}
 			});
-			
+
 			// Validate TinyMCE textarea
-			
+
 			if(tinymce.get('post').getContent() == "") {
 				$('.mce-edit-area').addClass('error');
 				stopSend = true;
@@ -136,7 +139,7 @@ $(document).ready(function($) {
 
 			// Is the URL valid?
 
-			$(this).find('.url').filter('.required').each(function(){
+			$(this).find('.url').filter('.required').each(function() {
 				var str = this.value;
 				var pattern = new RegExp(/(http:\/\/)([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2,3}/);
 				var result = pattern.test(str);
@@ -152,7 +155,7 @@ $(document).ready(function($) {
 
 			// Is the e-mail address valid?
 
-			$(this).find('.email').filter('.required').each(function(){
+			$(this).find('.email').filter('.required').each(function() {
 				var str = this.value;
 				var pattern = new RegExp(/^[a-z0-9_\.\-]+\@[a-z0-9_\.\-]+\.[a-z]{2,3}$/gm);
 				var result = pattern.test(str);
@@ -168,7 +171,7 @@ $(document).ready(function($) {
 
 			// Numeric only field
 
-			$(this).find('.numeric').filter('.required').each(function(){
+			$(this).find('.numeric').filter('.required').each(function() {
 				var str = this.value;
 				var pattern = new RegExp(/([0-9]*)/);
 				var result = pattern.test(str);
@@ -184,7 +187,7 @@ $(document).ready(function($) {
 
 			// Alphanumerics ONLY
 
-			$(this).find('.alphanumeric').filter('.required').each(function(){
+			$(this).find('.alphanumeric').filter('.required').each(function() {
 				var str = this.value;
 				var pattern = new RegExp(/([a-zA-Z0-9\s]*)/);
 				var result = pattern.test(str);
@@ -259,7 +262,7 @@ $(document).ready(function($) {
 				$('a#checkbox-' + i).addClass('checked');
 			}
 		});
-		
+
 		$(document).on('click', 'a.checkbox', function(event) {
 			var $link = $(this);
 			var $checkbox = $('input[type=checkbox].' + $link.attr('id'));
@@ -336,7 +339,7 @@ $(document).ready(function($) {
 	 * MESSENGER: DELETE SELECTED MESSAGES
 	 */
 
-	$('#delete-messages').on('click', function(event){
+	$('#delete-messages').on('click', function(event) {
 		if($('.checkDeleteMessage:checked').length == 0) {
 			alert('You need to select at least one message.');
 			event.preventDefault();
@@ -375,4 +378,48 @@ $(document).ready(function($) {
 			}
 		}
 	});
+
+	/**
+	 * PAGINATION ON THREADS
+	 */
+
+	(function() {
+		// Page number
+		var pageNumber = 1;
+
+		$('.load-more a').on('click', function(event) {
+			// Parse template using Mustache.js
+			var template = $('#thread-item-template').html();
+			Mustache.parse(template);
+
+			$.ajax({
+				url: $(this).attr('href'),
+				method: 'post',
+				dataType: 'json',
+				data: { page: pageNumber },
+				beforeSend: function() {
+					$('.load-more a').hide();
+					$('.load-more .loader').show();
+					pageNumber++;  // Increase page number
+				}
+			})
+			.done(function(data) {
+				if(data.length > 0) {
+					for(var i = 0; i < data.length; i++) {
+						var rendered = Mustache.render(template, data[i]);
+						$(rendered).insertBefore('.load-more');
+					}
+					$('.load-more a').show();
+				}
+				else {
+					console.log("No more threads to show...");
+					$('.load-more').hide();
+				}
+			})
+			.always(function() {
+				$('.load-more .loader').hide();
+			});
+			event.preventDefault();
+		});
+	}).call(this);
 });

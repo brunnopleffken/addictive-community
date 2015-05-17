@@ -193,8 +193,9 @@
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_session_expiration', '900');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_member_enable_signature', 'true');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('general_member_enable_avatar_upload', 'true');";
-			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_posts_hot', '15');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('threads_per_page', '10');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_posts_per_page', '10');";
+			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_posts_hot', '15');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_best_answer_all_pages', 'false');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_obsolete', 'false');";
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('thread_obsolete_value', '60');";

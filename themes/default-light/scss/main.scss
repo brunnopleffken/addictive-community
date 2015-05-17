@@ -785,6 +785,18 @@ form {
 	}
 }
 
+.load-more {
+	text-align: center;
+	.loader {
+		background: url('../images/loader.gif') no-repeat center;
+		background-size: 16px 16px;
+		display: none;
+		height: 16px;
+		margin: auto;
+		width: 16px;
+	}
+}
+
 /** THREAD **/
 
 .thread-first-post {

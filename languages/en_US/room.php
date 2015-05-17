@@ -12,4 +12,5 @@
 	$t["R_VIEWS"] = "%d views";
 	$t["R_LAST_POST_BY"] = "Last post by %s";
 	$t["R_NO_THREADS"] = "There are no threads to be shown. What about starting a new one?";
+	$t["R_LOAD_MORE"] = "Load More...";
 ?>

@@ -20,10 +20,12 @@ class Room extends Application
 	 */
 	public function _beforeFilter()
 	{
-		// Update session table with room ID
-		$id = Html::Request("id");
-		$session = $this->Session->session_id;
-		$this->Db->Query("UPDATE c_sessions SET location_room_id = {$id} WHERE s_id = '{$session}';");
+		if(Html::Request("act") == "load_more") {
+			// Update session table with room ID
+			$id = Html::Request("id");
+			$session = $this->Session->session_id;
+			$this->Db->Query("UPDATE c_sessions SET location_room_id = {$id} WHERE s_id = '{$session}';");
+		}
 	}
 
 	/**
@@ -64,6 +66,40 @@ class Room extends Application
 		$this->Set("room_id", $id);
 		$this->Set("room_info", $room_info);
 		$this->Set("threads", $threads);
+		$this->Set("view", Html::Request("view"));
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * ROOM PAGINATION ("LOAD MORE..." LINK)
+	 * --------------------------------------------------------------------
+	 */
+	public function LoadMore($id)
+	{
+		$this->layout = false;
+
+		// Threads per page
+		$page = Html::Request("page");
+		$threads_per_page = $this->config['threads_per_page'];
+
+		// Calculate SQL offset
+		$offset = $page * $threads_per_page;
+
+		// Get threads
+		$this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS author_email,
+				author.photo_type AS author_type, author.photo AS author_photo, lastpost.username AS lastpost_name,
+				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
+				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
+				INNER JOIN c_members AS lastpost ON (c_threads.lastpost_member_id = lastpost.m_id)
+				WHERE room_id = {$id} ORDER BY announcement DESC, lastpost_date DESC
+				LIMIT {$threads_per_page} OFFSET {$offset};");
+
+		// Process data
+		while($result = $this->Db->Fetch()) {
+			$_thread[] = $this->_ParseThread($result);
+		}
+
+		echo json_encode($_thread);
 	}
 
 	/**
@@ -143,52 +179,63 @@ class Room extends Application
 				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
 				INNER JOIN c_members AS lastpost ON (c_threads.lastpost_member_id = lastpost.m_id)
-				WHERE room_id = {$room_id} {$where} ORDER BY announcement DESC, {$order};");
+				WHERE room_id = {$room_id} {$where} ORDER BY announcement DESC, {$order}
+				LIMIT 10;");
 
 		// Process data
 		while($result = $this->Db->Fetch($threads)) {
-			$result['class'] = "";
-			$result['description'] = strip_tags($result['post']);
-			$result['mobile_start_date'] = $this->Core->DateFormat($result['start_date'], "short");
-			$result['start_date'] = $this->Core->DateFormat($result['start_date']);
-			$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
-
-			// Author avatar
-			$result['author_avatar'] = $this->Core->GetGravatar($result['author_email'], $result['author_photo'], 84, $result['author_type']);
-			$result['author_avatar'] = Html::Crop($result['author_avatar'], 42, 42, "image");
-
-			// Get the number of replies, not total number of posts... ;)
-			$result['replies']--;
-
-			// Status: unread
-				/**
-				 * TO DO
-				 */
-
-			// Status: locked
-			if($result['locked'] == 1) {
-				$result['class'] = "locked ";
-			}
-
-			// Status: answered
-			if($result['with_bestanswer'] == 1) {
-				$result['class'] = "answered ";
-			}
-
-			// Status: announcement
-			if($result['announcement'] == 1) {
-				$result['class'] = "announcement ";
-			}
-
-			// Status: hot
-			if($result['replies'] >= $this->config['thread_posts_hot']) {
-				$result['class'] .= "hot";
-			}
-
-			// Populate results on array
-			$_thread[] = $result;
+			$_thread[] = $this->_ParseThread($result);
 		}
 
 		return $_thread;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * PARSE AND PROCESS THREAD INFO
+	 * --------------------------------------------------------------------
+	 */
+	private function _ParseThread($result)
+	{
+		$result['class'] = "";
+		$result['description'] = strip_tags($result['post']);
+		$result['mobile_start_date'] = $this->Core->DateFormat($result['start_date'], "short");
+		$result['start_date'] = $this->Core->DateFormat($result['start_date']);
+		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
+
+		// Author avatar
+		$result['author_avatar'] = $this->Core->GetGravatar($result['author_email'], $result['author_photo'], 84, $result['author_type']);
+		$result['author_avatar'] = Html::Crop($result['author_avatar'], 42, 42, "image");
+
+		// Build phrases using internationalization
+		$result['author_name'] = i18n::Translate("R_STARTED_BY", array($result['author_name']));
+		$result['start_date'] = i18n::Translate("R_STARTED_ON", array($result['start_date']));
+		$result['views'] = i18n::Translate("R_VIEWS", array($result['views']));
+		$result['lastpost_by'] = i18n::Translate("R_LAST_POST_BY", array($result['lastpost_name']));
+
+		// Get the number of replies, not total number of posts... ;)
+		$result['replies']--;
+
+		// Status: locked
+		if($result['locked'] == 1) {
+			$result['class'] = "locked ";
+		}
+
+		// Status: answered
+		if($result['with_bestanswer'] == 1) {
+			$result['class'] = "answered ";
+		}
+
+		// Status: announcement
+		if($result['announcement'] == 1) {
+			$result['class'] = "announcement ";
+		}
+
+		// Status: hot
+		if($result['replies'] >= $this->config['thread_posts_hot']) {
+			$result['class'] .= "hot";
+		}
+
+		return $result;
 	}
 }

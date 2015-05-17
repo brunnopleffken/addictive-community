@@ -178,6 +178,9 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-item.answered { border-color: #090; }
 .thread-item.answered .stats { background: #465068 url("../images/best-answer.png") no-repeat top right; background-size: 32px; }
 
+.load-more { text-align: center; }
+.load-more .loader { background: url("../images/loader.gif") no-repeat center; background-size: 16px 16px; display: none; height: 16px; margin: auto; width: 16px; }
+
 /** THREAD **/
 .thread-first-post { background: #fff; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); overflow: hidden; }
 .thread-first-post .header { background: #f6f6f6; border-bottom: 1px solid #ccc; border-top: 1px solid #bbb; overflow: hidden; padding: 7px 10px 5px 10px; }
