@@ -328,19 +328,11 @@ $(document).ready(function($) {
 	}).call(this);
 
 	/**
-	 * MESSENGER: SELECT ALL MESSAGES
-	 */
-
-	$('#check-messages').on('click', function() {
-		$('.del-message-checkbox').attr('checked', true);
-	});
-
-	/**
 	 * MESSENGER: DELETE SELECTED MESSAGES
 	 */
 
 	$('#delete-messages').on('click', function(event) {
-		if($('.checkDeleteMessage:checked').length == 0) {
+		if($('.del-message-checkbox:checked').length == 0) {
 			alert('You need to select at least one message.');
 			event.preventDefault();
 		}

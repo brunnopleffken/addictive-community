@@ -202,4 +202,26 @@ class Messenger extends Application
 		// Redirect
 		$this->Core->Redirect("messenger?m=1");
 	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * DELETE PERSONAL MESSAGES
+	 * --------------------------------------------------------------------
+	 */
+	public function Delete()
+	{
+		$this->layout = false;
+
+		// Get information
+		$member_id = $this->Session->session_info['member_id'];
+		$selected = Html::Request("pm");
+
+		// Execute deletion
+		foreach($selected as $pm_id) {
+			$this->Db->Query("DELETE FROM c_messages WHERE pm_id = {$pm_id} AND to_id = {$member_id};");
+		}
+
+		// Redirect
+		$this->Core->Redirect("messenger");
+	}
 }
