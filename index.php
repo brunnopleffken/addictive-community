@@ -192,7 +192,7 @@ class Main
 
 			// Load page content
 			ob_start();
-			require("templates/" . $this->template . "/" . $this->controller . "." . ucwords($this->action) . ".phtml");
+			require("templates/" . $this->template . "/" . $this->controller . "." . $this->_FormatActionName($this->action) . ".phtml");
 			$this->content = ob_get_clean();
 
 			// Load master page

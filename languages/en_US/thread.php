@@ -28,6 +28,7 @@
 	$t["T_MESSAGE_2"] = "You have successfully reported a post in this thread.";
 	$t["P_ADD_REPLY"] = "Add Reply";
 	$t["P_NEW_THREAD"] = "New Thread";
+	$t["P_EDIT_POST"] = "Editing Post on";
 	$t["P_THREAD_TITLE"] = "Thread Title";
 	$t["P_POST"] = "Post";
 	$t["P_ATTACHMENTS"] = "Attachments";

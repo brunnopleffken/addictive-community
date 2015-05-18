@@ -126,6 +126,34 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * EDIT AN EXISTING POST
+	 * --------------------------------------------------------------------
+	 */
+	public function EditPost($post_id)
+	{
+		// Don't allow guests
+		$this->Session->NoGuest();
+
+		// Get post info
+		$this->Db->Query("SELECT * FROM c_posts WHERE p_id = {$post_id};");
+		$post_info = $this->Db->Fetch();
+
+		// Check if the author is the user currently logged in
+		if($this->Session->session_info['member_id'] != $post_info['author_id']) {
+			Html::Error("You cannot edit a post that you did not publish.");
+		}
+
+		// Get thread info
+		$this->Db->Query("SELECT title FROM c_threads WHERE t_id = {$post_info['thread_id']};");
+		$thread_info = $this->Db->Fetch();
+
+		// Return variables
+		$this->Set("thread_info", $thread_info);
+		$this->Set("post_info", $post_info);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * INSERT NEW REPLY INTO DATABASE
 	 * --------------------------------------------------------------------
 	 */
@@ -231,6 +259,33 @@ class Thread extends Application
 
 		// Redirect
 		$this->Core->Redirect("thread/" . $post['thread_id'] . "-" . $thread['slug']);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * SAVE EDITED POST
+	 * --------------------------------------------------------------------
+	 */
+	public function SaveEdit($post_id)
+	{
+		$this->layout = false;
+
+		// Check if the author is the user currently logged in
+		if($this->Session->session_info['member_id'] != Html::Request("member_id")) {
+			Html::Error("You cannot edit a post that you did not publish.");
+		}
+
+		$post = array(
+			"post"        => $_REQUEST['post'],
+			"edit_time"   => time(),
+			"edit_author" => $this->Session->member_info['m_id']
+		);
+
+		// Insert edited post on DB
+		$this->Db->Update("c_posts", $post, "p_id = {$post_id}");
+
+		// Redirect
+		$this->Core->Redirect("thread/" . Html::Request("thread_id") . "#post-" . $post_id);
 	}
 
 	/**
@@ -356,8 +411,9 @@ class Thread extends Application
 	{
 		$reply_result = array();
 
-		$replies = $this->Db->Query("SELECT c_posts.*, c_attachments.*, c_members.* FROM c_posts
+		$replies = $this->Db->Query("SELECT c_posts.*, c_attachments.*, c_members.*, edit.username AS edit_username FROM c_posts
 				INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
+				LEFT JOIN c_members AS edit ON (c_posts.edit_author = edit.m_id)
 				LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
 				WHERE thread_id = '{$id}' AND first_post = '0'
 				ORDER BY best_answer DESC, post_date ASC LIMIT {$pages['for_sql']},{$pages['items_per_page']};");
@@ -383,9 +439,9 @@ class Thread extends Application
 			}
 
 			// Show label if post was edited
-			if(isset($result['edited'])) {
+			if(isset($result['edit_time'])) {
 				$result['edit_time'] = $this->Core->DateFormat($result['edit_time']);
-				$result['edited']    = "<em>(" . i18n::Translate("T_EDITED", array($result['edit_time'], $result['edit_author'])) . ")</em>";
+				$result['edited']    = "(" . i18n::Translate("T_EDITED", array($result['edit_time'], $result['edit_username'])) . ")";
 			}
 			else {
 				$result['edited'] = "";
@@ -397,7 +453,7 @@ class Thread extends Application
 
 			// Post controls
 			if($result['author_id'] == $this->Session->member_info['m_id']) {
-				$result['post_controls'] = "<a href='' class='small-button grey'>" . i18n::Translate("T_EDIT") . "</a> "
+				$result['post_controls'] = "<a href='thread/edit_post/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_EDIT") . "</a> "
 					. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$id}' data-member='{$result['author_id']}' class='fancybox deleteButton small-button grey'>" . i18n::Translate("T_DELETE") . "</a>";
 			}
 

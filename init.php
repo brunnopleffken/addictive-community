@@ -17,6 +17,8 @@ error_reporting(E_ALL);
 
 date_default_timezone_set("UTC"); // Set default timezone to UTC (timezones are defined by user)
 
+header('Content-Type: text/html; charset=utf-8');
+
 /**
  * --------------------------------------------------------------------
  * ADDICTIVE COMMUNITY VERSION
