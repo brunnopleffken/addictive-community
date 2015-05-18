@@ -15,16 +15,6 @@ class Thread extends Application
 {
 	/**
 	 * --------------------------------------------------------------------
-	 * RUN ACTIONS BEFORE MAIN()
-	 * --------------------------------------------------------------------
-	 */
-	public function _beforeFilter()
-	{
-		$this->Session->NoGuest();
-	}
-
-	/**
-	 * --------------------------------------------------------------------
 	 * SHOW THREAD
 	 * --------------------------------------------------------------------
 	 */
@@ -90,6 +80,9 @@ class Thread extends Application
 	 */
 	public function Reply($id)
 	{
+		// Do not allow guests
+		$this->Session->NoGuest();
+
 		$this->Db->Query("SELECT t.t_id, t.title, r.r_id, r.name, r.upload FROM c_threads t
 				INNER JOIN c_rooms r ON (t.room_id = r.r_id) WHERE t_id = {$id};");
 		$thread_info = $this->Db->Fetch();
@@ -112,6 +105,9 @@ class Thread extends Application
 	 */
 	public function Add($room_id)
 	{
+		// Do not allow guests
+		$this->Session->NoGuest();
+
 		$this->Db->Query("SELECT r_id, name, upload FROM c_rooms WHERE r_id = {$room_id};");
 		$room_info = $this->Db->Fetch();
 
