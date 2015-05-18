@@ -177,3 +177,28 @@
 		<div class="item"><span><?php __("T_NO_RELATED") ?></span></div>
 	<?php endif; ?>
 </div>
+
+<!-- DELETE POST LIGHTBOX -->
+<div id="deleteThreadConfirm" style="display: none">
+	<form action="thread/delete_post" method="post" class="validate">
+		<table class="table-list no-borders" style="width:350px; margin:0">
+			<tr>
+				<th>
+					<div class="fleft"><?php __("T_DELETE_POST") ?></div>
+					<div class="fright"><a href="javascript:jQuery.fancybox.close();" class="small-button grey white transition"><?php __("T_CLOSE") ?></a></div>
+				</th>
+			</tr>
+			<tr>
+				<td class="min"><?php __("T_DELETE_NOTICE") ?></td>
+			</tr>
+			<tr class="footer">
+				<td colspan="2" style="text-align:center; padding:10px">
+					<input type="hidden" name="pid" id="delete_post_id" value="">
+					<input type="hidden" name="tid" id="delete_thread_id" value="">
+					<input type="hidden" name="mid" id="delete_member_id" value="">
+					<input type="submit" value="<?php __("T_DELETE_POST") ?>">
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

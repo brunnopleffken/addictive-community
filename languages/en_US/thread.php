@@ -26,6 +26,7 @@
 	$t["T_DELETE_POST"] = "Delete Post";
 	$t["T_MESSAGE_1"] = "You have successfully reported this thread.";
 	$t["T_MESSAGE_2"] = "You have successfully reported a post in this thread.";
+	$t["T_MESSAGE_3"] = "You have successfully deleted your post.";
 	$t["P_ADD_REPLY"] = "Add Reply";
 	$t["P_NEW_THREAD"] = "New Thread";
 	$t["P_EDIT_POST"] = "Editing Post on";

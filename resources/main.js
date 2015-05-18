@@ -422,4 +422,20 @@ $(document).ready(function($) {
 			event.preventDefault();
 		});
 	}).call(this);
+
+	/**
+	 * DELETE POST: CONFIRMATION MESSAGE
+	 */
+
+	(function() {
+		$('a.delete-post-button').on('click', function() {
+			var postId   = $(this).data('post'),
+			    threadId = $(this).data('thread'),
+			    memberId = $(this).data('member');
+
+			$('input#delete_post_id').val(postId);
+			$('input#delete_thread_id').val(threadId);
+			$('input#delete_member_id').val(memberId);
+		});
+	}).call(this);
 });

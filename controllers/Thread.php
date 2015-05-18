@@ -34,7 +34,8 @@ class Thread extends Application
 		$message_id = Html::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("T_MESSAGE_1"), "success"),
-			Html::Notification(i18n::Translate("T_MESSAGE_2"), "success")
+			Html::Notification(i18n::Translate("T_MESSAGE_2"), "success"),
+			Html::Notification(i18n::Translate("T_MESSAGE_3"), "success")
 		);
 
 		// Get thread information
@@ -290,6 +291,41 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * DELETE A POST
+	 * --------------------------------------------------------------------
+	 */
+	public function DeletePost()
+	{
+		$this->layout = false;
+
+		// Get post information
+		$author_id = Html::Request("mid");
+		$thread_id = Html::Request("tid");
+		$post_id = Html::Request("pid");
+
+		// Check if the author is the user currently logged in member
+		if($this->Session->session_info['member_id'] != $author_id) {
+			Html::Error("You cannot delete a post that you did not publish.");
+		}
+
+		// Remove post
+		$this->Db->Query("DELETE FROM c_posts WHERE p_id = {$post_id};");
+
+		// Update thread statistics
+		$this->Db->Query("UPDATE c_threads SET replies = replies - 1 WHERE t_id = {$thread_id};");
+
+		// Update member statistics
+		$this->Db->Query("UPDATE c_members SET posts = posts - 1 WHERE m_id = {$author_id};");
+
+		// Update community statistics
+		$this->Db->Query("UPDATE c_stats SET total_posts = total_posts - 1;");
+
+		// Redirect back to post
+		$this->Core->Redirect("thread/" . $thread_id . "?m=3");
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * GET GENERAL THREAD INFORMATION, LIKE NUMBER OF REPLIES, CHECK IF
 	 * IT'S AN OBSOLETE THREAD AND PERMISSIONS
 	 * --------------------------------------------------------------------
@@ -454,7 +490,7 @@ class Thread extends Application
 			// Post controls
 			if($result['author_id'] == $this->Session->member_info['m_id']) {
 				$result['post_controls'] = "<a href='thread/edit_post/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_EDIT") . "</a> "
-					. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$id}' data-member='{$result['author_id']}' class='fancybox deleteButton small-button grey'>" . i18n::Translate("T_DELETE") . "</a>";
+					. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$id}' data-member='{$result['author_id']}' class='fancybox delete-post-button small-button grey'>" . i18n::Translate("T_DELETE") . "</a>";
 			}
 
 			// Thread controls
