@@ -24,6 +24,8 @@
 	$t["T_CLOSE"] = "Close";
 	$t["T_DELETE_NOTICE"] = "Do you want to delete this post? This operation <strong>cannot</strong> be undone!";
 	$t["T_DELETE_POST"] = "Delete Post";
+	$t["T_MESSAGE_1"] = "You have successfully reported this thread.";
+	$t["T_MESSAGE_2"] = "You have successfully reported a post in this thread.";
 	$t["P_ADD_REPLY"] = "Add Reply";
 	$t["P_NEW_THREAD"] = "New Thread";
 	$t["P_THREAD_TITLE"] = "Thread Title";

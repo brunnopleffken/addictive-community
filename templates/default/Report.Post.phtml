@@ -1,0 +1,36 @@
+<form action="report/save" method="post" class="validate">
+	<table class="table-list no-borders" style="width:350px; margin:0">
+		<tr>
+			<th colspan="7">
+				<div class="fleft"><?php __("R_TITLE") ?></div>
+			</th>
+		</tr>
+		<tr>
+			<td class="min"><?php __("R_NOTICE") ?></td>
+		</tr>
+		<tr>
+			<td><?php __("R_REASON") ?>:
+				<select name="reason" id="reason" class="medium select2-no-search">
+					<option value="-1" disabled="disabled"><?php __("R_OPTION_CHOOSE") ?></option>
+					<option value="1"><?php __("R_OPTION_1") ?></option>
+					<option value="2"><?php __("R_OPTION_2") ?></option>
+					<option value="3"><?php __("R_OPTION_3") ?></option>
+					<option value="4"><?php __("R_OPTION_4") ?></option>
+					<option value="5"><?php __("R_OPTION_5") ?></option>
+					<option value="6"><?php __("R_OPTION_6") ?></option>
+					<option value="7"><?php __("R_OPTION_7") ?></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td><textarea name="description" class="large required" rows="6" style="resize:none"></textarea></td>
+		</tr>
+		<tr class="footer">
+			<td colspan="2" style="text-align:center; padding:10px">
+				<input type="hidden" name="member_id" value="<?php echo $this->Session->session_info['member_id'] ?>">
+				<input type="hidden" name="post_id" value="<?php echo $post_id ?>">
+				<input type="submit" value="<?php __("R_SEND") ?>">
+			</td>
+		</tr>
+	</table>
+</form>

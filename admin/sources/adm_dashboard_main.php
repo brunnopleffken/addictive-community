@@ -35,26 +35,42 @@
 
 	$html = "";
 
-	$Db->Query("SELECT r.*, m.username, t.title, p.post FROM c_reports r
-		INNER JOIN c_members m ON (m.m_id = r.sender_id)
-		INNER JOIN c_threads t ON (t.t_id = r.thread_id)
-		INNER JOIN c_posts p ON (p.p_id = r.post_id)
-		ORDER BY r.rp_id DESC LIMIT 15;");
+	$reports = $Db->Query("SELECT r.*, m.username, t.title FROM c_reports r
+			INNER JOIN c_members m ON (r.sender_id = m.m_id)
+			LEFT JOIN c_threads t ON (r.thread_id = t.t_id)
+			ORDER BY rp_id DESC LIMIT 15;");
 
-	while($report = $Db->Fetch()){
+	while($report = $Db->Fetch($reports)) {
 		$report['date'] = $Core->DateFormat($report['date']);
+
+		if($report['post_id'] == 0) {
+			$report['post'] = "-";
+		}
+		else {
+			$report['post'] = "Yes (<a href='" . $Admin->SelectConfig("general_community_url") . "thread/2#post-" . $report['post_id'] . "' target='_blank'>view post</a>)";
+		}
+
+		$reason[1] = "Nudity or pornography";
+		$reason[2] = "Impersonating me or someone I know";
+		$reason[3] = "Racist or hate speech";
+		$reason[4] = "Targets me or a friend";
+		$reason[5] = "Direct call for violence";
+		$reason[6] = "Excessive violent content";
+		$reason[7] = "Spam";
 
 		$html .= "<tr>
 				<td rowspan='2' style='border-bottom: 2px solid #eee'>{$report['rp_id']}</td>
 				<td rowspan='2' style='border-right: 1px solid #eee; border-bottom: 2px solid #eee' nowrap>{$report['username']}</td>
 				<td nowrap>{$report['date']}</td>
-				<td>{$report['ip_address']}</td>
+				<td>{$reason[$report['reason']]}</td>
 				<td><a href='../index.php?module=thread&amp;id={$report['thread_id']}'>{$report['title']}</a></td>
 				<td>{$report['post']}</td>
-				<td rowspan='2' style='border-left: 1px solid #eee; border-bottom: 2px solid #eee'><a href='#' onclick='DeleteReport({$report['rp_id']},{$report['thread_id']})'><img src='images/trash.png'></a></td>
+				<td rowspan='2' style='border-left: 1px solid #eee; border-bottom: 2px solid #eee'>
+					<a href='process.php?do=remove_report&id={$report['rp_id']}' onclick='DeleteReport({$report['rp_id']},{$report['thread_id']})'><img src='images/trash.png'></a>
+				</td>
 			</tr>
 			<tr>
-				<td colspan='4' style='border-bottom: 2px solid #eee'><em>{$report['description']}</em></td>
+				<td colspan='4' style='border-bottom: 2px solid #eee'>{$report['description']}</td>
 			</tr>";
 	}
 
@@ -125,9 +141,9 @@
 						<td class="min">ID</td>
 						<td>Reported by</td>
 						<td>Date</td>
-						<td>IP Address</td>
-						<td>Thread</td>
-						<td>Post</td>
+						<td>Reason</td>
+						<td>Thread Name</td>
+						<td>Reported a post?</td>
 						<td class="min"></td>
 					</tr>
 					<?php echo $html ?>

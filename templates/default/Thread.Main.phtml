@@ -7,6 +7,8 @@
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
+<?php __($notification) ?>
+
 <!-- FIRST POST -->
 
 <div class="thread-first-post">
@@ -56,7 +58,7 @@
 		<?php if($this->Session->member_info['m_id'] != 0): ?>
 			<p class="fright">
 				<i class="fa fa-warning"></i>
-				<a href="report/<?php __($thread_id) ?>" class="fancybox fancybox.ajax">
+				<a href="report/thread/<?php __($thread_id) ?>" class="fancybox fancybox.ajax">
 					<?php __("T_REPORT_ABUSE") ?>
 				</a>
 			</p>
@@ -85,6 +87,7 @@
 
 <?php if(!empty($reply)): ?>
 	<?php foreach($reply as $k => $v): ?>
+		<a id="post-<?php __($reply[$k]['p_id']) ?>"></a>
 		<div class="thread-post-reply <?php __($reply[$k]['bestanswer_class']) ?>">
 			<div class="author">
 				<div class="photostack">
@@ -125,7 +128,7 @@
 				<div class="footer">
 					<div class="fleft">
 						<?php if($this->Session->IsMember()): ?>
-							<a href="?module=report&amp;t_id=<?php __($thread_id) ?>&amp;p_id=<?php __($reply[$k]['p_id']) ?>" class="small-button grey fancybox fancybox.ajax"><?php __("T_REPORT_POST") ?></a>
+							<a href="report/post/<?php __($reply[$k]['p_id']) ?>" class="small-button grey fancybox fancybox.ajax"><?php __("T_REPORT_POST") ?></a>
 						<?php endif; ?>
 					</div>
 					<div class="fright">

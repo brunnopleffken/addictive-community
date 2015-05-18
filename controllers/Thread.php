@@ -30,6 +30,13 @@ class Thread extends Application
 	 */
 	public function Main($id)
 	{
+		// Define messages
+		$message_id = Html::Request("m");
+		$notification = array("",
+			Html::Notification(i18n::Translate("T_MESSAGE_1"), "success"),
+			Html::Notification(i18n::Translate("T_MESSAGE_2"), "success")
+		);
+
 		// Get thread information
 		$thread_info = $this->_GetThreadInfo($id);
 
@@ -67,6 +74,7 @@ class Thread extends Application
 
 		$this->Set("thread_id", $id);
 		$this->Set("thread_info", $thread_info);
+		$this->Set("notification", $notification[$message_id]);
 		$this->Set("enable_signature", $this->config['general_member_enable_signature']);
 		$this->Set("first_post_info", $first_post_info);
 		$this->Set("reply", $replies);

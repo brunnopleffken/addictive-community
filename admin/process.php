@@ -60,6 +60,16 @@
 
 			break;
 
+		case "remove_report":
+
+			$id = Html::Request("id");
+			$Db->Query("DELETE FROM c_reports WHERE rp_id = {$id}");
+
+			header("Location: main.php");
+			exit;
+
+			break;
+
 		case "newroom":
 
 			$room = array(

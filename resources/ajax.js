@@ -12,6 +12,13 @@
 
 $(document).ready(function() {
 	/**
+	 * REPLACE ALL REGULAR <select> FIELDS WITH A FANCY ONE
+	 */
+
+	$('.select2').select2({ 'width': 'element' });
+	$('.select2-no-search').select2({ 'minimumResultsForSearch': -1, 'width': 'element' });
+
+	/**
 	 * LOGIN - VALIDATE USERNAME AND PASSWORD BEFORE SEND
 	 */
 
