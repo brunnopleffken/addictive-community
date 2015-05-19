@@ -243,7 +243,7 @@
 		case 5:
 			// Get config file and connect to Database
 			require("../config.php");
-			$database = new Database($config);
+			$Db = new Database($config);
 
 			// Get security hash key
 			$Db->Query("SELECT * FROM c_config c WHERE `index` = 'security_salt_hash' OR `index` = 'security_salt_key';");
