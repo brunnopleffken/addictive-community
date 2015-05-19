@@ -46,9 +46,9 @@
 				<td>{$lang['author_name']} ({$lang['author_email']})</td>
 				<td>{$lang['is_active']}</td>
 				<td>{$lang['is_default']}</td>
-				<td><a href='main.php?act=languages&p=edit&id={$lang['l_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
-				<td><a href='main.php?act=languages&p=download&id={$lang['l_id']}'><i class='fa fa-fw fa-download'></i></a></td>
-				<td>{$lang['remove']}</td>
+				<td class='min'><a href='main.php?act=languages&p=edit&id={$lang['l_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
+				<!--<td><a href='main.php?act=languages&p=download&id={$lang['l_id']}'><i class='fa fa-fw fa-download'></i></a></td>-->
+				<td class='min'>{$lang['remove']}</td>
 			</tr>");
 	}
 
@@ -64,7 +64,7 @@
 					<td style='color:#bbb'>/languages/{$language}</td>
 					<td style='color:#bbb'>{$language_info['author_name']} ({$language_info['author_email']})</td>
 					<td style='color:#bbb' colspan='2'>Not installed</td>
-					<td colspan='3'><a href='process.php?do=install_language&id={$language}'><i class='fa fa-fw fa-gears'></i></a></td>
+					<td colspan='3'><a href='process.php?do=install_language&id={$language}' title='Install'><i class='fa fa-fw fa-gears'></i></a></td>
 				</tr>");
 		}
 	}
@@ -91,9 +91,9 @@
 					<td>Author</td>
 					<td>Active</td>
 					<td>Default</td>
-					<td class="min"></td>
-					<td class="min"></td>
-					<td class="min"></td>
+					<td class="min">Edit</td>
+					<!--<td class="min"></td>-->
+					<td class="min">Remove</td>
 				</tr>
 				<?php echo Template::Get() ?>
 			</table>

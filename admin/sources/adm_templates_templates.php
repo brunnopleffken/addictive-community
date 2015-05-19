@@ -15,7 +15,7 @@
 	$templates = $Db->FetchToArray();
 
 	foreach($templates as $template) {
-		$template['active']  = ($template['active'] == 1) ? "<i class='fa fa-check'></i>" : "";
+		$template['is_active']  = ($template['is_active'] == 1) ? "<i class='fa fa-check'></i>" : "";
 
 		// Do not allow to remove default templates
 		if($template['directory'] == $Admin->SelectConfig("template_default_set")) {
@@ -31,7 +31,7 @@
 				<td><a href=\"main.php?act=templates&p=edit&id={$template['tpl_id']}\"><b>{$template['name']}</b></a></td>
 				<td>/templates/{$template['directory']}</td>
 				<td>{$template['author_name']} ({$template['author_email']})</td>
-				<td>{$template['active']}</td>
+				<td>{$template['is_active']}</td>
 				<td>{$template['default']}</td>
 				<td><a href='main.php?act=templates&p=edit&id={$template['tpl_id']}'><i class='fa fa-pencil'></i></a></td>
 				<td><a href='main.php?act=templates&p=download&id={$template['tpl_id']}'><i class='fa fa-download'></i></a></td>

@@ -26,7 +26,7 @@
 	$themes = $Db->FetchToArray();
 
 	foreach($themes as $theme) {
-		$theme['active']  = ($theme['active'] == 1) ? "<i class='fa fa-fw fa-check'></i>" : "";
+		$theme['is_active']  = ($theme['is_active'] == 1) ? "<i class='fa fa-fw fa-check'></i>" : "";
 
 		if(in_array($theme['directory'], $dir_list)) {
 			$dir_list = array_diff($dir_list, array($theme['directory']));
@@ -52,10 +52,10 @@
 				<td><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><b>{$theme['name']}</b></a></td>
 				<td>/themes/{$theme['directory']}</td>
 				<td>{$theme['author_name']} ({$theme['author_email']})</td>
-				<td class='min'>{$theme['active']}</td>
+				<td class='min'>{$theme['is_active']}</td>
 				<td class='min'>{$theme['default']}</td>
 				<td class='min'><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
-				<td class='min'><a href='main.php?act=templates&p=theme_download&id={$theme['theme_id']}'><i class='fa fa-fw fa-download'></i></a></td>
+				<!--<td class='min'><a href='main.php?act=templates&p=theme_download&id={$theme['theme_id']}'><i class='fa fa-fw fa-download'></i></a></td>-->
 				<td class='min'>{$theme['remove']}</td>
 			</tr>");
 	}
@@ -74,7 +74,7 @@
 					<td style='color:#bbb'>/themes/{$theme}</td>
 					<td style='color:#bbb'>{$theme_info['author']} ({$theme_info['email']})</td>
 					<td style='color:#bbb' colspan='2'>Not installed</td>
-					<td colspan='3'><a href=''><i class='fa fa-fw fa-gears'></i></a></td>
+					<td colspan='3'><a href='' title='Install'><i class='fa fa-fw fa-gears'></i></a></td>
 				</tr>");
 		}
 	}
@@ -100,7 +100,7 @@
 					<td>Active</td>
 					<td>Default</td>
 					<td class="min">Edit</td>
-					<td class="min">Download</td>
+					<!--<td class="min">Download</td>-->
 					<td class="min">Delete</td>
 				</tr>
 				<?php echo Template::Get() ?>
