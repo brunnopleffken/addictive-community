@@ -7,8 +7,8 @@
 #  http://github.com/brunnopleffken/addictive-community
 #
 #  File: Error.php
-#  Release: v1.0.0
-#  Copyright: (c) 2015 - Addictive Software
+#  License: GPLv2
+#  Copyright: (c) 2015 - Addictive Community
 ## -------------------------------------------------------
 
 class Error extends Application

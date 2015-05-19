@@ -5,12 +5,12 @@
 	## ---------------------------------------------------
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_templates_help.php
-	#  Release: v1.0.0
-	#  Copyright: (c) 2014 - Addictive Software
+	#  License: GPLv2
+	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
-	
+
 	// Messages
-	
+
 	$msg = (Html::Request("msg")) ? Html::Request("msg") : "";
 
 	switch($msg) {
@@ -21,11 +21,11 @@
 			$message = "";
 			break;
 	}
-	
+
 	// Room list
-	
+
 	$Db->Query("SELECT * FROM c_help ORDER BY title;");
-	
+
 	while($topic = $Db->Fetch()) {
 		Template::Add("
 			<tr>
@@ -38,18 +38,18 @@
 			</tr>
 		");
 	}
-	
+
 ?>
 
 	<h1>Help Topics</h1>
-	
+
 	<div id="content">
 		<div class="grid-row">
 			<!-- LEFT -->
 			<form action="process.php?do=newroom" method="post">
-			
+
 				<?php echo $message; ?>
-			
+
 				<table class="table-list">
 					<tr>
 						<th colspan="5">

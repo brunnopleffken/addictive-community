@@ -5,8 +5,8 @@
 	## ---------------------------------------------------
 	#  Developed by Brunno Pleffken Hosti
 	#  File: index.php
-	#  Release: v1.0.0
-	#  Copyright: (c) 2014 - Addictive Software
+	#  License: GPLv2
+	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
 
 	require_once("../init.php");

@@ -5,15 +5,15 @@
 	## ---------------------------------------------------
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_members_add.php
-	#  Release: v1.0.0
-	#  Copyright: (c) 2014 - Addictive Software
+	#  License: GPLv2
+	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
-	
+
 	// User group list
-	
+
 	$list = "";
 	$Db->Query("SELECT * FROM c_usergroups ORDER BY g_id");
-	
+
 	while($group = $Db->Fetch()) {
 		if($group['g_id'] == 3) {
 			$list .= "<option value='{$group['g_id']}' selected>{$group['name']}</option>";
@@ -22,11 +22,11 @@
 			$list .= "<option value='{$group['g_id']}'>{$group['name']}</option>";
 		}
 	}
-	
+
 ?>
 
 	<h1>Add New Member</h1>
-	
+
 	<div id="content">
 		<div class="grid-row">
 			<!-- LEFT -->

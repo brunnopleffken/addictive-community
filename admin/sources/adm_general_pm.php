@@ -5,12 +5,12 @@
 	## ---------------------------------------------------
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_general_pm.php
-	#  Release: v1.0.0
-	#  Copyright: (c) 2014 - Addictive Software
+	#  License: GPLv2
+	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
-	
+
 	$msg = (Html::Request("msg")) ? Html::Request("msg") : "";
-	
+
 	switch($msg) {
 		case 1:
 			$message = Html::Notification("The settings has been changed successfully.", "success");
@@ -19,17 +19,17 @@
 			$message = "";
 			break;
 	}
-	
+
 ?>
 
 	<h1>Personal Messages</h1>
-	
+
 	<div id="content">
 		<div class="grid-row">
 			<form action="process.php?do=save" method="post">
-			
+
 				<?php echo $message ?>
-			
+
 				<table class="table-list">
 					<tr>
 						<th colspan="2">PMs Settings</th>
@@ -43,7 +43,7 @@
 						<td><input type="text" name="member_pm_storage" class="nano" value="<?php echo $Admin->SelectConfig("member_pm_storage") ?>"> personal messages</td>
 					</tr>
 				</table>
-				
+
 				<div class="box fright"><input type="submit" value="Save Settings"></div>
 			</form>
 		</div>

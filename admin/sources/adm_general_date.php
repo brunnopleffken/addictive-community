@@ -5,12 +5,12 @@
 	## ---------------------------------------------------
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_general_date.php
-	#  Release: v1.0.0
-	#  Copyright: (c) 2014 - Addictive Software
+	#  License: GPLv2
+	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
-	
+
 	$msg = (Html::Request("msg")) ? Html::Request("msg") : "";
-	
+
 	switch($msg) {
 		case 1:
 			$message = Html::Notification("The settings has been changed successfully.", "success");
@@ -19,17 +19,17 @@
 			$message = "";
 			break;
 	}
-	
+
 ?>
 
 	<h1>Date &amp; Time</h1>
-	
+
 	<div id="content">
 		<div class="grid-row">
 			<form action="process.php?do=save" method="post">
-			
+
 				<?php echo $message ?>
-			
+
 				<table class="table-list">
 					<tr>
 						<th colspan="2">Date and Time Format</th>
@@ -43,7 +43,7 @@
 						<td><input type="text" name="date_long_format" value="<?php echo $Admin->SelectConfig("date_long_format") ?>" class="tiny"></td>
 					</tr>
 				</table>
-				
+
 				<table class="table-list">
 					<tr>
 						<th colspan="2">Timezones</th>
@@ -53,7 +53,7 @@
 						<td><input type="text" name="date_default_offset" value="<?php echo $Admin->SelectConfig("date_default_offset") ?>" class="tiny"></td>
 					</tr>
 				</table>
-				
+
 				<div class="box fright"><input type="submit" value="Save Settings"></div>
 			</form>
 		</div>

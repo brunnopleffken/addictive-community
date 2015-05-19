@@ -7,8 +7,8 @@
 #  http://github.com/brunnopleffken/addictive-community
 #
 #  File: Calendar.php
-#  Release: v1.0.0
-#  Copyright: (c) 2015 - Addictive Software
+#  License: GPLv2
+#  Copyright: (c) 2015 - Addictive Community
 ## -------------------------------------------------------
 
 class Calendar extends Application
@@ -77,7 +77,7 @@ class Calendar extends Application
 			$this->config['date_short_format'],
 			mktime(0, 0, 0, $date[1], $date[2], $date[0])
 		);
-		
+
 		// Get all birthdays
 		$this->Db->Query("SELECT m_id, username FROM c_members
 				WHERE b_day = {$date[2]} AND b_month = {$date[1]};");

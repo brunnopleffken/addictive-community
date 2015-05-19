@@ -5,12 +5,12 @@
 	## ---------------------------------------------------
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_general_profiles.php
-	#  Release: v1.0.0
-	#  Copyright: (c) 2014 - Addictive Software
+	#  License: GPLv2
+	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
-	
+
 	$msg = (Html::Request("msg")) ? Html::Request("msg") : "";
-	
+
 	switch($msg) {
 		case 1:
 			$message = Html::Notification("The settings has been changed successfully.", "success");
@@ -19,11 +19,11 @@
 			$message = "";
 			break;
 	}
-	
+
 ?>
 
 	<h1>Profiles</h1>
-	
+
 	<div id="content">
 		<div class="grid-row">
 			<form action="process.php?do=save" method="post">

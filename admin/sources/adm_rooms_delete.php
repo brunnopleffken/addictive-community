@@ -5,29 +5,29 @@
 	## ---------------------------------------------------
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_rooms_delete.php
-	#  Release: v1.0.0
-	#  Copyright: (c) 2014 - Addictive Software
+	#  License: GPLv2
+	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
-		
+
 	// ---------------------------------------------------
 	// Get information
 	// ---------------------------------------------------
-	
+
 	$id = Html::Request("id");
-	
+
 	$Db->Query("SELECT * FROM c_rooms WHERE r_id = '{$id}';");
 	$room_info = $Db->Fetch();
-	
+
 ?>
 
 	<h1>Delete Room: <?php echo $room_info['name'] ?></h1>
-	
+
 	<div id="content">
-	
+
 		<div class="grid-row">
 			<!-- LEFT -->
 			<form action="process.php?do=deleteroom" method="post">
-			
+
 				<table class="table-list">
 					<tr>
 						<th colspan="2">Confirmation</th>
@@ -43,7 +43,7 @@
 						</td>
 					</tr>
 				</table>
-				
+
 			</form>
 		</div>
 

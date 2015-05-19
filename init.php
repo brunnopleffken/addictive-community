@@ -7,8 +7,8 @@
 #  http://github.com/brunnopleffken/addictive-community
 #
 #  File: init.php
-#  Release: v1.0.0
-#  Copyright: (c) 2015 - Addictive Software
+#  License: GPLv2
+#  Copyright: (c) 2015 - Addictive Community
 ## -------------------------------------------------------
 
 // Show all kind of errors
@@ -25,7 +25,7 @@ header('Content-Type: text/html; charset=utf-8');
  * --------------------------------------------------------------------
  */
 define("VERSION", "v0.1.0");
-define("CHANNEL", "Alpha"); // e.g.: Alpha, Beta, Release Candidate, Final
+define("CHANNEL", "Beta"); // e.g.: Alpha, Beta, Release Candidate, Final
 define("CODENAME", "Nile"); // Version codename :)
 
 /**

@@ -5,12 +5,12 @@
 	## ---------------------------------------------------
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_general_email.php
-	#  Release: v1.0.0
-	#  Copyright: (c) 2014 - Addictive Software
+	#  License: GPLv2
+	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
-	
+
 	$msg = (Html::Request("msg")) ? Html::Request("msg") : "";
-	
+
 	switch($msg) {
 		case 1:
 			$message = Html::Notification("The settings has been changed successfully.", "success");
@@ -19,17 +19,17 @@
 			$message = "";
 			break;
 	}
-	
+
 ?>
 
 	<h1>E-mail</h1>
-	
+
 	<div id="content">
 		<div class="grid-row">
 			<form action="process.php?do=save" method="post">
-			
+
 				<?php echo $message ?>
-			
+
 				<table class="table-list">
 					<tr>
 						<th colspan="2">SMTP Settings</th>
@@ -64,7 +64,7 @@
 						</td>
 					</tr>
 				</table>
-				
+
 				<table class="table-list">
 					<tr>
 						<th colspan="2">E-mail Identification</th>
@@ -78,7 +78,7 @@
 						<td><input type="text" name="general_email_from_name" class="medium" value="<?php echo $Admin->SelectConfig("general_email_from_name") ?>"></td>
 					</tr>
 				</table>
-				
+
 				<div class="box fright"><input type="submit" value="Save Settings"></div>
 			</form>
 		</div>
