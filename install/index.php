@@ -464,7 +464,7 @@ HTML;
 	<meta charset="utf-8">
 	<title>Addictive Community</title>
 	<!-- Common Files -->
-	<link href="../templates/default/css/main.css" type="text/css" rel="stylesheet">
+	<link href="../themes/default-light/css/main.css" type="text/css" rel="stylesheet">
 	<script type="text/javascript" src="../thirdparty/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="../thirdparty/select2/select2.js"></script>
 	<script type="text/javascript" src="../resources/main.js"></script>
@@ -494,7 +494,7 @@ HTML;
 
 	<div class="wrapper">
 		<div id="logo">
-			<img src="../templates/default/images/logo.png" alt="" height="50">
+			<img src="../themes/default-light/images/logo.png" alt="" height="50">
 		</div>
 		<div class="box" id="content" style="width: 700px; margin: auto">
 			<?php echo $template ?>
