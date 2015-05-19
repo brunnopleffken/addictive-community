@@ -129,12 +129,16 @@ $(document).ready(function($) {
 
 			// Validate TinyMCE textarea
 
-			if(tinymce.get('post').getContent() == "") {
-				$('.mce-edit-area').addClass('error');
-				stopSend = true;
-			}
-			else {
-				$('.mce-edit-area').removeClass('error');
+			try {
+				if(tinymce.get('post').getContent() == "") {
+					$('.mce-edit-area').addClass('error');
+					stopSend = true;
+				}
+				else {
+					$('.mce-edit-area').removeClass('error');
+				}
+			} catch(e) {
+				console.log(e);
 			}
 
 			// Is the URL valid?
