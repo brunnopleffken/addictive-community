@@ -39,4 +39,16 @@
 			</div>
 		</div>
 	</form>
+<?php elseif($action == "offline"): ?>
+	<div class="box center" style='padding: 40px 0'>
+		<i class="fa fa-user-times" style="font-size: 50px"></i><br><br>
+		<h2><?php __("E_OFFLINE_TITLE") ?></h2><br>
+		<h3><?php __("E_OFFLINE_MESSAGE", $community_name) ?></h3>
+	</div>
+<?php elseif($action == "update"): ?>
+	<div class="box center" style='padding: 40px 0'>
+		<i class="fa fa-refresh" style="font-size: 50px"></i><br><br>
+		<h2><?php __("E_UPDATING") ?></h2><br>
+		<h3><?php __("E_UPDATING_MESSAGE", $community_name) ?></h3>
+	</div>
 <?php endif; ?>

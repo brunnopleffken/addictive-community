@@ -12,4 +12,8 @@
 	$t["E_MESSAGE_VALIDATED"] = "Your e-mail address has been successfully validated.";
 	$t["E_MESSAGE_PROTECTED"] = "This room is protected.";
 	$t["E_MESSAGE_LOGIN_ERROR"] = "Username or password is wrong. Please, try again.";
+	$t["E_OFFLINE_TITLE"] = "Sorry. We're offline!";
+	$t["E_OFFLINE_MESSAGE"] = "%s is currently offline while we performe some maintenance.";
+	$t["E_UPDATING"] = "Updating!";
+	$t["E_UPDATING_MESSAGE"] = "Please, wait while we update our community to a newer software version.";
 ?>

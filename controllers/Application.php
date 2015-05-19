@@ -100,6 +100,13 @@ class Application
 		// SIDEBAR: get community statistics
 		$this->_GetStats();
 
+		// Is community offline?
+		if($this->config['general_offline'] == "true") {
+			if(!strstr($_SERVER['REQUEST_URI'], "error")) {
+				$this->Core->Redirect("error?t=offline");
+			}
+		}
+
 		// RETURN COMMON VARIABLES
 		// This variables will be returned in all controllers
 		// Treat them as reserved words when declaring variables! ;)
