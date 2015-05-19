@@ -5,7 +5,7 @@
  * http://github.com/brunnopleffken/addictive-community
  *
  * File: installer.js
- * Release: v1.0.0
+ * License: GPLv2
  * Copyright: (c) 2015 - Addictive Software
  */
 
