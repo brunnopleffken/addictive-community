@@ -448,7 +448,7 @@ HTML;
 					<div class="step4">Inserting initial data and settings... <span class="ok">OK</span><span class="failed">FAILED</span></div>
 					<div class="step5">Saving user information... <span class="ok">OK</span><span class="failed">FAILED</span></div>
 					<div class="step6">Locking installer... <span class="ok">OK</span><span class="failed">FAILED</span></div>
-					<input type="submit" value="Let's Go!" style="margin-top: 10px" onclick="window.location='../index.php'">
+					<input type="submit" class="default-button" value="Let's Go!" style="margin-top: 10px" onclick="window.location='../index.php'">
 				</div>
 HTML;
 

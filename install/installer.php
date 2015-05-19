@@ -84,9 +84,9 @@
 			// Get brand new config.php file
 			require("../config.php");
 			// Try to connect to database using config.php data
-			$database = new Database($config);
+			$Db = new Database($config);
 
-			$status      = ($database) ? 1 : 0;
+			$status      = ($Db) ? 1 : 0;
 			$description = "Check information and connect to database";
 			break;
 
@@ -100,7 +100,7 @@
 		case 3:
 			// Get config file and connect to Database
 			require("../config.php");
-			$database = new Database($config);
+			$Db = new Database($config);
 
 			// Avoid PHP timeout
 			set_time_limit(0);
@@ -114,7 +114,7 @@
 				$queries = explode("\n", $sql_query);
 
 				foreach($queries as $value) {
-					$query = $database->Query($value);
+					$query = $Db->Query($value);
 				}
 
 				$status = ($query) ? 1 : 0;
@@ -136,7 +136,7 @@
 		case 4:
 			// Get config file and connect to Database
 			require("../config.php");
-			$database = new Database($config);
+			$Db = new Database($config);
 			$errors = false;
 
 			// Generate a random security hash and key
@@ -153,7 +153,7 @@
 				$queries = explode("\n", $sql_query);
 
 				foreach($queries as $value) {
-					$query = $database->Query($value);
+					$query = $Db->Query($value);
 					if(!$query) {
 						$errors = true;
 					}
@@ -223,7 +223,7 @@
 			$sql[] = "INSERT INTO `c_config` (`index`, `value`) VALUES ('language_bad_words_replacement', '#####');";
 
 			foreach($sql as $value) {
-				$query = $database->Query($value);
+				$query = $Db->Query($value);
 				if(!$query) {
 					$errors = true;
 				}
@@ -264,9 +264,9 @@
 
 			// Build SQL
 
-			$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_windowslive`, `im_skype`, `im_facebook`, `im_twitter`, `im_yim`, `im_aol`, `posts`, `lastpost_date`, `signature`, `template`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', '', '', '', '', 1, 1367848084, '', 'default', 'en_US', NULL, NULL, 0, '0', 0, 1, 1, '')";
+			$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_windowslive`, `im_skype`, `im_facebook`, `im_twitter`, `im_yim`, `im_aol`, `posts`, `lastpost_date`, `signature`, `template`, `theme`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', '', '', '', '', 1, 1367848084, '', 'default', 'default-light', 'en_US', NULL, NULL, 0, '0', 0, 1, 1, '')";
 
-			$insert_admin = $database->Query($insert_admin_query);
+			$insert_admin = $Db->Query($insert_admin_query);
 
 			$status      = ($insert_admin) ? 1 : 0;
 			$description = "Save user information";

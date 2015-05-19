@@ -221,7 +221,7 @@ class Usercp extends Application
 
 		// Template list
 		$settings['theme_list'] = "";
-		$this->Db->Query("SELECT * FROM c_themes WHERE active = 1 ORDER BY name;");
+		$this->Db->Query("SELECT * FROM c_themes WHERE is_active = 1 ORDER BY name;");
 
 		while($theme = $this->Db->Fetch()) {
 			$selected = ($this->Session->member_info['theme'] == $theme['directory']) ? "selected" : "";
