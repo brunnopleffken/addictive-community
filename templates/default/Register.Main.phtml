@@ -1,6 +1,7 @@
 <div class="title-bar">
 	<div class="title fleft">
-		<span><?php __($community_name) ?></span><?php __("R_TITLE") ?>
+		<span><?php __($community_name) ?></span>
+		<?php __("R_TITLE") ?>
 	</div>
 </div>
 
@@ -22,30 +23,6 @@
 		</form>
 	</div>
 <?php elseif($step == 2): ?>
-	<script type="text/javascript">
-		function CheckPassword() {
-			var password = $('#password').val();
-			var confirm = $('#password_conf').val();
-			if(password != confirm) {
-				$('#passwdMatch').fadeIn().css('display', 'inline-block');
-				$('#formSubmit').attr('disabled', 'disabled');
-			}
-			else {
-				$('#passwdMatch').fadeOut().css('display', 'none');
-				$('#formSubmit').attr('disabled', false);
-			}
-		}
-		function CheckUsername()
-		{
-			var value = $('#username').val();
-			if(value.length < 3 || value.length > 20) {
-				$('#formSubmit').attr('disabled', 'disabled');
-			}
-			else {
-				$('#formSubmit').attr('disabled', false);
-			}
-		}
-	</script>
 	<div class="box">
 		<div class="step-box">
 			<div class="previous"><h3><?php __("R_STEP_1") ?></h3><span class="tiny"><?php __("R_STEP_AGREEMENT") ?></span></div>
@@ -68,10 +45,10 @@
 			</div>
 			<div class="input-box">
 				<div class="label"><?php __("R_EMAIL_ADDR") ?></div>
-				<div class="field"><input type="text" name="email" class="required email medium"></div>
+				<div class="field"><input type="text" name="email" id="email" class="required email medium"></div>
 			</div>
 			<div class="input-box center">
-				<input type="submit" id="formSubmit" value="<?php __("R_STEP_2_SEND") ?>">
+				<input type="submit" id="formSubmit" value="<?php __("R_STEP_2_SEND") ?>" disabled>
 			</div>
 		</form>
 	</div>
