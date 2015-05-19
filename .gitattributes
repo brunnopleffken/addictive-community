@@ -8,3 +8,4 @@ themes/default-light/scss/* linguist-vendored
 .gitignore export-ignore
 .gitattributes export-ignore
 CONTRIBUTE.md export-ignore
+README.md export-ignore
