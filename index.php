@@ -92,7 +92,7 @@ class Main
 
 		// Get settings from database
 		$this->_GetConfig();
-		$this->Core = new Core($this->Db, $this->Config);
+		$this->Core = new Core($this->Db, $this->Config, $this->Session->member_info);
 
 		// Get current template and language
 		$this->_GetTemplate();
