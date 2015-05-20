@@ -19,23 +19,24 @@ In the future you will also be able to create customized themes.
 
 ## <a name="pullrequest"></a> Submitting a Pull Request
 Before you submit your pull request, search GitHub for an [open or closed Pull Request](https://github.com/brunnopleffken/addictive-community/pulls) that relates to your submission. You don't want to duplicate effort.
-- Make your changes in a new Git branch: ```git checkout -b bug-fix-branch master```
+As a contributor, you should **always** work on the `development` branch of your clone (`master` is used only for building releases).
 - Follow our [Coding Guidelines](#coding)
-- Commit your changes using a descriptive commit message. Be clear and concise, since commits are used to help create change logs.
+- Make your changes in a new Git branch: ```git checkout -b bug-fix-branch development```
+- Commit your changes using a descriptive commit message. Be clear and concise, since commits are used to help create changelogs.
 - Push your branch to GitHub: ```git push origin bug-fix-branch```
-- In GitHub, send a pull request to ```addictive-community:master```
+- In GitHub interface, send a pull request to ```addictive-community:development```
 - If we suggest changes then:
-  - Make the required updates.
-  - Rebase your branch and force push to your GitHub repository (this will update your Pull Request): ```git rebase master -i; git push origin bug-fix-branch -f```
+  - Make and commit the required updates. Try to understand the reasons explained by the team for the denial. Above all, please don't be offended.
+  - Rebase your branch and force push to your GitHub repository (this will update your Pull Request): ```git rebase development -i; git push origin bug-fix-branch -f```
 
 And that's all! :)
 
 ### After your Pull Request is merged
 Then you can safely delete your branch and pull the changes from the main (upstream) repository.
 - Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows: ```git push origin --delete bug-fix-branch```
-- Check out the master branch: ```git checkout master -f```
+- Check out the development branch: ```git checkout development -f```
 - Delete the local branch: ```git branch -D my-fix-branch```
-- Update your master with the latest upstream version: ```git pull --ff upstream master```
+- Update your master with the latest upstream version.
 
 
 ## <a name="coding"></a> Coding Guidelines
