@@ -32,7 +32,9 @@
 				</a>
 			</div>
 			<div class="fright">
-				<a href="admin/" target="_blank">Admin CP</a>
+				<?php if($is_admin): ?>
+					<a href="admin/" target="_blank">Admin CP</a>
+				<?php endif; ?>
 				<a href="search"><?php __("SEARCH") ?></a>
 				<a href="members"><?php __("MEMBERLIST") ?></a>
 				<a href="calendar"><?php __("CALENDAR") ?></a>
