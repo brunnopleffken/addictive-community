@@ -181,6 +181,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 
 .load-more { text-align: center; }
 .load-more .loader { background: url("../images/loader.gif") no-repeat center; background-size: 16px 16px; display: none; height: 16px; margin: auto; width: 16px; }
+.load-more a { color: #999; font-size: 11px; letter-spacing: 2px; line-height: 1em; text-transform: uppercase; text-shadow: 1px 1px 0 #fff; }
 
 /** THREAD **/
 .thread-first-post { background: #fff; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); overflow: hidden; }
