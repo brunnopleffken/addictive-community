@@ -91,6 +91,10 @@ class Community extends Application
 				$result['username'] = "---";
 			}
 
+			// Regular variables
+			$result['room_link'] = "room/{$result['r_id']}";
+			$result['redirect'] = ""; // Specific for redirect room
+
 			// Is this room a read only, protected or invisible room?
 			// The order of relevance is from down to up
 			if($result['read_only'] == 1) {
@@ -104,6 +108,11 @@ class Community extends Application
 			elseif($result['invisible'] == 1) {
 				$result['icon']  = "<i class='fa fa-user-secret fa-fw'></i>";
 				$result['title'] = "<a href='thread/{$result['t_id']}-{$result['slug']}'>{$result['title']}</a>";
+			}
+			elseif($result['url'] != "") {
+				$result['icon']  = "<i class='fa fa-external-link fa-fw'></i>";
+				$result['redirect'] = "<div class='redirect'>Redirects to: {$result['url']}</div>";
+				$result['room_link'] = $result['url'];
 			}
 			else {
 				$result['icon']  = "<i class='fa fa-comment-o fa-fw'></i>";

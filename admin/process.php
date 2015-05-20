@@ -75,6 +75,7 @@
 			$room = array(
 				"name"          => String::Sanitize($_POST['name']),
 				"description"   => String::Sanitize($_POST['description']),
+				"url"           => (isset($_POST['url'])) ? $_POST['url'] : "",
 				"password"      => ($_POST['password'] != "") ? $_POST['password'] : "",
 				"read_only"     => (isset($_POST['read_only'])) ? "1" : "0",
 				"invisible"     => (isset($_POST['invisible'])) ? "1" : "0",

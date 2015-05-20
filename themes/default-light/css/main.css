@@ -143,6 +143,8 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .room-item .info { padding: 15px 15px 0 0; vertical-align: top; }
 .room-item .info .title { display: block; font-size: 19px; font-weight: bold; letter-spacing: 1px; line-height: 1em; margin-bottom: 10px; }
 .room-item .info .description { color: #333; font-size: 13px; }
+.room-item .info .moderators, .room-item .info .redirect { color: #ccc; font-size: 10px; letter-spacing: 1px; line-height: 1em; margin-top: 10px; text-transform: uppercase; }
+.room-item .info .moderators a, .room-item .info .redirect a { color: inherit; }
 .room-item .info .last-post { border-top: 1px solid #eee; font-size: 10px; line-height: 28px; margin-top: 10px; position: relative; text-transform: uppercase; }
 .room-item .info .last-post span { margin-right: 15px; }
 .room-item .room-stats { background: #465068; vertical-align: top; width: 100px; }

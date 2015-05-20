@@ -608,6 +608,15 @@ form {
 			color: #333;
 			font-size: 13px;
 		}
+		.moderators, .redirect {
+			color: #ccc;
+			font-size: 10px;
+			letter-spacing: 1px;
+			line-height: 1em;
+			margin-top: 10px;
+			text-transform: uppercase;
+			a { color: inherit; }
+		}
 		.last-post {
 			border-top: 1px solid #eee;
 			font-size: 10px;

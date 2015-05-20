@@ -111,25 +111,6 @@
 
 ?>
 
-<script type="text/javascript">
-
-	function CustomRulesSelect() {
-		var checkbox = document.getElementById('rules_visible');
-		var rules_title = document.getElementById('rules_title');
-		var rules_text = document.getElementById('rules_text');
-
-		if(checkbox.checked) {
-			rules_title.disabled = false;
-			rules_text.disabled = false;
-		}
-		if(checkbox.checked == false) {
-			rules_title.disabled = true;
-			rules_text.disabled = true;
-		}
-	}
-
-</script>
-
 <h1>Add New Room</h1>
 
 <div id="content">
@@ -142,7 +123,6 @@
 				<tr>
 					<th colspan="2">Room Settings</th>
 				</tr>
-
 				<tr>
 					<td class="title-fixed">Room Name</td>
 					<td><input type="text" name="name" class="medium"></td>
@@ -155,9 +135,18 @@
 
 			<table class="table-list">
 				<tr>
+					<th colspan="2">Redirect Settings</th>
+				</tr>
+				<tr>
+					<td class="title-fixed">URL to Redirect<span class="title-desc">If so, the member will be redirected to the specified URL, instead of opening a regular room.</span></td>
+					<td><input type="text" name="url" class="large"></td>
+				</tr>
+			</table>
+
+			<table class="table-list">
+				<tr>
 					<th colspan="2">Security</th>
 				</tr>
-
 				<tr>
 					<td class="title-fixed">Password Protection<span class="title-desc">Leave empty if not required</span></td>
 					<td><input type="password" name="password" class="small"></td>
@@ -180,7 +169,6 @@
 				<tr>
 					<th colspan="2">Permissions</th>
 				</tr>
-
 				<tr>
 					<td class="title-fixed">Read Threads</td>
 					<td>
@@ -207,7 +195,6 @@
 				<tr>
 					<th colspan="2">Rules</th>
 				</tr>
-
 				<tr>
 					<td class="title-fixed">Enable custom rules<span class="title-desc">Add specific rules to this room?</span></td>
 					<td><label><input type="checkbox" id="rules_visible" name="rules_visible" onclick="CustomRulesSelect()"> Enable custom rules to this room.</label></td>

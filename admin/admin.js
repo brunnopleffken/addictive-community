@@ -113,3 +113,21 @@ function versionCompare(left, right) {
 
 	return 0;
 }
+
+/**
+ * Select custom rules when creating a new room
+ */
+function CustomRulesSelect() {
+	var checkbox = document.getElementById('rules_visible');
+	var rules_title = document.getElementById('rules_title');
+	var rules_text = document.getElementById('rules_text');
+
+	if(checkbox.checked) {
+		rules_title.disabled = false;
+		rules_text.disabled = false;
+	}
+	if(checkbox.checked == false) {
+		rules_title.disabled = true;
+		rules_text.disabled = true;
+	}
+}
