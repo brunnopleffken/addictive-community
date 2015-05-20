@@ -7,5 +7,6 @@ themes/default-light/scss/* linguist-vendored
 # Exclude these files from releases...
 .gitignore export-ignore
 .gitattributes export-ignore
+CHANGELOG.md export-ignore
 CONTRIBUTE.md export-ignore
 README.md export-ignore
