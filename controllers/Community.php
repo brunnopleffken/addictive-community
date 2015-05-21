@@ -103,7 +103,7 @@ class Community extends Application
 			}
 			elseif($result['password'] != "") {
 				$result['icon']  = "<i class='fa fa-lock fa-fw'></i>";
-				$result['title'] = "<em>Protected room</em>";
+				$result['title'] = "<em>" . i18n::Translate("C_PROTECTED_ROOM") . "</em>";
 			}
 			elseif($result['invisible'] == 1) {
 				$result['icon']  = "<i class='fa fa-user-secret fa-fw'></i>";
@@ -111,7 +111,7 @@ class Community extends Application
 			}
 			elseif($result['url'] != "") {
 				$result['icon']  = "<i class='fa fa-external-link fa-fw'></i>";
-				$result['redirect'] = "<div class='redirect'>Redirects to: {$result['url']}</div>";
+				$result['redirect'] = "<div class='redirect'>" . i18n::Translate("C_REDIRECT_TO") . ": {$result['url']}</div>";
 				$result['room_link'] = $result['url'];
 			}
 			else {
