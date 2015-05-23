@@ -76,12 +76,7 @@ class Community extends Application
 			$result['online'] = $Db->Fetch();
 
 			// If last post timestamp is not zero / no posts
-			if($result['lastpost_date'] > 0) {
-				$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
-			}
-			else {
-				$result['lastpost_date'] = "---";
-			}
+			$result['lastpost_date'] = ($result['lastpost_date'] > 0) ? $this->Core->DateFormat($result['lastpost_date']) : "---";
 
 			// If thread and/or last poster username is empty, show dashes instead
 			if($result['title'] == null) {
@@ -89,6 +84,27 @@ class Community extends Application
 			}
 			if($result['username'] == null) {
 				$result['username'] = "---";
+			}
+
+			// Get moderators
+			$moderators_array = unserialize($result['moderators']);
+			if(!empty($moderators_array)) {
+				$Db2 = clone($Db);
+				$moderators = unserialize($result['moderators']);
+				$moderator_list = array();
+
+				// Build moderators list
+				foreach($moderators as $member_id) {
+					$Db2->Query("SELECT m_id, username FROM c_members WHERE m_id = {$member_id};");
+					$member = $Db2->Fetch();
+
+					$moderator_list[] = "<a href='profile/{$member['m_id']}'>{$member['username']}</a>";
+				}
+
+				$result['moderators_list'] = "<div class='moderators'>Moderators: " . String::ToList($moderator_list) . "</div>";
+			}
+			else {
+				$result['moderators_list'] = "";
 			}
 
 			// Regular variables
