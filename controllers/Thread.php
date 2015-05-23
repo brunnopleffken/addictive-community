@@ -108,7 +108,7 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
-		$this->Db->Query("SELECT r_id, name, upload FROM c_rooms WHERE r_id = {$room_id};");
+		$this->Db->Query("SELECT r_id, name, upload, moderators FROM c_rooms WHERE r_id = {$room_id};");
 		$room_info = $this->Db->Fetch();
 
 		// Page info
@@ -119,6 +119,7 @@ class Thread extends Application
 		// Return variables
 		$this->Set("room_info", $room_info);
 		$this->Set("allow_uploads", $room_info['upload']);
+		$this->Set("is_moderator", $this->_IsModerator($this->Session->session_info['member_id'], $room_info['moderators']));
 	}
 
 	/**
@@ -607,5 +608,24 @@ class Thread extends Application
 		}
 
 		return $related_thread_list;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * WHEN POSTING, CHECK IF MEMBER IS A MODERATOR
+	 * --------------------------------------------------------------------
+	 */
+	private function _IsModerator($member_id, $moderators_serialized = "") {
+		// Get array of moderators
+		$moderators_array = unserialize($moderators_serialized);
+
+		// Check if room has moderators and if
+		// the current member is a moderator
+		if(!empty($moderators_array) && in_array($member_id, $moderators_array)) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }

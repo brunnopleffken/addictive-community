@@ -35,7 +35,7 @@
 	$t["P_ATTACHMENTS"] = "Attachments";
 	$t["P_OPTIONS"] = "Thread Options";
 	$t["P_SET_ANNOUNCEMENT"] = "Set thread as Announcement";
-	$t["P_LOCK"] = "Lock thread";
+	$t["P_LOCK"] = "Lock thread after posting";
 	$t["P_ERROR"] = "Your message is empty.";
 	$t["P_NEW_ERROR"] = "Name and post content are required fields.";
 	$t["P_NEW_THREAD_SUBMIT"] = "Add New Thread";
