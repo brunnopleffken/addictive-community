@@ -31,6 +31,8 @@ Free open-source discussion board (forum) software, written in object-oriented P
 
 *NOTE: If you are not redirected to the installer, make sure your config.php file is empty.*
 
+*NOTE #2: For production environment never use `git clone` nor download ZIP from `development` branch. Always download the ZIP file from the [latest official release](https://github.com/brunnopleffken/addictive-community/releases).*
+
 ### Requirements ###
 
 * Apache 2 or IIS webserver running on any major operating system;
