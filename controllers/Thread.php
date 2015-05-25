@@ -449,7 +449,8 @@ class Thread extends Application
 				LEFT JOIN c_members AS edit ON (c_posts.edit_author = edit.m_id)
 				LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
 				WHERE thread_id = '{$id}' AND first_post = '0'
-				ORDER BY best_answer DESC, post_date ASC LIMIT {$pages['for_sql']},{$pages['items_per_page']};");
+				ORDER BY best_answer DESC, post_date ASC
+				LIMIT {$pages['for_sql']},{$pages['items_per_page']};");
 
 		while($result = $this->Db->Fetch($replies)) {
 			// Is this a best answer or a regular reply?

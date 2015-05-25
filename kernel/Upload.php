@@ -121,12 +121,13 @@ class Upload
 			"pdf"   => array("pdf", "xps"),
 			"ppt"   => array("ppt", "pptx", "key", "odp"),
 			"txt"   => array("txt", "csv", "md"),
-			"vid"   => array("mp4", "mpeg", "avi", "mov", "wmv", "3gp"),
+			"vid"   => array("mp4", "mpeg", "avi", "mov", "wmv", "3gp", "ogv"),
 			"xls"   => array("xls", "xlsx", "numbers", "ods"),
 			"zip"   => array("zip", "rar", "7z", "tar", "gz", "tgz"),
 			"blank" => array(),
 		);
 
+		// Find file extension in array of CSS classes
 		foreach($types as $k => $v) {
 			if(in_array($extension, $v)) {
 				$found = true;
@@ -138,6 +139,7 @@ class Upload
 			}
 		}
 
+		// If value is not found, return "blank" file icon
 		if($found == true) {
 			return $ext;
 		}

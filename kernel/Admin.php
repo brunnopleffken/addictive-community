@@ -41,7 +41,12 @@ class Admin
 		$this->Db->Query("SELECT value FROM c_config WHERE `index` = '{$field_name}';");
 		$fetch = $this->Db->Fetch();
 
-		return $fetch['value'];
+		if($fetch['value']) {
+			return $fetch['value'];
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -55,10 +60,10 @@ class Admin
 		$fetch = $this->Db->Fetch();
 
 		if($fetch['value'] == 1 or $fetch['value'] == "true") {
-			$str = "<input type=\"hidden\" name=\"{$field_name}\" value=\"false\"><input type=\"checkbox\" name=\"{$field_name}\" value=\"true\" checked>";
+			$str = "<input type='hidden' name='{$field_name}' value='false'><input type='checkbox' name='{$field_name}' value='true' checked>";
 		}
 		else {
-			$str = "<input type=\"hidden\" name=\"{$field_name}\" value=\"false\"><input type=\"checkbox\" name=\"{$field_name}\" value=\"true\">";
+			$str = "<input type='hidden' name='{$field_name}' value='false'><input type='checkbox' name='{$field_name}' value='true'>";
 		}
 
 		return $str;
@@ -72,10 +77,10 @@ class Admin
 	public function BooleanCheckbox($field_name, $field_value)
 	{
 		if($field_value == 1 or $field_value == "true") {
-			$str = "<input type=\"hidden\" name=\"{$field_name}\" value=\"false\"><input type=\"checkbox\" name=\"{$field_name}\" value=\"true\" checked>";
+			$str = "<input type='hidden' name='{$field_name}' value='false'><input type='checkbox' name='{$field_name}' value='true' checked>";
 		}
 		else {
-			$str = "<input type=\"hidden\" name=\"{$field_name}\" value=\"false\"><input type=\"checkbox\" name=\"{$field_name}\" value=\"true\">";
+			$str = "<input type='hidden' name='{$field_name}' value='false'><input type='checkbox' name='{$field_name}' value='true'>";
 		}
 
 		return $str;
