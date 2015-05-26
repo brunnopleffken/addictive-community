@@ -38,7 +38,7 @@ class Admin
 	 */
 	public function SelectConfig($field_name)
 	{
-		$this->Db->Query("SELECT value FROM c_config WHERE `index` = '{$field_name}';");
+		$this->Db->Query("SELECT value FROM c_config WHERE field = '{$field_name}';");
 		$fetch = $this->Db->Fetch();
 
 		if($fetch['value']) {
@@ -56,7 +56,7 @@ class Admin
 	 */
 	public function SelectCheckbox($field_name)
 	{
-		$this->Db->Query("SELECT value FROM c_config WHERE `index` = '{$field_name}';");
+		$this->Db->Query("SELECT value FROM c_config WHERE field = '{$field_name}';");
 		$fetch = $this->Db->Fetch();
 
 		if($fetch['value'] == 1 or $fetch['value'] == "true") {
@@ -89,14 +89,14 @@ class Admin
 	/**
 	 * --------------------------------------------------------------------
 	 * UPDATE CONFIGURATION TABLE
-	 * FORMAT $config['index'] = "value" MUST BE USED!
+	 * FORMAT $config['field'] = "value" MUST BE USED!
 	 * --------------------------------------------------------------------
 	 */
 	public function SaveConfig($post)
 	{
 		if(is_array($post)) {
 			foreach($post as $k => $v) {
-				$this->Db->Query("UPDATE c_config SET value = '{$v}' WHERE `index` = '{$k}';");
+				$this->Db->Query("UPDATE c_config SET value = '{$v}' WHERE field = '{$k}';");
 			}
 			return true;
 		}

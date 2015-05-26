@@ -137,7 +137,7 @@ class Database implements IDatabase
 		}
 
 		while($_result = mysqli_fetch_assoc($result)) {
-			$_retval[$_result['index']] = $_result['value'];
+			$_retval[$_result['field']] = $_result['value'];
 		}
 
 		return $_retval;
