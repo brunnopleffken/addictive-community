@@ -39,6 +39,12 @@ Free open-source discussion board (forum) software, written in object-oriented P
 * PHP 5.3 or higher;
 * MySQL 5.1 or higher.
 
+#### This is a Beta version! ####
+
+Addictive Community v0.x **is not** ready for production environments. We're constantly modifying our database structure for performance enhancements and to add new features. If there is any breaking change, you may be stuck in an instable development version.
+
+We're currently working on automatic updates: download and upload all files (it'll not overwrite uploads and avatars), delete the file `/install/.lock` and run `/update`. It'll magically run the migration files to update from any version to the latest version.
+
 ## Contribute
 
 We're glad you're interested to help develop Addictive Community. Be part of it reading our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md).
