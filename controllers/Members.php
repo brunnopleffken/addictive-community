@@ -43,19 +43,9 @@ class Members extends Application
 		// Build letter list
 		foreach($letters as $value) {
 			$label = strtoupper($value);
-			if(Html::Request("letter") == $value) {
-				$selected = "class='page-selected'";
-			}
-			else {
-				$selected = "";
-			}
 
-			if(Html::Request("order")) {
-				$order = "&order=" . $_REQUEST['order'];
-			}
-			else {
-				$order = "";
-			}
+			$selected = (Html::Request("letter") == $value) ? "class='page-selected'" : "";
+			$order = (Html::Request("order")) ? "&order=" . $_REQUEST['order']: "";
 
 			$letter_list .= "<a href='members?letter={$value}{$order}' {$selected}>{$label}</a>\n";
 		}

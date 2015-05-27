@@ -82,9 +82,14 @@ class Html
 	 * LIST OF DAYS OF THE MONTH (1 TO 31)
 	 * --------------------------------------------------------------------
 	 */
-	public static function Days($name, $current = 1)
+	public static function Days($name, $current = 1, $show_placeholder = false)
 	{
 		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 60px'>";
+
+		if($show_placeholder) {
+			$retval .= "<option value=''>-</option>";
+		}
+
 		for($i = 1; $i <= 31; $i++) {
 			$selected = ($i == $current) ? "selected" : "";
 			$retval .= "<option value='{$i}' {$selected}>{$i}</option>";
@@ -99,9 +104,14 @@ class Html
 	 * $lang IS REQUIRED IF $numeric = false
 	 * --------------------------------------------------------------------
 	 */
-	public static function Months($name, $numeric = true, $current = 1)
+	public static function Months($name, $numeric = true, $current = 1, $show_placeholder = false)
 	{
 		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 110px'>";
+
+		if($show_placeholder) {
+			$retval .= "<option value=''>-</option>";
+		}
+
 		for($i = 1; $i <= 12; $i++) {
 			$selected = ($i == $current) ? "selected" : "";
 			if(!$numeric) {
@@ -121,11 +131,18 @@ class Html
 	 * REALLY NICE YEAR DROP-DOWN GENERATOR
 	 * --------------------------------------------------------------------
 	 */
-	public static function Years($name, $before, $after, $current = 0)
+	public static function Years($name, $before, $after, $current = 0, $show_placeholder = false)
 	{
 		$now = date("Y", time());
-		$current = ($current == 0) ? $now : $current;
 		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 75px'>";
+
+		if($show_placeholder) {
+			$retval .= "<option value=''>-</option>";
+		}
+		else {
+			$current = ($current == 0) ? $now : $current;
+		}
+
 		for($i = $now - $before; $i <= $now + $after; $i++) {
 			$selected = ($i == $current) ? "selected" : "";
 			$retval .= "<option value='{$i}' {$selected}>{$i}</option>";

@@ -7,7 +7,7 @@
 	<!-- META -->
 	<meta name="generator" content="Addictive Community <?php echo VERSION ?>">
 	<meta name="description" content="<?php __($meta_description) ?>">
-	<link rel="icon" href="favicon.ico">
+	<link rel="icon" type="image/png" href="favicon.png">
 	<!-- CSS -->
 	<link rel="stylesheet" href="themes/<?php __($theme) ?>/css/main.css">
 	<link rel="stylesheet" href="thirdparty/font-awesome/css/font-awesome.min.css">
@@ -32,7 +32,9 @@
 				</a>
 			</div>
 			<div class="fright">
-				<a href="admin/" target="_blank">Admin CP</a>
+				<?php if($is_admin): ?>
+					<a href="admin/" target="_blank">Admin CP</a>
+				<?php endif; ?>
 				<a href="search"><?php __("SEARCH") ?></a>
 				<a href="members"><?php __("MEMBERLIST") ?></a>
 				<a href="calendar"><?php __("CALENDAR") ?></a>
@@ -64,7 +66,7 @@
 					<?php if($member_id == 0): ?>
 						<div class="sidebar-item">
 							<div class="user">
-								<div class="user-info">
+								<div class="user-info logged-out">
 									<b><?php __("SIDEBAR_WELCOME") ?></b>
 									<a class="fancybox fancybox.ajax" href="login"><?php __("SIDEBAR_LOGIN") ?></a> &middot; <a href="register" class="highlight"><?php __("SIDEBAR_C_ACCOUNT") ?></a>
 								</div>

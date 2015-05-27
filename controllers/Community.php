@@ -76,12 +76,7 @@ class Community extends Application
 			$result['online'] = $Db->Fetch();
 
 			// If last post timestamp is not zero / no posts
-			if($result['lastpost_date'] > 0) {
-				$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
-			}
-			else {
-				$result['lastpost_date'] = "---";
-			}
+			$result['lastpost_date'] = ($result['lastpost_date'] > 0) ? $this->Core->DateFormat($result['lastpost_date']) : "---";
 
 			// If thread and/or last poster username is empty, show dashes instead
 			if($result['title'] == null) {
@@ -91,6 +86,31 @@ class Community extends Application
 				$result['username'] = "---";
 			}
 
+			// Get moderators
+			$moderators_array = unserialize($result['moderators']);
+			if(!empty($moderators_array)) {
+				$Db2 = clone($Db);
+				$moderators = unserialize($result['moderators']);
+				$moderator_list = array();
+
+				// Build moderators list
+				foreach($moderators as $member_id) {
+					$Db2->Query("SELECT m_id, username FROM c_members WHERE m_id = {$member_id};");
+					$member = $Db2->Fetch();
+
+					$moderator_list[] = "<a href='profile/{$member['m_id']}'>{$member['username']}</a>";
+				}
+
+				$result['moderators_list'] = "<div class='moderators'>Moderators: " . String::ToList($moderator_list) . "</div>";
+			}
+			else {
+				$result['moderators_list'] = "";
+			}
+
+			// Regular variables
+			$result['room_link'] = "room/{$result['r_id']}";
+			$result['redirect'] = ""; // Specific for redirect room
+
 			// Is this room a read only, protected or invisible room?
 			// The order of relevance is from down to up
 			if($result['read_only'] == 1) {
@@ -99,11 +119,16 @@ class Community extends Application
 			}
 			elseif($result['password'] != "") {
 				$result['icon']  = "<i class='fa fa-lock fa-fw'></i>";
-				$result['title'] = "<em>Protected room</em>";
+				$result['title'] = "<em>" . i18n::Translate("C_PROTECTED_ROOM") . "</em>";
 			}
 			elseif($result['invisible'] == 1) {
 				$result['icon']  = "<i class='fa fa-user-secret fa-fw'></i>";
 				$result['title'] = "<a href='thread/{$result['t_id']}-{$result['slug']}'>{$result['title']}</a>";
+			}
+			elseif($result['url'] != "") {
+				$result['icon']  = "<i class='fa fa-external-link fa-fw'></i>";
+				$result['redirect'] = "<div class='redirect'>" . i18n::Translate("C_REDIRECT_TO") . ": {$result['url']}</div>";
+				$result['room_link'] = $result['url'];
 			}
 			else {
 				$result['icon']  = "<i class='fa fa-comment-o fa-fw'></i>";

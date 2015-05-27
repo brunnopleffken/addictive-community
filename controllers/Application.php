@@ -100,6 +100,16 @@ class Application
 		// SIDEBAR: get community statistics
 		$this->_GetStats();
 
+		// Is community offline?
+		if($this->config['general_offline'] == "true") {
+			if(!strstr($_SERVER['REQUEST_URI'], "error")) {
+				$this->Core->Redirect("error?t=offline");
+			}
+		}
+
+		// Check if user is Admin
+		$is_admin = ($this->Session->member_info['usergroup'] == 1) ? true : false;
+
 		// RETURN COMMON VARIABLES
 		// This variables will be returned in all controllers
 		// Treat them as reserved words when declaring variables! ;)
@@ -112,6 +122,7 @@ class Application
 		$this->Set("website_url", $this->config['general_website_url']);
 		$this->Set("show_members_online", $this->config['general_sidebar_online']);
 		$this->Set("show_statistics", $this->config['general_sidebar_stats']);
+		$this->Set("is_admin", $is_admin);
 	}
 
 	/**

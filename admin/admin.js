@@ -5,7 +5,7 @@
  * http://github.com/brunnopleffken/addictive-community
  *
  * File: admin.js
- * Release: v1.0.0
+ * License: GPLv2
  * Copyright: (c) 2015 - Addictive Software
  */
 
@@ -29,7 +29,7 @@ $(document).ready(function() {
 	 * Check updates
 	 */
 	(function() {
-		$.ajax("https://api.github.com/repos/brunnopleffken/addictive-community/releases/latest", {
+		$.ajax("https://api.github.com/repos/brunnopleffken/addictive-community/releases/latest?access_token=a4b75336277bbeb8be2d004c614158836bbe655b", {
 			dataType: 'json',
 			beforeSend: function() {
 				$('.loader').show();
@@ -37,8 +37,13 @@ $(document).ready(function() {
 		})
 		.done(function(data) {
 			if(data) {
-				$('.update-message.done span').html(data.name);
-				$('.update-message.done').show();
+				if(versionCompare(data.tag_name.slice(1), $('#current-version').val()) == 1) {
+					$('.update-message.done span').html(data.tag_name);
+					$('.update-message.done').show();
+				}
+				else {
+					$('.update-message.no-updates').show();
+				}
 			}
 		})
 		.fail(function() {
@@ -72,4 +77,57 @@ function counter(limit) {
 	var char_number = limit - field.value.length;
 
 	counter.innerHTML = char_number + " characters remaining";
+}
+
+/**
+ * Simply compares two string version values.
+ *
+ * Example:
+ * versionCompare('1.1', '1.2') => -1
+ * versionCompare('1.1', '1.1') =>  0
+ * versionCompare('1.2', '1.1') =>  1
+ * versionCompare('2.23.3', '2.22.3') => 1
+ *
+ * Returns:
+ * -1 = left is LOWER than right
+ *  0 = they are equal
+ *  1 = left is GREATER = right is LOWER
+ *  And FALSE if one of input versions are not valid
+ */
+function versionCompare(left, right) {
+	if (typeof left + typeof right != 'stringstring') {
+		return false;
+	}
+
+	var a = left.split('.');
+	var b = right.split('.');
+	var len = Math.max(a.length, b.length);
+
+	for (var i = 0; i < len; i++) {
+		if ((a[i] && !b[i] && parseInt(a[i]) > 0) || (parseInt(a[i]) > parseInt(b[i]))) {
+			return 1;
+		} else if ((b[i] && !a[i] && parseInt(b[i]) > 0) || (parseInt(a[i]) < parseInt(b[i]))) {
+			return -1;
+		}
+	}
+
+	return 0;
+}
+
+/**
+ * Select custom rules when creating a new room
+ */
+function CustomRulesSelect() {
+	var checkbox = document.getElementById('rules_visible');
+	var rules_title = document.getElementById('rules_title');
+	var rules_text = document.getElementById('rules_text');
+
+	if(checkbox.checked) {
+		rules_title.disabled = false;
+		rules_text.disabled = false;
+	}
+	if(checkbox.checked == false) {
+		rules_title.disabled = true;
+		rules_text.disabled = true;
+	}
 }

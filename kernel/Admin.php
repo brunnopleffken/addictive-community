@@ -38,10 +38,15 @@ class Admin
 	 */
 	public function SelectConfig($field_name)
 	{
-		$this->Db->Query("SELECT value FROM c_config WHERE `index` = '{$field_name}';");
+		$this->Db->Query("SELECT value FROM c_config WHERE field = '{$field_name}';");
 		$fetch = $this->Db->Fetch();
 
-		return $fetch['value'];
+		if($fetch['value']) {
+			return $fetch['value'];
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -51,14 +56,14 @@ class Admin
 	 */
 	public function SelectCheckbox($field_name)
 	{
-		$this->Db->Query("SELECT value FROM c_config WHERE `index` = '{$field_name}';");
+		$this->Db->Query("SELECT value FROM c_config WHERE field = '{$field_name}';");
 		$fetch = $this->Db->Fetch();
 
 		if($fetch['value'] == 1 or $fetch['value'] == "true") {
-			$str = "<input type=\"hidden\" name=\"{$field_name}\" value=\"false\"><input type=\"checkbox\" name=\"{$field_name}\" value=\"true\" checked>";
+			$str = "<input type='hidden' name='{$field_name}' value='false'><input type='checkbox' name='{$field_name}' value='true' checked>";
 		}
 		else {
-			$str = "<input type=\"hidden\" name=\"{$field_name}\" value=\"false\"><input type=\"checkbox\" name=\"{$field_name}\" value=\"true\">";
+			$str = "<input type='hidden' name='{$field_name}' value='false'><input type='checkbox' name='{$field_name}' value='true'>";
 		}
 
 		return $str;
@@ -72,10 +77,10 @@ class Admin
 	public function BooleanCheckbox($field_name, $field_value)
 	{
 		if($field_value == 1 or $field_value == "true") {
-			$str = "<input type=\"hidden\" name=\"{$field_name}\" value=\"false\"><input type=\"checkbox\" name=\"{$field_name}\" value=\"true\" checked>";
+			$str = "<input type='hidden' name='{$field_name}' value='false'><input type='checkbox' name='{$field_name}' value='true' checked>";
 		}
 		else {
-			$str = "<input type=\"hidden\" name=\"{$field_name}\" value=\"false\"><input type=\"checkbox\" name=\"{$field_name}\" value=\"true\">";
+			$str = "<input type='hidden' name='{$field_name}' value='false'><input type='checkbox' name='{$field_name}' value='true'>";
 		}
 
 		return $str;
@@ -84,14 +89,14 @@ class Admin
 	/**
 	 * --------------------------------------------------------------------
 	 * UPDATE CONFIGURATION TABLE
-	 * FORMAT $config['index'] = "value" MUST BE USED!
+	 * FORMAT $config['field'] = "value" MUST BE USED!
 	 * --------------------------------------------------------------------
 	 */
 	public function SaveConfig($post)
 	{
 		if(is_array($post)) {
 			foreach($post as $k => $v) {
-				$this->Db->Query("UPDATE c_config SET value = '{$v}' WHERE `index` = '{$k}';");
+				$this->Db->Query("UPDATE c_config SET value = '{$v}' WHERE field = '{$k}';");
 			}
 			return true;
 		}

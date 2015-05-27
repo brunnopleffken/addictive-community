@@ -33,6 +33,12 @@ class Error extends Application
 			),
 			'protected_room' => array(
 				Html::Notification(i18n::Translate("E_MESSAGE_PROTECTED"), "failure", true), "protected"
+			),
+			'offline' => array(
+				"", "offline"
+			),
+			'update' => array(
+				"", "update"
 			)
 		);
 

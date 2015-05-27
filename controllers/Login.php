@@ -96,6 +96,7 @@ class Login extends Application
 			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");
 
+			// Check if username and password match
 			if($this->Db->Rows()) {
 				$user_info = $this->Db->Fetch();
 

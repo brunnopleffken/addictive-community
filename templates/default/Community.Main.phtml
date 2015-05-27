@@ -3,8 +3,10 @@
 		<tr>
 			<td class="image"><?php __($rooms[$k]['icon']) ?></td>
 			<td class="info">
-				<a href="room/<?php __($rooms[$k]['r_id']) ?>" class="title"><?php __($rooms[$k]['name']) ?></a>
+				<a href="<?php __($rooms[$k]['room_link']) ?>" class="title"><?php __($rooms[$k]['name']) ?></a>
 				<p class="description"><?php __($rooms[$k]['description']) ?></p>
+				<?php __($rooms[$k]['moderators_list']) ?>
+				<?php __($rooms[$k]['redirect']) ?>
 				<div class="last-post">
 					<span><i class="fa fa-comment"></i>&nbsp; <?php __($rooms[$k]['title']) ?></span>
 					<span><i class="fa fa-user"></i>&nbsp; <a href="profile/<?php __($rooms[$k]['lastpost_member']) ?>"><?php __($rooms[$k]['username']) ?></a></span>

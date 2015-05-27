@@ -25,7 +25,7 @@ a { background-color: transparent; color: #137; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 /** FORMS **/
-button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner { padding: 0 !important; border: 0 none !important; /* Fixes odd padding in FF */ }
+button::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="reset"]::-moz-focus-inner { padding: 0 !important; border: 0 none !important; }
 
 form .error { border-color: #c00 !important; box-shadow: 0px 0px 5px rgba(255, 0, 0, 0.2) !important; }
 form .error-message { color: #c00; display: none; font-weight: bold; margin-left: 10px; }
@@ -115,13 +115,14 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .sidebar .sidebar-item .user { background: #303747 url("../images/bar-bg.png"); border-radius: 7px; color: #eee; overflow: hidden; padding: 10px; }
 .sidebar .sidebar-item .user .avatar { background: url("../images/user_img_bg.png") no-repeat; float: left; height: 42px; width: 42px; }
 .sidebar .sidebar-item .user .avatar .img { height: 30px; margin: 6px; width: 30px; }
-.sidebar .sidebar-item .user .user-info { color: #eef; float: left; font-size: 11px; margin-left: 8px; margin-top: 4px; }
+.sidebar .sidebar-item .user .user-info { color: #eef; float: left; font-size: 11px; margin-left: 10px; margin-top: 4px; }
+.sidebar .sidebar-item .user .user-info.logged-out { margin-top: 0; }
 .sidebar .sidebar-item .user .user-info .highlight { font-weight: bold; }
 .sidebar .sidebar-item .user .user-info a { color: inherit; }
 .sidebar .sidebar-item .user .user-info b { font-size: 15px; display: block; }
 
 /** CONTENT AREA **/
-.content { display: table-cell; padding-left: 12px; vertical-align: top; }
+.content { display: table-cell; padding-left: 15px; vertical-align: top; }
 
 /** NAVIGATION BAR **/
 .navigation .navbar { background: #465068; padding: 5px 0 0 20px; }
@@ -143,10 +144,14 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .room-item .info { padding: 15px 15px 0 0; vertical-align: top; }
 .room-item .info .title { display: block; font-size: 19px; font-weight: bold; letter-spacing: 1px; line-height: 1em; margin-bottom: 10px; }
 .room-item .info .description { color: #333; font-size: 13px; }
+.room-item .info .moderators, .room-item .info .redirect { color: #ccc; font-size: 10px; letter-spacing: 1px; line-height: 1em; margin-top: 10px; text-transform: uppercase; }
+.room-item .info .moderators a, .room-item .info .redirect a { color: inherit; }
 .room-item .info .last-post { border-top: 1px solid #eee; font-size: 10px; line-height: 28px; margin-top: 10px; position: relative; text-transform: uppercase; }
+.room-item .info .last-post i { font-size: 11px; }
 .room-item .info .last-post span { margin-right: 15px; }
 .room-item .room-stats { background: #465068; vertical-align: top; width: 100px; }
-.room-item .room-stats .item { border-bottom: 1px dotted rgba(255, 255, 255, 0.5); color: #fff; font-weight: bold; font-size: 15px; overflow: hidden; padding: 15px; text-align: center; }
+.room-item .room-stats .item { border-bottom: 1px dotted rgba(255, 255, 255, 0.3); color: #fff; font-weight: bold; font-size: 15px; overflow: hidden; padding: 15px; text-align: center; }
+.room-item .room-stats .item i { font-size: 17px; }
 
 /** GLOBAL TITLE BAR **/
 .title-bar { overflow: hidden; padding: 5px 0 18px 0; vertical-align: bottom; }
@@ -162,11 +167,11 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-item .middle .title { display: block; font-size: 19px; font-weight: bold; line-height: 1em; }
 .thread-item .middle .description { color: #444; font-size: 11px; line-height: 1em; overflow: hidden; padding: 10px 0 12px 0; text-overflow: ellipsis; white-space: nowrap; width: 100%; }
 .thread-item .middle .author { color: #999; font-size: 10px; line-height: 1em; text-transform: uppercase; }
-.thread-item .middle .author i { color: #666; margin-right: 3px; }
-.thread-item .middle .author i:last-child { margin-left: 10px; }
+.thread-item .middle .author i { color: #555; font-size: 12px; margin-right: 5px; }
+.thread-item .middle .author i:last-child { margin-left: 15px; }
 .thread-item .info { background: rgba(180, 180, 180, 0.1); display: table-cell; font-size: 14px; font-weight: bold; text-align: center; width: 70px; vertical-align: middle; }
 .thread-item .info i { font-size: 30px; }
-.thread-item .stats { background: #465068; display: table-cell; padding: 0 5px; line-height: 1em; vertical-align: middle; width: 170px; }
+.thread-item .stats { background: #465068; display: table-cell; padding: 0 5px; line-height: 1em; vertical-align: middle; width: 180px; }
 .thread-item .stats .label { color: #fff; overflow: hidden; padding: 3px 0; white-space: nowrap; }
 .thread-item .stats .label .value { display: inline-block; font-size: 11px; margin-left: 6px; }
 .thread-item .stats .label .value a { color: #fff; }
@@ -181,6 +186,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 
 .load-more { text-align: center; }
 .load-more .loader { background: url("../images/loader.gif") no-repeat center; background-size: 16px 16px; display: none; height: 16px; margin: auto; width: 16px; }
+.load-more a { color: #999; font-size: 11px; letter-spacing: 2px; line-height: 1em; text-transform: uppercase; text-shadow: 1px 1px 0 #fff; }
 
 /** THREAD **/
 .thread-first-post { background: #fff; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); overflow: hidden; }
@@ -206,9 +212,9 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-buttons .replies { font-size: 21px; font-weight: bold; }
 .thread-buttons .replies span { color: #465068; }
 
-.thread-post-reply { background: #fff; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); display: table; margin-bottom: 10px; position: relative; width: 100%; }
+.thread-post-reply { background: #fff; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); display: table; margin-bottom: 15px; position: relative; width: 100%; }
 .thread-post-reply .author { display: table-cell; padding: 10px 0 25px 0; text-align: center; width: 180px; }
-.thread-post-reply .author .photostack { background: url("../images/photo-stack.png") no-repeat; height: 128px; margin: auto; margin-bottom: 5px; width: 128px; }
+.thread-post-reply .author .photostack { background: url("../images/photo-stack.png") no-repeat center; background-size: 128px 128px; height: 128px; margin: auto; margin-bottom: 5px; width: 128px; }
 .thread-post-reply .author .photostack .avatar { margin: 16px; }
 .thread-post-reply .author .name { font-size: 15px; font-weight: bold; }
 .thread-post-reply .author .member-title { font-size: 9px; text-transform: uppercase; }
@@ -227,6 +233,13 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-post-reply .content .text ol, .thread-post-reply .content .text ul { margin-left: 25px; margin-bottom: 10px; }
 .thread-post-reply .content .footer { background: rgba(0, 0, 0, 0.01); bottom: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); left: 0; padding: 5px 5px 8px 5px; position: absolute; right: 0; text-align: right; }
 .thread-post-reply.best-answer { background: #fafff8 url("../images/best-answer.png") no-repeat right top; background-size: 32px; border-left: 3px solid #090; }
+
+.thread-moderation { margin-bottom: 20px; }
+.thread-moderation a.title { color: #000; display: block; font-size: 16px; font-weight: bold; letter-spacing: 1px; margin-bottom: 10px; }
+.thread-moderation .box { display: none; }
+.thread-moderation .box a { color: #888; display: block; font-size: 10px; letter-spacing: 1px; line-height: 35px; text-transform: uppercase; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
+.thread-moderation .box a i { font-size: 20px; margin-right: 10px; vertical-align: sub; }
+.thread-moderation .box a:hover { color: #333; text-decoration: none; }
 
 .thread-related { background: #fff; padding: 18px; }
 .thread-related h2 { margin-bottom: 18px; }
@@ -293,8 +306,8 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .calendar { border-collapse: collapse; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 20px; width: 100%; }
 .calendar th { background: #465068 url("../images/bar-bg.png") repeat-x; color: #fff; font-weight: bold; padding: 8px; text-align: left; }
 .calendar .week { background: #fff url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; text-align: center; width: 14%; }
-.calendar .day { background: #fff; font-size: 16px; padding: 20px 0; text-align: center; }
-.calendar .day a { border-right: 1px solid #eee; color: #000; display: block; }
+.calendar .day { background: #fff; border-top: 1px solid #eee; font-size: 16px; padding: 24px 0; text-align: center; }
+.calendar .day a { color: #000; display: block; }
 .calendar .day.today a { color: #c00 !important; }
 .calendar .day.event { font-weight: bold; }
 .calendar .day.event a { color: #465068; }

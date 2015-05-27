@@ -19,16 +19,20 @@ class Core
 	// Configurations
 	private $config = array();
 
+	// Logged member information
+	private $member_info = array();
+
 	/**
 	 * --------------------------------------------------------------------
 	 * CORE() CLASS CONSTRUCTOR
 	 * --------------------------------------------------------------------
 	 */
-	public function __construct($database, $configurations)
+	public function __construct($database, $configurations, $member_info = array())
 	{
 		// Load database layer and configurations array
 		$this->Db = $database;
 		$this->config = $configurations;
+		$this->member_info = $member_info;
 	}
 
 	/**
@@ -50,18 +54,20 @@ class Core
 	 */
 	public function DateFormat($timestamp, $format = "long")
 	{
-		if($format == "short") {
-			$format = $this->config['date_short_format'];  // Get short format date from $_config
-		}
-		elseif($format == "long") {
+		// Get long/short time formats from configurations table
+		if($format == "long") {
 			$format = $this->config['date_long_format'];  // Get long format date from $_config
 		}
+		else {
+			$format = $this->config['date_short_format'];  // Get short format date from $_config
+		}
 
-		// Get timezones and daylight saving time
-		$offset = $this->config['date_default_offset'] * MINUTE * MINUTE;
+		// Get timezone offset
+		$user_offset = (isset($this->member_info['time_offset'])) ? $this->member_info['time_offset'] : $this->config['date_default_offset'];
+		$timezone_offset = $user_offset * HOUR;
 
 		// format and return it
-		$date = date($format, $timestamp + $offset);
+		$date = date($format, $timestamp + $timezone_offset);
 
 		return $date;
 	}

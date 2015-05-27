@@ -75,12 +75,13 @@
 			$room = array(
 				"name"          => String::Sanitize($_POST['name']),
 				"description"   => String::Sanitize($_POST['description']),
-				"password"      => ($_POST['password'] != "") ? $_POST['password'] : "",
+				"url"           => ($_POST['url'] != "") ? $_POST['url'] : NULL,
+				"password"      => ($_POST['password'] != "") ? $_POST['password'] : NULL,
 				"read_only"     => (isset($_POST['read_only'])) ? "1" : "0",
 				"invisible"     => (isset($_POST['invisible'])) ? "1" : "0",
 				"rules_visible" => (isset($_POST['rules_visible'])) ? "1" : "0",
-				"rules_title"   => (isset($_POST['rules_title'])) ? String::Sanitize($_POST['rules_title']) : "",
-				"rules_text"    => (isset($_POST['rules_text'])) ? String::Sanitize($_POST['rules_text']) : "",
+				"rules_title"   => (isset($_POST['rules_title'])) ? String::Sanitize($_POST['rules_title']) : NULL,
+				"rules_text"    => (isset($_POST['rules_text'])) ? String::Sanitize($_POST['rules_text']) : NULL,
 				"upload"        => 1,
 				"perm_view"     => serialize($_POST['view']),
 				"perm_post"     => serialize($_POST['post']),
@@ -308,6 +309,72 @@
 			$Db->Query("UPDATE c_emoticons SET display = 1 WHERE id = {$id};");
 
 			header("Location: " . $_SERVER['HTTP_REFERER']);
+			exit;
+
+			break;
+
+		case "add_moderator":
+
+			// Get variables
+			$mods_array = array();
+			$room_id = Html::Request("r_id");
+			$member_id = Html::Request("m_id");
+
+			// Get current moderators of the room
+			$Db->Query("SELECT moderators FROM c_rooms WHERE r_id = {$room_id};");
+			$room_moderators = $Db->Fetch();
+
+			// If field is empty, then create a new array
+			if($room_moderators['moderators'] == "") {
+				$moderators = array();
+			}
+			else {
+				$moderators = unserialize($room_moderators['moderators']);
+			}
+
+			// If member is already defined as moderator, return an error
+			if(in_array($member_id, $moderators)) {
+				header("Location: main.php?act=rooms&p=moderators&msg=2");
+				exit;
+			}
+
+			// Add new member to array and serialize
+			array_push($moderators, $member_id);
+			$serialized = serialize($moderators);
+
+			// Save new data in database
+			$Db->Query("UPDATE c_rooms SET moderators = '{$serialized}' WHERE r_id = {$room_id};");
+
+			header("Location: main.php?act=rooms&p=moderators&msg=1");
+			exit;
+
+			break;
+
+		case "remove_moderator":
+
+			// Get variables
+			$mods_array = array();
+			$room_id = Html::Request("r_id");
+			$member_id = Html::Request("m_id");
+
+			// Get current moderators of the room
+			$Db->Query("SELECT moderators FROM c_rooms WHERE r_id = {$room_id};");
+			$room_moderators = $Db->Fetch();
+			$moderators = unserialize($room_moderators['moderators']);
+
+			// Remove member from array
+			// Must use strict comparison (!==)
+			if(($key = array_search($member_id, $moderators)) !== false) {
+				unset($moderators[$key]);
+			}
+
+			// Serialize
+			$serialized = serialize($moderators);
+
+			// Save new data in database
+			$Db->Query("UPDATE c_rooms SET moderators = '{$serialized}' WHERE r_id = {$room_id};");
+
+			header("Location: main.php?act=rooms&p=remove_mod&id=6&msg=1&m_id={$member_id}");
 			exit;
 
 			break;

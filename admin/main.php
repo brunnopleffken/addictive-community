@@ -141,7 +141,7 @@ HTML;
 			<div class="section-subnav">
 				<a href="main.php?act=rooms&amp;p=add">Add New Room</a>
 				<a href="main.php?act=rooms&amp;p=manage">Manage Rooms</a>
-				<!-- <a href="main.php?act=rooms&amp;p=moderators">Moderators</a> -->
+				<a href="main.php?act=rooms&amp;p=moderators">Moderators</a>
 			</div>
 HTML;
 		}

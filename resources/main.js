@@ -5,7 +5,7 @@
  * http://github.com/brunnopleffken/addictive-community
  *
  * File: main.js
- * Release: v1.0.0
+ * License: GPLv2
  * Copyright: (c) 2015 - Addictive Software
  */
 
@@ -129,12 +129,16 @@ $(document).ready(function($) {
 
 			// Validate TinyMCE textarea
 
-			if(tinymce.get('post').getContent() == "") {
-				$('.mce-edit-area').addClass('error');
-				stopSend = true;
-			}
-			else {
-				$('.mce-edit-area').removeClass('error');
+			try {
+				if(tinymce.get('post').getContent() == "") {
+					$('.mce-edit-area').addClass('error');
+					stopSend = true;
+				}
+				else {
+					$('.mce-edit-area').removeClass('error');
+				}
+			} catch(e) {
+				console.log(e);
 			}
 
 			// Is the URL valid?
@@ -430,4 +434,59 @@ $(document).ready(function($) {
 			$('input#delete_member_id').val(memberId);
 		});
 	}).call(this);
+
+	/**
+	 * TOGGLE MODERATION PANEL
+	 */
+
+	(function() {
+		// Toggle moderation box
+		$('.thread-moderation > a').on('click', function(event) {
+			event.preventDefault();
+			$('.thread-moderation > .box').slideToggle();
+			$('.thread-moderation > a i').toggleClass('fa-angle-down').toggleClass('fa-angle-up');
+		});
+
+		// Show confirm message if clicked on "Delete Thread"
+		$('#thread-delete').on('click', function(event) {
+			if(!confirm($(this).data('confirm'))) {
+				event.preventDefault();
+			}
+		});
+	}).call(this);
 });
+
+
+/**
+ * OUT-OF-SCOPE UTILS FUNCTIONS FOR GENERAL USAGE
+ */
+
+/**
+ * Check if passwords match
+ */
+function CheckPassword() {
+	var password = $('#password').val();
+	var confirm = $('#password_conf').val();
+	if(password != confirm) {
+		$('#passwdMatch').fadeIn().css('display', 'inline-block');
+		$('#formSubmit').attr('disabled', 'disabled');
+	}
+	else {
+		$('#passwdMatch').fadeOut().css('display', 'none');
+		$('#formSubmit').attr('disabled', false);
+	}
+}
+
+/**
+ * Check username length (greater than 3 chars, enable submit button)
+ */
+function CheckUsername()
+{
+	var username = $('#username').val();
+	if(username.length < 3 || username.length > 20) {
+		$('#formSubmit').attr('disabled', 'disabled');
+	}
+	else {
+		$('#formSubmit').attr('disabled', false);
+	}
+}

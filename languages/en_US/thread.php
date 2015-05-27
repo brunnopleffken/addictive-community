@@ -27,6 +27,10 @@
 	$t["T_MESSAGE_1"] = "You have successfully reported this thread.";
 	$t["T_MESSAGE_2"] = "You have successfully reported a post in this thread.";
 	$t["T_MESSAGE_3"] = "You have successfully deleted your post.";
+	$t["T_MESSAGE_4"] = "You have successfully locked this thread.";
+	$t["T_MESSAGE_5"] = "You have successfully unlocked this thread.";
+	$t["T_MESSAGE_6"] = "You have successfully set this thread as announcement";
+	$t["T_MESSAGE_7"] = "You have successfully removed this thread as announcement.";
 	$t["P_ADD_REPLY"] = "Add Reply";
 	$t["P_NEW_THREAD"] = "New Thread";
 	$t["P_EDIT_POST"] = "Editing Post on";
@@ -35,9 +39,16 @@
 	$t["P_ATTACHMENTS"] = "Attachments";
 	$t["P_OPTIONS"] = "Thread Options";
 	$t["P_SET_ANNOUNCEMENT"] = "Set thread as Announcement";
-	$t["P_LOCK"] = "Lock thread";
+	$t["P_LOCK"] = "Lock thread after posting";
 	$t["P_ERROR"] = "Your message is empty.";
 	$t["P_NEW_ERROR"] = "Name and post content are required fields.";
 	$t["P_NEW_THREAD_SUBMIT"] = "Add New Thread";
 	$t["P_ADD_REPLY_SUBMIT"] = "Add Reply";
+	$t["T_MOD_OPTIONS"] = "Moderation Options";
+	$t["T_MOD_LOCK_THREAD"] = "Lock This Thread";
+	$t["T_MOD_UNLOCK_THREAD"] = "Unlock This Thread";
+	$t["T_MOD_SET_ANNOUNCEMENT"] = "Set Thread as Announcement";
+	$t["T_MOD_UNSET_ANNOUNCEMENT"] = "Unset Thread as Announcement";
+	$t["T_MOD_DELETE_THREAD"] = "Delete Thread";
+	$t["T_MOD_DELETE_MESSAGE"] = "Are you sure you want to delete this thread? This action CANNOT be undone!";
 ?>

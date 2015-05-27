@@ -112,10 +112,11 @@
 					<tr>
 						<td class="title">Software Updates</td>
 						<td>
+							<input type="hidden" id="current-version" value="<?php echo VERSION ?>">
 							<div class="loader"><img src="images/loader.gif"> Checking...</div>
 							<div class="update-message fail">Unable to connect to GitHub servers.</div>
 							<div class="update-message no-updates">There is no software update available.</div>
-							<div class="update-message done">New update available to <span>v1.0.0</span>.</div>
+							<div class="update-message done">New update available to <span></span>.</div>
 						</td>
 					</tr>
 					<tr>

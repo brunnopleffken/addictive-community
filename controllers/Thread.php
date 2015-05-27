@@ -25,7 +25,11 @@ class Thread extends Application
 		$notification = array("",
 			Html::Notification(i18n::Translate("T_MESSAGE_1"), "success"),
 			Html::Notification(i18n::Translate("T_MESSAGE_2"), "success"),
-			Html::Notification(i18n::Translate("T_MESSAGE_3"), "success")
+			Html::Notification(i18n::Translate("T_MESSAGE_3"), "success"),
+			Html::Notification(i18n::Translate("T_MESSAGE_4"), "success"),
+			Html::Notification(i18n::Translate("T_MESSAGE_5"), "success"),
+			Html::Notification(i18n::Translate("T_MESSAGE_6"), "success"),
+			Html::Notification(i18n::Translate("T_MESSAGE_7"), "success")
 		);
 
 		// Get thread information
@@ -71,6 +75,7 @@ class Thread extends Application
 		$this->Set("reply", $replies);
 		$this->Set("pagination", $pagination);
 		$this->Set("related_thread_list", $related_thread_list);
+		$this->Set("is_moderator", $this->_IsModerator($thread_info['moderators']));
 	}
 
 	/**
@@ -108,7 +113,7 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
-		$this->Db->Query("SELECT r_id, name, upload FROM c_rooms WHERE r_id = {$room_id};");
+		$this->Db->Query("SELECT r_id, name, upload, moderators FROM c_rooms WHERE r_id = {$room_id};");
 		$room_info = $this->Db->Fetch();
 
 		// Page info
@@ -119,6 +124,7 @@ class Thread extends Application
 		// Return variables
 		$this->Set("room_info", $room_info);
 		$this->Set("allow_uploads", $room_info['upload']);
+		$this->Set("is_moderator", $this->_IsModerator($room_info['moderators']));
 	}
 
 	/**
@@ -322,6 +328,145 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * MODERATION OPTIONS: LOCK THREAD
+	 * --------------------------------------------------------------------
+	 */
+	public function Lock($thread_id)
+	{
+		$this->layout = false;
+
+		// Lock thread
+		$this->Db->Query("UPDATE c_threads SET locked = 1 WHERE t_id = {$thread_id};");
+
+		// Register Moderation log in DB
+		$log = array(
+			"member_id"  => $this->Session->session_info['member_id'],
+			"time"       => time(),
+			"act"        => "Locked thread: ID #" . $thread_id,
+			"ip_address" => $_SERVER['REMOTE_ADDR']
+		);
+		$this->Db->Insert("c_logs", $log);
+
+		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=4");
+		exit;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * MODERATION OPTIONS: UNLOCK THREAD
+	 * --------------------------------------------------------------------
+	 */
+	public function Unlock($thread_id)
+	{
+		$this->layout = false;
+
+		// Lock thread
+		$this->Db->Query("UPDATE c_threads SET locked = 0 WHERE t_id = {$thread_id};");
+
+		// Register Moderation log in DB
+		$log = array(
+			"member_id"  => $this->Session->session_info['member_id'],
+			"time"       => time(),
+			"act"        => "Unlocked thread: ID #" . $thread_id,
+			"ip_address" => $_SERVER['REMOTE_ADDR']
+		);
+		$this->Db->Insert("c_logs", $log);
+
+		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=5");
+		exit;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * MODERATION OPTIONS: SET THREAD AS ANNOUNCEMENT
+	 * --------------------------------------------------------------------
+	 */
+	public function AnnouncementSet($thread_id)
+	{
+		$this->layout = false;
+
+		// Lock thread
+		$this->Db->Query("UPDATE c_threads SET announcement = 1 WHERE t_id = {$thread_id};");
+
+		// Register Moderation log in DB
+		$log = array(
+			"member_id"  => $this->Session->session_info['member_id'],
+			"time"       => time(),
+			"act"        => "Set thread ID #" . $thread_id . " as announcement",
+			"ip_address" => $_SERVER['REMOTE_ADDR']
+		);
+		$this->Db->Insert("c_logs", $log);
+
+		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=6");
+		exit;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * MODERATION OPTIONS: REMOVE THREAD AS ANNOUNCEMENT
+	 * --------------------------------------------------------------------
+	 */
+	public function AnnouncementUnset($thread_id)
+	{
+		$this->layout = false;
+
+		// Lock thread
+		$this->Db->Query("UPDATE c_threads SET announcement = 0 WHERE t_id = {$thread_id};");
+
+		// Register Moderation log in DB
+		$log = array(
+			"member_id"  => $this->Session->session_info['member_id'],
+			"time"       => time(),
+			"act"        => "Removed thread ID #" . $thread_id . " as announcement",
+			"ip_address" => $_SERVER['REMOTE_ADDR']
+		);
+		$this->Db->Insert("c_logs", $log);
+
+		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=7");
+		exit;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * MODERATION OPTIONS: COMPLETELY REMOVE THREAD AND ITS CONTENT
+	 * --------------------------------------------------------------------
+	 */
+	public function Delete($thread_id)
+	{
+		$this->layout = false;
+
+		// Get room ID
+		$this->Db->Query("SELECT room_id FROM c_threads WHERE t_id = {$thread_id};");
+		$thread_info = $this->Db->Fetch(); // $thread_info['room_id']
+		$room_id = $thread_info['room_id'];
+
+		// Delete all posts in this thread
+		$this->Db->Query("DELETE FROM c_posts WHERE thread_id = {$thread_id};");
+		$deleted_posts = $this->Db->AffectedRows();
+
+		// Delete thread itself
+		$this->Db->Query("DELETE FROM c_threads WHERE t_id = {$thread_id};");
+
+		// Update community/room statistics
+		$this->Db->Query("UPDATE c_stats SET
+				total_threads = total_threads - 1,
+				total_posts = total_posts - {$deleted_posts};");
+
+		// Register Moderation log in DB
+		$log = array(
+			"member_id"  => $this->Session->session_info['member_id'],
+			"time"       => time(),
+			"act"        => "Deleted thread: ID #" . $thread_id,
+			"ip_address" => $_SERVER['REMOTE_ADDR']
+		);
+		$this->Db->Insert("c_logs", $log);
+
+		$this->Core->Redirect("room/" . $room_id . "?m=7");
+		exit;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * GET GENERAL THREAD INFORMATION, LIKE NUMBER OF REPLIES, CHECK IF
 	 * IT'S AN OBSOLETE THREAD AND PERMISSIONS
 	 * --------------------------------------------------------------------
@@ -329,8 +474,8 @@ class Thread extends Application
 	private function _GetThreadInfo($id)
 	{
 		// Select thread info from database
-		$thread = $this->Db->Query("SELECT t.title, t.room_id, t.author_member_id, t.locked, t.lastpost_date,
-				r.r_id, r.name, r.perm_view, r.perm_reply,
+		$thread = $this->Db->Query("SELECT t.title, t.room_id, t.author_member_id, t.locked, t.announcement, t.lastpost_date,
+				r.r_id, r.name, r.perm_view, r.perm_reply, r.moderators,
 				(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t
 				INNER JOIN c_rooms r ON (r.r_id = t.room_id) WHERE t.t_id = '{$id}';");
 		$thread_info = $this->Db->Fetch($thread);
@@ -372,6 +517,11 @@ class Thread extends Application
 		return $thread_info;
 	}
 
+	/**
+	 * --------------------------------------------------------------------
+	 * UPDATE SESSION TABLE WITH THREAD ID IN 'location_room_id'
+	 * --------------------------------------------------------------------
+	 */
 	private function _UpdateSessionTable($thread_info)
 	{
 		// Update session table with room ID
@@ -448,7 +598,8 @@ class Thread extends Application
 				LEFT JOIN c_members AS edit ON (c_posts.edit_author = edit.m_id)
 				LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
 				WHERE thread_id = '{$id}' AND first_post = '0'
-				ORDER BY best_answer DESC, post_date ASC LIMIT {$pages['for_sql']},{$pages['items_per_page']};");
+				ORDER BY best_answer DESC, post_date ASC
+				LIMIT {$pages['for_sql']},{$pages['items_per_page']};");
 
 		while($result = $this->Db->Fetch($replies)) {
 			// Is this a best answer or a regular reply?
@@ -607,5 +758,30 @@ class Thread extends Application
 		}
 
 		return $related_thread_list;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * WHEN POSTING, CHECK IF MEMBER IS A MODERATOR
+	 * --------------------------------------------------------------------
+	 */
+	private function _IsModerator($moderators_serialized = "") {
+		// Get array of moderators
+		$moderators_array = unserialize($moderators_serialized);
+
+		// Check if room has moderators and if
+		// the current member is a moderator
+		if(!empty($moderators_array) && in_array($this->Session->member_info['m_id'], $moderators_array)) {
+			return true;
+		}
+		else {
+			// If member is not a moderator, check if is an Administrator
+			if($this->Session->member_info['usergroup'] == 1) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 	}
 }

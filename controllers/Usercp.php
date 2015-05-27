@@ -47,14 +47,13 @@ class Usercp extends Application
 		);
 
 		// Gender
-		$profile['female'] = "";
-		$profile['male']   = "";
-
 		if($this->Session->member_info['gender'] == "F") {
+			$profile['male']   = "";
 			$profile['female'] = "selected";
 		}
 		else {
 			$profile['male'] = "selected";
+			$profile['female'] = "";
 		}
 
 		// Page info
