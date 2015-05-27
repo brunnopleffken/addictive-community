@@ -1038,6 +1038,38 @@ form {
 		border-left: 3px solid #090;
 	}
 }
+.thread-moderation {
+	margin-bottom: 20px;
+	a.title {
+		color: #000;
+		display: block;
+		font-size: 16px;
+		font-weight: bold;
+		letter-spacing: 1px;
+		margin-bottom: 10px;
+	}
+	.box {
+		display: none;
+		a {
+			color: #888;
+			display: block;
+			font-size: 10px;
+			letter-spacing: 1px;
+			line-height: 35px;
+			text-transform: uppercase;
+			@include transition(300ms);
+			i {
+				font-size: 20px;
+				margin-right: 10px;
+				vertical-align: sub;
+			}
+			&:hover {
+				color: #333;
+				text-decoration: none;
+			}
+		}
+	}
+}
 .thread-related {
 	background: #fff;
 	padding: 18px;

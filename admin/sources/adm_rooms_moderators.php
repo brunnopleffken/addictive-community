@@ -30,7 +30,7 @@
 	while($result = $Db->Fetch()) {
 		// Show list of moderators
 		if($result['moderators'] == "") {
-			$result['moderators_list'] = "None";
+			$result['moderators_list'] = "---";
 		}
 		else {
 			$Db2 = clone($Db);

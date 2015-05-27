@@ -160,6 +160,26 @@
 	</div>
 </div>
 
+<!-- MODERATION OPTIONS -->
+<?php if($is_moderator): ?>
+	<div class="thread-moderation">
+		<a href="" class="title"><i class="fa fa-fw fa-angle-down"></i><?php __("T_MOD_OPTIONS") ?></a>
+		<div class="box">
+			<?php if($thread_info['locked'] == 0): ?>
+				<a href="thread/lock/<?php __($thread_id) ?>"><i class="fa fa-fw fa-lock"></i><?php __("T_MOD_LOCK_THREAD") ?></a>
+			<?php else: ?>
+				<a href="thread/unlock/<?php __($thread_id) ?>"><i class="fa fa-fw fa-unlock"></i><?php __("T_MOD_UNLOCK_THREAD") ?></a>
+			<?php endif; ?>
+			<?php if($thread_info['announcement'] == 0): ?>
+				<a href="thread/announcement_set/<?php __($thread_id) ?>"><i class="fa fa-fw fa-thumb-tack"></i><?php __("T_MOD_SET_ANNOUNCEMENT") ?></a>
+			<?php else: ?>
+				<a href="thread/announcement_unset/<?php __($thread_id) ?>"><i class="fa fa-fw fa-thumb-tack"></i><?php __("T_MOD_UNSET_ANNOUNCEMENT") ?></a>
+			<?php endif; ?>
+			<a href="thread/delete/<?php __($thread_id) ?>" id="thread-delete" data-confirm="<?php __("T_MOD_DELETE_MESSAGE") ?>"><i class="fa fa-fw fa-times-circle"></i><?php __("T_MOD_DELETE_THREAD") ?></a>
+		</div>
+	</div>
+<?php endif; ?>
+
 <!-- RELATED THREADS -->
 
 <div class="thread-related">

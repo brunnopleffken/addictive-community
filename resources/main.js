@@ -434,6 +434,26 @@ $(document).ready(function($) {
 			$('input#delete_member_id').val(memberId);
 		});
 	}).call(this);
+
+	/**
+	 * TOGGLE MODERATION PANEL
+	 */
+
+	(function() {
+		// Toggle moderation box
+		$('.thread-moderation > a').on('click', function(event) {
+			event.preventDefault();
+			$('.thread-moderation > .box').slideToggle();
+			$('.thread-moderation > a i').toggleClass('fa-angle-down').toggleClass('fa-angle-up');
+		});
+
+		// Show confirm message if clicked on "Delete Thread"
+		$('#thread-delete').on('click', function(event) {
+			if(!confirm($(this).data('confirm'))) {
+				event.preventDefault();
+			}
+		});
+	}).call(this);
 });
 
 

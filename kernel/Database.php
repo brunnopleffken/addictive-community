@@ -166,7 +166,7 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * GET NUMBER OF ROWS IN RESULT
+	 * GET NUMBER OF ROWS IN RESULT (FOR SELECT STATEMENTS ONLY)
 	 * --------------------------------------------------------------------
 	 */
 	public function Rows($result = "")
@@ -176,6 +176,22 @@ class Database implements IDatabase
 		}
 
 		$this->result = mysqli_num_rows($result);
+
+		return $this->result;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * NUMBER OF ROWS AFFECTED BY THE LAST INSERT/UPDATE/REPLACE/DELETE OP.
+	 * --------------------------------------------------------------------
+	 */
+	public function AffectedRows($result = "")
+	{
+		if($result == "") {
+			$result = $this->link;
+		}
+
+		$this->result = mysqli_affected_rows($result);
 
 		return $this->result;
 	}

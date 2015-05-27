@@ -234,6 +234,13 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-post-reply .content .footer { background: rgba(0, 0, 0, 0.01); bottom: 0; border-top: 1px solid rgba(0, 0, 0, 0.1); left: 0; padding: 5px 5px 8px 5px; position: absolute; right: 0; text-align: right; }
 .thread-post-reply.best-answer { background: #fafff8 url("../images/best-answer.png") no-repeat right top; background-size: 32px; border-left: 3px solid #090; }
 
+.thread-moderation { margin-bottom: 20px; }
+.thread-moderation a.title { color: #000; display: block; font-size: 16px; font-weight: bold; letter-spacing: 1px; margin-bottom: 10px; }
+.thread-moderation .box { display: none; }
+.thread-moderation .box a { color: #888; display: block; font-size: 10px; letter-spacing: 1px; line-height: 35px; text-transform: uppercase; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
+.thread-moderation .box a i { font-size: 20px; margin-right: 10px; vertical-align: sub; }
+.thread-moderation .box a:hover { color: #333; text-decoration: none; }
+
 .thread-related { background: #fff; padding: 18px; }
 .thread-related h2 { margin-bottom: 18px; }
 .thread-related .item { border-bottom: 1px solid #eee; font-size: 12px; padding: 5px; }
