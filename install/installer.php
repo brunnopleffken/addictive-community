@@ -248,7 +248,7 @@
 			$Db = new Database($config);
 
 			// Get security hash key
-			$Db->Query("SELECT * FROM c_config c WHERE `index` = 'security_salt_hash' OR `index` = 'security_salt_key';");
+			$Db->Query("SELECT * FROM c_config c WHERE field = 'security_salt_hash' OR field = 'security_salt_key';");
 			$_salt = $Db->FetchToArray();
 
 			$salt = array(
