@@ -9,7 +9,7 @@
 - Moderation options in thread view.
 
 #### Fixed
-- Form validation via JavaScript not working when page has not a TinyMCE'd textarea;
+- Form validation via JavaScript not working when page doesn't have a TinyMCE'd textarea;
 - Image path is broken in About window;
 - `Core::DateFormat()` ignoring user's setting for timezone;	
 - Birthdate always showing "January 1st, 2015" if no date is defined;
