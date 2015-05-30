@@ -36,6 +36,8 @@
 	$t["P_EDIT_POST"] = "Editing Post on";
 	$t["P_THREAD_TITLE"] = "Thread Title";
 	$t["P_POST"] = "Post";
+	$t["P_POLL_QUESTION"] = "Poll Question";
+	$t["P_POLL_CHOICES"] = "Poll Choices";
 	$t["P_ATTACHMENTS"] = "Attachments";
 	$t["P_OPTIONS"] = "Thread Options";
 	$t["P_SET_ANNOUNCEMENT"] = "Set thread as Announcement";

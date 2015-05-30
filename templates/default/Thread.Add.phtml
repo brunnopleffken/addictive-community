@@ -9,7 +9,7 @@
 	<form action="thread/savethread/<?php echo $room_info['r_id'] ?>" method="post" class="validate" enctype="multipart/form-data">
 		<div class="input-box">
 			<div class="label"><?php __("P_THREAD_TITLE") ?></div>
-			<div class="field"><input type="text" name="title" class="large required"></div>
+			<div class="field"><input type="text" name="title" class="large required" maxlength="250"></div>
 		</div>
 		<div class="input-box">
 			<div class="label"><?php __("P_POST") ?></div>
@@ -17,6 +17,24 @@
 				<textarea name="post" id="post" class="full" rows="12"></textarea>
 			</div>
 		</div>
+		<?php if($is_poll): ?>
+			<div class="input-box">
+				<div class="label"><?php __("P_POLL_QUESTION") ?></div>
+				<div class="field">
+					<input type="text" name="poll_question" class="large required" maxlength="64"> &nbsp;
+					<input type="checkbox" name="poll_allow_multiple"> Allow multiple choice selection
+				</div>
+			</div>
+			<div class="input-box">
+				<div class="label">
+					<?php __("P_POLL_CHOICES") ?>
+					<span>Put one answer per line. Maximum 15 answers.</span>
+				</div>
+				<div class="field">
+					<textarea name="poll_choices" class="required large" rows="12"></textarea>
+				</div>
+			</div>
+		<?php endif; ?>
 		<?php if($allow_uploads): ?>
 			<div class="input-box">
 				<div class="label"><?php __("P_ATTACHMENTS") ?></div>

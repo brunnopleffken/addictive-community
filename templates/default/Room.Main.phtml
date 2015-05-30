@@ -32,7 +32,10 @@
 		<?php if($room_info['read_only']): ?>
 			<div class="buttons fright"><a class="default-button disabled"><?php __("R_READ_ONLY") ?></a></div>
 		<?php else: ?>
-			<div class="buttons fright"><a href="thread/add/<?php __($room_id) ?>" class="default-button"><?php __("R_NEW_THREAD") ?></a></div>
+			<div class="buttons fright">
+				<a href="thread/add/<?php __($room_id) ?>?poll=true" class="default-button"><?php __("R_NEW_POLL") ?></a>
+				<a href="thread/add/<?php __($room_id) ?>" class="default-button"><?php __("R_NEW_THREAD") ?></a>
+			</div>
 		<?php endif; ?>
 	<?php endif; ?>
 </div>
@@ -110,6 +113,7 @@
 			<div class="buttons fright"><a class="default-button disabled"><?php __("R_READ_ONLY") ?></a></div>
 		<?php else: ?>
 			<div class="buttons fright">
+				<a href="thread/add/<?php __($room_id) ?>?poll=true" class="default-button"><?php __("R_NEW_POLL") ?></a>
 				<a href="thread/add/<?php __($room_id) ?>" class="default-button"><?php __("R_NEW_THREAD") ?></a>
 			</div>
 		<?php endif; ?>

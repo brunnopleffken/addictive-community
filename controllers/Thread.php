@@ -125,6 +125,7 @@ class Thread extends Application
 		$this->Set("room_info", $room_info);
 		$this->Set("allow_uploads", $room_info['upload']);
 		$this->Set("is_moderator", $this->_IsModerator($room_info['moderators']));
+		$this->Set("is_poll", Html::Request("poll"));
 	}
 
 	/**
@@ -215,21 +216,50 @@ class Thread extends Application
 	{
 		$this->layout = false;
 
+		// If we're adding a poll, build poll array
+		if(Html::Request("poll_question")) {
+			// Transform list of choices in an array
+			$questions = explode("\r\n", trim(Html::Request("poll_choices")));
+			$questions = array_filter($questions, "trim");
+
+			 // For each question, add an corresponding number of votes...
+			 // ...in this case: zero!
+			for($i = 0; $i < count($questions); $i++) {
+				$replies[] = 0;
+			}
+
+			// Put everything together
+			$poll_data = array(
+				"questions" => $questions,
+				"replies"   => $replies,
+				"voters"    => array()
+			);
+
+			// Serialize poll data array into JSON
+			$poll_data = json_encode($poll_data);
+		}
+		else {
+			$poll_data = "";
+		}
+
 		// Insert new thread item
 		$thread = array(
-			"title"              => Html::Request("title"),
-			"slug"               => String::Slug(Html::Request("title")),
-			"author_member_id"   => $this->Session->member_info['m_id'],
-			"replies"            => 1,
-			"views"              => 0,
-			"start_date"         => time(),
-			"room_id"            => Html::Request("room_id", true),
-			"announcement"       => Html::Request("announcement", true),
-			"lastpost_date"      => time(),
-			"lastpost_member_id" => $this->Session->member_info['m_id'],
-			"locked"             => Html::Request("locked", true),
-			"approved"           => 1,
-			"with_bestanswer"    => 0
+			"title"               => Html::Request("title"),
+			"slug"                => String::Slug(Html::Request("title")),
+			"author_member_id"    => $this->Session->member_info['m_id'],
+			"replies"             => 1,
+			"views"               => 0,
+			"start_date"          => time(),
+			"room_id"             => Html::Request("room_id", true),
+			"announcement"        => Html::Request("announcement", true),
+			"lastpost_date"       => time(),
+			"lastpost_member_id"  => $this->Session->member_info['m_id'],
+			"locked"              => Html::Request("locked", true),
+			"approved"            => 1,
+			"with_bestanswer"     => 0,
+			"poll_question"       => Html::Request("poll_question"),
+			"poll_data"           => $poll_data,
+			"poll_allow_multiple" => (isset($_POST['poll_allow_multiple'])) ? 1 : 0
 		);
 		$this->Db->Insert("c_threads", $thread);
 
