@@ -108,7 +108,7 @@ form {
 		}
 	}
 	input[type=button], input[type=submit], button:not([role]) {
-		background: $colorFiord url('../images/button-bg.png');
+		background: $accent url('../images/button-bg.png');
 		border: 0;
 		border-radius: 4px;
 		box-shadow: 1px 1px 1px rgba(#000, 0.1);
@@ -150,8 +150,8 @@ form {
 		vertical-align: text-bottom;
 		@include transition(200ms);
 		&.checked {
-			background-color: $colorFiord;
-			border: 1px solid $colorFiord;
+			background-color: $accent;
+			border: 1px solid $accent;
 		}
 	}
 }
@@ -194,7 +194,7 @@ form {
 /** BUTTONS **/
 
 .default-button {
-	background: $colorFiord url('../images/button-bg.png') repeat-x;
+	background: $accent url('../images/button-bg.png') repeat-x;
 	border-radius: 7px;
 	color:#fff;
 	font-family: $fontSans;
@@ -204,7 +204,7 @@ form {
 	text-shadow: 1px 1px 0px #000;
 	@include transition(300ms);
 	&:hover {
-		background-color: lighten($colorFiord, 8%);
+		background-color: lighten($accent, 8%);
 		text-decoration: none;
 	}
 	&.disabled {
@@ -261,7 +261,7 @@ form {
 	width: 100%;
 	tr {
 		th {
-			background: $colorFiord url('../images/bar-bg.png') repeat-x;
+			background: $accent url('../images/bar-bg.png') repeat-x;
 			color:#fff;
 			font-weight: bold;
 			padding: 8px;
@@ -366,7 +366,7 @@ form {
 		width: 250px;
 	}
 	input[type=submit] {
-		background: lighten($colorFiord, 10%);
+		background: lighten($accent, 10%);
 		border: 0;
 		color: #fff;
 		cursor: pointer;
@@ -414,7 +414,7 @@ form {
 		margin-bottom: 10px;
 		&:last-child { margin-bottom: 0; }
 		.title {
-			background: $colorFiord url('../images/bar-bg.png') repeat-x;
+			background: $accent url('../images/bar-bg.png') repeat-x;
 			border-radius: 5px 5px 0 0;
 			color:#fff;
 			font-size: 14px;
@@ -529,7 +529,7 @@ form {
 
 .navigation {
 	.navbar {
-		background: $colorFiord;
+		background: $accent;
 		padding: 5px 0 0 20px;
 		a {
 			color: #fff;
@@ -629,7 +629,7 @@ form {
 		}
 	}
 	.room-stats {
-		background: $colorFiord;
+		background: $accent;
 		vertical-align: top;
 		width: 100px;
 		.item {
@@ -736,7 +736,7 @@ form {
 		}
 	}
 	.stats {
-		background: $colorFiord;
+		background: $accent;
 		display: table-cell;
 		padding: 0 5px;
 		line-height: 1em;
@@ -770,12 +770,12 @@ form {
 
 	&.hot {
 		.stats {
-			background: $colorFiord url('../images/hot-thread.png') no-repeat top right;
+			background: $accent url('../images/hot-thread.png') no-repeat top right;
 			background-size: 32px;
 		}
 	}
 	&.unread {
-		border-color: $colorFiord;
+		border-color: $accent;
 	}
 	&.announcement {
 		background: #f9f9ff;
@@ -788,7 +788,7 @@ form {
 	&.answered {
 		border-color: #090;
 		.stats {
-			background: $colorFiord url('../images/best-answer.png') no-repeat top right;
+			background: $accent url('../images/best-answer.png') no-repeat top right;
 			background-size: 32px;
 		}
 	}
@@ -922,7 +922,7 @@ form {
 		font-size: 21px;
 		font-weight: bold;
 		span {
-			color: $colorFiord;
+			color: $accent;
 		}
 	}
 }
@@ -1292,7 +1292,7 @@ form {
 	margin-bottom: 20px;
 	width: 100%;
 	th {
-		background: $colorFiord url('../images/bar-bg.png') repeat-x;
+		background: $accent url('../images/bar-bg.png') repeat-x;
 		color:#fff;
 		font-weight: bold;
 		padding: 8px;
@@ -1322,7 +1322,7 @@ form {
 		}
 		&.event {
 			font-weight: bold;
-			a { color: $colorFiord; }
+			a { color: $accent; }
 		}
 		&:last-child {
 			a { border: 0; }
@@ -1342,7 +1342,7 @@ form {
 		position: relative;
 		width: 60px;
 		span {
-			background-color: $colorFiord;
+			background-color: $accent;
 			border-radius: 50%;
 			display: block;
 			height: 12px;
@@ -1490,7 +1490,7 @@ form {
 		width: 120px;
 	}
 	.current {
-		background: $colorFiord;
+		background: $accent;
 		color: #fff;
 		display: table-cell;
 		padding: 6px;
@@ -1518,7 +1518,7 @@ form {
 	padding: 1px;
 	position: relative;
 	.fill {
-		background: $colorFiord;
+		background: $accent;
 		display: block;
 		float: left;
 		height: 15px;
