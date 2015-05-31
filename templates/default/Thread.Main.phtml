@@ -71,10 +71,10 @@
 						<span class="question"><?php __($question) ?></span>
 						<div class="progress-bar-container">
 							<div class="progress-bar">
-								<div class="fill" style="width: <?php __($thread_info['poll']['replies_p'][$k]) ?>%"></div>
-								<span><?php __($thread_info['poll']['replies_n'][$k]) ?> votes</span>
+								<div class="fill" style="width: <?php echo $thread_info['poll']['replies_p'][$k] ?>%"></div>
+								<span><?php echo $thread_info['poll']['replies_n'][$k] ?> votes</span>
 							</div>
-							<span class="label"><?php __($thread_info['poll']['replies_p'][$k]) ?>%</span>
+							<span class="label"><?php echo round($thread_info['poll']['replies_p'][$k], 1) ?>%</span>
 						</div>
 					<?php endforeach; ?>
 				</div>
@@ -84,9 +84,9 @@
 						<?php foreach($thread_info['poll']['choices'] as $index => $question): ?>
 							<span class="question">
 								<?php if($thread_info['poll']['multiple']): ?>
-									<input type="checkbox" name="chosen_option[]" value="<?php __($index) ?>">
+									<input type="checkbox" name="chosen_option[]" value="<?php echo $index ?>">
 								<?php else: ?>
-									<input type="radio" name="chosen_option" value="<?php __($index) ?>">
+									<input type="radio" name="chosen_option" value="<?php echo $index ?>">
 								<?php endif; ?>
 								<?php __($question) ?>
 							</span>

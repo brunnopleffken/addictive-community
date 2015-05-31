@@ -541,8 +541,13 @@ class Thread extends Application
 			array_push($poll_data['voters'], $this->Session->member_info['m_id']);
 		}
 		else {
-			// If poll allow multiple choice
-			// ...
+			// If poll allows multiple choice
+			foreach(Html::Request("chosen_option") as $chosen_option) {
+				$poll_data['replies'][$chosen_option] += 1;
+			}
+
+			// Add member ID to voters list
+			array_push($poll_data['voters'], $this->Session->member_info['m_id']);
 		}
 
 		// Update thread information with encoded data
@@ -621,7 +626,7 @@ class Thread extends Application
 
 			// Get total of votes
 			$total = array_sum($poll_data['replies']);
-			$ratio = 100 / $total;
+			$ratio = ($total != 0) ? 100 / $total : 0; // Avoid "division by zero" exception
 
 			// Get percentage of votes for each option
 			foreach($poll_data['replies'] as $k => $v) {
