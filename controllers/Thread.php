@@ -386,8 +386,8 @@ class Thread extends Application
 		);
 		$this->Db->Insert("c_logs", $log);
 
+		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=4");
-		exit;
 	}
 
 	/**
@@ -414,8 +414,8 @@ class Thread extends Application
 		);
 		$this->Db->Insert("c_logs", $log);
 
+		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=5");
-		exit;
 	}
 
 	/**
@@ -442,8 +442,8 @@ class Thread extends Application
 		);
 		$this->Db->Insert("c_logs", $log);
 
+		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=6");
-		exit;
 	}
 
 	/**
@@ -470,8 +470,8 @@ class Thread extends Application
 		);
 		$this->Db->Insert("c_logs", $log);
 
+		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=7");
-		exit;
 	}
 
 	/**
@@ -512,8 +512,8 @@ class Thread extends Application
 		);
 		$this->Db->Insert("c_logs", $log);
 
+		// Redirect
 		$this->Core->Redirect("room/" . $room_id . "?m=7");
-		exit;
 	}
 
 	/**
@@ -579,8 +579,7 @@ class Thread extends Application
 		$thread_info['perm_view'] = unserialize($thread_info['perm_view']);
 		$permission_value = "V_" . $this->Session->member_info['usergroup'];
 		if(!in_array($permission_value, $thread_info['perm_view'])) {
-			header("Location: " . $_SERVER['HTTP_REFERER']);
-			exit;
+			$this->Core->Redirect("HTTP_REFERER");
 		}
 
 		// Check permission to reply
