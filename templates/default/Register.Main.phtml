@@ -47,6 +47,18 @@
 				<div class="label"><?php __("R_EMAIL_ADDR") ?></div>
 				<div class="field"><input type="text" name="email" id="email" class="required email medium"></div>
 			</div>
+			<?php if($is_captcha): ?>
+				<div class="input-box">
+					<div class="label">
+						<?php __("R_CAPTCHA") ?>
+						<span><?php __("R_CAPTCHA_DESCRIPTION") ?></span>
+					</div>
+					<div class="field">
+						<input type="text" name="captcha" class="tiny" maxlength="6"></em>
+						<img src="register/captcha" alt="CAPTCHA" style="display: block; margin-top: 10px;">
+					</div>
+				</div>
+			<?php endif; ?>
 			<div class="input-box center">
 				<input type="submit" id="formSubmit" value="<?php __("R_STEP_2_SEND") ?>" disabled>
 			</div>

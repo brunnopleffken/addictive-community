@@ -18,11 +18,14 @@
 	$t["R_PASSWORD_ERROR"] = "Passwords does not match!";
 	$t["R_RETYPE_PASSWD"] = "Retype Password";
 	$t["R_EMAIL_ADDR"] = "E-mail Address";
+	$t["R_CAPTCHA"] = "CAPTCHA";
+	$t["R_CAPTCHA_DESCRIPTION"] = "Only letters. Just making sure you're human.";
 	$t["R_STEP_2_SEND"] = "Create Account";
 	$t["R_ERROR_1"] = "All fields are obligatory. If they're not filled in, registration cannot take place.";
 	$t["R_ERROR_2"] = "Passwords doesn't match.";
 	$t["R_ERROR_3"] = "Username length must be between 3 and 20 characters.";
 	$t["R_ERROR_4"] = "Username or e-mail address already exists.";
+	$t["R_ERROR_5"] = "CAPTCHA doesn't match.";
 	$t["R_DONE_CONGRATULATIONS"] = "Congratulations!";
 	$t["R_DONE_SUCCESS"] = "You have successfully registered your account.";
 	$t["R_DONE_VALIDATE"] = "Please, check your e-mail to complete registration.";

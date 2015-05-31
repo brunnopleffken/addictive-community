@@ -240,6 +240,7 @@
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_from', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_from_name', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_security_validation', 'false');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_security_captcha', 'true');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_warning_max', '5');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('security_salt_hash', '{$salt_hash}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('security_salt_key', '{$salt_key}');";
