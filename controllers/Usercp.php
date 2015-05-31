@@ -32,13 +32,55 @@ class Usercp extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * VIEW: USER CONTROL PANEL - HOME
+	 * VIEW: USER CONTROL PANEL - DASHBOARD
 	 * --------------------------------------------------------------------
 	 */
 	public function Main()
 	{
 		// Define selected menu item
-		$menu = array("selected", "", "", "", "");
+		$menu = array("selected", "", "", "", "", "");
+
+		// Get total posts
+		$posts_total = $this->Session->member_info['posts'];
+
+		// Get register date
+		$register_date_timestamp = $this->Session->member_info['joined'];
+		$register_date = $this->Core->DateFormat($register_date_timestamp);
+
+		// Calculate average of posts per day
+		$days = (time() - $register_date_timestamp) / DAY;
+		$average_posts = round($posts_total / floor($days), 1);
+
+		// Get number of private messages
+		$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages
+				WHERE to_id = {$this->Session->member_info['m_id']};");
+		$pm = $this->Db->Fetch();
+
+		$space_left = $this->config['member_pm_storage'] - $pm['total'];
+
+		// Page info
+		$page_info['title'] = i18n::Translate("C_TITLE");
+		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$this->Set("page_info", $page_info);
+
+		// Return variables
+		$this->Set("menu", $menu);
+		$this->Set("posts_total", $posts_total);
+		$this->Set("register_date", $register_date);
+		$this->Set("posts_average", $average_posts);
+		$this->Set("pm_total", $pm['total']);
+		$this->Set("pm_space_left", $space_left);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * VIEW: USER CONTROL PANEL - PROFILE
+	 * --------------------------------------------------------------------
+	 */
+	public function Profile()
+	{
+		// Define selected menu item
+		$menu = array("", "selected", "", "", "", "");
 
 		// Define messages
 		$message_id = Html::Request("m");
@@ -52,7 +94,7 @@ class Usercp extends Application
 			$profile['female'] = "selected";
 		}
 		else {
-			$profile['male'] = "selected";
+			$profile['male']   = "selected";
 			$profile['female'] = "";
 		}
 
@@ -76,7 +118,7 @@ class Usercp extends Application
 	public function Photo()
 	{
 		// Define selected menu item
-		$menu = array("", "selected", "", "", "");
+		$menu = array("", "", "selected", "", "", "");
 
 		// Define messages
 		$message_id = Html::Request("m");
@@ -87,7 +129,7 @@ class Usercp extends Application
 		// Gravatar or custom photo?
 		$photo_info['gravatar'] = "";
 		$photo_info['facebook'] = "";
-		$photo_info['custom'] = "";
+		$photo_info['custom']   = "";
 
 		// Notification if Facebook account is not set
 		$facebook_info = "";
@@ -136,7 +178,7 @@ class Usercp extends Application
 	public function Signature()
 	{
 		// Define selected menu item
-		$menu = array("", "", "selected", "", "");
+		$menu = array("", "", "", "selected", "", "");
 
 		// Define messages
 		$message_id = Html::Request("m");
@@ -162,7 +204,7 @@ class Usercp extends Application
 	public function Settings()
 	{
 		// Define selected menu item
-		$menu = array("", "", "", "selected", "");
+		$menu = array("", "", "", "", "selected", "");
 
 		// Define messages
 		$message_id = Html::Request("m");
@@ -246,7 +288,7 @@ class Usercp extends Application
 	public function Password()
 	{
 		// Define selected menu item
-		$menu = array("", "", "", "", "selected");
+		$menu = array("", "", "", "", "", "selected");
 
 		// Define messages
 		$message_id = Html::Request("m");
@@ -292,7 +334,7 @@ class Usercp extends Application
 
 		// Save and redirect...
 		$this->Db->Update("c_members", $info, "m_id = {$this->member_id}");
-		$this->Core->Redirect("usercp?m=1");
+		$this->Core->Redirect("usercp/profile?m=1");
 	}
 
 	/**
@@ -415,8 +457,8 @@ class Usercp extends Application
 		);
 
 		// Get values
-		$current = String::PasswordEncrypt(Html::Request("current"), $salt);
-		$new_pass = String::PasswordEncrypt(Html::Request("new_password"), $salt);
+		$current   = String::PasswordEncrypt(Html::Request("current"), $salt);
+		$new_pass  = String::PasswordEncrypt(Html::Request("new_password"), $salt);
 		$conf_pass = String::PasswordEncrypt(Html::Request("conf_password"), $salt);
 
 		// Check if member and password matches

@@ -1244,6 +1244,21 @@ form {
 	}
 }
 
+// USER CP
+
+.usercp-summary {
+	padding: 20px !important;
+	h2 {
+		margin: 25px 0 10px 0;
+		&:first-child { margin-top: 0; }
+	}
+	.table-label {
+		width: 220px !important;
+	}
+}
+
+// PROFILE
+
 .profile-header {
 	height: 250px;
 	margin-bottom: 20px;
