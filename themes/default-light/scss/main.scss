@@ -51,6 +51,13 @@ body {
 	.min { width: 1% !important; white-space: nowrap; }
 	.no-shadow { box-shadow: none; }
 
+	// USER CP NO-IMAGE PLACEHOLDER
+
+	.custom-photo-placeholder {
+		background: transparent url('../images/no-photo.png') no-repeat center;
+		background-size: 120px 120px;
+	}
+
 	// MAC ONLY DEFINITIONS
 
 	&.is-mac {

@@ -18,6 +18,7 @@ body .small { font-size: 12px; }
 body .tiny { font-size: 11px; }
 body .min { width: 1% !important; white-space: nowrap; }
 body .no-shadow { box-shadow: none; }
+body .custom-photo-placeholder { background: transparent url("../images/no-photo.png") no-repeat center; background-size: 120px 120px; }
 body.is-mac { font-family: Helvetica Neue, Helvetica, sans-serif; }
 body.is-mac form input[type=text], body.is-mac form input[type=password], body.is-mac form input[type=file], body.is-mac form textarea, body.is-mac form input[type=button], body.is-mac form input[type=submit], body.is-mac form button:not([role]), body.is-mac .default-button { font-family: Helvetica Neue, Helvetica, sans-serif; }
 
