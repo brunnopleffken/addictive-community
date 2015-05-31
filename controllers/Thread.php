@@ -222,7 +222,7 @@ class Thread extends Application
 			$questions = explode("\r\n", trim(Html::Request("poll_choices")));
 			$questions = array_filter($questions, "trim");
 
-			 // For each question, add an corresponding number of votes...
+			 // For each question, add a corresponding number of votes...
 			 // ...in this case: zero!
 			for($i = 0; $i < count($questions); $i++) {
 				$replies[] = 0;
@@ -303,6 +303,9 @@ class Thread extends Application
 	{
 		$this->layout = false;
 
+		// Do not allow guests
+		$this->Session->NoGuest();
+
 		// Check if the author is the user currently logged in
 		if($this->Session->session_info['member_id'] != Html::Request("member_id")) {
 			Html::Error("You cannot edit a post that you did not publish.");
@@ -329,6 +332,9 @@ class Thread extends Application
 	public function DeletePost()
 	{
 		$this->layout = false;
+
+		// Do not allow guests
+		$this->Session->NoGuest();
 
 		// Get post information
 		$author_id = Html::Request("mid");
@@ -365,6 +371,9 @@ class Thread extends Application
 	{
 		$this->layout = false;
 
+		// Do not allow guests
+		$this->Session->NoGuest();
+
 		// Lock thread
 		$this->Db->Query("UPDATE c_threads SET locked = 1 WHERE t_id = {$thread_id};");
 
@@ -389,6 +398,9 @@ class Thread extends Application
 	public function Unlock($thread_id)
 	{
 		$this->layout = false;
+
+		// Do not allow guests
+		$this->Session->NoGuest();
 
 		// Lock thread
 		$this->Db->Query("UPDATE c_threads SET locked = 0 WHERE t_id = {$thread_id};");
@@ -415,6 +427,9 @@ class Thread extends Application
 	{
 		$this->layout = false;
 
+		// Do not allow guests
+		$this->Session->NoGuest();
+
 		// Lock thread
 		$this->Db->Query("UPDATE c_threads SET announcement = 1 WHERE t_id = {$thread_id};");
 
@@ -440,6 +455,9 @@ class Thread extends Application
 	{
 		$this->layout = false;
 
+		// Do not allow guests
+		$this->Session->NoGuest();
+
 		// Lock thread
 		$this->Db->Query("UPDATE c_threads SET announcement = 0 WHERE t_id = {$thread_id};");
 
@@ -464,6 +482,9 @@ class Thread extends Application
 	public function Delete($thread_id)
 	{
 		$this->layout = false;
+
+		// Do not allow guests
+		$this->Session->NoGuest();
 
 		// Get room ID
 		$this->Db->Query("SELECT room_id FROM c_threads WHERE t_id = {$thread_id};");
@@ -497,6 +518,43 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * SAVE POLL VOTES
+	 * --------------------------------------------------------------------
+	 */
+	public function SavePoll($thread_id)
+	{
+		$this->layout = false;
+
+		// Do not allow guests
+		$this->Session->NoGuest();
+
+		// Get updated poll info in DB
+		$this->Db->Query("SELECT poll_data, poll_allow_multiple FROM c_threads WHERE t_id = {$thread_id};");
+		$thread_info = $this->Db->Fetch();
+		$poll_data = json_decode($thread_info['poll_data'], true);
+
+		if($thread_info['poll_allow_multiple'] == 0) {
+			// Increase vote count
+			$poll_data['replies'][Html::Request("chosen_option")] += 1;
+
+			// Add member ID to voters list
+			array_push($poll_data['voters'], $this->Session->member_info['m_id']);
+		}
+		else {
+			// If poll allow multiple choice
+			// ...
+		}
+
+		// Update thread information with encoded data
+		$encoded = json_encode($poll_data);
+		$this->Db->Query("UPDATE c_threads SET poll_data = '{$encoded}' WHERE t_id = {$thread_id};");
+
+		// Redirect
+		$this->Core->Redirect("HTTP_REFERER");
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * GET GENERAL THREAD INFORMATION, LIKE NUMBER OF REPLIES, CHECK IF
 	 * IT'S AN OBSOLETE THREAD AND PERMISSIONS
 	 * --------------------------------------------------------------------
@@ -504,7 +562,8 @@ class Thread extends Application
 	private function _GetThreadInfo($id)
 	{
 		// Select thread info from database
-		$thread = $this->Db->Query("SELECT t.title, t.room_id, t.author_member_id, t.locked, t.announcement, t.lastpost_date,
+		$thread = $this->Db->Query("SELECT t.title, t.room_id, t.author_member_id, t.locked, t.announcement,
+				t.lastpost_date, t.poll_question, t.poll_data, t.poll_allow_multiple,
 				r.r_id, r.name, r.perm_view, r.perm_reply, r.moderators,
 				(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t
 				INNER JOIN c_rooms r ON (r.r_id = t.room_id) WHERE t.t_id = '{$id}';");
@@ -512,6 +571,9 @@ class Thread extends Application
 
 		// Calculate the number of actual replies (first post is not a reply)
 		$thread_info['post_count_display'] = $thread_info['post_count'] - 1;
+
+		// Check if thread has a poll
+		$thread_info['poll'] = $this->_GetPoll($thread_info);
 
 		// Check permission to read
 		$thread_info['perm_view'] = unserialize($thread_info['perm_view']);
@@ -545,6 +607,50 @@ class Thread extends Application
 		}
 
 		return $thread_info;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * CHECK IF THREAD HAS POLL. IF TRUE, BUILD AND RETURN ELEMENTS.
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetPoll($thread_info)
+	{
+		// Get poll information if poll exists
+		if($thread_info['poll_question'] != "") {
+			$poll_data = json_decode($thread_info['poll_data'], true);
+
+			// Get total of votes
+			$total = array_sum($poll_data['replies']);
+			$ratio = 100 / $total;
+
+			// Get percentage of votes for each option
+			foreach($poll_data['replies'] as $k => $v) {
+				$poll_data['percentage'][$k] = $v * $ratio;
+			}
+
+			$poll_info = array(
+				"has_poll"  => true,
+				"question"  => $thread_info['poll_question'],
+				"choices"   => $poll_data['questions'],
+				"multiple"  => $thread_info['poll_allow_multiple'],
+				"replies_n" => $poll_data['replies'],
+				"replies_p" => $poll_data['percentage'],
+				"voters"    => $poll_data['voters'],
+				"total"     => $total
+			);
+
+			// Check if user has already voted in this poll
+			$poll_info['has_voted'] = in_array($this->Session->member_info['m_id'], $poll_info['voters']);
+		}
+		else {
+			// If not, return false
+			$poll_info = array(
+				"has_poll" => false
+			);
+		}
+
+		return $poll_info;
 	}
 
 	/**

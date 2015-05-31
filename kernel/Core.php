@@ -42,9 +42,15 @@ class Core
 	 */
 	public function Redirect($url)
 	{
-		$url = $this->config['general_community_url'] . $url;
-		header("Location: " . $url);
-		exit;
+		if($url == "HTTP_REFERER") {
+			header("Location: " . $_SERVER['HTTP_REFERER']);
+			exit;
+		}
+		else {
+			$url = $this->config['general_community_url'] . $url;
+			header("Location: " . $url);
+			exit;
+		}
 	}
 
 	/**

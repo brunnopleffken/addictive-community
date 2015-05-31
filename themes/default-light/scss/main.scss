@@ -911,6 +911,80 @@ form {
 			p { margin-bottom: 2px; }
 		}
 	}
+	.poll {
+		border-top: 1px dashed #ddd;
+		position: relative;
+		.already-voted {
+			color: #070;
+			position: absolute;
+			right: 10px;
+			text-align: center;
+			top: 10px;
+			i { font-size: 28px; }
+			span { display: block; }
+		}
+		.title {
+			font-size: 16px;
+			letter-spacing: 0;
+			padding-bottom: 15px;
+		}
+		.questions {
+			margin: 5px 15px 25px 15px;
+			.question {
+				color: #333;
+				display: block;
+				font-size: 12px;
+				margin-bottom: 10px;
+				input {
+					margin-right: 5px;
+				}
+			}
+			input[type=submit] {
+				margin-top: 10px;
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+		}
+		.replies {
+			margin: 0 15px 25px 15px;
+			.question {
+				color: #333;
+				display: block;
+				font-size: 12px;
+				margin-bottom: 4px;
+			}
+			.progress-bar-container {
+				margin-bottom: 15px;
+				overflow: hidden;
+				.label {
+					background-color: $accent;
+					color: #fff;
+					float: left;
+					font-size: 10px;
+					line-height: 19px;
+					margin-left: 10px;
+					padding: 0 5px;
+					position: relative;
+					&:before {
+						border-color: transparent $accent transparent transparent;
+						border-style: solid;
+						border-width: 5px 5px 5px 0;
+						content: ('');
+						height: 0;
+						left: -5px;
+						position: absolute;
+						top: 4px;
+						width: 0;
+					}
+				}
+				.progress-bar {
+					float: left;
+					margin: 0;
+					width: 400px;
+				}
+			}
+		}
+	}
 	.footer {
 		border-top: 1px solid #eee;
 		color: #333;

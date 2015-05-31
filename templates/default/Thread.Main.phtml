@@ -12,6 +12,7 @@
 <!-- FIRST POST -->
 
 <div class="thread-first-post">
+	<!-- POST HEADER -->
 	<div class="header">
 		<div class="author">
 			<a href="profile/<?php __($first_post_info['author_id']) ?>">
@@ -31,7 +32,9 @@
 			</div>
 		</div>
 	</div>
-	<div>
+
+	<!-- POST CONTENT -->
+	<div class="middle">
 		<p class="title"><?php __($first_post_info['title']) ?></p>
 		<div class="text">
 			<div><?php __($first_post_info['post']) ?></div>
@@ -53,6 +56,53 @@
 			<?php endif; ?>
 		</div>
 	</div>
+
+	<!-- POLL -->
+	<?php if($thread_info['poll']['has_poll']): ?>
+		<div class="poll">
+			<p class="title"><?php __($thread_info['poll']['question']) ?></p>
+			<?php if($thread_info['poll']['has_voted']): ?>
+				<div class="already-voted">
+					<i class="fa fa-fw fa-check"></i>
+					<span>Already voted</span>
+				</div>
+				<div class="replies">
+					<?php foreach($thread_info['poll']['choices'] as $k => $question): ?>
+						<span class="question"><?php __($question) ?></span>
+						<div class="progress-bar-container">
+							<div class="progress-bar">
+								<div class="fill" style="width: <?php __($thread_info['poll']['replies_p'][$k]) ?>%"></div>
+								<span><?php __($thread_info['poll']['replies_n'][$k]) ?> votes</span>
+							</div>
+							<span class="label"><?php __($thread_info['poll']['replies_p'][$k]) ?>%</span>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			<?php else: ?>
+				<div class="questions">
+					<form action="thread/save_poll/<?php __($thread_id) ?>" method="post" id="poll">
+						<?php foreach($thread_info['poll']['choices'] as $index => $question): ?>
+							<span class="question">
+								<?php if($thread_info['poll']['multiple']): ?>
+									<input type="checkbox" name="chosen_option[]" value="<?php __($index) ?>">
+								<?php else: ?>
+									<input type="radio" name="chosen_option" value="<?php __($index) ?>">
+								<?php endif; ?>
+								<?php __($question) ?>
+							</span>
+						<?php endforeach; ?>
+						<?php if($this->Session->member_info['m_id'] != 0): ?>
+							<input type="submit" value="Vote">
+						<?php else: ?>
+							<input type="submit" value="You're unable to vote" disabled>
+						<?php endif; ?>
+					</form>
+				</div>
+			<?php endif; ?>
+		</div>
+	<?php endif; ?>
+
+	<!-- POST FOOTER -->
 	<div class="footer">
 		<p class="fleft"><i class="fa fa-clock-o"></i> <?php __("T_POSTED_ON", array($first_post_info['post_date'])) ?></p>
 		<?php if($this->Session->member_info['m_id'] != 0): ?>
@@ -89,6 +139,7 @@
 	<?php foreach($reply as $k => $v): ?>
 		<a id="post-<?php __($reply[$k]['p_id']) ?>"></a>
 		<div class="thread-post-reply <?php __($reply[$k]['bestanswer_class']) ?>">
+			<!-- REPLY SIDEBAR -->
 			<div class="author">
 				<div class="photostack">
 					<a href="profile/<?php __($reply[$k]['author_id']) ?>">
@@ -103,6 +154,8 @@
 					<li><b><?php __("T_POST_LOCATION") ?></b> <?php __($reply[$k]['location']) ?></li>
 				</ul>
 			</div>
+
+			<!-- REPLY CONTENT -->
 			<div class="content">
 				<div class="date"><?php __("T_POSTED_ON", array($reply[$k]['post_date'])) ?> <?php __($reply[$k]['edited']) ?></div>
 				<div class="text">
@@ -161,6 +214,7 @@
 </div>
 
 <!-- MODERATION OPTIONS -->
+
 <?php if($is_moderator): ?>
 	<div class="thread-moderation">
 		<a href="" class="title"><i class="fa fa-fw fa-angle-down"></i><?php __("T_MOD_OPTIONS") ?></a>
@@ -199,6 +253,7 @@
 </div>
 
 <!-- DELETE POST LIGHTBOX -->
+
 <div id="deleteThreadConfirm" style="display: none">
 	<form action="thread/delete_post" method="post" class="validate">
 		<table class="table-list no-borders" style="width:350px; margin:0">
