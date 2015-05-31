@@ -329,11 +329,10 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .calendar th { background: #465068 url("../images/bar-bg.png") repeat-x; color: #fff; font-weight: bold; padding: 8px; text-align: left; }
 .calendar .week { background: #fff url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; text-align: center; width: 14%; }
 .calendar .day { background: #fff; border-top: 1px solid #eee; font-size: 16px; padding: 24px 0; text-align: center; }
-.calendar .day a { color: #000; display: block; }
+.calendar .day a { border-radius: 50%; color: #000; display: inline-block; line-height: 25px; width: 26px; }
 .calendar .day.today a { color: #c00 !important; }
-.calendar .day.event { font-weight: bold; }
-.calendar .day.event a { color: #465068; }
-.calendar .day:last-child a { border: 0; }
+.calendar .day.event a { background-color: #465068; color: #fff; font-size: 14px; }
+.calendar .day.event a:hover { text-decoration: none; }
 .calendar .fill { background: #fff; padding: 20px; }
 
 .calendar-events { display: table; width: 100%; }

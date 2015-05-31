@@ -1420,18 +1420,22 @@ form {
 		padding: 24px 0;
 		text-align: center;
 		a {
+			border-radius: 50%;
 			color: #000;
-			display: block;
+			display: inline-block;
+			line-height: 25px;
+			width: 26px;
 		}
 		&.today {
 			a { color: #c00 !important; }
 		}
 		&.event {
-			font-weight: bold;
-			a { color: $accent; }
-		}
-		&:last-child {
-			a { border: 0; }
+			a {
+				background-color: $accent;
+				color: #fff;
+				font-size: 14px;
+				&:hover { text-decoration: none; }
+			}
 		}
 	}
 	.fill {

@@ -143,7 +143,7 @@ class Html
 			$current = ($current == 0) ? $now : $current;
 		}
 
-		for($i = $now - $before; $i <= $now + $after; $i++) {
+		for($i = $now + $after; $i >= $now - $before; $i--) {
 			$selected = ($i == $current) ? "selected" : "";
 			$retval .= "<option value='{$i}' {$selected}>{$i}</option>";
 		}
