@@ -149,7 +149,7 @@ HTML;
 					<div class="next"><h3>Step 5</h3><span class="tiny">Install</span></div>
 				</div>
 
-				<form action="index.php?step=3" method="post" id="database-form">
+				<form action="index.php?step=3" method="post" id="database-form" class="validate">
 					<div class="input-box">
 						<div class="label">MySQL Host</div>
 						<div class="field"><input type="text" name="host" class="required medium"></div>
