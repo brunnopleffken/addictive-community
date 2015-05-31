@@ -13,11 +13,11 @@
 
 class Core
 {
+	// Community configurations
+	public $config = array();
+
 	// Database class
 	private $Db;
-
-	// Configurations
-	private $config = array();
 
 	// Logged member information
 	private $member_info = array();

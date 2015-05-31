@@ -70,7 +70,7 @@ class Messenger extends Application
 		$num_results = $this->Db->Rows();
 
 		// Used storage
-		$max_storage_size = $this->config['member_pm_storage'];
+		$max_storage_size = $this->Core->config['member_pm_storage'];
 		$percentage_width = (200 / $max_storage_size) * $num_results . "px";
 
 		// Results
@@ -134,7 +134,7 @@ class Messenger extends Application
 
 		// Return variables
 		$this->Set("message", $message);
-		$this->Set("enable_signature", $this->config['general_member_enable_signature']);
+		$this->Set("enable_signature", $this->Core->config['general_member_enable_signature']);
 	}
 
 	/**

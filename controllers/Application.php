@@ -22,9 +22,6 @@ class Application
 	// Dictionary of keys and value to be shown on View
 	public $view_data = array();
 
-	// Community settings
-	public $Config = array();
-
 	/**
 	 * --------------------------------------------------------------------
 	 * CLASSES INSTANCES
@@ -101,7 +98,7 @@ class Application
 		$this->_GetStats();
 
 		// Is community offline?
-		if($this->config['general_offline'] == "true") {
+		if($this->Core->config['general_offline'] == "true") {
 			if(!strstr($_SERVER['REQUEST_URI'], "error")) {
 				$this->Core->Redirect("error?t=offline");
 			}
@@ -113,15 +110,15 @@ class Application
 		// RETURN COMMON VARIABLES
 		// This variables will be returned in all controllers
 		// Treat them as reserved words when declaring variables! ;)
-		$this->Set("community_name", $this->config['general_community_name']);
-		$this->Set("community_url", $this->config['general_community_url']);
-		$this->Set("theme", $this->config['theme']);
-		$this->Set("meta_description", $this->config['seo_description']);
-		$this->Set("meta_keywords", $this->config['seo_keywords']);
-		$this->Set("website_name", $this->config['general_website_name']);
-		$this->Set("website_url", $this->config['general_website_url']);
-		$this->Set("show_members_online", $this->config['general_sidebar_online']);
-		$this->Set("show_statistics", $this->config['general_sidebar_stats']);
+		$this->Set("community_name", $this->Core->config['general_community_name']);
+		$this->Set("community_url", $this->Core->config['general_community_url']);
+		$this->Set("theme", $this->Core->config['theme']);
+		$this->Set("meta_description", $this->Core->config['seo_description']);
+		$this->Set("meta_keywords", $this->Core->config['seo_keywords']);
+		$this->Set("website_name", $this->Core->config['general_website_name']);
+		$this->Set("website_url", $this->Core->config['general_website_url']);
+		$this->Set("show_members_online", $this->Core->config['general_sidebar_online']);
+		$this->Set("show_statistics", $this->Core->config['general_sidebar_stats']);
 		$this->Set("is_admin", $is_admin);
 	}
 
@@ -182,7 +179,7 @@ class Application
 	private function _GetMembersOnline()
 	{
 		$online = array();
-		$session_expiration = $this->config['general_session_expiration'];
+		$session_expiration = $this->Core->config['general_session_expiration'];
 
 		$members_online = $this->Db->Query("SELECT s.*, m.username FROM c_sessions s
 				INNER JOIN c_members m ON (s.member_id = m.m_id)

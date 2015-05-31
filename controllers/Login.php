@@ -35,8 +35,8 @@ class Login extends Application
 
 		// Hash
 		$salt = array(
-			"hash" => $this->config['security_salt_hash'],
-			"key"  => $this->config['security_salt_key']
+			"hash" => $this->Core->config['security_salt_hash'],
+			"key"  => $this->Core->config['security_salt_key']
 		);
 
 		if(Html::Request("username") && Html::Request("password")) {
@@ -85,8 +85,8 @@ class Login extends Application
 
 		// Hash
 		$salt = array(
-			"hash" => $this->config['security_salt_hash'],
-			"key"  => $this->config['security_salt_key']
+			"hash" => $this->Core->config['security_salt_hash'],
+			"key"  => $this->Core->config['security_salt_key']
 		);
 
 		if(Html::Request("username") && Html::Request("password")) {

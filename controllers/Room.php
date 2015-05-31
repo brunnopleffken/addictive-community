@@ -80,7 +80,7 @@ class Room extends Application
 
 		// Threads per page
 		$page = Html::Request("page");
-		$threads_per_page = $this->config['threads_per_page'];
+		$threads_per_page = $this->Core->config['threads_per_page'];
 
 		// Calculate SQL offset
 		$offset = $page * $threads_per_page;
@@ -232,7 +232,7 @@ class Room extends Application
 		}
 
 		// Status: hot
-		if($result['replies'] >= $this->config['thread_posts_hot']) {
+		if($result['replies'] >= $this->Core->config['thread_posts_hot']) {
 			$result['class'] .= "hot";
 		}
 

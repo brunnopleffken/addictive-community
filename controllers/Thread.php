@@ -46,7 +46,7 @@ class Thread extends Application
 
 		// Get emoticons
 		$emoticons = $this->Db->Query("SELECT * FROM c_emoticons
-				WHERE emoticon_set = '" . $this->config['emoticon_default_set'] . "' AND display = '1';");
+				WHERE emoticon_set = '" . $this->Core->config['emoticon_default_set'] . "' AND display = '1';");
 		$emoticons = $this->Db->FetchToArray($emoticons);
 
 		// Get first post
@@ -70,7 +70,7 @@ class Thread extends Application
 		$this->Set("thread_id", $id);
 		$this->Set("thread_info", $thread_info);
 		$this->Set("notification", $notification[$message_id]);
-		$this->Set("enable_signature", $this->config['general_member_enable_signature']);
+		$this->Set("enable_signature", $this->Core->config['general_member_enable_signature']);
 		$this->Set("first_post_info", $first_post_info);
 		$this->Set("reply", $replies);
 		$this->Set("pagination", $pagination);
@@ -600,11 +600,11 @@ class Thread extends Application
 
 		// Check if it's an obsolete thread
 		$obsolete_notification = "";
-		$obsolete_seconds = $this->config['thread_obsolete_value'] * DAY;
+		$obsolete_seconds = $this->Core->config['thread_obsolete_value'] * DAY;
 		if(($thread_info['lastpost_date'] + $obsolete_seconds) < time()) {
 			$thread_info['obsolete'] = true;
 			$obsolete_notification = Html::Notification(
-				i18n::Translate("T_OBSOLETE", array($this->config['thread_obsolete_value'])), "warning", true
+				i18n::Translate("T_OBSOLETE", array($this->Core->config['thread_obsolete_value'])), "warning", true
 			);
 		}
 		else {
@@ -677,11 +677,11 @@ class Thread extends Application
 	 */
 	private function _FilterBadWords($text)
 	{
-		if($this->config['language_bad_words'] != "") {
-			$bad_words = explode("\n", $this->config['language_bad_words']);
+		if($this->Core->config['language_bad_words'] != "") {
+			$bad_words = explode("\n", $this->Core->config['language_bad_words']);
 			$bad_words_list = preg_replace("/(\r|\n)/i", "", "/(" . implode("|", $bad_words) . ")/i");
 
-			return preg_replace($bad_words_list, $this->config['language_bad_words_replacement'], $text);
+			return preg_replace($bad_words_list, $this->Core->config['language_bad_words_replacement'], $text);
 		}
 		else {
 			return $text;
@@ -824,7 +824,7 @@ class Thread extends Application
 	 */
 	private function _GetPages($thread_info)
 	{
-		$pages['items_per_page'] = $this->config['thread_posts_per_page'];
+		$pages['items_per_page'] = $this->Core->config['thread_posts_per_page'];
 		$total_posts    = $thread_info['post_count'] - 1;
 
 		// page number for SQL sentences

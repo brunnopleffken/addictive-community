@@ -40,7 +40,7 @@ class Register extends Application
 		// Return variables
 		$this->Set("step", $step);
 		$this->Set("notification", $notification[$message_id]);
-		$this->Set("general_security_validation", $this->config['general_security_validation']);
+		$this->Set("general_security_validation", $this->Core->config['general_security_validation']);
 	}
 
 	/**
@@ -68,12 +68,12 @@ class Register extends Application
 		}
 
 		// Check if Require Validation is TRUE in community settings
-		$usergroup = ($this->config['general_security_validation'] == "true") ? 6 : 3;
+		$usergroup = ($this->Core->config['general_security_validation'] == "true") ? 6 : 3;
 
 		// Hash
 		$salt = array(
-			"hash" => $this->config['security_salt_hash'],
-			"key"  => $this->config['security_salt_key']
+			"hash" => $this->Core->config['security_salt_hash'],
+			"key"  => $this->Core->config['security_salt_key']
 		);
 
 		// Build new member info array
@@ -87,10 +87,10 @@ class Register extends Application
 			"usergroup"     => $usergroup,
 			"photo_type"    => "gravatar",
 			"posts"         => 0,
-			"template"      => $this->config['template'],
-			"theme"         => $this->config['theme'],
-			"language"      => $this->config['language'],
-			"time_offset"   => $this->config['date_default_offset'],
+			"template"      => $this->Core->config['template'],
+			"theme"         => $this->Core->config['theme'],
+			"language"      => $this->Core->config['language'],
+			"time_offset"   => $this->Core->config['date_default_offset'],
 			"dst"           => 0,
 			"show_birthday" => 1,
 			"show_gender"   => 1,
@@ -111,7 +111,7 @@ class Register extends Application
 			// REQURE VALIDATION
 
 			// Instance of Email() class
-			$Email = new Email($this->config);
+			$Email = new Email($this->Core->config);
 
 			// Insert into database and update stats
 			$this->Db->Insert("c_members", $register_info);
@@ -119,7 +119,7 @@ class Register extends Application
 			$this->Db->Query("UPDATE c_stats SET member_count = member_count + 1;");
 
 			// Buid e-mail body
-			$validation_url = $this->config['general_community_url']
+			$validation_url = $this->Core->config['general_community_url']
 					. "register/validate?m={$new_member_id}&token={$register_info['token']}";
 
 			$this->Db->Query("SELECT content FROM c_emails WHERE type = 'validate';");
@@ -127,14 +127,14 @@ class Register extends Application
 
 			$email_formatted_content = sprintf($email_raw_content['content'],
 				$register_info['username'],
-				$this->config['general_community_name'],
+				$this->Core->config['general_community_name'],
 				$validation_url
 			);
 
 			// Send e-mail
 			$Email->Send(
 				$register_info['email'],
-				"[" . $this->config['general_community_name'] . "] New Member Validation",
+				"[" . $this->Core->config['general_community_name'] . "] New Member Validation",
 				$email_formatted_content
 			);
 

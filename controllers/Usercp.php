@@ -56,7 +56,7 @@ class Usercp extends Application
 				WHERE to_id = {$this->Session->member_info['m_id']};");
 		$pm = $this->Db->Fetch();
 
-		$space_left = $this->config['member_pm_storage'] - $pm['total'];
+		$space_left = $this->Core->config['member_pm_storage'] - $pm['total'];
 
 		// Page info
 		$page_info['title'] = i18n::Translate("C_TITLE");
@@ -167,7 +167,7 @@ class Usercp extends Application
 		$this->Set("menu", $menu);
 		$this->Set("photo_info", $photo_info);
 		$this->Set("notification", $notification[$message_id]);
-		$this->Set("enable_upload", $this->config['general_member_enable_avatar_upload']);
+		$this->Set("enable_upload", $this->Core->config['general_member_enable_avatar_upload']);
 	}
 
 	/**
@@ -452,8 +452,8 @@ class Usercp extends Application
 
 		// Hash
 		$salt = array(
-			"hash" => $this->config['security_salt_hash'],
-			"key"  => $this->config['security_salt_key']
+			"hash" => $this->Core->config['security_salt_hash'],
+			"key"  => $this->Core->config['security_salt_key']
 		);
 
 		// Get values
