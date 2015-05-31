@@ -143,7 +143,8 @@ class Thread extends Application
 		$post_info = $this->Db->Fetch();
 
 		// Check if the author is the user currently logged in
-		if($this->Session->session_info['member_id'] != $post_info['author_id']) {
+		if($this->Session->session_info['member_id'] != $post_info['author_id']
+			&& $this->Session->session_info['member_id'] != 1) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
@@ -707,7 +708,9 @@ class Thread extends Application
 		$first_post_info = $this->Db->Fetch($first_post);
 
 		// Format first thread
-		$first_post_info['avatar'] = $this->Core->GetGravatar($first_post_info['email'], $first_post_info['photo'], 96, $first_post_info['photo_type']);
+		$first_post_info['avatar'] = $this->Core->GetGravatar(
+			$first_post_info['email'], $first_post_info['photo'], 96, $first_post_info['photo_type']
+		);
 		$first_post_info['post_date'] = $this->Core->DateFormat($first_post_info['post_date']);
 
 		// Block bad words
@@ -775,13 +778,15 @@ class Thread extends Application
 			$result['thread_controls'] = "";
 
 			// Post controls
-			if($result['author_id'] == $this->Session->member_info['m_id']) {
+			if($result['author_id'] == $this->Session->member_info['m_id']
+				|| $this->Session->member_info['usergroup'] == 1) {
 				$result['post_controls'] = "<a href='thread/edit_post/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_EDIT") . "</a> "
 					. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$id}' data-member='{$result['author_id']}' class='fancybox delete-post-button small-button grey'>" . i18n::Translate("T_DELETE") . "</a>";
 			}
 
 			// Thread controls
-			if($thread_info['author_member_id'] == $this->Session->member_info['m_id'] && $result['author_id'] != $this->Session->member_info['m_id']) {
+			if($thread_info['author_member_id'] == $this->Session->member_info['m_id']
+				&& $result['author_id'] != $this->Session->member_info['m_id']) {
 				if($result['best_answer'] == 0) {
 					// Set post as Best Answer
 					$result['thread_controls'] = "<a href='thread/setbestanswer/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_BEST_SET") . "</a>";
