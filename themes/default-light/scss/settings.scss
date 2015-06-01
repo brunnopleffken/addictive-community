@@ -1,7 +1,6 @@
 // VARIABLES
 
-$fontSans: Arial, sans-serif;
-$fontMac: Helvetica Neue, Helvetica, sans-serif;
+$fontSans: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 $fontSerif: Georgia, serif;
 $accent: #465068;
 
@@ -11,4 +10,16 @@ $accent: #465068;
 	-webkit-transition: $ms;
 	-moz-transition: $ms;
 	transition: $ms;
+}
+
+// RESET
+
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 0;
+	margin: 0;
+	outline: none;
+	padding: 0;
 }

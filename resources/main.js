@@ -15,16 +15,6 @@
 $(document).ready(function($) {
 
 	/**
-	 * ADD .is-mac WHEN USER IS VIEWING ON A DEVICE RUNNING MAC OS X
-	 */
-
-	(function() {
-		if(navigator.platform.toLowerCase().indexOf('mac') >= 0) {
-			$('body').addClass('is-mac');
-		}
-	}).call(this);
-
-	/**
 	 * REPLACE ALL REGULAR <select> FIELDS WITH A FANCY ONE
 	 */
 

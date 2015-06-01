@@ -1,17 +1,5 @@
 @import "settings";
 
-/** RESET **/
-
-* {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	border: 0;
-	margin: 0;
-	outline: none;
-	padding: 0;
-}
-
 /** GLOBAL **/
 
 body {
@@ -56,16 +44,6 @@ body {
 	.custom-photo-placeholder {
 		background: transparent url('../images/no-photo.png') no-repeat center;
 		background-size: 120px 120px;
-	}
-
-	// MAC ONLY DEFINITIONS
-
-	&.is-mac {
-		font-family: $fontMac;
-		form input[type=text], form input[type=password], form input[type=file], form textarea,
-		form input[type=button], form input[type=submit], form button:not([role]), .default-button {
-			font-family: $fontMac;
-		}
 	}
 }
 
@@ -337,15 +315,16 @@ form {
 	color: #ccc;
 	font-size: 11px;
 	a {
-		color: #ccc;
+		color: #c9c9c9;
 		display: inline-block;
 		font-size: 10px;
+		line-height: 26px;
 		margin-right: 10px;
-		padding: 8px 10px;
+		padding: 0 10px;
 		text-transform: uppercase;
 		@include transition(300ms);
 		&:hover {
-			background-color: #2a2a2a;
+			background-color: #2f2f2f;
 			color: #fff;
 			text-decoration: none;
 		}
