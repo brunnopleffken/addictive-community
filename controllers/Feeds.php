@@ -36,8 +36,8 @@ class Feeds extends Application
 		echo '<id>' . $this->Core->config['general_community_url'] . '</id>' . "\n\n";
 
 		// Get threads
-		$this->Db->Query("SELECT t.t_id, t.title, t.slug, t.start_date, p.post, m.username FROM c_threads t
-				INNER JOIN c_posts p ON (t.t_id = p.thread_id)
+		$this->Db->Query("SELECT t.t_id, t.title, t.slug, t.start_date, m.username,
+				(SELECT p.post FROM c_posts p WHERE p.thread_id = t.t_id ORDER BY post_date LIMIT 1) AS post FROM c_threads t
 				INNER JOIN c_members m ON (t.author_member_id = m.m_id)
 				WHERE t.room_id = {$room_id} ORDER BY t.start_date DESC;");
 
