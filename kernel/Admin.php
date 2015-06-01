@@ -59,7 +59,7 @@ class Admin
 		$this->Db->Query("SELECT value FROM c_config WHERE field = '{$field_name}';");
 		$fetch = $this->Db->Fetch();
 
-		if($fetch['value'] == 1 or $fetch['value'] == "true") {
+		if($fetch['value'] == 1 || $fetch['value'] == "true") {
 			$str = "<input type='hidden' name='{$field_name}' value='false'><input type='checkbox' name='{$field_name}' value='true' checked>";
 		}
 		else {
@@ -76,7 +76,7 @@ class Admin
 	 */
 	public function BooleanCheckbox($field_name, $field_value)
 	{
-		if($field_value == 1 or $field_value == "true") {
+		if($field_value == 1 || $field_value == "true") {
 			$str = "<input type='hidden' name='{$field_name}' value='false'><input type='checkbox' name='{$field_name}' value='true' checked>";
 		}
 		else {
@@ -130,10 +130,10 @@ class Admin
 	 * --------------------------------------------------------------------
 	 */
 	public function FriendlyBool($value) {
-		if($value == 1 or $value == "true") {
+		if($value == 1 || $value == "true") {
 			return "<span style='color:#090'>Yes</span>";
 		}
-		elseif($value == 0 or $value == "false") {
+		elseif($value == 0 || $value == "false") {
 			return "<span style='color:#C00'>No</span>";
 		}
 		else {

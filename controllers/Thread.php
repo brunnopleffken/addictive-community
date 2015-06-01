@@ -246,7 +246,7 @@ class Thread extends Application
 		// Insert new thread item
 		$thread = array(
 			"title"               => Html::Request("title"),
-			"slug"                => String::Slug(Html::Request("title")),
+			"slug"                => String::Slug(htmlspecialchars_decode(Html::Request("title"), ENT_QUOTES)),
 			"author_member_id"    => $this->Session->member_info['m_id'],
 			"replies"             => 1,
 			"views"               => 0,
@@ -626,12 +626,14 @@ class Thread extends Application
 			$poll_data = json_decode($thread_info['poll_data'], true);
 
 			// Get total of votes
-			$total = array_sum($poll_data['replies']);
-			$ratio = ($total != 0) ? 100 / $total : 0; // Avoid "division by zero" exception
+			if(!empty($poll_data['replies'])) {
+				$total = array_sum($poll_data['replies']);
+				$ratio = ($total != 0) ? 100 / $total : 0; // Avoid "division by zero" exception
 
-			// Get percentage of votes for each option
-			foreach($poll_data['replies'] as $k => $v) {
-				$poll_data['percentage'][$k] = $v * $ratio;
+				// Get percentage of votes for each option
+				foreach($poll_data['replies'] as $k => $v) {
+					$poll_data['percentage'][$k] = $v * $ratio;
+				}
 			}
 
 			$poll_info = array(

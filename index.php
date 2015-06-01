@@ -130,7 +130,7 @@ class Main
 	 */
 	private function _LoadController($controller, $action = "")
 	{
-		// Controllers' name are in UpperCamelCase, but URLs in lowercase
+		// Controllers names are in UpperCamelCase, but URLs in lowercase
 		$_controller = $this->controller = ucwords($controller);
 
 		// Load Application controller

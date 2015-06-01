@@ -25,12 +25,12 @@ class Html
 		}
 
 		if(isset($_REQUEST[$name])) {
-			$text = $_REQUEST[$name];
+			$text = stripslashes($_REQUEST[$name]);
 			$text = str_replace("&", "&amp;", $text);
 			$text = str_replace("<", "&lt;", $text);
 			$text = str_replace(">", "&gt;", $text);
 			$text = str_replace('"', "&quot;", $text);
-			$text = str_replace("'", "&#39;", $text);
+			$text = str_replace("'", "&apos;", $text);
 		}
 		else {
 			return false;
@@ -74,6 +74,7 @@ class Html
 		foreach($string as $key => $clean) {
 			$cleaned[$key] = preg_replace("/[^{$allow}a-zA-Z0-9]/", "", $clean);
 		}
+
 		return $cleaned;
 	}
 
@@ -95,6 +96,7 @@ class Html
 			$retval .= "<option value='{$i}' {$selected}>{$i}</option>";
 		}
 		$retval .= "</select>";
+
 		return $retval;
 	}
 
@@ -123,6 +125,7 @@ class Html
 			}
 		}
 		$retval .= "</select>";
+
 		return $retval;
 	}
 
@@ -148,6 +151,7 @@ class Html
 			$retval .= "<option value='{$i}' {$selected}>{$i}</option>";
 		}
 		$retval .= "</select>";
+
 		return $retval;
 	}
 
@@ -167,6 +171,7 @@ class Html
 			$retval .= "<option value='{$i}' {$selected}>{$i}</option>";
 		}
 		$retval .= "</select>";
+
 		return $retval;
 	}
 
@@ -186,6 +191,7 @@ class Html
 			$retval .= "<option value='{$i}' {$selected}>{$i}</option>";
 		}
 		$retval .= "</select>";
+
 		return $retval;
 	}
 
@@ -217,6 +223,7 @@ class Html
 			$title = $custom_title;
 		}
 		$html = "<div class='notification " . $code . " " . $persistent . "'><p><strong>" . $title . "</strong> " . $message . "</p></div>";
+
 		return $html;
 	}
 
@@ -227,8 +234,7 @@ class Html
 	 */
 	public static function ForumRules($title, $text)
 	{
-		$html = "<div class='notification warning'><p><strong>" . $title . "</strong> " . $text . "</p></div>";
-		return $html;
+		return "<div class='notification warning'><p><strong>" . $title . "</strong> " . $text . "</p></div>";
 	}
 
 	/**
@@ -238,8 +244,7 @@ class Html
 	 */
 	public static function Crop($image, $w, $h, $class = "")
 	{
-		$html = "<div style=\"display:inline-block; width:{$w}px; height:{$h}px; background: url('{$image}') no-repeat center top; background-size:cover; image-rendering: optimizeQuality;\" class='{$class}'></div>";
-		return $html;
+		return "<div style=\"display:inline-block; width:{$w}px; height:{$h}px; background: url('{$image}') no-repeat center top; background-size:cover; image-rendering: optimizeQuality;\" class='{$class}'></div>";
 	}
 
 	/**
@@ -251,12 +256,14 @@ class Html
 	{
 		$page_url = (@$_SERVER['HTTPS'] == "on") ? "https" : "http";
 		$page_url .= "://";
+
 		if($_SERVER['SERVER_PORT'] != "80") {
 			$page_url .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
 		}
 		else {
 			$page_url .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
 		}
+
 		return $page_url;
 	}
 

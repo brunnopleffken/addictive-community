@@ -81,6 +81,8 @@ class Core
 	/**
 	 * --------------------------------------------------------------------
 	 * GET GRAVATAR, FACEBOOK OR UPLOADED MEMBER IMAGE PATH
+	 * $info: is an array containing 'email', 'photo' and 'photo_type'
+	 * $section: public|admin
 	 * --------------------------------------------------------------------
 	 */
 	public function GetAvatar($info, $size = 96, $section = "public", $d = "mm", $r = "g")
@@ -144,8 +146,7 @@ class Core
 	 */
 	public function CanonicalTag($thread_id)
 	{
-		$url = $this->config['general_community_url'] . "index.php?module=thread&id=" . $thread_id;
-		return $url;
+		return $this->config['general_community_url'] . "index.php?module=thread&id=" . $thread_id;
 	}
 
 	/**
@@ -153,7 +154,8 @@ class Core
 	 * CREATE CANONICAL TAG URL
 	 * --------------------------------------------------------------------
 	 */
-	public function Breadcrumb($page_info = array()) {
+	public function Breadcrumb($page_info = array())
+	{
 		$breadcrumb = "";
 
 		if(!empty($page_info)) {
@@ -170,8 +172,8 @@ class Core
 	 * CREATE CANONICAL TAG URL
 	 * --------------------------------------------------------------------
 	 */
-	public function PageTitle($page_info) {
-		$title = (isset($page_info['title'])) ? $page_info['title'] . " - " : "";
-		return $title;
+	public function PageTitle($page_info)
+	{
+		return (isset($page_info['title'])) ? $page_info['title'] . " - " : "";
 	}
 }

@@ -165,6 +165,10 @@ class String
 	 */
 	 public static function Slug($string, $replacement = "-")
 	 {
+	 	// Remove single quotes to join contracted English words
+	 	// So, "don't like" becomes "dont-like", and not "don-t-like"
+		$string = str_replace("&apos;", "", $string);
+
 		$quoted_replacement = preg_quote($replacement, '/');
 
 		$_transliteration = array(
