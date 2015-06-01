@@ -29,9 +29,7 @@
 
 		while($member = $Db->Fetch()) {
 			Template::Add("<tr>
-					<td class='min'>" . Html::Crop($Core->GetGravatar(
-							$member['email'], $member['photo'], 40, $member['photo_type'], "admin"
-						), 40, 40) . "</td>
+					<td class='min'>" . Html::Crop($Core->GetAvatar($member, 40, "admin"), 40, 40) . "</td>
 					<td><h3>{$member['username']}</h3></td>
 					<td class='min' style='padding: 20px 0'>
 						<a href='process.php?do=add_moderator&m_id={$member['m_id']}&r_id={$id}' class='default-button'>Add as Moderator</a>

@@ -54,9 +54,7 @@
 		}
 
 		Template::Add("<tr>
-				<td>" . Html::Crop($Core->GetGravatar(
-							$member['email'], $member['photo'], 36, $member['photo_type'], "admin"
-						), 36, 36) . "</td>
+				<td>" . Html::Crop($Core->GetAvatar($member, 36, "admin"), 36, 36) . "</td>
 				<td><b>{$member['username']}</b></td>
 				<td>{$member['email']}</td>
 				<td>{$member['joined']}</td>

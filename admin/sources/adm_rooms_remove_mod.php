@@ -41,9 +41,7 @@
 			$member = $Db2->Fetch();
 
 			Template::Add("<tr>
-					<td class='min'>" . Html::Crop($Core->GetGravatar(
-							$member['email'], $member['photo'], 30, $member['photo_type'], "admin"
-						), 30, 30) . "</td>
+					<td class='min'>" . Html::Crop($Core->GetAvatar($member, 30, "admin"), 30, 30) . "</td>
 					<td><h3>{$member['username']}</h3></td>
 					<td class='min'>
 						<a href='process.php?do=remove_moderator&m_id={$member['m_id']}&r_id={$id}' class='button-grey-default transition'>Revoke Moderator Permission</a>
