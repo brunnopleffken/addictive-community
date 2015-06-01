@@ -46,6 +46,22 @@ class String
 
 	/**
 	 * --------------------------------------------------------------------
+	 * REMOVE SPECIFIC TAGS TO AVOID CROSS-SIDE SCRIPTING
+	 * --------------------------------------------------------------------
+	 */
+	public static function RemoveHTMLElements($text)
+	{
+		// Dangerous HTML elements
+		$text = str_replace("<!--", "", $text);
+		$text = preg_replace("/(<script>|<\/script>)/", "", $text); // No JS
+		$text = preg_replace("/(<applet>|<\/applet>|<object>|<\/object>|<embed>|<\/embed>)/", "", $text); // No embedded elements
+		$text = preg_replace("/(<iframe>|<\/iframe>)/", "", $text); // No IFRAMES
+
+		return $text;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * ONE-WAY PASSWORD ENCRYPT
 	 * $salt must be an array containing [ "hash", "key" ]
 	 * --------------------------------------------------------------------
@@ -149,6 +165,10 @@ class String
 	 */
 	 public static function Slug($string, $replacement = "-")
 	 {
+	 	// Remove single quotes to join contracted English words
+	 	// So, "don't like" becomes "dont-like", and not "don-t-like"
+		$string = str_replace("&apos;", "", $string);
+
 		$quoted_replacement = preg_quote($replacement, '/');
 
 		$_transliteration = array(

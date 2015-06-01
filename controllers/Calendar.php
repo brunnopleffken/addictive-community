@@ -74,7 +74,7 @@ class Calendar extends Application
 
 		// Format date to make it readable for human beings
 		$formatted_date = date(
-			$this->config['date_short_format'],
+			$this->Core->config['date_short_format'],
 			mktime(0, 0, 0, $date[1], $date[2], $date[0])
 		);
 

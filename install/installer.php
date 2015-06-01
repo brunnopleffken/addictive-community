@@ -29,6 +29,28 @@
 	// Get user data
 	$data = $_POST;
 
+	/**
+	 * --------------------------------------------------------------------
+	 * BUILD ARRAY OF SQL STATEMENTS
+	 * --------------------------------------------------------------------
+	 */
+	function GetStatements($filename) {
+		// Get file content and explode into an array
+		$file_content = file_get_contents($filename);
+		$raw_statements = explode(";\n", $file_content);
+		$raw_statements = array_filter(array_map("trim", $raw_statements));
+
+		// Format SQL: insert semicolon at EOL and remove unnecessary spaces/tabs
+		foreach($raw_statements as $sql) {
+			$sql = $sql . ";";
+			$sql = preg_replace("/\n/", " ", $sql);
+			$sql = preg_replace("/(\s+)/", " ", $sql);
+			$statements[] = $sql;
+		}
+
+		return $statements;
+	}
+
 
 	/**
 	 * --------------------------------------------------------------------
@@ -107,11 +129,10 @@
 
 			// Get SQL file and its content
 			$file = "sql/tables.sql";
-			$handle = fopen($file, "r");
+			$file_exists = file_exists($file);
 
-			if($handle) {
-				$sql_query = fread($handle, filesize($file));
-				$queries = explode("\n", $sql_query);
+			if($file_exists) {
+				$queries = GetStatements($file);
 
 				foreach($queries as $value) {
 					$query = $Db->Query($value);
@@ -144,13 +165,11 @@
 			$salt_key  = mt_rand(1,99);
 
 			// Insert static data from data.sql
-
 			$file = "sql/data.sql";
-			$handle = fopen($file, "r");
+			$file_exists = file_exists($file);
 
-			if($handle) {
-				$sql_query = fread($handle, filesize($file));
-				$queries = explode("\n", $sql_query);
+			if($file_exists) {
+				$queries = GetStatements($file);
 
 				foreach($queries as $value) {
 					$query = $Db->Query($value);
@@ -158,6 +177,9 @@
 						$errors = true;
 					}
 				}
+			}
+			else {
+				exit;
 			}
 
 			$community_info = array(
@@ -169,14 +191,14 @@
 			// Insert sample room, thread and post
 
 			$sql[] = "INSERT INTO `c_rooms` (`r_id`, `name`, `description`, `url`, `order_n`, `threads`, `lastpost_date`, `lastpost_thread`, `lastpost_member`, `invisible`, `rules_title`, `rules_text`, `rules_visible`, `read_only`, `password`, `upload`, `perm_view`, `perm_post`, `perm_reply`, `moderators`) VALUES (1, 'A Test Room', 'You can edit or remove this room at any time.', NULL, 1, 1, {$community_info['timestamp']}, 1, 1, 0, '', '', 0, 0, '', 1, 'a:5:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";i:3;s:3:\"V_4\";i:4;s:3:\"V_5\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', '');";
-			$sql[] = "INSERT INTO `c_threads` (`t_id`, `title`, `slug`, `author_member_id`, `replies`, `views`, `start_date`, `room_id`, `tags`, `announcement`, `lastpost_date`, `lastpost_member_id`, `moved_to`, `locked`, `approved`, `with_bestanswer`) VALUES (1, 'Welcome', 'welcome', 1, 1, 0, {$community_info['timestamp']}, 1, NULL, 0, {$community_info['timestamp']}, 1, NULL, 0, 1, 0);";
+			$sql[] = "INSERT INTO `c_threads` (`t_id`, `title`, `slug`, `author_member_id`, `replies`, `views`, `start_date`, `room_id`, `tags`, `announcement`, `lastpost_date`, `lastpost_member_id`, `moved_to`, `locked`, `approved`, `with_bestanswer`, `poll_question`, `poll_data`, `poll_allow_multiple`) VALUES (1, 'Welcome', 'welcome', 1, 1, 0, {$community_info['timestamp']}, 1, NULL, 0, {$community_info['timestamp']}, 1, NULL, 0, 1, 0, NULL, NULL, NULL);";
 			$sql[] = "INSERT INTO `c_posts` (`p_id`, `author_id`, `thread_id`, `post_date`, `attach_id`, `attach_clicks`, `ip_address`, `post`, `edit_time`, `edit_author`, `best_answer`, `first_post`) VALUES (1, 1, 1, {$community_info['timestamp']}, NULL, NULL, '127.0.0.1', '<p>Welcome to your new Addictive Community.</p><p>This is simply a test message confirming that the installation was successful.</p>', NULL, NULL, 0, 1);";
 
 			// Insert configuration file
 
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_name', '{$community_info['community_name']}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_url', '{$community_info['community_url']}');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.2.0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.3.0');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_name', 'My Website');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_url', 'http://');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_logo', 'logo.png');";
@@ -218,6 +240,7 @@
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_from', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_from_name', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_security_validation', 'false');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_security_captcha', 'true');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_warning_max', '5');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('security_salt_hash', '{$salt_hash}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('security_salt_key', '{$salt_key}');";

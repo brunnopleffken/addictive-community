@@ -13,11 +13,11 @@
 
 class Core
 {
+	// Community configurations
+	public $config = array();
+
 	// Database class
 	private $Db;
-
-	// Configurations
-	private $config = array();
 
 	// Logged member information
 	private $member_info = array();
@@ -42,9 +42,15 @@ class Core
 	 */
 	public function Redirect($url)
 	{
-		$url = $this->config['general_community_url'] . $url;
-		header("Location: " . $url);
-		exit;
+		if($url == "HTTP_REFERER") {
+			header("Location: " . $_SERVER['HTTP_REFERER']);
+			exit;
+		}
+		else {
+			$url = $this->config['general_community_url'] . $url;
+			header("Location: " . $url);
+			exit;
+		}
 	}
 
 	/**
@@ -75,27 +81,32 @@ class Core
 	/**
 	 * --------------------------------------------------------------------
 	 * GET GRAVATAR, FACEBOOK OR UPLOADED MEMBER IMAGE PATH
+	 * $info: is an array containing 'email', 'photo' and 'photo_type'
+	 * $section: public|admin
 	 * --------------------------------------------------------------------
 	 */
-	public function GetGravatar($email, $photo, $size = 96, $mode = "gravatar", $section = "public", $d = "mm", $r = "g")
+	public function GetAvatar($info, $size = 96, $section = "public", $d = "mm", $r = "g")
 	{
-		if($mode == "gravatar") {
+		if($info['photo_type'] == "gravatar") {
+			// Get Gravatar URL
 			$url = "http://www.gravatar.com/avatar/";
-			$url .= md5(strtolower(trim($email)));
+			$url .= md5(strtolower(trim($info['email'])));
 			$url .= "?s={$size}&amp;d={$d}&amp;r={$r}";
 		}
-		elseif($mode == "facebook") {
-			$get_facebook = $this->Db->Query("SELECT im_facebook FROM c_members WHERE email = '{$email}';");
+		elseif($info['photo_type'] == "facebook") {
+			// Get Facebook image URL
+			$get_facebook = $this->Db->Query("SELECT im_facebook FROM c_members WHERE email = '{$info['email']}';");
 			$facebook_photo = $this->Db->Fetch($get_facebook);
 			$url = "https://graph.facebook.com/{$facebook_photo['im_facebook']}/picture?width={$size}&height={$size}";
 		}
-		elseif($mode == "custom") {
-			// Modify relative path when viewing in Admin CP
+		elseif($info['photo_type'] == "custom") {
+			// Get custom uploaded photo
 			if($section == "public") {
-				$url = "public/avatar/{$photo}";
+				$url = "public/avatar/{$info['photo']}";
 			}
 			else {
-				$url = "../public/avatar/{$photo}";
+				// Modify relative path when viewing in Admin CP
+				$url = "../public/avatar/{$info['photo']}";
 			}
 		}
 
@@ -120,11 +131,11 @@ class Core
 				$shortcut = String::Sanitize($item['shortcut']);
 				$translate[$shortcut] = "<img src='{$folder}/{$item['filename']}' class='emoticon' alt='{$item['shortcut']}'>";
 			}
-
-			return strtr(html_entity_decode($text), $translate);
+			$retval = strtr(html_entity_decode($text), $translate);
+			return String::RemoveHTMLElements($retval);
 		}
 		else {
-			return $text;
+			return String::RemoveHTMLElements($text);
 		}
 	}
 
@@ -135,8 +146,7 @@ class Core
 	 */
 	public function CanonicalTag($thread_id)
 	{
-		$url = $this->config['general_community_url'] . "index.php?module=thread&id=" . $thread_id;
-		return $url;
+		return $this->config['general_community_url'] . "index.php?module=thread&id=" . $thread_id;
 	}
 
 	/**
@@ -144,7 +154,8 @@ class Core
 	 * CREATE CANONICAL TAG URL
 	 * --------------------------------------------------------------------
 	 */
-	public function Breadcrumb($page_info = array()) {
+	public function Breadcrumb($page_info = array())
+	{
 		$breadcrumb = "";
 
 		if(!empty($page_info)) {
@@ -161,8 +172,8 @@ class Core
 	 * CREATE CANONICAL TAG URL
 	 * --------------------------------------------------------------------
 	 */
-	public function PageTitle($page_info) {
-		$title = (isset($page_info['title'])) ? $page_info['title'] . " - " : "";
-		return $title;
+	public function PageTitle($page_info)
+	{
+		return (isset($page_info['title'])) ? $page_info['title'] . " - " : "";
 	}
 }

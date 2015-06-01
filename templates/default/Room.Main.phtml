@@ -32,7 +32,10 @@
 		<?php if($room_info['read_only']): ?>
 			<div class="buttons fright"><a class="default-button disabled"><?php __("R_READ_ONLY") ?></a></div>
 		<?php else: ?>
-			<div class="buttons fright"><a href="thread/add/<?php __($room_id) ?>" class="default-button"><?php __("R_NEW_THREAD") ?></a></div>
+			<div class="buttons fright">
+				<a href="thread/add/<?php __($room_id) ?>" class="default-button"><?php __("R_NEW_THREAD") ?></a>
+				<a href="thread/add/<?php __($room_id) ?>?poll=true" class="default-button"><?php __("R_NEW_POLL") ?></a>
+			</div>
 		<?php endif; ?>
 	<?php endif; ?>
 </div>
@@ -53,7 +56,7 @@
 		<a href="room/<?php __($room_id) ?>?view=topreplies"><?php __("R_TOP_THREADS") ?></a>
 		<a href="room/<?php __($room_id) ?>?view=noreplies"><?php __("R_NO_REPLIES") ?></a>
 		<a href="room/<?php __($room_id) ?>?view=bestanswered"><?php __("R_ANSWERED") ?></a>
-		<!-- <div class="fright"><a href="rss/room/<?php __($room_id) ?>" class="rss"><i class="fa fa-rss"></i></a></div> -->
+		<div class="fright"><a href="feeds/room/<?php __($room_id) ?>" class="rss"><i class="fa fa-rss"></i></a></div>
 	</div>
 </div>
 
@@ -111,6 +114,7 @@
 		<?php else: ?>
 			<div class="buttons fright">
 				<a href="thread/add/<?php __($room_id) ?>" class="default-button"><?php __("R_NEW_THREAD") ?></a>
+				<a href="thread/add/<?php __($room_id) ?>?poll=true" class="default-button"><?php __("R_NEW_POLL") ?></a>
 			</div>
 		<?php endif; ?>
 	<?php endif; ?>

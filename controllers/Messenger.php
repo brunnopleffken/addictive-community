@@ -70,7 +70,7 @@ class Messenger extends Application
 		$num_results = $this->Db->Rows();
 
 		// Used storage
-		$max_storage_size = $this->config['member_pm_storage'];
+		$max_storage_size = $this->Core->config['member_pm_storage'];
 		$percentage_width = (200 / $max_storage_size) * $num_results . "px";
 
 		// Results
@@ -121,7 +121,7 @@ class Messenger extends Application
 
 			// Format content
 			$message['sent_date'] = $this->Core->DateFormat($message['sent_date']);
-			$message['avatar'] = $this->Core->GetGravatar($message['email'], $message['photo'], 96, $message['photo_type']);
+			$message['avatar'] = $this->Core->GetAvatar($message, 96);
 		}
 		else {
 			$this->Core->Redirect("messenger?m=2");
@@ -134,7 +134,7 @@ class Messenger extends Application
 
 		// Return variables
 		$this->Set("message", $message);
-		$this->Set("enable_signature", $this->config['general_member_enable_signature']);
+		$this->Set("enable_signature", $this->Core->config['general_member_enable_signature']);
 	}
 
 	/**

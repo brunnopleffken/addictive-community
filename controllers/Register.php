@@ -29,7 +29,8 @@ class Register extends Application
 			Html::Notification(i18n::Translate("R_ERROR_1"), "failure", true),
 			Html::Notification(i18n::Translate("R_ERROR_2"), "failure", true),
 			Html::Notification(i18n::Translate("R_ERROR_3"), "failure", true),
-			Html::Notification(i18n::Translate("R_ERROR_4"), "failure", true)
+			Html::Notification(i18n::Translate("R_ERROR_4"), "failure", true),
+			Html::Notification(i18n::Translate("R_ERROR_5"), "failure", true)
 		);
 
 		// Page info
@@ -40,7 +41,8 @@ class Register extends Application
 		// Return variables
 		$this->Set("step", $step);
 		$this->Set("notification", $notification[$message_id]);
-		$this->Set("general_security_validation", $this->config['general_security_validation']);
+		$this->Set("general_security_validation", $this->Core->config['general_security_validation']);
+		$this->Set("is_captcha", ($this->Core->config['general_security_captcha'] == "true") ? true : false);
 	}
 
 	/**
@@ -51,6 +53,16 @@ class Register extends Application
 	public function SignUp()
 	{
 		$this->layout = false;
+
+		// Check if the entered CAPTCHA matches the registered in the session
+		if($this->Core->config['general_security_captcha'] == "true") {
+			if(Html::Request("captcha") != $_SESSION['captcha']) {
+				$this->Core->Redirect("register?step=2&m=5");
+			}
+			else {
+				unset($_SESSION['captcha']);
+			}
+		}
 
 		// Check if user has entered with username, password and e-mail address
 		if(!Html::Request("username") || !Html::Request("email") || !Html::Request("password")) {
@@ -68,12 +80,12 @@ class Register extends Application
 		}
 
 		// Check if Require Validation is TRUE in community settings
-		$usergroup = ($this->config['general_security_validation'] == "true") ? 6 : 3;
+		$usergroup = ($this->Core->config['general_security_validation'] == "true") ? 6 : 3;
 
 		// Hash
 		$salt = array(
-			"hash" => $this->config['security_salt_hash'],
-			"key"  => $this->config['security_salt_key']
+			"hash" => $this->Core->config['security_salt_hash'],
+			"key"  => $this->Core->config['security_salt_key']
 		);
 
 		// Build new member info array
@@ -87,10 +99,10 @@ class Register extends Application
 			"usergroup"     => $usergroup,
 			"photo_type"    => "gravatar",
 			"posts"         => 0,
-			"template"      => $this->config['template'],
-			"theme"         => $this->config['theme'],
-			"language"      => $this->config['language'],
-			"time_offset"   => $this->config['date_default_offset'],
+			"template"      => $this->Core->config['template'],
+			"theme"         => $this->Core->config['theme'],
+			"language"      => $this->Core->config['language'],
+			"time_offset"   => $this->Core->config['date_default_offset'],
 			"dst"           => 0,
 			"show_birthday" => 1,
 			"show_gender"   => 1,
@@ -111,7 +123,7 @@ class Register extends Application
 			// REQURE VALIDATION
 
 			// Instance of Email() class
-			$Email = new Email($this->config);
+			$Email = new Email($this->Core->config);
 
 			// Insert into database and update stats
 			$this->Db->Insert("c_members", $register_info);
@@ -119,7 +131,7 @@ class Register extends Application
 			$this->Db->Query("UPDATE c_stats SET member_count = member_count + 1;");
 
 			// Buid e-mail body
-			$validation_url = $this->config['general_community_url']
+			$validation_url = $this->Core->config['general_community_url']
 					. "register/validate?m={$new_member_id}&token={$register_info['token']}";
 
 			$this->Db->Query("SELECT content FROM c_emails WHERE type = 'validate';");
@@ -127,14 +139,14 @@ class Register extends Application
 
 			$email_formatted_content = sprintf($email_raw_content['content'],
 				$register_info['username'],
-				$this->config['general_community_name'],
+				$this->Core->config['general_community_name'],
 				$validation_url
 			);
 
 			// Send e-mail
 			$Email->Send(
 				$register_info['email'],
-				"[" . $this->config['general_community_name'] . "] New Member Validation",
+				"[" . $this->Core->config['general_community_name'] . "] New Member Validation",
 				$email_formatted_content
 			);
 
@@ -186,5 +198,105 @@ class Register extends Application
 		else {
 			Html::Error(i18n::Translate("R_VALIDATE_NOT_FOUND"));
 		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * SHOW GD CREATED SECURITY IMAGE (A.K.A. CAPTCHA)
+	 * --------------------------------------------------------------------
+	 */
+	public function Captcha()
+	{
+		// Build random word
+		$word    = "  ";
+		$letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		$len     = strlen($letters);
+		$letter  = $letters[mt_rand(0, $len - 1)];
+
+		for ($i = 0; $i < 6; $i++) {
+			$letter = $letters[mt_rand(0, $len - 1)];
+			$word .= $letter;
+		}
+
+		// Save random content in a new session with the CAPTCHA key
+		$_SESSION['captcha'] = trim($word);
+
+		// JPEG image MIME type
+		header("Content-Type: image/jpeg");
+
+		$tmp_x = 140;
+		$tmp_y = 20;
+		$image_x = 210;
+		$image_y = 65;
+
+		$circles = 6;
+
+		$tmp = imagecreatetruecolor($tmp_x, $tmp_y);
+		$im  = imagecreatetruecolor($image_x, $image_y);
+
+		$white = ImageColorAllocate($tmp, 255, 255, 255);
+		$black = ImageColorAllocate($tmp, 0, 0, 0);
+		$grey  = ImageColorAllocate($tmp, 210, 210, 210);
+
+		imagefill($tmp, 0, 0, $white);
+
+		for($i = 1; $i <= $circles; $i++) {
+			$values = array(
+				0  => mt_rand(0, $tmp_x - 10),
+				1  => mt_rand(0, $tmp_y - 3),
+				2  => mt_rand(0, $tmp_x - 10),
+				3  => mt_rand(0, $tmp_y - 3),
+				4  => mt_rand(0, $tmp_x - 10),
+				5  => mt_rand(0, $tmp_y - 3),
+				6  => mt_rand(0, $tmp_x - 10),
+				7  => mt_rand(0, $tmp_y - 3),
+				8  => mt_rand(0, $tmp_x - 10),
+				9  => mt_rand(0, $tmp_y - 3),
+				10 => mt_rand(0, $tmp_x - 10),
+				11 => mt_rand(0, $tmp_y - 3),
+			);
+
+			// Draw random polygon
+			$randomcolor = imagecolorallocate($tmp, mt_rand(100, 255), mt_rand(100, 255), mt_rand(100, 255));
+			imagefilledpolygon($tmp, $values, 6, $randomcolor);
+		}
+
+		// Render string
+		imagestring($tmp, 5, mt_rand(0, 20), 2, $word, $black);
+
+		// Distort by resizing
+		imagecopyresized($im, $tmp, 0, 0, 0, 0, $image_x, $image_y, $tmp_x, $tmp_y);
+		imagedestroy($tmp);
+
+		$white = ImageColorAllocate($im, 255, 255, 255);
+		$black = ImageColorAllocate($im, 0, 0, 0);
+		$grey  = ImageColorAllocate($im, 100, 100, 100);
+
+		// Draw random pixel dots
+		$random_pixels = $image_x * $image_y / 10;
+		for($i = 0; $i < $random_pixels; $i++) {
+			ImageSetPixel($im, mt_rand(0, $image_x), mt_rand(0, $image_y), $black);
+		}
+
+		$no_x_lines = ($image_x - 1) / 5;
+
+		for($i = 0; $i <= $no_x_lines; $i++) {
+			// Vertical lines
+			ImageLine($im, $i * $no_x_lines, 0, $i * $no_x_lines, $image_y, $grey);
+
+			// Diagonal lines
+			ImageLine($im, $i * $no_x_lines, 0, ($i * $no_x_lines)+$no_x_lines, $image_y, $grey);
+		}
+
+		// Draw horizontal lines
+		$no_y_lines = ($image_y - 1) / 5;
+		for($i = 0; $i <= $no_y_lines; $i++) {
+			ImageLine($im, 0, $i * $no_y_lines, $image_x, $i * $no_y_lines, $grey);
+		}
+
+		ImageJPEG($im);
+		ImageDestroy($im);
+
+		exit();
 	}
 }

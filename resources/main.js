@@ -15,16 +15,6 @@
 $(document).ready(function($) {
 
 	/**
-	 * ADD .is-mac WHEN USER IS VIEWING ON A DEVICE RUNNING MAC OS X
-	 */
-
-	(function() {
-		if(navigator.platform.toLowerCase().indexOf('mac') >= 0) {
-			$('body').addClass('is-mac');
-		}
-	}).call(this);
-
-	/**
 	 * REPLACE ALL REGULAR <select> FIELDS WITH A FANCY ONE
 	 */
 
@@ -237,6 +227,11 @@ $(document).ready(function($) {
 			// Add an text field and a button
 			$field.parent().append('<input type="text" name="attachment_filename" id="attachment_filename" class="medium" readonly> ');
 			$field.parent().append('<button id="attachment_button"><i class="fa fa-upload"></i> Upload</button>');
+
+			// Also add .required if input[file] has .required class
+			if($field.hasClass('required')) {
+				$('#attachment_filename').addClass('required');
+			}
 		});
 
 		$(document).on('click', 'button#attachment_button', function(event) {

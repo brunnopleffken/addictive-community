@@ -1,10 +1,21 @@
 <?php
 	$t["C_TITLE"] = "Control Panel";
+	$t["C_SUMMARY"] = "Summary";
 	$t["C_PROFILE"] = "Profile";
 	$t["C_PHOTO"] = "Photo";
 	$t["C_SIGNATURE"] = "Signature";
 	$t["C_SETTINGS"] = "Settings";
 	$t["C_PASSWORD"] = "Password";
+	$t["C_ACCOUNT_SUMMARY"] = "Your account summary";
+	$t["C_TOTAL_POSTS"] = "Total number of posts to date";
+	$t["C_POSTS"] = "posts";
+	$t["C_REGISTERED"] = "You registered on";
+	$t["C_AVERAGE_POSTS"] = "Average number of posts per day";
+	$t["C_POSTS_PER_DAY"] = "posts per day";
+	$t["C_PM_SUMMARY"] = "Your messenger summary";
+	$t["C_PM_TOTAL"] = "Total messages";
+	$t["C_PM_MESSAGES"] = "messages";
+	$t["C_PM_LEFT"] = "Message space left";
 	$t["C_MEMBER_TITLE"] = "Member Title";
 	$t["C_ABOUT_ME"] = "About Me";
 	$t["C_EMAIL_ADDR"] = "E-mail Address";

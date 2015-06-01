@@ -11,10 +11,11 @@ Follow our official channel on Twitter, it's just one click: [@addictivecomm](ht
 
 ## Highlight features##
 
-* Looks amazing in Retina Display and High-DPI screens;
 * Full WYSIWYG post editor;
+* Create and vote on polls;
 * Mark threads as answered or obsolete;
 * Social networks integration and sharing;
+* Looks amazing in Retina Display and modern High-DPI screens;
 * Built-in mobile support;
 * API extension system for third-party tools and add-ins;
 * Integrated database maintenance tools;
@@ -45,7 +46,7 @@ Follow our official channel on Twitter, it's just one click: [@addictivecomm](ht
 
 Addictive Community v0.x **is not** ready for production environments. We're constantly modifying our database structure for performance enhancements and to add new features. If there is any breaking change, you may be stuck in an instable development version.
 
-We're currently working on automatic updates: download and upload all files (it'll not overwrite uploads and avatars), delete the file `/install/.lock` and run `/update`. It'll magically run the migration files to update from any version to the latest version.
+We're currently working on automatic updates to be released with the first Final version (a.k.a. v1.0): download and upload all files (it'll not overwrite uploads and avatars), delete the file `/install/.lock` and run `/update`. It'll magically run the migration files to update from any version to the latest version.
 
 ## Contribute
 

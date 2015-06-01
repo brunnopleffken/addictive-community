@@ -46,7 +46,7 @@ class Thread extends Application
 
 		// Get emoticons
 		$emoticons = $this->Db->Query("SELECT * FROM c_emoticons
-				WHERE emoticon_set = '" . $this->config['emoticon_default_set'] . "' AND display = '1';");
+				WHERE emoticon_set = '" . $this->Core->config['emoticon_default_set'] . "' AND display = '1';");
 		$emoticons = $this->Db->FetchToArray($emoticons);
 
 		// Get first post
@@ -70,7 +70,7 @@ class Thread extends Application
 		$this->Set("thread_id", $id);
 		$this->Set("thread_info", $thread_info);
 		$this->Set("notification", $notification[$message_id]);
-		$this->Set("enable_signature", $this->config['general_member_enable_signature']);
+		$this->Set("enable_signature", $this->Core->config['general_member_enable_signature']);
 		$this->Set("first_post_info", $first_post_info);
 		$this->Set("reply", $replies);
 		$this->Set("pagination", $pagination);
@@ -125,6 +125,7 @@ class Thread extends Application
 		$this->Set("room_info", $room_info);
 		$this->Set("allow_uploads", $room_info['upload']);
 		$this->Set("is_moderator", $this->_IsModerator($room_info['moderators']));
+		$this->Set("is_poll", Html::Request("poll"));
 	}
 
 	/**
@@ -142,7 +143,8 @@ class Thread extends Application
 		$post_info = $this->Db->Fetch();
 
 		// Check if the author is the user currently logged in
-		if($this->Session->session_info['member_id'] != $post_info['author_id']) {
+		if($this->Session->session_info['member_id'] != $post_info['author_id']
+			&& $this->Session->session_info['member_id'] != 1) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
@@ -215,21 +217,50 @@ class Thread extends Application
 	{
 		$this->layout = false;
 
+		// If we're adding a poll, build poll array
+		if(Html::Request("poll_question")) {
+			// Transform list of choices in an array
+			$questions = explode("\r\n", trim(Html::Request("poll_choices")));
+			$questions = array_filter($questions, "trim");
+
+			 // For each question, add a corresponding number of votes...
+			 // ...in this case: zero!
+			for($i = 0; $i < count($questions); $i++) {
+				$replies[] = 0;
+			}
+
+			// Put everything together
+			$poll_data = array(
+				"questions" => $questions,
+				"replies"   => $replies,
+				"voters"    => array()
+			);
+
+			// Serialize poll data array into JSON
+			$poll_data = json_encode($poll_data);
+		}
+		else {
+			$poll_data = "";
+		}
+
 		// Insert new thread item
 		$thread = array(
-			"title"              => Html::Request("title"),
-			"slug"               => String::Slug(Html::Request("title")),
-			"author_member_id"   => $this->Session->member_info['m_id'],
-			"replies"            => 1,
-			"views"              => 0,
-			"start_date"         => time(),
-			"room_id"            => Html::Request("room_id", true),
-			"announcement"       => Html::Request("announcement", true),
-			"lastpost_date"      => time(),
-			"lastpost_member_id" => $this->Session->member_info['m_id'],
-			"locked"             => Html::Request("locked", true),
-			"approved"           => 1,
-			"with_bestanswer"    => 0
+			"title"               => Html::Request("title"),
+			"slug"                => String::Slug(htmlspecialchars_decode(Html::Request("title"), ENT_QUOTES)),
+			"author_member_id"    => $this->Session->member_info['m_id'],
+			"replies"             => 1,
+			"views"               => 0,
+			"start_date"          => time(),
+			"room_id"             => Html::Request("room_id", true),
+			"announcement"        => Html::Request("announcement", true),
+			"lastpost_date"       => time(),
+			"lastpost_member_id"  => $this->Session->member_info['m_id'],
+			"locked"              => Html::Request("locked", true),
+			"approved"            => 1,
+			"with_bestanswer"     => 0,
+			"poll_question"       => Html::Request("poll_question"),
+			"poll_data"           => $poll_data,
+			"poll_allow_multiple" => (isset($_POST['poll_allow_multiple'])) ? 1 : 0
 		);
 		$this->Db->Insert("c_threads", $thread);
 
@@ -273,6 +304,9 @@ class Thread extends Application
 	{
 		$this->layout = false;
 
+		// Do not allow guests
+		$this->Session->NoGuest();
+
 		// Check if the author is the user currently logged in
 		if($this->Session->session_info['member_id'] != Html::Request("member_id")) {
 			Html::Error("You cannot edit a post that you did not publish.");
@@ -299,6 +333,9 @@ class Thread extends Application
 	public function DeletePost()
 	{
 		$this->layout = false;
+
+		// Do not allow guests
+		$this->Session->NoGuest();
 
 		// Get post information
 		$author_id = Html::Request("mid");
@@ -335,6 +372,9 @@ class Thread extends Application
 	{
 		$this->layout = false;
 
+		// Do not allow guests
+		$this->Session->NoGuest();
+
 		// Lock thread
 		$this->Db->Query("UPDATE c_threads SET locked = 1 WHERE t_id = {$thread_id};");
 
@@ -347,8 +387,8 @@ class Thread extends Application
 		);
 		$this->Db->Insert("c_logs", $log);
 
+		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=4");
-		exit;
 	}
 
 	/**
@@ -359,6 +399,9 @@ class Thread extends Application
 	public function Unlock($thread_id)
 	{
 		$this->layout = false;
+
+		// Do not allow guests
+		$this->Session->NoGuest();
 
 		// Lock thread
 		$this->Db->Query("UPDATE c_threads SET locked = 0 WHERE t_id = {$thread_id};");
@@ -372,8 +415,8 @@ class Thread extends Application
 		);
 		$this->Db->Insert("c_logs", $log);
 
+		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=5");
-		exit;
 	}
 
 	/**
@@ -384,6 +427,9 @@ class Thread extends Application
 	public function AnnouncementSet($thread_id)
 	{
 		$this->layout = false;
+
+		// Do not allow guests
+		$this->Session->NoGuest();
 
 		// Lock thread
 		$this->Db->Query("UPDATE c_threads SET announcement = 1 WHERE t_id = {$thread_id};");
@@ -397,8 +443,8 @@ class Thread extends Application
 		);
 		$this->Db->Insert("c_logs", $log);
 
+		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=6");
-		exit;
 	}
 
 	/**
@@ -409,6 +455,9 @@ class Thread extends Application
 	public function AnnouncementUnset($thread_id)
 	{
 		$this->layout = false;
+
+		// Do not allow guests
+		$this->Session->NoGuest();
 
 		// Lock thread
 		$this->Db->Query("UPDATE c_threads SET announcement = 0 WHERE t_id = {$thread_id};");
@@ -422,8 +471,8 @@ class Thread extends Application
 		);
 		$this->Db->Insert("c_logs", $log);
 
+		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=7");
-		exit;
 	}
 
 	/**
@@ -434,6 +483,9 @@ class Thread extends Application
 	public function Delete($thread_id)
 	{
 		$this->layout = false;
+
+		// Do not allow guests
+		$this->Session->NoGuest();
 
 		// Get room ID
 		$this->Db->Query("SELECT room_id FROM c_threads WHERE t_id = {$thread_id};");
@@ -461,8 +513,50 @@ class Thread extends Application
 		);
 		$this->Db->Insert("c_logs", $log);
 
+		// Redirect
 		$this->Core->Redirect("room/" . $room_id . "?m=7");
-		exit;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * SAVE POLL VOTES
+	 * --------------------------------------------------------------------
+	 */
+	public function SavePoll($thread_id)
+	{
+		$this->layout = false;
+
+		// Do not allow guests
+		$this->Session->NoGuest();
+
+		// Get updated poll info in DB
+		$this->Db->Query("SELECT poll_data, poll_allow_multiple FROM c_threads WHERE t_id = {$thread_id};");
+		$thread_info = $this->Db->Fetch();
+		$poll_data = json_decode($thread_info['poll_data'], true);
+
+		if($thread_info['poll_allow_multiple'] == 0) {
+			// Increase vote count
+			$poll_data['replies'][Html::Request("chosen_option")] += 1;
+
+			// Add member ID to voters list
+			array_push($poll_data['voters'], $this->Session->member_info['m_id']);
+		}
+		else {
+			// If poll allows multiple choice
+			foreach(Html::Request("chosen_option") as $chosen_option) {
+				$poll_data['replies'][$chosen_option] += 1;
+			}
+
+			// Add member ID to voters list
+			array_push($poll_data['voters'], $this->Session->member_info['m_id']);
+		}
+
+		// Update thread information with encoded data
+		$encoded = json_encode($poll_data);
+		$this->Db->Query("UPDATE c_threads SET poll_data = '{$encoded}' WHERE t_id = {$thread_id};");
+
+		// Redirect
+		$this->Core->Redirect("HTTP_REFERER");
 	}
 
 	/**
@@ -474,7 +568,8 @@ class Thread extends Application
 	private function _GetThreadInfo($id)
 	{
 		// Select thread info from database
-		$thread = $this->Db->Query("SELECT t.title, t.room_id, t.author_member_id, t.locked, t.announcement, t.lastpost_date,
+		$thread = $this->Db->Query("SELECT t.title, t.room_id, t.author_member_id, t.locked, t.announcement,
+				t.lastpost_date, t.poll_question, t.poll_data, t.poll_allow_multiple,
 				r.r_id, r.name, r.perm_view, r.perm_reply, r.moderators,
 				(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t
 				INNER JOIN c_rooms r ON (r.r_id = t.room_id) WHERE t.t_id = '{$id}';");
@@ -483,12 +578,14 @@ class Thread extends Application
 		// Calculate the number of actual replies (first post is not a reply)
 		$thread_info['post_count_display'] = $thread_info['post_count'] - 1;
 
+		// Check if thread has a poll
+		$thread_info['poll'] = $this->_GetPoll($thread_info);
+
 		// Check permission to read
 		$thread_info['perm_view'] = unserialize($thread_info['perm_view']);
 		$permission_value = "V_" . $this->Session->member_info['usergroup'];
 		if(!in_array($permission_value, $thread_info['perm_view'])) {
-			header("Location: " . $_SERVER['HTTP_REFERER']);
-			exit;
+			$this->Core->Redirect("HTTP_REFERER");
 		}
 
 		// Check permission to reply
@@ -503,11 +600,11 @@ class Thread extends Application
 
 		// Check if it's an obsolete thread
 		$obsolete_notification = "";
-		$obsolete_seconds = $this->config['thread_obsolete_value'] * DAY;
+		$obsolete_seconds = $this->Core->config['thread_obsolete_value'] * DAY;
 		if(($thread_info['lastpost_date'] + $obsolete_seconds) < time()) {
 			$thread_info['obsolete'] = true;
 			$obsolete_notification = Html::Notification(
-				i18n::Translate("T_OBSOLETE", array($this->config['thread_obsolete_value'])), "warning", true
+				i18n::Translate("T_OBSOLETE", array($this->Core->config['thread_obsolete_value'])), "warning", true
 			);
 		}
 		else {
@@ -515,6 +612,52 @@ class Thread extends Application
 		}
 
 		return $thread_info;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * CHECK IF THREAD HAS POLL. IF TRUE, BUILD AND RETURN ELEMENTS.
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetPoll($thread_info)
+	{
+		// Get poll information if poll exists
+		if($thread_info['poll_question'] != "") {
+			$poll_data = json_decode($thread_info['poll_data'], true);
+
+			// Get total of votes
+			if(!empty($poll_data['replies'])) {
+				$total = array_sum($poll_data['replies']);
+				$ratio = ($total != 0) ? 100 / $total : 0; // Avoid "division by zero" exception
+
+				// Get percentage of votes for each option
+				foreach($poll_data['replies'] as $k => $v) {
+					$poll_data['percentage'][$k] = $v * $ratio;
+				}
+			}
+
+			$poll_info = array(
+				"has_poll"  => true,
+				"question"  => $thread_info['poll_question'],
+				"choices"   => $poll_data['questions'],
+				"multiple"  => $thread_info['poll_allow_multiple'],
+				"replies_n" => $poll_data['replies'],
+				"replies_p" => $poll_data['percentage'],
+				"voters"    => $poll_data['voters'],
+				"total"     => $total
+			);
+
+			// Check if user has already voted in this poll
+			$poll_info['has_voted'] = in_array($this->Session->member_info['m_id'], $poll_info['voters']);
+		}
+		else {
+			// If not, return false
+			$poll_info = array(
+				"has_poll" => false
+			);
+		}
+
+		return $poll_info;
 	}
 
 	/**
@@ -536,11 +679,11 @@ class Thread extends Application
 	 */
 	private function _FilterBadWords($text)
 	{
-		if($this->config['language_bad_words'] != "") {
-			$bad_words = explode("\n", $this->config['language_bad_words']);
+		if($this->Core->config['language_bad_words'] != "") {
+			$bad_words = explode("\n", $this->Core->config['language_bad_words']);
 			$bad_words_list = preg_replace("/(\r|\n)/i", "", "/(" . implode("|", $bad_words) . ")/i");
 
-			return preg_replace($bad_words_list, $this->config['language_bad_words_replacement'], $text);
+			return preg_replace($bad_words_list, $this->Core->config['language_bad_words_replacement'], $text);
 		}
 		else {
 			return $text;
@@ -567,7 +710,7 @@ class Thread extends Application
 		$first_post_info = $this->Db->Fetch($first_post);
 
 		// Format first thread
-		$first_post_info['avatar'] = $this->Core->GetGravatar($first_post_info['email'], $first_post_info['photo'], 96, $first_post_info['photo_type']);
+		$first_post_info['avatar'] = $this->Core->GetAvatar($first_post_info, 96);
 		$first_post_info['post_date'] = $this->Core->DateFormat($first_post_info['post_date']);
 
 		// Block bad words
@@ -606,7 +749,7 @@ class Thread extends Application
 			$result['bestanswer_class'] = ($result['best_answer'] == 1) ? "best-answer" : "";
 
 			// Member information
-			$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 192, $result['photo_type']);
+			$result['avatar'] = $this->Core->GetAvatar($result, 192);
 			$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 			$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
@@ -635,13 +778,15 @@ class Thread extends Application
 			$result['thread_controls'] = "";
 
 			// Post controls
-			if($result['author_id'] == $this->Session->member_info['m_id']) {
+			if($result['author_id'] == $this->Session->member_info['m_id']
+				|| $this->Session->member_info['usergroup'] == 1) {
 				$result['post_controls'] = "<a href='thread/edit_post/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_EDIT") . "</a> "
 					. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$id}' data-member='{$result['author_id']}' class='fancybox delete-post-button small-button grey'>" . i18n::Translate("T_DELETE") . "</a>";
 			}
 
 			// Thread controls
-			if($thread_info['author_member_id'] == $this->Session->member_info['m_id'] && $result['author_id'] != $this->Session->member_info['m_id']) {
+			if($thread_info['author_member_id'] == $this->Session->member_info['m_id']
+				&& $result['author_id'] != $this->Session->member_info['m_id']) {
 				if($result['best_answer'] == 0) {
 					// Set post as Best Answer
 					$result['thread_controls'] = "<a href='thread/setbestanswer/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_BEST_SET") . "</a>";
@@ -679,7 +824,7 @@ class Thread extends Application
 	 */
 	private function _GetPages($thread_info)
 	{
-		$pages['items_per_page'] = $this->config['thread_posts_per_page'];
+		$pages['items_per_page'] = $this->Core->config['thread_posts_per_page'];
 		$total_posts    = $thread_info['post_count'] - 1;
 
 		// page number for SQL sentences

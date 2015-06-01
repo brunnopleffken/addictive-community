@@ -92,11 +92,13 @@ class Main
 
 		// Get settings from database
 		$this->_GetConfig();
-		$this->Core = new Core($this->Db, $this->Config, $this->Session->member_info);
 
 		// Get current template and language
 		$this->_GetTemplate();
 		$this->_GetLanguage();
+
+		// Instantiate class Core()
+		$this->Core = new Core($this->Db, $this->Config, $this->Session->member_info);
 
 		// OK, let's go...
 		$this->_LoadController($this->controller, $this->action);
@@ -128,7 +130,7 @@ class Main
 	 */
 	private function _LoadController($controller, $action = "")
 	{
-		// Controllers' name are in UpperCamelCase, but URLs in lowercase
+		// Controllers names are in UpperCamelCase, but URLs in lowercase
 		$_controller = $this->controller = ucwords($controller);
 
 		// Load Application controller
@@ -150,9 +152,6 @@ class Main
 		$this->instance->Db = $this->Db;
 		$this->instance->Core = $this->Core;
 		$this->instance->Session = $this->Session;
-
-		// Create a copy of community settings in Application controller
-		$this->instance->config = $this->Config;
 
 		// Execute Controller::_beforeFilter() method
 		if(method_exists($this->instance, "_beforeFilter")) {

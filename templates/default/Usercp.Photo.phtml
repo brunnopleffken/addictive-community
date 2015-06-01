@@ -6,11 +6,12 @@
 
 <div class="navigation">
 	<div class="navbar">
-		<a href="usercp" class="<?php __($menu[0]) ?>"><?php __("C_PROFILE") ?></a>
-		<a href="usercp/photo" class="<?php __($menu[1]) ?>"><?php __("C_PHOTO") ?></a>
-		<a href="usercp/signature" class="<?php __($menu[2]) ?>"><?php __("C_SIGNATURE") ?></a>
-		<a href="usercp/settings" class="<?php __($menu[3]) ?>"><?php __("C_SETTINGS") ?></a>
-		<a href="usercp/password" class="<?php __($menu[4]) ?>"><?php __("C_PASSWORD") ?></a>
+		<a href="usercp" class="<?php __($menu[0]) ?>"><?php __("C_SUMMARY") ?></a>
+		<a href="usercp/profile" class="<?php __($menu[1]) ?>"><?php __("C_PROFILE") ?></a>
+		<a href="usercp/photo" class="<?php __($menu[2]) ?>"><?php __("C_PHOTO") ?></a>
+		<a href="usercp/signature" class="<?php __($menu[3]) ?>"><?php __("C_SIGNATURE") ?></a>
+		<a href="usercp/settings" class="<?php __($menu[4]) ?>"><?php __("C_SETTINGS") ?></a>
+		<a href="usercp/password" class="<?php __($menu[5]) ?>"><?php __("C_PASSWORD") ?></a>
 	</div>
 </div>
 
@@ -54,7 +55,7 @@
 		<div class="input-box" id="custom" style="display: none">
 			<div class="label"><?php __("C_PHOTO_UPLOAD") ?></div>
 			<div class="field">
-				<div class="fleft" style="margin-right: 15px">
+				<div class="fleft custom-photo-placeholder" style="margin-right: 15px">
 					<?php __(Html::Crop("public/avatar/" . $member_info['photo'], 120, 120)) ?>
 				</div>
 				<div class="fleft"><input type="file" name="file_upload"></div>
