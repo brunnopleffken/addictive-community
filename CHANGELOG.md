@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.3.0 (XXXX-XX-XX)
+## v0.3.0 (2015-06-01)
 
 #### Added
 - Create polls;
@@ -12,6 +12,7 @@
 - `input[type=file]` fields passing without validation, even with `.required` class;
 - Fixed a critical exploit that could allow cross-side scripting and HTML injection in posts/messages.
 - User with Administrator privileges were unable to edit/delete other users' posts;
+- Removed dynamic BODY class that causes letters on screen to blink during page reload;
 - Few minor bug fixes.
 
 #### Deprecated
