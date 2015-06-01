@@ -152,12 +152,11 @@ class Usercp extends Application
 		}
 
 		// Gravatar and Facebook image
-		$photo_info['gravatar_image'] = $this->Core->GetGravatar(
-			$this->Session->member_info['email'], $this->Session->member_info['photo'], 240, "gravatar"
-		);
-		$photo_info['facebook_image'] = $this->Core->GetGravatar(
-			$this->Session->member_info['email'], $this->Session->member_info['photo'], 240, "facebook"
-		);
+		$photo_choose = $this->Session->member_info;
+		$photo_choose['photo_type'] = "gravatar";
+		$photo_info['gravatar_image'] = $this->Core->GetAvatar($photo_choose, 240);
+		$photo_choose['photo_type'] = "facebook";
+		$photo_info['facebook_image'] = $this->Core->GetAvatar($photo_choose, 240);
 
 		// Page info
 		$page_info['title'] = i18n::Translate("C_TITLE");

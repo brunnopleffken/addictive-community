@@ -31,8 +31,8 @@ class Profile extends Application
 		$info = $this->Db->Fetch();
 
 		// Member avatar
-		$info['avatar'] = $this->Core->GetGravatar($info['email'], $info['photo'], 320, $info['photo_type']);
-		$info['cover'] = $this->Core->GetGravatar($info['email'], $info['photo'], 1024, $info['photo_type']);
+		$info['avatar'] = $this->Core->GetAvatar($info, 320);
+		$info['cover'] = $this->Core->GetAvatar($info, 1024);
 
 		// Readable join date
 		$info['joined'] = $this->Core->DateFormat($info['joined'], "short");

@@ -174,8 +174,8 @@ class Room extends Application
 		$this->Set("menu", $menu);
 
 		// Execute query
-		$threads = $this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS author_email,
-				author.photo_type AS author_type, author.photo AS author_photo, lastpost.username AS lastpost_name,
+		$threads = $this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email,
+				author.photo_type, author.photo, lastpost.username AS lastpost_name,
 				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
 				INNER JOIN c_members AS lastpost ON (c_threads.lastpost_member_id = lastpost.m_id)
@@ -204,7 +204,7 @@ class Room extends Application
 		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
 
 		// Author avatar
-		$result['author_avatar'] = $this->Core->GetGravatar($result['author_email'], $result['author_photo'], 84, $result['author_type']);
+		$result['author_avatar'] = $this->Core->GetAvatar($result, 84);
 		$result['author_avatar'] = Html::Crop($result['author_avatar'], 42, 42, "image");
 
 		// Build phrases using internationalization

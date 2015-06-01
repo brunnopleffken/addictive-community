@@ -121,7 +121,7 @@ class Messenger extends Application
 
 			// Format content
 			$message['sent_date'] = $this->Core->DateFormat($message['sent_date']);
-			$message['avatar'] = $this->Core->GetGravatar($message['email'], $message['photo'], 96, $message['photo_type']);
+			$message['avatar'] = $this->Core->GetAvatar($message, 96);
 		}
 		else {
 			$this->Core->Redirect("messenger?m=2");

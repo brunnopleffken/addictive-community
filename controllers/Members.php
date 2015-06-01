@@ -110,7 +110,7 @@ class Members extends Application
 
 		// Iterate between results
 		while($result = $this->Db->Fetch($members)) {
-			$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 72, $result['photo_type']);
+			$result['avatar'] = $this->Core->GetAvatar($result, 72);
 			$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 			$_result[] = $result;
 		}

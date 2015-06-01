@@ -708,9 +708,7 @@ class Thread extends Application
 		$first_post_info = $this->Db->Fetch($first_post);
 
 		// Format first thread
-		$first_post_info['avatar'] = $this->Core->GetGravatar(
-			$first_post_info['email'], $first_post_info['photo'], 96, $first_post_info['photo_type']
-		);
+		$first_post_info['avatar'] = $this->Core->GetAvatar($first_post_info, 96);
 		$first_post_info['post_date'] = $this->Core->DateFormat($first_post_info['post_date']);
 
 		// Block bad words
@@ -749,7 +747,7 @@ class Thread extends Application
 			$result['bestanswer_class'] = ($result['best_answer'] == 1) ? "best-answer" : "";
 
 			// Member information
-			$result['avatar'] = $this->Core->GetGravatar($result['email'], $result['photo'], 192, $result['photo_type']);
+			$result['avatar'] = $this->Core->GetAvatar($result, 192);
 			$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 			$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
