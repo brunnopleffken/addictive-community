@@ -126,11 +126,11 @@ class Core
 				$shortcut = String::Sanitize($item['shortcut']);
 				$translate[$shortcut] = "<img src='{$folder}/{$item['filename']}' class='emoticon' alt='{$item['shortcut']}'>";
 			}
-
-			return strtr(html_entity_decode($text), $translate);
+			$retval = strtr(html_entity_decode($text), $translate);
+			return String::RemoveHTMLElements($retval);
 		}
 		else {
-			return $text;
+			return String::RemoveHTMLElements($text);
 		}
 	}
 
