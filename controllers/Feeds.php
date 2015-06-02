@@ -22,6 +22,9 @@ class Feeds extends Application
 	{
 		$this->layout = false;
 
+		// XML content
+		header('Content-Type: application/xml');
+
 		// Get room information
 		$this->Db->Query("SELECT name, lastpost_date FROM c_rooms WHERE r_id = {$room_id};");
 		$room_info = $this->Db->Fetch();
