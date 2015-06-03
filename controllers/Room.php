@@ -164,6 +164,11 @@ class Room extends Application
 				$where = "AND with_bestanswer = '1'";
 				$order = "lastpost_date DESC";
 				break;
+			case "polls":
+				$menu  = array("selected", "");
+				$where = "AND poll_question <> ''";
+				$order = "lastpost_date DESC";
+				break;
 			default:
 				$menu  = array("selected", "");
 				$where = "";
