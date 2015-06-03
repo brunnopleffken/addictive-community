@@ -30,13 +30,13 @@ class Feeds extends Application
 		$room_info = $this->Db->Fetch();
 
 		// Print ATOM syndication header
-		echo '<?xml version="1.0" encoding="utf-8"?>' . "\n";
-		echo '<feed xmlns="http://www.w3.org/2005/Atom">' . "\n";
-		echo '<title>' . $this->Core->config['general_community_name'] . ': ' . $room_info['name'] . '</title>' . "\n";
-		echo '<link href="' . $this->Core->config['general_community_url'] . '"/>' . "\n";
-		echo '<updated>' . date("Y-m-d\TH:i:s\Z", $room_info['lastpost_date']) . '</updated>' . "\n";
-		echo '<author><name>' . $this->Core->config['general_community_name'] . '</name></author>' . "\n";
-		echo '<id>' . $this->Core->config['general_community_url'] . '</id>' . "\n\n";
+		$html = '<?xml version="1.0" encoding="utf-8"?>' . "\n";
+		$html .= '<feed xmlns="http://www.w3.org/2005/Atom">' . "\n";
+		$html .= '<title>' . $this->Core->config['general_community_name'] . ': ' . $room_info['name'] . '</title>' . "\n";
+		$html .= '<link href="' . $this->Core->config['general_community_url'] . '"/>' . "\n";
+		$html .= '<updated>' . date("Y-m-d\TH:i:s\Z", $room_info['lastpost_date']) . '</updated>' . "\n";
+		$html .= '<author><name>' . $this->Core->config['general_community_name'] . '</name></author>' . "\n";
+		$html .= '<id>' . $this->Core->config['general_community_url'] . '</id>' . "\n\n";
 
 		// Get threads
 		$this->Db->Query("SELECT t.t_id, t.title, t.slug, t.start_date, m.username,
@@ -50,15 +50,17 @@ class Feeds extends Application
 			$thread['tag'] = String::Slug($this->Core->config['general_community_name']);
 
 			// Print ATOM entries
-			echo '<entry>' . "\n";
-			echo '<title>' . $thread['title'] . '</title>' . "\n";
-			echo '<link href="' . $thread['thread_url'] . '"/>' . "\n";
-			echo '<updated>' . date("Y-m-d\TH:i:s\Z", $thread['start_date']) . '</updated>' . "\n";
-			echo '<summary>' . strip_tags($thread['post'], "p") . '</summary>' . "\n";
-			echo '<id>tag:' . $thread['tag'] . ',' . date("Y-m-d", $thread['start_date']) . ':' . $thread['t_id'] . '</id>' . "\n";
-			echo '</entry>' . "\n\n";
+			$html .= '<entry>' . "\n";
+			$html .= '<title>' . $thread['title'] . '</title>' . "\n";
+			$html .= '<link href="' . $thread['thread_url'] . '"/>' . "\n";
+			$html .= '<updated>' . date("Y-m-d\TH:i:s\Z", $thread['start_date']) . '</updated>' . "\n";
+			$html .= '<summary>' . strip_tags($thread['post'], "p") . '</summary>' . "\n";
+			$html .= '<id>tag:' . $thread['tag'] . ',' . date("Y-m-d", $thread['start_date']) . ':' . $thread['t_id'] . '</id>' . "\n";
+			$html .= '</entry>' . "\n\n";
 		}
 
-		echo '</feed>';
+		$html .= '</feed>';
+
+		echo trim($html);
 	}
 }
