@@ -224,16 +224,48 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * UPDATE DATABASE TABLE FROM AN ARRAY
+	 * UPDATE AN ENTRY ON DATABASE FROM AN ARRAY
 	 * --------------------------------------------------------------------
 	 */
-	public function Update($table, $array, $where)
+	public function Update($table, $data, $where = 1)
 	{
-		foreach($array as $f => $v) {
-			$fields[] = $f . " = '" . $v . "'";
+		if(is_array($data)) {
+			// Check if it's an associative array or a sequential array
+			if(array_keys($data) !== range(0, count($data) - 1)) {
+				foreach($data as $f => $v) {
+					$fields[] = $f . " = '" . $v . "'";
+				}
+			}
+			else {
+				foreach($data as $f => $v) {
+					$fields[] = $v;
+				}
+			}
+			$sql_query = "UPDATE {$table} SET " . implode(", ", $fields) . " WHERE {$where};";
+		}
+		else {
+			$sql_query = "UPDATE {$table} SET {$data} WHERE {$where};";
 		}
 
-		$sql_query = "UPDATE {$table} SET " . implode(", ", $fields) . " WHERE {$where};";
+		$this->query = $this->Query($sql_query);
+
+		if(!$this->query) {
+			$this->Exception("An error occoured on the following query: " . $sql);
+		}
+
+		$this->log[] = $this->query;
+
+		return $this->query;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * DELETE ENTRIES ON DATABASE
+	 * --------------------------------------------------------------------
+	 */
+	public function Delete($table, $where = 1)
+	{
+		$sql_query = "DELETE FROM {$table} WHERE {$where};";
 		$this->query = $this->Query($sql_query);
 
 		if(!$this->query) {

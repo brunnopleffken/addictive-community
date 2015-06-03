@@ -352,13 +352,13 @@ class Usercp extends Application
 		// Do processes!
 		if($photo_type == "gravatar" || $photo_type == "facebook") {
 			// Change photo type to 'gravatar'
-			$this->Db->Query("UPDATE c_members SET photo_type = '{$photo_type}' WHERE m_id = '{$this->member_id}';");
+			$this->Db->Update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
 			$this->Core->Redirect("usercp/photo?m=1");
 		}
 		else {
 			// User photo already hosted on community's server
 			if($_FILES['file_upload']['name'] == "") {
-				$this->Db->Query("UPDATE c_members SET photo_type = '{$photo_type}' WHERE m_id = '{$this->member_id}';");
+				$this->Db->Update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
 				$this->Core->Redirect("usercp/photo?m=1");
 			}
 			else {
@@ -390,8 +390,10 @@ class Usercp extends Application
 					$new_file_name = $this->member_id . "." . $file_extension;
 					move_uploaded_file($_FILES['file_upload']['tmp_name'], "public/avatar/" . $new_file_name);
 
-					$this->Db->Query("UPDATE c_members SET photo_type = '{$photo_type}',
-							photo = '{$new_file_name}' WHERE m_id = '{$this->member_id}';");
+					$this->Db->Update("c_members", array(
+						"photo_type = '{$photo_type}'",
+						"photo = '{$new_file_name}'"
+					), "m_id = '{$this->member_id}'");
 
 					// Redirect
 					$this->Core->Redirect("usercp/photo?m=1");

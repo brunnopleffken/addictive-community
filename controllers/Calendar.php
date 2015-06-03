@@ -146,7 +146,7 @@ class Calendar extends Application
 		// if it exists, remove from DB
 		// Otherwise, show error message
 		if($this->Db->Rows() > 0) {
-			$this->Db->Query("DELETE FROM c_events WHERE e_id = {$event_id}");
+			$this->Db->Delete("c_events", "e_id = {$event_id}");
 		}
 		else {
 			Html::Error("The selected event doesn't exist.");

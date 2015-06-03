@@ -165,7 +165,7 @@ class Session
 			$this->session_info['member_id'] = 0;
 
 			// Delete old session data from other users
-			$this->Db->Query("DELETE FROM c_sessions WHERE activity_time < '{$this->session_activity_cut}';");
+			$this->Db->Delete("c_sessions", "activity_time < '{$this->session_activity_cut}'");
 
 			if($has_session) {
 				// Just a guest navigating...
@@ -227,7 +227,7 @@ class Session
 	public function DestroySession($member_id)
 	{
 		// Delete session register in database
-		$this->Db->Query("DELETE FROM c_sessions WHERE member_id = {$member_id}");
+		$this->Db->Delete("c_sessions", "member_id = {$member_id}");
 
 		// Delete cookie
 		$this->UnloadCookie("member_id");
@@ -269,10 +269,10 @@ class Session
 		$this->session_info['activity_time'] = time();
 
 		// Update session in database
-		$this->Db->Query("UPDATE c_sessions SET
-				activity_time = '{$this->session_info['activity_time']}',
-				location_type = '{$this->controller}'
-				WHERE s_id = '{$session_id}';");
+		$this->Db->Update("c_sessions", array(
+			"activity_time = '{$this->session_info['activity_time']}'",
+			"location_type = '{$this->controller}'"
+		), "s_id = '{$session_id}'");
 	}
 
 	/**
@@ -286,8 +286,7 @@ class Session
 		$this->session_info['activity_time'] = time();
 
 		// Delete all old session data, except current logged in member
-		$this->Db->Query("DELETE FROM c_sessions WHERE activity_time < '{$this->session_activity_cut}'
-				AND member_id <> {$this->session_info['member_id']};");
+		$this->Db->Delete("c_sessions", "activity_time < '{$this->session_activity_cut}' AND member_id <> {$this->session_info['member_id']}");
 
 		// Running the method UpdateExistingMember() for the first time?
 		// Check if session register exists in database, if not, create it
@@ -321,9 +320,9 @@ class Session
 		$this->member_info = $this->Db->Fetch();
 
 		// Update session in database
-		$this->Db->Query("UPDATE c_sessions SET
-				activity_time = '{$this->session_info['activity_time']}',
-				location_type = '{$this->controller}'
-				WHERE member_id = '{$this->session_info['member_id']}';");
+		$this->Db->Update("c_sessions", array(
+			"activity_time = '{$this->session_info['activity_time']}'",
+			"location_type = '{$this->controller}'"
+		), "member_id = '{$this->session_info['member_id']}'");
 	}
 }

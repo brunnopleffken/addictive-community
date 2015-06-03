@@ -116,7 +116,10 @@ class Messenger extends Application
 			// If not, set message as read
 			if($message['status'] == 1) {
 				$time = time();
-				$this->Db->Query("UPDATE c_messages SET status = 0, read_date = {$time} WHERE pm_id = {$id}");
+				$this->Db->Update("c_messages", array(
+					"status = 0",
+					"read_date = {$time}"
+				), "pm_id = {$id}");
 			}
 
 			// Format content
@@ -218,7 +221,7 @@ class Messenger extends Application
 
 		// Execute deletion
 		foreach($selected as $pm_id) {
-			$this->Db->Query("DELETE FROM c_messages WHERE pm_id = {$pm_id} AND to_id = {$member_id};");
+			$this->Db->Delete("c_messages", "pm_id = {$pm_id} AND to_id = {$member_id}");
 		}
 
 		// Redirect

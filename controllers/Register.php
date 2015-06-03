@@ -128,7 +128,7 @@ class Register extends Application
 			// Insert into database and update stats
 			$this->Db->Insert("c_members", $register_info);
 			$new_member_id = $this->Db->GetLastID();
-			$this->Db->Query("UPDATE c_stats SET member_count = member_count + 1;");
+			$this->Db->Update("c_stats", "member_count = member_count + 1")
 
 			// Buid e-mail body
 			$validation_url = $this->Core->config['general_community_url']
@@ -155,7 +155,7 @@ class Register extends Application
 		else {
 			// DO NOT REQUIRE VALIDATION
 			$this->Db->Insert("c_members", $register_info);
-			$this->Db->Query("UPDATE c_stats SET member_count = member_count + 1;");
+			$this->Db->Update("c_stats", "member_count = member_count + 1");
 			$this->Core->Redirect("register?step=3");
 		}
 
@@ -192,7 +192,7 @@ class Register extends Application
 			}
 
 			// Validate and redirect
-			$this->Db->Query("UPDATE c_members SET usergroup = '3' WHERE m_id = '{$member}';");
+			$this->Db->Update("c_members", "usergroup = '3'", "m_id = '{$member}'");
 			$this->Core->Redirect("register?step=4");
 		}
 		else {

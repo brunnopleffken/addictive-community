@@ -24,7 +24,7 @@ class Room extends Application
 			// Update session table with room ID
 			$id = Html::Request("id");
 			$session = $this->Session->session_id;
-			$this->Db->Query("UPDATE c_sessions SET location_room_id = {$id} WHERE s_id = '{$session}';");
+			$this->Db->Update("c_sessions", "location_room_id = {$id}", "s_id = '{$session}'");
 		}
 	}
 

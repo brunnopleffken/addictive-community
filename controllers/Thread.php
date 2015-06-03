@@ -41,7 +41,7 @@ class Thread extends Application
 		// Avoid page navigation from incrementing visit counter
 		$_SERVER['HTTP_REFERER'] = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : false;
 		if(!strstr($_SERVER['HTTP_REFERER'], "thread")) {
-			$this->Db->Query("UPDATE c_threads SET views = views + 1 WHERE t_id = '{$id}';");
+			$this->Db->Update("c_threads", "views = views + 1", "t_id = '{$id}'");
 		}
 
 		// Get emoticons
@@ -188,21 +188,27 @@ class Thread extends Application
 		$this->Db->Insert("c_posts", $post);
 
 		// Update: thread stats
-		$this->Db->Query("UPDATE c_threads SET replies = replies + 1,
-				lastpost_date = '{$post['post_date']}', lastpost_member_id = '{$post['author_id']}'
-				WHERE t_id = '{$post['thread_id']}';");
+		$this->Db->Update("c_threads", array(
+			"replies = replies + 1",
+			"lastpost_date = '{$post['post_date']}'",
+			"lastpost_member_id = '{$post['author_id']}'"
+		), "t_id = '{$post['thread_id']}'");
 
 		// Update: room stats
-		$this->Db->Query("UPDATE c_rooms SET lastpost_date = '{$post['post_date']}',
-				lastpost_thread = '{$post['thread_id']}', lastpost_member = '{$post['author_id']}'
-				WHERE r_id = '{$room_id}';");
+		$this->Db->Update("c_rooms", array(
+			"lastpost_date = '{$post['post_date']}'",
+			"lastpost_thread = '{$post['thread_id']}'",
+			"lastpost_member = '{$post['author_id']}'"
+		), "r_id = '{$room_id}'");
 
 		// Update: member stats
-		$this->Db->Query("UPDATE c_members SET posts = posts + 1, lastpost_date = '{$post['post_date']}'
-				WHERE m_id = '{$post['author_id']}';");
+		$this->Db->Update("c_members", array(
+			"posts = posts + 1",
+			"lastpost_date = '{$post['post_date']}'"
+		), "m_id = '{$post['author_id']}'");
 
 		// Update: community stats
-		$this->Db->Query("UPDATE c_stats SET total_posts = total_posts + 1;");
+		$this->Db->Update("c_stats", "total_posts = total_posts + 1");
 
 		// Redirect back to post
 		$this->Core->Redirect("thread/" . $id);
@@ -282,14 +288,21 @@ class Thread extends Application
 
 		// Update tables
 
-		$this->Db->Query("UPDATE c_rooms SET lastpost_date = '{$post['post_date']}',
-				lastpost_thread = '{$post['thread_id']}', lastpost_member = '{$post['author_id']}'
-				WHERE r_id = '{$thread['room_id']}';");
+		$this->Db->Update("c_rooms", array(
+			"lastpost_date = '{$post['post_date']}'",
+			"lastpost_thread = '{$post['thread_id']}'",
+			"lastpost_member = '{$post['author_id']}'"
+		), "r_id = '{$thread['room_id']}'");
 
-		$this->Db->Query("UPDATE c_stats SET total_posts = total_posts + 1, total_threads = total_threads + 1;");
+		$this->Db->Update("c_stats", array(
+			"total_posts = total_posts + 1",
+			"total_threads = total_threads + 1"
+		));
 
-		$this->Db->Query("UPDATE c_members SET posts = posts + 1, lastpost_date = '{$post['post_date']}'
-				WHERE m_id = '{$post['author_id']}';");
+		$this->Db->Update("c_members", array(
+			"posts = posts + 1",
+			"lastpost_date = '{$post['post_date']}'"
+		), "m_id = '{$post['author_id']}'");
 
 		// Redirect
 		$this->Core->Redirect("thread/" . $post['thread_id'] . "-" . $thread['slug']);
@@ -348,16 +361,16 @@ class Thread extends Application
 		}
 
 		// Remove post
-		$this->Db->Query("DELETE FROM c_posts WHERE p_id = {$post_id};");
+		$this->Db->Delete("c_posts", "p_id = {$post_id}");
 
 		// Update thread statistics
-		$this->Db->Query("UPDATE c_threads SET replies = replies - 1 WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "replies = replies - 1", "t_id = {$thread_id}");
 
 		// Update member statistics
-		$this->Db->Query("UPDATE c_members SET posts = posts - 1 WHERE m_id = {$author_id};");
+		$this->Db->Update("c_members", "posts = posts - 1", "m_id = {$author_id}");
 
 		// Update community statistics
-		$this->Db->Query("UPDATE c_stats SET total_posts = total_posts - 1;");
+		$this->Db->Update("c_stats", "total_posts = total_posts - 1");
 
 		// Redirect back to post
 		$this->Core->Redirect("thread/" . $thread_id . "?m=3");
@@ -376,7 +389,7 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Lock thread
-		$this->Db->Query("UPDATE c_threads SET locked = 1 WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "locked = 1", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -404,7 +417,7 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Lock thread
-		$this->Db->Query("UPDATE c_threads SET locked = 0 WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "locked = 0", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -432,7 +445,7 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Lock thread
-		$this->Db->Query("UPDATE c_threads SET announcement = 1 WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "announcement = 1", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -460,7 +473,7 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Lock thread
-		$this->Db->Query("UPDATE c_threads SET announcement = 0 WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "announcement = 0", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -493,16 +506,17 @@ class Thread extends Application
 		$room_id = $thread_info['room_id'];
 
 		// Delete all posts in this thread
-		$this->Db->Query("DELETE FROM c_posts WHERE thread_id = {$thread_id};");
+		$this->Db->Delete("c_posts", "thread_id = {$thread_id}");
 		$deleted_posts = $this->Db->AffectedRows();
 
 		// Delete thread itself
-		$this->Db->Query("DELETE FROM c_threads WHERE t_id = {$thread_id};");
+		$this->Db->Delete("c_threads", "t_id = {$thread_id}");
 
 		// Update community/room statistics
-		$this->Db->Query("UPDATE c_stats SET
-				total_threads = total_threads - 1,
-				total_posts = total_posts - {$deleted_posts};");
+		$this->Db->Update("c_stats", array(
+			"total_threads = total_threads - 1",
+			"total_posts = total_posts - {$deleted_posts}"
+		));
 
 		// Register Moderation log in DB
 		$log = array(
@@ -553,7 +567,7 @@ class Thread extends Application
 
 		// Update thread information with encoded data
 		$encoded = json_encode($poll_data);
-		$this->Db->Query("UPDATE c_threads SET poll_data = '{$encoded}' WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "poll_data = '{$encoded}'", "t_id = {$thread_id}");
 
 		// Redirect
 		$this->Core->Redirect("HTTP_REFERER");
@@ -669,7 +683,7 @@ class Thread extends Application
 	{
 		// Update session table with room ID
 		$session = $this->Session->session_id;
-		$this->Db->Query("UPDATE c_sessions SET location_room_id = {$thread_info['room_id']} WHERE s_id = '{$session}';");
+		$this->Db->Update("c_sessions", "location_room_id = {$thread_info['room_id']}", "s_id = '{$session}'");
 	}
 
 	/**
