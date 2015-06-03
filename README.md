@@ -53,6 +53,8 @@ We're currently working on automatic updates to be released with the first Final
 
 We're glad you're interested to help develop Addictive Community. Be part of it reading our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md).
 
+If you're interested to contribute with language packs, read the guidelines in its [official repository](https://github.com/brunnopleffken/addictive-community-languages).
+
 ## About the Author ##
 
 **Brunno Pleffken Hosti**, programmer well-versed in object-oriented PHP, JavaScript, .NET/C# (ASP.NET, Windows Forms, WPF and Windows Phone development) and ColdFusion.
