@@ -85,29 +85,33 @@ class Core
 	 * $section: public|admin
 	 * --------------------------------------------------------------------
 	 */
-	public function GetAvatar($info, $size = 96, $section = "public", $d = "mm", $r = "g")
+	public function GetAvatar($info = array(), $size = 96, $section = "public", $d = "mm", $r = "g")
 	{
-		if($info['photo_type'] == "gravatar") {
-			// Get Gravatar URL
-			$url = "http://www.gravatar.com/avatar/";
-			$url .= md5(strtolower(trim($info['email'])));
-			$url .= "?s={$size}&amp;d={$d}&amp;r={$r}";
-		}
-		elseif($info['photo_type'] == "facebook") {
-			// Get Facebook image URL
-			$get_facebook = $this->Db->Query("SELECT im_facebook FROM c_members WHERE email = '{$info['email']}';");
-			$facebook_photo = $this->Db->Fetch($get_facebook);
-			$url = "https://graph.facebook.com/{$facebook_photo['im_facebook']}/picture?width={$size}&height={$size}";
-		}
-		elseif($info['photo_type'] == "custom") {
-			// Get custom uploaded photo
-			if($section == "public") {
-				$url = "public/avatar/{$info['photo']}";
-			}
-			else {
-				// Modify relative path when viewing in Admin CP
-				$url = "../public/avatar/{$info['photo']}";
-			}
+		switch($info['photo_type']) {
+			// Gravatar photo
+			case "gravatar":
+				$url = "http://www.gravatar.com/avatar/";
+				$url .= md5(strtolower(trim($info['email'])));
+				$url .= "?s={$size}&amp;d={$d}&amp;r={$r}";
+				break;
+
+			// Facebook photo
+			case "facebook":
+				$get_facebook = $this->Db->Query("SELECT im_facebook FROM c_members WHERE email = '{$info['email']}';");
+				$facebook_photo = $this->Db->Fetch($get_facebook);
+				$url = "https://graph.facebook.com/{$facebook_photo['im_facebook']}/picture?width={$size}&height={$size}";
+				break;
+
+			// Uploaded photo
+			case "custom":
+				if($section == "public") {
+					$url = "public/avatar/{$info['photo']}";
+				}
+				else {
+					// Modify relative path when viewing in Admin CP
+					$url = "../public/avatar/{$info['photo']}";
+				}
+				break;
 		}
 
 		return $url;
