@@ -208,7 +208,7 @@ class Thread extends Application
 		), "m_id = '{$post['author_id']}'");
 
 		// Update: community stats
-		$this->Db->Update("c_stats", "total_posts = total_posts + 1");
+		$this->Db->Update("c_stats", "post_count = post_count + 1");
 
 		// Redirect back to post
 		$this->Core->Redirect("thread/" . $id);
@@ -295,8 +295,8 @@ class Thread extends Application
 		), "r_id = '{$thread['room_id']}'");
 
 		$this->Db->Update("c_stats", array(
-			"total_posts = total_posts + 1",
-			"total_threads = total_threads + 1"
+			"post_count = post_count + 1",
+			"thread_count = thread_count + 1"
 		));
 
 		$this->Db->Update("c_members", array(
@@ -370,7 +370,7 @@ class Thread extends Application
 		$this->Db->Update("c_members", "posts = posts - 1", "m_id = {$author_id}");
 
 		// Update community statistics
-		$this->Db->Update("c_stats", "total_posts = total_posts - 1");
+		$this->Db->Update("c_stats", "post_count = post_count - 1");
 
 		// Redirect back to post
 		$this->Core->Redirect("thread/" . $thread_id . "?m=3");
@@ -514,8 +514,8 @@ class Thread extends Application
 
 		// Update community/room statistics
 		$this->Db->Update("c_stats", array(
-			"total_threads = total_threads - 1",
-			"total_posts = total_posts - {$deleted_posts}"
+			"thread_count = thread_count - 1",
+			"post_count = post_count - {$deleted_posts}"
 		));
 
 		// Register Moderation log in DB
@@ -839,7 +839,7 @@ class Thread extends Application
 	private function _GetPages($thread_info)
 	{
 		$pages['items_per_page'] = $this->Core->config['thread_posts_per_page'];
-		$total_posts    = $thread_info['post_count'] - 1;
+		$total_posts = $thread_info['post_count'] - 1;
 
 		// page number for SQL sentences
 		$pages['for_sql'] = (Html::Request("p")) ? Html::Request("p") * $pages['items_per_page'] - $pages['items_per_page'] : 0;

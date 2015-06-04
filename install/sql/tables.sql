@@ -215,8 +215,8 @@ CREATE TABLE `c_sessions` (
 CREATE TABLE `c_stats` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
   `member_count` int(8) NOT NULL,
-  `total_posts` int(10) NOT NULL,
-  `total_threads` int(10) NOT NULL,
+  `post_count` int(9) NOT NULL,
+  `thread_count` int(9) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

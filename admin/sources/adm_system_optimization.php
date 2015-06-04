@@ -46,7 +46,7 @@
 				$total = $Db->Fetch();
 				$total = $total['count'];
 
-				$Db->Query("UPDATE c_stats SET total_posts = '{$total}';");
+				$Db->Query("UPDATE c_stats SET post_count = '{$total}';");
 
 				// Update threads
 
@@ -54,7 +54,7 @@
 				$total = $Db->Fetch();
 				$total = $total['count'];
 
-				$Db->Query("UPDATE c_stats SET total_threads = '{$total}';");
+				$Db->Query("UPDATE c_stats SET thread_count = '{$total}';");
 
 				// Update members thread count
 

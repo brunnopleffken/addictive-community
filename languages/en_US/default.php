@@ -18,7 +18,7 @@
 	$t["SIDEBAR_GUEST_COUNT"] = "Guests (%d)";
 	$t["SIDEBAR_STATISTICS"] = "Statistics";
 	$t["SIDEBAR_S_THREADS"] = "Threads";
-	$t["SIDEBAR_S_REPLIES"] = "Replies";
+	$t["SIDEBAR_S_POSTS"] = "Posts";
 	$t["SIDEBAR_S_MEMBERS"] = "Members";
 	$t["SIDEBAR_S_LAST"] = "Last Member";
 	$t["FOOTER_ABOUT"] = "About";
