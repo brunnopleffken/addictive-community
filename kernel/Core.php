@@ -122,7 +122,7 @@ class Core
 	 * PARSE EMOTICONS INSIDE POSTS AND MESSAGES :)
 	 * --------------------------------------------------------------------
 	 */
-	public function ParseEmoticons($text, $emoticons)
+	public function ParseEmoticons($text, $emoticons = array())
 	{
 		if($this->config['thread_allow_emoticons'] == true) {
 			// Empty array to store emoticons :O
@@ -176,7 +176,7 @@ class Core
 	 * CREATE CANONICAL TAG URL
 	 * --------------------------------------------------------------------
 	 */
-	public function PageTitle($page_info)
+	public function PageTitle($page_info = array())
 	{
 		return (isset($page_info['title'])) ? $page_info['title'] . " - " : "";
 	}

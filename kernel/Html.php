@@ -134,7 +134,7 @@ class Html
 	 * REALLY NICE YEAR DROP-DOWN GENERATOR
 	 * --------------------------------------------------------------------
 	 */
-	public static function Years($name, $before, $after, $current = 0, $show_placeholder = false)
+	public static function Years($name, $before = 0, $after = 0, $current = 0, $show_placeholder = false)
 	{
 		$now = date("Y", time());
 		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 75px'>";
@@ -200,7 +200,7 @@ class Html
 	 * SHOW NOTIFICATION MESSAGE
 	 * --------------------------------------------------------------------
 	 */
-	public static function Notification($message, $code, $persistent = false, $custom_title = "")
+	public static function Notification($message, $code = "", $persistent = false, $custom_title = "")
 	{
 		switch($code) {
 			case "warning":
@@ -242,7 +242,7 @@ class Html
 	 * CROP IMAGE TO FILL AREA
 	 * --------------------------------------------------------------------
 	 */
-	public static function Crop($image, $w, $h, $class = "")
+	public static function Crop($image, $w = 0, $h = 0, $class = "")
 	{
 		return "<div style=\"display:inline-block; width:{$w}px; height:{$h}px; background: url('{$image}') no-repeat center top; background-size:cover; image-rendering: optimizeQuality;\" class='{$class}'></div>";
 	}

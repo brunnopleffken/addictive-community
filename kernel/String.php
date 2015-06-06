@@ -142,7 +142,7 @@ class String
 	 * CONVERT BYTE SIZE INTO HUMAN READABLE FORMAT
 	 * --------------------------------------------------------------------
 	 */
-	public static function FileSizeFormat($bytes)
+	public static function FileSizeFormat($bytes = 0)
 	{
 		if($bytes >= 1048576) {
 			$retval = round($bytes / 1048576 * 100) / 100 . " MB";

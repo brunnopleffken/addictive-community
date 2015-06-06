@@ -51,7 +51,7 @@ class Upload
 	 * THE ATTACHMENT ID NUMBER ON DATABASE)
 	 * --------------------------------------------------------------------
 	 */
-	public function Attachment($file, $member, $folder = "public/attachments/")
+	public function Attachment($file, $member = 0, $folder = "public/attachments/")
 	{
 		if(is_array($file) && $file['name'] != "") {
 			// Get timestamp
@@ -181,7 +181,7 @@ class Upload
 	 * SET ALLOWED EXTENSIONS FOR FILE UPLOAD
 	 * --------------------------------------------------------------------
 	 */
-	public function SetAllowedExtensions($extensions_list)
+	public function SetAllowedExtensions($extensions_list = array())
 	{
 		if(is_array($extensions_list)) {
 			$this->allowed_extensions = $extensions_list;
