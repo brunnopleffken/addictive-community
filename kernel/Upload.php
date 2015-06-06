@@ -72,7 +72,12 @@ class Upload
 
 			// Check if it's not a forbidden extension
 			if(in_array($this->file_extension, $this->forbidden_extensions)) {
-				Html::Error("This file extension is not allowed (." . $this->file_extension . ")!");
+				Html::Error("This file extension is not allowed (.{$this->file_extension})!");
+			}
+
+			// Check if is an allowed extension (if array is not empty, of course)
+			if(!empty($this->allowed_extensions) && !in_array($this->file_extension, $this->allowed_extensions)) {
+				Html::Error("This file extension is not allowed (.{$this->file_extension}).");
 			}
 
 			// Delete special characters and diacritics
