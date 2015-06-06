@@ -58,16 +58,13 @@
 
 				// Update members thread count
 
-				$Db2 = clone($Db);
-				$Db3 = clone($Db);
+				$members = $Db->Query("SELECT m_id FROM c_members;");
 
-				$Db->Query("SELECT m_id FROM c_members;");
+				while($_members = $Db->Fetch($members)) {
+					$posts = $Db->Query("SELECT COUNT(*) AS total FROM c_posts WHERE author_id = '{$_members['m_id']}';");
 
-				while($members = $Db->Fetch()) {
-					$Db2->Query("SELECT COUNT(*) AS total FROM c_posts WHERE author_id = '{$members['m_id']}';");
-
-					while($post_count = $Db2->Fetch()) {
-						$Db3->Query("UPDATE c_members SET posts = '{$post_count['total']}' WHERE m_id = '{$members['m_id']}';");
+					while($post_count = $Db->Fetch($posts)) {
+						$Db->Query("UPDATE c_members SET posts = '{$post_count['total']}' WHERE m_id = '{$_members['m_id']}';");
 					}
 				}
 
@@ -84,17 +81,15 @@
 
 				// List threads (global)
 
-				$Db2 = clone($Db);
-				$Db3 = clone($Db);
-				$Db->Query("SELECT t_id FROM c_threads;");
+				$threads = $Db->Query("SELECT t_id FROM c_threads;");
 
 				// Replies counting
 
-				while($threads = $Db->Fetch()) {
-					$Db2->Query("SELECT COUNT(p_id) AS post_count FROM c_posts WHERE thread_id = '{$threads['t_id']}';");
+				while($_threads = $Db->Fetch($threads)) {
+					$posts = $Db->Query("SELECT COUNT(p_id) AS post_count FROM c_posts WHERE thread_id = '{$_threads['t_id']}';");
 
-					while($posts = $Db2->Fetch()) {
-						$Db3->Query("UPDATE c_threads SET replies = '{$posts['post_count']}' WHERE t_id = '{$threads['t_id']}';");
+					while($_posts = $Db2->Fetch($posts)) {
+						$Db->Query("UPDATE c_threads SET replies = '{$_posts['post_count']}' WHERE t_id = '{$_threads['t_id']}';");
 					}
 				}
 

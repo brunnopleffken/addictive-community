@@ -121,7 +121,6 @@
 		case "deleteroom":
 
 			$r_id = Html::Request("r_id");
-			$Db2 = clone($Db);
 
 			// Register room exclusion in Admin log
 			$Db->Query("SELECT name FROM c_rooms WHERE r_id = {$r_id}");
@@ -129,10 +128,10 @@
 			$Admin->RegisterLog("Deleted room: " . $room['name']);
 
 			// Delete all related posts
-			$Db->Query("SELECT t_id FROM c_threads WHERE room_id = '{$r_id}';");
+			$threads = $Db->Query("SELECT t_id FROM c_threads WHERE room_id = '{$r_id}';");
 
-			while($threads = $Db->Fetch()) {
-				$Db2->Query("DELETE FROM c_posts WHERE thread_id = '{$threads['t_id']}';");
+			while($_threads = $Db->Fetch($threads)) {
+				$Db->Query("DELETE FROM c_posts WHERE thread_id = '{$threads['t_id']}';");
 			}
 
 			// Delete threads and room itself

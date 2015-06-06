@@ -80,13 +80,11 @@ class Community extends Application
 	 */
 	private function _ParseRooms($result)
 	{
-		$Db = clone($this->Db);
-
 		// Get number of users online
-		$Db->Query("SELECT COUNT(*) AS total FROM c_sessions
+		$online = $this->Db->Query("SELECT COUNT(*) AS total FROM c_sessions
 				WHERE location_type IN ('room', 'thread') AND location_room_id = {$result['r_id']};");
 
-		$result['online'] = $Db->Fetch();
+		$result['online'] = $this->Db->Fetch($online);
 
 		// If last post timestamp is not zero / no posts
 		$result['lastpost_date'] = ($result['lastpost_date'] > 0) ? $this->Core->DateFormat($result['lastpost_date']) : "---";
@@ -102,14 +100,13 @@ class Community extends Application
 		// Get moderators
 		$moderators_array = unserialize($result['moderators']);
 		if(!empty($moderators_array)) {
-			$Db2 = clone($Db);
 			$moderators = unserialize($result['moderators']);
 			$moderator_list = array();
 
 			// Build moderators list
 			foreach($moderators as $member_id) {
-				$Db2->Query("SELECT m_id, username FROM c_members WHERE m_id = {$member_id};");
-				$member = $Db2->Fetch();
+				$mod_details = $this->Db->Query("SELECT m_id, username FROM c_members WHERE m_id = {$member_id};");
+				$member = $this->Db->Fetch($mod_details);
 
 				$moderator_list[] = "<a href='profile/{$member['m_id']}'>{$member['username']}</a>";
 			}

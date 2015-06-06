@@ -25,21 +25,20 @@
 	}
 
 	// Get rooms and its moderators
-	$Db->Query("SELECT r_id, name, url, moderators FROM c_rooms WHERE CHAR_LENGTH(url) = 0 OR url IS NULL;");
+	$list = $Db->Query("SELECT r_id, name, url, moderators FROM c_rooms WHERE CHAR_LENGTH(url) = 0 OR url IS NULL;");
 
-	while($result = $Db->Fetch()) {
+	while($result = $Db->Fetch($list)) {
 		// Show list of moderators
 		if($result['moderators'] == "") {
 			$result['moderators_list'] = "---";
 		}
 		else {
-			$Db2 = clone($Db);
 			$moderators = unserialize($result['moderators']);
 			$moderator_list = array();
 
 			foreach($moderators as $member_id) {
-				$Db2->Query("SELECT username FROM c_members WHERE m_id = {$member_id};");
-				$member = $Db2->Fetch();
+				$mod_info = $Db->Query("SELECT username FROM c_members WHERE m_id = {$member_id};");
+				$member = $Db->Fetch($mod_info);
 
 				$moderator_list[] = $member['username'];
 			}

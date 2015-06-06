@@ -29,16 +29,15 @@
 
 	$id = Html::Request("id", true);
 
-	$Db->Query("SELECT name, moderators FROM c_rooms WHERE r_id = {$id};");
-	$room_info = $Db->Fetch();
+	$_room_info = $Db->Query("SELECT name, moderators FROM c_rooms WHERE r_id = {$id};");
+	$room_info = $Db->Fetch($_room_info);
 
 	if($room_info['moderators'] != "") {
-		$Db2 = clone($Db);
 		$moderators = unserialize($room_info['moderators']);
 
 		foreach($moderators as $member_id) {
-			$Db2->Query("SELECT m_id, username, email, photo, photo_type FROM c_members WHERE m_id = {$member_id};");
-			$member = $Db2->Fetch();
+			$_member = $Db->Query("SELECT m_id, username, email, photo, photo_type FROM c_members WHERE m_id = {$member_id};");
+			$member = $Db->Fetch($_member);
 
 			Template::Add("<tr>
 					<td class='min'>" . Html::Crop($Core->GetAvatar($member, 30, "admin"), 30, 30) . "</td>
