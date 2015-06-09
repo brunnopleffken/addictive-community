@@ -149,7 +149,7 @@ HTML;
 					<div class="next"><h3>Step 5</h3><span class="tiny">Install</span></div>
 				</div>
 
-				<form action="index.php?step=3" method="post" id="database-form" class="validate">
+				<form action="index.php?step=3" method="post" id="database-form">
 					<div class="input-box">
 						<div class="label">MySQL Host</div>
 						<div class="field"><input type="text" name="host" class="required medium"></div>
@@ -159,11 +159,11 @@ HTML;
 						<div class="field"><input type="text" name="database" class="required small"></div>
 					</div>
 					<div class="input-box">
-						<div class="label">DB Username</div>
+						<div class="label">Username</div>
 						<div class="field"><input type="text" name="username" class="required small"></div>
 					</div>
 					<div class="input-box">
-						<div class="label">DB Password</div>
+						<div class="label">Password</div>
 						<div class="field"><input type="password" name="password" class="small"></div>
 					</div>
 					<div class="input-box" style="text-align: center"><input type="submit" value="Proceed"></div>
@@ -210,7 +210,7 @@ HTML;
 			$sql_check = ($sql_v >= 0) ? "<span style='color: #090'>Yes ({$info['mysql-version']})</span>" : "<span style='color: #900'>No ({$info['mysql-version']})</span>";
 
 			$environment = "<table class='table' style='width: 400px;'>";
-			$environment .= "<tr><td>Server Software</td><td>{$_SERVER['SERVER_SOFTWARE']} {$_SERVER['SERVER_PROTOCOL']}</td></tr>";
+			$environment .= "<tr><td style='width:190px'>Server Software</td><td>{$_SERVER['SERVER_SOFTWARE']} {$_SERVER['SERVER_PROTOCOL']}</td></tr>";
 			$environment .= "<tr><td>PHP 5.3+</td><td>{$php_check}</td></tr>";
 			$environment .= "<tr><td>MySQL 5.1+</td><td>{$sql_check}</td></tr>";
 			$environment .= "</table>";
@@ -230,7 +230,7 @@ HTML;
 
 			foreach($required as $data) {
 				$status = (in_array($data, $extensions)) ? "<span style='color: #090'>Yes</span>" : "<span style='color: #c00'>No</span>";
-				$extensions_ok .= "<tr><td>" . $ext_name[$data] . " ({$data})</td><td>{$status}</td></tr>";
+				$extensions_ok .= "<tr><td style='width:190px'>" . $ext_name[$data] . " ({$data})</td><td>{$status}</td></tr>";
 			}
 
 			$extensions_ok .= "</table>";
@@ -251,7 +251,7 @@ HTML;
 			}
 
 			$apache_extensions = "<table class='table' style='width: 300px'>";
-			$apache_extensions .= "<tr><td>mod_rewrite</td><td>{$mod_rewrite_ok}</td></tr>";
+			$apache_extensions .= "<tr><td style='width:190px'>mod_rewrite</td><td>{$mod_rewrite_ok}</td></tr>";
 			$apache_extensions .= "</table>";
 
 			// Check folders
@@ -294,7 +294,7 @@ HTML;
 			}
 
 			$folders = "<table class='table' style='width: 300px'>";
-			$folders .= "<tr><td>/config.php</td><td>{$file_conf}</td></tr>";
+			$folders .= "<tr><td style='width:190px'>/config.php</td><td>{$file_conf}</td></tr>";
 			$folders .= "<tr><td>/install</td><td>{$dir_install}</td></tr>";
 			$folders .= "<tr><td>/public/attachments</td><td>{$dir_attach}</td></tr>";
 			$folders .= "<tr><td>/public/avatar</td><td>{$dir_avatar}</td></tr>";
