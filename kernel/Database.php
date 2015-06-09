@@ -52,7 +52,7 @@ class Database implements IDatabase
 	private $result;
 
 	// Log of queries of the current session
-	private $queries = array();
+	private $log = array();
 
 	/**
 	 * --------------------------------------------------------------------
