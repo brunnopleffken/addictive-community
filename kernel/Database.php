@@ -36,13 +36,7 @@ interface IDatabase
 class Database implements IDatabase
 {
 	// Database connection information
-	private $data = array(
-		"server"   => "localhost",
-		"username" => "root",
-		"password" => "root",
-		"database" => "homefront",
-		"charset"  => "utf-8"
-	);
+	private $data = array();
 
 	// Database connection
 	private $link;
@@ -74,7 +68,8 @@ class Database implements IDatabase
 			$this->data['db_server'],
 			$this->data['db_username'],
 			$this->data['db_password'],
-			$this->data['db_database']
+			$this->data['db_database'],
+			$this->data['db_port']
 		);
 
 		// Show error message in case of error

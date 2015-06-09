@@ -18,10 +18,11 @@ if($task == "test_database") {
 		'host'     => $_REQUEST['host'],
 		'database' => $_REQUEST['database'],
 		'username' => $_REQUEST['username'],
-		'password' => $_REQUEST['password']
+		'password' => $_REQUEST['password'],
+		'port'     => $_REQUEST['port']
 	);
 
-	$link = @mysqli_connect($data['host'], $data['username'], $data['password'], $data['database']);
+	$link = @mysqli_connect($data['host'], $data['username'], $data['password'], $data['database'], $data['port']);
 
 	if($link) {
 		$return_data = array('status' => 1);

@@ -138,6 +138,11 @@ HTML;
 				exit;
 			}
 
+			// Show notification message about tables prefixes
+			$notification = Html::Notification(
+				"Don't worry, all tables are prefixed with <b>c_</b>.", "info", true
+			);
+
 			// Ok, proceed...
 
 			$template = <<<HTML
@@ -149,10 +154,16 @@ HTML;
 					<div class="next"><h3>Step 5</h3><span class="tiny">Install</span></div>
 				</div>
 
+				{$notification}
+
 				<form action="index.php?step=3" method="post" id="database-form">
 					<div class="input-box">
 						<div class="label">MySQL Host</div>
-						<div class="field"><input type="text" name="host" class="required medium"></div>
+						<div class="field"><input type="text" name="host" class="required small"></div>
+					</div>
+					<div class="input-box">
+						<div class="label">MySQL Port</div>
+						<div class="field"><input type="text" name="port" value="3306" class="required tiny"></div>
 					</div>
 					<div class="input-box">
 						<div class="label">Database</div>
@@ -189,6 +200,7 @@ HTML;
 			$_SESSION['db_database'] = $installer->input['db_database'] = $_REQUEST['database'];
 			$_SESSION['db_username'] = $installer->input['db_username'] = $_REQUEST['username'];
 			$_SESSION['db_password'] = $installer->input['db_password'] = $_REQUEST['password'];
+			$_SESSION['db_port']     = $installer->input['db_port']     = $_REQUEST['port'];
 
 			$installer->InstallerDB();
 
@@ -259,7 +271,13 @@ HTML;
 
 			// root/config.php
 			if(is_writable("../config.php")) {
-				$file_conf = "<span style='color: #090'>Writable</span>";
+				if(filesize("../config.php") == 0) {
+					$file_conf = "<span style='color: #090'>Writable</span>";
+				}
+				else {
+					$file_conf = "<span style='color: #C00'>File not empty</span>";
+					$disabled = "disabled='disabled'";
+				}
 			}
 			else {
 				$file_conf = "<span style='color: #C00'>Not writable</span>";
@@ -412,6 +430,7 @@ HTML;
 						<input type="hidden" name="db_database" value="{$_SESSION['db_database']}">
 						<input type="hidden" name="db_username" value="{$_SESSION['db_username']}">
 						<input type="hidden" name="db_password" value="{$_SESSION['db_password']}">
+						<input type="hidden" name="db_port" value="{$_SESSION['db_port']}">
 						<input type="submit" value="Proceed">
 					</div>
 
@@ -449,6 +468,7 @@ HTML;
 				<input type="hidden" id="db_database" value="{$_REQUEST['db_database']}">
 				<input type="hidden" id="db_username" value="{$_REQUEST['db_username']}">
 				<input type="hidden" id="db_password" value="{$_REQUEST['db_password']}">
+				<input type="hidden" id="db_port" value="{$_REQUEST['db_port']}">
 				<input type="hidden" id="community_name" value="{$_REQUEST['community']}">
 				<input type="hidden" id="community_path" value="{$_REQUEST['install_path']}">
 				<input type="hidden" id="community_url" value="{$_REQUEST['install_url']}">

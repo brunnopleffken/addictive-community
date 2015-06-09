@@ -105,6 +105,7 @@ function installModule(id) {
 		db_database: $('#db_database').val(),
 		db_username: $('#db_username').val(),
 		db_password: $('#db_password').val(),
+		db_port: $('#db_port').val(),
 		community_name: $('#community_name').val(),
 		community_path: $('#community_path').val(),
 		community_url: $('#community_url').val(),

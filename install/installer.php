@@ -72,13 +72,12 @@
 				$handle = fopen("../config.php", "w");
 
 				$file_content = "<?php
-	// Addictive Community configuration file for MySQL
-	\$config['db_server']   = \"{$data['db_server']}\";
-	\$config['db_username'] = \"{$data['db_username']}\";
-	\$config['db_password'] = \"{$data['db_password']}\";
-	\$config['db_database'] = \"{$data['db_database']}\";
-	\$config['db_prefix']   = \"c_\";
-?>";
+// MySQL configuration file for Addictive Community
+\$config['db_server']   = \"{$data['db_server']}\";
+\$config['db_username'] = \"{$data['db_username']}\";
+\$config['db_password'] = \"{$data['db_password']}\";
+\$config['db_database'] = \"{$data['db_database']}\";
+\$config['db_port']     = {$data['db_port']};";
 
 				if(fwrite($handle, $file_content)) {
 					$status = 1;
