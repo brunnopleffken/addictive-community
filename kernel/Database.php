@@ -77,9 +77,9 @@ class Database implements IDatabase
 			$this->data['db_database']
 		);
 
-		// Show error message... in case of error...
+		// Show error message in case of error
 		if(mysqli_connect_errno()) {
-			$this->Exception("Unable to connect to MySQL server.");
+			$this->Exception(mysqli_connect_error());
 		}
 		else {
 			// Set response charset to UTF-8
