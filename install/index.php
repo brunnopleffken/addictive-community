@@ -215,7 +215,7 @@ HTML;
 			$environment .= "<tr><td>MySQL 5.1+</td><td>{$sql_check}</td></tr>";
 			$environment .= "</table>";
 
-			// Check extensions
+			// Check PHP extensions
 
 			$extensions = get_loaded_extensions();
 			$required = array("gd", "libxml", "json");
@@ -229,17 +229,30 @@ HTML;
 			$extensions_ok = "<table class='table' style='width: 300px'>";
 
 			foreach($required as $data) {
-				if(in_array($data, $extensions)) {
-					$status = "<span style='color: #090'>Yes</span>";
-				}
-				else {
-					$status = "<span style='color: #C00'>No</span>";
-				}
-
+				$status = (in_array($data, $extensions)) ? "<span style='color: #090'>Yes</span>" : "<span style='color: #c00'>No</span>";
 				$extensions_ok .= "<tr><td>" . $ext_name[$data] . " ({$data})</td><td>{$status}</td></tr>";
 			}
 
 			$extensions_ok .= "</table>";
+
+			// Check Apache extensions
+
+			if(apache_get_modules()) {
+				if(in_array("mod_rewrite", apache_get_modules())) {
+					$mod_rewrite_ok = "<span style='color: #090'>Yes</span>";
+				}
+				else {
+					$mod_rewrite_ok = "<span style='color: #c00'>No</span>";
+					$disabled = "disabled='disabled'";
+				}
+			}
+			else {
+				$mod_rewrite_ok = "<span style='color: #ddd'>Not using Apache server</span>";
+			}
+
+			$apache_extensions = "<table class='table' style='width: 300px'>";
+			$apache_extensions .= "<tr><td>mod_rewrite</td><td>{$mod_rewrite_ok}</td></tr>";
+			$apache_extensions .= "</table>";
 
 			// Check folders
 			$disabled = "";
@@ -315,8 +328,12 @@ HTML;
 						{$environment}
 					</div>
 					<div class="input-box">
-						<h4>Extensions</h4>
+						<h4>PHP Extensions</h4>
 						{$extensions_ok}
+					</div>
+					<div class="input-box">
+						<h4>Apache Modules</h4>
+						{$apache_extensions}
 					</div>
 					<div class="input-box">
 						<h4>Files and Folders</h4>
