@@ -21,7 +21,7 @@ class Profile extends Application
 	 * COMMON ACTIONS: RETURN MEMBER INFORMATION
 	 * --------------------------------------------------------------------
 	 */
-	public function _BeforeFilter($id)
+	public function _BeforeAction($id)
 	{
 		// Fetch member information
 		$this->Db->Query("SELECT c_members.*, c_usergroups.name,

@@ -144,18 +144,18 @@ class Main
 		$this->instance->Core = $this->Core;
 		$this->instance->Session = $this->Session;
 
-		// Execute Controller::_beforeFilter() method
-		if(method_exists($this->instance, "_beforeFilter")) {
-			$this->instance->_beforeFilter($this->id);
+		// Execute Controller::_BeforeAction() method
+		if(method_exists($this->instance, "_BeforeAction")) {
+			$this->instance->_BeforeAction($this->id);
 		}
 
 		// Execute Controller with the provided method
 		$this->instance->Run();
 		$this->instance->$action($this->id);
 
-		// Execute Controller::_afterFilter() method
-		if(method_exists($this->instance, "_afterFilter")) {
-			$this->instance->_afterFilter($this->id);
+		// Execute Controller::_AfterAction() method
+		if(method_exists($this->instance, "_AfterAction")) {
+			$this->instance->_AfterAction($this->id);
 		}
 
 		// Get defined variables

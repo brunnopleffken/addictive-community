@@ -18,7 +18,7 @@ class Room extends Application
 	 * RUN BEFORE MAIN()
 	 * --------------------------------------------------------------------
 	 */
-	public function _beforeFilter()
+	public function _BeforeAction()
 	{
 		if(Html::Request("act") == "load_more") {
 			// Update session table with room ID

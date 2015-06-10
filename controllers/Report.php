@@ -18,7 +18,7 @@ class Report extends Application
 	 * PERFORM ACTIONS BEFORE RUN API METHODS
 	 * --------------------------------------------------------------------
 	 */
-	public function _beforeFilter()
+	public function _BeforeAction()
 	{
 		// Yeah, to avoid SPAM guests cannot send reports
 		$this->Session->NoGuest();

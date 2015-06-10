@@ -21,7 +21,7 @@ class Messenger extends Application
 	 * RUN BEFORE MAIN()
 	 * --------------------------------------------------------------------
 	 */
-	public function _BeforeFilter()
+	public function _BeforeAction()
 	{
 		// This section is for members only
 		$this->Session->NoGuest();

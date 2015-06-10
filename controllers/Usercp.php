@@ -21,7 +21,7 @@ class Usercp extends Application
 	 * USER CONTROL PANEL IS FOR MEMBER ONLY. IF GUEST, THEN REDIRECT.
 	 * --------------------------------------------------------------------
 	 */
-	public function _BeforeFilter()
+	public function _BeforeAction()
 	{
 		// This section is for members only
 		$this->Session->NoGuest();
