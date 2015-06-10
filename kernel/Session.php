@@ -158,6 +158,11 @@ class Session
 		if($this->GetCookie("member_id")) {
 			// Member has already logged in
 			$this->session_info['member_id'] = $this->GetCookie("member_id");
+
+			// Delete all old session data, except current logged in member
+			$this->Db->Delete("c_sessions", "activity_time < '{$this->session_activity_cut}' AND member_id <> {$this->session_info['member_id']}");
+
+			// Update member session
 			$this->UpdateMemberSession();
 		}
 		else {
@@ -284,9 +289,6 @@ class Session
 	{
 		// Set activity time
 		$this->session_info['activity_time'] = time();
-
-		// Delete all old session data, except current logged in member
-		$this->Db->Delete("c_sessions", "activity_time < '{$this->session_activity_cut}' AND member_id <> {$this->session_info['member_id']}");
 
 		// Running the method UpdateExistingMember() for the first time?
 		// Check if session register exists in database, if not, create it
