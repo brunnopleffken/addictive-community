@@ -11,9 +11,6 @@
 #  Copyright: (c) 2015 - Addictive Community
 ## -------------------------------------------------------
 
-// Absolute path on server filesystem
-define("BASEPATH", dirname(__FILE__));
-
 // Run initialization file before loading Main()
 require("init.php");
 
@@ -46,9 +43,6 @@ class Main
 
 	// Defined variables inside controller
 	private $view_data;
-
-	// Development environment
-	const DEBUG = true;
 
 	/**
 	 * --------------------------------------------------------------------
@@ -267,4 +261,4 @@ class Main
 	}
 }
 
-$main = new Main();
+new Main();
