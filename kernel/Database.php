@@ -36,7 +36,7 @@ interface IDatabase
 class Database implements IDatabase
 {
 	// Database connection information
-	private $data = array();
+	private $config = array();
 
 	// Database connection
 	private $link;
@@ -61,15 +61,15 @@ class Database implements IDatabase
 	protected function _Connect($config = array())
 	{
 		// Store configuration info as class property
-		$this->data = $config;
+		$this->config = $config;
 
 		// Connect to MySQL server
 		$this->link = @mysqli_connect(
-			$this->data['db_server'],
-			$this->data['db_username'],
-			$this->data['db_password'],
-			$this->data['db_database'],
-			$this->data['db_port']
+			$this->config['db_server'],
+			$this->config['db_username'],
+			$this->config['db_password'],
+			$this->config['db_database'],
+			$this->config['db_port']
 		);
 
 		// Show error message in case of error
@@ -78,7 +78,8 @@ class Database implements IDatabase
 		}
 		else {
 			// Set response charset to UTF-8
-			$this->Query("SET NAMES UTF8;");
+			mysqli_set_charset($this->link, "utf8");
+			unset($this->config);
 		}
 	}
 
@@ -236,19 +237,18 @@ class Database implements IDatabase
 					$fields[] = $v;
 				}
 			}
-			$sql_query = "UPDATE {$table} SET " . implode(", ", $fields) . " WHERE {$where};";
+			$sql = "UPDATE {$table} SET " . implode(", ", $fields) . " WHERE {$where};";
 		}
 		else {
-			$sql_query = "UPDATE {$table} SET {$data} WHERE {$where};";
+			$sql = "UPDATE {$table} SET {$data} WHERE {$where};";
 		}
 
-		$this->query = $this->Query($sql_query);
+		$this->query = $this->Query($sql);
+		$this->log[] = $sql;
 
 		if(!$this->query) {
 			$this->Exception("An error occoured on the following query: " . $sql);
 		}
-
-		$this->log[] = $this->query;
 
 		return $this->query;
 	}
@@ -260,14 +260,13 @@ class Database implements IDatabase
 	 */
 	public function Delete($table, $where = 1)
 	{
-		$sql_query = "DELETE FROM {$table} WHERE {$where};";
-		$this->query = $this->Query($sql_query);
+		$sql = "DELETE FROM {$table} WHERE {$where};";
+		$this->query = $this->Query($sql);
+		$this->log[] = $sql;
 
 		if(!$this->query) {
 			$this->Exception("An error occoured on the following query: " . $sql);
 		}
-
-		$this->log[] = $this->query;
 
 		return $this->query;
 	}
@@ -281,6 +280,16 @@ class Database implements IDatabase
 	{
 		$id = mysqli_insert_id($this->link);
 		return $id;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * RETURN LOG OF EXECUTED QUERIES
+	 * --------------------------------------------------------------------
+	 */
+	public function Log()
+	{
+		return $this->log;
 	}
 
 	/**
