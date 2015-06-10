@@ -459,9 +459,9 @@ class Usercp extends Application
 		);
 
 		// Get values
-		$current   = String::PasswordEncrypt(Html::Request("current"), $salt);
-		$new_pass  = String::PasswordEncrypt(Html::Request("new_password"), $salt);
-		$conf_pass = String::PasswordEncrypt(Html::Request("conf_password"), $salt);
+		$current   = String::Encrypt(Html::Request("current"), $salt);
+		$new_pass  = String::Encrypt(Html::Request("new_password"), $salt);
+		$conf_pass = String::Encrypt(Html::Request("conf_password"), $salt);
 
 		// Check if member and password matches
 		$this->Db->Query("SELECT COUNT(*) AS result FROM c_members WHERE m_id = '{$this->member_id}' AND password = '{$current}';");

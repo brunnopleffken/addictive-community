@@ -91,7 +91,7 @@ class Register extends Application
 		// Build new member info array
 		$register_info = array(
 			"username"      => Html::Request("username"),
-			"password"      => String::PasswordEncrypt(Html::Request("password"), $salt),
+			"password"      => String::Encrypt(Html::Request("password"), $salt),
 			"email"         => Html::Request("email"),
 			"hide_email"    => 1,
 			"ip_address"    => $_SERVER['REMOTE_ADDR'],

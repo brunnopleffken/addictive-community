@@ -281,7 +281,7 @@
 			// Get administrator account data
 			$admin_info = array(
 				'username' => String::Sanitize($data['admin_username']),
-				'password' => String::PasswordEncrypt($data['admin_password'], $salt),
+				'password' => String::Encrypt($data['admin_password'], $salt),
 				'email'    => String::Sanitize($data['admin_email']),
 				'joined'   => time()
 			);

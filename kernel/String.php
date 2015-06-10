@@ -66,7 +66,7 @@ class String
 	 * $salt must be an array containing [ "hash", "key" ]
 	 * --------------------------------------------------------------------
 	 */
-	public static function PasswordEncrypt($password, $salt = array())
+	public static function Encrypt($password, $salt = array())
 	{
 		$hash = $password . $salt['hash'];
 		for($i = 0; $i < $salt['key']; $i++) {

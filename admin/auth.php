@@ -33,7 +33,7 @@
 
 	if(Html::Request("username") && Html::Request("password")) {
 		$username = Html::Request("username");
-		$password = String::PasswordEncrypt(Html::Request("password"), $salt);
+		$password = String::Encrypt(Html::Request("password"), $salt);
 	}
 
 	$now = time();
