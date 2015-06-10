@@ -106,15 +106,12 @@ class Main
 	 */
 	private function _LoadKernel()
 	{
-		require("kernel/Core.php");
-		require("kernel/Database.php");
-		require("kernel/Email.php");
-		require("kernel/Html.php");
-		require("kernel/i18n.php");
-		require("kernel/Session.php");
-		require("kernel/String.php");
-		require("kernel/Template.php");
-		require("kernel/Upload.php");
+		foreach(scandir("kernel") as $filename) {
+			if(substr_count($filename, ".php") < 1) {
+				continue; // Ignore non-PHP files
+			}
+			require("kernel/" . $filename);
+		}
 	}
 
 	/**
@@ -212,6 +209,7 @@ class Main
 	private function _GetTemplate()
 	{
 		if($this->Session->session_info['member_id']) {
+			// Get member-defined theme
 			$this->theme = $this->Session->member_info['theme'];
 			$this->Config['theme'] = $this->theme;
 
@@ -219,6 +217,7 @@ class Main
 			$this->Config['template'] = $this->template;
 		}
 		else {
+			// Get default theme set
 			$this->theme = $this->Config['theme_default_set'];
 			$this->Config['theme'] = $this->theme;
 
