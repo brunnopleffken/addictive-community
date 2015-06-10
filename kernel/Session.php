@@ -292,7 +292,6 @@ class Session
 
 		// Running the method UpdateExistingMember() for the first time?
 		// Check if session register exists in database, if not, create it
-		// and create a session 'logged_in'.
 		if(!isset($_SESSION['logged_in'])) {
 			$this->Db->Query("SELECT EXISTS(SELECT 1 FROM c_sessions WHERE member_id = {$this->session_info['member_id']});");
 			$result = $this->Db->Fetch();
@@ -313,8 +312,6 @@ class Session
 				// Insert new session on database
 				$this->Db->Insert("c_sessions", $this->session_info);
 			}
-
-			$_SESSION['logged_in'] = $this->session_info['member_id'];
 		}
 
 		// Get logged in member information
