@@ -53,6 +53,7 @@ class String
 	{
 		// Dangerous HTML elements
 		$text = str_replace("<!--", "", $text);
+		$text = preg_replace("/(<\?php|<\?=|\?>)/", "", $text); // No PHP open/close tags
 		$text = preg_replace("/(<script>|<\/script>)/", "", $text); // No JS
 		$text = preg_replace("/(<applet>|<\/applet>|<object>|<\/object>|<embed>|<\/embed>)/", "", $text); // No embedded elements
 		$text = preg_replace("/(<iframe>|<\/iframe>)/", "", $text); // No IFRAMES
