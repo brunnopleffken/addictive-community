@@ -163,8 +163,8 @@ class String
 	 * ARE JOINED WITH 'AND'.
 	 * --------------------------------------------------------------------
 	 */
-	 public static function Slug($string, $replacement = "-")
-	 {
+	public static function Slug($string, $replacement = "-")
+	{
 	 	// Remove single quotes to join contracted English words
 	 	// So, "don't like" becomes "dont-like", and not "don-t-like"
 		$string = str_replace("&apos;", "", $string);
@@ -211,5 +211,17 @@ class String
 		);
 
 		return preg_replace(array_keys($map), array_values($map), $string);
-	 }
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * CONVERT string_with_underscore TO StringWithUnderscore
+	 * --------------------------------------------------------------------
+	 */
+	public static function FormatActionName($action_name = "")
+	{
+		$action_name = preg_replace("/(_)/", " ", $action_name);
+		$action_name = preg_replace("/([\s])/", "", ucwords($action_name));
+		return $action_name;
+	}
 }

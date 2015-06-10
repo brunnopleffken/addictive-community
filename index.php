@@ -142,7 +142,7 @@ class Main
 
 		// Get and execute action passed by URL, if any
 		if($action != "") {
-			$action = $this->_FormatActionName($this->action);
+			$action = String::FormatActionName($this->action);
 		}
 		else {
 			$action = $this->action = "Main";
@@ -191,24 +191,12 @@ class Main
 
 			// Load page content
 			ob_start();
-			require("templates/" . $this->template . "/" . $this->controller . "." . $this->_FormatActionName($this->action) . ".phtml");
+			require("templates/" . $this->template . "/" . $this->controller . "." . String::FormatActionName($this->action) . ".phtml");
 			$this->content = ob_get_clean();
 
 			// Load master page
 			require("templates/" . $this->template . "/" . $this->instance->master . ".phtml");
 		}
-	}
-
-	/**
-	 * --------------------------------------------------------------------
-	 * CONVERT string_with_underscore TO StringWithUnderscore
-	 * --------------------------------------------------------------------
-	 */
-	private function _FormatActionName($action_name)
-	{
-		$action_name = preg_replace("/(_)/", " ", $action_name);
-		$action_name = preg_replace("/([\s])/", "", ucwords($action_name));
-		return $action_name;
 	}
 
 	/**
