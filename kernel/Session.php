@@ -146,7 +146,7 @@ class Session
 		// If it exists, save in class property for further usage
 		if(!$has_session) {
 			// Create new session ID and store it in browser session
-			$this->session_id = md5(uniqid(microtime()));
+			$this->session_id = md5(uniqid(mt_rand(), true));
 			$_SESSION['session_id'] = $this->session_id;
 		}
 		else {
@@ -160,7 +160,9 @@ class Session
 			$this->session_info['member_id'] = $this->GetCookie("member_id");
 
 			// Delete all old session data, except current logged in member
-			$this->Db->Delete("c_sessions", "activity_time < '{$this->session_activity_cut}' AND member_id <> {$this->session_info['member_id']}");
+			$this->Db->Delete("c_sessions",
+				"activity_time < '{$this->session_activity_cut}' AND member_id <> {$this->session_info['member_id']}"
+			);
 
 			// Update member session
 			$this->UpdateMemberSession();
