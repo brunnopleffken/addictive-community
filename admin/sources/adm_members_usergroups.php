@@ -11,7 +11,7 @@
 
 	// Notification
 
-	$msg = (Html::Request("msg")) ? Html::Request("msg") : 0;
+	$msg = (Http::Request("msg")) ? Http::Request("msg") : 0;
 
 	switch($msg) {
 		case 1:

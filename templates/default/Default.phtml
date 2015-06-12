@@ -48,7 +48,7 @@
 			<a href="<?php __($community_url) ?>"><img src="themes/<?php __($theme) ?>/images/logo.png" class="logo" alt="Addictive Community"></a>
 			<div id="search">
 				<form action="search" method="get" class="validate">
-					<input type="text" name="q" size="25" class="required" value="<?php echo Html::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>">
+					<input type="text" name="q" size="25" class="required" value="<?php echo Http::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>">
 					<input type="submit" value="OK">
 				</form>
 			</div>

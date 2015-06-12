@@ -11,8 +11,8 @@
 
 	// Get variables
 
-	$name = Html::Request("id");
-	$dir  = Html::Request("dir");
+	$name = Http::Request("id");
+	$dir  = Http::Request("dir");
 
 	// Get file content
 

@@ -71,9 +71,9 @@ class Main
 		$this->Db = new Database($config);
 
 		// Get query strings from URL
-		$this->controller = strtolower(Html::Request("c"));
-		$this->action = strtolower(Html::Request("act"));
-		$this->id = strtolower(Html::Request("id"));
+		$this->controller = strtolower(Http::Request("c"));
+		$this->action = strtolower(Http::Request("act"));
+		$this->id = strtolower(Http::Request("id"));
 
 		// If there isn't any controller defined
 		if(!$this->controller) {

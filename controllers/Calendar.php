@@ -21,7 +21,7 @@ class Calendar extends Application
 	public function Main()
 	{
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_1"), "success")
 		);
@@ -59,7 +59,7 @@ class Calendar extends Application
 	public function View()
 	{
 		// Get date and convert to array
-		$date = explode("-", Html::Request("date"));
+		$date = explode("-", Http::Request("date"));
 
 		// Get all events
 		$this->Db->Query("SELECT e.*, m.username FROM c_events e
@@ -106,20 +106,20 @@ class Calendar extends Application
 	public function Save()
 	{
 		$event = array(
-			"title"     => Html::Request("title"),
-			"type"      => Html::Request("type"),
+			"title"     => Http::Request("title"),
+			"type"      => Http::Request("type"),
 			"author"    => $this->Session->member_info['m_id'],
-			"day"       => Html::Request("day"),
-			"month"     => Html::Request("month"),
-			"year"      => Html::Request("year"),
+			"day"       => Http::Request("day"),
+			"month"     => Http::Request("month"),
+			"year"      => Http::Request("year"),
 			"timestamp" => mktime(
-					Html::Request("hour"),
-					Html::Request("minute"), 0,
-					Html::Request("month"),
-					Html::Request("day"),
-					Html::Request("year")),
+					Http::Request("hour"),
+					Http::Request("minute"), 0,
+					Http::Request("month"),
+					Http::Request("day"),
+					Http::Request("year")),
 			"added"     => time(),
-			"text"      => Html::Request("text"),
+			"text"      => Http::Request("text"),
 		);
 
 		// Insert into database and redirect
@@ -164,8 +164,8 @@ class Calendar extends Application
 	private function _GenerateCalendar()
 	{
 		// Get current date/year, if not set
-		$current_month = (Html::Request("month")) ? Html::Request("month") : date("m");
-		$current_year  = (Html::Request("year")) ? Html::Request("year") : date("Y");
+		$current_month = (Http::Request("month")) ? Http::Request("month") : date("m");
+		$current_year  = (Http::Request("year")) ? Http::Request("year") : date("Y");
 
 		// What is the day of today?
 		$today_info = getdate(time());

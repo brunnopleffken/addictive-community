@@ -39,17 +39,17 @@ class Login extends Application
 			"key"  => $this->Core->config['security_salt_key']
 		);
 
-		if(Html::Request("username") && Html::Request("password")) {
-			$username = Html::Request("username");
-			$password = String::Encrypt(Html::Request("password"), $salt);
+		if(Http::Request("username") && Http::Request("password")) {
+			$username = Http::Request("username");
+			$password = String::Encrypt(Http::Request("password"), $salt);
 
 			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");
 
 			if($this->Db->Rows()) {
 				$user_info = $this->Db->Fetch();
-				$user_info['anonymous']  = (Html::Request("anonymous")) ? 1 : 0;
-				$user_info['remember']   = (Html::Request("remember")) ? 1 : 0;
+				$user_info['anonymous']  = (Http::Request("anonymous")) ? 1 : 0;
+				$user_info['remember']   = (Http::Request("remember")) ? 1 : 0;
 				$user_info['session_id'] = $_SESSION['session_id'];
 
 				// Check if member session was created successfully
@@ -57,7 +57,7 @@ class Login extends Application
 
 				// Are we attempting to login from an exception page?
 				// HTML: <input type="hidden" name="exception_referrer" value="true">
-				if(Html::Request("exception_referrer")) {
+				if(Http::Request("exception_referrer")) {
 					// Redirect to Home
 					$this->Core->Redirect("/");
 				}
@@ -89,9 +89,9 @@ class Login extends Application
 			"key"  => $this->Core->config['security_salt_key']
 		);
 
-		if(Html::Request("username") && Html::Request("password")) {
-			$username = Html::Request("username");
-			$password = String::Encrypt(Html::Request("password"), $salt);
+		if(Http::Request("username") && Http::Request("password")) {
+			$username = Http::Request("username");
+			$password = String::Encrypt(Http::Request("password"), $salt);
 
 			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");

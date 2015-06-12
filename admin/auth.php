@@ -31,9 +31,9 @@
 
 	// Get form information
 
-	if(Html::Request("username") && Html::Request("password")) {
-		$username = Html::Request("username");
-		$password = String::Encrypt(Html::Request("password"), $salt);
+	if(Http::Request("username") && Http::Request("password")) {
+		$username = Http::Request("username");
+		$password = String::Encrypt(Http::Request("password"), $salt);
 	}
 
 	$now = time();

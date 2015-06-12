@@ -9,7 +9,7 @@
 	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
 
-	$msg = (Html::Request("msg")) ? Html::Request("msg") : "";
+	$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
 
 	switch($msg) {
 		case 1:

@@ -84,7 +84,7 @@ class Usercp extends Application
 		$menu = array("", "selected", "", "", "", "");
 
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_1"), "success")
 		);
@@ -122,7 +122,7 @@ class Usercp extends Application
 		$menu = array("", "", "selected", "", "", "");
 
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_2"), "success")
 		);
@@ -181,7 +181,7 @@ class Usercp extends Application
 		$menu = array("", "", "", "selected", "", "");
 
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_3"), "success")
 		);
@@ -207,7 +207,7 @@ class Usercp extends Application
 		$menu = array("", "", "", "", "selected", "");
 
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_4"), "success")
 		);
@@ -291,7 +291,7 @@ class Usercp extends Application
 		$menu = array("", "", "", "", "", "selected");
 
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_5"), "success"),
 			Html::Notification(i18n::Translate("C_MESSAGE_6"), "failure"),
@@ -319,17 +319,17 @@ class Usercp extends Application
 
 		// Get values
 		$info = array(
-			"email"        => Html::Request("email"),
-			"member_title" => Html::Request("member_title"),
-			"location"     => Html::Request("location"),
-			"profile"      => Html::Request("profile"),
-			"b_day"        => Html::Request("b_day"),
-			"b_month"      => Html::Request("b_month"),
-			"b_year"       => Html::Request("b_year"),
-			"gender"       => Html::Request("gender"),
-			"website"      => Html::Request("website"),
-			"im_facebook"  => Html::Request("im_facebook"),
-			"im_twitter"   => Html::Request("im_twitter")
+			"email"        => Http::Request("email"),
+			"member_title" => Http::Request("member_title"),
+			"location"     => Http::Request("location"),
+			"profile"      => Http::Request("profile"),
+			"b_day"        => Http::Request("b_day"),
+			"b_month"      => Http::Request("b_month"),
+			"b_year"       => Http::Request("b_year"),
+			"gender"       => Http::Request("gender"),
+			"website"      => Http::Request("website"),
+			"im_facebook"  => Http::Request("im_facebook"),
+			"im_twitter"   => Http::Request("im_twitter")
 		);
 
 		// Save and redirect...
@@ -347,7 +347,7 @@ class Usercp extends Application
 		$this->layout = false;
 
 		// Get photo type
-		$photo_type = Html::Request("photo_type");
+		$photo_type = Http::Request("photo_type");
 
 		// Do processes!
 		if($photo_type == "gravatar" || $photo_type == "facebook") {
@@ -433,9 +433,9 @@ class Usercp extends Application
 
 		// Get values
 		$info = array(
-			"theme"       => Html::Request("theme"),
-			"language"    => Html::Request("language"),
-			"time_offset" => Html::Request("timezone")
+			"theme"       => Http::Request("theme"),
+			"language"    => Http::Request("language"),
+			"time_offset" => Http::Request("timezone")
 		);
 
 		// Save and redirect...
@@ -459,9 +459,9 @@ class Usercp extends Application
 		);
 
 		// Get values
-		$current   = String::Encrypt(Html::Request("current"), $salt);
-		$new_pass  = String::Encrypt(Html::Request("new_password"), $salt);
-		$conf_pass = String::Encrypt(Html::Request("conf_password"), $salt);
+		$current   = String::Encrypt(Http::Request("current"), $salt);
+		$new_pass  = String::Encrypt(Http::Request("new_password"), $salt);
+		$conf_pass = String::Encrypt(Http::Request("conf_password"), $salt);
 
 		// Check if member and password matches
 		$this->Db->Query("SELECT COUNT(*) AS result FROM c_members WHERE m_id = '{$this->member_id}' AND password = '{$current}';");

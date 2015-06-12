@@ -10,7 +10,7 @@
 	## ---------------------------------------------------
 
 	// Build notification messages
-	$msg = (Html::Request("msg")) ? Html::Request("msg") : "";
+	$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
 
 	switch($msg) {
 		case 1:

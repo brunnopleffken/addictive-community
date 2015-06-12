@@ -60,13 +60,13 @@ class Report extends Application
 		$this->layout = false;
 
 		// Check if user is reporting a post or a thread
-		if(!Html::Request("post_id")) {
+		if(!Http::Request("post_id")) {
 			$mode = "thread";
-			$thread_id = Html::Request("thread_id");
+			$thread_id = Http::Request("thread_id");
 		}
 		else {
 			$mode = "post";
-			$post_id = Html::Request("post_id");
+			$post_id = Http::Request("post_id");
 
 			$this->Db->Query("SELECT thread_id FROM c_posts WHERE p_id = {$post_id};");
 			$result = $this->Db->Fetch();
@@ -76,10 +76,10 @@ class Report extends Application
 
 		// Build report
 		$report_info = array(
-			"description" => Html::Request("description"),
-			"reason"      => Html::Request("reason"),
+			"description" => Http::Request("description"),
+			"reason"      => Http::Request("reason"),
 			"date"        => time(),
-			"sender_id"   => Html::Request("member_id"),
+			"sender_id"   => Http::Request("member_id"),
 			"ip_address"  => $_SERVER['REMOTE_ADDR'],
 			"post_id"     => ($post_id) ? $post_id : "0",
 			"thread_id"   => ($thread_id) ? $thread_id : "0",

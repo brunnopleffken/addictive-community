@@ -21,10 +21,10 @@ class Register extends Application
 	public function Main()
 	{
 		// Get step
-		$step = (!Html::Request("step")) ? 1 : Html::Request("step");
+		$step = (!Http::Request("step")) ? 1 : Http::Request("step");
 
 		// Notifications
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("R_ERROR_1"), "failure", true),
 			Html::Notification(i18n::Translate("R_ERROR_2"), "failure", true),
@@ -56,7 +56,7 @@ class Register extends Application
 
 		// Check if the entered CAPTCHA matches the registered in the session
 		if($this->Core->config['general_security_captcha'] == "true") {
-			if(Html::Request("captcha") != $_SESSION['captcha']) {
+			if(Http::Request("captcha") != $_SESSION['captcha']) {
 				$this->Core->Redirect("register?step=2&m=5");
 			}
 			else {
@@ -65,17 +65,17 @@ class Register extends Application
 		}
 
 		// Check if user has entered with username, password and e-mail address
-		if(!Html::Request("username") || !Html::Request("email") || !Html::Request("password")) {
+		if(!Http::Request("username") || !Http::Request("email") || !Http::Request("password")) {
 			$this->Core->Request("register?step=2&m=1");
 		}
 
 		// Check if passwords are equal
-		if(Html::Request("password") != Html::Request("password_conf")) {
+		if(Http::Request("password") != Http::Request("password_conf")) {
 			$this->Core->Request("register?step=2&m=2");
 		}
 
 		// Check username length
-		if(strlen(Html::Request("username")) < 3 || strlen(Html::Request("username")) > 20) {
+		if(strlen(Http::Request("username")) < 3 || strlen(Http::Request("username")) > 20) {
 			$this->Core->Request("register?step=2&m=3");
 		}
 
@@ -90,9 +90,9 @@ class Register extends Application
 
 		// Build new member info array
 		$register_info = array(
-			"username"      => Html::Request("username"),
-			"password"      => String::Encrypt(Html::Request("password"), $salt),
-			"email"         => Html::Request("email"),
+			"username"      => Http::Request("username"),
+			"password"      => String::Encrypt(Http::Request("password"), $salt),
+			"email"         => Http::Request("email"),
 			"hide_email"    => 1,
 			"ip_address"    => $_SERVER['REMOTE_ADDR'],
 			"joined"        => time(),
@@ -172,8 +172,8 @@ class Register extends Application
 		$this->layout = false;
 
 		// Get member ID
-		$member = Html::Request("m");
-		$token  = Html::Request("token");
+		$member = Http::Request("m");
+		$token  = Http::Request("token");
 
 		// Check if user has already validated
 		$this->Db->Query("SELECT m_id, usergroup, token FROM c_members WHERE m_id = {$member};");

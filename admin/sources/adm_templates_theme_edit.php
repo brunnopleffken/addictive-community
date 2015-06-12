@@ -11,7 +11,7 @@
 
 	// Theme details
 
-	$id = Html::Request("id");
+	$id = Http::Request("id");
 
 	$Db->Query("SELECT * FROM c_themes WHERE theme_id = {$id};");
 	$themes = $Db->Fetch();

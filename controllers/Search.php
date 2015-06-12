@@ -25,10 +25,10 @@ class Search extends Application
 		$_result = array();
 
 		// Get keyword
-		$keyword = Html::Request("q");
+		$keyword = Http::Request("q");
 
 		// Are we searching in an specific post?
-		$mode = Html::Request("mode");
+		$mode = Http::Request("mode");
 		switch($mode) {
 			case "post":
 				$where = "thread_id = '{$id}' AND";
@@ -39,7 +39,7 @@ class Search extends Application
 		}
 
 		// Sort by relevance or date?
-		$sort = Html::Request("sort");
+		$sort = Http::Request("sort");
 		switch($sort) {
 			case "date":
 				$order = "ORDER BY post_date DESC";

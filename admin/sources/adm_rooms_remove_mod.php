@@ -10,11 +10,11 @@
 	## ---------------------------------------------------
 
 	// Build notification messages
-	$msg = (Html::Request("msg")) ? Html::Request("msg") : "";
+	$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
 
 	switch($msg) {
 		case 1:
-			$member_id = Html::Request("m_id");
+			$member_id = Http::Request("m_id");
 			$Db->Query("SELECT username FROM c_members WHERE m_id = {$member_id}");
 			$member_info = $Db->Fetch();
 
@@ -27,7 +27,7 @@
 
 	// Get rooms info
 
-	$id = Html::Request("id", true);
+	$id = Http::Request("id", true);
 
 	$_room_info = $Db->Query("SELECT name, moderators FROM c_rooms WHERE r_id = {$id};");
 	$room_info = $Db->Fetch($_room_info);

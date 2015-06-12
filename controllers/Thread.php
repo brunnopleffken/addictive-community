@@ -21,7 +21,7 @@ class Thread extends Application
 	public function Main($id)
 	{
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("T_MESSAGE_1"), "success"),
 			Html::Notification(i18n::Translate("T_MESSAGE_2"), "success"),
@@ -125,7 +125,7 @@ class Thread extends Application
 		$this->Set("room_info", $room_info);
 		$this->Set("allow_uploads", $room_info['upload']);
 		$this->Set("is_moderator", $this->_IsModerator($room_info['moderators']));
-		$this->Set("is_poll", Html::Request("poll"));
+		$this->Set("is_poll", Http::Request("poll"));
 	}
 
 	/**
@@ -167,12 +167,12 @@ class Thread extends Application
 		$this->layout = false;
 
 		// Get room ID
-		$room_id = Html::Request("room_id");
+		$room_id = Http::Request("room_id");
 
 		// Format new post array
 		$post = array(
 			"author_id"   => $this->Session->member_info['m_id'],
-			"thread_id"   => Html::Request("id", true),
+			"thread_id"   => Http::Request("id", true),
 			"post_date"   => time(),
 			"ip_address"  => $_SERVER['REMOTE_ADDR'],
 			"post"        => $_POST['post'],
@@ -182,7 +182,7 @@ class Thread extends Application
 
 		// Send attachments
 		$Upload = new Upload($this->Db);
-		$post['attach_id'] = $Upload->Attachment(Html::File("attachment"), $post['author_id']);
+		$post['attach_id'] = $Upload->Attachment(Http::File("attachment"), $post['author_id']);
 
 		// Insert new post into DB
 		$this->Db->Insert("c_posts", $post);
@@ -224,9 +224,9 @@ class Thread extends Application
 		$this->layout = false;
 
 		// If we're adding a poll, build poll array
-		if(Html::Request("poll_question")) {
+		if(Http::Request("poll_question")) {
 			// Transform list of choices in an array
-			$questions = explode("\r\n", trim(Html::Request("poll_choices")));
+			$questions = explode("\r\n", trim(Http::Request("poll_choices")));
 			$questions = array_filter($questions, "trim");
 
 			 // For each question, add a corresponding number of votes...
@@ -251,20 +251,20 @@ class Thread extends Application
 
 		// Insert new thread item
 		$thread = array(
-			"title"               => Html::Request("title"),
-			"slug"                => String::Slug(htmlspecialchars_decode(Html::Request("title"), ENT_QUOTES)),
+			"title"               => Http::Request("title"),
+			"slug"                => String::Slug(htmlspecialchars_decode(Http::Request("title"), ENT_QUOTES)),
 			"author_member_id"    => $this->Session->member_info['m_id'],
 			"replies"             => 1,
 			"views"               => 0,
 			"start_date"          => time(),
-			"room_id"             => Html::Request("room_id", true),
-			"announcement"        => Html::Request("announcement", true),
+			"room_id"             => Http::Request("room_id", true),
+			"announcement"        => Http::Request("announcement", true),
 			"lastpost_date"       => time(),
 			"lastpost_member_id"  => $this->Session->member_info['m_id'],
-			"locked"              => Html::Request("locked", true),
+			"locked"              => Http::Request("locked", true),
 			"approved"            => 1,
 			"with_bestanswer"     => 0,
-			"poll_question"       => Html::Request("poll_question"),
+			"poll_question"       => Http::Request("poll_question"),
 			"poll_data"           => $poll_data,
 			"poll_allow_multiple" => (isset($_POST['poll_allow_multiple'])) ? 1 : 0
 		);
@@ -282,7 +282,7 @@ class Thread extends Application
 		);
 
 		$Upload = new Upload($this->Db);
-		$post['attach_id'] = $Upload->Attachment(Html::File("attachment"), $post['author_id']);
+		$post['attach_id'] = $Upload->Attachment(Http::File("attachment"), $post['author_id']);
 
 		$this->Db->Insert("c_posts", $post);
 
@@ -321,7 +321,7 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Check if the author is the user currently logged in
-		if($this->Session->session_info['member_id'] != Html::Request("member_id")) {
+		if($this->Session->session_info['member_id'] != Http::Request("member_id")) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
@@ -335,7 +335,7 @@ class Thread extends Application
 		$this->Db->Update("c_posts", $post, "p_id = {$post_id}");
 
 		// Redirect
-		$this->Core->Redirect("thread/" . Html::Request("thread_id") . "#post-" . $post_id);
+		$this->Core->Redirect("thread/" . Http::Request("thread_id") . "#post-" . $post_id);
 	}
 
 	/**
@@ -351,9 +351,9 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Get post information
-		$author_id = Html::Request("mid");
-		$thread_id = Html::Request("tid");
-		$post_id = Html::Request("pid");
+		$author_id = Http::Request("mid");
+		$thread_id = Http::Request("tid");
+		$post_id = Http::Request("pid");
 
 		// Check if the author is the user currently logged in member
 		if($this->Session->session_info['member_id'] != $author_id) {
@@ -550,14 +550,14 @@ class Thread extends Application
 
 		if($thread_info['poll_allow_multiple'] == 0) {
 			// Increase vote count
-			$poll_data['replies'][Html::Request("chosen_option")] += 1;
+			$poll_data['replies'][Http::Request("chosen_option")] += 1;
 
 			// Add member ID to voters list
 			array_push($poll_data['voters'], $this->Session->member_info['m_id']);
 		}
 		else {
 			// If poll allows multiple choice
-			foreach(Html::Request("chosen_option") as $chosen_option) {
+			foreach(Http::Request("chosen_option") as $chosen_option) {
 				$poll_data['replies'][$chosen_option] += 1;
 			}
 
@@ -842,7 +842,7 @@ class Thread extends Application
 		$total_posts = $thread_info['post_count'] - 1;
 
 		// page number for SQL sentences
-		$pages['for_sql'] = (Html::Request("p")) ? Html::Request("p") * $pages['items_per_page'] - $pages['items_per_page'] : 0;
+		$pages['for_sql'] = (Http::Request("p")) ? Http::Request("p") * $pages['items_per_page'] - $pages['items_per_page'] : 0;
 
 		// page number for HTML page numbers
 		$pages['display'] = (isset($_REQUEST['p'])) ? $_REQUEST['p'] : 1;

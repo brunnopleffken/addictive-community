@@ -38,13 +38,13 @@ class Messenger extends Application
 	public function Main()
 	{
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("M_MESSAGE_1"), "success"),
 			Html::Notification(i18n::Translate("M_MESSAGE_2"), "failure")
 		);
 
-		$folder = (Html::Request("folder")) ? Html::Request("folder") : "inbox";
+		$folder = (Http::Request("folder")) ? Http::Request("folder") : "inbox";
 
 		// Get personal messages
 		if($folder == "sent") {
@@ -163,7 +163,7 @@ class Messenger extends Application
 		$this->layout = false;
 
 		// Get member name
-		$term = Html::Request("term");
+		$term = Http::Request("term");
 
 		// Get list of usernames
 		$this->Db->Query("SELECT m_id, username FROM c_members WHERE username LIKE '%{$term}%';");
@@ -192,8 +192,8 @@ class Messenger extends Application
 		// Build register
 		$pm = array(
 			"from_id"   => $this->member_id,
-			"to_id"     => Html::Request("to", true),
-			"subject"   => Html::Request("subject"),
+			"to_id"     => Http::Request("to", true),
+			"subject"   => Http::Request("subject"),
 			"status"    => 1,
 			"sent_date" => time(),
 			"message"   => $_REQUEST['post']
@@ -217,7 +217,7 @@ class Messenger extends Application
 
 		// Get information
 		$member_id = $this->Session->session_info['member_id'];
-		$selected = Html::Request("pm");
+		$selected = Http::Request("pm");
 
 		// Execute deletion
 		foreach($selected as $pm_id) {

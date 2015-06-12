@@ -24,7 +24,7 @@
 	require_once("../kernel/Database.php");
 
 	// Get step number
-	$step = Html::Request("step");
+	$step = Http::Request("step");
 
 	// Get user data
 	$data = $_POST;
