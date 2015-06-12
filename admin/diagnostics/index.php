@@ -20,7 +20,7 @@ require(ROOT . "kernel/Html.php");
 require(ROOT . "kernel/String.php");
 
 // Check if .lock exists
-if(file_exists("../../install/.lock")) {
+if(file_exists(ROOT . "install/.lock")) {
 	Html::Error("The community is locked. You're unable to run the Diagnostic Tools.<br>Please, delete the file <b>install/.lock</b> and try again.");
 }
 
