@@ -13,6 +13,9 @@
 
 class Thread extends Application
 {
+	// Thread information
+	private $thread_info = array();
+
 	/**
 	 * --------------------------------------------------------------------
 	 * SHOW THREAD
@@ -33,10 +36,10 @@ class Thread extends Application
 		);
 
 		// Get thread information
-		$thread_info = $this->_GetThreadInfo($id);
+		$this->thread_info = $this->_GetThreadInfo($id);
 
 		// Update session table with room ID
-		$this->_UpdateSessionTable($thread_info);
+		$this->_UpdateSessionTable();
 
 		// Avoid page navigation from incrementing visit counter
 		$_SERVER['HTTP_REFERER'] = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : false;
@@ -53,29 +56,29 @@ class Thread extends Application
 		$first_post_info = $this->_GetFirstPost($id, $emoticons);
 
 		// Get replies
-		$pages = $this->_GetPages($thread_info);
-		$replies = $this->_GetReplies($id, $emoticons, $pages, $thread_info);
+		$pages = $this->_GetPages();
+		$replies = $this->_GetReplies($id, $emoticons, $pages);
 
 		// Build pagination links
 		$pagination = $this->_BuildPaginationLinks($pages, $id);
 
 		// Get related threads
-		$related_thread_list = $this->_RelatedThreads($id, $thread_info['title']);
+		$related_thread_list = $this->_RelatedThreads($id);
 
 		// Page info
-		$page_info['title'] = $thread_info['title'];
-		$page_info['bc'] = array($thread_info['name'], $thread_info['title']);
+		$page_info['title'] = $this->thread_info['title'];
+		$page_info['bc'] = array($this->thread_info['name'], $this->thread_info['title']);
 		$this->Set("page_info", $page_info);
 
 		$this->Set("thread_id", $id);
-		$this->Set("thread_info", $thread_info);
+		$this->Set("thread_info", $this->thread_info);
 		$this->Set("notification", $notification[$message_id]);
 		$this->Set("enable_signature", $this->Core->config['general_member_enable_signature']);
 		$this->Set("first_post_info", $first_post_info);
 		$this->Set("reply", $replies);
 		$this->Set("pagination", $pagination);
 		$this->Set("related_thread_list", $related_thread_list);
-		$this->Set("is_moderator", $this->_IsModerator($thread_info['moderators']));
+		$this->Set("is_moderator", $this->_IsModerator($this->thread_info['moderators']));
 	}
 
 	/**
@@ -679,11 +682,11 @@ class Thread extends Application
 	 * UPDATE SESSION TABLE WITH THREAD ID IN 'location_room_id'
 	 * --------------------------------------------------------------------
 	 */
-	private function _UpdateSessionTable($thread_info)
+	private function _UpdateSessionTable()
 	{
 		// Update session table with room ID
 		$session = $this->Session->session_id;
-		$this->Db->Update("c_sessions", "location_room_id = {$thread_info['room_id']}", "s_id = '{$session}'");
+		$this->Db->Update("c_sessions", "location_room_id = {$this->thread_info['room_id']}", "s_id = '{$session}'");
 	}
 
 	/**
@@ -746,7 +749,7 @@ class Thread extends Application
 	 * GET REPLIES
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetReplies($id, $emoticons, $pages, $thread_info)
+	private function _GetReplies($id, $emoticons, $pages)
 	{
 		$reply_result = array();
 
@@ -799,7 +802,7 @@ class Thread extends Application
 			}
 
 			// Thread controls
-			if($thread_info['author_member_id'] == $this->Session->member_info['m_id']
+			if($this->thread_info['author_member_id'] == $this->Session->member_info['m_id']
 				&& $result['author_id'] != $this->Session->member_info['m_id']) {
 				if($result['best_answer'] == 0) {
 					// Set post as Best Answer
@@ -836,10 +839,10 @@ class Thread extends Application
 	 * GET NUMBER OF PAGES AND VALUES FOR SQL QUERY
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetPages($thread_info)
+	private function _GetPages()
 	{
 		$pages['items_per_page'] = $this->Core->config['thread_posts_per_page'];
-		$total_posts = $thread_info['post_count'] - 1;
+		$total_posts = $this->thread_info['post_count'] - 1;
 
 		// page number for SQL sentences
 		$pages['for_sql'] = (Http::Request("p")) ? Http::Request("p") * $pages['items_per_page'] - $pages['items_per_page'] : 0;
@@ -895,10 +898,10 @@ class Thread extends Application
 	 * GET LIST OF RELATED THREADS
 	 * --------------------------------------------------------------------
 	 */
-	private function _RelatedThreads($id, $thread_title)
+	private function _RelatedThreads($id)
 	{
 		$thread_list = "";
-		$thread_search = explode(" ", strtolower($thread_title));
+		$thread_search = explode(" ", strtolower($this->thread_info['title']));
 		$related_thread_list = array();
 
 		foreach($thread_search as $key => $value) {
