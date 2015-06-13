@@ -22,9 +22,9 @@ INSERT INTO `c_languages` (`l_id`, `name`, `directory`, `author_name`, `author_e
 VALUES
 	(1,'English (US)','en_US','Addictive Community','brunno.pleffken@outlook.com',1,1);
 
-INSERT INTO `c_stats` (`id`, `member_count`, `total_posts`, `total_threads`)
+INSERT INTO `c_stats` (`id`, `member_count`, `post_count`, `thread_count`)
 VALUES
-	(1,2,4,3);
+	(1,1,0,1);
 
 INSERT INTO `c_templates` (`tpl_id`, `name`, `directory`, `is_active`, `author_name`, `author_email`)
 VALUES

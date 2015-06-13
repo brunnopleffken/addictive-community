@@ -53,6 +53,7 @@ class String
 	{
 		// Dangerous HTML elements
 		$text = str_replace("<!--", "", $text);
+		$text = preg_replace("/(<\?php|<\?=|\?>)/", "", $text); // No PHP open/close tags
 		$text = preg_replace("/(<script>|<\/script>)/", "", $text); // No JS
 		$text = preg_replace("/(<applet>|<\/applet>|<object>|<\/object>|<embed>|<\/embed>)/", "", $text); // No embedded elements
 		$text = preg_replace("/(<iframe>|<\/iframe>)/", "", $text); // No IFRAMES
@@ -66,7 +67,7 @@ class String
 	 * $salt must be an array containing [ "hash", "key" ]
 	 * --------------------------------------------------------------------
 	 */
-	public static function PasswordEncrypt($password, $salt = array())
+	public static function Encrypt($password, $salt = array())
 	{
 		$hash = $password . $salt['hash'];
 		for($i = 0; $i < $salt['key']; $i++) {
@@ -142,7 +143,7 @@ class String
 	 * CONVERT BYTE SIZE INTO HUMAN READABLE FORMAT
 	 * --------------------------------------------------------------------
 	 */
-	public static function FileSizeFormat($bytes)
+	public static function FileSizeFormat($bytes = 0)
 	{
 		if($bytes >= 1048576) {
 			$retval = round($bytes / 1048576 * 100) / 100 . " MB";
@@ -163,8 +164,8 @@ class String
 	 * ARE JOINED WITH 'AND'.
 	 * --------------------------------------------------------------------
 	 */
-	 public static function Slug($string, $replacement = "-")
-	 {
+	public static function Slug($string, $replacement = "-")
+	{
 	 	// Remove single quotes to join contracted English words
 	 	// So, "don't like" becomes "dont-like", and not "don-t-like"
 		$string = str_replace("&apos;", "", $string);
@@ -211,5 +212,17 @@ class String
 		);
 
 		return preg_replace(array_keys($map), array_values($map), $string);
-	 }
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * CONVERT string_with_underscore TO StringWithUnderscore
+	 * --------------------------------------------------------------------
+	 */
+	public static function FormatActionName($action_name = "")
+	{
+		$action_name = preg_replace("/(_)/", " ", $action_name);
+		$action_name = preg_replace("/([\s])/", "", ucwords($action_name));
+		return $action_name;
+	}
 }

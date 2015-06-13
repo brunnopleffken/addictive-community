@@ -21,7 +21,7 @@ class Error extends Application
 	public function Main()
 	{
 		// Get type of error
-		$type = Html::Request("t");
+		$type = Http::Request("t");
 
 		// Error list
 		$errors = array(

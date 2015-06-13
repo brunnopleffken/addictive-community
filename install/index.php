@@ -138,6 +138,11 @@ HTML;
 				exit;
 			}
 
+			// Show notification message about tables prefixes
+			$notification = Html::Notification(
+				"Don't worry, all tables are prefixed with <b>c_</b>.", "info", true
+			);
+
 			// Ok, proceed...
 
 			$template = <<<HTML
@@ -149,21 +154,27 @@ HTML;
 					<div class="next"><h3>Step 5</h3><span class="tiny">Install</span></div>
 				</div>
 
-				<form action="index.php?step=3" method="post" id="database-form" class="validate">
+				{$notification}
+
+				<form action="index.php?step=3" method="post" id="database-form">
 					<div class="input-box">
 						<div class="label">MySQL Host</div>
-						<div class="field"><input type="text" name="host" class="required medium"></div>
+						<div class="field"><input type="text" name="host" class="required small"></div>
+					</div>
+					<div class="input-box">
+						<div class="label">MySQL Port</div>
+						<div class="field"><input type="text" name="port" value="3306" class="required tiny"></div>
 					</div>
 					<div class="input-box">
 						<div class="label">Database</div>
 						<div class="field"><input type="text" name="database" class="required small"></div>
 					</div>
 					<div class="input-box">
-						<div class="label">DB Username</div>
+						<div class="label">Username</div>
 						<div class="field"><input type="text" name="username" class="required small"></div>
 					</div>
 					<div class="input-box">
-						<div class="label">DB Password</div>
+						<div class="label">Password</div>
 						<div class="field"><input type="password" name="password" class="small"></div>
 					</div>
 					<div class="input-box" style="text-align: center"><input type="submit" value="Proceed"></div>
@@ -189,6 +200,7 @@ HTML;
 			$_SESSION['db_database'] = $installer->input['db_database'] = $_REQUEST['database'];
 			$_SESSION['db_username'] = $installer->input['db_username'] = $_REQUEST['username'];
 			$_SESSION['db_password'] = $installer->input['db_password'] = $_REQUEST['password'];
+			$_SESSION['db_port']     = $installer->input['db_port']     = $_REQUEST['port'];
 
 			$installer->InstallerDB();
 
@@ -210,12 +222,12 @@ HTML;
 			$sql_check = ($sql_v >= 0) ? "<span style='color: #090'>Yes ({$info['mysql-version']})</span>" : "<span style='color: #900'>No ({$info['mysql-version']})</span>";
 
 			$environment = "<table class='table' style='width: 400px;'>";
-			$environment .= "<tr><td>Server Software</td><td>{$_SERVER['SERVER_SOFTWARE']} {$_SERVER['SERVER_PROTOCOL']}</td></tr>";
+			$environment .= "<tr><td style='width:190px'>Server Software</td><td>{$_SERVER['SERVER_SOFTWARE']} {$_SERVER['SERVER_PROTOCOL']}</td></tr>";
 			$environment .= "<tr><td>PHP 5.3+</td><td>{$php_check}</td></tr>";
 			$environment .= "<tr><td>MySQL 5.1+</td><td>{$sql_check}</td></tr>";
 			$environment .= "</table>";
 
-			// Check extensions
+			// Check PHP extensions
 
 			$extensions = get_loaded_extensions();
 			$required = array("gd", "libxml", "json");
@@ -229,24 +241,43 @@ HTML;
 			$extensions_ok = "<table class='table' style='width: 300px'>";
 
 			foreach($required as $data) {
-				if(in_array($data, $extensions)) {
-					$status = "<span style='color: #090'>Yes</span>";
-				}
-				else {
-					$status = "<span style='color: #C00'>No</span>";
-				}
-
-				$extensions_ok .= "<tr><td>" . $ext_name[$data] . " ({$data})</td><td>{$status}</td></tr>";
+				$status = (in_array($data, $extensions)) ? "<span style='color: #090'>Yes</span>" : "<span style='color: #c00'>No</span>";
+				$extensions_ok .= "<tr><td style='width:190px'>" . $ext_name[$data] . " ({$data})</td><td>{$status}</td></tr>";
 			}
 
 			$extensions_ok .= "</table>";
+
+			// Check Apache extensions
+
+			if(apache_get_modules()) {
+				if(in_array("mod_rewrite", apache_get_modules())) {
+					$mod_rewrite_ok = "<span style='color: #090'>Yes</span>";
+				}
+				else {
+					$mod_rewrite_ok = "<span style='color: #c00'>No</span>";
+					$disabled = "disabled='disabled'";
+				}
+			}
+			else {
+				$mod_rewrite_ok = "<span style='color: #ddd'>Not using Apache server</span>";
+			}
+
+			$apache_extensions = "<table class='table' style='width: 300px'>";
+			$apache_extensions .= "<tr><td style='width:190px'>mod_rewrite</td><td>{$mod_rewrite_ok}</td></tr>";
+			$apache_extensions .= "</table>";
 
 			// Check folders
 			$disabled = "";
 
 			// root/config.php
 			if(is_writable("../config.php")) {
-				$file_conf = "<span style='color: #090'>Writable</span>";
+				if(filesize("../config.php") == 0) {
+					$file_conf = "<span style='color: #090'>Writable</span>";
+				}
+				else {
+					$file_conf = "<span style='color: #C00'>File not empty</span>";
+					$disabled = "disabled='disabled'";
+				}
 			}
 			else {
 				$file_conf = "<span style='color: #C00'>Not writable</span>";
@@ -281,7 +312,7 @@ HTML;
 			}
 
 			$folders = "<table class='table' style='width: 300px'>";
-			$folders .= "<tr><td>/config.php</td><td>{$file_conf}</td></tr>";
+			$folders .= "<tr><td style='width:190px'>/config.php</td><td>{$file_conf}</td></tr>";
 			$folders .= "<tr><td>/install</td><td>{$dir_install}</td></tr>";
 			$folders .= "<tr><td>/public/attachments</td><td>{$dir_attach}</td></tr>";
 			$folders .= "<tr><td>/public/avatar</td><td>{$dir_avatar}</td></tr>";
@@ -315,8 +346,12 @@ HTML;
 						{$environment}
 					</div>
 					<div class="input-box">
-						<h4>Extensions</h4>
+						<h4>PHP Extensions</h4>
 						{$extensions_ok}
+					</div>
+					<div class="input-box">
+						<h4>Apache Modules</h4>
+						{$apache_extensions}
 					</div>
 					<div class="input-box">
 						<h4>Files and Folders</h4>
@@ -395,6 +430,7 @@ HTML;
 						<input type="hidden" name="db_database" value="{$_SESSION['db_database']}">
 						<input type="hidden" name="db_username" value="{$_SESSION['db_username']}">
 						<input type="hidden" name="db_password" value="{$_SESSION['db_password']}">
+						<input type="hidden" name="db_port" value="{$_SESSION['db_port']}">
 						<input type="submit" value="Proceed">
 					</div>
 
@@ -432,6 +468,7 @@ HTML;
 				<input type="hidden" id="db_database" value="{$_REQUEST['db_database']}">
 				<input type="hidden" id="db_username" value="{$_REQUEST['db_username']}">
 				<input type="hidden" id="db_password" value="{$_REQUEST['db_password']}">
+				<input type="hidden" id="db_port" value="{$_REQUEST['db_port']}">
 				<input type="hidden" id="community_name" value="{$_REQUEST['community']}">
 				<input type="hidden" id="community_path" value="{$_REQUEST['install_path']}">
 				<input type="hidden" id="community_url" value="{$_REQUEST['install_url']}">

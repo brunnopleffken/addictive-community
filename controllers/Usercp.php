@@ -21,7 +21,7 @@ class Usercp extends Application
 	 * USER CONTROL PANEL IS FOR MEMBER ONLY. IF GUEST, THEN REDIRECT.
 	 * --------------------------------------------------------------------
 	 */
-	public function _BeforeFilter()
+	public function _BeforeAction()
 	{
 		// This section is for members only
 		$this->Session->NoGuest();
@@ -84,7 +84,7 @@ class Usercp extends Application
 		$menu = array("", "selected", "", "", "", "");
 
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_1"), "success")
 		);
@@ -122,7 +122,7 @@ class Usercp extends Application
 		$menu = array("", "", "selected", "", "", "");
 
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_2"), "success")
 		);
@@ -181,7 +181,7 @@ class Usercp extends Application
 		$menu = array("", "", "", "selected", "", "");
 
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_3"), "success")
 		);
@@ -207,7 +207,7 @@ class Usercp extends Application
 		$menu = array("", "", "", "", "selected", "");
 
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_4"), "success")
 		);
@@ -291,7 +291,7 @@ class Usercp extends Application
 		$menu = array("", "", "", "", "", "selected");
 
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_5"), "success"),
 			Html::Notification(i18n::Translate("C_MESSAGE_6"), "failure"),
@@ -319,17 +319,17 @@ class Usercp extends Application
 
 		// Get values
 		$info = array(
-			"email"        => Html::Request("email"),
-			"member_title" => Html::Request("member_title"),
-			"location"     => Html::Request("location"),
-			"profile"      => Html::Request("profile"),
-			"b_day"        => Html::Request("b_day"),
-			"b_month"      => Html::Request("b_month"),
-			"b_year"       => Html::Request("b_year"),
-			"gender"       => Html::Request("gender"),
-			"website"      => Html::Request("website"),
-			"im_facebook"  => Html::Request("im_facebook"),
-			"im_twitter"   => Html::Request("im_twitter")
+			"email"        => Http::Request("email"),
+			"member_title" => Http::Request("member_title"),
+			"location"     => Http::Request("location"),
+			"profile"      => Http::Request("profile"),
+			"b_day"        => Http::Request("b_day"),
+			"b_month"      => Http::Request("b_month"),
+			"b_year"       => Http::Request("b_year"),
+			"gender"       => Http::Request("gender"),
+			"website"      => Http::Request("website"),
+			"im_facebook"  => Http::Request("im_facebook"),
+			"im_twitter"   => Http::Request("im_twitter")
 		);
 
 		// Save and redirect...
@@ -347,18 +347,18 @@ class Usercp extends Application
 		$this->layout = false;
 
 		// Get photo type
-		$photo_type = Html::Request("photo_type");
+		$photo_type = Http::Request("photo_type");
 
 		// Do processes!
 		if($photo_type == "gravatar" || $photo_type == "facebook") {
 			// Change photo type to 'gravatar'
-			$this->Db->Query("UPDATE c_members SET photo_type = '{$photo_type}' WHERE m_id = '{$this->member_id}';");
+			$this->Db->Update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
 			$this->Core->Redirect("usercp/photo?m=1");
 		}
 		else {
 			// User photo already hosted on community's server
 			if($_FILES['file_upload']['name'] == "") {
-				$this->Db->Query("UPDATE c_members SET photo_type = '{$photo_type}' WHERE m_id = '{$this->member_id}';");
+				$this->Db->Update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
 				$this->Core->Redirect("usercp/photo?m=1");
 			}
 			else {
@@ -390,8 +390,10 @@ class Usercp extends Application
 					$new_file_name = $this->member_id . "." . $file_extension;
 					move_uploaded_file($_FILES['file_upload']['tmp_name'], "public/avatar/" . $new_file_name);
 
-					$this->Db->Query("UPDATE c_members SET photo_type = '{$photo_type}',
-							photo = '{$new_file_name}' WHERE m_id = '{$this->member_id}';");
+					$this->Db->Update("c_members", array(
+						"photo_type = '{$photo_type}'",
+						"photo = '{$new_file_name}'"
+					), "m_id = '{$this->member_id}'");
 
 					// Redirect
 					$this->Core->Redirect("usercp/photo?m=1");
@@ -431,9 +433,9 @@ class Usercp extends Application
 
 		// Get values
 		$info = array(
-			"theme"       => Html::Request("theme"),
-			"language"    => Html::Request("language"),
-			"time_offset" => Html::Request("timezone")
+			"theme"       => Http::Request("theme"),
+			"language"    => Http::Request("language"),
+			"time_offset" => Http::Request("timezone")
 		);
 
 		// Save and redirect...
@@ -457,9 +459,9 @@ class Usercp extends Application
 		);
 
 		// Get values
-		$current   = String::PasswordEncrypt(Html::Request("current"), $salt);
-		$new_pass  = String::PasswordEncrypt(Html::Request("new_password"), $salt);
-		$conf_pass = String::PasswordEncrypt(Html::Request("conf_password"), $salt);
+		$current   = String::Encrypt(Http::Request("current"), $salt);
+		$new_pass  = String::Encrypt(Http::Request("new_password"), $salt);
+		$conf_pass = String::Encrypt(Http::Request("conf_password"), $salt);
 
 		// Check if member and password matches
 		$this->Db->Query("SELECT COUNT(*) AS result FROM c_members WHERE m_id = '{$this->member_id}' AND password = '{$current}';");

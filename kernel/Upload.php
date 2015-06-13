@@ -51,7 +51,7 @@ class Upload
 	 * THE ATTACHMENT ID NUMBER ON DATABASE)
 	 * --------------------------------------------------------------------
 	 */
-	public function Attachment($file, $member, $folder = "public/attachments/")
+	public function Attachment($file, $member = 0, $folder = "public/attachments/")
 	{
 		if(is_array($file) && $file['name'] != "") {
 			// Get timestamp
@@ -72,7 +72,12 @@ class Upload
 
 			// Check if it's not a forbidden extension
 			if(in_array($this->file_extension, $this->forbidden_extensions)) {
-				Html::Error("This file extension is not allowed (." . $this->file_extension . ")!");
+				Html::Error("This file extension is not allowed (.{$this->file_extension})!");
+			}
+
+			// Check if is an allowed extension (if array is not empty, of course)
+			if(!empty($this->allowed_extensions) && !in_array($this->file_extension, $this->allowed_extensions)) {
+				Html::Error("This file extension is not allowed (.{$this->file_extension}).");
 			}
 
 			// Delete special characters and diacritics
@@ -176,7 +181,7 @@ class Upload
 	 * SET ALLOWED EXTENSIONS FOR FILE UPLOAD
 	 * --------------------------------------------------------------------
 	 */
-	public function SetAllowedExtensions($extensions_list)
+	public function SetAllowedExtensions($extensions_list = array())
 	{
 		if(is_array($extensions_list)) {
 			$this->allowed_extensions = $extensions_list;

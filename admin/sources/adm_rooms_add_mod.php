@@ -11,7 +11,7 @@
 
 	// Get rooms info
 
-	$id = Html::Request("id", true);
+	$id = Http::Request("id", true);
 
 	$Db->Query("SELECT name FROM c_rooms;");
 	$room_info = $Db->Fetch();
@@ -21,7 +21,7 @@
 		$has_result = true;
 
 		$username = $_POST['username'];
-		$logged_member = Html::Request("member_id", true);
+		$logged_member = Http::Request("member_id", true);
 
 		$Db->Query("SELECT m_id, username, email, photo, photo_type FROM c_members
 				WHERE username LIKE '%{$username}%' AND m_id <> {$logged_member}

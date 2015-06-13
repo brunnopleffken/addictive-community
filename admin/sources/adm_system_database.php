@@ -11,7 +11,7 @@
 
 	// Execute queries, if defined
 
-	$execute = (Html::Request("execute")) ? Html::Request("execute") : false;
+	$execute = (Http::Request("execute")) ? Http::Request("execute") : false;
 
 	if($execute) {
 		switch($execute) {

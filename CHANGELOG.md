@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.4.0 (2015-06-12)
+
+#### Added
+- New diagnostic tool to check for common issues (not allowed if `install/.lock` exists).
+
+#### Fixed
+- Chromium-based browsers (like Chrome and Opera 15+) renders Atom feed content as plain text;
+- Incorrect post and thread count in statistics right after fresh install;
+- Remove unused class instances to improve performance and memory management;
+- Minor bug fixes and enhancements.
+
+#### Removed
+- Property `private Database::config` is unset right after database connection.
+
+#### Changed
+- Lots of refactoring and enhancements in controllers and kernel/core;
+- Callbacks `_beforeFilter()` and `_afterFilter()` renamed to `_BeforeAction()` and `_AfterAction()`, respectively;
+- Public method `String::PasswordEncrypt()` renamed to `String::Encrypt()`;
+- Replaced some explicit SQL queries in controllers by database helpers;
+- Methods `Request()`, `File()` and `CurrentUrl()` now belong to `Http` class (e.g. `Http::Request()`);
+- Few more validations during community installation.
+
+
+
 ## v0.3.0 (2015-06-01)
 
 #### Added

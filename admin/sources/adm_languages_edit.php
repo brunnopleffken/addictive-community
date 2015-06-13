@@ -9,13 +9,13 @@
 	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
 
-	$id = Html::Request("id");
+	$id = Http::Request("id");
 	$notification = "";
 
 	// Change language name
 
-	if(Html::Request("language_name")) {
-		$new_language_name = Html::Request("language_name");
+	if(Http::Request("language_name")) {
+		$new_language_name = Http::Request("language_name");
 
 		$Db->Query("UPDATE c_languages SET name = '{$new_language_name}' WHERE l_id = '{$id}';");
 

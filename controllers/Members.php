@@ -33,7 +33,7 @@ class Members extends Application
 		);
 
 		// If there is a letter selected, don't let "All" selected
-		if(Html::Request("letter")) {
+		if(Http::Request("letter")) {
 			$first = "<a href='members'>" . i18n::Translate("M_ALL") . "</a>\n";
 		}
 		else {
@@ -44,8 +44,8 @@ class Members extends Application
 		foreach($letters as $value) {
 			$label = strtoupper($value);
 
-			$selected = (Html::Request("letter") == $value) ? "class='page-selected'" : "";
-			$order = (Html::Request("order")) ? "&order=" . $_REQUEST['order']: "";
+			$selected = (Http::Request("letter") == $value) ? "class='page-selected'" : "";
+			$order = (Http::Request("order")) ? "&order=" . $_REQUEST['order']: "";
 
 			$letter_list .= "<a href='members?letter={$value}{$order}' {$selected}>{$label}</a>\n";
 		}
@@ -75,8 +75,8 @@ class Members extends Application
 		$_result = array();
 
 		// Sort by username, join date or number of posts
-		if(Html::Request("order")) {
-			switch(Html::Request("order")) {
+		if(Http::Request("order")) {
+			switch(Http::Request("order")) {
 				case "join":
 					$order = "ORDER BY joined DESC";
 					break;
@@ -90,14 +90,14 @@ class Members extends Application
 		}
 
 		// Search by username
-		if(Html::Request("username")) {
-			$username = Html::Request("username");
+		if(Http::Request("username")) {
+			$username = Http::Request("username");
 			$order = "WHERE username LIKE '%{$username}%' {$order};";
 		}
 
 		// Filter by first letter and execute query!
-		if(Html::Request("letter")) {
-			$letter = Html::Request("letter");
+		if(Http::Request("letter")) {
+			$letter = Http::Request("letter");
 			$members = $this->Db->Query("SELECT * FROM c_members
 					LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id)
 					WHERE username LIKE '{$letter}%' {$order};");

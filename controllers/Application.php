@@ -208,8 +208,8 @@ class Application
 		$this->Db->Query("SELECT * FROM c_stats;");
 		$stats_result_temp = $this->Db->Fetch();
 
-		$_stats['threads'] = $stats_result_temp['total_threads'];
-		$_stats['replies'] = $stats_result_temp['total_posts'];
+		$_stats['threads'] = $stats_result_temp['thread_count'];
+		$_stats['posts'] = $stats_result_temp['post_count'];
 		$_stats['members'] = $stats_result_temp['member_count'];
 
 		$this->Db->Query("SELECT m_id, username FROM c_members ORDER BY m_id DESC LIMIT 1;");

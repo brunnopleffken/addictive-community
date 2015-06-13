@@ -41,7 +41,7 @@
 
 	// Do we have an action?
 
-	$do = Html::Request("do");
+	$do = Http::Request("do");
 
 	if(!$do) {
 		echo "Variable 'do' is undefined.";
@@ -62,7 +62,7 @@
 
 		case "remove_report":
 
-			$id = Html::Request("id");
+			$id = Http::Request("id");
 			$Db->Query("DELETE FROM c_reports WHERE rp_id = {$id}");
 
 			header("Location: main.php");
@@ -120,8 +120,7 @@
 
 		case "deleteroom":
 
-			$r_id = Html::Request("r_id");
-			$Db2 = clone($Db);
+			$r_id = Http::Request("r_id");
 
 			// Register room exclusion in Admin log
 			$Db->Query("SELECT name FROM c_rooms WHERE r_id = {$r_id}");
@@ -129,10 +128,10 @@
 			$Admin->RegisterLog("Deleted room: " . $room['name']);
 
 			// Delete all related posts
-			$Db->Query("SELECT t_id FROM c_threads WHERE room_id = '{$r_id}';");
+			$threads = $Db->Query("SELECT t_id FROM c_threads WHERE room_id = '{$r_id}';");
 
-			while($threads = $Db->Fetch()) {
-				$Db2->Query("DELETE FROM c_posts WHERE thread_id = '{$threads['t_id']}';");
+			while($_threads = $Db->Fetch($threads)) {
+				$Db->Query("DELETE FROM c_posts WHERE thread_id = '{$threads['t_id']}';");
 			}
 
 			// Delete threads and room itself
@@ -146,7 +145,7 @@
 
 		case "resync_room":
 
-			$id = Html::Request("r_id");
+			$id = Http::Request("r_id");
 
 			// Clone Database class for secondary tasks
 			$Db2 = clone($Db);
@@ -183,9 +182,9 @@
 		case "savehelp":
 
 			$topic = array(
-				"title"      => String::Sanitize(Html::Request("title")),
-				"short_desc" => String::Sanitize(Html::Request("short_desc")),
-				"content"    => nl2br(String::Sanitize(Html::Request("content")))
+				"title"      => String::Sanitize(Http::Request("title")),
+				"short_desc" => String::Sanitize(Http::Request("short_desc")),
+				"content"    => nl2br(String::Sanitize(Http::Request("content")))
 			);
 
 			$Admin->RegisterLog("Created help topic: " . $topic['title']);
@@ -212,15 +211,15 @@
 
 			// File info
 
-			$file = Html::Request("file");
-			$dir  = Html::Request("dir");
+			$file = Http::Request("file");
+			$dir  = Http::Request("dir");
 
 			$file_path = "../languages/" . $dir . "/" . $file . ".php";
 
 			// Language file content
 
 			$file_content = "<?php\n";
-			foreach(Html::Request("index") as $key) {
+			foreach(Http::Request("index") as $key) {
 				$file_content .= "\t\$t[\"" . $key . "\"] = \"" . $_REQUEST[$key] . "\";\n";
 			}
 			$file_content .= "?>\n";
@@ -317,8 +316,8 @@
 
 			// Get variables
 			$mods_array = array();
-			$room_id = Html::Request("r_id");
-			$member_id = Html::Request("m_id");
+			$room_id = Http::Request("r_id");
+			$member_id = Http::Request("m_id");
 
 			// Get current moderators of the room
 			$Db->Query("SELECT moderators FROM c_rooms WHERE r_id = {$room_id};");
@@ -354,8 +353,8 @@
 
 			// Get variables
 			$mods_array = array();
-			$room_id = Html::Request("r_id");
-			$member_id = Html::Request("m_id");
+			$room_id = Http::Request("r_id");
+			$member_id = Http::Request("m_id");
 
 			// Get current moderators of the room
 			$Db->Query("SELECT moderators FROM c_rooms WHERE r_id = {$room_id};");

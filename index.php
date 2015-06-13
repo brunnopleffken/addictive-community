@@ -11,9 +11,6 @@
 #  Copyright: (c) 2015 - Addictive Community
 ## -------------------------------------------------------
 
-// Absolute path on server filesystem
-define("BASEPATH", dirname(__FILE__));
-
 // Run initialization file before loading Main()
 require("init.php");
 
@@ -47,9 +44,6 @@ class Main
 	// Defined variables inside controller
 	private $view_data;
 
-	// Development environment
-	const DEBUG = true;
-
 	/**
 	 * --------------------------------------------------------------------
 	 * MAIN CLASS CONSTRUCTOR
@@ -77,9 +71,9 @@ class Main
 		$this->Db = new Database($config);
 
 		// Get query strings from URL
-		$this->controller = strtolower(Html::Request("c"));
-		$this->action = strtolower(Html::Request("act"));
-		$this->id = strtolower(Html::Request("id"));
+		$this->controller = strtolower(Http::Request("c"));
+		$this->action = strtolower(Http::Request("act"));
+		$this->id = strtolower(Http::Request("id"));
 
 		// If there isn't any controller defined
 		if(!$this->controller) {
@@ -112,15 +106,12 @@ class Main
 	 */
 	private function _LoadKernel()
 	{
-		require("kernel/Core.php");
-		require("kernel/Database.php");
-		require("kernel/Email.php");
-		require("kernel/Html.php");
-		require("kernel/i18n.php");
-		require("kernel/Session.php");
-		require("kernel/String.php");
-		require("kernel/Template.php");
-		require("kernel/Upload.php");
+		foreach(scandir("kernel") as $filename) {
+			if(substr_count($filename, ".php") < 1) {
+				continue; // Ignore non-PHP files
+			}
+			require("kernel/" . $filename);
+		}
 	}
 
 	/**
@@ -142,7 +133,7 @@ class Main
 
 		// Get and execute action passed by URL, if any
 		if($action != "") {
-			$action = $this->_FormatActionName($this->action);
+			$action = String::FormatActionName($this->action);
 		}
 		else {
 			$action = $this->action = "Main";
@@ -153,18 +144,18 @@ class Main
 		$this->instance->Core = $this->Core;
 		$this->instance->Session = $this->Session;
 
-		// Execute Controller::_beforeFilter() method
-		if(method_exists($this->instance, "_beforeFilter")) {
-			$this->instance->_beforeFilter($this->id);
+		// Execute Controller::_BeforeAction() method
+		if(method_exists($this->instance, "_BeforeAction")) {
+			$this->instance->_BeforeAction($this->id);
 		}
 
 		// Execute Controller with the provided method
 		$this->instance->Run();
 		$this->instance->$action($this->id);
 
-		// Execute Controller::_afterFilter() method
-		if(method_exists($this->instance, "_afterFilter")) {
-			$this->instance->_afterFilter($this->id);
+		// Execute Controller::_AfterAction() method
+		if(method_exists($this->instance, "_AfterAction")) {
+			$this->instance->_AfterAction($this->id);
 		}
 
 		// Get defined variables
@@ -191,24 +182,12 @@ class Main
 
 			// Load page content
 			ob_start();
-			require("templates/" . $this->template . "/" . $this->controller . "." . $this->_FormatActionName($this->action) . ".phtml");
+			require("templates/" . $this->template . "/" . $this->controller . "." . String::FormatActionName($this->action) . ".phtml");
 			$this->content = ob_get_clean();
 
 			// Load master page
 			require("templates/" . $this->template . "/" . $this->instance->master . ".phtml");
 		}
-	}
-
-	/**
-	 * --------------------------------------------------------------------
-	 * CONVERT string_with_underscore TO StringWithUnderscore
-	 * --------------------------------------------------------------------
-	 */
-	private function _FormatActionName($action_name)
-	{
-		$action_name = preg_replace("/(_)/", " ", $action_name);
-		$action_name = preg_replace("/([\s])/", "", ucwords($action_name));
-		return $action_name;
 	}
 
 	/**
@@ -230,6 +209,7 @@ class Main
 	private function _GetTemplate()
 	{
 		if($this->Session->session_info['member_id']) {
+			// Get member-defined theme
 			$this->theme = $this->Session->member_info['theme'];
 			$this->Config['theme'] = $this->theme;
 
@@ -237,6 +217,7 @@ class Main
 			$this->Config['template'] = $this->template;
 		}
 		else {
+			// Get default theme set
 			$this->theme = $this->Config['theme_default_set'];
 			$this->Config['theme'] = $this->theme;
 
@@ -279,4 +260,4 @@ class Main
 	}
 }
 
-$main = new Main();
+new Main();

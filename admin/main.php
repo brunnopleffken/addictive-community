@@ -67,8 +67,8 @@
 
 	// Get page content
 
-	$act = (Html::Request("act")) ? Html::Request("act") : "dashboard";
-	$p   = (Html::Request("p")) ? Html::Request("p") : "main";
+	$act = (Http::Request("act")) ? Http::Request("act") : "dashboard";
+	$p   = (Http::Request("p")) ? Http::Request("p") : "main";
 
 	__(CreateMenu($act));
 

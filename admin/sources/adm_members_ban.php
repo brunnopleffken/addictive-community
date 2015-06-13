@@ -62,10 +62,10 @@
 
 	// Execute actions
 
-	if(Html::Request("do")) {
-		$id = Html::Request("id");
+	if(Http::Request("do")) {
+		$id = Http::Request("id");
 
-		switch(Html::Request("do")) {
+		switch(Http::Request("do")) {
 			case "banishment":
 				$Db->Query("UPDATE c_members SET usergroup = 4 WHERE m_id = '{$id}';");
 				break;

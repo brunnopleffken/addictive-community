@@ -17,7 +17,7 @@ CREATE TABLE `c_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_emails` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(20) NOT NULL DEFAULT '',
   `description` varchar(20) DEFAULT NULL,
   `content` text NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE `c_emails` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_emoticons` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(6) NOT NULL AUTO_INCREMENT,
   `shortcut` varchar(10) NOT NULL DEFAULT '',
   `filename` varchar(30) NOT NULL DEFAULT '',
   `display` int(1) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE `c_emoticons` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_events` (
-  `e_id` int(11) NOT NULL AUTO_INCREMENT,
+  `e_id` int(6) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `type` varchar(10) NOT NULL,
   `author` int(8) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `c_events` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_follow` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(6) NOT NULL AUTO_INCREMENT,
   `follower` int(8) DEFAULT NULL,
   `following` int(8) DEFAULT NULL,
   `date` int(10) DEFAULT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE `c_follow` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_help` (
-  `h_id` int(11) NOT NULL AUTO_INCREMENT,
+  `h_id` int(3) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) DEFAULT NULL,
   `short_desc` varchar(255) DEFAULT NULL,
   `content` text,
@@ -75,7 +75,7 @@ CREATE TABLE `c_languages` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_logs` (
-  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `log_id` int(6) NOT NULL AUTO_INCREMENT,
   `member_id` int(8) NOT NULL,
   `time` int(10) NOT NULL,
   `act` varchar(250) DEFAULT NULL,
@@ -102,12 +102,8 @@ CREATE TABLE `c_members` (
   `photo` varchar(40) DEFAULT NULL,
   `photo_type` varchar(10) DEFAULT NULL,
   `website` varchar(60) DEFAULT NULL,
-  `im_windowslive` varchar(50) DEFAULT NULL,
-  `im_skype` varchar(50) DEFAULT NULL,
   `im_facebook` varchar(50) DEFAULT NULL,
   `im_twitter` varchar(50) DEFAULT NULL,
-  `im_yim` varchar(50) DEFAULT NULL,
-  `im_aol` varchar(50) DEFAULT NULL,
   `posts` int(9) NOT NULL,
   `lastpost_date` int(10) DEFAULT NULL,
   `signature` text,
@@ -157,7 +153,7 @@ CREATE TABLE `c_posts` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_ranks` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(2) NOT NULL AUTO_INCREMENT,
   `title` varchar(20) DEFAULT NULL,
   `min_posts` int(5) DEFAULT NULL,
   `pips` int(1) DEFAULT NULL,
@@ -166,7 +162,7 @@ CREATE TABLE `c_ranks` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_reports` (
-  `rp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `rp_id` int(6) NOT NULL AUTO_INCREMENT,
   `description` text,
   `date` int(10) NOT NULL,
   `sender_id` int(9) NOT NULL,
@@ -211,21 +207,21 @@ CREATE TABLE `c_sessions` (
   `usergroup` int(2) DEFAULT NULL,
   `anonymous` int(1) DEFAULT NULL,
   `location_type` varchar(30) DEFAULT NULL,
-  `location_id` int(11) DEFAULT NULL,
-  `location_room_id` int(11) DEFAULT NULL,
+  `location_id` int(6) DEFAULT NULL,
+  `location_room_id` int(3) DEFAULT NULL,
   PRIMARY KEY (`s_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_stats` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
   `member_count` int(8) NOT NULL,
-  `total_posts` int(10) NOT NULL,
-  `total_threads` int(10) NOT NULL,
+  `post_count` int(9) NOT NULL,
+  `thread_count` int(9) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_templates` (
-  `tpl_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tpl_id` int(2) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '',
   `directory` varchar(20) NOT NULL DEFAULT '',
   `is_active` int(1) NOT NULL,
@@ -235,7 +231,7 @@ CREATE TABLE `c_templates` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_themes` (
-  `theme_id` int(10) NOT NULL AUTO_INCREMENT,
+  `theme_id` int(2) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '',
   `directory` varchar(20) NOT NULL DEFAULT '',
   `is_active` int(1) NOT NULL,
@@ -245,7 +241,7 @@ CREATE TABLE `c_themes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_threads` (
-  `t_id` int(11) NOT NULL AUTO_INCREMENT,
+  `t_id` int(9) NOT NULL AUTO_INCREMENT,
   `title` varchar(250) NOT NULL,
   `slug` varchar(250) NOT NULL,
   `author_member_id` int(8) NOT NULL,

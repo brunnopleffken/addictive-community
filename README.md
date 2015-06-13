@@ -39,6 +39,7 @@ Follow our official channel on Twitter, it's just one click: [@addictivecomm](ht
 ### Requirements ###
 
 * Apache 2 or IIS webserver running on any major operating system;
+* Enabled Apache mod_rewrite or IIS Url Rewriter;
 * PHP 5.3 or higher;
 * MySQL 5.1 or higher.
 
@@ -46,11 +47,13 @@ Follow our official channel on Twitter, it's just one click: [@addictivecomm](ht
 
 Addictive Community v0.x **is not** ready for production environments. We're constantly modifying our database structure for performance enhancements and to add new features. If there is any breaking change, you may be stuck in an instable development version.
 
-We're currently working on automatic updates to be released with the first Final version (a.k.a. v1.0): download and upload all files (it'll not overwrite uploads and avatars), delete the file `/install/.lock` and run `/update`. It'll magically run the migration files to update from any version to the latest version.
+We're currently working on automatic updates to be released with the first Final version (a.k.a. v1.0): download and upload all files (it'll not overwrite uploads and avatars), delete the file `/install/.lock` and run `/update`. It'll magically run the migration files to update from any version to the latest version. But, as said, this feature will be available on v1.0.
 
 ## Contribute
 
 We're glad you're interested to help develop Addictive Community. Be part of it reading our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md).
+
+If you're interested to contribute with language packs, read the guidelines in its [official repository](https://github.com/brunnopleffken/addictive-community-languages).
 
 ## About the Author ##
 

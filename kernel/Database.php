@@ -36,13 +36,7 @@ interface IDatabase
 class Database implements IDatabase
 {
 	// Database connection information
-	private $data = array(
-		"server"   => "localhost",
-		"username" => "root",
-		"password" => "root",
-		"database" => "homefront",
-		"charset"  => "utf-8"
-	);
+	private $config = array();
 
 	// Database connection
 	private $link;
@@ -52,7 +46,7 @@ class Database implements IDatabase
 	private $result;
 
 	// Log of queries of the current session
-	private $queries = array();
+	private $log = array();
 
 	/**
 	 * --------------------------------------------------------------------
@@ -67,23 +61,25 @@ class Database implements IDatabase
 	protected function _Connect($config = array())
 	{
 		// Store configuration info as class property
-		$this->data = $config;
+		$this->config = $config;
 
 		// Connect to MySQL server
 		$this->link = @mysqli_connect(
-			$this->data['db_server'],
-			$this->data['db_username'],
-			$this->data['db_password'],
-			$this->data['db_database']
+			$this->config['db_server'],
+			$this->config['db_username'],
+			$this->config['db_password'],
+			$this->config['db_database'],
+			$this->config['db_port']
 		);
 
-		// Show error message... in case of error...
+		// Show error message in case of error
 		if(mysqli_connect_errno()) {
-			$this->Exception("Unable to connect to MySQL server.");
+			$this->Exception(mysqli_connect_error());
 		}
 		else {
 			// Set response charset to UTF-8
-			$this->Query("SET NAMES UTF8;");
+			mysqli_set_charset($this->link, "utf8");
+			unset($this->config);
 		}
 	}
 
@@ -224,23 +220,53 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * UPDATE DATABASE TABLE FROM AN ARRAY
+	 * UPDATE AN ENTRY ON DATABASE FROM AN ARRAY
 	 * --------------------------------------------------------------------
 	 */
-	public function Update($table, $array, $where)
+	public function Update($table, $data, $where = 1)
 	{
-		foreach($array as $f => $v) {
-			$fields[] = $f . " = '" . $v . "'";
+		if(is_array($data)) {
+			// Check if it's an associative array or a sequential array
+			if(array_keys($data) !== range(0, count($data) - 1)) {
+				foreach($data as $f => $v) {
+					$fields[] = $f . " = '" . $v . "'";
+				}
+			}
+			else {
+				foreach($data as $f => $v) {
+					$fields[] = $v;
+				}
+			}
+			$sql = "UPDATE {$table} SET " . implode(", ", $fields) . " WHERE {$where};";
+		}
+		else {
+			$sql = "UPDATE {$table} SET {$data} WHERE {$where};";
 		}
 
-		$sql_query = "UPDATE {$table} SET " . implode(", ", $fields) . " WHERE {$where};";
-		$this->query = $this->Query($sql_query);
+		$this->query = $this->Query($sql);
+		$this->log[] = $sql;
 
 		if(!$this->query) {
 			$this->Exception("An error occoured on the following query: " . $sql);
 		}
 
-		$this->log[] = $this->query;
+		return $this->query;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * DELETE ENTRIES ON DATABASE
+	 * --------------------------------------------------------------------
+	 */
+	public function Delete($table, $where = 1)
+	{
+		$sql = "DELETE FROM {$table} WHERE {$where};";
+		$this->query = $this->Query($sql);
+		$this->log[] = $sql;
+
+		if(!$this->query) {
+			$this->Exception("An error occoured on the following query: " . $sql);
+		}
 
 		return $this->query;
 	}
@@ -254,6 +280,16 @@ class Database implements IDatabase
 	{
 		$id = mysqli_insert_id($this->link);
 		return $id;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * RETURN LOG OF EXECUTED QUERIES
+	 * --------------------------------------------------------------------
+	 */
+	public function Log()
+	{
+		return $this->log;
 	}
 
 	/**

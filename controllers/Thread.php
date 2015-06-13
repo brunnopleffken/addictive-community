@@ -13,6 +13,9 @@
 
 class Thread extends Application
 {
+	// Thread information
+	private $thread_info = array();
+
 	/**
 	 * --------------------------------------------------------------------
 	 * SHOW THREAD
@@ -21,7 +24,7 @@ class Thread extends Application
 	public function Main($id)
 	{
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("T_MESSAGE_1"), "success"),
 			Html::Notification(i18n::Translate("T_MESSAGE_2"), "success"),
@@ -33,15 +36,15 @@ class Thread extends Application
 		);
 
 		// Get thread information
-		$thread_info = $this->_GetThreadInfo($id);
+		$this->thread_info = $this->_GetThreadInfo($id);
 
 		// Update session table with room ID
-		$this->_UpdateSessionTable($thread_info);
+		$this->_UpdateSessionTable();
 
 		// Avoid page navigation from incrementing visit counter
 		$_SERVER['HTTP_REFERER'] = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : false;
 		if(!strstr($_SERVER['HTTP_REFERER'], "thread")) {
-			$this->Db->Query("UPDATE c_threads SET views = views + 1 WHERE t_id = '{$id}';");
+			$this->Db->Update("c_threads", "views = views + 1", "t_id = '{$id}'");
 		}
 
 		// Get emoticons
@@ -53,29 +56,29 @@ class Thread extends Application
 		$first_post_info = $this->_GetFirstPost($id, $emoticons);
 
 		// Get replies
-		$pages = $this->_GetPages($thread_info);
-		$replies = $this->_GetReplies($id, $emoticons, $pages, $thread_info);
+		$pages = $this->_GetPages();
+		$replies = $this->_GetReplies($id, $emoticons, $pages);
 
 		// Build pagination links
 		$pagination = $this->_BuildPaginationLinks($pages, $id);
 
 		// Get related threads
-		$related_thread_list = $this->_RelatedThreads($id, $thread_info['title']);
+		$related_thread_list = $this->_RelatedThreads($id);
 
 		// Page info
-		$page_info['title'] = $thread_info['title'];
-		$page_info['bc'] = array($thread_info['name'], $thread_info['title']);
+		$page_info['title'] = $this->thread_info['title'];
+		$page_info['bc'] = array($this->thread_info['name'], $this->thread_info['title']);
 		$this->Set("page_info", $page_info);
 
 		$this->Set("thread_id", $id);
-		$this->Set("thread_info", $thread_info);
+		$this->Set("thread_info", $this->thread_info);
 		$this->Set("notification", $notification[$message_id]);
 		$this->Set("enable_signature", $this->Core->config['general_member_enable_signature']);
 		$this->Set("first_post_info", $first_post_info);
 		$this->Set("reply", $replies);
 		$this->Set("pagination", $pagination);
 		$this->Set("related_thread_list", $related_thread_list);
-		$this->Set("is_moderator", $this->_IsModerator($thread_info['moderators']));
+		$this->Set("is_moderator", $this->_IsModerator($this->thread_info['moderators']));
 	}
 
 	/**
@@ -125,7 +128,7 @@ class Thread extends Application
 		$this->Set("room_info", $room_info);
 		$this->Set("allow_uploads", $room_info['upload']);
 		$this->Set("is_moderator", $this->_IsModerator($room_info['moderators']));
-		$this->Set("is_poll", Html::Request("poll"));
+		$this->Set("is_poll", Http::Request("poll"));
 	}
 
 	/**
@@ -167,12 +170,12 @@ class Thread extends Application
 		$this->layout = false;
 
 		// Get room ID
-		$room_id = Html::Request("room_id");
+		$room_id = Http::Request("room_id");
 
 		// Format new post array
 		$post = array(
 			"author_id"   => $this->Session->member_info['m_id'],
-			"thread_id"   => Html::Request("id", true),
+			"thread_id"   => Http::Request("id", true),
 			"post_date"   => time(),
 			"ip_address"  => $_SERVER['REMOTE_ADDR'],
 			"post"        => $_POST['post'],
@@ -182,27 +185,33 @@ class Thread extends Application
 
 		// Send attachments
 		$Upload = new Upload($this->Db);
-		$post['attach_id'] = $Upload->Attachment(Html::File("attachment"), $post['author_id']);
+		$post['attach_id'] = $Upload->Attachment(Http::File("attachment"), $post['author_id']);
 
 		// Insert new post into DB
 		$this->Db->Insert("c_posts", $post);
 
 		// Update: thread stats
-		$this->Db->Query("UPDATE c_threads SET replies = replies + 1,
-				lastpost_date = '{$post['post_date']}', lastpost_member_id = '{$post['author_id']}'
-				WHERE t_id = '{$post['thread_id']}';");
+		$this->Db->Update("c_threads", array(
+			"replies = replies + 1",
+			"lastpost_date = '{$post['post_date']}'",
+			"lastpost_member_id = '{$post['author_id']}'"
+		), "t_id = '{$post['thread_id']}'");
 
 		// Update: room stats
-		$this->Db->Query("UPDATE c_rooms SET lastpost_date = '{$post['post_date']}',
-				lastpost_thread = '{$post['thread_id']}', lastpost_member = '{$post['author_id']}'
-				WHERE r_id = '{$room_id}';");
+		$this->Db->Update("c_rooms", array(
+			"lastpost_date = '{$post['post_date']}'",
+			"lastpost_thread = '{$post['thread_id']}'",
+			"lastpost_member = '{$post['author_id']}'"
+		), "r_id = '{$room_id}'");
 
 		// Update: member stats
-		$this->Db->Query("UPDATE c_members SET posts = posts + 1, lastpost_date = '{$post['post_date']}'
-				WHERE m_id = '{$post['author_id']}';");
+		$this->Db->Update("c_members", array(
+			"posts = posts + 1",
+			"lastpost_date = '{$post['post_date']}'"
+		), "m_id = '{$post['author_id']}'");
 
 		// Update: community stats
-		$this->Db->Query("UPDATE c_stats SET total_posts = total_posts + 1;");
+		$this->Db->Update("c_stats", "post_count = post_count + 1");
 
 		// Redirect back to post
 		$this->Core->Redirect("thread/" . $id);
@@ -218,9 +227,9 @@ class Thread extends Application
 		$this->layout = false;
 
 		// If we're adding a poll, build poll array
-		if(Html::Request("poll_question")) {
+		if(Http::Request("poll_question")) {
 			// Transform list of choices in an array
-			$questions = explode("\r\n", trim(Html::Request("poll_choices")));
+			$questions = explode("\r\n", trim(Http::Request("poll_choices")));
 			$questions = array_filter($questions, "trim");
 
 			 // For each question, add a corresponding number of votes...
@@ -245,20 +254,20 @@ class Thread extends Application
 
 		// Insert new thread item
 		$thread = array(
-			"title"               => Html::Request("title"),
-			"slug"                => String::Slug(htmlspecialchars_decode(Html::Request("title"), ENT_QUOTES)),
+			"title"               => Http::Request("title"),
+			"slug"                => String::Slug(htmlspecialchars_decode(Http::Request("title"), ENT_QUOTES)),
 			"author_member_id"    => $this->Session->member_info['m_id'],
 			"replies"             => 1,
 			"views"               => 0,
 			"start_date"          => time(),
-			"room_id"             => Html::Request("room_id", true),
-			"announcement"        => Html::Request("announcement", true),
+			"room_id"             => Http::Request("room_id", true),
+			"announcement"        => Http::Request("announcement", true),
 			"lastpost_date"       => time(),
 			"lastpost_member_id"  => $this->Session->member_info['m_id'],
-			"locked"              => Html::Request("locked", true),
+			"locked"              => Http::Request("locked", true),
 			"approved"            => 1,
 			"with_bestanswer"     => 0,
-			"poll_question"       => Html::Request("poll_question"),
+			"poll_question"       => Http::Request("poll_question"),
 			"poll_data"           => $poll_data,
 			"poll_allow_multiple" => (isset($_POST['poll_allow_multiple'])) ? 1 : 0
 		);
@@ -276,20 +285,27 @@ class Thread extends Application
 		);
 
 		$Upload = new Upload($this->Db);
-		$post['attach_id'] = $Upload->Attachment(Html::File("attachment"), $post['author_id']);
+		$post['attach_id'] = $Upload->Attachment(Http::File("attachment"), $post['author_id']);
 
 		$this->Db->Insert("c_posts", $post);
 
 		// Update tables
 
-		$this->Db->Query("UPDATE c_rooms SET lastpost_date = '{$post['post_date']}',
-				lastpost_thread = '{$post['thread_id']}', lastpost_member = '{$post['author_id']}'
-				WHERE r_id = '{$thread['room_id']}';");
+		$this->Db->Update("c_rooms", array(
+			"lastpost_date = '{$post['post_date']}'",
+			"lastpost_thread = '{$post['thread_id']}'",
+			"lastpost_member = '{$post['author_id']}'"
+		), "r_id = '{$thread['room_id']}'");
 
-		$this->Db->Query("UPDATE c_stats SET total_posts = total_posts + 1, total_threads = total_threads + 1;");
+		$this->Db->Update("c_stats", array(
+			"post_count = post_count + 1",
+			"thread_count = thread_count + 1"
+		));
 
-		$this->Db->Query("UPDATE c_members SET posts = posts + 1, lastpost_date = '{$post['post_date']}'
-				WHERE m_id = '{$post['author_id']}';");
+		$this->Db->Update("c_members", array(
+			"posts = posts + 1",
+			"lastpost_date = '{$post['post_date']}'"
+		), "m_id = '{$post['author_id']}'");
 
 		// Redirect
 		$this->Core->Redirect("thread/" . $post['thread_id'] . "-" . $thread['slug']);
@@ -308,7 +324,7 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Check if the author is the user currently logged in
-		if($this->Session->session_info['member_id'] != Html::Request("member_id")) {
+		if($this->Session->session_info['member_id'] != Http::Request("member_id")) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
@@ -322,7 +338,7 @@ class Thread extends Application
 		$this->Db->Update("c_posts", $post, "p_id = {$post_id}");
 
 		// Redirect
-		$this->Core->Redirect("thread/" . Html::Request("thread_id") . "#post-" . $post_id);
+		$this->Core->Redirect("thread/" . Http::Request("thread_id") . "#post-" . $post_id);
 	}
 
 	/**
@@ -338,9 +354,9 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Get post information
-		$author_id = Html::Request("mid");
-		$thread_id = Html::Request("tid");
-		$post_id = Html::Request("pid");
+		$author_id = Http::Request("mid");
+		$thread_id = Http::Request("tid");
+		$post_id = Http::Request("pid");
 
 		// Check if the author is the user currently logged in member
 		if($this->Session->session_info['member_id'] != $author_id) {
@@ -348,16 +364,16 @@ class Thread extends Application
 		}
 
 		// Remove post
-		$this->Db->Query("DELETE FROM c_posts WHERE p_id = {$post_id};");
+		$this->Db->Delete("c_posts", "p_id = {$post_id}");
 
 		// Update thread statistics
-		$this->Db->Query("UPDATE c_threads SET replies = replies - 1 WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "replies = replies - 1", "t_id = {$thread_id}");
 
 		// Update member statistics
-		$this->Db->Query("UPDATE c_members SET posts = posts - 1 WHERE m_id = {$author_id};");
+		$this->Db->Update("c_members", "posts = posts - 1", "m_id = {$author_id}");
 
 		// Update community statistics
-		$this->Db->Query("UPDATE c_stats SET total_posts = total_posts - 1;");
+		$this->Db->Update("c_stats", "post_count = post_count - 1");
 
 		// Redirect back to post
 		$this->Core->Redirect("thread/" . $thread_id . "?m=3");
@@ -376,7 +392,7 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Lock thread
-		$this->Db->Query("UPDATE c_threads SET locked = 1 WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "locked = 1", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -404,7 +420,7 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Lock thread
-		$this->Db->Query("UPDATE c_threads SET locked = 0 WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "locked = 0", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -432,7 +448,7 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Lock thread
-		$this->Db->Query("UPDATE c_threads SET announcement = 1 WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "announcement = 1", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -460,7 +476,7 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Lock thread
-		$this->Db->Query("UPDATE c_threads SET announcement = 0 WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "announcement = 0", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -493,16 +509,17 @@ class Thread extends Application
 		$room_id = $thread_info['room_id'];
 
 		// Delete all posts in this thread
-		$this->Db->Query("DELETE FROM c_posts WHERE thread_id = {$thread_id};");
+		$this->Db->Delete("c_posts", "thread_id = {$thread_id}");
 		$deleted_posts = $this->Db->AffectedRows();
 
 		// Delete thread itself
-		$this->Db->Query("DELETE FROM c_threads WHERE t_id = {$thread_id};");
+		$this->Db->Delete("c_threads", "t_id = {$thread_id}");
 
 		// Update community/room statistics
-		$this->Db->Query("UPDATE c_stats SET
-				total_threads = total_threads - 1,
-				total_posts = total_posts - {$deleted_posts};");
+		$this->Db->Update("c_stats", array(
+			"thread_count = thread_count - 1",
+			"post_count = post_count - {$deleted_posts}"
+		));
 
 		// Register Moderation log in DB
 		$log = array(
@@ -536,14 +553,14 @@ class Thread extends Application
 
 		if($thread_info['poll_allow_multiple'] == 0) {
 			// Increase vote count
-			$poll_data['replies'][Html::Request("chosen_option")] += 1;
+			$poll_data['replies'][Http::Request("chosen_option")] += 1;
 
 			// Add member ID to voters list
 			array_push($poll_data['voters'], $this->Session->member_info['m_id']);
 		}
 		else {
 			// If poll allows multiple choice
-			foreach(Html::Request("chosen_option") as $chosen_option) {
+			foreach(Http::Request("chosen_option") as $chosen_option) {
 				$poll_data['replies'][$chosen_option] += 1;
 			}
 
@@ -553,7 +570,7 @@ class Thread extends Application
 
 		// Update thread information with encoded data
 		$encoded = json_encode($poll_data);
-		$this->Db->Query("UPDATE c_threads SET poll_data = '{$encoded}' WHERE t_id = {$thread_id};");
+		$this->Db->Update("c_threads", "poll_data = '{$encoded}'", "t_id = {$thread_id}");
 
 		// Redirect
 		$this->Core->Redirect("HTTP_REFERER");
@@ -665,11 +682,11 @@ class Thread extends Application
 	 * UPDATE SESSION TABLE WITH THREAD ID IN 'location_room_id'
 	 * --------------------------------------------------------------------
 	 */
-	private function _UpdateSessionTable($thread_info)
+	private function _UpdateSessionTable()
 	{
 		// Update session table with room ID
 		$session = $this->Session->session_id;
-		$this->Db->Query("UPDATE c_sessions SET location_room_id = {$thread_info['room_id']} WHERE s_id = '{$session}';");
+		$this->Db->Update("c_sessions", "location_room_id = {$this->thread_info['room_id']}", "s_id = '{$session}'");
 	}
 
 	/**
@@ -732,7 +749,7 @@ class Thread extends Application
 	 * GET REPLIES
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetReplies($id, $emoticons, $pages, $thread_info)
+	private function _GetReplies($id, $emoticons, $pages)
 	{
 		$reply_result = array();
 
@@ -785,7 +802,7 @@ class Thread extends Application
 			}
 
 			// Thread controls
-			if($thread_info['author_member_id'] == $this->Session->member_info['m_id']
+			if($this->thread_info['author_member_id'] == $this->Session->member_info['m_id']
 				&& $result['author_id'] != $this->Session->member_info['m_id']) {
 				if($result['best_answer'] == 0) {
 					// Set post as Best Answer
@@ -822,13 +839,13 @@ class Thread extends Application
 	 * GET NUMBER OF PAGES AND VALUES FOR SQL QUERY
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetPages($thread_info)
+	private function _GetPages()
 	{
 		$pages['items_per_page'] = $this->Core->config['thread_posts_per_page'];
-		$total_posts    = $thread_info['post_count'] - 1;
+		$total_posts = $this->thread_info['post_count'] - 1;
 
 		// page number for SQL sentences
-		$pages['for_sql'] = (Html::Request("p")) ? Html::Request("p") * $pages['items_per_page'] - $pages['items_per_page'] : 0;
+		$pages['for_sql'] = (Http::Request("p")) ? Http::Request("p") * $pages['items_per_page'] - $pages['items_per_page'] : 0;
 
 		// page number for HTML page numbers
 		$pages['display'] = (isset($_REQUEST['p'])) ? $_REQUEST['p'] : 1;
@@ -881,10 +898,10 @@ class Thread extends Application
 	 * GET LIST OF RELATED THREADS
 	 * --------------------------------------------------------------------
 	 */
-	private function _RelatedThreads($id, $thread_title)
+	private function _RelatedThreads($id)
 	{
 		$thread_list = "";
-		$thread_search = explode(" ", strtolower($thread_title));
+		$thread_search = explode(" ", strtolower($this->thread_info['title']));
 		$related_thread_list = array();
 
 		foreach($thread_search as $key => $value) {

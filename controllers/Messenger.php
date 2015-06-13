@@ -21,7 +21,7 @@ class Messenger extends Application
 	 * RUN BEFORE MAIN()
 	 * --------------------------------------------------------------------
 	 */
-	public function _BeforeFilter()
+	public function _BeforeAction()
 	{
 		// This section is for members only
 		$this->Session->NoGuest();
@@ -38,13 +38,13 @@ class Messenger extends Application
 	public function Main()
 	{
 		// Define messages
-		$message_id = Html::Request("m");
+		$message_id = Http::Request("m");
 		$notification = array("",
 			Html::Notification(i18n::Translate("M_MESSAGE_1"), "success"),
 			Html::Notification(i18n::Translate("M_MESSAGE_2"), "failure")
 		);
 
-		$folder = (Html::Request("folder")) ? Html::Request("folder") : "inbox";
+		$folder = (Http::Request("folder")) ? Http::Request("folder") : "inbox";
 
 		// Get personal messages
 		if($folder == "sent") {
@@ -116,7 +116,10 @@ class Messenger extends Application
 			// If not, set message as read
 			if($message['status'] == 1) {
 				$time = time();
-				$this->Db->Query("UPDATE c_messages SET status = 0, read_date = {$time} WHERE pm_id = {$id}");
+				$this->Db->Update("c_messages", array(
+					"status = 0",
+					"read_date = {$time}"
+				), "pm_id = {$id}");
 			}
 
 			// Format content
@@ -160,7 +163,7 @@ class Messenger extends Application
 		$this->layout = false;
 
 		// Get member name
-		$term = Html::Request("term");
+		$term = Http::Request("term");
 
 		// Get list of usernames
 		$this->Db->Query("SELECT m_id, username FROM c_members WHERE username LIKE '%{$term}%';");
@@ -189,8 +192,8 @@ class Messenger extends Application
 		// Build register
 		$pm = array(
 			"from_id"   => $this->member_id,
-			"to_id"     => Html::Request("to", true),
-			"subject"   => Html::Request("subject"),
+			"to_id"     => Http::Request("to", true),
+			"subject"   => Http::Request("subject"),
 			"status"    => 1,
 			"sent_date" => time(),
 			"message"   => $_REQUEST['post']
@@ -214,11 +217,11 @@ class Messenger extends Application
 
 		// Get information
 		$member_id = $this->Session->session_info['member_id'];
-		$selected = Html::Request("pm");
+		$selected = Http::Request("pm");
 
 		// Execute deletion
 		foreach($selected as $pm_id) {
-			$this->Db->Query("DELETE FROM c_messages WHERE pm_id = {$pm_id} AND to_id = {$member_id};");
+			$this->Db->Delete("c_messages", "pm_id = {$pm_id} AND to_id = {$member_id}");
 		}
 
 		// Redirect

@@ -17,35 +17,47 @@ $(document).ready(function($) {
 	$('#database-form').on('submit', function(event) {
 		var $form = $(this);
 		var isDatabaseUp = false;
+		var proceed = true;
 
-		$.ajax("tests.php?task=test_database", {
-			method: 'post',
-			dataType: 'json',
-			data: $form.serialize(),
-			context: $form,
-			beforeSend: function() {
-				$('input[type=submit]').attr('disabled', true);
-			}
-		})
-		.done(function(data) {
-			console.log(data.status);
-			if(data.status == 0) {
-				isDatabaseUp = false;
-				alert('ERROR: Could not establish connection to database.');
+		$('input.required').each(function() {
+			if($(this).val() == "") {
+				$(this).addClass('error');
+				proceed = false;
 			}
 			else {
-				isDatabaseUp = true;
-			}
-		})
-		.always(function() {
-			$('input[type=submit]').removeAttr('disabled');
-
-			// If there is no errors, submit!
-			if(isDatabaseUp == true) {
-				this.off('submit');
-				this.submit();
+				$(this).removeClass('error');
 			}
 		});
+
+		if(proceed) {
+			$.ajax("tests.php?task=test_database", {
+				method: 'post',
+				dataType: 'json',
+				data: $form.serialize(),
+				context: $form,
+				beforeSend: function() {
+					$('input[type=submit]').attr('disabled', true);
+				}
+			})
+			.done(function(data) {
+				if(data.status == 0) {
+					isDatabaseUp = false;
+					alert('ERROR: Could not establish connection to database.\n' + data.message);
+				}
+				else {
+					isDatabaseUp = true;
+				}
+			})
+			.always(function() {
+				$('input[type=submit]').removeAttr('disabled');
+
+				// If there is no errors, submit!
+				if(isDatabaseUp == true) {
+					this.off('submit');
+					this.submit();
+				}
+			});
+		}
 
 		event.preventDefault();
 	});
@@ -93,6 +105,7 @@ function installModule(id) {
 		db_database: $('#db_database').val(),
 		db_username: $('#db_username').val(),
 		db_password: $('#db_password').val(),
+		db_port: $('#db_port').val(),
 		community_name: $('#community_name').val(),
 		community_path: $('#community_path').val(),
 		community_url: $('#community_url').val(),

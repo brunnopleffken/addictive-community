@@ -146,7 +146,7 @@ class Session
 		// If it exists, save in class property for further usage
 		if(!$has_session) {
 			// Create new session ID and store it in browser session
-			$this->session_id = md5(uniqid(microtime()));
+			$this->session_id = md5(uniqid(mt_rand(), true));
 			$_SESSION['session_id'] = $this->session_id;
 		}
 		else {
@@ -158,6 +158,13 @@ class Session
 		if($this->GetCookie("member_id")) {
 			// Member has already logged in
 			$this->session_info['member_id'] = $this->GetCookie("member_id");
+
+			// Delete all old session data, except current logged in member
+			$this->Db->Delete("c_sessions",
+				"activity_time < '{$this->session_activity_cut}' AND member_id <> {$this->session_info['member_id']}"
+			);
+
+			// Update member session
 			$this->UpdateMemberSession();
 		}
 		else {
@@ -165,7 +172,7 @@ class Session
 			$this->session_info['member_id'] = 0;
 
 			// Delete old session data from other users
-			$this->Db->Query("DELETE FROM c_sessions WHERE activity_time < '{$this->session_activity_cut}';");
+			$this->Db->Delete("c_sessions", "activity_time < '{$this->session_activity_cut}'");
 
 			if($has_session) {
 				// Just a guest navigating...
@@ -227,7 +234,7 @@ class Session
 	public function DestroySession($member_id)
 	{
 		// Delete session register in database
-		$this->Db->Query("DELETE FROM c_sessions WHERE member_id = {$member_id}");
+		$this->Db->Delete("c_sessions", "member_id = {$member_id}");
 
 		// Delete cookie
 		$this->UnloadCookie("member_id");
@@ -269,10 +276,10 @@ class Session
 		$this->session_info['activity_time'] = time();
 
 		// Update session in database
-		$this->Db->Query("UPDATE c_sessions SET
-				activity_time = '{$this->session_info['activity_time']}',
-				location_type = '{$this->controller}'
-				WHERE s_id = '{$session_id}';");
+		$this->Db->Update("c_sessions", array(
+			"activity_time = '{$this->session_info['activity_time']}'",
+			"location_type = '{$this->controller}'"
+		), "s_id = '{$session_id}'");
 	}
 
 	/**
@@ -285,13 +292,8 @@ class Session
 		// Set activity time
 		$this->session_info['activity_time'] = time();
 
-		// Delete all old session data, except current logged in member
-		$this->Db->Query("DELETE FROM c_sessions WHERE activity_time < '{$this->session_activity_cut}'
-				AND member_id <> {$this->session_info['member_id']};");
-
 		// Running the method UpdateExistingMember() for the first time?
 		// Check if session register exists in database, if not, create it
-		// and create a session 'logged_in'.
 		if(!isset($_SESSION['logged_in'])) {
 			$this->Db->Query("SELECT EXISTS(SELECT 1 FROM c_sessions WHERE member_id = {$this->session_info['member_id']});");
 			$result = $this->Db->Fetch();
@@ -312,8 +314,6 @@ class Session
 				// Insert new session on database
 				$this->Db->Insert("c_sessions", $this->session_info);
 			}
-
-			$_SESSION['logged_in'] = $this->session_info['member_id'];
 		}
 
 		// Get logged in member information
@@ -321,9 +321,9 @@ class Session
 		$this->member_info = $this->Db->Fetch();
 
 		// Update session in database
-		$this->Db->Query("UPDATE c_sessions SET
-				activity_time = '{$this->session_info['activity_time']}',
-				location_type = '{$this->controller}'
-				WHERE member_id = '{$this->session_info['member_id']}';");
+		$this->Db->Update("c_sessions", array(
+			"activity_time = '{$this->session_info['activity_time']}'",
+			"location_type = '{$this->controller}'"
+		), "member_id = '{$this->session_info['member_id']}'");
 	}
 }

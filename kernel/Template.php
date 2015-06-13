@@ -21,7 +21,7 @@ class Template
 	 * INSERT HTML INTO $this->html
 	 * --------------------------------------------------------------------
 	 */
-	public static function Add($html)
+	public static function Add($html = "")
 	{
 		self::$html .= $html;
 	}

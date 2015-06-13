@@ -48,7 +48,7 @@
 			<a href="<?php __($community_url) ?>"><img src="themes/<?php __($theme) ?>/images/logo.png" class="logo" alt="Addictive Community"></a>
 			<div id="search">
 				<form action="search" method="get" class="validate">
-					<input type="text" name="q" size="25" class="required" value="<?php echo Html::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>">
+					<input type="text" name="q" size="25" class="required" value="<?php echo Http::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>">
 					<input type="submit" value="OK">
 				</form>
 			</div>
@@ -115,8 +115,8 @@
 							<div class="text">
 								<span class="stats-name fleft"><?php __("SIDEBAR_S_THREADS") ?></span>
 								<b class="fright"><?php echo $stats['threads'] ?></b><br>
-								<span class="stats-name fleft"><?php __("SIDEBAR_S_REPLIES") ?></span>
-								<b class="fright"><?php echo $stats['replies'] ?></b><br>
+								<span class="stats-name fleft"><?php __("SIDEBAR_S_POSTS") ?></span>
+								<b class="fright"><?php echo $stats['posts'] ?></b><br>
 								<span class="stats-name fleft"><?php __("SIDEBAR_S_MEMBERS") ?></span>
 								<b class="fright"><?php echo $stats['members'] ?></b><br>
 								<span class="stats-name fleft"><?php __("SIDEBAR_S_LAST") ?></span>

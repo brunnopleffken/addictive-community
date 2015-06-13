@@ -10,11 +10,11 @@
 	## ---------------------------------------------------
 
 
-	$username = (Html::Request("username")) ? Html::Request("username") : "";
+	$username = (Http::Request("username")) ? Http::Request("username") : "";
 
 	// Execute queries, if defined
 
-	$do = (Html::Request("do")) ? Html::Request("do") : false;
+	$do = (Http::Request("do")) ? Http::Request("do") : false;
 
 	if($do) {
 		switch($do) {

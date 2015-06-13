@@ -11,7 +11,7 @@
 
 	// Room editing
 
-	$id = Html::Request("id");
+	$id = Http::Request("id");
 
 	$Db->Query("SELECT * FROM c_rooms WHERE r_id = '{$id}';");
 	$room_info = $Db->Fetch();

@@ -8,6 +8,7 @@
 	$t["R_TOP_THREADS"] = "Top Threads";
 	$t["R_NO_REPLIES"] = "No Replies";
 	$t["R_ANSWERED"] = "Answered";
+	$t["R_POLLS"] = "Polls";
 	$t["R_STARTED_BY"] = "Started by %s";
 	$t["R_STARTED_ON"] = "On %s";
 	$t["R_VIEWS"] = "%d views";

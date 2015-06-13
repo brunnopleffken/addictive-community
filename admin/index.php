@@ -15,8 +15,8 @@
 	// Display error messages
 	// e.g.: index.php?error=1
 
-	if(Html::Request("error")) {
-		$error = Html::Request("error");
+	if(Http::Request("error")) {
+		$error = Http::Request("error");
 
 		switch($error) {
 			case 1:

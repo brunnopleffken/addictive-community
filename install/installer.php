@@ -24,7 +24,7 @@
 	require_once("../kernel/Database.php");
 
 	// Get step number
-	$step = Html::Request("step");
+	$step = Http::Request("step");
 
 	// Get user data
 	$data = $_POST;
@@ -72,13 +72,12 @@
 				$handle = fopen("../config.php", "w");
 
 				$file_content = "<?php
-	// Addictive Community configuration file for MySQL
-	\$config['db_server']   = \"{$data['db_server']}\";
-	\$config['db_username'] = \"{$data['db_username']}\";
-	\$config['db_password'] = \"{$data['db_password']}\";
-	\$config['db_database'] = \"{$data['db_database']}\";
-	\$config['db_prefix']   = \"c_\";
-?>";
+// MySQL configuration file for Addictive Community
+\$config['db_server']   = \"{$data['db_server']}\";
+\$config['db_username'] = \"{$data['db_username']}\";
+\$config['db_password'] = \"{$data['db_password']}\";
+\$config['db_database'] = \"{$data['db_database']}\";
+\$config['db_port']     = {$data['db_port']};";
 
 				if(fwrite($handle, $file_content)) {
 					$status = 1;
@@ -198,7 +197,7 @@
 
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_name', '{$community_info['community_name']}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_url', '{$community_info['community_url']}');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.3.0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.4.0');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_name', 'My Website');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_url', 'http://');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_logo', 'logo.png');";
@@ -282,14 +281,14 @@
 			// Get administrator account data
 			$admin_info = array(
 				'username' => String::Sanitize($data['admin_username']),
-				'password' => String::PasswordEncrypt($data['admin_password'], $salt),
+				'password' => String::Encrypt($data['admin_password'], $salt),
 				'email'    => String::Sanitize($data['admin_email']),
 				'joined'   => time()
 			);
 
 			// Build SQL
 
-			$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_windowslive`, `im_skype`, `im_facebook`, `im_twitter`, `im_yim`, `im_aol`, `posts`, `lastpost_date`, `signature`, `template`, `theme`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', '', '', '', '', 1, 1367848084, '', 'default', 'default-light', 'en_US', NULL, NULL, 0, '0', 0, 1, 1, '')";
+			$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_facebook`, `im_twitter`, `posts`, `lastpost_date`, `signature`, `template`, `theme`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', 1, 1367848084, '', 'default', 'default-light', 'en_US', NULL, NULL, 0, '0', 0, 1, 1, '')";
 
 			$insert_admin = $Db->Query($insert_admin_query);
 

@@ -18,13 +18,13 @@ class Room extends Application
 	 * RUN BEFORE MAIN()
 	 * --------------------------------------------------------------------
 	 */
-	public function _beforeFilter()
+	public function _BeforeAction()
 	{
-		if(Html::Request("act") == "load_more") {
+		if(Http::Request("act") == "load_more") {
 			// Update session table with room ID
-			$id = Html::Request("id");
+			$id = Http::Request("id");
 			$session = $this->Session->session_id;
-			$this->Db->Query("UPDATE c_sessions SET location_room_id = {$id} WHERE s_id = '{$session}';");
+			$this->Db->Update("c_sessions", "location_room_id = {$id}", "s_id = '{$session}'");
 		}
 	}
 
@@ -66,7 +66,7 @@ class Room extends Application
 		$this->Set("room_id", $id);
 		$this->Set("room_info", $room_info);
 		$this->Set("threads", $threads);
-		$this->Set("view", Html::Request("view"));
+		$this->Set("view", Http::Request("view"));
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Room extends Application
 		$this->layout = false;
 
 		// Threads per page
-		$page = Html::Request("page");
+		$page = Http::Request("page");
 		$threads_per_page = $this->Core->config['threads_per_page'];
 
 		// Calculate SQL offset
@@ -111,8 +111,8 @@ class Room extends Application
 	{
 		$this->layout = false;
 
-		$password = Html::Request("password");
-		$room_id  = Html::Request("room");
+		$password = Http::Request("password");
+		$room_id  = Http::Request("room");
 
 		$this->Db->Query("SELECT password FROM c_rooms WHERE r_id = {$room_id}");
 		$room_info = $this->Db->Fetch();
@@ -140,7 +140,7 @@ class Room extends Application
 		$_thread = array();
 
 		// Get query string (room/id?view=mythreads|topreplies|noreplies|bestanswered)
-		$view = Html::Request("view");
+		$view = Http::Request("view");
 
 		// Filter thread list
 		switch($view) {
@@ -162,6 +162,11 @@ class Room extends Application
 			case "bestanswered":
 				$menu  = array("selected", "");
 				$where = "AND with_bestanswer = '1'";
+				$order = "lastpost_date DESC";
+				break;
+			case "polls":
+				$menu  = array("selected", "");
+				$where = "AND poll_question <> ''";
 				$order = "lastpost_date DESC";
 				break;
 			default:
