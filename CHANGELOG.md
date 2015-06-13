@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.1 (2015-06-12)
+
+#### Fixed
+- Unexpected T_VARIABLE on Register controller.
+
+
+
 ## v0.4.0 (2015-06-12)
 
 #### Added
