@@ -536,6 +536,66 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * Set an answer as best answer
+	 * --------------------------------------------------------------------
+	 */
+	public function SetBestAnswer($reply_id)
+	{
+		$this->layout = false;
+
+		// Check if the member logged in is the author of the thread
+		// This will protect the script from ill-intentioned people
+		$this->Db->Query("SELECT thread_id,
+				(SELECT author_member_id
+					FROM c_threads
+					WHERE c_threads.t_id = c_posts.thread_id)
+				AS thread_author
+				FROM c_posts WHERE p_id = 9;");
+
+		$thread = $this->Db->Fetch();
+
+		if($this->Session->member_info['m_id'] == $thread['thread_author']) {
+			$this->Db->Update("c_posts", "best_answer = 1", "p_id = {$reply_id}");
+			$this->Db->Update("c_threads", "with_bestanswer = 1", "t_id = {$thread['thread_id']}");
+			$this->Core->Redirect("HTTP_REFERER");
+		}
+		else {
+			$this->Core->Redirect("HTTP_REFERER");
+		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * Set an answer as best answer
+	 * --------------------------------------------------------------------
+	 */
+	public function UnsetBestAnswer($reply_id)
+	{
+		$this->layout = false;
+
+		// Check if the member logged in is the author of the thread
+		// This will protect the script from ill-intentioned people
+		$this->Db->Query("SELECT thread_id,
+				(SELECT author_member_id
+					FROM c_threads
+					WHERE c_threads.t_id = c_posts.thread_id)
+				AS thread_author
+				FROM c_posts WHERE p_id = 9;");
+
+		$thread = $this->Db->Fetch();
+
+		if($this->Session->member_info['m_id'] == $thread['thread_author']) {
+			$this->Db->Update("c_posts", "best_answer = 0", "p_id = {$reply_id}");
+			$this->Db->Update("c_threads", "with_bestanswer = 0", "t_id = {$thread['thread_id']}");
+			$this->Core->Redirect("HTTP_REFERER");
+		}
+		else {
+			$this->Core->Redirect("HTTP_REFERER");
+		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * SAVE POLL VOTES
 	 * --------------------------------------------------------------------
 	 */
