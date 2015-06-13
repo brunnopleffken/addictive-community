@@ -128,7 +128,7 @@ class Register extends Application
 			// Insert into database and update stats
 			$this->Db->Insert("c_members", $register_info);
 			$new_member_id = $this->Db->GetLastID();
-			$this->Db->Update("c_stats", "member_count = member_count + 1")
+			$this->Db->Update("c_stats", "member_count = member_count + 1");
 
 			// Buid e-mail body
 			$validation_url = $this->Core->config['general_community_url']
