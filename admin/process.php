@@ -237,7 +237,19 @@
 			break;
 
 		case "edit_css":
-			String::PR($_REQUEST);
+			$handle = fopen(Http::Request("css_file"), "w");
+			$file_content = html_entity_decode(Http::Request("css"), ENT_QUOTES);
+
+			if(fwrite($handle, $file_content)) {
+				fclose($handle);
+				header("Location: main.php?act=templates&p=themes");
+				exit;
+			}
+			else {
+				header("Location: main.php?act=templates&p=themes");
+				exit;
+			}
+
 			break;
 
 		case "install_language":
