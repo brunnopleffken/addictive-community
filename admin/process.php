@@ -32,6 +32,7 @@
 	require_once("../kernel/Admin.php");
 	require_once("../kernel/Core.php");
 	require_once("../kernel/Html.php");
+	require_once("../kernel/Http.php");
 	require_once("../kernel/String.php");
 	require_once("../kernel/Database.php");
 
