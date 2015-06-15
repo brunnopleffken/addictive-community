@@ -11,6 +11,7 @@
 
 	require_once("../init.php");
 	require_once("../kernel/Html.php");
+	require_once("../kernel/Http.php");
 
 	// Display error messages
 	// e.g.: index.php?error=1
