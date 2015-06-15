@@ -14,6 +14,7 @@
 	require_once("../config.php");
 	require_once("../kernel/String.php");
 	require_once("../kernel/Html.php");
+	require_once("../kernel/Http.php");
 	require_once("../kernel/Database.php");
 
 	// Load MySQL driver and connect

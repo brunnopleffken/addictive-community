@@ -38,6 +38,7 @@
 	require("../kernel/Database.php");
 	require("../kernel/Core.php");
 	require("../kernel/Html.php");
+	require("../kernel/Http.php");
 	require("../kernel/i18n.php");
 	require("../kernel/String.php");
 	require("../kernel/Template.php");
