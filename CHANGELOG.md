@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.2 (2015-06-14)
+
+#### Critical
+- Fixed missing references of `Http()` class in installer and Administration CP.
+
+
+
 ## v0.4.1 (2015-06-12)
 
 #### Fixed
