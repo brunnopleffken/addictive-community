@@ -38,6 +38,9 @@ class Thread extends Application
 		// Get thread information
 		$this->thread_info = $this->_GetThreadInfo($id);
 
+		// Check and update cookie for read/unread threads
+		$this->_CheckUnread();
+
 		// Update session table with room ID
 		$this->_UpdateSessionTable();
 
@@ -638,6 +641,26 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * CHECK IF THREAD IS UNREAD. IF TRUE, ADD TO COOKIE ARRAY
+	 * --------------------------------------------------------------------
+	 */
+	private function _CheckUnread()
+	{
+		$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
+		if($read_threads_cookie) {
+			$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
+			$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
+			if(!in_array($this->thread_info['t_id'], $read_threads) && $login_time_cookie < $this->thread_info['lastpost_date']) {
+				array_push($read_threads, $this->thread_info['t_id']);
+			}
+
+			$read_threads_cookie = json_encode($read_threads);
+			$this->Session->CreateCookie("addictive_community_read_threads", $read_threads_cookie);
+		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * GET GENERAL THREAD INFORMATION, LIKE NUMBER OF REPLIES, CHECK IF
 	 * IT'S AN OBSOLETE THREAD AND PERMISSIONS
 	 * --------------------------------------------------------------------
@@ -645,7 +668,7 @@ class Thread extends Application
 	private function _GetThreadInfo($id)
 	{
 		// Select thread info from database
-		$thread = $this->Db->Query("SELECT t.title, t.room_id, t.author_member_id, t.locked, t.announcement,
+		$thread = $this->Db->Query("SELECT t.t_id, t.title, t.room_id, t.author_member_id, t.locked, t.announcement,
 				t.lastpost_date, t.poll_question, t.poll_data, t.poll_allow_multiple,
 				r.r_id, r.name, r.perm_view, r.perm_reply, r.moderators,
 				(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t

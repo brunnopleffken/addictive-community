@@ -218,6 +218,10 @@ class Session
 			// Create new cookie with member ID
 			$this->CreateCookie("member_id", $this->session_info['member_id'], $persistent);
 
+			// Create new sessions for read/unread threads
+			$this->CreateCookie("addictive_community_login_time", time(), 1);
+			$this->CreateCookie("addictive_community_read_threads", json_encode(array()), 1);
+
 			// Insert new information
 			$this->Db->Insert("c_sessions", $this->session_info);
 		}
@@ -238,6 +242,8 @@ class Session
 
 		// Delete cookie
 		$this->UnloadCookie("member_id");
+		$this->UnloadCookie("addictive_community_login_time");
+		$this->UnloadCookie("addictive_community_read_threads");
 
 		// Delete browser session
 		session_destroy();
