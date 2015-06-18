@@ -15,8 +15,11 @@
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
-date_default_timezone_set("UTC"); // Set default timezone to UTC (timezones are defined by user)
+// Set default timezone to UTC (timezones are defined by user)
+date_default_timezone_set("UTC");
 
+// Set default charset for PHP as UTF-8
+// In case of an action returns JSON encoded object
 header('Content-Type: text/html; charset=utf-8');
 
 /**
@@ -40,16 +43,6 @@ define("DAY", 86400);
 define("WEEK", 604800);
 define("MONTH", 2592000);
 define("YEAR", 31536000);
-
-/**
- * --------------------------------------------------------------------
- * LIST OF MOBILE BRORSERS (USER AGENT)
- * --------------------------------------------------------------------
- */
-$mobile_browsers = array(
-	"Android", "Windows Phone", "iPhone",
-	"MeeGo", "Symbian", "SymbianOS", "Opera Mini"
-);
 
 /**
  * --------------------------------------------------------------------

@@ -122,22 +122,13 @@ class Main
 	private function _LoadController($controller, $action = "")
 	{
 		// Controllers names are in UpperCamelCase, but URLs in lowercase
-		$_controller = $this->controller = ucwords($controller);
+		$controller = $this->controller = ucwords($controller);
+		$action = ($action != "") ? String::FormatActionName($this->action) : $this->action = "Main";
 
 		// Load Application controller
 		require("controllers/Application.php");
-
-		// Load controller
-		require("controllers/" . $_controller . ".php");
-		$this->instance = new $_controller();
-
-		// Get and execute action passed by URL, if any
-		if($action != "") {
-			$action = String::FormatActionName($this->action);
-		}
-		else {
-			$action = $this->action = "Main";
-		}
+		require("controllers/" . $controller . ".php");
+		$this->instance = new $controller();
 
 		// Create an instance of non-static Kernel classes in Application controller
 		$this->instance->Db = $this->Db;
@@ -149,7 +140,7 @@ class Main
 			$this->instance->_BeforeAction($this->id);
 		}
 
-		// Execute Controller with the provided method
+		// Execute Controller with the provided action method
 		$this->instance->Run();
 		$this->instance->$action($this->id);
 
