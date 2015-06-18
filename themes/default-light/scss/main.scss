@@ -1052,6 +1052,33 @@ a.room-mark-as-read {
 	}
 	.content {
 		display: table-cell;
+		.quote {
+			overflow: hidden;
+			position: absolute;
+			right: 10px;
+			top: 16px;
+			width: 130px;
+			&:hover {
+				i { color: #999; }
+				span { opacity: 1; }
+			}
+			i {
+				color: #ddd;
+				float: right;
+				font-size: 18px;
+				@include transition(200ms);
+			}
+			span {
+				color: #ccc;
+				float: left;
+				letter-spacing: 1px;
+				line-height: 18px;
+				opacity: 0;
+				font-size: 10px;
+				text-transform: uppercase;
+				@include transition(200ms);
+			}
+		}
 		.date {
 			color: #ccc;
 			font-size: 10px;
@@ -1062,6 +1089,23 @@ a.room-mark-as-read {
 		.text {
 			margin-bottom: 35px;
 			padding: 0px 15px 15px 0px;
+			.quote-box {
+				background-color: rgba($accent, 0.04);
+				border-left: 2px solid $accent;
+				margin-bottom: 20px;
+				padding: 10px;
+				.quote-author {
+					color: #333;
+					font-size: 10px;
+					letter-spacing: 1px;
+					margin-bottom: 10px;
+					text-transform: uppercase;
+				}
+				.quote-content {
+					font-size: 12px;
+					p:last-child { margin: 0; }
+				}
+			}
 			img.emoticon {
 				display: inline-block;
 				height: 16px;

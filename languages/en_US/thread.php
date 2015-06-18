@@ -2,6 +2,7 @@
 	$t["T_OBSOLETE"] = "This thread is obsolete (last post is older than %d days).";
 	$t["T_POSTED_ON"] = "Posted on %s";
 	$t["T_EDITED"] = "Edited on %s by %s";
+	$t["T_QUOTED_POSTED_ON"] = "<strong>%s</strong> posted on %s";
 	$t["T_REPORT_ABUSE"] = "Report abuse";
 	$t["T_REPLIES"] = "Replies";
 	$t["T_BTN_OBSOLETE"] = "Obsolete Thread";
@@ -11,6 +12,7 @@
 	$t["T_POSTS_LOWCASE"] = "posts";
 	$t["T_POST_REGISTERED"] = "Registered";
 	$t["T_POST_LOCATION"] = "Location";
+	$t["T_REPLY_POST"] = "Reply this post";
 	$t["T_REPORT_POST"] = "Report this post";
 	$t["T_NO_REPLIES"] = "This thread has no replies. Be the first one!";
 	$t["T_EDIT"] = "Edit";
@@ -35,6 +37,7 @@
 	$t["P_NEW_THREAD"] = "New Thread";
 	$t["P_EDIT_POST"] = "Editing Post on";
 	$t["P_THREAD_TITLE"] = "Thread Title";
+	$t["P_QUOTE"] = "Quote";
 	$t["P_POST"] = "Post";
 	$t["P_POLL_QUESTION"] = "Poll Question";
 	$t["P_POLL_CHOICES"] = "Poll Choices";

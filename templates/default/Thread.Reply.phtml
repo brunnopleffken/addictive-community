@@ -7,6 +7,15 @@
 
 <div class="box">
 	<form action="thread/save/<?php echo $thread_id ?>" method="post" class="validate" enctype="multipart/form-data">
+		<?php if(!empty($quote)): ?>
+			<div class="input-box">
+				<div class="label"><?php __("P_QUOTE") ?></div>
+				<div class="field" style="padding: 7px 0">
+					<?php __($quote['post']) ?>
+					<input type="hidden" name="quote_post_id" value="<?php __($quote['p_id']) ?>">
+				</div>
+			</div>
+		<?php endif; ?>
 		<div class="input-box">
 			<div class="label"><?php __("P_POST") ?></div>
 			<div class="field">

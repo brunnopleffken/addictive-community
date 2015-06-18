@@ -239,8 +239,17 @@ a.room-mark-as-read { color: #999; font-size: 10px; letter-spacing: 2px; line-he
 .thread-post-reply .author .user-info li { padding: 0 3px; text-align: right; }
 .thread-post-reply .author .user-info li b { float: left; }
 .thread-post-reply .content { display: table-cell; }
+.thread-post-reply .content .quote { overflow: hidden; position: absolute; right: 10px; top: 16px; width: 130px; }
+.thread-post-reply .content .quote:hover i { color: #999; }
+.thread-post-reply .content .quote:hover span { opacity: 1; }
+.thread-post-reply .content .quote i { color: #ddd; float: right; font-size: 18px; -webkit-transition: 200ms; -moz-transition: 200ms; transition: 200ms; }
+.thread-post-reply .content .quote span { color: #ccc; float: left; letter-spacing: 1px; line-height: 18px; opacity: 0; font-size: 10px; text-transform: uppercase; -webkit-transition: 200ms; -moz-transition: 200ms; transition: 200ms; }
 .thread-post-reply .content .date { color: #ccc; font-size: 10px; letter-spacing: 1px; line-height: 50px; text-transform: uppercase; }
 .thread-post-reply .content .text { margin-bottom: 35px; padding: 0px 15px 15px 0px; }
+.thread-post-reply .content .text .quote-box { background-color: rgba(70, 80, 104, 0.04); border-left: 2px solid #465068; margin-bottom: 20px; padding: 10px; }
+.thread-post-reply .content .text .quote-box .quote-author { color: #333; font-size: 10px; letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
+.thread-post-reply .content .text .quote-box .quote-content { font-size: 12px; }
+.thread-post-reply .content .text .quote-box .quote-content p:last-child { margin: 0; }
 .thread-post-reply .content .text img.emoticon { display: inline-block; height: 16px; vertical-align: text-bottom; width: 16px; }
 .thread-post-reply .content .text .signature { border-top: 1px dashed rgba(0, 0, 0, 0.1); color: #777; font-size: 10px; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
 .thread-post-reply .content .text .signature p { margin-bottom: 4px; }

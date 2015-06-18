@@ -157,8 +157,20 @@
 
 			<!-- REPLY CONTENT -->
 			<div class="content">
+				<div class="quote">
+					<span><?php __("T_REPLY_POST") ?></span>
+					<a href="thread/reply/<?php __($thread_id) ?>?quote=<?php __($reply[$k]['p_id']) ?>"><i class="fa fa-fw fa-quote-right"></i></a>
+				</div>
 				<div class="date"><?php __("T_POSTED_ON", array($reply[$k]['post_date'])) ?> <?php __($reply[$k]['edited']) ?></div>
 				<div class="text">
+					<?php if($reply[$k]['has_quote']): ?>
+						<div class="quote-box">
+							<div class="quote-author">
+								<?php __("T_QUOTED_POSTED_ON", array($reply[$k]['quote_author'], $reply[$k]['quote_time'])) ?>
+							</div>
+							<div class="quote-content"><?php echo $reply[$k]['quote_post'] ?></div>
+						</div>
+					<?php endif; ?>
 					<div><?php __(html_entity_decode($reply[$k]['post'])) ?></div>
 					<div class="attachments">
 						<?php if($reply[$k]['attach_id'] != 0): ?>

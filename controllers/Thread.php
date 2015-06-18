@@ -94,9 +94,20 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
+		// Get thread info
 		$this->Db->Query("SELECT t.t_id, t.title, r.r_id, r.name, r.upload FROM c_threads t
 				INNER JOIN c_rooms r ON (t.room_id = r.r_id) WHERE t_id = {$id};");
 		$thread_info = $this->Db->Fetch();
+
+		// If member is replying another post (quote)
+		if(Http::Request("quote")) {
+			$quote_post_id = Http::Request("quote");
+			$this->Db->Query("SELECT p_id, post FROM c_posts WHERE p_id = {$quote_post_id};");
+			$quote = $this->Db->Fetch();
+		}
+		else {
+			$quote = array();
+		}
 
 		// Page info
 		$page_info['title'] = i18n::Translate("P_ADD_REPLY") . ": " . $thread_info['title'];
@@ -106,6 +117,7 @@ class Thread extends Application
 		// Return variables
 		$this->Set("thread_id", $id);
 		$this->Set("thread_info", $thread_info);
+		$this->Set("quote", $quote);
 		$this->Set("allow_uploads", $thread_info['upload']);
 	}
 
@@ -177,13 +189,14 @@ class Thread extends Application
 
 		// Format new post array
 		$post = array(
-			"author_id"   => $this->Session->member_info['m_id'],
-			"thread_id"   => Http::Request("id", true),
-			"post_date"   => time(),
-			"ip_address"  => $_SERVER['REMOTE_ADDR'],
-			"post"        => $_POST['post'],
-			"best_answer" => 0,
-			"first_post"  => 0
+			"author_id"     => $this->Session->member_info['m_id'],
+			"thread_id"     => Http::Request("id", true),
+			"post_date"     => time(),
+			"ip_address"    => $_SERVER['REMOTE_ADDR'],
+			"post"          => $_POST['post'],
+			"quote_post_id" => Http::Request("quote_post_id"),
+			"best_answer"   => 0,
+			"first_post"    => 0
 		);
 
 		// Send attachments
@@ -871,6 +884,23 @@ class Thread extends Application
 			}
 			else {
 				$result['edited'] = "";
+			}
+
+			// Get quoted post
+			if($result['quote_post_id'] != 0) {
+				$result['has_quote'] = true;
+				$quoted_post = $this->Db->Query("SELECT c_posts.post_date, c_posts.post, c_members.username AS author FROM c_posts
+						INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
+						WHERE p_id = {$result['quote_post_id']};");
+				$quoted_post_result = $this->Db->Fetch();
+
+				// Return results
+				$result['quote_author'] = $quoted_post_result['author'];
+				$result['quote_time'] = $this->Core->DateFormat($quoted_post_result['post_date']);
+				$result['quote_post'] = $quoted_post_result['post'];
+			}
+			else {
+				$result['has_quote'] = false;
 			}
 
 			// Build post/thread action controls
