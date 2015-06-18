@@ -259,10 +259,11 @@ $(document).ready(function($) {
 			// If the checkbox is already checked
 			if($checkbox.is('[checked]')) {
 				$('a#checkbox-' + i).addClass('checked');
+				$checkbox.addClass('checked');
 			}
 		});
 
-		$(document).on('click', 'a.checkbox', function(event) {
+		$('body').on('click', 'a.checkbox', function(event) {
 			var $link = $(this);
 			var $checkbox = $('input[type=checkbox].' + $link.attr('id'));
 
