@@ -28,7 +28,12 @@
 		</div>
 		<div class="input-box">
 			<div class="label"><?php __("C_EMAIL_ADDR") ?></div>
-			<div class="field"><input type="text" name="email" value="<?php __($member['email']) ?>" class="required email medium"></div>
+			<div class="field">
+				<input type="text" name="email" value="<?php __($member['email']) ?>" class="required email medium">
+				<input type="hidden" name="hide_email" value="0">
+				<input type="checkbox" name="hide_email" id="hide_email" value="1" <?php __($profile['hide_email_status']) ?>>
+				<em class="tiny"><?php __("C_EMAIL_HIDE") ?></em>
+			</div>
 		</div>
 		<div class="input-box">
 			<div class="label"><?php __("C_BIRTHDATE") ?></div>

@@ -19,6 +19,7 @@
 	$t["C_MEMBER_TITLE"] = "Member Title";
 	$t["C_ABOUT_ME"] = "About Me";
 	$t["C_EMAIL_ADDR"] = "E-mail Address";
+	$t["C_EMAIL_HIDE"] = "Hide e-mail address from other users";
 	$t["C_BIRTHDATE"] = "Birthdate";
 	$t["C_GENDER"] = "Gender";
 	$t["C_GENDER_MALE"] = "Male";
