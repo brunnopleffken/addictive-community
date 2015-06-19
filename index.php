@@ -17,22 +17,22 @@ require("init.php");
 class Main
 {
 	// Controller, Action and ID
-	public $controller = "";
-	public $action = "";
-	public $id = "";
+	protected $controller = "";
+	protected $action = "";
+	protected $id = "";
 
 	// Current theme, template and language
-	public $theme;
-	public $template;
-	public $language;
+	private $theme;
+	private $template;
+	private $language;
 
 	// Instances of non-static Kernel classes
-	public $Core;
-	public $Db;
-	public $Session;
+	private $Core;
+	private $Db;
+	private $Session;
 
 	// Configurations
-	public $Config = array();
+	private $Config = array();
 
 	// Controller instance
 	private $instance;
@@ -246,7 +246,9 @@ class Main
 			}
 		}
 		else {
-			echo Html::Notification("Language files or keywords are missing for <b>" . $this->language . "</b>.", "failure", true);
+			echo Html::Notification(
+				"Language files or keywords are missing for <b>" . $this->language . "</b>.", "failure", true
+			);
 		}
 	}
 }

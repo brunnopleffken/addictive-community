@@ -19,7 +19,7 @@ error_reporting(E_ALL);
 date_default_timezone_set("UTC");
 
 // Set default charset for PHP as UTF-8
-// In case of an action returns JSON encoded object
+// In case of an action returning JSON encoded objects
 header('Content-Type: text/html; charset=utf-8');
 
 /**
