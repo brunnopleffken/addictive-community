@@ -407,6 +407,11 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
+		// Do not allow unauthorized members
+		if(!$this->_IsModeratorFromThreadId($thread_id)) {
+			Html::Error("You're not allowed to perform this action.");
+		}
+
 		// Lock thread
 		$this->Db->Update("c_threads", "locked = 1", "t_id = {$thread_id}");
 
@@ -434,6 +439,11 @@ class Thread extends Application
 
 		// Do not allow guests
 		$this->Session->NoGuest();
+
+		// Do not allow unauthorized members
+		if(!$this->_IsModeratorFromThreadId($thread_id)) {
+			Html::Error("You're not allowed to perform this action.");
+		}
 
 		// Lock thread
 		$this->Db->Update("c_threads", "locked = 0", "t_id = {$thread_id}");
@@ -463,6 +473,11 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
+		// Do not allow unauthorized members
+		if(!$this->_IsModeratorFromThreadId($thread_id)) {
+			Html::Error("You're not allowed to perform this action.");
+		}
+
 		// Lock thread
 		$this->Db->Update("c_threads", "announcement = 1", "t_id = {$thread_id}");
 
@@ -491,6 +506,11 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
+		// Do not allow unauthorized members
+		if(!$this->_IsModeratorFromThreadId($thread_id)) {
+			Html::Error("You're not allowed to perform this action.");
+		}
+
 		// Lock thread
 		$this->Db->Update("c_threads", "announcement = 0", "t_id = {$thread_id}");
 
@@ -518,6 +538,11 @@ class Thread extends Application
 
 		// Do not allow guests
 		$this->Session->NoGuest();
+
+		// Do not allow unauthorized members
+		if(!$this->_IsModeratorFromThreadId($thread_id)) {
+			Html::Error("You're not allowed to perform this action.");
+		}
 
 		// Get room ID
 		$this->Db->Query("SELECT room_id FROM c_threads WHERE t_id = {$thread_id};");
@@ -1040,7 +1065,8 @@ class Thread extends Application
 	 * WHEN POSTING, CHECK IF MEMBER IS A MODERATOR
 	 * --------------------------------------------------------------------
 	 */
-	private function _IsModerator($moderators_serialized = "") {
+	private function _IsModerator($moderators_serialized = "")
+	{
 		// Get array of moderators
 		$moderators_array = unserialize($moderators_serialized);
 
@@ -1058,5 +1084,22 @@ class Thread extends Application
 				return false;
 			}
 		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * WHEN POSTING, CHECK IF MEMBER IS A MODERATOR (GET THREAD ID VALUE)
+	 * --------------------------------------------------------------------
+	 */
+	private function _IsModeratorFromThreadId($thread_id = 0)
+	{
+		// Get thread moderators
+		$this->Db->Query("SELECT r.moderators FROM c_threads t
+				INNER JOIN c_rooms r ON (r.r_id = t.room_id)
+				WHERE t_id = {$thread_id};");
+
+		$moderators = $this->Db->Fetch();
+
+		return $this->_IsModerator($moderators['moderators']);
 	}
 }
