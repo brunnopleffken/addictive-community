@@ -22,16 +22,16 @@
 				<div class="label"><?php __("P_POLL_QUESTION") ?></div>
 				<div class="field">
 					<input type="text" name="poll_question" class="large required" maxlength="64"> &nbsp;
-					<input type="checkbox" name="poll_allow_multiple"> Allow multiple choice selection
+					<input type="checkbox" name="poll_allow_multiple"> <?php __("P_POLL_ALLOW_MULTIPLE") ?>
 				</div>
 			</div>
 			<div class="input-box">
 				<div class="label">
 					<?php __("P_POLL_CHOICES") ?>
-					<span>Put one answer per line. Maximum 15 answers.</span>
+					<span><?php __("P_POLL_CHOICES_DESC") ?></span>
 				</div>
 				<div class="field">
-					<textarea name="poll_choices" class="required large" rows="12"></textarea>
+					<textarea name="poll_choices" id="poll-choices" class="required large" rows="12"></textarea>
 				</div>
 			</div>
 		<?php endif; ?>

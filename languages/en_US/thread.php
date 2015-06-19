@@ -40,7 +40,9 @@
 	$t["P_QUOTE"] = "Quote";
 	$t["P_POST"] = "Post";
 	$t["P_POLL_QUESTION"] = "Poll Question";
+	$t["P_POLL_ALLOW_MULTIPLE"] = "Allow multiple choice selection";
 	$t["P_POLL_CHOICES"] = "Poll Choices";
+	$t["P_POLL_CHOICES_DESC"] = "Put one answer per line. Maximum 15 answers.";
 	$t["P_ATTACHMENTS"] = "Attachments";
 	$t["P_OPTIONS"] = "Thread Options";
 	$t["P_SET_ANNOUNCEMENT"] = "Set thread as Announcement";
