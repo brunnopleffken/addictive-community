@@ -99,6 +99,8 @@ class Usercp extends Application
 			$profile['female'] = "";
 		}
 
+		$profile['hide_email_status'] = ($this->Session->member_info['hide_email'] == 1) ? "checked" : "";
+
 		// Page info
 		$page_info['title'] = i18n::Translate("C_TITLE");
 		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
@@ -320,6 +322,7 @@ class Usercp extends Application
 		// Get values
 		$info = array(
 			"email"        => Http::Request("email"),
+			"hide_email"   => Http::Request("hide_email"),
 			"member_title" => Http::Request("member_title"),
 			"location"     => Http::Request("location"),
 			"profile"      => Http::Request("profile"),

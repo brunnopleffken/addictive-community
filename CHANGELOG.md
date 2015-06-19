@@ -1,5 +1,36 @@
 # Changelog
 
+## v0.5.0 (2015-06-19)
+
+#### Added
+- Threads flagged as read or unread: it'll check last post date, except your own reply;
+- Quote replies of other members;
+- Show or hide your e-mail address in profile;
+- Admin CP: edit CSS file via Administration panel.
+
+#### Fixed
+- Set/unset a reply as best answer is now working properly;
+- Minor bug fixes and layout enhancements.
+
+#### Security
+- Improved validations when performing moderation actions (lock/unlock, delete, ...).
+
+
+
+## v0.4.2 (2015-06-14)
+
+#### Critical
+- Fixed missing references of `Http()` class in installer and Administration CP.
+
+
+
+## v0.4.1 (2015-06-12)
+
+#### Fixed
+- Unexpected T_VARIABLE on Register controller.
+
+
+
 ## v0.4.0 (2015-06-12)
 
 #### Added
@@ -34,10 +65,12 @@
 
 #### Fixed
 - `input[type=file]` fields passing without validation, even with `.required` class;
-- Fixed a critical exploit that could allow cross-side scripting and HTML injection in posts/messages.
 - User with Administrator privileges were unable to edit/delete other users' posts;
 - Removed dynamic BODY class that causes letters on screen to blink during page reload;
 - Few minor bug fixes.
+
+#### Security
+- Fixed a critical exploit that could allow cross-side scripting and HTML injection in posts/messages.
 
 #### Deprecated
 - In controllers, `$this->config[]` no longer exists. Use `$this->Core->config[]` instead.

@@ -202,6 +202,17 @@ class Room extends Application
 	 */
 	private function _ParseThread($result)
 	{
+		// Check if thread has already been read
+		$is_unread = false;
+		$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
+		if($read_threads_cookie) {
+			$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
+			$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
+			if(!in_array($result['t_id'], $read_threads) && $login_time_cookie < $result['lastpost_date']) {
+				$is_unread = true;
+			}
+		}
+
 		$result['class'] = "";
 		$result['description'] = strip_tags($result['post']);
 		$result['mobile_start_date'] = $this->Core->DateFormat($result['start_date'], "short");
@@ -223,22 +234,27 @@ class Room extends Application
 
 		// Status: locked
 		if($result['locked'] == 1) {
-			$result['class'] = "locked ";
+			$result['class'] = "locked";
 		}
 
 		// Status: answered
 		if($result['with_bestanswer'] == 1) {
-			$result['class'] = "answered ";
+			$result['class'] = "answered";
 		}
 
 		// Status: announcement
 		if($result['announcement'] == 1) {
-			$result['class'] = "announcement ";
+			$result['class'] = "announcement";
 		}
 
 		// Status: hot
 		if($result['replies'] >= $this->Core->config['thread_posts_hot']) {
-			$result['class'] .= "hot";
+			$result['class'] .= " hot";
+		}
+
+		// Status: unread
+		if($is_unread) {
+			$result['class'] .= " unread";
 		}
 
 		return $result;

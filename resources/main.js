@@ -259,10 +259,11 @@ $(document).ready(function($) {
 			// If the checkbox is already checked
 			if($checkbox.is('[checked]')) {
 				$('a#checkbox-' + i).addClass('checked');
+				$checkbox.addClass('checked');
 			}
 		});
 
-		$(document).on('click', 'a.checkbox', function(event) {
+		$('body').on('click', 'a.checkbox', function(event) {
 			var $link = $(this);
 			var $checkbox = $('input[type=checkbox].' + $link.attr('id'));
 
@@ -449,6 +450,26 @@ $(document).ready(function($) {
 			}
 		});
 	}).call(this);
+
+	/**
+	 * COUNT NUMBER OF CHOICES WHEN CREATING NEW POLL
+	 * DON'T ALLOW IF IT EXCEEDS 15 CHOICES
+	 */
+
+	(function() {
+		$('#poll-choices').on('keyup', function() {
+			var value = $(this).val();
+			if(value.split(/\r*\n/).length > 15) {
+				$(this).addClass('error');
+				$('input[type=submit]').attr('disabled', true);
+			}
+			else {
+				$(this).removeClass('error');
+				$('input[type=submit]').removeAttr('disabled');
+			}
+		});
+	}).call(this);
+
 });
 
 

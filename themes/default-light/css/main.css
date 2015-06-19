@@ -152,6 +152,8 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .room-item .room-stats .item { border-bottom: 1px dotted rgba(255, 255, 255, 0.3); color: #fff; font-weight: bold; font-size: 15px; overflow: hidden; padding: 15px; text-align: center; }
 .room-item .room-stats .item i { font-size: 17px; }
 
+a.room-mark-as-read { color: #999; font-size: 10px; letter-spacing: 2px; line-height: 1em; text-transform: uppercase; text-shadow: 1px 1px 0 #fff; }
+
 /** GLOBAL TITLE BAR **/
 .title-bar { overflow: hidden; padding: 5px 0 18px 0; vertical-align: bottom; }
 .title-bar .title { font-size: 24px; font-weight: bold; letter-spacing: 2px; margin-right: 120px; }
@@ -163,7 +165,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-item .avatar { display: table-cell; padding-top: 4px; text-align: center; vertical-align: middle; width: 80px; }
 .thread-item .avatar .image { box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }
 .thread-item .middle { display: table-cell; padding: 12px 10px 12px 2px; }
-.thread-item .middle .title { display: block; font-size: 19px; font-weight: bold; line-height: 1em; }
+.thread-item .middle .title { display: block; font-size: 19px; line-height: 1em; }
 .thread-item .middle .description { color: #444; font-size: 11px; line-height: 1em; overflow: hidden; padding: 10px 0 12px 0; text-overflow: ellipsis; white-space: nowrap; width: 100%; }
 .thread-item .middle .author { color: #999; font-size: 10px; line-height: 1em; text-transform: uppercase; }
 .thread-item .middle .author i { color: #555; font-size: 12px; margin-right: 5px; }
@@ -178,6 +180,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-item > .center { padding: 15px; }
 .thread-item.hot .stats { background: #465068 url("../images/hot-thread.png") no-repeat top right; background-size: 32px; }
 .thread-item.unread { border-color: #465068; }
+.thread-item.unread .middle .title { font-weight: bold; }
 .thread-item.announcement { background: #f9f9ff; border-color: #009; }
 .thread-item.locked { background: #fff9f9; border-color: #c00; }
 .thread-item.answered { border-color: #090; }
@@ -236,8 +239,17 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .thread-post-reply .author .user-info li { padding: 0 3px; text-align: right; }
 .thread-post-reply .author .user-info li b { float: left; }
 .thread-post-reply .content { display: table-cell; }
+.thread-post-reply .content .quote { overflow: hidden; position: absolute; right: 10px; top: 16px; width: 130px; }
+.thread-post-reply .content .quote:hover i { color: #999; }
+.thread-post-reply .content .quote:hover span { opacity: 1; }
+.thread-post-reply .content .quote i { color: #ddd; float: right; font-size: 18px; -webkit-transition: 200ms; -moz-transition: 200ms; transition: 200ms; }
+.thread-post-reply .content .quote span { color: #ccc; float: left; letter-spacing: 1px; line-height: 18px; opacity: 0; font-size: 10px; text-transform: uppercase; -webkit-transition: 200ms; -moz-transition: 200ms; transition: 200ms; }
 .thread-post-reply .content .date { color: #ccc; font-size: 10px; letter-spacing: 1px; line-height: 50px; text-transform: uppercase; }
 .thread-post-reply .content .text { margin-bottom: 35px; padding: 0px 15px 15px 0px; }
+.thread-post-reply .content .text .quote-box { background-color: rgba(70, 80, 104, 0.04); border-left: 2px solid #465068; margin-bottom: 20px; padding: 10px; }
+.thread-post-reply .content .text .quote-box .quote-author { color: #333; font-size: 10px; letter-spacing: 1px; margin-bottom: 10px; text-transform: uppercase; }
+.thread-post-reply .content .text .quote-box .quote-content { font-size: 12px; }
+.thread-post-reply .content .text .quote-box .quote-content p:last-child { margin: 0; }
 .thread-post-reply .content .text img.emoticon { display: inline-block; height: 16px; vertical-align: text-bottom; width: 16px; }
 .thread-post-reply .content .text .signature { border-top: 1px dashed rgba(0, 0, 0, 0.1); color: #777; font-size: 10px; line-height: 1.4em; margin-top: 15px; padding: 10px 0 0 0; }
 .thread-post-reply .content .text .signature p { margin-bottom: 4px; }

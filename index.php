@@ -17,22 +17,22 @@ require("init.php");
 class Main
 {
 	// Controller, Action and ID
-	public $controller = "";
-	public $action = "";
-	public $id = "";
+	protected $controller = "";
+	protected $action = "";
+	protected $id = "";
 
 	// Current theme, template and language
-	public $theme;
-	public $template;
-	public $language;
+	private $theme;
+	private $template;
+	private $language;
 
 	// Instances of non-static Kernel classes
-	public $Core;
-	public $Db;
-	public $Session;
+	private $Core;
+	private $Db;
+	private $Session;
 
 	// Configurations
-	public $Config = array();
+	private $Config = array();
 
 	// Controller instance
 	private $instance;
@@ -122,22 +122,13 @@ class Main
 	private function _LoadController($controller, $action = "")
 	{
 		// Controllers names are in UpperCamelCase, but URLs in lowercase
-		$_controller = $this->controller = ucwords($controller);
+		$controller = $this->controller = ucwords($controller);
+		$action = ($action != "") ? String::FormatActionName($this->action) : $this->action = "Main";
 
 		// Load Application controller
 		require("controllers/Application.php");
-
-		// Load controller
-		require("controllers/" . $_controller . ".php");
-		$this->instance = new $_controller();
-
-		// Get and execute action passed by URL, if any
-		if($action != "") {
-			$action = String::FormatActionName($this->action);
-		}
-		else {
-			$action = $this->action = "Main";
-		}
+		require("controllers/" . $controller . ".php");
+		$this->instance = new $controller();
 
 		// Create an instance of non-static Kernel classes in Application controller
 		$this->instance->Db = $this->Db;
@@ -149,7 +140,7 @@ class Main
 			$this->instance->_BeforeAction($this->id);
 		}
 
-		// Execute Controller with the provided method
+		// Execute Controller with the provided action method
 		$this->instance->Run();
 		$this->instance->$action($this->id);
 
@@ -255,7 +246,9 @@ class Main
 			}
 		}
 		else {
-			echo Html::Notification("Language files or keywords are missing for <b>" . $this->language . "</b>.", "failure", true);
+			echo Html::Notification(
+				"Language files or keywords are missing for <b>" . $this->language . "</b>.", "failure", true
+			);
 		}
 	}
 }

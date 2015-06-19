@@ -26,3 +26,7 @@
 		</tr>
 	</table>
 <?php endforeach; ?>
+
+<?php if($is_logged): ?>
+	<div class="fright"><a href="community/mark_all_as_read" class="room-mark-as-read"><?php __("C_MARK_ALL_READ") ?></a></div>
+<?php endif; ?>

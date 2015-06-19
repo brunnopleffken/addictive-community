@@ -38,6 +38,9 @@ class Thread extends Application
 		// Get thread information
 		$this->thread_info = $this->_GetThreadInfo($id);
 
+		// Check and update cookie for read/unread threads
+		$this->_CheckUnread();
+
 		// Update session table with room ID
 		$this->_UpdateSessionTable();
 
@@ -91,9 +94,20 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
+		// Get thread info
 		$this->Db->Query("SELECT t.t_id, t.title, r.r_id, r.name, r.upload FROM c_threads t
 				INNER JOIN c_rooms r ON (t.room_id = r.r_id) WHERE t_id = {$id};");
 		$thread_info = $this->Db->Fetch();
+
+		// If member is replying another post (quote)
+		if(Http::Request("quote")) {
+			$quote_post_id = Http::Request("quote");
+			$this->Db->Query("SELECT p_id, post FROM c_posts WHERE p_id = {$quote_post_id};");
+			$quote = $this->Db->Fetch();
+		}
+		else {
+			$quote = array();
+		}
 
 		// Page info
 		$page_info['title'] = i18n::Translate("P_ADD_REPLY") . ": " . $thread_info['title'];
@@ -103,6 +117,7 @@ class Thread extends Application
 		// Return variables
 		$this->Set("thread_id", $id);
 		$this->Set("thread_info", $thread_info);
+		$this->Set("quote", $quote);
 		$this->Set("allow_uploads", $thread_info['upload']);
 	}
 
@@ -174,13 +189,14 @@ class Thread extends Application
 
 		// Format new post array
 		$post = array(
-			"author_id"   => $this->Session->member_info['m_id'],
-			"thread_id"   => Http::Request("id", true),
-			"post_date"   => time(),
-			"ip_address"  => $_SERVER['REMOTE_ADDR'],
-			"post"        => $_POST['post'],
-			"best_answer" => 0,
-			"first_post"  => 0
+			"author_id"     => $this->Session->member_info['m_id'],
+			"thread_id"     => Http::Request("id", true),
+			"post_date"     => time(),
+			"ip_address"    => $_SERVER['REMOTE_ADDR'],
+			"post"          => $_POST['post'],
+			"quote_post_id" => Http::Request("quote_post_id"),
+			"best_answer"   => 0,
+			"first_post"    => 0
 		);
 
 		// Send attachments
@@ -391,6 +407,11 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
+		// Do not allow unauthorized members
+		if(!$this->_IsModeratorFromThreadId($thread_id)) {
+			Html::Error("You're not allowed to perform this action.");
+		}
+
 		// Lock thread
 		$this->Db->Update("c_threads", "locked = 1", "t_id = {$thread_id}");
 
@@ -418,6 +439,11 @@ class Thread extends Application
 
 		// Do not allow guests
 		$this->Session->NoGuest();
+
+		// Do not allow unauthorized members
+		if(!$this->_IsModeratorFromThreadId($thread_id)) {
+			Html::Error("You're not allowed to perform this action.");
+		}
 
 		// Lock thread
 		$this->Db->Update("c_threads", "locked = 0", "t_id = {$thread_id}");
@@ -447,6 +473,11 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
+		// Do not allow unauthorized members
+		if(!$this->_IsModeratorFromThreadId($thread_id)) {
+			Html::Error("You're not allowed to perform this action.");
+		}
+
 		// Lock thread
 		$this->Db->Update("c_threads", "announcement = 1", "t_id = {$thread_id}");
 
@@ -475,6 +506,11 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
+		// Do not allow unauthorized members
+		if(!$this->_IsModeratorFromThreadId($thread_id)) {
+			Html::Error("You're not allowed to perform this action.");
+		}
+
 		// Lock thread
 		$this->Db->Update("c_threads", "announcement = 0", "t_id = {$thread_id}");
 
@@ -502,6 +538,11 @@ class Thread extends Application
 
 		// Do not allow guests
 		$this->Session->NoGuest();
+
+		// Do not allow unauthorized members
+		if(!$this->_IsModeratorFromThreadId($thread_id)) {
+			Html::Error("You're not allowed to perform this action.");
+		}
 
 		// Get room ID
 		$this->Db->Query("SELECT room_id FROM c_threads WHERE t_id = {$thread_id};");
@@ -532,6 +573,66 @@ class Thread extends Application
 
 		// Redirect
 		$this->Core->Redirect("room/" . $room_id . "?m=7");
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * Set an answer as best answer
+	 * --------------------------------------------------------------------
+	 */
+	public function SetBestAnswer($reply_id)
+	{
+		$this->layout = false;
+
+		// Check if the member logged in is the author of the thread
+		// This will protect the script from ill-intentioned people
+		$this->Db->Query("SELECT thread_id,
+				(SELECT author_member_id
+					FROM c_threads
+					WHERE c_threads.t_id = c_posts.thread_id)
+				AS thread_author
+				FROM c_posts WHERE p_id = 9;");
+
+		$thread = $this->Db->Fetch();
+
+		if($this->Session->member_info['m_id'] == $thread['thread_author']) {
+			$this->Db->Update("c_posts", "best_answer = 1", "p_id = {$reply_id}");
+			$this->Db->Update("c_threads", "with_bestanswer = 1", "t_id = {$thread['thread_id']}");
+			$this->Core->Redirect("HTTP_REFERER");
+		}
+		else {
+			$this->Core->Redirect("HTTP_REFERER");
+		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * Set an answer as best answer
+	 * --------------------------------------------------------------------
+	 */
+	public function UnsetBestAnswer($reply_id)
+	{
+		$this->layout = false;
+
+		// Check if the member logged in is the author of the thread
+		// This will protect the script from ill-intentioned people
+		$this->Db->Query("SELECT thread_id,
+				(SELECT author_member_id
+					FROM c_threads
+					WHERE c_threads.t_id = c_posts.thread_id)
+				AS thread_author
+				FROM c_posts WHERE p_id = 9;");
+
+		$thread = $this->Db->Fetch();
+
+		if($this->Session->member_info['m_id'] == $thread['thread_author']) {
+			$this->Db->Update("c_posts", "best_answer = 0", "p_id = {$reply_id}");
+			$this->Db->Update("c_threads", "with_bestanswer = 0", "t_id = {$thread['thread_id']}");
+			$this->Core->Redirect("HTTP_REFERER");
+		}
+		else {
+			$this->Core->Redirect("HTTP_REFERER");
+		}
 	}
 
 	/**
@@ -578,6 +679,26 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * CHECK IF THREAD IS UNREAD. IF TRUE, ADD TO COOKIE ARRAY
+	 * --------------------------------------------------------------------
+	 */
+	private function _CheckUnread()
+	{
+		$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
+		if($read_threads_cookie) {
+			$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
+			$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
+			if(!in_array($this->thread_info['t_id'], $read_threads) && $login_time_cookie < $this->thread_info['lastpost_date']) {
+				array_push($read_threads, $this->thread_info['t_id']);
+			}
+
+			$read_threads_cookie = json_encode($read_threads);
+			$this->Session->CreateCookie("addictive_community_read_threads", $read_threads_cookie);
+		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * GET GENERAL THREAD INFORMATION, LIKE NUMBER OF REPLIES, CHECK IF
 	 * IT'S AN OBSOLETE THREAD AND PERMISSIONS
 	 * --------------------------------------------------------------------
@@ -585,7 +706,7 @@ class Thread extends Application
 	private function _GetThreadInfo($id)
 	{
 		// Select thread info from database
-		$thread = $this->Db->Query("SELECT t.title, t.room_id, t.author_member_id, t.locked, t.announcement,
+		$thread = $this->Db->Query("SELECT t.t_id, t.title, t.room_id, t.author_member_id, t.locked, t.announcement,
 				t.lastpost_date, t.poll_question, t.poll_data, t.poll_allow_multiple,
 				r.r_id, r.name, r.perm_view, r.perm_reply, r.moderators,
 				(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t
@@ -790,6 +911,23 @@ class Thread extends Application
 				$result['edited'] = "";
 			}
 
+			// Get quoted post
+			if($result['quote_post_id'] != 0) {
+				$result['has_quote'] = true;
+				$quoted_post = $this->Db->Query("SELECT c_posts.post_date, c_posts.post, c_members.username AS author FROM c_posts
+						INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
+						WHERE p_id = {$result['quote_post_id']};");
+				$quoted_post_result = $this->Db->Fetch();
+
+				// Return results
+				$result['quote_author'] = $quoted_post_result['author'];
+				$result['quote_time'] = $this->Core->DateFormat($quoted_post_result['post_date']);
+				$result['quote_post'] = $quoted_post_result['post'];
+			}
+			else {
+				$result['has_quote'] = false;
+			}
+
 			// Build post/thread action controls
 			$result['post_controls'] = "";
 			$result['thread_controls'] = "";
@@ -927,7 +1065,8 @@ class Thread extends Application
 	 * WHEN POSTING, CHECK IF MEMBER IS A MODERATOR
 	 * --------------------------------------------------------------------
 	 */
-	private function _IsModerator($moderators_serialized = "") {
+	private function _IsModerator($moderators_serialized = "")
+	{
 		// Get array of moderators
 		$moderators_array = unserialize($moderators_serialized);
 
@@ -945,5 +1084,22 @@ class Thread extends Application
 				return false;
 			}
 		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * WHEN POSTING, CHECK IF MEMBER IS A MODERATOR (GET THREAD ID VALUE)
+	 * --------------------------------------------------------------------
+	 */
+	private function _IsModeratorFromThreadId($thread_id = 0)
+	{
+		// Get thread moderators
+		$this->Db->Query("SELECT r.moderators FROM c_threads t
+				INNER JOIN c_rooms r ON (r.r_id = t.room_id)
+				WHERE t_id = {$thread_id};");
+
+		$moderators = $this->Db->Fetch();
+
+		return $this->_IsModerator($moderators['moderators']);
 	}
 }

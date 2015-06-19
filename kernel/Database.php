@@ -50,7 +50,7 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * OPEN A CONNECTION TO A MYSQL SERVER
+	 * OPEN A CONNECTION AS SOON AS THE CLASS IS INSTANTIATED
 	 * --------------------------------------------------------------------
 	 */
 	public function __construct($config = array())
@@ -58,6 +58,11 @@ class Database implements IDatabase
 		$this->_Connect($config);
 	}
 
+	/**
+	 * --------------------------------------------------------------------
+	 * MANUALLY OPEN A NEW CONNECTION TO A MYSQL SERVER
+	 * --------------------------------------------------------------------
+	 */
 	protected function _Connect($config = array())
 	{
 		// Store configuration info as class property

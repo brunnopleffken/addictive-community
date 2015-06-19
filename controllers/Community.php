@@ -22,6 +22,7 @@ class Community extends Application
 	{
 		$_rooms = $this->_GetRooms();
 		$this->Set("rooms", $_rooms);
+		$this->Set("is_logged", $this->Session->IsMember());
 	}
 
 	/**
@@ -40,6 +41,21 @@ class Community extends Application
 
 		// Return variables
 		$this->Set("data", $data);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * FOT LOGGED IN MEMBERS: MARK ALL THREADS AS READ
+	 * --------------------------------------------------------------------
+	 */
+	public function MarkAllAsRead()
+	{
+		// Overwrite cookies
+		$this->Session->CreateCookie("addictive_community_login_time", time(), 1);
+		$this->Session->CreateCookie("addictive_community_read_threads", json_encode(array()), 1);
+
+		// Go back to community
+		$this->Core->Redirect("HTTP_REFERER");
 	}
 
 	/**
@@ -117,6 +133,11 @@ class Community extends Application
 			$result['moderators_list'] = "";
 		}
 
+		// Check if room has unread threads
+		if($result['thread_count'] > 0) {
+			$has_unread_threads = $this->_CheckUnread($result['r_id']);
+		}
+
 		// Regular variables
 		$result['room_link'] = "room/{$result['r_id']}";
 		$result['redirect'] = ""; // Specific for redirect room
@@ -128,24 +149,53 @@ class Community extends Application
 			$result['title'] = "<a href='thread/{$result['t_id']}-{$result['slug']}'>{$result['title']}</a>";
 		}
 		elseif($result['password'] != "") {
-			$result['icon']  = "<i class='fa fa-lock fa-fw'></i>";
+			$result['icon']  = "<i class='fa fa-lock fa-fw' title='Protected room'></i>";
 			$result['title'] = "<em>" . i18n::Translate("C_PROTECTED_ROOM") . "</em>";
 		}
 		elseif($result['invisible'] == 1) {
-			$result['icon']  = "<i class='fa fa-user-secret fa-fw'></i>";
+			$result['icon']  = "<i class='fa fa-user-secret fa-fw' title='Invisible room'></i>";
 			$result['title'] = "<a href='thread/{$result['t_id']}-{$result['slug']}'>{$result['title']}</a>";
 		}
 		elseif($result['url'] != "") {
-			$result['icon']  = "<i class='fa fa-external-link fa-fw'></i>";
+			$result['icon']  = "<i class='fa fa-external-link fa-fw' title='Redirect room'></i>";
 			$result['redirect'] = "<div class='redirect'>" . i18n::Translate("C_REDIRECT_TO") . ": {$result['url']}</div>";
 			$result['room_link'] = $result['url'];
 		}
+		elseif($has_unread_threads) {
+			$result['icon']  = "<i class='fa fa-comment fa-fw' title='Has unread threads'></i>";
+			$result['title'] = "<a href='thread/{$result['t_id']}-{$result['slug']}'>{$result['title']}</a>";
+		}
 		else {
-			$result['icon']  = "<i class='fa fa-comment-o fa-fw'></i>";
+			$result['icon']  = "<i class='fa fa-comment-o fa-fw' title='Has no unread threads'></i>";
 			$result['title'] = "<a href='thread/{$result['t_id']}-{$result['slug']}'>{$result['title']}</a>";
 		}
 
 		// Save result in array
 		return $result;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * CHECK IF ROOM HAS UNREAD THREADS
+	 * --------------------------------------------------------------------
+	 */
+	private function _CheckUnread($room_id)
+	{
+		$has_unread = false;
+
+		$threads = $this->Db->Query("SELECT t_id, lastpost_date FROM c_threads WHERE room_id = {$room_id};");
+
+		while($result = $this->Db->Fetch($threads)) {
+			$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
+			if($read_threads_cookie) {
+				$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
+				$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
+				if(!in_array($result['t_id'], $read_threads) && $login_time_cookie < $result['lastpost_date']) {
+					$has_unread = true;
+				}
+			}
+		}
+
+		return $has_unread;
 	}
 }

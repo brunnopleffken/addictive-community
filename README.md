@@ -3,7 +3,7 @@ Addictive Community
 
 ![Latest release](https://img.shields.io/github/release/brunnopleffken/addictive-community.svg)
 
-Free open-source discussion board (forum) software, written in object-oriented PHP. We just released our first Beta version and we're working hard to bring new exciting features and important improvements! Read our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md) and be part of it.
+Free open-source discussion board (forum) software, written in object-oriented PHP. Huge advancements were made in our Beta releases and we're working hard to bring new exciting features and important improvements! Read our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md) and be part of it.
 
 Follow our official channel on Twitter, it's just one click: [@addictivecomm](https://twitter.com/addictivecomm)
 
@@ -20,8 +20,8 @@ Follow our official channel on Twitter, it's just one click: [@addictivecomm](ht
 * API extension system for third-party tools and add-ins;
 * Integrated database maintenance tools;
 * Third-party themes and languages packs;
-* Built-in Search Engine Optimization (SEO) tools;
-* RSS syndication;
+* Friendly URLs and built-in Search Engine Optimization (SEO) tools;
+* Feeds: Atom syndication;
 * And much more!
 
 ## Installing ##
@@ -53,7 +53,7 @@ We're currently working on automatic updates to be released with the first Final
 
 We're glad you're interested to help develop Addictive Community. Be part of it reading our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md).
 
-If you're interested to contribute with language packs, read the guidelines in its [official repository](https://github.com/brunnopleffken/addictive-community-languages).
+If you want to contribute with language packs, translating Addictive Community to your language, read the guidelines in its [official repository](https://github.com/brunnopleffken/addictive-community-languages).
 
 ## About the Author ##
 
