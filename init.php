@@ -27,7 +27,7 @@ header('Content-Type: text/html; charset=utf-8');
  * ADDICTIVE COMMUNITY VERSION
  * --------------------------------------------------------------------
  */
-define("VERSION", "v0.5.0");
+define("VERSION", "v0.5.1");
 define("CHANNEL", "Beta"); // e.g.: Alpha, Beta, Release Candidate, Final
 define("CODENAME", "Nile"); // Version codename :)
 
