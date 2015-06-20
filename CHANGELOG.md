@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.5.1 (2015-06-19)
+
+#### Fixed
+- New database fields for quoting replies not being loaded.
+
+
+
 ## v0.5.0 (2015-06-19)
 
 #### Added

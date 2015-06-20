@@ -144,6 +144,7 @@ CREATE TABLE `c_posts` (
   `attach_clicks` int(10) DEFAULT NULL,
   `ip_address` varchar(46) NOT NULL,
   `post` text NOT NULL,
+  `quote_post_id` int(9) DEFAULT NULL,
   `edit_time` int(10) DEFAULT NULL,
   `edit_author` int(8) DEFAULT NULL,
   `best_answer` int(1) NOT NULL,
