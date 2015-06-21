@@ -47,7 +47,7 @@
 			$report['post'] = "-";
 		}
 		else {
-			$report['post'] = "Yes (<a href='" . $Admin->SelectConfig("general_community_url") . "thread/2#post-" . $report['post_id'] . "' target='_blank'>view post</a>)";
+			$report['post'] = "Yes (<a href='" . $Admin->SelectConfig("general_community_url") . "thread/{$report['thread_id']}#post-" . $report['post_id'] . "' target='_blank'>view post</a>)";
 		}
 
 		$reason[1] = "Nudity or pornography";
@@ -63,7 +63,7 @@
 				<td rowspan='2' style='border-right: 1px solid #eee; border-bottom: 2px solid #eee' nowrap>{$report['username']}</td>
 				<td nowrap>{$report['date']}</td>
 				<td>{$reason[$report['reason']]}</td>
-				<td><a href='../index.php?module=thread&amp;id={$report['thread_id']}'>{$report['title']}</a></td>
+				<td><a href='../thread/{$report['thread_id']}'>{$report['title']}</a></td>
 				<td>{$report['post']}</td>
 				<td rowspan='2' style='border-left: 1px solid #eee; border-bottom: 2px solid #eee'>
 					<a href='process.php?do=remove_report&id={$report['rp_id']}' onclick='DeleteReport({$report['rp_id']},{$report['thread_id']})'><img src='images/trash.png'></a>
