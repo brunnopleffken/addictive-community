@@ -165,6 +165,7 @@ CREATE TABLE `c_ranks` (
 CREATE TABLE `c_reports` (
   `rp_id` int(6) NOT NULL AUTO_INCREMENT,
   `description` text,
+  `reason` int(1) NOT NULL,
   `date` int(10) NOT NULL,
   `sender_id` int(9) NOT NULL,
   `ip_address` varchar(15) NOT NULL,
