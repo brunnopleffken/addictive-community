@@ -65,6 +65,7 @@ class Main
 		// If config.php is empty, go to Addictive Community installer
 		if(filesize("config.php") == 0 || empty($config)) {
 			header("Location: install/");
+			exit;
 		}
 
 		// Instance of Database() class
