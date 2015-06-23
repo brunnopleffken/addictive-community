@@ -36,9 +36,11 @@ require_once("../kernel/Http.php");
 require_once("../kernel/String.php");
 require_once("../kernel/Database.php");
 
-$Db = new Database($config);
+$Db = new Database();
 $Core = new Core($Db, $config);
 $Admin = new Admin($Db);
+
+$Db->Connect($config);
 
 // Do we have an action?
 

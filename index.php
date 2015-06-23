@@ -69,7 +69,8 @@ class Main
 		}
 
 		// Instance of Database() class
-		$this->Db = new Database($config);
+		$this->Db = new Database();
+		$this->Db->Connect($config);
 
 		// Get query strings from URL
 		$this->controller = strtolower(Http::Request("c"));

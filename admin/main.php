@@ -43,7 +43,8 @@
 	require("../kernel/String.php");
 	require("../kernel/Template.php");
 
-	$Db = new Database($config);
+	$Db = new Database();
+	$Db->Connect($config);
 
 	$Db->Query("SELECT * FROM c_config;");
 	$Core = new Core($Db, $Db->FetchConfig());

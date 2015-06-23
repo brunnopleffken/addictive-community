@@ -18,7 +18,8 @@ require_once("../kernel/Database.php");
 
 // Load MySQL driver and connect
 
-$Db = new Database($config);
+$Db = new Database();
+$Db->Connect($config);
 
 // Get security hash key
 $Db->Query("SELECT * FROM c_config c WHERE field = 'security_salt_hash' OR field = 'security_salt_key';");

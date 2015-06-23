@@ -36,13 +36,7 @@
 
 		public function InstallerDB()
 		{
-			$this->mysql['host']     = $this->input['db_server'];
-			$this->mysql['user']     = $this->input['db_username'];
-			$this->mysql['password'] = $this->input['db_password'];
-			$this->mysql['dbase']    = $this->input['db_database'];
-
-			$config = $this->input;
-			$this->_Connect($config);
+			$this->Connect($this->input);
 		}
 	}
 
@@ -73,9 +67,9 @@
 		 * --------------------------------------------------------------------
 		 */
 
-		 case 1:
+		case 1:
 
-		 	$disabled = "";
+			$disabled = "";
 			$notification = "";
 			$button = "<input type='button' value='Proceed' onclick='javascript:eula()'>";
 
@@ -127,9 +121,9 @@ HTML;
 		 * --------------------------------------------------------------------
 		 */
 
-		 case 2:
+		case 2:
 
-		 	// Second barrier to stop any unwanted reinstall
+			// Second barrier to stop any unwanted reinstall
 
 			if(file_exists(".lock")) {
 				echo Html::Notification(
@@ -189,12 +183,12 @@ HTML;
 		 * --------------------------------------------------------------------
 		 */
 
-		 case 3:
+		case 3:
 
-		 	session_start();
+			session_start();
 
 			// Connect to database and get information
-			$installer = new Installer;
+			$installer = new Installer();
 
 			$_SESSION['db_server']   = $installer->input['db_server']   = $_REQUEST['host'];
 			$_SESSION['db_database'] = $installer->input['db_database'] = $_REQUEST['database'];
@@ -371,7 +365,7 @@ HTML;
 		 * --------------------------------------------------------------------
 		 */
 
-		 case 4:
+		case 4:
 
 			session_start();
 
@@ -447,9 +441,9 @@ HTML;
 		 * --------------------------------------------------------------------
 		 */
 
-		 case 5:
+		case 5:
 
-		 	$template = <<<HTML
+			$template = <<<HTML
 				<script type="text/javascript">
 					$(document).ready(function() {
 						installModule(1);
