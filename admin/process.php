@@ -78,6 +78,7 @@ switch($do) {
 			"name"          => String::Sanitize($_POST['name']),
 			"description"   => String::Sanitize($_POST['description']),
 			"url"           => ($_POST['url'] != "") ? $_POST['url'] : NULL,
+			"threads"       => 0,
 			"password"      => ($_POST['password'] != "") ? $_POST['password'] : NULL,
 			"read_only"     => (isset($_POST['read_only'])) ? "1" : "0",
 			"invisible"     => (isset($_POST['invisible'])) ? "1" : "0",
