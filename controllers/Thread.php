@@ -194,7 +194,7 @@ class Thread extends Application
 			"post_date"     => time(),
 			"ip_address"    => $_SERVER['REMOTE_ADDR'],
 			"post"          => $_POST['post'],
-			"quote_post_id" => Http::Request("quote_post_id"),
+			"quote_post_id" => (Http::Request("quote_post_id", true)) ? Http::Request("quote_post_id") : 0,
 			"best_answer"   => 0,
 			"first_post"    => 0
 		);
