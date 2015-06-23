@@ -134,9 +134,7 @@ class Community extends Application
 		}
 
 		// Check if room has unread threads
-		if($result['thread_count'] > 0) {
-			$has_unread_threads = $this->_CheckUnread($result['r_id']);
-		}
+		$has_unread_threads = ($result['thread_count'] > 0) ? $this->_CheckUnread($result['r_id']) : false;
 
 		// Regular variables
 		$result['room_link'] = "room/{$result['r_id']}";
