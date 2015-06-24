@@ -320,18 +320,15 @@ class Usercp extends Application
 		$this->layout = false;
 
 		// Get values
-		$info['b_day']   = Http::Request("b_day")   == ''? NULL : Http::Request("b_day");
-		$info['b_month'] = Http::Request("b_month") == ''? NULL : Http::Request("b_month");
-		$info['b_year']  = Http::Request("b_year")  == ''? NULL : Http::Request("b_year");
 		$info = array(
 			"email"        => Http::Request("email"),
 			"hide_email"   => Http::Request("hide_email"),
 			"member_title" => Http::Request("member_title"),
 			"location"     => Http::Request("location"),
 			"profile"      => Http::Request("profile"),
-			//"b_day"        => Http::Request("b_day"),
-			//"b_month"      => Http::Request("b_month"),
-			//"b_year"       => Http::Request("b_year"),
+			"b_day"        => (Http::Request("b_day")) ? Http::Request("b_day") : 0,
+			"b_month"      => (Http::Request("b_month")) ? Http::Request("b_month") : 0,
+			"b_year"       => (Http::Request("b_year")) ? Http::Request("b_year") : 0,
 			"gender"       => Http::Request("gender"),
 			"website"      => Http::Request("website"),
 			"im_facebook"  => Http::Request("im_facebook"),
