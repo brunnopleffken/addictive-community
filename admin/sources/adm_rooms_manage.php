@@ -26,6 +26,9 @@
 		case 4:
 			$message = Html::Notification("The room has been successfully resynchronized.", "success");
 			break;
+		case 5:
+			$message = Html::Notification("The new category has been successfully created.", "success");
+			break;
 		default:
 			$message = "";
 			break;

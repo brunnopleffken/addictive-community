@@ -141,8 +141,9 @@ HTML;
 				<a href="main.php?act=system" class="transition">System</a>
 			</div>
 			<div class="section-subnav">
-				<a href="main.php?act=rooms&amp;p=add">Add New Room</a>
 				<a href="main.php?act=rooms&amp;p=manage">Manage Rooms</a>
+				<a href="main.php?act=rooms&amp;p=add">Add New Room</a>
+				<a href="main.php?act=rooms&amp;p=category">Add New Category</a>
 				<a href="main.php?act=rooms&amp;p=moderators">Moderators</a>
 			</div>
 HTML;

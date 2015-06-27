@@ -73,9 +73,26 @@ switch($do) {
 
 		break;
 
+	case "new_category":
+
+		$category = array(
+			"name"    => Http::Request("name"),
+			"order_n" => 0,
+			"visible" => 1
+		);
+
+		$Db->Insert("c_categories", $category);
+		$Admin->RegisterLog("Created new category: " . $category['name']);
+
+		header("Location: main.php?act=rooms&p=manage&msg=1");
+		exit;
+
+		break;
+
 	case "newroom":
 
 		$room = array(
+			"category_id"   => $_POST['category_id'],
 			"name"          => String::Sanitize($_POST['name']),
 			"description"   => String::Sanitize($_POST['description']),
 			"url"           => ($_POST['url'] != "") ? $_POST['url'] : NULL,

@@ -1,3 +1,7 @@
+INSERT INTO `c_categories` (`c_id`, `name`, `order_n`, `visible`)
+VALUES
+	(1,'General Discussions',0,1);
+
 INSERT INTO `c_emails` (`id`, `type`, `description`, `content`)
 VALUES
 	(1,'validate','Member Validation','Hello %s,<br><br>Before you can start posting in %s, you must confirm your e-mail address. Please, confirm your e-mail address by clicking on the link below:<br><br>%s<br><br>If you cannot click on the link, copy and paste the address into your browser manually.<br><br>Thanks. See you there!<br>- Administration');
