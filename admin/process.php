@@ -66,6 +66,7 @@ switch($do) {
 
 		$id = Http::Request("id");
 		$Db->Query("DELETE FROM c_reports WHERE rp_id = {$id}");
+		$Admin->RegisterLog("Removed a report");
 
 		header("Location: main.php");
 		exit;
@@ -128,7 +129,6 @@ switch($do) {
 		// Register room exclusion in Admin log
 		$Db->Query("SELECT name FROM c_rooms WHERE r_id = {$r_id}");
 		$room = $Db->Fetch();
-		$Admin->RegisterLog("Deleted room: " . $room['name']);
 
 		// Delete all related posts
 		$threads = $Db->Query("SELECT t_id FROM c_threads WHERE room_id = '{$r_id}';");
@@ -140,6 +140,7 @@ switch($do) {
 		// Delete threads and room itself
 		$Db->Query("DELETE FROM c_threads WHERE room_id = '{$r_id}';");
 		$Db->Query("DELETE FROM c_rooms WHERE r_id = '{$r_id}';");
+		$Admin->RegisterLog("Deleted room: " . $room['name']);
 
 		header("Location: main.php?act=rooms&p=manage&msg=3");
 		exit;
@@ -177,6 +178,8 @@ switch($do) {
 					WHERE t_id = {$thread['t_id']};");
 		}
 
+		$Admin->RegisterLog("Resynchronized room: " . $id);
+
 		header("Location: main.php?act=rooms&p=manage&msg=4");
 		exit;
 
@@ -213,14 +216,12 @@ switch($do) {
 	case "savelang":
 
 		// File info
-
 		$file = Http::Request("file");
 		$dir  = Http::Request("dir");
 
 		$file_path = "../languages/" . $dir . "/" . $file . ".php";
 
 		// Language file content
-
 		$file_content = "<?php\n";
 		foreach(Http::Request("index") as $key) {
 			$file_content .= "\t\$t[\"" . $key . "\"] = \"" . $_REQUEST[$key] . "\";\n";
@@ -232,6 +233,8 @@ switch($do) {
 		if(fwrite($handle, $file_content)) {
 			fclose($handle);
 		}
+
+		$Admin->RegisterLog("Edited language file '" . $file . "' from '" . $dir . "'");
 
 		header("Location: " . $_SERVER['HTTP_REFERER']);
 		exit;
@@ -251,6 +254,8 @@ switch($do) {
 			header("Location: main.php?act=templates&p=themes");
 			exit;
 		}
+
+		$Admin->RegisterLog("Edited CSS file: " . Http::Request("css_file"));
 
 		break;
 
@@ -273,6 +278,7 @@ switch($do) {
 		);
 
 		$Db->Insert("c_languages", $language);
+		$Admin->RegisterLog("Installed new language : " . $code);
 
 		header("Location: " . $_SERVER['HTTP_REFERER']);
 		exit;
@@ -294,7 +300,7 @@ switch($do) {
 
 		// Delete from database
 		$Db->Query("DELETE FROM c_languages WHERE l_id = {$id};");
-
+		$Admin->RegisterLog("Uninstalled language package: " . $language_directory['directory']);
 
 		header("Location: " . $_SERVER['HTTP_REFERER']);
 		exit;
@@ -358,6 +364,7 @@ switch($do) {
 
 		// Save new data in database
 		$Db->Query("UPDATE c_rooms SET moderators = '{$serialized}' WHERE r_id = {$room_id};");
+		$Admin->RegisterLog("Added moderator: member ID #" . $member_id . " to the room ID #" . $room_id);
 
 		header("Location: main.php?act=rooms&p=moderators&msg=1");
 		exit;
@@ -387,6 +394,7 @@ switch($do) {
 
 		// Save new data in database
 		$Db->Query("UPDATE c_rooms SET moderators = '{$serialized}' WHERE r_id = {$room_id};");
+		$Admin->RegisterLog("Removed moderator: member ID #" . $member_id . " from the room ID #" . $room_id);
 
 		header("Location: main.php?act=rooms&p=remove_mod&id=6&msg=1&m_id={$member_id}");
 		exit;
