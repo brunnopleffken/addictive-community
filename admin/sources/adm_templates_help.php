@@ -15,7 +15,7 @@
 
 	switch($msg) {
 		case 1:
-			$message = Html::Notification("The new help topic has been added successfully.", "success");
+			$message = Html::Notification("The new help topic has been successfully added.", "success");
 			break;
 		default:
 			$message = "";

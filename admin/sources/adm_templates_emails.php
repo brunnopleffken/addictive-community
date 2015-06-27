@@ -19,7 +19,7 @@
 			$Db->Query("UPDATE c_emails SET content = '{$content}' WHERE type = '{$k}';");
 		}
 
-		$message = Html::Notification("E-mail templates has been updated successfully.", "success");
+		$message = Html::Notification("E-mail templates has been successfully updated.", "success");
 	}
 
 	// List of e-mail messages
