@@ -151,7 +151,7 @@ switch($do) {
 		$threads = $Db->Query("SELECT t_id FROM c_threads WHERE room_id = '{$r_id}';");
 
 		while($_threads = $Db->Fetch($threads)) {
-			$Db->Query("DELETE FROM c_posts WHERE thread_id = '{$threads['t_id']}';");
+			$Db->Query("DELETE FROM c_posts WHERE thread_id = '{$_threads['t_id']}';");
 		}
 
 		// Delete threads and room itself
