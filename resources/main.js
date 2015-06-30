@@ -28,6 +28,26 @@ $(document).ready(function($) {
 	$('.notification').not('.persistent').delay(3000).fadeOut(1000);
 
 	/**
+	 * TOGGLE CATEGORIES
+	 */
+
+	(function() {
+		$('.room-category').on('click', function() {
+			var catId = $(this).data('toggle-id');
+			var icon = $(this).find('i');
+
+			$('#category-' + catId).slideToggle();
+
+			if(icon.hasClass('fa-angle-down')) {
+				icon.removeClass('fa-angle-down').addClass('fa-angle-left');
+			}
+			else {
+				icon.removeClass('fa-angle-left').addClass('fa-angle-down');
+			}
+		});
+	})
+
+	/**
 	 * AUTOMATICALLY SELECT TABS IN THE NAVIGATION BAR
 	 */
 

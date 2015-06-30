@@ -13,6 +13,12 @@
 
 class Community extends Application
 {
+	// List of categories
+	private $categories = array();
+
+	// List of rooms of each category
+	private $rooms = array();
+
 	/**
 	 * --------------------------------------------------------------------
 	 * COMMUNITY HOME
@@ -20,8 +26,12 @@ class Community extends Application
 	 */
 	public function Main()
 	{
+		// Get rooms and categories
 		$_rooms = $this->_GetRooms();
-		$this->Set("rooms", $_rooms);
+
+		// Return variables
+		$this->Set("categories", $this->categories);
+		$this->Set("rooms", $this->rooms);
 		$this->Set("is_logged", $this->Session->IsMember());
 	}
 
@@ -73,20 +83,27 @@ class Community extends Application
 			$visibility = "WHERE invisible <> '1'";
 		}
 
-		// Get rooms from DB
-		$rooms_result = $this->Db->Query("SELECT c_rooms.*, c_members.m_id, c_members.username,
-				c_threads.title, c_threads.t_id, c_threads.slug,
-				(SELECT COUNT(*) FROM c_threads WHERE room_id = c_rooms.r_id) AS thread_count
-				FROM c_rooms LEFT JOIN c_members ON (c_members.m_id = c_rooms.lastpost_member)
-				LEFT JOIN c_threads ON (c_threads.t_id = c_rooms.lastpost_thread)
-				{$visibility} ORDER BY r_id ASC;");
+		// Get categories
+		$categories_result = $this->Db->Query("SELECT * FROM c_categories WHERE visible = 1;");
 
-		// Process data
-		while($result = $this->Db->Fetch($rooms_result)) {
-			$_rooms[] = $this->_ParseRooms($result);
+		while($category = $this->Db->Fetch($categories_result)) {
+			// Categories
+			$this->categories[$category['c_id']] = $category;
+
+			// Get rooms from DB
+			$rooms_result = $this->Db->Query("SELECT c_rooms.*, c_members.m_id, c_members.username,
+					c_threads.title, c_threads.t_id, c_threads.slug,
+					(SELECT COUNT(*) FROM c_threads WHERE room_id = c_rooms.r_id) AS thread_count FROM c_rooms
+					LEFT JOIN c_members ON (c_members.m_id = c_rooms.lastpost_member)
+					LEFT JOIN c_threads ON (c_threads.t_id = c_rooms.lastpost_thread)
+					WHERE category_id = {$category['c_id']}
+					{$visibility} ORDER BY r_id ASC;");
+
+			// Process data
+			while($rooms = $this->Db->Fetch($rooms_result)) {
+				$this->rooms[$category['c_id']][] = $this->_ParseRooms($rooms);
+			}
 		}
-
-		return $_rooms;
 	}
 
 	/**

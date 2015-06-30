@@ -576,6 +576,21 @@ form {
 
 /** COMMUNITY PAGE **/
 
+.room-category {
+	color: #999;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	letter-spacing: 4px;
+	margin-bottom: 15px;
+	margin-top: 30px;
+	@include transition(300ms);
+	&:first-child { margin-top: 10px; }
+	&:hover { color: #000; }
+	i {
+		float: right;
+	}
+}
 .room-item {
 	background: #fff;
 	border-spacing: 0;
@@ -642,9 +657,11 @@ form {
 }
 a.room-mark-as-read {
 	color: #999;
+	display: inline-block;
 	font-size: 10px;
 	letter-spacing: 2px;
 	line-height: 1em;
+	margin-top: 15px;
 	text-transform: uppercase;
 	text-shadow: 1px 1px 0 #fff;
 }
