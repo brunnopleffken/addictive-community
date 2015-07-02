@@ -80,7 +80,7 @@ class Community extends Application
 			$visibility = "";
 		}
 		else {
-			$visibility = "WHERE invisible <> '1'";
+			$visibility = "AND invisible <> '1'";
 		}
 
 		// Get categories

@@ -45,7 +45,7 @@ $(document).ready(function($) {
 				icon.removeClass('fa-angle-left').addClass('fa-angle-down');
 			}
 		});
-	})
+	}).call(this);
 
 	/**
 	 * AUTOMATICALLY SELECT TABS IN THE NAVIGATION BAR
