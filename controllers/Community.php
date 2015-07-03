@@ -84,7 +84,8 @@ class Community extends Application
 		}
 
 		// Get categories
-		$categories_result = $this->Db->Query("SELECT * FROM c_categories WHERE visible = 1;");
+		$categories_result = $this->Db->Query("SELECT * FROM c_categories
+				WHERE visible = 1 ORDER BY order_n, c_id;");
 
 		while($category = $this->Db->Fetch($categories_result)) {
 			// Categories
@@ -97,7 +98,7 @@ class Community extends Application
 					LEFT JOIN c_members ON (c_members.m_id = c_rooms.lastpost_member)
 					LEFT JOIN c_threads ON (c_threads.t_id = c_rooms.lastpost_thread)
 					WHERE category_id = {$category['c_id']}
-					{$visibility} ORDER BY r_id ASC;");
+					{$visibility} ORDER BY name ASC;");
 
 			// Process data
 			while($rooms = $this->Db->Fetch($rooms_result)) {

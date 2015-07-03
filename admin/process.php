@@ -89,6 +89,43 @@ switch($do) {
 
 		break;
 
+	case "update_categories":
+
+		$categories = $_POST['category'];
+
+		foreach($categories as $id => $value) {
+			$category = array(
+				"order_n" => $value['order_n'],
+				"visible" => $value['visible']
+			);
+
+			$Db->Update("c_categories", $category, "c_id = {$id}");
+		}
+
+		header("Location: main.php?act=rooms&p=categories&msg=1");
+		exit;
+
+		break;
+
+	case "remove_category":
+
+		$id = Http::Request("id");
+
+		// Get the first category
+		$category = $Db->Query("SELECT c_id FROM c_categories LIMIT 1;");
+		$first_category = $Db->Fetch($category);
+
+		// Update all rooms th the first selected category
+		$Db->Update("c_rooms", "category_id = {$first_category['c_id']}", "category_id = {$id}");
+
+		// Remove the selected category
+		$Db->Delete("c_categories", "c_id = {$id}");
+
+		header("Location: main.php?act=rooms&p=categories&msg=2");
+		exit;
+
+		break;
+
 	case "newroom":
 
 		$room = array(
