@@ -32,7 +32,7 @@
 				$Admin->RegisterLog("Database optimization.");
 
 				echo Html::Notification(
-					"Tables have been optimized successfully.<br><span style='font-family: monospace'>OPTIMIZE TABLE {$tables};</span>",
+					"Tables have been successfully optimized.<br><span style='font-family: monospace'>OPTIMIZE TABLE {$tables};</span>",
 					"success"
 				);
 
@@ -55,7 +55,7 @@
 				$Admin->RegisterLog("Database repairing.");
 
 				echo Html::Notification(
-					"Tables have been repaired successfully.<br><span style='font-family: monospace'>REPAIR TABLE {$tables};</span>",
+					"Tables have been successfully repaired.<br><span style='font-family: monospace'>REPAIR TABLE {$tables};</span>",
 					"success"
 				);
 

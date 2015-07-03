@@ -50,20 +50,10 @@ class Database implements IDatabase
 
 	/**
 	 * --------------------------------------------------------------------
-	 * OPEN A CONNECTION AS SOON AS THE CLASS IS INSTANTIATED
-	 * --------------------------------------------------------------------
-	 */
-	public function __construct($config = array())
-	{
-		$this->_Connect($config);
-	}
-
-	/**
-	 * --------------------------------------------------------------------
 	 * MANUALLY OPEN A NEW CONNECTION TO A MYSQL SERVER
 	 * --------------------------------------------------------------------
 	 */
-	protected function _Connect($config = array())
+	public function Connect($config = array())
 	{
 		// Store configuration info as class property
 		$this->config = $config;
@@ -80,11 +70,13 @@ class Database implements IDatabase
 		// Show error message in case of error
 		if(mysqli_connect_errno()) {
 			$this->Exception(mysqli_connect_error());
+			return false;
 		}
 		else {
 			// Set response charset to UTF-8
 			mysqli_set_charset($this->link, "utf8");
 			unset($this->config);
+			return true;
 		}
 	}
 

@@ -105,10 +105,11 @@
 		case 2:
 			// Get brand new config.php file
 			require("../config.php");
-			// Try to connect to database using config.php data
-			$Db = new Database($config);
+			$Db = new Database();
+			$database_link = $Db->Connect($config);
 
-			$status      = ($Db) ? 1 : 0;
+			// Try to connect to database using config.php data
+			$status      = ($database_link) ? 1 : 0;
 			$description = "Check information and connect to database";
 			break;
 
@@ -122,7 +123,8 @@
 		case 3:
 			// Get config file and connect to Database
 			require("../config.php");
-			$Db = new Database($config);
+			$Db = new Database();
+			$Db->Connect($config);
 
 			// Avoid PHP timeout
 			set_time_limit(0);
@@ -157,7 +159,8 @@
 		case 4:
 			// Get config file and connect to Database
 			require("../config.php");
-			$Db = new Database($config);
+			$Db = new Database();
+			$Db->Connect($config);
 			$errors = false;
 
 			// Generate a random security hash and key
@@ -190,7 +193,7 @@
 
 			// Insert sample room, thread and post
 
-			$sql[] = "INSERT INTO `c_rooms` (`r_id`, `name`, `description`, `url`, `order_n`, `threads`, `lastpost_date`, `lastpost_thread`, `lastpost_member`, `invisible`, `rules_title`, `rules_text`, `rules_visible`, `read_only`, `password`, `upload`, `perm_view`, `perm_post`, `perm_reply`, `moderators`) VALUES (1, 'A Test Room', 'You can edit or remove this room at any time.', NULL, 1, 1, {$community_info['timestamp']}, 1, 1, 0, '', '', 0, 0, '', 1, 'a:5:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";i:3;s:3:\"V_4\";i:4;s:3:\"V_5\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', '');";
+			$sql[] = "INSERT INTO `c_rooms` (`r_id`, `category_id`, `name`, `description`, `url`, `order_n`, `threads`, `lastpost_date`, `lastpost_thread`, `lastpost_member`, `invisible`, `rules_title`, `rules_text`, `rules_visible`, `read_only`, `password`, `upload`, `perm_view`, `perm_post`, `perm_reply`, `moderators`) VALUES (1, 1, 'A Test Room', 'You can edit or remove this room at any time.', NULL, 1, 1, {$community_info['timestamp']}, 1, 1, 0, '', '', 0, 0, '', 1, 'a:5:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";i:3;s:3:\"V_4\";i:4;s:3:\"V_5\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', '');";
 			$sql[] = "INSERT INTO `c_threads` (`t_id`, `title`, `slug`, `author_member_id`, `replies`, `views`, `start_date`, `room_id`, `tags`, `announcement`, `lastpost_date`, `lastpost_member_id`, `moved_to`, `locked`, `approved`, `with_bestanswer`, `poll_question`, `poll_data`, `poll_allow_multiple`) VALUES (1, 'Welcome', 'welcome', 1, 1, 0, {$community_info['timestamp']}, 1, NULL, 0, {$community_info['timestamp']}, 1, NULL, 0, 1, 0, NULL, NULL, NULL);";
 			$sql[] = "INSERT INTO `c_posts` (`p_id`, `author_id`, `thread_id`, `post_date`, `attach_id`, `attach_clicks`, `ip_address`, `post`, `edit_time`, `edit_author`, `best_answer`, `first_post`) VALUES (1, 1, 1, {$community_info['timestamp']}, NULL, NULL, '127.0.0.1', '<p>Welcome to your new Addictive Community.</p><p>This is simply a test message confirming that the installation was successful.</p>', NULL, NULL, 0, 1);";
 
@@ -198,7 +201,7 @@
 
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_name', '{$community_info['community_name']}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_url', '{$community_info['community_url']}');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.5.1');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.6.0');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_name', 'My Website');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_url', 'http://');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_logo', 'logo.png');";
@@ -268,7 +271,8 @@
 		case 5:
 			// Get config file and connect to Database
 			require("../config.php");
-			$Db = new Database($config);
+			$Db = new Database();
+			$Db->Connect($config);
 
 			// Get security hash key
 			$Db->Query("SELECT * FROM c_config c WHERE field = 'security_salt_hash' OR field = 'security_salt_key';");

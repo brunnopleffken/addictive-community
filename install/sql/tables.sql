@@ -9,6 +9,14 @@ CREATE TABLE `c_attachments` (
   PRIMARY KEY (`a_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE `c_categories` (
+  `c_id` int(2) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL DEFAULT '',
+  `order_n` int(2) DEFAULT NULL,
+  `visible` int(1) NOT NULL,
+  PRIMARY KEY (`c_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `c_config` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `field` varchar(40) NOT NULL,
@@ -17,7 +25,7 @@ CREATE TABLE `c_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_emails` (
-  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(6) NOT NULL AUTO_INCREMENT,
   `type` varchar(20) NOT NULL DEFAULT '',
   `description` varchar(20) DEFAULT NULL,
   `content` text NOT NULL,
@@ -165,6 +173,7 @@ CREATE TABLE `c_ranks` (
 CREATE TABLE `c_reports` (
   `rp_id` int(6) NOT NULL AUTO_INCREMENT,
   `description` text,
+  `reason` int(1) NOT NULL,
   `date` int(10) NOT NULL,
   `sender_id` int(9) NOT NULL,
   `ip_address` varchar(15) NOT NULL,
@@ -176,6 +185,7 @@ CREATE TABLE `c_reports` (
 
 CREATE TABLE `c_rooms` (
   `r_id` int(3) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL DEFAULT '',
   `description` text,
   `url` varchar(100) DEFAULT NULL,

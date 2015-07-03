@@ -32,7 +32,7 @@
 				// Exit
 
 				$Admin->RegisterLog("Executed system optimization: member counting.");
-				echo Html::Notification("Registered members have been recounted successfully.", "success");
+				echo Html::Notification("Registered members have been successfully recounted.", "success");
 
 				break;
 
@@ -71,7 +71,7 @@
 				// Exit
 
 				$Admin->RegisterLog("Executed system optimization: threads and posts counting.");
-				echo Html::Notification("Threads and posts have been recounted successfully.", "success");
+				echo Html::Notification("Threads and posts have been successfully recounted.", "success");
 
 				break;
 
@@ -96,7 +96,7 @@
 				// Exit
 
 				$Admin->RegisterLog("Executed system optimization: replies counting.");
-				echo Html::Notification("Replies have been recounted successfully.", "success");
+				echo Html::Notification("Replies have been successfully recounted.", "success");
 
 				break;
 		}

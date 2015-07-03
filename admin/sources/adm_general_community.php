@@ -13,7 +13,7 @@
 
 	switch($msg) {
 		case 1:
-			$message = Html::Notification("The settings has been changed successfully.", "success");
+			$message = Html::Notification("The settings has been successfully changed.", "success");
 			break;
 		default:
 			$message = "";

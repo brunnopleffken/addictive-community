@@ -10,6 +10,17 @@
 	## ---------------------------------------------------
 
 	// ---------------------------------------------------
+	// Get list of categories
+	// ---------------------------------------------------
+
+	$categories = "";
+	$Db->Query("SELECT * FROM c_categories");
+
+	while($_result = $Db->Fetch()) {
+		$categories .= "<option value='{$_result['c_id']}'>{$_result['name']}</option>";
+	}
+
+	// ---------------------------------------------------
 	// Create permission matrix
 	// ---------------------------------------------------
 
@@ -114,7 +125,6 @@
 <h1>Add New Room</h1>
 
 <div id="content">
-
 	<div class="grid-row">
 		<!-- LEFT -->
 		<form action="process.php?do=newroom" method="post">
@@ -130,6 +140,14 @@
 				<tr>
 					<td class="title-fixed">Room Description</td>
 					<td><textarea name="description" class="large" rows="5"></textarea></td>
+				</tr>
+				<tr>
+					<td class="title-fixed">Category</td>
+					<td>
+						<select name="category_id">
+							<?php echo $categories ?>
+						</select>
+					</td>
 				</tr>
 			</table>
 
@@ -175,14 +193,12 @@
 						<?php echo MatrixView() ?>
 					</td>
 				</tr>
-
 				<tr>
 					<td class="title-fixed">Post New Thread</td>
 					<td>
 						<?php echo MatrixPost() ?>
 					</td>
 				</tr>
-
 				<tr>
 					<td class="title-fixed">Reply Threads</td>
 					<td>
@@ -213,5 +229,4 @@
 
 		</form>
 	</div>
-
 </div>

@@ -15,16 +15,19 @@
 
 	switch($msg) {
 		case 1:
-			$message = Html::Notification("The new room has been created successfully.", "success");
+			$message = Html::Notification("The new room has been successfully created.", "success");
 			break;
 		case 2:
-			$message = Html::Notification("The room has been edited successfully.", "success");
+			$message = Html::Notification("The room has been successfully edited.", "success");
 			break;
 		case 3:
-			$message = Html::Notification("The room has been deleted successfully.", "success");
+			$message = Html::Notification("The room has been successfully deleted.", "success");
 			break;
 		case 4:
-			$message = Html::Notification("The room has been resynchronized successfully.", "success");
+			$message = Html::Notification("The room has been successfully resynchronized.", "success");
+			break;
+		case 5:
+			$message = Html::Notification("The new category has been successfully created.", "success");
 			break;
 		default:
 			$message = "";
