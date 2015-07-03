@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.6.0 (2015-07-03)
+
+#### Added
+- Rooms categories.
+
+#### Fixed
+- Member getting SQL error when reporting a post/thread (#26);
+- Broken links when viewing reports in Administration CP;
+- Bug fixes related to failed MySQL connection under certain scenarios (#16, #26 and #29, thanks to @halojoy);
+- SQL error when adding a new reply (#30);
+- Several minor bug fixes and general enhancements.
+
+
+
 ## v0.5.1 (2015-06-19)
 
 #### Fixed
@@ -20,7 +34,7 @@
 - Minor bug fixes and layout enhancements.
 
 #### Security
-- Improved validations when performing moderation actions (lock/unlock, delete, ...).
+- Improved validations when performing moderation actions (lock/unlock, delete, etc).
 
 
 
