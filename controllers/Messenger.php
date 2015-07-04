@@ -38,7 +38,7 @@ class Messenger extends Application
 	public function Main()
 	{
 		// Define messages
-		$message_id = Http::Request("m");
+		$message_id = Http::Request("m", true);
 		$notification = array("",
 			Html::Notification(i18n::Translate("M_MESSAGE_1"), "success"),
 			Html::Notification(i18n::Translate("M_MESSAGE_2"), "failure")

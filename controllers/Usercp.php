@@ -84,7 +84,7 @@ class Usercp extends Application
 		$menu = array("", "selected", "", "", "", "");
 
 		// Define messages
-		$message_id = Http::Request("m");
+		$message_id = Http::Request("m", true);
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_1"), "success")
 		);
@@ -124,7 +124,7 @@ class Usercp extends Application
 		$menu = array("", "", "selected", "", "", "");
 
 		// Define messages
-		$message_id = Http::Request("m");
+		$message_id = Http::Request("m", true);
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_2"), "success")
 		);
@@ -183,7 +183,7 @@ class Usercp extends Application
 		$menu = array("", "", "", "selected", "", "");
 
 		// Define messages
-		$message_id = Http::Request("m");
+		$message_id = Http::Request("m", true);
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_3"), "success")
 		);
@@ -209,7 +209,7 @@ class Usercp extends Application
 		$menu = array("", "", "", "", "selected", "");
 
 		// Define messages
-		$message_id = Http::Request("m");
+		$message_id = Http::Request("m", true);
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_4"), "success")
 		);
@@ -293,7 +293,7 @@ class Usercp extends Application
 		$menu = array("", "", "", "", "", "selected");
 
 		// Define messages
-		$message_id = Http::Request("m");
+		$message_id = Http::Request("m", true);
 		$notification = array("",
 			Html::Notification(i18n::Translate("C_MESSAGE_5"), "success"),
 			Html::Notification(i18n::Translate("C_MESSAGE_6"), "failure"),

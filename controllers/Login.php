@@ -48,8 +48,8 @@ class Login extends Application
 
 			if($this->Db->Rows()) {
 				$user_info = $this->Db->Fetch();
-				$user_info['anonymous']  = (Http::Request("anonymous")) ? 1 : 0;
-				$user_info['remember']   = (Http::Request("remember")) ? 1 : 0;
+				$user_info['anonymous']  = (Http::Request("anonymous", true)) ? 1 : 0;
+				$user_info['remember']   = (Http::Request("remember", true)) ? 1 : 0;
 				$user_info['session_id'] = $_SESSION['session_id'];
 
 				// Check if member session was created successfully

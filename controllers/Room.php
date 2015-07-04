@@ -22,7 +22,7 @@ class Room extends Application
 	{
 		if(Http::Request("act") == "load_more") {
 			// Update session table with room ID
-			$id = Http::Request("id");
+			$id = Http::Request("id", true);
 			$session = $this->Session->session_id;
 			$this->Db->Update("c_sessions", "location_room_id = {$id}", "s_id = '{$session}'");
 		}
@@ -79,7 +79,7 @@ class Room extends Application
 		$this->layout = false;
 
 		// Threads per page
-		$page = Http::Request("page");
+		$page = Http::Request("page", true);
 		$threads_per_page = $this->Core->config['threads_per_page'];
 
 		// Calculate SQL offset
@@ -112,7 +112,7 @@ class Room extends Application
 		$this->layout = false;
 
 		$password = Http::Request("password");
-		$room_id  = Http::Request("room");
+		$room_id  = Http::Request("room", true);
 
 		$this->Db->Query("SELECT password FROM c_rooms WHERE r_id = {$room_id}");
 		$room_info = $this->Db->Fetch();
