@@ -18,10 +18,10 @@ class Http
 	 * SAME AS $_REQUEST['var'], BUT SANITIZED
 	 * --------------------------------------------------------------------
 	 */
-	public static function Request($name, $numeric = false)
+	public static function Request($name, $numeric_only = false)
 	{
-		if(isset($_REQUEST[$name]) && $numeric == true && !is_numeric($_REQUEST[$name])) {
-			Html::Error("Variable '{$name}' must be an integer.");
+		if(isset($_REQUEST[$name]) && $numeric_only == true && !is_numeric($_REQUEST[$name])) {
+			Html::Error("Variable '{$name}' must be a number.");
 		}
 
 		if(isset($_REQUEST[$name])) {
@@ -31,6 +31,8 @@ class Http
 			$text = str_replace(">", "&gt;", $text);
 			$text = str_replace('"', "&quot;", $text);
 			$text = str_replace("'", "&apos;", $text);
+			$text = str_replace("`", "&grave;", $text);
+			$text = str_replace(";", "&semi;", $text);
 		}
 		else {
 			return false;
