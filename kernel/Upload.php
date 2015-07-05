@@ -39,7 +39,8 @@ class Upload
 		// List of dangerous file types by OS
 		$forbidden_mac = array("app", "command", "dmg");
 		$forbidden_win = array("bat", "bin", "cmd", "com", "exe", "lnk", "msi", "pif", "scr");
-		$this->forbidden_extensions = array_merge($forbidden_win, $forbidden_mac);
+		$forbidden_web = array("html", "js", "php", "phtml");
+		$this->forbidden_extensions = array_merge($forbidden_win, $forbidden_mac, $forbidden_web);
 
 		// Store database class
 		$this->Db = &$database;
