@@ -58,12 +58,6 @@ class Upload
 			// Get timestamp
 			$timestamp = time();
 
-			// Full path
-			$full_path = $folder . $member . "/" . $timestamp . "/";
-			if(!is_dir($full_path)) {
-				mkdir($full_path, 0777);
-			}
-
 			// Get filename and extension
 			$filename = explode(".", $file['name']);
 			$this->file_extension = strtolower(end($filename));
@@ -79,6 +73,12 @@ class Upload
 			// Check if is an allowed extension (if array is not empty, of course)
 			if(!empty($this->allowed_extensions) && !in_array($this->file_extension, $this->allowed_extensions)) {
 				Html::Error("This file extension is not allowed (.{$this->file_extension}).");
+			}
+
+			// Full path
+			$full_path = $folder . $member . "/" . $timestamp . "/";
+			if(!is_dir($full_path)) {
+				mkdir($full_path, 0777, true);
 			}
 
 			// Delete special characters and diacritics
