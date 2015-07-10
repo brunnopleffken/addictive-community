@@ -454,4 +454,32 @@ switch($do) {
 		exit;
 
 		break;
+
+	case "new_rank";
+
+		$rank = array(
+			"title"     => Http::Request("title"),
+			"min_posts" => Http::Request("min_posts", true),
+			"pips"      => Http::Request("pips", true)
+		);
+
+		$Db->Insert("c_ranks", $rank);
+		$Admin->RegisterLog("Added new rank: " . $rank['title']);
+
+		header("Location: main.php?act=members&p=ranks&msg=2");
+		exit;
+
+		break;
+
+	case "delete_rank";
+
+		$rank_id = Http::Request("id", true);
+
+		$Db->Delete("c_ranks", "id = {$rank_id}");
+		$Admin->RegisterLog("Deleted rank #" . $rank_id);
+
+		header("Location: main.php?act=members&p=ranks&msg=3");
+		exit;
+
+		break;
 }
