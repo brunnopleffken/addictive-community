@@ -891,6 +891,21 @@ class Thread extends Application
 			$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 			$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
+			// Member ranks
+			$result['rank'] = $this->_MemberRank($result['posts']);
+			if($result['rank']) {
+				$result['rank_name'] = $result['rank']['title'];
+				if($result['rank']['image'] == "") {
+					$result['rank_pips'] = "";
+					for($i = 1; $i <= $result['rank']['pips']; $i++) {
+						$result['rank_pips'] .= "<i class='fa fa-star'></i>";
+					}
+				}
+				else {
+					$result['rank_pips'] = "<img src='" . $result['rank']['image'] . "'>";
+				}
+			}
+
 			// Block bad words
 			$result['post'] = $this->_FilterBadWords($result['post']);
 
@@ -1101,5 +1116,25 @@ class Thread extends Application
 		$moderators = $this->Db->Fetch();
 
 		return $this->_IsModerator($moderators['moderators']);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * GET MEMBER RANK
+	 * --------------------------------------------------------------------
+	 */
+	private function _MemberRank($posts = 0)
+	{
+		$this->Db->Query("SELECT * FROM c_ranks;");
+		$_ranks = $this->Db->FetchToArray();
+		$_ranks = array_reverse($_ranks);
+
+		foreach($_ranks as $rank) {
+			if($posts >= $rank['min_posts']) {
+				return $rank;
+			}
+		}
+
+		return array();
 	}
 }

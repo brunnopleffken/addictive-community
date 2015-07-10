@@ -219,6 +219,8 @@
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_session_expiration', '900');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_signature', 'true');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_avatar_upload', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_ranks', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_ranks_pip', '<i class=\'fa fa-star\'></i>');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('threads_per_page', '10');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_posts_per_page', '10');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_posts_hot', '15');";

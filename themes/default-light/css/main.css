@@ -240,6 +240,9 @@ a.room-mark-as-read { color: #999; display: inline-block; font-size: 10px; lette
 .thread-post-reply .author .photostack .avatar { margin: 16px; }
 .thread-post-reply .author .name { font-size: 15px; font-weight: bold; }
 .thread-post-reply .author .member-title { font-size: 9px; text-transform: uppercase; }
+.thread-post-reply .author .rank { margin-top: 10px; }
+.thread-post-reply .author .rank .rank-pips { color: #465068; letter-spacing: 5px; }
+.thread-post-reply .author .rank .rank-name { color: #bbb; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
 .thread-post-reply .author .user-info { color: #444; font-size: 9px; list-style: none; margin: 20px 5px; overflow: hidden; }
 .thread-post-reply .author .user-info li { padding: 0 3px; text-align: right; }
 .thread-post-reply .author .user-info li b { float: left; }
