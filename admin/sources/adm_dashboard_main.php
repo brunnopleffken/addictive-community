@@ -107,7 +107,7 @@
 					</tr>
 					<tr>
 						<td class="title">Software Version</td>
-						<td>Addictive Community <?php echo VERSION . "-" . CHANNEL; ?> (<?php echo CODENAME; ?>)</td>
+						<td>Addictive Community <?php echo VERSION . "-" . CHANNEL; ?></td>
 					</tr>
 					<tr>
 						<td class="title">Software Updates</td>
