@@ -892,18 +892,23 @@ class Thread extends Application
 			$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
 			// Member ranks
-			$result['rank'] = $this->_MemberRank($result['posts']);
-			if($result['rank']) {
-				$result['rank_name'] = $result['rank']['title'];
-				if($result['rank']['image'] == "") {
-					$result['rank_pips'] = "";
-					for($i = 1; $i <= $result['rank']['pips']; $i++) {
-						$result['rank_pips'] .= "<i class='fa fa-star'></i>";
+			if($this->Core->config['general_member_enable_ranks'] == "true") {
+				$result['rank'] = $this->_MemberRank($result['posts']);
+				if($result['rank']) {
+					$result['rank_name'] = $result['rank']['title'];
+					if($result['rank']['image'] == "") {
+						$result['rank_pips'] = "";
+						for($i = 1; $i <= $result['rank']['pips']; $i++) {
+							$result['rank_pips'] .= "<i class='fa fa-star'></i>";
+						}
+					}
+					else {
+						$result['rank_pips'] = "<img src='" . $result['rank']['image'] . "'>";
 					}
 				}
-				else {
-					$result['rank_pips'] = "<img src='" . $result['rank']['image'] . "'>";
-				}
+			}
+			else {
+				$result['rank'] = array();
 			}
 
 			// Block bad words
