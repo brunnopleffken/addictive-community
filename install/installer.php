@@ -39,6 +39,11 @@
 		// Get file content and explode into an array
 		$file_content = file_get_contents($filename);
 		$raw_statements = explode(";\n", $file_content);
+
+		if(count($raw_statements) <= 1) {
+			$raw_statements = explode(";\r", $file_content);
+		}
+
 		$raw_statements = array_filter(array_map("trim", $raw_statements));
 
 		// Format SQL: insert semicolon at EOL and remove unnecessary spaces/tabs
