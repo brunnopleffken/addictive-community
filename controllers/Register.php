@@ -24,7 +24,7 @@ class Register extends Application
 		$step = (!Http::Request("step")) ? 1 : Http::Request("step");
 
 		// Notifications
-		$message_id = Http::Request("m");
+		$message_id = Http::Request("m", true);
 		$notification = array("",
 			Html::Notification(i18n::Translate("R_ERROR_1"), "failure", true),
 			Html::Notification(i18n::Translate("R_ERROR_2"), "failure", true),
@@ -172,7 +172,7 @@ class Register extends Application
 		$this->layout = false;
 
 		// Get member ID
-		$member = Http::Request("m");
+		$member = Http::Request("m", true);
 		$token  = Http::Request("token");
 
 		// Check if user has already validated

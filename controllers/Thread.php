@@ -24,7 +24,7 @@ class Thread extends Application
 	public function Main($id)
 	{
 		// Define messages
-		$message_id = Http::Request("m");
+		$message_id = Http::Request("m", true);
 		$notification = array("",
 			Html::Notification(i18n::Translate("T_MESSAGE_1"), "success"),
 			Html::Notification(i18n::Translate("T_MESSAGE_2"), "success"),
@@ -101,7 +101,7 @@ class Thread extends Application
 
 		// If member is replying another post (quote)
 		if(Http::Request("quote")) {
-			$quote_post_id = Http::Request("quote");
+			$quote_post_id = Http::Request("quote", true);
 			$this->Db->Query("SELECT p_id, post FROM c_posts WHERE p_id = {$quote_post_id};");
 			$quote = $this->Db->Fetch();
 		}
@@ -194,7 +194,7 @@ class Thread extends Application
 			"post_date"     => time(),
 			"ip_address"    => $_SERVER['REMOTE_ADDR'],
 			"post"          => $_POST['post'],
-			"quote_post_id" => (Http::Request("quote_post_id", true)) ? Http::Request("quote_post_id") : 0,
+			"quote_post_id" => (Http::Request("quote_post_id", true)) ? Http::Request("quote_post_id", true) : 0,
 			"best_answer"   => 0,
 			"first_post"    => 0
 		);
@@ -340,7 +340,7 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Check if the author is the user currently logged in
-		if($this->Session->session_info['member_id'] != Http::Request("member_id")) {
+		if($this->Session->session_info['member_id'] != Http::Request("member_id", true)) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
@@ -354,7 +354,7 @@ class Thread extends Application
 		$this->Db->Update("c_posts", $post, "p_id = {$post_id}");
 
 		// Redirect
-		$this->Core->Redirect("thread/" . Http::Request("thread_id") . "#post-" . $post_id);
+		$this->Core->Redirect("thread/" . Http::Request("thread_id", true) . "#post-" . $post_id);
 	}
 
 	/**
@@ -370,9 +370,9 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Get post information
-		$author_id = Http::Request("mid");
-		$thread_id = Http::Request("tid");
-		$post_id = Http::Request("pid");
+		$author_id = Http::Request("mid", true);
+		$thread_id = Http::Request("tid", true);
+		$post_id = Http::Request("pid", true);
 
 		// Check if the author is the user currently logged in member
 		if($this->Session->session_info['member_id'] != $author_id) {
@@ -891,6 +891,26 @@ class Thread extends Application
 			$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 			$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
+			// Member ranks
+			if($this->Core->config['general_member_enable_ranks'] == "true") {
+				$result['rank'] = $this->_MemberRank($result['posts']);
+				if($result['rank']) {
+					$result['rank_name'] = $result['rank']['title'];
+					if($result['rank']['image'] == "") {
+						$result['rank_pips'] = "";
+						for($i = 1; $i <= $result['rank']['pips']; $i++) {
+							$result['rank_pips'] .= "<i class='fa fa-star'></i>";
+						}
+					}
+					else {
+						$result['rank_pips'] = "<img src='" . $result['rank']['image'] . "'>";
+					}
+				}
+			}
+			else {
+				$result['rank'] = array();
+			}
+
 			// Block bad words
 			$result['post'] = $this->_FilterBadWords($result['post']);
 
@@ -1101,5 +1121,25 @@ class Thread extends Application
 		$moderators = $this->Db->Fetch();
 
 		return $this->_IsModerator($moderators['moderators']);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * GET MEMBER RANK
+	 * --------------------------------------------------------------------
+	 */
+	private function _MemberRank($posts = 0)
+	{
+		$this->Db->Query("SELECT * FROM c_ranks;");
+		$_ranks = $this->Db->FetchToArray();
+		$_ranks = array_reverse($_ranks);
+
+		foreach($_ranks as $rank) {
+			if($posts >= $rank['min_posts']) {
+				return $rank;
+			}
+		}
+
+		return array();
 	}
 }

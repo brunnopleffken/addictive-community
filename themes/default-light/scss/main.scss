@@ -1052,6 +1052,19 @@ a.room-mark-as-read {
 			font-size: 9px;
 			text-transform: uppercase;
 		}
+		.rank {
+			margin-top: 10px;
+			.rank-pips {
+				color: $accent;
+				letter-spacing: 5px;
+			}
+			.rank-name {
+				color: #bbb;
+				font-size: 9px;
+				letter-spacing: 1px;
+				text-transform: uppercase;
+			}
+		}
 		.user-info {
 			color: #444;
 			font-size: 9px;

@@ -39,6 +39,11 @@
 		// Get file content and explode into an array
 		$file_content = file_get_contents($filename);
 		$raw_statements = explode(";\n", $file_content);
+
+		if(count($raw_statements) <= 1) {
+			$raw_statements = explode(";\r", $file_content);
+		}
+
 		$raw_statements = array_filter(array_map("trim", $raw_statements));
 
 		// Format SQL: insert semicolon at EOL and remove unnecessary spaces/tabs
@@ -201,7 +206,7 @@
 
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_name', '{$community_info['community_name']}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_url', '{$community_info['community_url']}');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.6.0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.7.0');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_name', 'My Website');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_url', 'http://');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_logo', 'logo.png');";
@@ -219,6 +224,8 @@
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_session_expiration', '900');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_signature', 'true');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_avatar_upload', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_ranks', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_ranks_pip', '<i class=\'fa fa-star\'></i>');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('threads_per_page', '10');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_posts_per_page', '10');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_posts_hot', '15');";

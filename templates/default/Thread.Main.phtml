@@ -148,6 +148,12 @@
 				</div>
 				<p class="name"><a href="profile/<?php __($reply[$k]['author_id']) ?>"><?php __($reply[$k]['username']) ?></a></p>
 				<p class="member-title"><?php __($reply[$k]['member_title']) ?></p>
+				<?php if(!empty($reply[$k]['rank'])): ?>
+					<div class="rank">
+						<div class="rank-pips"><?php __($reply[$k]['rank_pips']); ?></div>
+						<span class="rank-name"><?php __($reply[$k]['rank_name']); ?></span>
+					</div>
+				<?php endif; ?>
 				<ul class="user-info">
 					<li><b><?php __("T_POST_POSTS") ?></b> <?php __($reply[$k]['posts']) ?> <?php __("T_POSTS_LOWCASE") ?></li>
 					<li><b><?php __("T_POST_REGISTERED") ?></b> <?php __($reply[$k]['joined']) ?></li>

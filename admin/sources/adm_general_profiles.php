@@ -40,6 +40,10 @@
 						<td class="title-fixed">Enable photo upload <span class="title-desc">This will restrict the avatars only in 'Facebook' and 'Gravatar'. Photos already sent will not be deleted.</span></td>
 						<td><label><?php echo $Admin->SelectCheckbox("general_member_enable_avatar_upload") ?> Allow members to send their own photos as avatar.</label></td>
 					</tr>
+					<tr>
+						<td class="title-fixed">Enable ranks and promotions</td>
+						<td><?php echo $Admin->SelectCheckbox("general_member_enable_ranks") ?> Enable ranks for all members.</td>
+					</tr>
 				</table>
 				<div class="box fright"><input type="submit" value="Save Settings"></div>
 			</form>

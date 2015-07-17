@@ -26,6 +26,16 @@ INSERT INTO `c_languages` (`l_id`, `name`, `directory`, `author_name`, `author_e
 VALUES
 	(1,'English (US)','en_US','Addictive Community','brunno.pleffken@outlook.com',1,1);
 
+INSERT INTO `c_ranks` (`id`, `title`, `min_posts`, `pips`, `image`)
+VALUES
+	(1,'Lurker',0,0,NULL),
+	(2,'Novice Member',5,0,NULL),
+	(3,'Regular Member',10,1,NULL),
+	(4,'Experienced Member',20,2,NULL),
+	(5,'Advanced Member',50,3,NULL),
+	(6,'Professional Member',100,4,NULL),
+	(7,'Veteran Member',200,5,NULL);
+
 INSERT INTO `c_stats` (`id`, `member_count`, `post_count`, `thread_count`)
 VALUES
 	(1,1,0,1);

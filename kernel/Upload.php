@@ -39,7 +39,8 @@ class Upload
 		// List of dangerous file types by OS
 		$forbidden_mac = array("app", "command", "dmg");
 		$forbidden_win = array("bat", "bin", "cmd", "com", "exe", "lnk", "msi", "pif", "scr");
-		$this->forbidden_extensions = array_merge($forbidden_win, $forbidden_mac);
+		$forbidden_web = array("html", "js", "php", "phtml");
+		$this->forbidden_extensions = array_merge($forbidden_win, $forbidden_mac, $forbidden_web);
 
 		// Store database class
 		$this->Db = &$database;
@@ -57,12 +58,6 @@ class Upload
 			// Get timestamp
 			$timestamp = time();
 
-			// Full path
-			$full_path = $folder . $member . "/" . $timestamp . "/";
-			if(!is_dir($full_path)) {
-				mkdir($full_path, 0777);
-			}
-
 			// Get filename and extension
 			$filename = explode(".", $file['name']);
 			$this->file_extension = strtolower(end($filename));
@@ -78,6 +73,12 @@ class Upload
 			// Check if is an allowed extension (if array is not empty, of course)
 			if(!empty($this->allowed_extensions) && !in_array($this->file_extension, $this->allowed_extensions)) {
 				Html::Error("This file extension is not allowed (.{$this->file_extension}).");
+			}
+
+			// Full path
+			$full_path = $folder . $member . "/" . $timestamp . "/";
+			if(!is_dir($full_path)) {
+				mkdir($full_path, 0777, true);
 			}
 
 			// Delete special characters and diacritics

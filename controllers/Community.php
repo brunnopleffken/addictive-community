@@ -45,8 +45,7 @@ class Community extends Application
 		$this->master = "Ajax";
 
 		$data = array(
-			"version"  => VERSION . "-" . CHANNEL,
-			"codename" => CODENAME
+			"version"  => VERSION . "-" . CHANNEL
 		);
 
 		// Return variables
