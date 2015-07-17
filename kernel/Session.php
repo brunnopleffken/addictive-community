@@ -155,7 +155,7 @@ class Session
 		}
 
 		// Check cookies for Member ID (if user has already logged in)
-		if($this->GetCookie("member_id")) {
+		if($this->GetCookie("member_id") && $this->GetCookie("member_id") >= 1) {
 			// Member has already logged in
 			$this->session_info['member_id'] = $this->GetCookie("member_id");
 
