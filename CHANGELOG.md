@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.7.0 (2015-07-16)
+
+#### Added
+- Member ranks/promotions given when a member reaches a certain number of posts.
+
+#### Fixes
+- Members were unable to log in anonymously (#41);
+- Users were unable to install Addictive Community in WAMP stack in certain scenarios;
+- Few other bug fixes and enhancements.
+
+#### Security
+- Added .php and .js files as forbidden extensions to avoid remote execution on server (users must now compress and send a ZIP file instead);
+- Improved numeric-only data validation to avoid SQL injection (#39).
+
+#### Changed
+- Check for system requirements comes before database settings (#27).
+
+
+
 ## v0.6.0 (2015-07-03)
 
 #### Added
