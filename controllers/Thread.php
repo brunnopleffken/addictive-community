@@ -160,9 +160,10 @@ class Thread extends Application
 		$this->Db->Query("SELECT * FROM c_posts WHERE p_id = {$post_id};");
 		$post_info = $this->Db->Fetch();
 
-		// Check if the author is the user currently logged in
+		// If the author isn't the user currently logged in
+		// check if is an administrator
 		if($this->Session->session_info['member_id'] != $post_info['author_id']
-			&& $this->Session->session_info['member_id'] != 1) {
+			&& $this->Session->member_info['usergroup'] != 1) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
@@ -339,8 +340,10 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
-		// Check if the author is the user currently logged in
-		if($this->Session->session_info['member_id'] != Http::Request("member_id", true)) {
+		// If the author isn't the user currently logged in
+		// check if is an administrator
+		if($this->Session->session_info['member_id'] != Http::Request("member_id", true)
+			&& $this->Session->member_info['usergroup'] != 1) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
@@ -374,8 +377,10 @@ class Thread extends Application
 		$thread_id = Http::Request("tid", true);
 		$post_id = Http::Request("pid", true);
 
-		// Check if the author is the user currently logged in member
-		if($this->Session->session_info['member_id'] != $author_id) {
+		// If the author isn't the user currently logged in
+		// check if is an administrator
+		if($this->Session->session_info['member_id'] != $author_id
+			&& $this->Session->member_info['usergroup'] != 1) {
 			Html::Error("You cannot delete a post that you did not publish.");
 		}
 
