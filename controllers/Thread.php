@@ -151,7 +151,7 @@ class Thread extends Application
 	 * EDIT AN EXISTING POST
 	 * --------------------------------------------------------------------
 	 */
-	public function EditPost($post_id)
+	public function Edit($post_id)
 	{
 		// Don't allow guests
 		$this->Session->NoGuest();
@@ -960,7 +960,7 @@ class Thread extends Application
 			// Post controls
 			if($result['author_id'] == $this->Session->member_info['m_id']
 				|| $this->Session->member_info['usergroup'] == 1) {
-				$result['post_controls'] = "<a href='thread/edit_post/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_EDIT") . "</a> "
+				$result['post_controls'] = "<a href='thread/edit/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_EDIT") . "</a> "
 					. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$id}' data-member='{$result['author_id']}' class='fancybox delete-post-button small-button grey'>" . i18n::Translate("T_DELETE") . "</a>";
 			}
 
