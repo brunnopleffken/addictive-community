@@ -93,7 +93,10 @@ class Database implements IDatabase
 
 		// In case of error...
 		if(!$this->query) {
-			$this->Exception("An error occoured on the following query: " . $sql);
+			$this->Exception(
+				"An error occoured on the following query: " . $sql . "<br><br>"
+				. "<textarea cols='90' rows='5'>" . $this->link->error . "</textarea>"
+			);
 		}
 
 		return $this->query;
