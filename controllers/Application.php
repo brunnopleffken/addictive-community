@@ -160,6 +160,8 @@ class Application
 				(SELECT COUNT(*) FROM c_threads WHERE c_threads.room_id = c_rooms.r_id) AS threads
 				FROM c_rooms WHERE invisible = 0;");
 
+		$_sidebar_rooms = array();
+
 		while($result = $this->Db->Fetch($rooms)) {
 			$_sidebar_rooms[] = $result;
 		}
