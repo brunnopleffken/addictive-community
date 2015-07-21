@@ -15,7 +15,7 @@ CREATE TABLE `c_categories` (
   `order_n` int(2) DEFAULT NULL,
   `visible` int(1) NOT NULL,
   PRIMARY KEY (`c_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_config` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
@@ -30,7 +30,7 @@ CREATE TABLE `c_emails` (
   `description` varchar(20) DEFAULT NULL,
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_emoticons` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
@@ -249,7 +249,7 @@ CREATE TABLE `c_themes` (
   `author_name` varchar(50) NOT NULL DEFAULT '',
   `author_email` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`theme_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_threads` (
   `t_id` int(9) NOT NULL AUTO_INCREMENT,
