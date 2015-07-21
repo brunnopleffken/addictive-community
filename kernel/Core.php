@@ -124,7 +124,7 @@ class Core
 	 */
 	public function ParseEmoticons($text, $emoticons = array())
 	{
-		if($this->config['thread_allow_emoticons'] == true) {
+		if($this->config['thread_allow_emoticons']) {
 			// Empty array to store emoticons :O
 			$translate = array();
 

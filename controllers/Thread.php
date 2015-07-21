@@ -897,7 +897,7 @@ class Thread extends Application
 			$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
 			// Member ranks
-			if($this->Core->config['general_member_enable_ranks'] == "true") {
+			if($this->Core->config['general_member_enable_ranks']) {
 				$result['rank'] = $this->_MemberRank($result['posts']);
 				if($result['rank']) {
 					$result['rank_name'] = $result['rank']['title'];

@@ -98,7 +98,7 @@ class Application
 		$this->_GetStats();
 
 		// Is community offline?
-		if($this->Core->config['general_offline'] == "true") {
+		if($this->Core->config['general_offline']) {
 			if(!strstr($_SERVER['REQUEST_URI'], "error")) {
 				$this->Core->Redirect("error?t=offline");
 			}

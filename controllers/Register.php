@@ -42,7 +42,7 @@ class Register extends Application
 		$this->Set("step", $step);
 		$this->Set("notification", $notification[$message_id]);
 		$this->Set("general_security_validation", $this->Core->config['general_security_validation']);
-		$this->Set("is_captcha", ($this->Core->config['general_security_captcha'] == "true") ? true : false);
+		$this->Set("is_captcha", $this->Core->config['general_security_captcha']);
 	}
 
 	/**
@@ -55,7 +55,7 @@ class Register extends Application
 		$this->layout = false;
 
 		// Check if the entered CAPTCHA matches the registered in the session
-		if($this->Core->config['general_security_captcha'] == "true") {
+		if($this->Core->config['general_security_captcha']) {
 			if(Http::Request("captcha") != $_SESSION['captcha']) {
 				$this->Core->Redirect("register?step=2&m=5");
 			}
@@ -80,7 +80,7 @@ class Register extends Application
 		}
 
 		// Check if Require Validation is TRUE in community settings
-		$usergroup = ($this->Core->config['general_security_validation'] == "true") ? 6 : 3;
+		$usergroup = ($this->Core->config['general_security_validation']) ? 6 : 3;
 
 		// Hash
 		$salt = array(

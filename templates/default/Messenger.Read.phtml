@@ -23,7 +23,7 @@
 		<div class="date"><?php __("M_SENT_ON", array($message['sent_date'])) ?></div>
 		<div class="text">
 			<span><?php __($message['message']) ?></span>
-			<?php if($message['signature'] && $enable_signature == "true"): ?>
+			<?php if($message['signature'] && $enable_signature): ?>
 				<div class="signature"><?php __($message['signature']) ?></div>
 			<?php endif; ?>
 		</div>

@@ -159,13 +159,13 @@ switch($do) {
 		$room = array(
 			"name"          => String::Sanitize($_POST['room_name']),
 			"description"   => String::Sanitize($_POST['room_description']),
-			"invisible"     => ($_POST['invisible'] == "true") ? "1" : "0",
+			"invisible"     => ($_POST['invisible'] == "1") ? "1" : "0",
 			"rules_title"   => (isset($_POST['rules_title'])) ? String::Sanitize($_POST['rules_title']) : "",
 			"rules_text"    => (isset($_POST['rules_text'])) ? String::Sanitize($_POST['rules_text']) : "",
-			"rules_visible" => ($_POST['rules_visible'] == "true") ? "1" : "0",
-			"read_only"     => ($_POST['read_only'] == "true") ? "1" : "0",
+			"rules_visible" => ($_POST['rules_visible'] == "1") ? "1" : "0",
+			"read_only"     => ($_POST['read_only'] == "1") ? "1" : "0",
 			"password"      => ($_POST['password'] != "") ? $_POST['password'] : "",
-			"upload"        => ($_POST['upload'] == "true") ? "1" : "0"
+			"upload"        => ($_POST['upload'] == "1") ? "1" : "0"
 		);
 
 		$Db->Update("c_rooms", $room, "r_id = '{$_REQUEST['room_id']}'");
