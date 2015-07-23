@@ -50,7 +50,7 @@ class Email
 		// Set SMTP configuration
 		$this->Mail->isSMTP();
 		$this->Mail->Host       = $config['general_email_smtp'];
-		$this->Mail->SMTPAuth   = filter_var($config['general_email_authentication'], FILTER_VALIDATE_BOOLEAN);
+		$this->Mail->SMTPAuth   = $config['general_email_authentication'];
 		$this->Mail->Username   = $config['general_email_username'];
 		$this->Mail->Password   = $config['general_email_password'];
 		$this->Mail->SMTPSecure = $config['general_email_auth_method'];
