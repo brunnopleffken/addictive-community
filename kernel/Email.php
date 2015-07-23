@@ -34,7 +34,8 @@ class Email
 		$this->Mail = new PHPMailer();
 
 		// Check if e-mail information is empty
-		if($config['general_email_smtp'] == "" || $config['general_email_port'] == "") {
+		if($config['general_email_smtp'] == "" || $config['general_email_port'] == "" ||
+		$config['general_email_from'] == "") {
 			Html::Error("<b>Mailer Error:</b> You're unable to send e-mails. Check your SMTP settings in "
 				. "<a href='admin/' target='_blank'>Administration Control Panel</a>."
 			);
