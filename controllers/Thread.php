@@ -193,7 +193,7 @@ class Thread extends Application
 			"thread_id"     => Http::Request("id", true),
 			"post_date"     => time(),
 			"ip_address"    => $_SERVER['REMOTE_ADDR'],
-			"post"          => $_POST['post'],
+			"post"          => str_replace("'", "&apos;", $_POST['post']),
 			"quote_post_id" => (Http::Request("quote_post_id", true)) ? Http::Request("quote_post_id", true) : 0,
 			"best_answer"   => 0,
 			"first_post"    => 0
@@ -295,7 +295,7 @@ class Thread extends Application
 			"thread_id"   => $this->Db->GetLastID(),
 			"post_date"   => $thread['lastpost_date'],
 			"ip_address"  => $_SERVER['REMOTE_ADDR'],
-			"post"        => $_POST['post'],
+			"post"        => str_replace("'", "&apos;", $_POST['post']),
 			"best_answer" => 0,
 			"first_post"  => 1
 		);
