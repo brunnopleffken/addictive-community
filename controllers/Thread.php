@@ -339,10 +339,13 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
+		// Get author ID from database for security reasons
+		$this->Db->Query("SELECT author_id FROM c_posts WHERE p_id = {$post_id};");
+		$post_info = $this->Db->Fetch();
+
 		// If the author isn't the user currently logged in
 		// check if is an administrator
-		if($this->Session->session_info['member_id'] != Http::Request("member_id", true)
-			&& $this->Session->member_info['usergroup'] != 1) {
+		if($this->Session->session_info['member_id'] != $post_info['author_id'] && !$this->Session->IsAdmin()) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
