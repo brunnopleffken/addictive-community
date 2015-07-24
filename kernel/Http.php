@@ -26,13 +26,13 @@ class Http
 
 		if(isset($_REQUEST[$name])) {
 			$text = stripslashes($_REQUEST[$name]);
-			$text = str_replace("&", "&amp;", $text);
+			$text = str_replace(";", "&semi;", $text);
+			$text = str_replace("& ", "&amp; ", $text);
 			$text = str_replace("<", "&lt;", $text);
 			$text = str_replace(">", "&gt;", $text);
 			$text = str_replace('"', "&quot;", $text);
 			$text = str_replace("'", "&apos;", $text);
 			$text = str_replace("`", "&grave;", $text);
-			$text = str_replace(";", "&semi;", $text);
 		}
 		else {
 			return false;
