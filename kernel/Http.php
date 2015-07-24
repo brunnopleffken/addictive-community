@@ -20,19 +20,25 @@ class Http
 	 */
 	public static function Request($name, $numeric_only = false)
 	{
-		if(isset($_REQUEST[$name]) && $numeric_only == true && !is_numeric($_REQUEST[$name])) {
-			Html::Error("Variable '{$name}' must be a number.");
-		}
-
 		if(isset($_REQUEST[$name])) {
-			$text = stripslashes($_REQUEST[$name]);
-			$text = str_replace(";", "&semi;", $text);
-			$text = str_replace("& ", "&amp; ", $text);
-			$text = str_replace("<", "&lt;", $text);
-			$text = str_replace(">", "&gt;", $text);
-			$text = str_replace('"', "&quot;", $text);
-			$text = str_replace("'", "&apos;", $text);
-			$text = str_replace("`", "&grave;", $text);
+			$text = $_REQUEST[$name];
+
+			// Return error if $numeric_only is true but hasn't a numeric value
+			if($numeric_only == true && !is_numeric($text)) {
+				Html::Error("Variable '{$name}' must be a number.");
+			}
+
+			// If is not a number, sanitize value as text
+			if(!$numeric_only) {
+				$text = stripslashes($_REQUEST[$name]);
+				$text = str_replace(";", "&semi;", $text);
+				$text = str_replace("& ", "&amp; ", $text);
+				$text = str_replace("<", "&lt;", $text);
+				$text = str_replace(">", "&gt;", $text);
+				$text = str_replace('"', "&quot;", $text);
+				$text = str_replace("'", "&apos;", $text);
+				$text = str_replace("`", "&grave;", $text);
+			}
 		}
 		else {
 			return false;
