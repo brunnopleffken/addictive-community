@@ -104,14 +104,24 @@
 
 	<!-- POST FOOTER -->
 	<div class="footer">
-		<p class="fleft"><i class="fa fa-clock-o"></i> <?php __("T_POSTED_ON", array($first_post_info['post_date'])) ?></p>
+		<p class="fleft">
+			<i class="fa fa-clock-o"></i>
+			<?php __("T_POSTED_ON", array($first_post_info['post_date'])) ?> <?php __($first_post_info['edited']) ?>
+		</p>
 		<?php if($this->Session->member_info['m_id'] != 0): ?>
-			<p class="fright">
-				<i class="fa fa-warning"></i>
-				<a href="report/thread/<?php __($thread_id) ?>" class="fancybox fancybox.ajax">
-					<?php __("T_REPORT_ABUSE") ?>
-				</a>
-			</p>
+			<div class="fright">
+				<?php if($first_post_info['is_author']): ?>
+					<div class="closure">
+						<a href="thread/edit/<?php __($thread_id) ?>"><i class="fa fa-pencil"></i> <?php __("T_EDIT") ?></a>
+					</div>
+				<?php endif; ?>
+				<div class="closure">
+					<a href="report/thread/<?php __($thread_id) ?>" class="fancybox fancybox.ajax">
+						<i class="fa fa-warning"></i>
+						<?php __("T_REPORT_ABUSE") ?>
+					</a>
+				</div>
+			</div>
 		<?php endif; ?>
 	</div>
 </div>

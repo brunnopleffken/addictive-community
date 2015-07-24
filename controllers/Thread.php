@@ -845,9 +845,10 @@ class Thread extends Application
 		$first_post_info = array();
 
 		$first_post = $this->Db->Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id,
-				c_attachments.*, c_threads.title, c_threads.locked, c_members.* FROM c_posts
+				c_attachments.*, c_threads.title, c_threads.locked, c_members.*, edit.username AS edit_username FROM c_posts
 				INNER JOIN c_threads ON (c_posts.thread_id = c_threads.t_id)
 				INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
+				LEFT JOIN c_members AS edit ON (c_posts.edit_author = edit.m_id)
 				LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
 				WHERE thread_id = '{$id}' AND first_post = '1' LIMIT 1;");
 
@@ -856,6 +857,18 @@ class Thread extends Application
 		// Format first thread
 		$first_post_info['avatar'] = $this->Core->GetAvatar($first_post_info, 96);
 		$first_post_info['post_date'] = $this->Core->DateFormat($first_post_info['post_date']);
+
+		// Check if the currently logged in member is the thread author
+		$first_post_info['is_author'] = ($first_post_info['author_id'] == $this->Session->session_info['member_id']);
+
+		// Show label if post was edited
+		if(isset($first_post_info['edit_time'])) {
+			$first_post_info['edit_time'] = $this->Core->DateFormat($first_post_info['edit_time']);
+			$first_post_info['edited']    = "(" . i18n::Translate("T_EDITED", array($first_post_info['edit_time'], $first_post_info['edit_username'])) . ")";
+		}
+		else {
+			$first_post_info['edited'] = "";
+		}
 
 		// Block bad words
 		$first_post_info['post'] = $this->_FilterBadWords($first_post_info['post']);
