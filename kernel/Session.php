@@ -128,6 +128,21 @@ class Session
 
 	/**
 	 * --------------------------------------------------------------------
+	 * RETURN TRUE IF USER IS AN ADMINISTRATOR
+	 * --------------------------------------------------------------------
+	 */
+	public function IsAdmin()
+	{
+		if($this->member_info['usergroup'] == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * UPDATE SESSION (OR CREATE A NEW ONE)
 	 * THIS IS THE MAIN METHOD ALL OVER THE CLASS. FROM HERE, YOU'LL DEFINE
 	 * IF USER IS A GUEST OR A MEMBER, TO CREATE A NEW SESSION OR UPDATE

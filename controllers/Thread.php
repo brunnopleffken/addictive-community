@@ -162,8 +162,7 @@ class Thread extends Application
 
 		// If the author isn't the user currently logged in
 		// check if is an administrator
-		if($this->Session->session_info['member_id'] != $post_info['author_id']
-			&& $this->Session->member_info['usergroup'] != 1) {
+		if($this->Session->session_info['member_id'] != $post_info['author_id'] && !$this->Session->IsAdmin()) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
@@ -379,8 +378,7 @@ class Thread extends Application
 
 		// If the author isn't the user currently logged in
 		// check if is an administrator
-		if($this->Session->session_info['member_id'] != $author_id
-			&& $this->Session->member_info['usergroup'] != 1) {
+		if($this->Session->session_info['member_id'] != $author_id && !$this->Session->IsAdmin()) {
 			Html::Error("You cannot delete a post that you did not publish.");
 		}
 
