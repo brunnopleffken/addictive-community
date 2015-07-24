@@ -959,8 +959,7 @@ class Thread extends Application
 			$result['thread_controls'] = "";
 
 			// Post controls
-			if($result['author_id'] == $this->Session->member_info['m_id']
-				|| $this->Session->member_info['usergroup'] == 1) {
+			if($result['author_id'] == $this->Session->member_info['m_id'] || $this->Session->IsAdmin()) {
 				$result['post_controls'] = "<a href='thread/edit/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_EDIT") . "</a> "
 					. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$id}' data-member='{$result['author_id']}' class='fancybox delete-post-button small-button grey'>" . i18n::Translate("T_DELETE") . "</a>";
 			}
@@ -1103,12 +1102,7 @@ class Thread extends Application
 		}
 		else {
 			// If member is not a moderator, check if is an Administrator
-			if($this->Session->member_info['usergroup'] == 1) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return $this->Session->IsAdmin();
 		}
 	}
 

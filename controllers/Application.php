@@ -104,9 +104,6 @@ class Application
 			}
 		}
 
-		// Check if user is Admin
-		$is_admin = ($this->Session->member_info['usergroup'] == 1) ? true : false;
-
 		// RETURN COMMON VARIABLES
 		// This variables will be returned in all controllers
 		// Treat them as reserved words when declaring variables! ;)
@@ -119,7 +116,7 @@ class Application
 		$this->Set("website_url", $this->Core->config['general_website_url']);
 		$this->Set("show_members_online", $this->Core->config['general_sidebar_online']);
 		$this->Set("show_statistics", $this->Core->config['general_sidebar_stats']);
-		$this->Set("is_admin", $is_admin);
+		$this->Set("is_admin", $this->Session->IsAdmin());
 	}
 
 	/**

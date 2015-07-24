@@ -100,7 +100,7 @@ class Community extends Application
 	private function _GetRooms()
 	{
 		// If member is Admin, show invisible rooms too
-		if($this->Session->IsMember() && $this->Session->member_info['usergroup'] == 1) {
+		if($this->Session->IsMember() && $this->Session->IsAdmin()) {
 			$visibility = "";
 		}
 		else {
