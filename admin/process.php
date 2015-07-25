@@ -455,7 +455,7 @@ switch($do) {
 
 		break;
 
-	case "new_rank";
+	case "new_rank":
 
 		$rank = array(
 			"title"     => Http::Request("title"),
@@ -471,7 +471,7 @@ switch($do) {
 
 		break;
 
-	case "delete_rank";
+	case "delete_rank":
 
 		$rank_id = Http::Request("id", true);
 
