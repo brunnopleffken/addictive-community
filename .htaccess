@@ -2,20 +2,20 @@
 Options -Indexes
 
 <IfModule mod_rewrite.c>
-RewriteEngine On
+  RewriteEngine On
 
-# AdminCP is... well... admin! Do not rewrite it!
-RewriteRule ^(admin|install)($|/) - [L]
+  # AdminCP is... well... admin! Do not rewrite it!
+  RewriteRule ^(admin|install)($|/) - [L]
 
-# /logout is not a controller, just a shortcut to Login::Logout()
-RewriteRule ^(logout)$ index.php?c=login&act=logout
+  # /logout is not a controller, just a shortcut to Login::Logout()
+  RewriteRule ^(logout)$ index.php?c=login&act=logout
 
-# Controller, Actions and IDs
-RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?c=$1 [QSA]
-RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)$ index.php?c=$1&id=$2 [QSA]
-RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z_]+)$ index.php?c=$1&act=$2 [QSA]
-RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z_]+)/([0-9]+)$ index.php?c=$1&act=$2&id=$3 [QSA]
+  # Controller, Actions and IDs
+  RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?c=$1 [QSA]
+  RewriteRule ^([a-zA-Z0-9_-]+)/([0-9]+)$ index.php?c=$1&id=$2 [QSA]
+  RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z_]+)$ index.php?c=$1&act=$2 [QSA]
+  RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z_]+)/([0-9]+)$ index.php?c=$1&act=$2&id=$3 [QSA]
 
-# Thread: SEO friendly URLs
-RewriteRule ^(thread)/([0-9]+)-([a-zA-Z0-9\-]+)$ index.php?c=$1&id=$2 [QSA]
+  # Thread: SEO friendly URLs
+  RewriteRule ^(thread)/([0-9]+)-([a-zA-Z0-9\-]+)$ index.php?c=$1&id=$2 [QSA]
 </IfModule>
