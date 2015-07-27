@@ -9,26 +9,7 @@
 	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
 
-
 	$username = (Http::Request("username")) ? Http::Request("username") : "";
-
-	// Execute queries, if defined
-
-	$do = (Http::Request("do")) ? Http::Request("do") : false;
-
-	if($do) {
-		switch($do) {
-			// Edit member info
-			case "edit":
-
-				break;
-
-			// Delete member
-			case "delete":
-
-				break;
-		}
-	}
 
 	// Get member list
 
@@ -60,7 +41,7 @@
 				<td>{$member['joined']}</td>
 				<td>{$member['name']}</td>
 				<td>{$member['posts']}</td>
-				<td class='min'><a href='?act=members&amp;p=manage&amp;do=edit&amp;id={$member['m_id']}'><i class='fa fa-pencil'></i></a></td>
+				<td class='min'><a href='main.php?act=members&amp;p=edit&amp;id={$member['m_id']}'><i class='fa fa-pencil'></i></a></td>
 				<td class='min'>{$remove}</td>
 			</tr>");
 	}

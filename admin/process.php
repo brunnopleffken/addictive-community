@@ -482,4 +482,13 @@ switch($do) {
 		exit;
 
 		break;
+
+	case "update_member":
+
+		$id = Http::Request("id", true);
+		$Db->Update("c_members", $_POST, "m_id = {$id}");
+
+		header("Location: main.php?act=members&p=edit&id={$id}&msg=1");
+
+		break;
 }
