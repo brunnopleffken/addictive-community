@@ -53,6 +53,17 @@ $(document).ready(function() {
 			$('.loader').hide();
 		});
 	}).call(this);
+
+	/**
+	 * Automatic confirmation message when using "data-confirm" attribute
+	 */
+	(function() {
+		$('a[data-confirm]').on('click', function(event) {
+			if(!confirm($(this).data("confirm"))) {
+				event.preventDefault();
+			}
+		})
+	}).call(this);
 });
 
 /**
