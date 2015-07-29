@@ -1060,6 +1060,10 @@ a.room-mark-as-read {
 		.name {
 			font-size: 15px;
 			font-weight: bold;
+			&.deleted {
+				color: #900;
+				margin-top: 7px;
+			}
 		}
 		.member-title {
 			font-size: 9px;

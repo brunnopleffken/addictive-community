@@ -242,6 +242,7 @@ a.room-mark-as-read { color: #999; display: inline-block; font-size: 10px; lette
 .thread-post-reply .author .photostack { background: url("../images/photo-stack.png") no-repeat center; background-size: 128px 128px; height: 128px; margin: auto; margin-bottom: 5px; width: 128px; }
 .thread-post-reply .author .photostack .avatar { margin: 16px; }
 .thread-post-reply .author .name { font-size: 15px; font-weight: bold; }
+.thread-post-reply .author .name.deleted { color: #900; margin-top: 7px; }
 .thread-post-reply .author .member-title { font-size: 9px; text-transform: uppercase; }
 .thread-post-reply .author .rank { margin-top: 10px; }
 .thread-post-reply .author .rank .rank-pips { color: #465068; letter-spacing: 5px; }

@@ -16,4 +16,6 @@
 	$t["E_OFFLINE_MESSAGE"] = "%s is currently offline while we performe some maintenance.";
 	$t["E_UPDATING"] = "Updating!";
 	$t["E_UPDATING_MESSAGE"] = "Please, wait while we update our community to a newer software version.";
+	$t["E_DELETED"] = "This member doesn't exist!";
+	$t["E_DELETED_MESSAGE"] = "Seems like you're trying to view a member that doesn't exist or has been deleted.";
 ?>

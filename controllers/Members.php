@@ -92,7 +92,7 @@ class Members extends Application
 		// Search by username
 		if(Http::Request("username")) {
 			$username = Http::Request("username");
-			$order = "WHERE username LIKE '%{$username}%' {$order};";
+			$order = "WHERE usergroup <> 0 AND username LIKE '%{$username}%' {$order};";
 		}
 
 		// Filter by first letter and execute query!
@@ -100,12 +100,12 @@ class Members extends Application
 			$letter = Http::Request("letter");
 			$members = $this->Db->Query("SELECT * FROM c_members
 					LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id)
-					WHERE username LIKE '{$letter}%' {$order};");
+					WHERE usergroup <> 0 AND username LIKE '{$letter}%' {$order};");
 		}
 		else {
 			$members = $this->Db->Query("SELECT * FROM c_members
 					LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id)
-					{$order};");
+					WHERE usergroup <> 0 {$order};");
 		}
 
 		// Iterate between results

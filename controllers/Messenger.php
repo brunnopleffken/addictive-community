@@ -166,7 +166,7 @@ class Messenger extends Application
 		$term = Http::Request("term");
 
 		// Get list of usernames
-		$this->Db->Query("SELECT m_id, username FROM c_members WHERE username LIKE '%{$term}%';");
+		$this->Db->Query("SELECT m_id, username FROM c_members WHERE username LIKE '%{$term}%' AND usergroup <> 0;");
 
 		$users = array();
 

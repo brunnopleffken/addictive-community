@@ -151,24 +151,29 @@
 		<div class="thread-post-reply <?php __($reply[$k]['bestanswer_class']) ?>">
 			<!-- REPLY SIDEBAR -->
 			<div class="author">
-				<div class="photostack">
-					<a href="profile/<?php __($reply[$k]['author_id']) ?>">
-						<?php __(Html::Crop($reply[$k]['avatar'], 96, 96, "avatar")) ?>
-					</a>
-				</div>
-				<p class="name"><a href="profile/<?php __($reply[$k]['author_id']) ?>"><?php __($reply[$k]['username']) ?></a></p>
-				<p class="member-title"><?php __($reply[$k]['member_title']) ?></p>
-				<?php if(!empty($reply[$k]['rank'])): ?>
-					<div class="rank">
-						<div class="rank-pips"><?php __($reply[$k]['rank_pips']); ?></div>
-						<span class="rank-name"><?php __($reply[$k]['rank_name']); ?></span>
+				<?php if($reply[$k]['usergroup'] != 0): ?>
+					<div class="photostack">
+						<a href="profile/<?php __($reply[$k]['author_id']) ?>">
+							<?php __(Html::Crop($reply[$k]['avatar'], 96, 96, "avatar")) ?>
+						</a>
 					</div>
+					<p class="name"><a href="profile/<?php __($reply[$k]['author_id']) ?>"><?php __($reply[$k]['username']) ?></a></p>
+					<p class="member-title"><?php __($reply[$k]['member_title']) ?></p>
+					<?php if(!empty($reply[$k]['rank'])): ?>
+						<div class="rank">
+							<div class="rank-pips"><?php __($reply[$k]['rank_pips']); ?></div>
+							<span class="rank-name"><?php __($reply[$k]['rank_name']); ?></span>
+						</div>
+					<?php endif; ?>
+					<ul class="user-info">
+						<li><b><?php __("T_POST_POSTS") ?></b> <?php __($reply[$k]['posts']) ?> <?php __("T_POSTS_LOWCASE") ?></li>
+						<li><b><?php __("T_POST_REGISTERED") ?></b> <?php __($reply[$k]['joined']) ?></li>
+						<li><b><?php __("T_POST_LOCATION") ?></b> <?php __($reply[$k]['location']) ?></li>
+					</ul>
+				<?php else: ?>
+					<p class="name deleted"><?php __($reply[$k]['username']) ?></p>
+					<p class="member-title">Deleted</p>
 				<?php endif; ?>
-				<ul class="user-info">
-					<li><b><?php __("T_POST_POSTS") ?></b> <?php __($reply[$k]['posts']) ?> <?php __("T_POSTS_LOWCASE") ?></li>
-					<li><b><?php __("T_POST_REGISTERED") ?></b> <?php __($reply[$k]['joined']) ?></li>
-					<li><b><?php __("T_POST_LOCATION") ?></b> <?php __($reply[$k]['location']) ?></li>
-				</ul>
 			</div>
 
 			<!-- REPLY CONTENT -->

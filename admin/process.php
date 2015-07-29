@@ -483,6 +483,21 @@ switch($do) {
 
 		break;
 
+	case "delete_member":
+
+		$id = Http::Request("id", true);
+		$Db->Update("c_members", array(
+			"email"        => "",
+			"password"     => "",
+			"usergroup"    => 0,
+			"token"        => ""
+		), "m_id = {$id}");
+
+		header("Location: main.php?act=members&p=manage");
+		exit;
+
+		break;
+
 	case "update_member":
 
 		$id = Http::Request("id", true);

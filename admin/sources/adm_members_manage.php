@@ -28,7 +28,7 @@
 		$member['joined'] = $Core->DateFormat($member['joined']);
 
 		if($member['m_id'] != 1) {
-			$remove = "<a href='?act=members&amp;p=manage&amp;do=delete&amp;id={$member['m_id']}'><i class='fa fa-remove'></i></a>";
+			$remove = "<a href='process.php?do=delete_member&amp;id={$member['m_id']}' data-confirm='Do you really want to remove this member? This action CANNOT be undone.'><i class='fa fa-remove'></i></a>";
 		}
 		else {
 			$remove = "";
