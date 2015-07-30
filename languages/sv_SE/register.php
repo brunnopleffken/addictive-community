@@ -1,0 +1,36 @@
+<?php
+	$t["R_TITLE"] = "Skapa Konto";
+	$t["R_STEP_1"] = "Steg 1";
+	$t["R_STEP_2"] = "Steg 2";
+	$t["R_STEP_3"] = "Steg 3";
+	$t["R_STEP_4"] = "Steg 4";
+	$t["R_STEP_AGREEMENT"] = "Överenskommelse";
+	$t["R_STEP_YOUR_ACCOUNT"] = "Ditt Konto";
+	$t["R_STEP_CONFIRMATION"] = "Bekräftelse";
+	$t["R_STEP_VALIDATION"] = "Validering";
+	$t["R_EULA"] = "Vi tar inget ansvar för några postade inlägg. Inläggen speglar åsikter hos den som gjort inläggen och inte nödvändigtvis åsikter som vi har här. Inlägg som förödmjukar, förolämpar eller hotar andra medlemmar; är obscena eller är på annat sätt tvivelaktiga; som spammar eller har kommersiellt innehåll och länkar kan komma att raderas och kan även resultera i att du förlorar ditt konto. Var snäll och posta inte privat information om du inte vill att den ska bli offentliggjord. Tro aldrig att du är helt anonym och att du inte kan bli identifierad genom dina inlägg.";
+	$t["R_AGREE"] = "Godkänner";
+	$t["R_DISAGREE"] = "Godkänner inte";
+	$t["R_USERNAME"] = "Användarnamn";
+	$t["R_USERNAME_NOTICE"] = "Från 3 till 20 tecken";
+	$t["R_PASSWORD"] = "Lösenord";
+	$t["R_PASSWORD_NOTICE"] = "Från 6 till 32 tecken";
+	$t["R_PASSWORD_ERROR"] = "Lösenorden är olika!";
+	$t["R_RETYPE_PASSWD"] = "Lösenordet igen";
+	$t["R_EMAIL_ADDR"] = "E-mail Adress";
+	$t["R_CAPTCHA"] = "CAPTCHA";
+	$t["R_CAPTCHA_DESCRIPTION"] = "Bara bokstäver. För att säkra du är en människa.";
+	$t["R_STEP_2_SEND"] = "Skapa Konto";
+	$t["R_ERROR_1"] = "Alla fält är obligatoriska. Om de inte fylls i, kan inte registreringen göras.";
+	$t["R_ERROR_2"] = "Lösenorden är olika.";
+	$t["R_ERROR_3"] = "Användarnamnet måste vara 3 till 20 tecken.";
+	$t["R_ERROR_4"] = "Användarnamnet eller e-mailet finns redan.";
+	$t["R_ERROR_5"] = "CAPTCHA är inte korrekt.";
+	$t["R_DONE_CONGRATULATIONS"] = "Grattis!";
+	$t["R_DONE_SUCCESS"] = "Du har lyckats registrera ditt konto.";
+	$t["R_DONE_VALIDATE"] = "Var snäll kolla ditt e-mail för att fullfölja registreringen.";
+	$t["R_DONE_SUCCESS_VALIDATED"] = "Ditt konto är nu validerat.";
+	$t["R_VALIDATE_ALREADY"] = "Denna medlem är redan validerad.";
+	$t["R_VALIDATE_NOT_MATCH"] = "Säkerhetskoden matchar inte.";
+	$t["R_VALIDATE_NOT_FOUND"] = "Medlem kan inte hittas.";
+?>
