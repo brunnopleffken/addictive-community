@@ -28,6 +28,13 @@
 	$Db->Query("SELECT * FROM c_members WHERE m_id = {$id};");
 	$member = $Db->Fetch();
 
+	// Usergroups
+	$Db->Query("SELECT * FROM c_usergroups;");
+	while($usergroup = $Db->Fetch()) {
+		$usergroup['selected'] = ($usergroup['g_id'] == $member['usergroup']) ? "selected" : "";
+		$usergroups[] = $usergroup;
+	}
+
 ?>
 
 	<h1>Edit Member: Fronteira Final</h1>
@@ -48,6 +55,18 @@
 					<tr>
 						<td class="title-fixed">E-mail Address</td>
 						<td><input type="text" name="email" class="medium" value="<?php echo $member['email'] ?>"></td>
+					</tr>
+					<tr>
+						<td class="title-fixed">User Group</td>
+						<td>
+							<select name="usergroup" id="usergroup">
+								<?php foreach($usergroups as $group): ?>
+									<option value="<?php echo $group['g_id'] ?>" <?php echo $group['selected'] ?>>
+										<?php echo $group['name'] ?>
+									</option>
+								<?php endforeach; ?>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td class="title-fixed">Signature (HTML)</td>
