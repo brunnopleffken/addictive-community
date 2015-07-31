@@ -93,7 +93,7 @@
 					<td>Default</td>
 					<td class="min">Edit</td>
 					<!--<td class="min"></td>-->
-					<td class="min">Remove</td>
+					<td class="min">Uninstall</td>
 				</tr>
 				<?php echo Template::Get() ?>
 			</table>
