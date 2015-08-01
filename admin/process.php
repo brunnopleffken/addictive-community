@@ -327,8 +327,7 @@ switch($do) {
 			"directory"    => $language_info['directory'],
 			"author_name"  => $language_info['author_name'],
 			"author_email" => $language_info['author_email'],
-			"is_active"    => 1,
-			"is_default"   => 0
+			"is_active"    => 1
 		);
 
 		$Db->Insert("c_languages", $language);
