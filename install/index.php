@@ -373,6 +373,63 @@ HTML;
 			$url = str_replace("install/index.php", "", $_SERVER['HTTP_REFERER']);
 			$url = preg_replace("#\?(.+?)*#", "", $url);
 
+			// Languages
+			$dir_list = array();
+			$lang_list = "";
+			$lang_dir = scandir("../languages");
+
+			foreach($lang_dir as $k => $v) {
+				if(strpos($v, "_") && is_dir("../languages/" . $v)) {
+					$dir_list[] = $v;
+				}
+			}
+
+			foreach($dir_list as $language) {
+				$language_info = json_decode(file_get_contents("../languages/" . $language . "/_language.json"), true);
+				$selected = ($language_info['directory'] == "en_US") ? "selected" : "";
+				$lang_list .= "<option value='{$language_info['directory']}' {$selected}>{$language_info['name']}</option>";
+			}
+
+			// Timezone list
+			$tz_offset = array(
+				"-12" => "(UTC-12:00) International Date Line West",
+				"-11" => "(UTC-11:00) Midway Island, Samoa",
+				"-10" => "(UTC-10:00) Hawaii",
+				"-9"  => "(UTC-09:00) Alaska",
+				"-8"  => "(UTC-08:00) Pacific Time (US & Canada), Tijuana",
+				"-7"  => "(UTC-07:00) Mountain Time (US & Canada), Chihuahua, La Paz",
+				"-6"  => "(UTC-06:00) Central Time (US & Canada), Cental America, Ciudad de México",
+				"-5"  => "(UTC-05:00) Eastern Time (US & Canada), Bogotá, Lima, Rio Branco",
+				"-4"  => "(UTC-04:00) Atlantic Time (Canada), Caracas, Santiago, Manaus",
+				"-3"  => "(UTC-03:00) Brasília, São Paulo, Buenos Aires, Montevideo",
+				"-2"  => "(UTC-02:00) Mid-Atlantic",
+				"-1"  => "(UTC-01:00) Azores, Cape Verde Is.",
+				"0"   => "(UTC&#177;00:00) London, Lisboa, Reykjavík, Dublin",
+				"1"   => "(UTC+01:00) Paris, Amsterdam, Berlin, Roma, Stockholm, West Central Africa",
+				"2"   => "(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius",
+				"3"   => "(UTC+03:00) Moscow, St. Petersburg, Nairobi, Kuwait, Baghdad",
+				"4"   => "(UTC+04:00) Abu Dhabi, Baku, Muscat, Yerevan",
+				"5"   => "(UTC+05:00) Islamabad, Karachi, Yekaterinburg, Tashkent",
+				"5.5" => "(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi",
+				"6"   => "(UTC+06:00) Astana, Dhaka, Almaty, Novosibirsk",
+				"6.5" => "(UTC+06:30) Yangon (Rangoon)",
+				"7"   => "(UTC+07:00) Bangkok, Hanoi, Jakarta, Krasnoyarsk",
+				"8"   => "(UTC+08:00) Beijing, Hong Kong, Kuala Lumpur, Singapore, Perth, Taipei",
+				"9"   => "(UTC+09:00) Tokyo, Osaka, Seoul, Yakutsk, Sapporo",
+				"9.5" => "(UTC+09:30) Adelaide, Darwin",
+				"10"  => "(UTC+10:00) Brisbane, Canberra, Melbourne, Sydney, Vladivostok",
+				"11"  => "(UTC+11:00) Magadan, Solomon Is., New Caledonia",
+				"12"  => "(UTC+12:00) Auckland, Wellington, Fiji, Marshall Is."
+			);
+
+			$tz_list = "";
+
+			foreach($tz_offset as $tz_value => $tz_name) {
+				$selected = ($tz_value == 0) ? "selected" : "";
+				$tz_list .= "<option value='{$tz_value}' {$selected}>{$tz_name}</option>\n";
+			}
+
+
 			$template = <<<HTML
 				<div class="step-box">
 					<div class="previous"><h3>Step 1</h3><span class="tiny">EULA</span></div>
@@ -387,6 +444,25 @@ HTML;
 					<div class="input-box">
 						<div class="label">Community Name</div>
 						<div class="field"><input type="text" name="community" class="medium"></div>
+					</div>
+
+					<h2>Default Settings</h2>
+
+					<div class="input-box">
+						<div class="label">Language</div>
+						<div class="field">
+							<select name="language" class="small select2">
+								{$lang_list}
+							</select>
+						</div>
+					</div>
+					<div class="input-box">
+						<div class="label">Timezone</div>
+						<div class="field">
+							<select name="timezone" class="large select2">
+								{$tz_list}
+							</select>
+						</div>
 					</div>
 
 					<h2>Paths and URLs</h2>
@@ -466,6 +542,8 @@ HTML;
 				<input type="hidden" id="community_name" value="{$_REQUEST['community']}">
 				<input type="hidden" id="community_path" value="{$_REQUEST['install_path']}">
 				<input type="hidden" id="community_url" value="{$_REQUEST['install_url']}">
+				<input type="hidden" id="default_language" value="{$_REQUEST['language']}">
+				<input type="hidden" id="default_timezone" value="{$_REQUEST['timezone']}">
 				<input type="hidden" id="admin_username" value="{$_REQUEST['adm_username']}">
 				<input type="hidden" id="admin_password" value="{$_REQUEST['adm_password']}">
 				<input type="hidden" id="admin_email" value="{$_REQUEST['adm_email']}">
@@ -495,6 +573,7 @@ HTML;
 	<meta charset="utf-8">
 	<title>Addictive Community</title>
 	<!-- Common Files -->
+	<link rel="stylesheet" href="../thirdparty/select2/select2.css">
 	<link href="../themes/default-light/css/main.css" type="text/css" rel="stylesheet">
 	<script type="text/javascript" src="../thirdparty/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="../thirdparty/select2/select2.js"></script>

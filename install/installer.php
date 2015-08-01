@@ -213,14 +213,14 @@
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_sidebar_online', '1');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_sidebar_stats', '1');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('template_default_set', 'default');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('language_default_set', 'en_US');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('language_default_set', '{$data['default_language']}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('theme_default_set', 'default-light');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('emoticon_default_set', 'default');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('seo_description', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('seo_keywords', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('date_long_format', 'd M Y, H:i');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('date_short_format', 'd M Y');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('date_default_offset', '0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('date_default_offset', '{$data['default_timezone']}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_session_expiration', '900');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_signature', '1');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_avatar_upload', '1');";
@@ -300,7 +300,7 @@
 
 			// Build SQL
 
-			$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_facebook`, `im_twitter`, `posts`, `lastpost_date`, `signature`, `template`, `theme`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', 1, 1367848084, '', 'default', 'default-light', 'en_US', NULL, NULL, 0, '0', 0, 1, 1, '')";
+			$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_facebook`, `im_twitter`, `posts`, `lastpost_date`, `signature`, `template`, `theme`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', 1, 1367848084, '', 'default', 'default-light', '{$data['default_language']}', NULL, NULL, 0, '{$data['default_timezone']}', 0, 1, 1, '')";
 
 			$insert_admin = $Db->Query($insert_admin_query);
 

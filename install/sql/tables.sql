@@ -78,7 +78,6 @@ CREATE TABLE `c_languages` (
   `author_name` varchar(50) NOT NULL,
   `author_email` varchar(50) NOT NULL,
   `is_active` int(1) NOT NULL,
-  `is_default` int(1) NOT NULL,
   PRIMARY KEY (`l_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
