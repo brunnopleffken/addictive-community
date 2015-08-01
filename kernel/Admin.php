@@ -51,6 +51,26 @@ class Admin
 
 	/**
 	 * --------------------------------------------------------------------
+	 * AUTOMATIC DROP-DOWN (<SELECT> TAG)
+	 * --------------------------------------------------------------------
+	 * $options = array("key" => 0, "value" => "")
+	 */
+	public function Dropdown($field_name, $options, $value = "", $class = "")
+	{
+		$str = "<select name='{$field_name}' class='{$class}'>";
+
+		foreach($options as $k => $v) {
+			$selected = ($k == $value) ? "selected" : "";
+			$str .= "<option value='{$k}' {$selected}>{$v}</option>";
+		}
+
+		$str .= "</select>";
+
+		return $str;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * IF 1, THEN CHECKBOX IS CHECKED, OTHERWISE SHOW IT UNCHECKED
 	 * --------------------------------------------------------------------
 	 */
