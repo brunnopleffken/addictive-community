@@ -92,7 +92,7 @@ class Members extends Application
 		// Search by username
 		if(Http::Request("username")) {
 			$username = Http::Request("username");
-			$order = "WHERE usergroup <> 0 AND username LIKE '%{$username}%' {$order};";
+			$order = "AND username LIKE '%{$username}%' {$order};";
 		}
 
 		// Filter by first letter and execute query!
