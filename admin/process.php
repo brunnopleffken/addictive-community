@@ -159,13 +159,13 @@ switch($do) {
 		$room = array(
 			"name"          => String::Sanitize($_POST['room_name']),
 			"description"   => String::Sanitize($_POST['room_description']),
-			"invisible"     => ($_POST['invisible'] == "true") ? "1" : "0",
+			"invisible"     => ($_POST['invisible'] == "1") ? "1" : "0",
 			"rules_title"   => (isset($_POST['rules_title'])) ? String::Sanitize($_POST['rules_title']) : "",
 			"rules_text"    => (isset($_POST['rules_text'])) ? String::Sanitize($_POST['rules_text']) : "",
-			"rules_visible" => ($_POST['rules_visible'] == "true") ? "1" : "0",
-			"read_only"     => ($_POST['read_only'] == "true") ? "1" : "0",
+			"rules_visible" => ($_POST['rules_visible'] == "1") ? "1" : "0",
+			"read_only"     => ($_POST['read_only'] == "1") ? "1" : "0",
 			"password"      => ($_POST['password'] != "") ? $_POST['password'] : "",
-			"upload"        => ($_POST['upload'] == "true") ? "1" : "0"
+			"upload"        => ($_POST['upload'] == "1") ? "1" : "0"
 		);
 
 		$Db->Update("c_rooms", $room, "r_id = '{$_REQUEST['room_id']}'");
@@ -327,8 +327,7 @@ switch($do) {
 			"directory"    => $language_info['directory'],
 			"author_name"  => $language_info['author_name'],
 			"author_email" => $language_info['author_email'],
-			"is_active"    => 1,
-			"is_default"   => 0
+			"is_active"    => 1
 		);
 
 		$Db->Insert("c_languages", $language);
@@ -455,7 +454,7 @@ switch($do) {
 
 		break;
 
-	case "new_rank";
+	case "new_rank":
 
 		$rank = array(
 			"title"     => Http::Request("title"),
@@ -471,7 +470,7 @@ switch($do) {
 
 		break;
 
-	case "delete_rank";
+	case "delete_rank":
 
 		$rank_id = Http::Request("id", true);
 
@@ -480,6 +479,30 @@ switch($do) {
 
 		header("Location: main.php?act=members&p=ranks&msg=3");
 		exit;
+
+		break;
+
+	case "delete_member":
+
+		$id = Http::Request("id", true);
+		$Db->Update("c_members", array(
+			"email"        => "",
+			"password"     => "",
+			"usergroup"    => 0,
+			"token"        => ""
+		), "m_id = {$id}");
+
+		header("Location: main.php?act=members&p=manage");
+		exit;
+
+		break;
+
+	case "update_member":
+
+		$id = Http::Request("id", true);
+		$Db->Update("c_members", $_POST, "m_id = {$id}");
+
+		header("Location: main.php?act=members&p=edit&id={$id}&msg=1");
 
 		break;
 }

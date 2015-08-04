@@ -9,7 +9,7 @@
  * Copyright: (c) 2015 - Addictive Software
  */
 
-/* global CodeMirror */
+/* global $, CodeMirror */
 
 
 $(document).ready(function() {
@@ -52,6 +52,17 @@ $(document).ready(function() {
 		.always(function() {
 			$('.loader').hide();
 		});
+	}).call(this);
+
+	/**
+	 * Automatic confirmation message when using "data-confirm" attribute
+	 */
+	(function() {
+		$('a[data-confirm]').on('click', function(event) {
+			if(!confirm($(this).data("confirm"))) {
+				event.preventDefault();
+			}
+		})
 	}).call(this);
 });
 
@@ -96,7 +107,7 @@ function counter(limit) {
  */
 function versionCompare(left, right) {
 	if (typeof left + typeof right != 'stringstring') {
-		return false;
+		return 0;
 	}
 
 	var a = left.split('.');

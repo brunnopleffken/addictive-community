@@ -1,0 +1,29 @@
+<?php
+	$t["M_TITLE"] = "Mensagens";
+	$t["M_NEW_MESSAGE"] = "Nova Mensagem";
+	$t["M_MESSAGE_1"] = "Sua mensagem privada foi enviada com sucesso.";
+	$t["M_MESSAGE_2"] = "Incapaz de carregar a mensagem privada.";
+	$t["M_FOLDERS"] = "Pastas";
+	$t["M_ATTACHMENTS"] = "Anexos";
+	$t["M_FOLDER_INBOX"] = "Caixa de entrada";
+	$t["M_FOLDER_SENT"] = "Enviados";
+	$t["M_FOLDER_DRAFTS"] = "Rascunhos";
+	$t["M_STORAGE"] = "Armazenamento: %d de %d";
+	$t["M_DELETE_SELECTED"] = "Excluir mensagens selecionadas";
+	$t["M_SELECT_ALL"] = "Selecionar todas";
+	$t["M_SUBJECT"] = "Assunto";
+	$t["M_FROM"] = "De";
+	$t["M_TO"] = "Para";
+	$t["M_DATE"] = "Data";
+	$t["M_NO_PM_INBOX"] = "Não há mensagens privadas para exibir.";
+	$t["M_NO_PM_SENT"] = "Não há mensagens privadas enviadas para exibir.";
+	$t["M_COMPOSE"] = "Escrever";
+	$t["M_MESSAGE"] = "Mensagem";
+	$t["M_PREVIEW"] = "Visualização da mensagem";
+	$t["M_PM_ERROR"] = "'Para', 'Assunto' e 'Mensagem' são campos obrigatórios.";
+	$t["M_SEND"] = "Enviar mensagem";
+	$t["M_REPLY"] = "Responder";
+	$t["M_FORWARD"] = "Encaminhar";
+	$t["M_DELETE"] = "Excluir";
+	$t["M_SENT_ON"] = "Enviado em %s";
+?>

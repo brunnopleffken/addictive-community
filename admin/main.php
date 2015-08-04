@@ -229,6 +229,7 @@ HTML;
 				<!-- <a href="main.php?act=system&amp;p=statistics">Statistics</a> -->
 				<a href="main.php?act=system&amp;p=server">Server Environment</a>
 				<a href="main.php?act=system&amp;p=optimization">System Optimization</a>
+				<a href="https://github.com/brunnopleffken/addictive-community/issues" target="_blank">Found a bug?</a>
 			</div>
 HTML;
 		}

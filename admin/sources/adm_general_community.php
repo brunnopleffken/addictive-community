@@ -9,6 +9,8 @@
 	#  Copyright: (c) 2015 - Addictive Community
 	## ---------------------------------------------------
 
+	// Notifications
+
 	$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
 
 	switch($msg) {
@@ -18,6 +20,14 @@
 		default:
 			$message = "";
 			break;
+	}
+
+
+	// Languages
+
+	$Db->Query("SELECT * FROM c_languages;");
+	while($result = $Db->Fetch()) {
+		$languages[$result['directory']] = $result['name'];
 	}
 
 ?>
@@ -44,6 +54,10 @@
 					<tr>
 						<td class="title-fixed">Root path (URL)<span class="title-desc">Absolute URL of your community</span></td>
 						<td><input type="text" name="general_community_url" value="<?php echo $Admin->SelectConfig("general_community_url") ?>" class="large"></td>
+					</tr>
+					<tr>
+						<td class="title-fixed">Default language<span class="title-desc">Already registered members will not be affected</span></td>
+						<td><?php echo $Admin->Dropdown("language_default_set", $languages, $Admin->SelectConfig("language_default_set")) ?></td>
 					</tr>
 				</table>
 

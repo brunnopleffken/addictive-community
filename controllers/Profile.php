@@ -30,6 +30,11 @@ class Profile extends Application
 				WHERE m_id = '{$id}';");
 		$info = $this->Db->Fetch();
 
+		if($info['usergroup'] == 0 || empty($info)) {
+			$this->Core->Redirect("error?t=deleted_member");
+			exit;
+		}
+
 		// Member avatar
 		$info['avatar'] = $this->Core->GetAvatar($info, 320);
 		$info['cover'] = $this->Core->GetAvatar($info, 1024);

@@ -4,10 +4,11 @@
 	<meta charset="utf-8">
 	<title><?php __($page_title) ?><?php __($community_name) ?> (Powered by Addictive Community)</title>
 	<base href="<?php __($community_url) ?>">
+	<link rel="search" type="application/opensearchdescription+xml" title="<?php __($community_name) ?>" href="community/open_search">
+	<link rel="icon" type="image/png" href="favicon.png">
 	<!-- META -->
 	<meta name="generator" content="Addictive Community <?php echo VERSION ?>">
 	<meta name="description" content="<?php __($meta_description) ?>">
-	<link rel="icon" type="image/png" href="favicon.png">
 	<!-- CSS -->
 	<link rel="stylesheet" href="themes/<?php __($theme) ?>/css/main.css">
 	<link rel="stylesheet" href="thirdparty/font-awesome/css/font-awesome.min.css">
@@ -99,7 +100,7 @@
 							<?php endforeach; ?>
 						</div>
 					</div>
-					<?php if($show_members_online == "true"): ?>
+					<?php if($show_members_online): ?>
 						<div class="sidebar-item">
 							<div class="title"><?php __("SIDEBAR_MEMBERS_ONLINE") ?></div>
 							<div class="text">
@@ -109,7 +110,7 @@
 							</div>
 						</div>
 					<?php endif; ?>
-					<?php if($show_statistics == "true"): ?>
+					<?php if($show_statistics): ?>
 						<div class="sidebar-item">
 							<div class="title"><?php __("SIDEBAR_STATISTICS") ?></div>
 							<div class="text">

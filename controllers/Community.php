@@ -54,7 +54,7 @@ class Community extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * FOT LOGGED IN MEMBERS: MARK ALL THREADS AS READ
+	 * FOR LOGGED IN MEMBERS: MARK ALL THREADS AS READ
 	 * --------------------------------------------------------------------
 	 */
 	public function MarkAllAsRead()
@@ -69,13 +69,38 @@ class Community extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * RENDER XML FOR OPENSEARCH
+	 * --------------------------------------------------------------------
+	 */
+	public function OpenSearch()
+	{
+		$this->layout = false;
+
+		// XML content
+		header('Content-Type: application/xml');
+		$xml = '';
+
+		$xml .= '<?xml version="1.0" encoding="UTF-8" ?>';
+		$xml .= '<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">';
+		$xml .= '<ShortName>' . $this->Core->config['general_community_name'] . '</ShortName>';
+		$xml .= '<Description>' . $this->Core->config['seo_description'] . '</Description>';
+		$xml .= '<InputEncoding>UTF-8</InputEncoding>';
+		$xml .= '<Image width="16" height="16" type="image/x-icon">' . $this->Core->config['general_community_url'] . 'favicon.png</Image>';
+		$xml .= '<Url type="text/html" method="get" template="' . $this->Core->config['general_community_url'] . 'search?q={searchTerms}"></Url>';
+		$xml .= '</OpenSearchDescription>';
+
+		echo $xml;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * RETURN LIST (ARRAY) OF ROOMS
 	 * --------------------------------------------------------------------
 	 */
 	private function _GetRooms()
 	{
 		// If member is Admin, show invisible rooms too
-		if($this->Session->IsMember() && $this->Session->member_info['usergroup'] == 1) {
+		if($this->Session->IsMember() && $this->Session->IsAdmin()) {
 			$visibility = "";
 		}
 		else {

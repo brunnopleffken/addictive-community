@@ -51,4 +51,10 @@
 		<h2><?php __("E_UPDATING") ?></h2><br>
 		<h3><?php __("E_UPDATING_MESSAGE", $community_name) ?></h3>
 	</div>
+<?php elseif($action == "deleted"): ?>
+	<div class="box center" style='padding: 40px 0'>
+		<i class="fa fa-user-times" style="font-size: 50px"></i><br><br>
+		<h2><?php __("E_DELETED") ?></h2><br>
+		<h3><?php __("E_DELETED_MESSAGE", $community_name) ?></h3>
+	</div>
 <?php endif; ?>

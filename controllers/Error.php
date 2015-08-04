@@ -39,6 +39,9 @@ class Error extends Application
 			),
 			'update' => array(
 				"", "update"
+			),
+			'deleted_member' => array(
+				"", "deleted"
 			)
 		);
 

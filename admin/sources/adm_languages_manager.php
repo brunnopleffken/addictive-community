@@ -26,15 +26,7 @@
 
 	while($lang = $Db->Fetch()) {
 		$lang['is_active']  = ($lang['is_active'] == 1) ? "<i class='fa fa-fw fa-check'></i>" : "";
-
-		if($lang['is_default'] == 1){
-			$lang['is_default'] = "<i class='fa fa-fw fa-check'></i>";
-			$lang['remove'] = "-";
-		}
-		else {
-			$lang['is_default'] = "";
-			$lang['remove'] = "<a href='process.php?do=uninstall_language&id={$lang['l_id']}'><i class='fa fa-fw fa-remove'></i></a>";
-		}
+		$lang['remove'] = "<a href='process.php?do=uninstall_language&id={$lang['l_id']}'><i class='fa fa-fw fa-remove'></i></a>";
 
 		if(in_array($lang['directory'], $dir_list)) {
 			$dir_list = array_diff($dir_list, array($lang['directory']));
@@ -45,9 +37,7 @@
 				<td>/languages/{$lang['directory']}</td>
 				<td>{$lang['author_name']} ({$lang['author_email']})</td>
 				<td>{$lang['is_active']}</td>
-				<td>{$lang['is_default']}</td>
 				<td class='min'><a href='main.php?act=languages&p=edit&id={$lang['l_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
-				<!--<td><a href='main.php?act=languages&p=download&id={$lang['l_id']}'><i class='fa fa-fw fa-download'></i></a></td>-->
 				<td class='min'>{$lang['remove']}</td>
 			</tr>");
 	}
@@ -63,8 +53,9 @@
 					<td style='color:#bbb'><b>{$language_info['name']}</b></td>
 					<td style='color:#bbb'>/languages/{$language}</td>
 					<td style='color:#bbb'>{$language_info['author_name']} ({$language_info['author_email']})</td>
-					<td style='color:#bbb' colspan='2'>Not installed</td>
-					<td colspan='3'><a href='process.php?do=install_language&id={$language}' title='Install'><i class='fa fa-fw fa-gears'></i></a></td>
+					<td style='color:#bbb'>Not installed</td>
+					<td class='min'><a href='process.php?do=install_language&id={$language}' title='Install'><i class='fa fa-fw fa-gears'></i></a></td>
+					<td></td>
 				</tr>");
 		}
 	}
@@ -90,10 +81,8 @@
 					<td>Directory</td>
 					<td>Author</td>
 					<td>Active</td>
-					<td>Default</td>
 					<td class="min">Edit</td>
-					<!--<td class="min"></td>-->
-					<td class="min">Remove</td>
+					<td class="min">Uninstall</td>
 				</tr>
 				<?php echo Template::Get() ?>
 			</table>

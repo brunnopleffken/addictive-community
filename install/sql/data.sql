@@ -22,9 +22,11 @@ VALUES
 	(12,':\'(','crying.png',1,'default'),
 	(13,':X','disgusted.png',1,'default');
 
-INSERT INTO `c_languages` (`l_id`, `name`, `directory`, `author_name`, `author_email`, `is_active`, `is_default`)
+INSERT INTO `c_languages` (`l_id`, `name`, `directory`, `author_name`, `author_email`, `is_active`)
 VALUES
-	(1,'English (US)','en_US','Addictive Community','brunno.pleffken@outlook.com',1,1);
+	(1,'English (US)','en_US','Addictive Community','brunno.pleffken@outlook.com',1),
+	(2,'Portuguese (Brazil)','pt_BR','Brunno Pleffken','brunno.pleffken@outlook.com',1),
+	(3,'Swedish','sv_SE','halojoy','halojoy@outlook.com',1);
 
 INSERT INTO `c_ranks` (`id`, `title`, `min_posts`, `pips`, `image`)
 VALUES
@@ -38,7 +40,7 @@ VALUES
 
 INSERT INTO `c_stats` (`id`, `member_count`, `post_count`, `thread_count`)
 VALUES
-	(1,1,0,1);
+	(1,1,1,1);
 
 INSERT INTO `c_templates` (`tpl_id`, `name`, `directory`, `is_active`, `author_name`, `author_email`)
 VALUES

@@ -151,7 +151,7 @@ class Thread extends Application
 	 * EDIT AN EXISTING POST
 	 * --------------------------------------------------------------------
 	 */
-	public function EditPost($post_id)
+	public function Edit($post_id)
 	{
 		// Don't allow guests
 		$this->Session->NoGuest();
@@ -160,9 +160,9 @@ class Thread extends Application
 		$this->Db->Query("SELECT * FROM c_posts WHERE p_id = {$post_id};");
 		$post_info = $this->Db->Fetch();
 
-		// Check if the author is the user currently logged in
-		if($this->Session->session_info['member_id'] != $post_info['author_id']
-			&& $this->Session->session_info['member_id'] != 1) {
+		// If the author isn't the user currently logged in
+		// check if is an administrator
+		if($this->Session->session_info['member_id'] != $post_info['author_id'] && !$this->Session->IsAdmin()) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
@@ -193,7 +193,7 @@ class Thread extends Application
 			"thread_id"     => Http::Request("id", true),
 			"post_date"     => time(),
 			"ip_address"    => $_SERVER['REMOTE_ADDR'],
-			"post"          => $_POST['post'],
+			"post"          => str_replace("'", "&apos;", $_POST['post']),
 			"quote_post_id" => (Http::Request("quote_post_id", true)) ? Http::Request("quote_post_id", true) : 0,
 			"best_answer"   => 0,
 			"first_post"    => 0
@@ -277,10 +277,10 @@ class Thread extends Application
 			"views"               => 0,
 			"start_date"          => time(),
 			"room_id"             => Http::Request("room_id", true),
-			"announcement"        => Http::Request("announcement", true),
+			"announcement"        => Http::Request("announcement", true) ? Http::Request("announcement") : 0,
 			"lastpost_date"       => time(),
 			"lastpost_member_id"  => $this->Session->member_info['m_id'],
-			"locked"              => Http::Request("locked", true),
+			"locked"              => Http::Request("locked", true) ? Http::Request("announcement") : 0,
 			"approved"            => 1,
 			"with_bestanswer"     => 0,
 			"poll_question"       => Http::Request("poll_question"),
@@ -295,7 +295,7 @@ class Thread extends Application
 			"thread_id"   => $this->Db->GetLastID(),
 			"post_date"   => $thread['lastpost_date'],
 			"ip_address"  => $_SERVER['REMOTE_ADDR'],
-			"post"        => $_POST['post'],
+			"post"        => str_replace("'", "&apos;", $_POST['post']),
 			"best_answer" => 0,
 			"first_post"  => 1
 		);
@@ -339,8 +339,13 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
-		// Check if the author is the user currently logged in
-		if($this->Session->session_info['member_id'] != Http::Request("member_id", true)) {
+		// Get author ID from database for security reasons
+		$this->Db->Query("SELECT author_id FROM c_posts WHERE p_id = {$post_id};");
+		$post_info = $this->Db->Fetch();
+
+		// If the author isn't the user currently logged in
+		// check if is an administrator
+		if($this->Session->session_info['member_id'] != $post_info['author_id'] && !$this->Session->IsAdmin()) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
@@ -374,8 +379,9 @@ class Thread extends Application
 		$thread_id = Http::Request("tid", true);
 		$post_id = Http::Request("pid", true);
 
-		// Check if the author is the user currently logged in member
-		if($this->Session->session_info['member_id'] != $author_id) {
+		// If the author isn't the user currently logged in
+		// check if is an administrator
+		if($this->Session->session_info['member_id'] != $author_id && !$this->Session->IsAdmin()) {
 			Html::Error("You cannot delete a post that you did not publish.");
 		}
 
@@ -839,9 +845,10 @@ class Thread extends Application
 		$first_post_info = array();
 
 		$first_post = $this->Db->Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id,
-				c_attachments.*, c_threads.title, c_threads.locked, c_members.* FROM c_posts
+				c_attachments.*, c_threads.title, c_threads.locked, c_members.*, edit.username AS edit_username FROM c_posts
 				INNER JOIN c_threads ON (c_posts.thread_id = c_threads.t_id)
 				INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
+				LEFT JOIN c_members AS edit ON (c_posts.edit_author = edit.m_id)
 				LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
 				WHERE thread_id = '{$id}' AND first_post = '1' LIMIT 1;");
 
@@ -850,6 +857,18 @@ class Thread extends Application
 		// Format first thread
 		$first_post_info['avatar'] = $this->Core->GetAvatar($first_post_info, 96);
 		$first_post_info['post_date'] = $this->Core->DateFormat($first_post_info['post_date']);
+
+		// Check if the currently logged in member is the thread author
+		$first_post_info['is_author'] = ($first_post_info['author_id'] == $this->Session->session_info['member_id']);
+
+		// Show label if post was edited
+		if(isset($first_post_info['edit_time'])) {
+			$first_post_info['edit_time'] = $this->Core->DateFormat($first_post_info['edit_time']);
+			$first_post_info['edited']    = "(" . i18n::Translate("T_EDITED", array($first_post_info['edit_time'], $first_post_info['edit_username'])) . ")";
+		}
+		else {
+			$first_post_info['edited'] = "";
+		}
 
 		// Block bad words
 		$first_post_info['post'] = $this->_FilterBadWords($first_post_info['post']);
@@ -892,7 +911,7 @@ class Thread extends Application
 			$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
 			// Member ranks
-			if($this->Core->config['general_member_enable_ranks'] == "true") {
+			if($this->Core->config['general_member_enable_ranks']) {
 				$result['rank'] = $this->_MemberRank($result['posts']);
 				if($result['rank']) {
 					$result['rank_name'] = $result['rank']['title'];
@@ -953,9 +972,8 @@ class Thread extends Application
 			$result['thread_controls'] = "";
 
 			// Post controls
-			if($result['author_id'] == $this->Session->member_info['m_id']
-				|| $this->Session->member_info['usergroup'] == 1) {
-				$result['post_controls'] = "<a href='thread/edit_post/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_EDIT") . "</a> "
+			if($result['author_id'] == $this->Session->member_info['m_id'] || $this->Session->IsAdmin()) {
+				$result['post_controls'] = "<a href='thread/edit/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_EDIT") . "</a> "
 					. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$id}' data-member='{$result['author_id']}' class='fancybox delete-post-button small-button grey'>" . i18n::Translate("T_DELETE") . "</a>";
 			}
 
@@ -1097,12 +1115,7 @@ class Thread extends Application
 		}
 		else {
 			// If member is not a moderator, check if is an Administrator
-			if($this->Session->member_info['usergroup'] == 1) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			return $this->Session->IsAdmin();
 		}
 	}
 

@@ -206,51 +206,51 @@
 
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_name', '{$community_info['community_name']}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_url', '{$community_info['community_url']}');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.7.0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.8.0');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_name', 'My Website');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_url', 'http://');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_logo', 'logo.png');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_sidebar_online', 'true');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_sidebar_stats', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_sidebar_online', '1');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_sidebar_stats', '1');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('template_default_set', 'default');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('language_default_set', 'en_US');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('language_default_set', '{$data['default_language']}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('theme_default_set', 'default-light');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('emoticon_default_set', 'default');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('seo_description', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('seo_keywords', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('date_long_format', 'd M Y, H:i');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('date_short_format', 'd M Y');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('date_default_offset', '0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('date_default_offset', '{$data['default_timezone']}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_session_expiration', '900');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_signature', 'true');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_avatar_upload', 'true');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_ranks', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_signature', '1');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_avatar_upload', '1');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_enable_ranks', '1');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_member_ranks_pip', '<i class=\'fa fa-star\'></i>');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('threads_per_page', '10');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_posts_per_page', '10');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_posts_hot', '15');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_best_answer_all_pages', 'false');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_obsolete', 'false');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_best_answer_all_pages', '0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_obsolete', '0');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_obsolete_value', '60');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_allow_emoticons', 'true');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_allow_guest_post', 'false');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_offline', 'false');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_updating', 'false');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_disable_registrations', 'false');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_allow_emoticons', '1');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_allow_guest_post', '0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_offline', '0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_updating', '0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_disable_registrations', '0');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_bread_separator', '&rang;');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('member_pm_enable', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('member_pm_enable', '1');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('member_pm_storage', '100');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_calendar_enable', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_calendar_enable', '1');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_smtp', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_username', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_password', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_port', '587');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_authentication', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_authentication', '1');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_auth_method', 'tls');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_from', '');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_email_from_name', '');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_security_validation', 'false');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_security_captcha', 'true');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_security_validation', '0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_security_captcha', '1');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_warning_max', '5');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('security_salt_hash', '{$salt_hash}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('security_salt_key', '{$salt_key}');";
@@ -300,7 +300,7 @@
 
 			// Build SQL
 
-			$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_facebook`, `im_twitter`, `posts`, `lastpost_date`, `signature`, `template`, `theme`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', 1, 1367848084, '', 'default', 'default-light', 'en_US', NULL, NULL, 0, '0', 0, 1, 1, '')";
+			$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_facebook`, `im_twitter`, `posts`, `lastpost_date`, `signature`, `template`, `theme`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', 1, 1367848084, '', 'default', 'default-light', '{$data['default_language']}', NULL, NULL, 0, '{$data['default_timezone']}', 0, 1, 1, '')";
 
 			$insert_admin = $Db->Query($insert_admin_query);
 

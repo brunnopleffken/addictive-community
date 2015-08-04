@@ -51,7 +51,7 @@
 					</div>
 				<?php endif; ?>
 			</div>
-			<?php if($first_post_info['signature'] && $enable_signature == "true"): ?>
+			<?php if($first_post_info['signature'] && $enable_signature): ?>
 				<div class="signature"><?php __($first_post_info['signature']) ?></div>
 			<?php endif; ?>
 		</div>
@@ -104,14 +104,24 @@
 
 	<!-- POST FOOTER -->
 	<div class="footer">
-		<p class="fleft"><i class="fa fa-clock-o"></i> <?php __("T_POSTED_ON", array($first_post_info['post_date'])) ?></p>
+		<p class="fleft">
+			<i class="fa fa-clock-o"></i>
+			<?php __("T_POSTED_ON", array($first_post_info['post_date'])) ?> <?php __($first_post_info['edited']) ?>
+		</p>
 		<?php if($this->Session->member_info['m_id'] != 0): ?>
-			<p class="fright">
-				<i class="fa fa-warning"></i>
-				<a href="report/thread/<?php __($thread_id) ?>" class="fancybox fancybox.ajax">
-					<?php __("T_REPORT_ABUSE") ?>
-				</a>
-			</p>
+			<div class="fright">
+				<?php if($first_post_info['is_author']): ?>
+					<div class="closure">
+						<a href="thread/edit/<?php __($first_post_info['p_id']) ?>"><i class="fa fa-pencil"></i> <?php __("T_EDIT") ?></a>
+					</div>
+				<?php endif; ?>
+				<div class="closure">
+					<a href="report/thread/<?php __($thread_id) ?>" class="fancybox fancybox.ajax">
+						<i class="fa fa-warning"></i>
+						<?php __("T_REPORT_ABUSE") ?>
+					</a>
+				</div>
+			</div>
 		<?php endif; ?>
 	</div>
 </div>
@@ -141,24 +151,29 @@
 		<div class="thread-post-reply <?php __($reply[$k]['bestanswer_class']) ?>">
 			<!-- REPLY SIDEBAR -->
 			<div class="author">
-				<div class="photostack">
-					<a href="profile/<?php __($reply[$k]['author_id']) ?>">
-						<?php __(Html::Crop($reply[$k]['avatar'], 96, 96, "avatar")) ?>
-					</a>
-				</div>
-				<p class="name"><a href="profile/<?php __($reply[$k]['author_id']) ?>"><?php __($reply[$k]['username']) ?></a></p>
-				<p class="member-title"><?php __($reply[$k]['member_title']) ?></p>
-				<?php if(!empty($reply[$k]['rank'])): ?>
-					<div class="rank">
-						<div class="rank-pips"><?php __($reply[$k]['rank_pips']); ?></div>
-						<span class="rank-name"><?php __($reply[$k]['rank_name']); ?></span>
+				<?php if($reply[$k]['usergroup'] != 0): ?>
+					<div class="photostack">
+						<a href="profile/<?php __($reply[$k]['author_id']) ?>">
+							<?php __(Html::Crop($reply[$k]['avatar'], 96, 96, "avatar")) ?>
+						</a>
 					</div>
+					<p class="name"><a href="profile/<?php __($reply[$k]['author_id']) ?>"><?php __($reply[$k]['username']) ?></a></p>
+					<p class="member-title"><?php __($reply[$k]['member_title']) ?></p>
+					<?php if(!empty($reply[$k]['rank'])): ?>
+						<div class="rank">
+							<div class="rank-pips"><?php __($reply[$k]['rank_pips']); ?></div>
+							<span class="rank-name"><?php __($reply[$k]['rank_name']); ?></span>
+						</div>
+					<?php endif; ?>
+					<ul class="user-info">
+						<li><b><?php __("T_POST_POSTS") ?></b> <?php __($reply[$k]['posts']) ?> <?php __("T_POSTS_LOWCASE") ?></li>
+						<li><b><?php __("T_POST_REGISTERED") ?></b> <?php __($reply[$k]['joined']) ?></li>
+						<li><b><?php __("T_POST_LOCATION") ?></b> <?php __($reply[$k]['location']) ?></li>
+					</ul>
+				<?php else: ?>
+					<p class="name deleted"><?php __($reply[$k]['username']) ?></p>
+					<p class="member-title">Deleted</p>
 				<?php endif; ?>
-				<ul class="user-info">
-					<li><b><?php __("T_POST_POSTS") ?></b> <?php __($reply[$k]['posts']) ?> <?php __("T_POSTS_LOWCASE") ?></li>
-					<li><b><?php __("T_POST_REGISTERED") ?></b> <?php __($reply[$k]['joined']) ?></li>
-					<li><b><?php __("T_POST_LOCATION") ?></b> <?php __($reply[$k]['location']) ?></li>
-				</ul>
 			</div>
 
 			<!-- REPLY CONTENT -->
@@ -192,7 +207,7 @@
 							</div>
 						<?php endif; ?>
 					</div>
-					<?php if($reply[$k]['signature'] && $enable_signature == "true"): ?>
+					<?php if($reply[$k]['signature'] && $enable_signature): ?>
 						<div class="signature"><?php __($reply[$k]['signature']) ?></div>
 					<?php endif; ?>
 				</div>

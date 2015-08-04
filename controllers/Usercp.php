@@ -367,7 +367,8 @@ class Usercp extends Application
 			else {
 				// Allowed extensions (JPEG, GIF and PNG)
 				$allowed_extensions = array("jpg", "gif", "png");
-				$file_extension = end(explode(".", $_FILES['file_upload']['name']));
+				$file_name_array = explode(".", $_FILES['file_upload']['name']);
+				$file_extension = end($file_name_array);
 
 				if(in_array($file_extension, $allowed_extensions)) {
 					// Select current photo, if exists

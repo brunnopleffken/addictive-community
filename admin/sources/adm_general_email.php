@@ -20,6 +20,9 @@
 			break;
 	}
 
+	// "Authentication Method" drop-down element value
+	$auth = $Admin->SelectConfig("general_email_auth_method");
+
 ?>
 
 	<h1>E-mail</h1>
@@ -58,8 +61,8 @@
 						<td class="title-fixed">Authentication method</td>
 						<td>
 							<select name="general_email_auth_method">
-								<option value="tls">TLS</option>
-								<option value="ssl">SSL</option>
+								<option value="tls" <?php echo ($auth == "tls") ? "selected" : "" ?>>TLS</option>
+								<option value="ssl" <?php echo ($auth == "ssl") ? "selected" : "" ?>>SSL</option>
 							</select>
 						</td>
 					</tr>

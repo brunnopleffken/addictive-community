@@ -109,6 +109,8 @@ function installModule(id) {
 		community_name: $('#community_name').val(),
 		community_path: $('#community_path').val(),
 		community_url: $('#community_url').val(),
+		default_language: $('#default_language').val(),
+		default_timezone: $('#default_timezone').val(),
 		admin_username: $('#admin_username').val(),
 		admin_password: $('#admin_password').val(),
 		admin_email: $('#admin_email').val()

@@ -98,14 +98,11 @@ class Application
 		$this->_GetStats();
 
 		// Is community offline?
-		if($this->Core->config['general_offline'] == "true") {
+		if($this->Core->config['general_offline']) {
 			if(!strstr($_SERVER['REQUEST_URI'], "error")) {
 				$this->Core->Redirect("error?t=offline");
 			}
 		}
-
-		// Check if user is Admin
-		$is_admin = ($this->Session->member_info['usergroup'] == 1) ? true : false;
 
 		// RETURN COMMON VARIABLES
 		// This variables will be returned in all controllers
@@ -119,7 +116,7 @@ class Application
 		$this->Set("website_url", $this->Core->config['general_website_url']);
 		$this->Set("show_members_online", $this->Core->config['general_sidebar_online']);
 		$this->Set("show_statistics", $this->Core->config['general_sidebar_stats']);
-		$this->Set("is_admin", $is_admin);
+		$this->Set("is_admin", $this->Session->IsAdmin());
 	}
 
 	/**
@@ -159,6 +156,8 @@ class Application
 		$rooms = $this->Db->Query("SELECT c_rooms.r_id, c_rooms.name, c_rooms.password,
 				(SELECT COUNT(*) FROM c_threads WHERE c_threads.room_id = c_rooms.r_id) AS threads
 				FROM c_rooms WHERE invisible = 0;");
+
+		$_sidebar_rooms = array();
 
 		while($result = $this->Db->Fetch($rooms)) {
 			$_sidebar_rooms[] = $result;
