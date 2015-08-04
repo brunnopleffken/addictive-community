@@ -459,7 +459,7 @@ HTML;
 					<div class="input-box">
 						<div class="label">Timezone</div>
 						<div class="field">
-							<select name="timezone" class="large select2">
+							<select name="timezone" class="full select2">
 								{$tz_list}
 							</select>
 						</div>
