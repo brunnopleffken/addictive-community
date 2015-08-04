@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.8.0 (2015-08-03)
+
+#### Added
+- OpenSearch support;
+- Better initial configuration during installation (#54);
+- Full member management via Administration CP;
+- New built-in languages: Swedish (thanks to @halojoy) and Brazilian Portuguese.
+
+#### Fixes
+- System was unable to send e-mails when SMTP server doesn't require validation (#44, thanks to @halojoy);
+- Fixed an error when creating new thread with strict mode enabled in MySQL (#45);
+- Several bug fixes and enhancements.
+
+#### Changed
+- Settings in `c_config` are now saved as 0/1 instead of "true"/"false" (#44);
+- Use `Session::IsAdmin()` to check if logged member is an administrator.
+
+
+
 ## v0.7.0 (2015-07-16)
 
 #### Added
