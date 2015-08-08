@@ -31,7 +31,7 @@
 
 		Template::Add("<tr>
 				<td><b>{$group['name']}</b></td>
-				<td class='min'><i class='fa fa-pencil'></i></td>
+				<td class='min'><a href='main.php?act=members&p=edit_usergroup&id={$group['g_id']}'><i class='fa fa-pencil'></i></a></td>
 				<td class='min'>{$delete}</td>
 			</tr>");
 	}

@@ -505,4 +505,13 @@ switch($do) {
 		header("Location: main.php?act=members&p=edit&id={$id}&msg=1");
 
 		break;
+
+	case "update_usergroup":
+
+		$id = Http::Request("id", true);
+		$Db->Update("c_usergroups", $_POST, "g_id = {$id}");
+
+		header("Location: main.php?act=members&p=usergroups&msg=1");
+
+		break;
 }
