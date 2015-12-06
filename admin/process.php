@@ -64,7 +64,7 @@ switch($do) {
 
 	case "remove_report":
 
-		$id = Http::Request("id");
+		$id = Http::Request("id", true);
 		$Db->Query("DELETE FROM c_reports WHERE rp_id = {$id}");
 		$Admin->RegisterLog("Removed a report");
 
@@ -109,7 +109,7 @@ switch($do) {
 
 	case "remove_category":
 
-		$id = Http::Request("id");
+		$id = Http::Request("id", true);
 
 		// Get the first category
 		$category = $Db->Query("SELECT c_id FROM c_categories LIMIT 1;");
@@ -178,7 +178,7 @@ switch($do) {
 
 	case "deleteroom":
 
-		$r_id = Http::Request("r_id");
+		$r_id = Http::Request("r_id", true);
 
 		// Register room exclusion in Admin log
 		$Db->Query("SELECT name FROM c_rooms WHERE r_id = {$r_id}");
@@ -203,7 +203,7 @@ switch($do) {
 
 	case "resync_room":
 
-		$id = Http::Request("r_id");
+		$id = Http::Request("r_id", true);
 
 		// Clone Database class for secondary tasks
 		$Db2 = clone($Db);
@@ -261,7 +261,7 @@ switch($do) {
 	case "deletereport":
 
 		$Db->Query("DELETE FROM c_reports WHERE rp_id = '{$_REQUEST['report']}';");
-		$Admin->RegisterLog("Deleted abuse report ID #" . $_REQUEST['report'] . " for the thread ID #" . $_REQUEST['thread']);
+		$Admin->RegisterLog("Deleted abuse report ID #" . Http::Request("report", true) . " for the thread ID #" . Http::Request("thread", true));
 
 		header("Location: main.php");
 
@@ -278,7 +278,7 @@ switch($do) {
 		// Language file content
 		$file_content = "<?php\n";
 		foreach(Http::Request("index") as $key) {
-			$file_content .= "\t\$t[\"" . $key . "\"] = \"" . $_REQUEST[$key] . "\";\n";
+			$file_content .= "\t\$t[\"" . $key . "\"] = \"" . Http::Request($key) . "\";\n";
 		}
 		$file_content .= "?>\n";
 
@@ -316,7 +316,7 @@ switch($do) {
 	case "install_language":
 
 		// Get locale code
-		$code = $_REQUEST['id'];
+		$code = Http::Request("id");
 
 		// Get array from language JSON manifest
 		$language_info = json_decode(file_get_contents("../languages/" . $code . "/_language.json"), true);
@@ -341,7 +341,7 @@ switch($do) {
 	case "uninstall_language":
 
 		// Get locale code
-		$id = $_REQUEST['id'];
+		$id = Http::Request("id");
 
 		// Transfer all members using this language to default
 		$default_language = $Admin->SelectConfig("language_default_set");
@@ -363,7 +363,7 @@ switch($do) {
 	case "disable_emoticon":
 
 		// Get emoticon ID
-		$id = $_REQUEST['id'];
+		$id = Http::Request("id", true);
 
 		// Disable emoticon
 		$Db->Query("UPDATE c_emoticons SET display = 0 WHERE id = {$id};");
@@ -376,7 +376,7 @@ switch($do) {
 	case "enable_emoticon":
 
 		// Get emoticon ID
-		$id = $_REQUEST['id'];
+		$id = Http::Request("id", true);
 
 		// Disable emoticon
 		$Db->Query("UPDATE c_emoticons SET display = 1 WHERE id = {$id};");
@@ -390,8 +390,8 @@ switch($do) {
 
 		// Get variables
 		$mods_array = array();
-		$room_id = Http::Request("r_id");
-		$member_id = Http::Request("m_id");
+		$room_id = Http::Request("r_id", true);
+		$member_id = Http::Request("m_id", true);
 
 		// Get current moderators of the room
 		$Db->Query("SELECT moderators FROM c_rooms WHERE r_id = {$room_id};");
@@ -428,8 +428,8 @@ switch($do) {
 
 		// Get variables
 		$mods_array = array();
-		$room_id = Http::Request("r_id");
-		$member_id = Http::Request("m_id");
+		$room_id = Http::Request("r_id", true);
+		$member_id = Http::Request("m_id", true);
 
 		// Get current moderators of the room
 		$Db->Query("SELECT moderators FROM c_rooms WHERE r_id = {$room_id};");
@@ -503,6 +503,15 @@ switch($do) {
 		$Db->Update("c_members", $_POST, "m_id = {$id}");
 
 		header("Location: main.php?act=members&p=edit&id={$id}&msg=1");
+
+		break;
+
+	case "update_usergroup":
+
+		$id = Http::Request("id", true);
+		$Db->Update("c_usergroups", $_POST, "g_id = {$id}");
+
+		header("Location: main.php?act=members&p=usergroups&msg=1");
 
 		break;
 }

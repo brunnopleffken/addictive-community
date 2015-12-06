@@ -48,7 +48,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .input-box .label span { color: #444; display: block; font-size: 11px; font-style: italic; font-weight: normal; line-height: 1.2em; width: 140px; white-space: pre-wrap; }
 .input-box .field { display: table-cell; margin-bottom: 15px; min-height: 30px; }
 .input-box .field:last-child { margin: 0; }
-.input-box .field.textOnly { padding: 5px 0; }
+.input-box .field.text-only { padding: 5px 0; }
 .input-box:last-child { margin: 0; }
 
 /** BUTTONS **/

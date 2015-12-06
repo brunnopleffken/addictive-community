@@ -26,35 +26,6 @@ $(document).ready(function() {
 	}
 
 	/**
-	 * Check updates
-	 */
-	(function() {
-		$.ajax("https://api.github.com/repos/brunnopleffken/addictive-community/releases/latest?access_token=a4b75336277bbeb8be2d004c614158836bbe655b", {
-			dataType: 'json',
-			beforeSend: function() {
-				$('.loader').show();
-			}
-		})
-		.done(function(data) {
-			if(data) {
-				if(versionCompare(data.tag_name.slice(1), $('#current-version').val()) == 1) {
-					$('.update-message.done span').html(data.tag_name);
-					$('.update-message.done').show();
-				}
-				else {
-					$('.update-message.no-updates').show();
-				}
-			}
-		})
-		.fail(function() {
-			$('.update-message.fail').show();
-		})
-		.always(function() {
-			$('.loader').hide();
-		});
-	}).call(this);
-
-	/**
 	 * Automatic confirmation message when using "data-confirm" attribute
 	 */
 	(function() {
@@ -65,6 +36,36 @@ $(document).ready(function() {
 		})
 	}).call(this);
 });
+
+/**
+ * Check for updates
+ */
+function checkUpdates() {
+	$.ajax("https://api.github.com/repos/brunnopleffken/addictive-community/releases/latest?access_token=a4b75336277bbeb8be2d004c614158836bbe655b", {
+		dataType: 'json',
+		beforeSend: function() {
+			console.info("Checking for updates...");
+			$('.loader').show();
+		}
+	})
+	.done(function(data) {
+		if(data) {
+			if(versionCompare(data.tag_name.slice(1), $('#current-version').val()) == 1) {
+				$('.update-message.done span').html(data.tag_name);
+				$('.update-message.done').show();
+			}
+			else {
+				$('.update-message.no-updates').show();
+			}
+		}
+	})
+	.fail(function() {
+		$('.update-message.fail').show();
+	})
+	.always(function() {
+		$('.loader').hide();
+	});
+};
 
 /**
  * Delete report on Dashboard View

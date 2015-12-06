@@ -206,7 +206,7 @@
 
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_name', '{$community_info['community_name']}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_url', '{$community_info['community_url']}');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.8.0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.9.0');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_name', 'My Website');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_url', 'http://');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_logo', 'logo.png');";

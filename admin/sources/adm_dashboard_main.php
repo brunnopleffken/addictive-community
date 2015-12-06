@@ -76,6 +76,12 @@
 
 ?>
 
+	<script>
+		$(document).ready(function() {
+			checkUpdates();
+		});
+	</script>
+
 	<h1>Dashboard</h1>
 
 	<div id="content">
@@ -92,7 +98,7 @@
 					</tr>
 					<tr>
 						<td class="title">Post Statistics</td>
-						<td><?php __($posts['total']) ?> posts in <?php __($threads['total']) ?> threads <em>(avg. <?php echo $posts['average'] ?> posts per topic)</em></td>
+						<td><?php __($posts['total']) ?> posts in <?php __($threads['total']) ?> threads <em>(avg. <?php echo $posts['average'] ?> posts per thread)</em></td>
 					</tr>
 				</table>
 			</div>
