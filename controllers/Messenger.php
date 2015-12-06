@@ -211,19 +211,24 @@ class Messenger extends Application
 	 * DELETE PERSONAL MESSAGES
 	 * --------------------------------------------------------------------
 	 */
-	public function Delete()
+	public function Delete($id)
 	{
 		$this->layout = false;
 
 		// Get information
 		$member_id = $this->Session->session_info['member_id'];
-		$selected = Http::Request("pm");
-
+		$selected = $_REQUEST["pm"];
+        
 		// Execute deletion
-		foreach($selected as $pm_id) {
-			$this->Db->Delete("c_messages", "pm_id = {$pm_id} AND to_id = {$member_id}");
-		}
-
+		if($id) {
+            $this->Db->Delete("c_messages", "pm_id = {$id} AND to_id = {$member_id}");
+        }
+        else {
+            foreach($selected as $pm_id) {
+                $this->Db->Delete("c_messages", "pm_id = {$pm_id} AND to_id = {$member_id}");
+            }
+        }
+        
 		// Redirect
 		$this->Core->Redirect("messenger");
 	}
