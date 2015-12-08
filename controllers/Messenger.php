@@ -218,17 +218,17 @@ class Messenger extends Application
 		// Get information
 		$member_id = $this->Session->session_info['member_id'];
 		$selected = $_REQUEST["pm"];
-        
+
 		// Execute deletion
 		if($id) {
-            $this->Db->Delete("c_messages", "pm_id = {$id} AND to_id = {$member_id}");
-        }
-        else {
-            foreach($selected as $pm_id) {
-                $this->Db->Delete("c_messages", "pm_id = {$pm_id} AND to_id = {$member_id}");
-            }
-        }
-        
+			$this->Db->Delete("c_messages", "pm_id = {$id} AND to_id = {$member_id}");
+		}
+		else {
+			foreach($selected as $pm_id) {
+				$this->Db->Delete("c_messages", "pm_id = {$pm_id} AND to_id = {$member_id}");
+			}
+		}
+
 		// Redirect
 		$this->Core->Redirect("messenger");
 	}
