@@ -745,7 +745,7 @@ class Thread extends Application
 		// Check if it's an obsolete thread
 		$obsolete_notification = "";
 		$obsolete_seconds = $this->Core->config['thread_obsolete_value'] * DAY;
-		if(($thread_info['lastpost_date'] + $obsolete_seconds) < time()) {
+		if($this->Core->config['thread_obsolete'] != 0 && ($thread_info['lastpost_date'] + $obsolete_seconds) < time()) {
 			$thread_info['obsolete'] = true;
 			$obsolete_notification = Html::Notification(
 				i18n::Translate("T_OBSOLETE", array($this->Core->config['thread_obsolete_value'])), "warning", true
