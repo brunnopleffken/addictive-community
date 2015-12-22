@@ -47,6 +47,36 @@
 				<div class="field text-only">
 					<label><input type="hidden" name="announcement" value="0"><input type="checkbox" value="1" name="announcement"> <?php __("P_SET_ANNOUNCEMENT") ?></label><br>
 					<label><input type="hidden" name="locked" value="0"><input type="checkbox" value="1" name="locked"> <?php __("P_LOCK") ?></label>
+					<a class="field-group-title" data-toggle="set-thread-date-box">
+						<i class="fa fa-fw fa-angle-down"></i> Set thread open/close date
+					</a>
+					<div class="field-group" id="set-thread-date-box">
+						<span>
+							<strong>Define when the thread will be opened and closed. Leave blank to not use this feature.</strong><br>
+							<small>NOTE: Thread open/close dates are based on the default timezone of the community (currently set as <strong><?php __($timezone_offset) ?> hours</strong> in <a href="admin/" target="_blank">Admin CP</a>), not the member's timezone. This is to ensure all members will be visualizing the thread at the same time.</small>
+						</span>
+						<label>
+							<span>Open date/time</span>
+							<?php
+								__(Html::Days("open_day", 0, true) . "&nbsp;");
+								__(Html::Months("open_month", false, 0, true) . "&nbsp;");
+								__(Html::Years("open_year", 0, 2, 0, true) . " at ");
+								__(Html::Hours("open_hours", 0) . " : ");
+								__(Html::Minutes("open_minutes", 0));
+							?>
+						</label>
+						<br>
+						<label>
+							<span>Close date/time</span>
+							<?php
+								__(Html::Days("close_day", 0, true) . "&nbsp;");
+								__(Html::Months("close_month", false, 0, true) . "&nbsp;");
+								__(Html::Years("close_year", 0, 2, 0, true) . " at ");
+								__(Html::Hours("close_hours", 0) . " : ");
+								__(Html::Minutes("close_minutes", 0));
+							?>
+						</label>
+					</div>
 				</div>
 			</div>
 		<?php endif; ?>

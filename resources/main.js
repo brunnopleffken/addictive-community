@@ -48,6 +48,29 @@ $(document).ready(function($) {
 	}).call(this);
 
 	/**
+	 * TOGGLE BOXES
+	 */
+
+	(function() {
+		$('*[data-toggle]').on('click', function() {
+			var $this = $(this);
+			var arrow = $this.find('i');
+			var targetId = $this.data('toggle');
+
+			$('#' + targetId).slideToggle();
+
+			if(arrow.hasClass('fa-angle-down')) {
+				arrow.removeClass('fa-angle-down');
+				arrow.addClass('fa-angle-right');
+			}
+			else {
+				arrow.removeClass('fa-angle-right');
+				arrow.addClass('fa-angle-down');
+			}
+		});
+	}).call(this);
+
+	/**
 	 * AUTOMATICALLY SELECT TABS IN THE NAVIGATION BAR
 	 */
 
