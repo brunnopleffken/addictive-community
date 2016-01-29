@@ -130,16 +130,16 @@ switch($do) {
 
 		$room = array(
 			"category_id"   => $_POST['category_id'],
-			"name"          => String::Sanitize($_POST['name']),
-			"description"   => String::Sanitize($_POST['description']),
+			"name"          => Text::Sanitize($_POST['name']),
+			"description"   => Text::Sanitize($_POST['description']),
 			"url"           => ($_POST['url'] != "") ? $_POST['url'] : NULL,
 			"threads"       => 0,
 			"password"      => ($_POST['password'] != "") ? $_POST['password'] : NULL,
 			"read_only"     => (isset($_POST['read_only'])) ? "1" : "0",
 			"invisible"     => (isset($_POST['invisible'])) ? "1" : "0",
 			"rules_visible" => (isset($_POST['rules_visible'])) ? "1" : "0",
-			"rules_title"   => (isset($_POST['rules_title'])) ? String::Sanitize($_POST['rules_title']) : NULL,
-			"rules_text"    => (isset($_POST['rules_text'])) ? String::Sanitize($_POST['rules_text']) : NULL,
+			"rules_title"   => (isset($_POST['rules_title'])) ? Text::Sanitize($_POST['rules_title']) : NULL,
+			"rules_text"    => (isset($_POST['rules_text'])) ? Text::Sanitize($_POST['rules_text']) : NULL,
 			"upload"        => 1,
 			"perm_view"     => serialize($_POST['view']),
 			"perm_post"     => serialize($_POST['post']),
@@ -157,11 +157,11 @@ switch($do) {
 	case "editroom":
 
 		$room = array(
-			"name"          => String::Sanitize($_POST['room_name']),
-			"description"   => String::Sanitize($_POST['room_description']),
+			"name"          => Text::Sanitize($_POST['room_name']),
+			"description"   => Text::Sanitize($_POST['room_description']),
 			"invisible"     => ($_POST['invisible'] == "1") ? "1" : "0",
-			"rules_title"   => (isset($_POST['rules_title'])) ? String::Sanitize($_POST['rules_title']) : "",
-			"rules_text"    => (isset($_POST['rules_text'])) ? String::Sanitize($_POST['rules_text']) : "",
+			"rules_title"   => (isset($_POST['rules_title'])) ? Text::Sanitize($_POST['rules_title']) : "",
+			"rules_text"    => (isset($_POST['rules_text'])) ? Text::Sanitize($_POST['rules_text']) : "",
 			"rules_visible" => ($_POST['rules_visible'] == "1") ? "1" : "0",
 			"read_only"     => ($_POST['read_only'] == "1") ? "1" : "0",
 			"password"      => ($_POST['password'] != "") ? $_POST['password'] : "",
@@ -242,9 +242,9 @@ switch($do) {
 	case "savehelp":
 
 		$topic = array(
-			"title"      => String::Sanitize(Http::Request("title")),
-			"short_desc" => String::Sanitize(Http::Request("short_desc")),
-			"content"    => nl2br(String::Sanitize(Http::Request("content")))
+			"title"      => Text::Sanitize(Http::Request("title")),
+			"short_desc" => Text::Sanitize(Http::Request("short_desc")),
+			"content"    => nl2br(Text::Sanitize(Http::Request("content")))
 		);
 
 		$Admin->RegisterLog("Created help topic: " . $topic['title']);

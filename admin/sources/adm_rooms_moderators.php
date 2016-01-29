@@ -43,7 +43,7 @@
 				$moderator_list[] = $member['username'];
 			}
 
-			$result['moderators_list'] = String::ToList($moderator_list);
+			$result['moderators_list'] = Text::ToList($moderator_list);
 		}
 
 		// Cannot add moderators in Redirect Rooms

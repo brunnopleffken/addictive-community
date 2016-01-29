@@ -47,7 +47,7 @@ class Feeds extends Application
 		while($thread = $this->Db->Fetch()) {
 			// Get full URL to thread
 			$thread['thread_url'] = $this->Core->config['general_community_url'] . "thread/" . $thread['t_id'] . "-" . $thread['slug'];
-			$thread['tag'] = String::Slug($this->Core->config['general_community_name']);
+			$thread['tag'] = Text::Slug($this->Core->config['general_community_name']);
 
 			// Print ATOM entries
 			$html .= '<entry>' . "\n";

@@ -169,7 +169,7 @@ class Community extends Application
 				$moderator_list[] = "<a href='profile/{$member['m_id']}'>{$member['username']}</a>";
 			}
 
-			$result['moderators_list'] = "<div class='moderators'>Moderators: " . String::ToList($moderator_list) . "</div>";
+			$result['moderators_list'] = "<div class='moderators'>Moderators: " . Text::ToList($moderator_list) . "</div>";
 		}
 		else {
 			$result['moderators_list'] = "";

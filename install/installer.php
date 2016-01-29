@@ -192,8 +192,8 @@
 
 			$community_info = array(
 				'timestamp'      => time(),
-				'community_name' => String::Sanitize($data['community_name']),
-				'community_url'  => String::Sanitize($data['community_url'])
+				'community_name' => Text::Sanitize($data['community_name']),
+				'community_url'  => Text::Sanitize($data['community_url'])
 			);
 
 			// Insert sample room, thread and post
@@ -292,9 +292,9 @@
 
 			// Get administrator account data
 			$admin_info = array(
-				'username' => String::Sanitize($data['admin_username']),
-				'password' => String::Encrypt($data['admin_password'], $salt),
-				'email'    => String::Sanitize($data['admin_email']),
+				'username' => Text::Sanitize($data['admin_username']),
+				'password' => Text::Encrypt($data['admin_password'], $salt),
+				'email'    => Text::Sanitize($data['admin_email']),
 				'joined'   => time()
 			);
 

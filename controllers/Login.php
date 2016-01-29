@@ -41,7 +41,7 @@ class Login extends Application
 
 		if(Http::Request("username") && Http::Request("password")) {
 			$username = Http::Request("username");
-			$password = String::Encrypt(Http::Request("password"), $salt);
+			$password = Text::Encrypt(Http::Request("password"), $salt);
 
 			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");
@@ -91,7 +91,7 @@ class Login extends Application
 
 		if(Http::Request("username") && Http::Request("password")) {
 			$username = Http::Request("username");
-			$password = String::Encrypt(Http::Request("password"), $salt);
+			$password = Text::Encrypt(Http::Request("password"), $salt);
 
 			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");

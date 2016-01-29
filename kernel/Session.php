@@ -64,7 +64,7 @@ class Session
 		if($expire == 1) {
 			$expire = $this->session_expires;
 		}
-		setcookie($name, String::Sanitize($value), $expire, "/");
+		setcookie($name, Text::Sanitize($value), $expire, "/");
 	}
 
 	/**

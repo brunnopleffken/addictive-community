@@ -34,7 +34,7 @@ $salt = array(
 
 if(Http::Request("username") && Http::Request("password")) {
 	$username = Http::Request("username");
-	$password = String::Encrypt(Http::Request("password"), $salt);
+	$password = Text::Encrypt(Http::Request("password"), $salt);
 }
 
 // Check if user exists

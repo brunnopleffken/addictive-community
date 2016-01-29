@@ -45,7 +45,7 @@
 							<span class="file-icon <?php __($first_post_info['type']) ?>"></span>
 							<div class="file-name">
 								<span><?php __($first_post_info['filename']) ?></span>
-								<?php __(String::FileSizeFormat($first_post_info['size'])) ?>
+								<?php __(Text::FileSizeFormat($first_post_info['size'])) ?>
 							</div>
 						</a>
 					</div>
@@ -201,7 +201,7 @@
 									<span class="file-icon <?php __($reply[$k]['type']) ?>"></span>
 									<div class="file-name">
 										<span><?php __($reply[$k]['filename']) ?></span>
-										<?php __(String::FileSizeFormat($reply[$k]['size'])) ?>
+										<?php __(Text::FileSizeFormat($reply[$k]['size'])) ?>
 									</div>
 								</a>
 							</div>

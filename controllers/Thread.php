@@ -272,7 +272,7 @@ class Thread extends Application
 		// Insert new thread item
 		$thread = array(
 			"title"               => Http::Request("title"),
-			"slug"                => String::Slug(htmlspecialchars_decode(Http::Request("title"), ENT_QUOTES)),
+			"slug"                => Text::Slug(htmlspecialchars_decode(Http::Request("title"), ENT_QUOTES)),
 			"author_member_id"    => $this->Session->member_info['m_id'],
 			"replies"             => 1,
 			"views"               => 0,
