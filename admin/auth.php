@@ -12,7 +12,7 @@
 // Include files...
 
 require_once("../config.php");
-require_once("../kernel/String.php");
+require_once("../kernel/Text.php");
 require_once("../kernel/Http.php");
 require_once("../kernel/Database.php");
 

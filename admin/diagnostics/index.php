@@ -17,7 +17,7 @@ require_once(ROOT . "init.php");
 
 // Load kernel drivers
 require(ROOT . "kernel/Html.php");
-require(ROOT . "kernel/String.php");
+require(ROOT . "kernel/Text.php");
 
 // Check if .lock exists
 if(file_exists(ROOT . "install/.lock")) {
