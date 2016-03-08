@@ -69,7 +69,7 @@ class Login extends Application
 			else {
 				// No lines returned: show error
 				// "Username or password is wrong."
-				$this->Core->Redirect("error?t=wrong_username_password");
+				$this->Core->Redirect("failure?t=wrong_username_password");
 			}
 		}
 	}

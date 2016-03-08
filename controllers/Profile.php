@@ -31,7 +31,7 @@ class Profile extends Application
 		$info = $this->Db->Fetch();
 
 		if($info['usergroup'] == 0 || empty($info)) {
-			$this->Core->Redirect("error?t=deleted_member");
+			$this->Core->Redirect("failure?t=deleted_member");
 			exit;
 		}
 
