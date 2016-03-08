@@ -195,6 +195,9 @@ a.room-mark-as-read { color: #999; display: inline-block; font-size: 10px; lette
 .thread-item.locked { background: #fff9f9; border-color: #c00; }
 .thread-item.answered { border-color: #090; }
 .thread-item.answered .stats { background: #465068 url("../images/best-answer.png") no-repeat top right; background-size: 32px; }
+.thread-item.to-be-opened { opacity: 0.5; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
+.thread-item.to-be-opened .middle > a:after { color: #000; content: "\F017"; font-family: FontAwesome; font-size: 14px; }
+.thread-item.to-be-opened:hover { opacity: 0.9; }
 
 .load-more { text-align: center; }
 .load-more .loader { background: url("../images/loader.gif") no-repeat center; background-size: 16px 16px; display: none; height: 16px; margin: auto; width: 16px; }

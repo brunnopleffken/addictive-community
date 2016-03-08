@@ -178,13 +178,16 @@ class Room extends Application
 		// Return menu item
 		$this->Set("menu", $menu);
 
+		// If admin, then also select all invisible threads; and threads with an opening date
+		$is_admin = ($this->Session->IsAdmin()) ? "" : "AND c_threads.start_date < " . time();
+
 		// Execute query
 		$threads = $this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email,
 				author.photo_type, author.photo, lastpost.username AS lastpost_name,
 				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
 				INNER JOIN c_members AS lastpost ON (c_threads.lastpost_member_id = lastpost.m_id)
-				WHERE room_id = {$room_id} {$where} ORDER BY announcement DESC, {$order}
+				WHERE room_id = {$room_id} {$where} {$is_admin} ORDER BY announcement DESC, {$order}
 				LIMIT 10;");
 
 		// Process data
@@ -216,6 +219,7 @@ class Room extends Application
 		$result['class'] = "";
 		$result['description'] = strip_tags($result['post']);
 		$result['mobile_start_date'] = $this->Core->DateFormat($result['start_date'], "short");
+		$result['to_be_opened'] = ($result['start_date'] > time()) ? "to-be-opened" : "";
 		$result['start_date'] = $this->Core->DateFormat($result['start_date']);
 		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
 
@@ -233,7 +237,7 @@ class Room extends Application
 		$result['replies']--;
 
 		// Status: locked
-		if($result['locked'] == 1) {
+		if($result['locked'] == 1 || ($result['lock_date'] != 0 && $result['lock_date'] < time())) {
 			$result['class'] = "locked";
 		}
 

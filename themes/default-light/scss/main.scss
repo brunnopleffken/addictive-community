@@ -832,6 +832,21 @@ a.room-mark-as-read {
 			background-size: 32px;
 		}
 	}
+	&.to-be-opened {
+		opacity: 0.5;
+		@include transition(300ms);
+		.middle > a {
+			&:after {
+				color: #000;
+				content: "\F017";
+				font-family: FontAwesome;
+				font-size: 14px;
+			}
+		}
+		&:hover {
+			opacity: 0.9;
+		}
+	}
 }
 
 .load-more {

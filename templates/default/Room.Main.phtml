@@ -1,5 +1,5 @@
 <script id="thread-item-template" type="x-tmpl-mustache">
-<div class="thread-item {{class}}">
+<div class="thread-item {{class}} {{to_be_opened}}">
 	<div class="avatar">{{{author_avatar}}}</div>
 	<div class="middle">
 		<a href="thread/{{t_id}}-{{slug}}" class="title">{{title}}</a>
@@ -63,7 +63,7 @@
 
 <?php if(!empty($threads)): ?>
 	<?php foreach($threads as $k => $v): ?>
-		<div class="thread-item <?php __($threads[$k]['class']) ?>">
+		<div class="thread-item <?php __($threads[$k]['class'] . " " . $threads[$k]['to_be_opened']) ?>">
 			<div class="avatar">
 				<?php __($threads[$k]['author_avatar']) ?>
 			</div>

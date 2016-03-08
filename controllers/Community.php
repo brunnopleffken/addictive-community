@@ -99,6 +99,8 @@ class Community extends Application
 	 */
 	private function _GetRooms()
 	{
+		$now = time();
+
 		// If member is Admin, show invisible rooms too
 		if($this->Session->IsMember() && $this->Session->IsAdmin()) {
 			$visibility = "";
@@ -117,10 +119,12 @@ class Community extends Application
 
 			// Get rooms from DB
 			$rooms_result = $this->Db->Query("SELECT c_rooms.*, c_members.m_id, c_members.username,
-					c_threads.title, c_threads.t_id, c_threads.slug,
+					c_threads.title, c_threads.start_date, c_threads.t_id, c_threads.slug,
 					(SELECT COUNT(*) FROM c_threads WHERE room_id = c_rooms.r_id) AS thread_count FROM c_rooms
 					LEFT JOIN c_members ON (c_members.m_id = c_rooms.lastpost_member)
-					LEFT JOIN c_threads ON (c_threads.t_id = c_rooms.lastpost_thread)
+					LEFT JOIN c_threads
+						ON c_threads.t_id = (SELECT t.t_id FROM c_threads AS t WHERE t.room_id = c_rooms.r_id
+							AND t.start_date < {$now} ORDER BY t.lastpost_date DESC LIMIT 1)
 					WHERE category_id = {$category['c_id']}
 					{$visibility} ORDER BY name ASC;");
 
