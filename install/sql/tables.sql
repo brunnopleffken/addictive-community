@@ -258,6 +258,7 @@ CREATE TABLE `c_threads` (
   `replies` int(9) NOT NULL,
   `views` int(9) NOT NULL,
   `start_date` int(10) NOT NULL,
+  `lock_date` int(10) NOT NULL,
   `room_id` int(3) NOT NULL,
   `tags` varchar(255) DEFAULT NULL,
   `announcement` int(1) DEFAULT NULL,
