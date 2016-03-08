@@ -43,7 +43,7 @@ class Room extends Application
 		if($room_info['password'] != "") {
 			$room_session_name = "room_" . $room_info['r_id'];
 			if(!$this->Session->GetCookie($room_session_name)) {
-				$this->Core->Redirect("error?t=protected_room&room=" . $id);
+				$this->Core->Redirect("failure?t=protected_room&room=" . $id);
 			}
 		}
 
@@ -124,7 +124,7 @@ class Room extends Application
 			exit;
 		}
 		else {
-			$this->Core->Redirect("error?t=protected_room&room=" . $room_id);
+			$this->Core->Redirect("failure?t=protected_room&room=" . $room_id);
 			exit;
 		}
 	}
