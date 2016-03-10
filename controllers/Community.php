@@ -121,10 +121,10 @@ class Community extends Application
 			$rooms_result = $this->Db->Query("SELECT c_rooms.*, c_members.m_id, c_members.username,
 					c_threads.title, c_threads.start_date, c_threads.t_id, c_threads.slug,
 					(SELECT COUNT(*) FROM c_threads WHERE room_id = c_rooms.r_id) AS thread_count FROM c_rooms
-					LEFT JOIN c_members ON (c_members.m_id = c_rooms.lastpost_member)
+					LEFT JOIN c_members ON (c_members.m_id = c_rooms.last_post_member)
 					LEFT JOIN c_threads
 						ON c_threads.t_id = (SELECT t.t_id FROM c_threads AS t WHERE t.room_id = c_rooms.r_id
-							AND t.start_date < {$now} ORDER BY t.lastpost_date DESC LIMIT 1)
+							AND t.start_date < {$now} ORDER BY t.last_post_date DESC LIMIT 1)
 					WHERE category_id = {$category['c_id']}
 					{$visibility} ORDER BY name ASC;");
 
@@ -149,7 +149,7 @@ class Community extends Application
 		$result['online'] = $this->Db->Fetch($online);
 
 		// If last post timestamp is not zero / no posts
-		$result['lastpost_date'] = ($result['lastpost_date'] > 0) ? $this->Core->DateFormat($result['lastpost_date']) : "---";
+		$result['last_post_date'] = ($result['last_post_date'] > 0) ? $this->Core->DateFormat($result['last_post_date']) : "---";
 
 		// If thread and/or last poster username is empty, show dashes instead
 		if($result['title'] == null) {
@@ -227,14 +227,14 @@ class Community extends Application
 	{
 		$has_unread = false;
 
-		$threads = $this->Db->Query("SELECT t_id, lastpost_date FROM c_threads WHERE room_id = {$room_id};");
+		$threads = $this->Db->Query("SELECT t_id, last_post_date FROM c_threads WHERE room_id = {$room_id};");
 
 		while($result = $this->Db->Fetch($threads)) {
 			$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
 			if($read_threads_cookie) {
 				$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
 				$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
-				if(!in_array($result['t_id'], $read_threads) && $login_time_cookie < $result['lastpost_date']) {
+				if(!in_array($result['t_id'], $read_threads) && $login_time_cookie < $result['last_post_date']) {
 					$has_unread = true;
 				}
 			}

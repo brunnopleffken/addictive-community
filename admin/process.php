@@ -228,7 +228,7 @@ switch($do) {
 
 			$last_post = $Db2->Fetch();
 			$Db2->Query("UPDATE c_threads
-					SET lastpost_date = {$last_post['post_date']}, lastpost_member_id = {$last_post['author_id']}
+					SET last_post_date = {$last_post['post_date']}, last_post_member_id = {$last_post['author_id']}
 					WHERE t_id = {$thread['t_id']};");
 		}
 

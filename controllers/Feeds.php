@@ -26,7 +26,7 @@ class Feeds extends Application
 		header('Content-Type: application/xml');
 
 		// Get room information
-		$this->Db->Query("SELECT name, lastpost_date FROM c_rooms WHERE r_id = {$room_id};");
+		$this->Db->Query("SELECT name, last_post_date FROM c_rooms WHERE r_id = {$room_id};");
 		$room_info = $this->Db->Fetch();
 
 		// Print ATOM syndication header
@@ -34,7 +34,7 @@ class Feeds extends Application
 		$html .= '<feed xmlns="http://www.w3.org/2005/Atom">' . "\n";
 		$html .= '<title>' . $this->Core->config['general_community_name'] . ': ' . $room_info['name'] . '</title>' . "\n";
 		$html .= '<link href="' . $this->Core->config['general_community_url'] . '"/>' . "\n";
-		$html .= '<updated>' . date("Y-m-d\TH:i:s\Z", $room_info['lastpost_date']) . '</updated>' . "\n";
+		$html .= '<updated>' . date("Y-m-d\TH:i:s\Z", $room_info['last_post_date']) . '</updated>' . "\n";
 		$html .= '<author><name>' . $this->Core->config['general_community_name'] . '</name></author>' . "\n";
 		$html .= '<id>' . $this->Core->config['general_community_url'] . '</id>' . "\n\n";
 

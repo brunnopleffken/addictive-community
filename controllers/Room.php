@@ -87,11 +87,11 @@ class Room extends Application
 
 		// Get threads
 		$this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS author_email,
-				author.photo_type AS author_type, author.photo AS author_photo, lastpost.username AS lastpost_name,
+				author.photo_type AS author_type, author.photo AS author_photo, lastpost.username AS last_post_name,
 				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
-				INNER JOIN c_members AS lastpost ON (c_threads.lastpost_member_id = lastpost.m_id)
-				WHERE room_id = {$id} ORDER BY announcement DESC, lastpost_date DESC
+				INNER JOIN c_members AS lastpost ON (c_threads.last_post_member_id = lastpost.m_id)
+				WHERE room_id = {$id} ORDER BY announcement DESC, last_post_date DESC
 				LIMIT {$threads_per_page} OFFSET {$offset};");
 
 		// Process data
@@ -147,7 +147,7 @@ class Room extends Application
 			case "mythreads":
 				$menu  = array("", "selected");
 				$where = "AND author_member_id = '{$this->Session->member_info['m_id']}'";
-				$order = "lastpost_date DESC";
+				$order = "last_post_date DESC";
 				break;
 			case "topreplies":
 				$menu  = array("selected", "");
@@ -157,22 +157,22 @@ class Room extends Application
 			case "noreplies":
 				$menu  = array("selected", "");
 				$where = "AND replies = '1'";
-				$order = "lastpost_date DESC";
+				$order = "last_post_date DESC";
 				break;
 			case "bestanswered":
 				$menu  = array("selected", "");
-				$where = "AND with_bestanswer = '1'";
-				$order = "lastpost_date DESC";
+				$where = "AND with_best_answer = '1'";
+				$order = "last_post_date DESC";
 				break;
 			case "polls":
 				$menu  = array("selected", "");
 				$where = "AND poll_question <> ''";
-				$order = "lastpost_date DESC";
+				$order = "last_post_date DESC";
 				break;
 			default:
 				$menu  = array("selected", "");
 				$where = "";
-				$order = "lastpost_date DESC";
+				$order = "last_post_date DESC";
 		}
 
 		// Return menu item
@@ -183,10 +183,10 @@ class Room extends Application
 
 		// Execute query
 		$threads = $this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email,
-				author.photo_type, author.photo, lastpost.username AS lastpost_name,
+				author.photo_type, author.photo, lastpost.username AS last_post_name,
 				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
-				INNER JOIN c_members AS lastpost ON (c_threads.lastpost_member_id = lastpost.m_id)
+				INNER JOIN c_members AS lastpost ON (c_threads.last_post_member_id = lastpost.m_id)
 				WHERE room_id = {$room_id} {$where} {$is_admin} ORDER BY announcement DESC, {$order}
 				LIMIT 10;");
 
@@ -211,7 +211,7 @@ class Room extends Application
 		if($read_threads_cookie) {
 			$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
 			$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
-			if(!in_array($result['t_id'], $read_threads) && $login_time_cookie < $result['lastpost_date']) {
+			if(!in_array($result['t_id'], $read_threads) && $login_time_cookie < $result['last_post_date']) {
 				$is_unread = true;
 			}
 		}
@@ -221,7 +221,7 @@ class Room extends Application
 		$result['mobile_start_date'] = $this->Core->DateFormat($result['start_date'], "short");
 		$result['to_be_opened'] = ($result['start_date'] > time()) ? "to-be-opened" : "";
 		$result['start_date'] = $this->Core->DateFormat($result['start_date']);
-		$result['lastpost_date'] = $this->Core->DateFormat($result['lastpost_date']);
+		$result['last_post_date'] = $this->Core->DateFormat($result['last_post_date']);
 
 		// Author avatar
 		$result['author_avatar'] = $this->Core->GetAvatar($result, 84);
@@ -231,7 +231,7 @@ class Room extends Application
 		$result['author_name'] = i18n::Translate("R_STARTED_BY", array($result['author_name']));
 		$result['start_date'] = i18n::Translate("R_STARTED_ON", array($result['start_date']));
 		$result['views'] = i18n::Translate("R_VIEWS", array($result['views']));
-		$result['lastpost_by'] = i18n::Translate("R_LAST_POST_BY", array($result['lastpost_name']));
+		$result['last_post_by'] = i18n::Translate("R_LAST_POST_BY", array($result['last_post_name']));
 
 		// Get the number of replies, not total number of posts... ;)
 		$result['replies']--;
@@ -242,7 +242,7 @@ class Room extends Application
 		}
 
 		// Status: answered
-		if($result['with_bestanswer'] == 1) {
+		if($result['with_best_answer'] == 1) {
 			$result['class'] = "answered";
 		}
 
