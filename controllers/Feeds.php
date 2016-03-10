@@ -8,7 +8,7 @@
 #
 #  File: Feeds.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 class Feeds extends Application

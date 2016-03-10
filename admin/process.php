@@ -6,7 +6,7 @@
 #  Developed by Brunno Pleffken Hosti
 #  File: process.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
 // First... check if the login sessions exists!

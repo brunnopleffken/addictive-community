@@ -8,7 +8,7 @@
 #
 #  File: index.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 // Run initialization file before loading Main()

@@ -6,7 +6,7 @@
  *
  * File: admin.js
  * License: GPLv2
- * Copyright: (c) 2015 - Addictive Software
+ * Copyright: (c) 2016 - Addictive Community
  */
 
 /* global $, CodeMirror */
