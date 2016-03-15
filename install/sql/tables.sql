@@ -55,14 +55,6 @@ CREATE TABLE `c_events` (
   PRIMARY KEY (`e_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `c_follow` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
-  `follower` int(8) DEFAULT NULL,
-  `following` int(8) DEFAULT NULL,
-  `date` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 CREATE TABLE `c_help` (
   `h_id` int(3) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) DEFAULT NULL,
