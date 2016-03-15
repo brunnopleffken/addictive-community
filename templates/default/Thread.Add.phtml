@@ -48,15 +48,15 @@
 					<label><input type="hidden" name="announcement" value="0"><input type="checkbox" value="1" name="announcement"> <?php __("P_SET_ANNOUNCEMENT") ?></label><br>
 					<label><input type="hidden" name="locked" value="0"><input type="checkbox" value="1" name="locked"> <?php __("P_LOCK") ?></label>
 					<a class="field-group-title" data-toggle="set-thread-date-box">
-						<i class="fa fa-fw fa-angle-down"></i> Set thread auto-open/lock date
+						<i class="fa fa-fw fa-angle-down"></i> <?php __("T_AUTO_TITLE") ?>
 					</a>
 					<div class="field-group" id="set-thread-date-box">
 						<span>
-							<strong>Define when the thread will be opened and locked. To not use this feature, leave all fields as is.</strong><br>
-							<small>NOTE: The thread opening/lock dates are based on the default timezone of the community (currently set as <strong><?php __($timezone_offset) ?> hours</strong> in <a href="admin/" target="_blank">Admin CP</a>), not the member's timezone. This is to ensure all members will be visualizing the thread at the same time.</small>
+							<strong><?php __("T_AUTO_DESCRIPTION") ?></strong><br>
+							<small><?php echo $thread_auto_details ?></small>
 						</span>
 						<label>
-							<span>Open at... <small>(leave blank to post immediately)</small></span>
+							<span><?php __("T_AUTO_OPEN_AT") ?></span>
 							<?php
 								__(Html::Days("open_day", 0, true) . "&nbsp;");
 								__(Html::Months("open_month", false, 0, true) . "&nbsp;");
@@ -67,7 +67,7 @@
 						</label>
 						<br>
 						<label>
-							<span>And lock at... <small>(leave blank to not set a locking time)</small></span>
+							<span><?php __("T_AUTO_CLOSE_AT") ?></span>
 							<?php
 								__(Html::Days("lock_day", 0, true) . "&nbsp;");
 								__(Html::Months("lock_month", false, 0, true) . "&nbsp;");

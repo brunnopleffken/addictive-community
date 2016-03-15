@@ -167,7 +167,7 @@ class Thread extends Application
 		$this->Set("allow_uploads", $room_info['upload']);
 		$this->Set("is_moderator", $this->_IsModerator($room_info['moderators']));
 		$this->Set("is_poll", Http::Request("poll"));
-		$this->Set("timezone_offset", $this->Core->config['date_default_offset']);
+		$this->Set("thread_auto_details", i18n::Translate("T_AUTO_DETAILS", $this->Core->config['date_default_offset']));
 	}
 
 	/**
