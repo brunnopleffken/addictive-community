@@ -32,8 +32,8 @@ form .large { width: 420px; }
 form .medium { width: 300px; }
 form .small { width: 200px; }
 form .tiny { width: 90px; }
-form input[type=text], form input[type=password], form input[type=file], form textarea { border: 1px solid #ccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; outline: none; padding: 6px; -webkit-transition: 500ms; -moz-transition: 500ms; transition: 500ms; }
-form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form textarea:focus { border: 1px solid #aaa; }
+form input[type=text], form input[type=password], form input[type=file], form input[type=number], form textarea { border: 1px solid #ccc; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; outline: none; padding: 6px; -webkit-transition: 500ms; -moz-transition: 500ms; transition: 500ms; }
+form input[type=text]:focus, form input[type=password]:focus, form input[type=file]:focus, form input[type=number]:focus, form textarea:focus { border: 1px solid #aaa; }
 form input[type=button], form input[type=submit], form button:not([role]) { background: #465068 url("../images/button-bg.png"); border: 0; border-radius: 4px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); color: #fff; cursor: pointer; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 12px; line-height: 29px; padding: 0 12px; text-shadow: 1px 1px 0px #000; vertical-align: top; }
 form input[type=button].cancel, form input[type=submit].cancel, form button:not([role]).cancel { background: #eee url("../images/button-bg.png") !important; color: #900 !important; text-shadow: 1px 1px 0px #fff !important; }
 form input[disabled] { background: #f4f4f4; color: #aaa; text-shadow: 1px 1px 1px #fff; }
@@ -48,7 +48,12 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .input-box .label span { color: #444; display: block; font-size: 11px; font-style: italic; font-weight: normal; line-height: 1.2em; width: 140px; white-space: pre-wrap; }
 .input-box .field { display: table-cell; margin-bottom: 15px; min-height: 30px; }
 .input-box .field:last-child { margin: 0; }
-.input-box .field.textOnly { padding: 5px 0; }
+.input-box .field.text-only { padding: 5px 0; }
+.input-box .field .field-group-title { color: #333; cursor: pointer; display: block; font-size: 14px; font-weight: bold; letter-spacing: 1px; margin: 20px 0 10px 0; }
+.input-box .field .field-group-title:hover { text-decoration: none; }
+.input-box .field .field-group { background-color: #f9f9f9; border: 1px solid #eee; display: none; padding: 10px; }
+.input-box .field .field-group span { display: block; margin-bottom: 5px; }
+.input-box .field .field-group label { display: block; }
 .input-box:last-child { margin: 0; }
 
 /** BUTTONS **/
@@ -190,6 +195,9 @@ a.room-mark-as-read { color: #999; display: inline-block; font-size: 10px; lette
 .thread-item.locked { background: #fff9f9; border-color: #c00; }
 .thread-item.answered { border-color: #090; }
 .thread-item.answered .stats { background: #465068 url("../images/best-answer.png") no-repeat top right; background-size: 32px; }
+.thread-item.to-be-opened { opacity: 0.5; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
+.thread-item.to-be-opened .middle > a:after { color: #000; content: "\F017"; font-family: FontAwesome; font-size: 14px; }
+.thread-item.to-be-opened:hover { opacity: 0.9; }
 
 .load-more { text-align: center; }
 .load-more .loader { background: url("../images/loader.gif") no-repeat center; background-size: 16px 16px; display: none; height: 16px; margin: auto; width: 16px; }
@@ -408,5 +416,3 @@ a.room-mark-as-read { color: #999; display: inline-block; font-size: 10px; lette
 #footer { background: #000; color: #ccc; font-size: 11px; margin-top: 15px; overflow: auto; padding: 8px; }
 #footer a { color: #ccc; }
 #footer a:hover { color: #fff; text-decoration: none; }
-
-/*# sourceMappingURL=main.css.map */

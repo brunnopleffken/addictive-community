@@ -6,13 +6,13 @@
 #  Developed by Brunno Pleffken Hosti
 #  File: auth.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
 // Include files...
 
 require_once("../config.php");
-require_once("../kernel/String.php");
+require_once("../kernel/Text.php");
 require_once("../kernel/Http.php");
 require_once("../kernel/Database.php");
 
@@ -34,7 +34,7 @@ $salt = array(
 
 if(Http::Request("username") && Http::Request("password")) {
 	$username = Http::Request("username");
-	$password = String::Encrypt(Http::Request("password"), $salt);
+	$password = Text::Encrypt(Http::Request("password"), $salt);
 }
 
 // Check if user exists

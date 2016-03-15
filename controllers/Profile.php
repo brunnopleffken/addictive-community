@@ -8,7 +8,7 @@
 #
 #  File: Profile.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 class Profile extends Application
@@ -31,7 +31,7 @@ class Profile extends Application
 		$info = $this->Db->Fetch();
 
 		if($info['usergroup'] == 0 || empty($info)) {
-			$this->Core->Redirect("error?t=deleted_member");
+			$this->Core->Redirect("failure?t=deleted_member");
 			exit;
 		}
 
@@ -60,7 +60,7 @@ class Profile extends Application
 		if($has_birthday) {
 			$this->info['birthday_timestamp'] = mktime(12, 0, 0, $this->info['b_month'], $this->info['b_day'], $this->info['b_year']);
 			$this->info['birthday'] = $this->Core->DateFormat($this->info['birthday_timestamp'], "short");
-			$this->info['age'] = String::MemberAge($this->info['birthday_timestamp']);
+			$this->info['age'] = Text::MemberAge($this->info['birthday_timestamp']);
 		}
 
 		// Member gender icon
@@ -172,7 +172,7 @@ class Profile extends Application
 			$result['icon'] = "<div class='file-icon {$result['type']}'></div>";
 			$result['filename'] = "<a href='public/attachments/{$id}/{$result['filename']}' target='_blank'>{$result['filename']}</a>";
 			$result['type'] = $Upload->TranslateFileType($result['type']);
-			$result['size'] = String::FileSizeFormat($result['size']);
+			$result['size'] = Text::FileSizeFormat($result['size']);
 			$attachments[] = $result;
 		}
 

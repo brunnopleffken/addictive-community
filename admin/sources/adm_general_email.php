@@ -6,7 +6,7 @@
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_general_email.php
 	#  License: GPLv2
-	#  Copyright: (c) 2015 - Addictive Community
+	#  Copyright: (c) 2016 - Addictive Community
 	## ---------------------------------------------------
 
 	$msg = (Http::Request("msg")) ? Http::Request("msg") : "";

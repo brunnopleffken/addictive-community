@@ -8,7 +8,7 @@
 #
 #  File: Thread.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 class Thread extends Application
@@ -37,6 +37,23 @@ class Thread extends Application
 
 		// Get thread information
 		$this->thread_info = $this->_GetThreadInfo($id);
+
+		// Define notification if the thread has a locking date
+		$has_date_notification = null;
+
+		if($this->Session->IsAdmin() && $this->thread_info['lock_date'] > time()) {
+			$formatted_date = $this->Core->DateFormat($this->thread_info['lock_date']);
+			$has_date_notification = Html::Notification(
+				"This thread will be locked in <b>" . $formatted_date . "</b>", "warning", true
+			);
+		}
+
+		if($this->Session->IsAdmin() && $this->thread_info['start_date'] > time()) {
+			$formatted_date = $this->Core->DateFormat($this->thread_info['start_date']);
+			$has_date_notification = Html::Notification(
+				"This thread is invisible and will be opened in <b>" . $formatted_date . "</b>", "info", true
+			);
+		}
 
 		// Check and update cookie for read/unread threads
 		$this->_CheckUnread();
@@ -76,6 +93,7 @@ class Thread extends Application
 		$this->Set("thread_id", $id);
 		$this->Set("thread_info", $this->thread_info);
 		$this->Set("notification", $notification[$message_id]);
+		$this->Set("has_date_notification", $has_date_notification);
 		$this->Set("enable_signature", $this->Core->config['general_member_enable_signature']);
 		$this->Set("first_post_info", $first_post_info);
 		$this->Set("reply", $replies);
@@ -95,9 +113,14 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Get thread info
-		$this->Db->Query("SELECT t.t_id, t.title, r.r_id, r.name, r.upload FROM c_threads t
+		$this->Db->Query("SELECT t.t_id, t.title, t.lock_date, t.locked, r.r_id, r.name, r.upload FROM c_threads t
 				INNER JOIN c_rooms r ON (t.room_id = r.r_id) WHERE t_id = {$id};");
 		$thread_info = $this->Db->Fetch();
+
+		// Check if thread is locked
+		if($thread_info['locked'] == 1 || ($thread_info['lock_date'] != 0 && $thread_info['lock_date'] < time())) {
+			$this->Core->Redirect("failure?t=thread_locked");
+		}
 
 		// If member is replying another post (quote)
 		if(Http::Request("quote")) {
@@ -144,6 +167,7 @@ class Thread extends Application
 		$this->Set("allow_uploads", $room_info['upload']);
 		$this->Set("is_moderator", $this->_IsModerator($room_info['moderators']));
 		$this->Set("is_poll", Http::Request("poll"));
+		$this->Set("thread_auto_details", i18n::Translate("T_AUTO_DETAILS", $this->Core->config['date_default_offset']));
 	}
 
 	/**
@@ -209,21 +233,21 @@ class Thread extends Application
 		// Update: thread stats
 		$this->Db->Update("c_threads", array(
 			"replies = replies + 1",
-			"lastpost_date = '{$post['post_date']}'",
-			"lastpost_member_id = '{$post['author_id']}'"
+			"last_post_date = '{$post['post_date']}'",
+			"last_post_member_id = '{$post['author_id']}'"
 		), "t_id = '{$post['thread_id']}'");
 
 		// Update: room stats
 		$this->Db->Update("c_rooms", array(
-			"lastpost_date = '{$post['post_date']}'",
-			"lastpost_thread = '{$post['thread_id']}'",
-			"lastpost_member = '{$post['author_id']}'"
+			"last_post_date = '{$post['post_date']}'",
+			"last_post_thread = '{$post['thread_id']}'",
+			"last_post_member = '{$post['author_id']}'"
 		), "r_id = '{$room_id}'");
 
 		// Update: member stats
 		$this->Db->Update("c_members", array(
 			"posts = posts + 1",
-			"lastpost_date = '{$post['post_date']}'"
+			"last_post_date = '{$post['post_date']}'"
 		), "m_id = '{$post['author_id']}'");
 
 		// Update: community stats
@@ -235,7 +259,7 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * INSERT NEW THREAD INTO DATABASE
+	 * CREATE A NEW THREAD
 	 * --------------------------------------------------------------------
 	 */
 	public function SaveThread($room_id)
@@ -268,21 +292,63 @@ class Thread extends Application
 			$poll_data = "";
 		}
 
+		// Set the opening date
+		if(Http::Request("open_day") != "" || Http::Request("open_month") != "" || Http::Request("open_year") != "") {
+			$open_time = mktime(
+				Http::Request("open_hours"),
+				Http::Request("open_minutes"), 0,
+				Http::Request("open_month"),
+				Http::Request("open_day"),
+				Http::Request("open_year")
+			);
+
+			// Convert custom date to UTC (a.k.a. remove timezone offset)
+			// All dates in Addictive Community are treated in the back-end as UTC
+			$open_time = $open_time - ($this->Core->config['date_default_offset'] * 3600);
+
+			// Check if the opening date is equal or later than the current timestamp
+			if($open_time < time()) {
+				Html::Error("Open a new thread can't be retroactive.");
+			}
+		}
+		else {
+			$open_time = time();
+		}
+
+		// Set the lock date
+		if(Http::Request("lock_day") != "" || Http::Request("lock_month") != "" || Http::Request("lock_year") != "") {
+			$lock_time = mktime(
+				Http::Request("lock_hours"),
+				Http::Request("lock_minutes"), 0,
+				Http::Request("lock_month"),
+				Http::Request("lock_day"),
+				Http::Request("lock_year")
+			);
+
+			// Convert custom date to UTC (a.k.a. remove timezone offset)
+			// All dates in Addictive Community are treated in the back-end as UTC
+			$lock_time = $lock_time - ($this->Core->config['date_default_offset'] * 3600);
+		}
+		else {
+			$lock_time = 0;
+		}
+
 		// Insert new thread item
 		$thread = array(
 			"title"               => Http::Request("title"),
-			"slug"                => String::Slug(htmlspecialchars_decode(Http::Request("title"), ENT_QUOTES)),
+			"slug"                => Text::Slug(htmlspecialchars_decode(Http::Request("title"), ENT_QUOTES)),
 			"author_member_id"    => $this->Session->member_info['m_id'],
 			"replies"             => 1,
 			"views"               => 0,
-			"start_date"          => time(),
+			"start_date"          => $open_time,
+			"lock_date"           => $lock_time,
 			"room_id"             => Http::Request("room_id", true),
 			"announcement"        => Http::Request("announcement", true) ? Http::Request("announcement") : 0,
-			"lastpost_date"       => time(),
-			"lastpost_member_id"  => $this->Session->member_info['m_id'],
+			"last_post_date"       => time(),
+			"last_post_member_id"  => $this->Session->member_info['m_id'],
 			"locked"              => Http::Request("locked", true) ? Http::Request("announcement") : 0,
 			"approved"            => 1,
-			"with_bestanswer"     => 0,
+			"with_best_answer"     => 0,
 			"poll_question"       => Http::Request("poll_question"),
 			"poll_data"           => $poll_data,
 			"poll_allow_multiple" => (isset($_POST['poll_allow_multiple'])) ? 1 : 0
@@ -293,7 +359,7 @@ class Thread extends Application
 		$post = array(
 			"author_id"   => $this->Session->member_info['m_id'],
 			"thread_id"   => $this->Db->GetLastID(),
-			"post_date"   => $thread['lastpost_date'],
+			"post_date"   => $thread['last_post_date'],
 			"ip_address"  => $_SERVER['REMOTE_ADDR'],
 			"post"        => str_replace("'", "&apos;", $_POST['post']),
 			"best_answer" => 0,
@@ -308,9 +374,9 @@ class Thread extends Application
 		// Update tables
 
 		$this->Db->Update("c_rooms", array(
-			"lastpost_date = '{$post['post_date']}'",
-			"lastpost_thread = '{$post['thread_id']}'",
-			"lastpost_member = '{$post['author_id']}'"
+			"last_post_date = '{$post['post_date']}'",
+			"last_post_thread = '{$post['thread_id']}'",
+			"last_post_member = '{$post['author_id']}'"
 		), "r_id = '{$thread['room_id']}'");
 
 		$this->Db->Update("c_stats", array(
@@ -320,7 +386,7 @@ class Thread extends Application
 
 		$this->Db->Update("c_members", array(
 			"posts = posts + 1",
-			"lastpost_date = '{$post['post_date']}'"
+			"last_post_date = '{$post['post_date']}'"
 		), "m_id = '{$post['author_id']}'");
 
 		// Redirect
@@ -603,7 +669,7 @@ class Thread extends Application
 
 		if($this->Session->member_info['m_id'] == $thread['thread_author']) {
 			$this->Db->Update("c_posts", "best_answer = 1", "p_id = {$reply_id}");
-			$this->Db->Update("c_threads", "with_bestanswer = 1", "t_id = {$thread['thread_id']}");
+			$this->Db->Update("c_threads", "with_best_answer = 1", "t_id = {$thread['thread_id']}");
 			$this->Core->Redirect("HTTP_REFERER");
 		}
 		else {
@@ -633,7 +699,7 @@ class Thread extends Application
 
 		if($this->Session->member_info['m_id'] == $thread['thread_author']) {
 			$this->Db->Update("c_posts", "best_answer = 0", "p_id = {$reply_id}");
-			$this->Db->Update("c_threads", "with_bestanswer = 0", "t_id = {$thread['thread_id']}");
+			$this->Db->Update("c_threads", "with_best_answer = 0", "t_id = {$thread['thread_id']}");
 			$this->Core->Redirect("HTTP_REFERER");
 		}
 		else {
@@ -694,7 +760,7 @@ class Thread extends Application
 		if($read_threads_cookie) {
 			$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
 			$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
-			if(!in_array($this->thread_info['t_id'], $read_threads) && $login_time_cookie < $this->thread_info['lastpost_date']) {
+			if(!in_array($this->thread_info['t_id'], $read_threads) && $login_time_cookie < $this->thread_info['last_post_date']) {
 				array_push($read_threads, $this->thread_info['t_id']);
 			}
 
@@ -712,8 +778,8 @@ class Thread extends Application
 	private function _GetThreadInfo($id)
 	{
 		// Select thread info from database
-		$thread = $this->Db->Query("SELECT t.t_id, t.title, t.room_id, t.author_member_id, t.locked, t.announcement,
-				t.lastpost_date, t.poll_question, t.poll_data, t.poll_allow_multiple,
+		$thread = $this->Db->Query("SELECT t.t_id, t.title, t.start_date, t.lock_date, t.room_id, t.author_member_id,
+				t.locked, t.announcement, t.last_post_date, t.poll_question, t.poll_data, t.poll_allow_multiple,
 				r.r_id, r.name, r.perm_view, r.perm_reply, r.moderators,
 				(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t
 				INNER JOIN c_rooms r ON (r.r_id = t.room_id) WHERE t.t_id = '{$id}';");
@@ -745,7 +811,7 @@ class Thread extends Application
 		// Check if it's an obsolete thread
 		$obsolete_notification = "";
 		$obsolete_seconds = $this->Core->config['thread_obsolete_value'] * DAY;
-		if(($thread_info['lastpost_date'] + $obsolete_seconds) < time()) {
+		if($this->Core->config['thread_obsolete'] != 0 && ($thread_info['last_post_date'] + $obsolete_seconds) < time()) {
 			$thread_info['obsolete'] = true;
 			$obsolete_notification = Html::Notification(
 				i18n::Translate("T_OBSOLETE", array($this->Core->config['thread_obsolete_value'])), "warning", true
@@ -753,6 +819,11 @@ class Thread extends Application
 		}
 		else {
 			$thread_info['obsolete'] = false;
+		}
+
+		// Lock thread if it has an scheduled date
+		if($thread_info['lock_date'] != 0 && $thread_info['lock_date'] < time()) {
+			$thread_info['locked'] = 1;
 		}
 
 		return $thread_info;
@@ -1091,7 +1162,7 @@ class Thread extends Application
 				WHERE t_id <> {$id} AND MATCH(title) AGAINST ('{$thread_search}');");
 
 		while($thread = $this->Db->Fetch()) {
-			$thread['thread_date'] = $this->Core->DateFormat($thread['lastpost_date'], "short");
+			$thread['thread_date'] = $this->Core->DateFormat($thread['last_post_date'], "short");
 			$related_thread_list[] = $thread;
 		}
 

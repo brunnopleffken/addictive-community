@@ -6,7 +6,7 @@
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_members_add.php
 	#  License: GPLv2
-	#  Copyright: (c) 2015 - Addictive Community
+	#  Copyright: (c) 2016 - Addictive Community
 	## ---------------------------------------------------
 
 	$username = "";
@@ -29,7 +29,7 @@
 	// Minimum 2 characters to avoid DB overload
 
 	if(isset($_POST['username']) && strlen($_POST['username']) >= 2) {
-		$username = String::Sanitize($_POST['username']);
+		$username = Text::Sanitize($_POST['username']);
 
 		$Db->Query("SELECT m.m_id, m.username, m.email, m.joined, m.photo, m.photo_type, m.posts, m.usergroup, u.g_id, u.name
 				FROM c_members m INNER JOIN c_usergroups u ON (m.usergroup = u.g_id)

@@ -6,7 +6,7 @@
  *
  * File: main.js
  * License: GPLv2
- * Copyright: (c) 2015 - Addictive Software
+ * Copyright: (c) 2016 - Addictive Community
  */
 
 /* global $, tinymce */
@@ -43,6 +43,29 @@ $(document).ready(function($) {
 			}
 			else {
 				icon.removeClass('fa-angle-left').addClass('fa-angle-down');
+			}
+		});
+	}).call(this);
+
+	/**
+	 * TOGGLE BOXES
+	 */
+
+	(function() {
+		$('*[data-toggle]').on('click', function() {
+			var $this = $(this);
+			var arrow = $this.find('i');
+			var targetId = $this.data('toggle');
+
+			$('#' + targetId).slideToggle();
+
+			if(arrow.hasClass('fa-angle-down')) {
+				arrow.removeClass('fa-angle-down');
+				arrow.addClass('fa-angle-right');
+			}
+			else {
+				arrow.removeClass('fa-angle-right');
+				arrow.addClass('fa-angle-down');
 			}
 		});
 	}).call(this);

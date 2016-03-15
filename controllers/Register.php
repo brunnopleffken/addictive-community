@@ -8,7 +8,7 @@
 #
 #  File: Register.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 class Register extends Application
@@ -91,7 +91,7 @@ class Register extends Application
 		// Build new member info array
 		$register_info = array(
 			"username"      => Http::Request("username"),
-			"password"      => String::Encrypt(Http::Request("password"), $salt),
+			"password"      => Text::Encrypt(Http::Request("password"), $salt),
 			"email"         => Http::Request("email"),
 			"hide_email"    => 1,
 			"ip_address"    => $_SERVER['REMOTE_ADDR'],

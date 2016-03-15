@@ -8,7 +8,7 @@
 #
 #  File: Core.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 class Core
@@ -132,14 +132,14 @@ class Core
 			$folder = "public/emoticons/" . $this->config['emoticon_default_set'];
 
 			foreach($emoticons as $item) {
-				$shortcut = String::Sanitize($item['shortcut']);
+				$shortcut = Text::Sanitize($item['shortcut']);
 				$translate[$shortcut] = "<img src='{$folder}/{$item['filename']}' class='emoticon' alt='{$item['shortcut']}'>";
 			}
 			$retval = strtr(html_entity_decode($text), $translate);
-			return String::RemoveHTMLElements($retval);
+			return Text::RemoveHTMLElements($retval);
 		}
 		else {
-			return String::RemoveHTMLElements($text);
+			return Text::RemoveHTMLElements($text);
 		}
 	}
 

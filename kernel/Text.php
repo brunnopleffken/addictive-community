@@ -6,12 +6,12 @@
 #  Created by Brunno Pleffken Hosti
 #  http://github.com/brunnopleffken/addictive-community
 #
-#  File: String.php
+#  File: Text.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
-class String
+class Text
 {
 	/**
 	 * --------------------------------------------------------------------

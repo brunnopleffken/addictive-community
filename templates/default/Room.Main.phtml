@@ -1,5 +1,5 @@
 <script id="thread-item-template" type="x-tmpl-mustache">
-<div class="thread-item {{class}}">
+<div class="thread-item {{class}} {{to_be_opened}}">
 	<div class="avatar">{{{author_avatar}}}</div>
 	<div class="middle">
 		<a href="thread/{{t_id}}-{{slug}}" class="title">{{title}}</a>
@@ -17,10 +17,10 @@
 			<i class="fa fa-fw fa-eye"></i><span class="value">{{views}}</span>
 		</div>
 		<div class="label">
-			<i class="fa fa-fw fa-user"></i><span class="value"><a href="profile/{{lastpost_member_id}}" title="{{lastpost_name}}">{{lastpost_name}}</a></span>
+			<i class="fa fa-fw fa-user"></i><span class="value"><a href="profile/{{last_post_member_id}}" title="{{last_post_name}}">{{last_post_name}}</a></span>
 		</div>
 		<div class="label">
-			<i class="fa fa-fw fa-clock-o"></i><span class="value">{{lastpost_date}}</span>
+			<i class="fa fa-fw fa-clock-o"></i><span class="value">{{last_post_date}}</span>
 		</div>
 	</div>
 </div>
@@ -63,7 +63,7 @@
 
 <?php if(!empty($threads)): ?>
 	<?php foreach($threads as $k => $v): ?>
-		<div class="thread-item <?php __($threads[$k]['class']) ?>">
+		<div class="thread-item <?php __($threads[$k]['class'] . " " . $threads[$k]['to_be_opened']) ?>">
 			<div class="avatar">
 				<?php __($threads[$k]['author_avatar']) ?>
 			</div>
@@ -87,13 +87,13 @@
 				<div class="label">
 					<i class="fa fa-fw fa-user"></i><!--
 					--><span class="value">
-						<a href="profile/<?php __($threads[$k]['lastpost_member_id']) ?>" title="<?php __($threads[$k]['lastpost_by']) ?>">
-							<?php __($threads[$k]['lastpost_name']) ?>
+						<a href="profile/<?php __($threads[$k]['last_post_member_id']) ?>" title="<?php __($threads[$k]['last_post_by']) ?>">
+							<?php __($threads[$k]['last_post_name']) ?>
 						</a>
 					</span>
 				</div>
 				<div class="label">
-					<i class="fa fa-fw fa-clock-o"></i><span class="value"><?php __($threads[$k]['lastpost_date']) ?></span>
+					<i class="fa fa-fw fa-clock-o"></i><span class="value"><?php __($threads[$k]['last_post_date']) ?></span>
 				</div>
 			</div>
 		</div>

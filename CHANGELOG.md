@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.9.0 (2016-03-15)
+
+*Yes, it's finally here!*
+
+#### Added
+- Set automatic thread opening/lock date and time.
+
+#### Fixes
+- Addictive Community is now PHP 7 compatible (retaining the PHP 5.3+ support);
+- Members were able to post in locked threads;
+- Unable to delete multiple private messages (#61, thanks to @xQuByte);
+- Disable 'Obsolete Thread' feature not working (#62).
+
+#### Changed
+- `Error()` controller renamed to `Failure()`: Since PHP 7 class name "Error" is predefined and used internally;
+- Kernel module String renamed to Text due to new reserved words in PHP 7;
+- Some table fields renamed to follow the *separate_by_underscores_pattern*.
+
+
+
 ## v0.8.0 (2015-08-03)
 
 #### Added

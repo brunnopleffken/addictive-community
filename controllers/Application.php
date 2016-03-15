@@ -8,7 +8,7 @@
 #
 #  File: Application.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 class Application
@@ -100,7 +100,7 @@ class Application
 		// Is community offline?
 		if($this->Core->config['general_offline']) {
 			if(!strstr($_SERVER['REQUEST_URI'], "error")) {
-				$this->Core->Redirect("error?t=offline");
+				$this->Core->Redirect("failure?t=offline");
 			}
 		}
 
@@ -186,7 +186,7 @@ class Application
 		}
 
 		$member_count = count($online);
-		$member_list  = String::ToList($online);
+		$member_list  = Text::ToList($online);
 		$this->Set("member_count", $member_count);
 		$this->Set("member_list", $member_list);
 

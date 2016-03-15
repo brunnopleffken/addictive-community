@@ -8,7 +8,7 @@
 #
 #  File: Email.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 class Email
@@ -40,7 +40,7 @@ class Email
 				. "<a href='admin/' target='_blank'>Administration Control Panel</a>."
 			);
 		}
-		if($config['general_email_authentication'] && 
+		if($config['general_email_authentication'] &&
 		($config['general_email_username'] == "" || $config['general_email_password'] == "")) {
 			Html::Error("<b>Mailer Error:</b> You're unable to send e-mails. Check your SMTP settings in "
 				. "<a href='admin/' target='_blank'>Administration Control Panel</a>."

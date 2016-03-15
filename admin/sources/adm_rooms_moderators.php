@@ -6,7 +6,7 @@
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_rooms_moderators.php
 	#  License: GPLv2
-	#  Copyright: (c) 2015 - Addictive Community
+	#  Copyright: (c) 2016 - Addictive Community
 	## ---------------------------------------------------
 
 	// Build notification messages
@@ -43,7 +43,7 @@
 				$moderator_list[] = $member['username'];
 			}
 
-			$result['moderators_list'] = String::ToList($moderator_list);
+			$result['moderators_list'] = Text::ToList($moderator_list);
 		}
 
 		// Cannot add moderators in Redirect Rooms

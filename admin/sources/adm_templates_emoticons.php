@@ -6,7 +6,7 @@
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_languages_manager.php
 	#  License: GPLv2
-	#  Copyright: (c) 2015 - Addictive Community
+	#  Copyright: (c) 2016 - Addictive Community
 	## ---------------------------------------------------
 
 	// List of emoticons

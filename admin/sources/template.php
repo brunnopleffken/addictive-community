@@ -6,7 +6,7 @@
 #  Developed by Brunno Pleffken Hosti
 #  File: template.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
 $layout['header'] = <<<HTML

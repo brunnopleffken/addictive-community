@@ -6,7 +6,7 @@
 #  Developed by Brunno Pleffken Hosti
 #  File: index.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
 // Type dot-dot is so boring...
@@ -17,7 +17,7 @@ require_once(ROOT . "init.php");
 
 // Load kernel drivers
 require(ROOT . "kernel/Html.php");
-require(ROOT . "kernel/String.php");
+require(ROOT . "kernel/Text.php");
 
 // Check if .lock exists
 if(file_exists(ROOT . "install/.lock")) {

@@ -6,7 +6,7 @@
 	#  Developed by Brunno Pleffken Hosti
 	#  File: main.php
 	#  License: GPLv2
-	#  Copyright: (c) 2015 - Addictive Community
+	#  Copyright: (c) 2016 - Addictive Community
 	## ---------------------------------------------------
 
 	// First... check if the login sessions exists!
@@ -40,7 +40,7 @@
 	require("../kernel/Html.php");
 	require("../kernel/Http.php");
 	require("../kernel/i18n.php");
-	require("../kernel/String.php");
+	require("../kernel/Text.php");
 	require("../kernel/Template.php");
 
 	$Db = new Database();

@@ -31,7 +31,7 @@
 					<span><?php __("P_POLL_CHOICES_DESC") ?></span>
 				</div>
 				<div class="field">
-					<textarea name="poll_choices" id="poll-choices" class="required large" rows="12"></textarea>
+					<textarea name="poll_choices" id="poll-choices" class="required large" rows="8"></textarea>
 				</div>
 			</div>
 		<?php endif; ?>
@@ -44,9 +44,39 @@
 		<?php if($member_info['usergroup'] == 1 || $member_info['usergroup'] == 2 || $is_moderator): ?>
 			<div class="input-box">
 				<div class="label"><?php __("P_OPTIONS") ?></div>
-				<div class="field textOnly">
+				<div class="field text-only">
 					<label><input type="hidden" name="announcement" value="0"><input type="checkbox" value="1" name="announcement"> <?php __("P_SET_ANNOUNCEMENT") ?></label><br>
 					<label><input type="hidden" name="locked" value="0"><input type="checkbox" value="1" name="locked"> <?php __("P_LOCK") ?></label>
+					<a class="field-group-title" data-toggle="set-thread-date-box">
+						<i class="fa fa-fw fa-angle-down"></i> <?php __("T_AUTO_TITLE") ?>
+					</a>
+					<div class="field-group" id="set-thread-date-box">
+						<span>
+							<strong><?php __("T_AUTO_DESCRIPTION") ?></strong><br>
+							<small><?php echo $thread_auto_details ?></small>
+						</span>
+						<label>
+							<span><?php __("T_AUTO_OPEN_AT") ?></span>
+							<?php
+								__(Html::Days("open_day", 0, true) . "&nbsp;");
+								__(Html::Months("open_month", false, 0, true) . "&nbsp;");
+								__(Html::Years("open_year", 0, 2, 0, true) . " at ");
+								__(Html::Hours("open_hours", 0) . " : ");
+								__(Html::Minutes("open_minutes", 0));
+							?>
+						</label>
+						<br>
+						<label>
+							<span><?php __("T_AUTO_CLOSE_AT") ?></span>
+							<?php
+								__(Html::Days("lock_day", 0, true) . "&nbsp;");
+								__(Html::Months("lock_month", false, 0, true) . "&nbsp;");
+								__(Html::Years("lock_year", 0, 2, 0, true) . " at ");
+								__(Html::Hours("lock_hours", 0) . " : ");
+								__(Html::Minutes("lock_minutes", 0));
+							?>
+						</label>
+					</div>
 				</div>
 			</div>
 		<?php endif; ?>

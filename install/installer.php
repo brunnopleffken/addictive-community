@@ -8,7 +8,7 @@
 	#
 	#  File: installer.php
 	#  License: GPLv2
-	#  Copyright: (c) 2015 - Addictive Community
+	#  Copyright: (c) 2016 - Addictive Community
 	## -------------------------------------------------------
 
 	/**
@@ -21,7 +21,7 @@
 	require_once("../kernel/Core.php");
 	require_once("../kernel/Html.php");
 	require_once("../kernel/Http.php");
-	require_once("../kernel/String.php");
+	require_once("../kernel/Text.php");
 	require_once("../kernel/Database.php");
 
 	// Get step number
@@ -192,21 +192,21 @@
 
 			$community_info = array(
 				'timestamp'      => time(),
-				'community_name' => String::Sanitize($data['community_name']),
-				'community_url'  => String::Sanitize($data['community_url'])
+				'community_name' => Text::Sanitize($data['community_name']),
+				'community_url'  => Text::Sanitize($data['community_url'])
 			);
 
 			// Insert sample room, thread and post
 
-			$sql[] = "INSERT INTO `c_rooms` (`r_id`, `category_id`, `name`, `description`, `url`, `order_n`, `threads`, `lastpost_date`, `lastpost_thread`, `lastpost_member`, `invisible`, `rules_title`, `rules_text`, `rules_visible`, `read_only`, `password`, `upload`, `perm_view`, `perm_post`, `perm_reply`, `moderators`) VALUES (1, 1, 'A Test Room', 'You can edit or remove this room at any time.', NULL, 1, 1, {$community_info['timestamp']}, 1, 1, 0, '', '', 0, 0, '', 1, 'a:5:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";i:3;s:3:\"V_4\";i:4;s:3:\"V_5\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', '');";
-			$sql[] = "INSERT INTO `c_threads` (`t_id`, `title`, `slug`, `author_member_id`, `replies`, `views`, `start_date`, `room_id`, `tags`, `announcement`, `lastpost_date`, `lastpost_member_id`, `moved_to`, `locked`, `approved`, `with_bestanswer`, `poll_question`, `poll_data`, `poll_allow_multiple`) VALUES (1, 'Welcome', 'welcome', 1, 1, 0, {$community_info['timestamp']}, 1, NULL, 0, {$community_info['timestamp']}, 1, NULL, 0, 1, 0, NULL, NULL, NULL);";
+			$sql[] = "INSERT INTO `c_rooms` (`r_id`, `category_id`, `name`, `description`, `url`, `order_n`, `threads`, `last_post_date`, `last_post_thread`, `last_post_member`, `invisible`, `rules_title`, `rules_text`, `rules_visible`, `read_only`, `password`, `upload`, `perm_view`, `perm_post`, `perm_reply`, `moderators`) VALUES (1, 1, 'A Test Room', 'You can edit or remove this room at any time.', NULL, 1, 1, {$community_info['timestamp']}, 1, 1, 0, '', '', 0, 0, '', 1, 'a:5:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";i:3;s:3:\"V_4\";i:4;s:3:\"V_5\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', 'a:3:{i:0;s:3:\"V_1\";i:1;s:3:\"V_2\";i:2;s:3:\"V_3\";}', '');";
+			$sql[] = "INSERT INTO `c_threads` (`t_id`, `title`, `slug`, `author_member_id`, `replies`, `views`, `start_date`, `lock_date`, `room_id`, `tags`, `announcement`, `last_post_date`, `last_post_member_id`, `moved_to`, `locked`, `approved`, `with_best_answer`, `poll_question`, `poll_data`, `poll_allow_multiple`) VALUES (1, 'Welcome', 'welcome', 1, 1, 0, {$community_info['timestamp']}, 0, 1, NULL, 0, {$community_info['timestamp']}, 1, NULL, 0, 1, 0, NULL, NULL, NULL);";
 			$sql[] = "INSERT INTO `c_posts` (`p_id`, `author_id`, `thread_id`, `post_date`, `attach_id`, `attach_clicks`, `ip_address`, `post`, `edit_time`, `edit_author`, `best_answer`, `first_post`) VALUES (1, 1, 1, {$community_info['timestamp']}, NULL, NULL, '127.0.0.1', '<p>Welcome to your new Addictive Community.</p><p>This is simply a test message confirming that the installation was successful.</p>', NULL, NULL, 0, 1);";
 
 			// Insert configuration file
 
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_name', '{$community_info['community_name']}');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_url', '{$community_info['community_url']}');";
-			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.8.0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_version', 'v0.9.0');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_name', 'My Website');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_website_url', 'http://');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_community_logo', 'logo.png');";
@@ -292,15 +292,15 @@
 
 			// Get administrator account data
 			$admin_info = array(
-				'username' => String::Sanitize($data['admin_username']),
-				'password' => String::Encrypt($data['admin_password'], $salt),
-				'email'    => String::Sanitize($data['admin_email']),
+				'username' => Text::Sanitize($data['admin_username']),
+				'password' => Text::Encrypt($data['admin_password'], $salt),
+				'email'    => Text::Sanitize($data['admin_email']),
 				'joined'   => time()
 			);
 
 			// Build SQL
 
-			$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_facebook`, `im_twitter`, `posts`, `lastpost_date`, `signature`, `template`, `theme`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', 1, 1367848084, '', 'default', 'default-light', '{$data['default_language']}', NULL, NULL, 0, '{$data['default_timezone']}', 0, 1, 1, '')";
+			$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_facebook`, `im_twitter`, `posts`, `last_post_date`, `signature`, `template`, `theme`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', 1, 1367848084, '', 'default', 'default-light', '{$data['default_language']}', NULL, NULL, 0, '{$data['default_timezone']}', 0, 1, 1, '')";
 
 			$insert_admin = $Db->Query($insert_admin_query);
 

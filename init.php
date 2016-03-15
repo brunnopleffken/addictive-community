@@ -8,7 +8,7 @@
 #
 #  File: init.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 // Show all kind of errors
@@ -27,7 +27,7 @@ header('Content-Type: text/html; charset=utf-8');
  * ADDICTIVE COMMUNITY VERSION
  * --------------------------------------------------------------------
  */
-define("VERSION", "v0.8.0");
+define("VERSION", "v0.9.0");
 define("CHANNEL", "Beta"); // e.g.: Alpha, Beta, Release Candidate, Final
 
 /**

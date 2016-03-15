@@ -8,7 +8,7 @@
 #
 #  File: Session.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 class Session
@@ -64,7 +64,7 @@ class Session
 		if($expire == 1) {
 			$expire = $this->session_expires;
 		}
-		setcookie($name, String::Sanitize($value), $expire, "/");
+		setcookie($name, Text::Sanitize($value), $expire, "/");
 	}
 
 	/**

@@ -8,7 +8,7 @@
 #
 #  File: index.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 // Run initialization file before loading Main()
@@ -125,7 +125,7 @@ class Main
 	{
 		// Controllers names are in UpperCamelCase, but URLs in lowercase
 		$controller = $this->controller = ucwords($controller);
-		$action = ($action != "") ? String::FormatActionName($this->action) : $this->action = "Main";
+		$action = ($action != "") ? Text::FormatActionName($this->action) : $this->action = "Main";
 
 		// Load Application controller
 		require("controllers/Application.php");
@@ -175,7 +175,7 @@ class Main
 
 			// Load page content
 			ob_start();
-			require("templates/" . $this->template . "/" . $this->controller . "." . String::FormatActionName($this->action) . ".phtml");
+			require("templates/" . $this->template . "/" . $this->controller . "." . Text::FormatActionName($this->action) . ".phtml");
 			$this->content = ob_get_clean();
 
 			// Load master page

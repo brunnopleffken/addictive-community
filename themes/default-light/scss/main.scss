@@ -79,7 +79,7 @@ form {
 	.medium { width: 300px; }
 	.small { width: 200px; }
 	.tiny { width: 90px; }
-	input[type=text], input[type=password], input[type=file], textarea {
+	input[type=text], input[type=password], input[type=file], input[type=number], textarea {
 		border: 1px solid #ccc;
 		border-radius: 3px;
 		box-shadow: 0px 0px 2px rgba(#000, 0.1) inset;
@@ -174,11 +174,30 @@ form {
 		display: table-cell;
 		margin-bottom: 15px;
 		min-height: 30px;
-		&:last-child {
-			margin: 0;
+		&:last-child { margin: 0; }
+		&.text-only { padding: 5px 0; }
+		.field-group-title {
+			color: #333;
+			cursor: pointer;
+			display: block;
+			font-size: 14px;
+			font-weight: bold;
+			letter-spacing: 1px;
+			margin: 20px 0 10px 0;
+			&:hover { text-decoration: none; }
 		}
-		&.textOnly {
-			padding: 5px 0;
+		.field-group {
+			background-color: #f9f9f9;
+			border: 1px solid #eee;
+			display: none;
+			padding: 10px;
+			span {
+				display: block;
+				margin-bottom: 5px;
+			}
+			label {
+				display: block;
+			}
 		}
 	}
 	&:last-child {
@@ -811,6 +830,21 @@ a.room-mark-as-read {
 		.stats {
 			background: $accent url('../images/best-answer.png') no-repeat top right;
 			background-size: 32px;
+		}
+	}
+	&.to-be-opened {
+		opacity: 0.5;
+		@include transition(300ms);
+		.middle > a {
+			&:after {
+				color: #000;
+				content: "\F017";
+				font-family: FontAwesome;
+				font-size: 14px;
+			}
+		}
+		&:hover {
+			opacity: 0.9;
 		}
 	}
 }

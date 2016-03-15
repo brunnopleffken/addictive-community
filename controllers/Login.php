@@ -8,7 +8,7 @@
 #
 #  File: Login.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
 class Login extends Application
@@ -41,7 +41,7 @@ class Login extends Application
 
 		if(Http::Request("username") && Http::Request("password")) {
 			$username = Http::Request("username");
-			$password = String::Encrypt(Http::Request("password"), $salt);
+			$password = Text::Encrypt(Http::Request("password"), $salt);
 
 			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");
@@ -69,7 +69,7 @@ class Login extends Application
 			else {
 				// No lines returned: show error
 				// "Username or password is wrong."
-				$this->Core->Redirect("error?t=wrong_username_password");
+				$this->Core->Redirect("failure?t=wrong_username_password");
 			}
 		}
 	}
@@ -91,7 +91,7 @@ class Login extends Application
 
 		if(Http::Request("username") && Http::Request("password")) {
 			$username = Http::Request("username");
-			$password = String::Encrypt(Http::Request("password"), $salt);
+			$password = Text::Encrypt(Http::Request("password"), $salt);
 
 			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");

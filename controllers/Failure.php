@@ -8,10 +8,10 @@
 #
 #  File: Error.php
 #  License: GPLv2
-#  Copyright: (c) 2015 - Addictive Community
+#  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
-class Error extends Application
+class Failure extends Application
 {
 	/**
 	 * --------------------------------------------------------------------
@@ -33,6 +33,9 @@ class Error extends Application
 			),
 			'protected_room' => array(
 				Html::Notification(i18n::Translate("E_MESSAGE_PROTECTED"), "failure", true), "protected"
+			),
+			'thread_locked' => array(
+				Html::Notification(i18n::Translate("E_MESSAGE_LOCKED_THREAD"), "failure", true), false
 			),
 			'offline' => array(
 				"", "offline"

@@ -55,14 +55,6 @@ CREATE TABLE `c_events` (
   PRIMARY KEY (`e_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `c_follow` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
-  `follower` int(8) DEFAULT NULL,
-  `following` int(8) DEFAULT NULL,
-  `date` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 CREATE TABLE `c_help` (
   `h_id` int(3) NOT NULL AUTO_INCREMENT,
   `title` varchar(45) DEFAULT NULL,
@@ -112,7 +104,7 @@ CREATE TABLE `c_members` (
   `im_facebook` varchar(50) DEFAULT NULL,
   `im_twitter` varchar(50) DEFAULT NULL,
   `posts` int(9) NOT NULL,
-  `lastpost_date` int(10) DEFAULT NULL,
+  `last_post_date` int(10) DEFAULT NULL,
   `signature` text,
   `template` varchar(20) NOT NULL DEFAULT '',
   `theme` varchar(20) NOT NULL DEFAULT '',
@@ -190,9 +182,9 @@ CREATE TABLE `c_rooms` (
   `url` varchar(100) DEFAULT NULL,
   `order_n` int(3) DEFAULT NULL,
   `threads` int(9) NOT NULL,
-  `lastpost_date` int(10) DEFAULT NULL,
-  `lastpost_thread` int(8) DEFAULT NULL,
-  `lastpost_member` int(8) DEFAULT NULL,
+  `last_post_date` int(10) DEFAULT NULL,
+  `last_post_thread` int(8) DEFAULT NULL,
+  `last_post_member` int(8) DEFAULT NULL,
   `invisible` int(1) DEFAULT NULL,
   `rules_title` varchar(50) DEFAULT NULL,
   `rules_text` text,
@@ -258,15 +250,16 @@ CREATE TABLE `c_threads` (
   `replies` int(9) NOT NULL,
   `views` int(9) NOT NULL,
   `start_date` int(10) NOT NULL,
+  `lock_date` int(10) NOT NULL,
   `room_id` int(3) NOT NULL,
   `tags` varchar(255) DEFAULT NULL,
   `announcement` int(1) DEFAULT NULL,
-  `lastpost_date` int(10) DEFAULT NULL,
-  `lastpost_member_id` int(8) DEFAULT NULL,
+  `last_post_date` int(10) DEFAULT NULL,
+  `last_post_member_id` int(8) DEFAULT NULL,
   `moved_to` int(3) DEFAULT NULL,
   `locked` int(1) DEFAULT NULL,
   `approved` int(1) DEFAULT NULL,
-  `with_bestanswer` int(1) DEFAULT NULL,
+  `with_best_answer` int(1) DEFAULT NULL,
   `poll_question` varchar(64) DEFAULT NULL,
   `poll_data` text,
   `poll_allow_multiple` int(1) DEFAULT NULL,

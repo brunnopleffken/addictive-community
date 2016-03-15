@@ -6,7 +6,7 @@
 	#  Developed by Brunno Pleffken Hosti
 	#  File: adm_members_usergroups.php
 	#  License: GPLv2
-	#  Copyright: (c) 2015 - Addictive Community
+	#  Copyright: (c) 2016 - Addictive Community
 	## ---------------------------------------------------
 
 	// Notification
@@ -31,7 +31,7 @@
 
 		Template::Add("<tr>
 				<td><b>{$group['name']}</b></td>
-				<td class='min'><i class='fa fa-pencil'></i></td>
+				<td class='min'><a href='main.php?act=members&p=edit_usergroup&id={$group['g_id']}'><i class='fa fa-pencil'></i></a></td>
 				<td class='min'>{$delete}</td>
 			</tr>");
 	}
