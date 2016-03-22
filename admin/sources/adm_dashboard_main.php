@@ -24,7 +24,7 @@
 
 	// System environment
 
-	$phpversion = "PHP " . phpversion();
+	$srvsoft = $_SERVER["SERVER_SOFTWARE"];
 
 	$Db->Query("SELECT VERSION() AS version;");
 	$mysql_v = $Db->Fetch();
@@ -126,8 +126,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="title">PHP Version</td>
-						<td><?php __($phpversion); ?></td>
+						<td class="title">Server Software</td>
+						<td><?php __($srvsoft); ?></td>
 					</tr>
 					<tr>
 						<td class="title">MySQL Version</td>
