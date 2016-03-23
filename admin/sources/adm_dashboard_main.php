@@ -40,6 +40,10 @@
 			LEFT JOIN c_threads t ON (r.thread_id = t.t_id)
 			ORDER BY rp_id DESC LIMIT 15;");
 
+	if($Db->Rows($reports) == 0) {
+		$html = "<tr><td colspan='7' class='center'>There are no abuse reports at the moment.</td></tr>";
+	}
+
 	while($report = $Db->Fetch($reports)) {
 		$report['date'] = $Core->DateFormat($report['date']);
 
