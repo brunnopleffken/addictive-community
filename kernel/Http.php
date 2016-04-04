@@ -29,7 +29,7 @@ class Http
 			}
 
 			// If is not a number, sanitize value as text
-			if(!$numeric_only) {
+			if(!$numeric_only && !is_array($_REQUEST[$name])) {
 				$text = stripslashes($_REQUEST[$name]);
 				$text = str_replace(";", "&semi;", $text);
 				$text = str_replace("& ", "&amp; ", $text);
