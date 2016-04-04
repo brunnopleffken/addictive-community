@@ -288,7 +288,7 @@ switch($do) {
 			fclose($handle);
 		}
 
-		$Admin->RegisterLog("Edited language file '" . $file . "' from '" . $dir . "'");
+		$Admin->RegisterLog("Edited language file \'" . $file . "\' from \'" . $dir . "\'");
 
 		header("Location: " . $_SERVER['HTTP_REFERER']);
 		exit;
