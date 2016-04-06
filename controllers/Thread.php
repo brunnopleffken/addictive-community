@@ -286,7 +286,7 @@ class Thread extends Application
 			);
 
 			// Serialize poll data array into JSON
-			$poll_data = json_encode($poll_data);
+			$poll_data = json_encode($poll_data, JSON_UNESCAPED_UNICODE);
 		}
 		else {
 			$poll_data = "";
