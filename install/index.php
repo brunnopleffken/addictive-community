@@ -349,45 +349,45 @@ HTML;
 
 		case 4:
 
-		session_start();
+			session_start();
 
-			// Connect to database and get information
+			// Get MySQL authentication info
 			$installer = new Installer();
-			$installer->InstallerDB();
-
-			$installer->Query("SELECT VERSION() AS mysql_version;");
-			$result = $installer->Fetch();
-
-			preg_match("#[0-9]+\.[0-9]+\.[0-9]+#", $result['mysql_version'], $mysql_version);
-
-			$info['mysql-version'] = $mysql_version[0];
-
 			$_SESSION['db_server']   = $installer->input['db_server']   = $_REQUEST['host'];
 			$_SESSION['db_database'] = $installer->input['db_database'] = $_REQUEST['database'];
 			$_SESSION['db_username'] = $installer->input['db_username'] = $_REQUEST['username'];
 			$_SESSION['db_password'] = $installer->input['db_password'] = $_REQUEST['password'];
 			$_SESSION['db_port']     = $installer->input['db_port']     = $_REQUEST['port'];
 
-			$dir = str_replace("install", "", getcwd());
-			$url = str_replace("install/index.php", "", $_SERVER['HTTP_REFERER']);
-			$url = preg_replace("#\?(.+?)*#", "", $url);
+			// Connect to database and get information
+			$installer->InstallerDB();
+			$installer->Query("SELECT VERSION() AS mysql_version;");
+			$result = $installer->Fetch();
+
+			preg_match("#[0-9]+\.[0-9]+\.[0-9]+#", $result['mysql_version'], $mysql_version);
+			$info['mysql-version'] = $mysql_version[0];
 
 			$sql_v = version_compare($info['mysql-version'], MIN_SQL_VERSION);
 
 			if($sql_v >= 0) {
-				// Show notification message about correct MYSQL Version
+				// Show notification message about correct MySQL version
 				$mysql_information = Html::Notification(
 					"MySQL version is correct!", "info", true
 				);
 				$button_lock = "";
 			}
 			else {
-				// Show notification message about wrong MYSQL Version
+				// Show notification message about wrong MySQL version
 				$mysql_information = Html::Notification(
 					"MySQL version is incorrect! You can't continue. Required version of MySQL is 5.1 or higher.", "info", true
 				);
 				$button_lock = "disabled";
 			}
+
+			// Community URL and physical path
+			$dir = str_replace("install", "", getcwd());
+			$url = str_replace("install/index.php", "", $_SERVER['HTTP_REFERER']);
+			$url = preg_replace("#\?(.+?)*#", "", $url);
 
 			// Languages
 			$dir_list = array();
