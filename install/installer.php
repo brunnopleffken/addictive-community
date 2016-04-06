@@ -322,6 +322,7 @@
 
 		default:
 			$status = 0;
+			$description = "";
 	}
 
 	$data = array(
