@@ -12,7 +12,12 @@ If your issue appears to be a bug, and hasn't been reported, [open a new issue](
 
 
 ## <a name="translations"></a> Translations
-You can help us translate our project creating new language packs or improving existing ones here: https://github.com/brunnopleffken/addictive-community-languages.
+You can help us translate our project creating new language packs or improving existing ones. It's quite easy:
+
+- Duplicate the folder `en_US` inside the `\languages` folder to get the latest dictionary.
+- Rename it to whatever that complies to the [ICU locale standards](http://demo.icu-project.org/icu-bin/locexp) (for example, **de_DE** for German, **es_ES** for Spanish and **es_MX** for Mexican Spanish).
+- Translate all PHP files within the folder as accurately as possible, and don't forget to edit the JSON file with your name and personal e-mail. As the ICU code, name your language as **Language (Country/Dialect)** (if there's no dialect variety, leave blank, e.g: just "Japanese").
+- Send a Pull Request (see instructions below) and just wait for our approval! :)
 
 In the future you will also be able to create customized themes.
 
@@ -42,7 +47,8 @@ Then you can safely delete your branch and pull the changes from the main (upstr
 ## <a name="coding"></a> Coding Guidelines
 To ensure consistency throughout the source code, keep these rules in mind as you are working:
 
-- Never use short tags (```<?``` or ```<?=$var?>```), nor ASP-like tags; if a file is pure PHP code, omit the PHP closing tag at the end of the file (e.g. controllers).
+- Set your editor or project file to 1 tab indenting - not 4 spaces.
+- Never use short tags (```<?``` or ```<?=$var?>```), nor ASP-like tags, as it's deprecated; if a file is pure PHP code, omit the PHP closing tag at the end of the file (e.g. controllers).
 - Always add one space between operators (+, -, ++, --, ==, ===) and before curly braces.
 - Never use single quotes, except in:
   - Arrays indices: ```$array['index']```;
