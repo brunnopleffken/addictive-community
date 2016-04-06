@@ -1001,6 +1001,9 @@ class Thread extends Application
 				$result['rank'] = array();
 			}
 
+			// Transform HTML entities
+			$result['post'] = htmlentities($result['post']);
+
 			// Block bad words
 			$result['post'] = $this->_FilterBadWords($result['post']);
 
