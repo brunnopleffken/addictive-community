@@ -142,6 +142,7 @@ class Thread extends Application
 		$this->Set("thread_info", $thread_info);
 		$this->Set("quote", $quote);
 		$this->Set("allow_uploads", $thread_info['upload']);
+		$this->Set("attachment_size_warning", i18n::Translate("P_ATTACHMENTS_MAX_SIZE", array($this->Core->config['general_max_attachment_size'] . "MB")));
 	}
 
 	/**

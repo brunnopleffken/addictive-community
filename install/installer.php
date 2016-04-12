@@ -234,6 +234,7 @@
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_obsolete_value', '60');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('thread_allow_emoticons', '1');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_allow_guest_post', '0');";
+			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_max_attachment_size', '2');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_offline', '0');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_updating', '0');";
 			$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('general_disable_registrations', '0');";

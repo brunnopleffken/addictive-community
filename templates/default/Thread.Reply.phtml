@@ -25,7 +25,10 @@
 		<?php if($allow_uploads): ?>
 			<div class="input-box">
 				<div class="label"><?php __("P_ATTACHMENTS") ?></div>
-				<div class="field"><input type="file" name="attachment"></div>
+				<div class="field">
+					<div style='display: inline-block'><input type="file" name="attachment"></div>
+					<small><?php __($attachment_size_warning) ?></small>
+				</div>
 			</div>
 		<?php endif; ?>
 		<div class="fleft">
