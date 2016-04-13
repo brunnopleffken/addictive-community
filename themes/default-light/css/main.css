@@ -116,9 +116,9 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .sidebar .sidebar-item .list .item a:hover { text-decoration: none; }
 .sidebar .sidebar-item .list .item i { color: #aaabb0; float: right; line-height: 21px; margin-right: 4px; }
 .sidebar .sidebar-item .list .item span { background: #8a8b90; color: #eff0f4; border-radius: 10px; display: block; float: right; font-size: 9px; line-height: 18px; padding: 1px 0; text-align: center; width: 35px; }
-.sidebar .sidebar-item .user { background: #303747 url("../images/bar-bg.png"); border-radius: 7px; color: #eee; overflow: hidden; padding: 10px; }
-.sidebar .sidebar-item .user .avatar { background: url("../images/user_img_bg.png") no-repeat; float: left; height: 42px; width: 42px; }
-.sidebar .sidebar-item .user .avatar .img { height: 30px; margin: 6px; width: 30px; }
+.sidebar .sidebar-item .user { background: #303747 url("../images/bar-bg.png"); border-radius: 7px; color: #eee; overflow: hidden; padding: 8px; }
+.sidebar .sidebar-item .user .avatar { background: #61656f; background: -moz-linear-gradient(top, #61656f 0%, #545962 49%, #50555e 50%, #4d515b 51%, #383c46 100%); background: -webkit-linear-gradient(top, #61656f 0%, #545962 49%, #50555e 50%, #4d515b 51%, #383c46 100%); background: linear-gradient(to bottom, #61656f 0%, #545962 49%, #50555e 50%, #4d515b 51%, #383c46 100%); border: 1px solid #2c323f; border-radius: 5px; box-sizing: content-box; float: left; height: 42px; width: 42px; }
+.sidebar .sidebar-item .user .avatar .img { border: 1px solid #303747; box-sizing: content-box; height: 32px !important; margin: 4px; width: 32px !important; }
 .sidebar .sidebar-item .user .user-info { color: #eef; float: left; font-size: 11px; margin-left: 10px; margin-top: 4px; }
 .sidebar .sidebar-item .user .user-info.logged-out { margin-top: 0; }
 .sidebar .sidebar-item .user .user-info .highlight { font-weight: bold; }
