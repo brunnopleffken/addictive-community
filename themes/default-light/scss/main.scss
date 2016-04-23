@@ -176,6 +176,20 @@ form {
 		min-height: 30px;
 		&:last-child { margin: 0; }
 		&.text-only { padding: 5px 0; }
+		&.inline-label {
+			span {
+				background-color: #f6f6f6;
+				border: 1px solid #ccc;
+				border-radius: 4px 0 0 4px;
+				border-right: 0;
+				display: inline-block;
+				line-height: 27px;
+				padding: 0 8px;
+			}
+			input {
+				border-radius: 0 4px 4px 0;
+			}
+		}
 		.field-group-title {
 			color: #333;
 			cursor: pointer;

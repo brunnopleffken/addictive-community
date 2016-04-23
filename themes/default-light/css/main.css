@@ -49,6 +49,8 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .input-box .field { display: table-cell; margin-bottom: 15px; min-height: 30px; }
 .input-box .field:last-child { margin: 0; }
 .input-box .field.text-only { padding: 5px 0; }
+.input-box .field.inline-label span { background-color: #f6f6f6; border: 1px solid #ccc; border-radius: 4px 0 0 4px; border-right: 0; display: inline-block; line-height: 27px; padding: 0 8px; }
+.input-box .field.inline-label input { border-radius: 0 4px 4px 0; }
 .input-box .field .field-group-title { color: #333; cursor: pointer; display: block; font-size: 14px; font-weight: bold; letter-spacing: 1px; margin: 20px 0 10px 0; }
 .input-box .field .field-group-title:hover { text-decoration: none; }
 .input-box .field .field-group { background-color: #f9f9f9; border: 1px solid #eee; display: none; padding: 10px; }
