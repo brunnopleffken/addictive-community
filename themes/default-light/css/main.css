@@ -96,7 +96,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 #search input[type=submit] { background: #5b6786; border: 0; color: #fff; cursor: pointer; font-size: 11px; font-weight: bold; height: 32px; margin-left: 10px; padding: 0 8px; vertical-align: top; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
 #search input[type=submit]:hover { background: #657395; }
 
-#breadcrumb { background: #fff; color: #666; font-size: 11px; margin: 10px 0; padding: 8px 10px; }
+#breadcrumb { background: #fff; color: #666; font-size: 11px; line-height: 30px; margin: 10px 0; padding: 0 10px; }
 
 /** MAIN STRUCTURE **/
 .container { display: table; line-height: 1.4em; width: 100%; }
