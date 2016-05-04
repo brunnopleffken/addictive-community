@@ -388,19 +388,19 @@ $(document).ready(function($) {
 	 * MESSENGER: FIND MEMBER BY USERNAME
 	 */
 
-	$('#pmTo').select2({
+	$('.pm-to').select2({
 		minimumInputLength: 2,
 		ajax: {
 			url: 'messenger/get_usernames',
 			dataType: 'json',
 			type: 'POST',
-			quietMillis: 500,
-			data: function(term) {
+			delay: 500,
+			data: function(params) {
 				return {
-					term: term
+					term: params.term
 				};
 			},
-			results: function(data) {
+			processResults: function(data) {
 				return {
 					results: $.map(data, function(item) {
 						return {
