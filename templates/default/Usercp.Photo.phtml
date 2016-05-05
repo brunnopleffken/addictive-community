@@ -22,7 +22,6 @@
 			<div class="label"><?php __("C_PHOTO_SOURCE") ?></div>
 			<div class="field">
 				<input type="radio" name="photo_type" class="photoSelect" value="gravatar" <?php __($photo_info['gravatar']) ?>> Gravatar<br>
-				<input type="radio" name="photo_type" class="photoSelect" value="facebook" <?php __($photo_info['facebook']) ?>> Facebook<br>
 				<?php if($enable_upload): ?>
 					<input type="radio" name="photo_type" class="photoSelect" value="custom" <?php __($photo_info['custom']) ?>> <?php __("C_PHOTO_CUSTOM") ?>
 				<?php endif; ?>
@@ -36,18 +35,6 @@
 				</div>
 				<div class="fleft">
 					<?php __("C_GRAVATAR_MESSAGE") ?>
-				</div>
-				<div class="fix"></div>
-			</div>
-		</div>
-		<div class="input-box" id="facebook" style="display: none">
-			<div class="label"><?php __("C_FACEBOOK_SETTINGS") ?></div>
-			<div class="field">
-				<div class="fleft" style="margin-right: 15px">
-					<?php __(Html::Crop($photo_info['facebook_image'], 120, 120)) ?>
-				</div>
-				<div class="fleft">
-					<?php __("C_FACEBOOK_MESSAGE") ?>
 				</div>
 				<div class="fix"></div>
 			</div>

@@ -80,7 +80,7 @@ class Core
 
 	/**
 	 * --------------------------------------------------------------------
-	 * GET GRAVATAR, FACEBOOK OR UPLOADED MEMBER IMAGE PATH
+	 * GET GRAVATAR OR UPLOADED MEMBER IMAGE PATH
 	 * $info: is an array containing 'email', 'photo' and 'photo_type'
 	 * $section: public|admin
 	 * --------------------------------------------------------------------
@@ -93,13 +93,6 @@ class Core
 				$url = "http://www.gravatar.com/avatar/";
 				$url .= md5(strtolower(trim($info['email'])));
 				$url .= "?s={$size}&amp;d={$d}&amp;r={$r}";
-				break;
-
-			// Facebook photo
-			case "facebook":
-				$get_facebook = $this->Db->Query("SELECT im_facebook FROM c_members WHERE email = '{$info['email']}';");
-				$facebook_photo = $this->Db->Fetch($get_facebook);
-				$url = "https://graph.facebook.com/{$facebook_photo['im_facebook']}/picture?width={$size}&height={$size}";
 				break;
 
 			// Uploaded photo

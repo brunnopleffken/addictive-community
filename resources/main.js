@@ -108,9 +108,6 @@ $(document).ready(function($) {
 		if($('.photoSelect:checked').val() == 'gravatar') {
 			$('#gravatar').show();
 		}
-		else if($('.photoSelect:checked').val() == 'facebook') {
-			$('#facebook').show();
-		}
 		else if($('.photoSelect:checked').val() == 'custom') {
 			$('#custom').show();
 		}
@@ -120,18 +117,11 @@ $(document).ready(function($) {
 
 			if(value == 'custom') {
 				$('#gravatar').fadeOut();
-				$('#facebook').fadeOut();
 				$('#custom').delay(400).fadeIn();
 			}
 			else if(value == 'gravatar') {
 				$('#custom').fadeOut();
-				$('#facebook').fadeOut();
 				$('#gravatar').delay(400).fadeIn();
-			}
-			else {
-				$('#custom').fadeOut();
-				$('#gravatar').fadeOut();
-				$('#facebook').delay(400).fadeIn();
 			}
 		});
 	}).call(this);
