@@ -5,8 +5,6 @@ Addictive Community
 
 Free open-source discussion board (forum) software, written in object-oriented PHP. Huge advancements were made in our Beta releases and we're working hard to bring new exciting features and important improvements! Read our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md) and be part of it.
 
-Follow our official channel on Twitter, it's just one click: [@addictivecomm](https://twitter.com/addictivecomm)
-
 ![Addictive Community](https://raw.githubusercontent.com/brunnopleffken/addictive-community/3fd1ec6003d1bcb647dc1e36a89dd0506b81a5f1/templates/default/images/screenshot.png)
 
 ## Highlight features
@@ -55,6 +53,4 @@ We're glad you're interested to help develop Addictive Community. Be part of it 
 
 ## About the Author
 
-**Brunno Pleffken Hosti**, programmer well-versed in object-oriented PHP, JavaScript, .NET/C# (ASP.NET, Windows Forms, WPF and Windows Phone development) and ColdFusion.
-
-* Twitter: http://twitter.com/brunnopleffken
+Addictive Community is successfully built by the GitHub community! I may have started the project by myself, but it has developed and grown with the help of our developer friends.
