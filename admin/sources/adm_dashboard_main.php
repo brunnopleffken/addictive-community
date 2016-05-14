@@ -89,6 +89,12 @@
 	<h1>Dashboard</h1>
 
 	<div id="content">
+		<?php
+		//checks to see if install directory is still on the server, and shows a warning.
+		if(file_exists(__DIR__.'/../../install') || is_dir(__DIR__.'/../../install')){
+			echo HTML::Notification('It is recommended to delete the install folder.','error',true);
+		}
+		?>
 		<div class="grid-row">
 			<!-- LEFT -->
 			<div class="grid-half">
