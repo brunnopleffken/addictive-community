@@ -591,10 +591,10 @@ HTML;
 	<meta charset="utf-8">
 	<title>Addictive Community</title>
 	<!-- Common Files -->
-	<link rel="stylesheet" href="../thirdparty/select2/select2.css">
+	<link rel="stylesheet" href="../thirdparty/select2/css/select2.min.css">
 	<link href="../themes/default-light/css/main.css" type="text/css" rel="stylesheet">
 	<script type="text/javascript" src="../thirdparty/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="../thirdparty/select2/select2.js"></script>
+	<script type="text/javascript" src="../thirdparty/select2/js/select2.min.js"></script>
 	<script type="text/javascript" src="../resources/main.js"></script>
 	<!-- Community Installer -->
 	<script type="text/javascript" src="installer.js"></script>
