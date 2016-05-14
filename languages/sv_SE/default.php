@@ -21,7 +21,6 @@
 	$t["SIDEBAR_S_POSTS"] = "Inlägg";
 	$t["SIDEBAR_S_MEMBERS"] = "Medlemmar";
 	$t["SIDEBAR_S_LAST"] = "Nyaste Medlemmen";
-	$t["FOOTER_ABOUT"] = "Om";
 	$t["M_1"] = "Januari";
 	$t["M_2"] = "Februari";
 	$t["M_3"] = "Mars";
