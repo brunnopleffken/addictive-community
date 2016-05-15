@@ -92,7 +92,7 @@
 		<?php
 		//checks to see if install directory is still on the server, and shows a warning.
 		if(file_exists(__DIR__.'/../../install') || is_dir(__DIR__.'/../../install')){
-			echo HTML::Notification('It is recommended to delete the install folder.','error',true);
+			echo HTML::Notification('It is recommended to delete the install folder.','warning',true);
 		}
 		?>
 		<div class="grid-row">
