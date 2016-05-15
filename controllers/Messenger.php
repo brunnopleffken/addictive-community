@@ -232,4 +232,23 @@ class Messenger extends Application
 		// Redirect
 		$this->Core->Redirect("messenger");
 	}
+	/*****************************
+	* VIEW: FORWARDING A MESSAGE TO ANOTHER USER
+	*
+	*/
+	public function Forward($id){
+		$member_id=$this->Session->session_info['member_id'];
+		if($id){
+		   $this->Db->Query("SELECT `username`,`subject`,`message` FROM `c_messages` LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id` WHERE `pm_id`={$id} LIMIT 1");
+		   $message=$this->Db->fetch();
+		   if($message){
+		      $this->Set('message',$message);
+		    }else{
+			$this->Core->Redirect("messenger");
+		    }
+		   
+		}else{
+		  $this->Core->Redirect("messenger");
+		}
+	}
 }
