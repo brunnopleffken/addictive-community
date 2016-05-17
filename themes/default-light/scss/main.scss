@@ -50,7 +50,7 @@ body {
 
 a {
 	background-color: transparent;
-	color: #137;
+	color: $link-color;
 	text-decoration: none;
 	&:hover {
 		text-decoration: underline;
@@ -255,6 +255,7 @@ form {
 	border-radius: 5px;
 	color: #333;
 	cursor: pointer;
+	display: inline-block;
 	font-size: 10px;
 	padding: 4px 10px 5px 10px;
 	@include transition(200ms);
@@ -338,7 +339,6 @@ form {
 
 #topbar {
 	background: #000;
-	border-top: 1px solid transparent;
 	color: #ccc;
 	font-size: 11px;
 	a {
@@ -360,11 +360,9 @@ form {
 }
 
 #logo {
-	display: table;
-	margin: 20px 0;
-	width: 100%;
+	margin-bottom: 20px;
+	margin-top: 20px;
 	.logo {
-		float: left;
 		height: 50px;
 		width: 300px;
 	}
@@ -543,14 +541,6 @@ form {
 			}
 		}
 	}
-}
-
-/** CONTENT AREA **/
-
-.content {
-	display:table-cell;
-	padding-left: 15px;
-	vertical-align: top;
 }
 
 /** NAVIGATION BAR **/
@@ -1131,20 +1121,20 @@ a.room-mark-as-read {
 		.user-info {
 			color: #444;
 			font-size: 9px;
+			line-height: 1.4em;
 			list-style: none;
-			margin: 20px 5px;
-			overflow: hidden;
+			margin: 20px 8px;
+			overflow: auto;
 			li {
-				padding: 0 3px;
 				text-align: right;
-				b {
-					float: left;
-				}
+				b { float: left; }
 			}
 		}
 	}
 	.content {
 		display: table-cell;
+		padding-left: 15px;
+		vertical-align: top;
 		.quote {
 			overflow: hidden;
 			position: absolute;
@@ -1241,7 +1231,7 @@ a.room-mark-as-read {
 			bottom: 0;
 			border-top: 1px solid rgba(#000, 0.1);
 			left: 0;
-			padding: 5px 5px 8px 5px;
+			padding: 5px;
 			position: absolute;
 			right: 0;
 			text-align: right;
@@ -1665,7 +1655,9 @@ a.room-mark-as-read {
 		}
 	}
 	.content {
+		display: table-cell;
 		padding: 15px 10px;
+		vertical-align: top;
 		ul, ol { margin-left: 20px; }
 		p { margin-bottom: 5px; &:last-child { margin: 0; } }
 	}

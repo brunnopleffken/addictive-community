@@ -20,7 +20,7 @@
 <body>
 	<div id="topbar" class="container-fluid">
 		<div class="row">
-			<div class="small-12 medium-3 columns">
+			<div class="small-12 small-hide medium-3 columns">
 				<a href="<?php __($website_url) ?>" target="_blank">
 					<?php __($website_name) ?>
 				</a>
@@ -44,7 +44,7 @@
 					<img src="themes/<?php __($theme) ?>/images/logo.png" class="logo" alt="Addictive Community">
 				</a>
 			</div>
-			<div class="small-12 medium-6 columns">
+			<div class="small-12 small-hide medium-6 columns">
 				<div id="search">
 					<form action="search" method="get" class="validate">
 						<input type="text" name="q" size="25" class="required" value="<?php echo Http::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>">
