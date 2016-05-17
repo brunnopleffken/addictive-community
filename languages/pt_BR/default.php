@@ -21,7 +21,6 @@
 	$t["SIDEBAR_S_POSTS"] = "Postagens";
 	$t["SIDEBAR_S_MEMBERS"] = "Membros";
 	$t["SIDEBAR_S_LAST"] = "Último membro";
-	$t["FOOTER_ABOUT"] = "Sobre";
 	$t["M_1"] = "Janeiro";
 	$t["M_2"] = "Fevereiro";
 	$t["M_3"] = "Março";
