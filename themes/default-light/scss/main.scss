@@ -1,4 +1,5 @@
 @import "settings";
+@import "grids";
 
 /** GLOBAL **/
 
@@ -49,7 +50,7 @@ body {
 
 a {
 	background-color: transparent;
-	color: #137;
+	color: $link-color;
 	text-decoration: none;
 	&:hover {
 		text-decoration: underline;
@@ -156,9 +157,7 @@ form {
 		vertical-align: top;
 		white-space: nowrap;
 		width: 140px;
-		&:last-child {
-			margin: 0;
-		}
+		&:last-child { margin: 0; }
 		span {
 			color: #444;
 			display: block;
@@ -176,6 +175,18 @@ form {
 		min-height: 30px;
 		&:last-child { margin: 0; }
 		&.text-only { padding: 5px 0; }
+		&.inline-label {
+			span {
+				background-color: #f6f6f6;
+				border: 1px solid #ccc;
+				border-radius: 4px 0 0 4px;
+				border-right: 0;
+				display: inline-block;
+				line-height: 27px;
+				padding: 0 8px;
+			}
+			input { border-radius: 0 4px 4px 0; }
+		}
 		.field-group-title {
 			color: #333;
 			cursor: pointer;
@@ -195,14 +206,10 @@ form {
 				display: block;
 				margin-bottom: 5px;
 			}
-			label {
-				display: block;
-			}
+			label { display: block; }
 		}
 	}
-	&:last-child {
-		margin: 0;
-	}
+	&:last-child { margin: 0; }
 }
 
 /** BUTTONS **/
@@ -211,6 +218,7 @@ form {
 	background: $accent url('../images/button-bg.png') repeat-x;
 	border-radius: 7px;
 	color:#fff;
+	display: inline-block;
 	font-family: $fontSans;
 	font-size: 14px;
 	font-weight: bold;
@@ -247,6 +255,7 @@ form {
 	border-radius: 5px;
 	color: #333;
 	cursor: pointer;
+	display: inline-block;
 	font-size: 10px;
 	padding: 4px 10px 5px 10px;
 	@include transition(200ms);
@@ -330,7 +339,6 @@ form {
 
 #topbar {
 	background: #000;
-	border-top: 1px solid transparent;
 	color: #ccc;
 	font-size: 11px;
 	a {
@@ -347,25 +355,21 @@ form {
 			color: #fff;
 			text-decoration: none;
 		}
-		&:last-child {
-			margin-right: 0;
-		}
+		&:last-child { margin-right: 0; }
 	}
 }
 
 #logo {
-	display: table;
-	margin: 20px 0;
-	width: 100%;
+	margin-bottom: 20px;
+	margin-top: 20px;
 	.logo {
-		float: left;
 		height: 50px;
 		width: 300px;
 	}
 }
 
 #search {
-	background: #303747;
+	background: $darker;
 	border-radius: 8px;
 	float: right;
 	font-size: 0;
@@ -402,142 +406,141 @@ form {
 	background: #fff;
 	color: #666;
 	font-size: 11px;
-	margin: 10px 0;
-	padding: 8px 10px;
-}
-
-/** MAIN STRUCTURE **/
-
-.container {
-	display: table;
-	line-height: 1.4em;
-	width: 100%;
+	line-height: 30px;
+	margin-bottom: 20px;
+	padding: 0 10px;
 }
 
 /** SIDEBAR **/
 
 .sidebar {
-	display: table-cell;
-	max-width: 270px;
-	width: 270px;
+	flex: 0 0 100%;
+	#sidebar-rooms, #sidebar-online, #sidebar-stats {
+		display: none;
+	}
+	@media (min-width: #{$small}) {
+		flex: 0 0 300px;
+		#sidebar-rooms, #sidebar-online, #sidebar-stats {
+			display: block;
+		}
+	}
 	.sidebar-background {
 		background: #fff;
-		padding: 8px;
-	}
-	.sidebar-item {
-		display: block;
-		margin-bottom: 10px;
-		&:last-child { margin-bottom: 0; }
-		.title {
-			background: $accent url('../images/bar-bg.png') repeat-x;
-			border-radius: 5px 5px 0 0;
-			color:#fff;
-			font-size: 14px;
-			font-weight: bold;
-			padding: 8px 12px;
-		}
-		.text {
-			background: #fcfcfc;
-			border: 1px solid #ddd;
-			border-top: 0;
-			border-radius: 0 0 5px 5px;
-			padding: 10px;
-			.subtitle {
-				color: #999;
-				display: block;
-				font-size: 14px;
-				margin-bottom: 6px;
-			}
-			.online-list { font-size: 12px; }
-			.stats-name { color: #888; }
-		}
-		.list {
-			.item {
-				background: #fdfdfd;
-				border: 1px solid #eee;
-				border-top: 0;
-				padding: 8px 12px;
-				@include transition(300ms);
-				&:hover {
-					background: #f7f7f7;
-				}
-				&:last-child {
-					border-radius: 0 0 7px 7px;
-				}
-				a {
-					color: #707070;
-					display: inline-block;
-					font-weight: bold;
-					margin-bottom: -5px; margin-top: 1px;
-					overflow: hidden;
-					text-overflow: ellipsis;
-					width: 180px;
-					white-space: nowrap;
-					&:hover {
-						text-decoration: none;
-					}
-				}
-				i {
-					color: #aaabb0;
-					float: right;
-					line-height: 21px;
-					margin-right: 4px;
-				}
-				span {
-					background: #8a8b90;
-					color: #eff0f4;
-					border-radius: 10px;
-					display: block;
-					float: right;
-					font-size: 9px;
-					line-height: 18px;
-					padding: 1px 0;
-					text-align: center;
-					width: 35px;
-				}
-			}
-		}
-		.user {
-			background: #303747 url('../images/bar-bg.png');
-			border-radius: 7px;
-			color: #eee;
-			overflow: hidden;
-			padding: 10px;
-			.avatar {
-				background: url('../images/user_img_bg.png') no-repeat;
-				float: left;
-				height: 42px;
-				width: 42px;
-				.img {
-					height: 30px;
-					margin: 6px;
-					width: 30px;
-				}
-			}
-			.user-info {
-				color: #eef;
-				float: left;
-				font-size: 11px;
-				margin-left: 10px;
-				margin-top: 4px;
-				&.logged-out { margin-top: 0; }
-				.highlight { font-weight: bold; }
-				a { color: inherit; }
-				b {
-					font-size: 15px;
-					display: block;
-				}
-			}
-		}
+		padding: 10px;
 	}
 }
 
-/** CONTENT AREA **/
-
-.content {
-	display:table-cell;
-	padding-left: 15px;
-	vertical-align: top;
+.sidebar-item {
+	display: block;
+	margin-top: 10px;
+	&:first-child { margin-top: 0; }
+	.title {
+		background: $accent url('../images/bar-bg.png') repeat-x;
+		border-radius: 5px 5px 0 0;
+		color:#fff;
+		font-size: 14px;
+		font-weight: bold;
+		padding: 10px 12px;
+	}
+	.text {
+		background: #fcfcfc;
+		border: 1px solid #ddd;
+		border-top: 0;
+		border-radius: 0 0 5px 5px;
+		padding: 10px;
+		&.stats { line-height: 1.4em; }
+		.subtitle {
+			color: #999;
+			display: block;
+			font-size: 14px;
+			margin-bottom: 6px;
+		}
+		.online-list { font-size: 12px; }
+		.stats-name { color: #888; }
+	}
+	.list {
+		.item {
+			background: #fdfdfd;
+			border: 1px solid #eee;
+			border-top: 0;
+			padding: 10px 12px;
+			position: relative;
+			@include transition(300ms);
+			&:hover { background: #f7f7f7; }
+			&:last-child { border-radius: 0 0 7px 7px; }
+			a {
+				color: #707070;
+				display: block;
+				font-weight: bold;
+				line-height: 1;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				&:hover { text-decoration: none; }
+			}
+			i {
+				color: #aaabb0;
+				float: right;
+				line-height: 21px;
+				margin-right: 4px;
+			}
+			span {
+				background-color: #8a8b90;
+				border-radius: 10px;
+				color: #eff0f4;
+				display: inline-block;
+				font-size: 9px;
+				line-height: 20px;
+				min-width: 20px;
+				padding: 0 4px;
+				position: absolute;
+				right: 12px;
+				top: 7px;
+				text-align: center;
+			}
+		}
+	}
+	.user {
+		background: $darker url('../images/bar-bg.png');
+		border-radius: 7px;
+		color: #eee;
+		overflow: hidden;
+		padding: 8px;
+		.avatar {
+			background: #61656f;
+			background: -moz-linear-gradient(top,  #61656f 0%, #545962 49%, #50555e 50%, #4d515b 51%, #383c46 100%);
+			background: -webkit-linear-gradient(top,  #61656f 0%,#545962 49%,#50555e 50%,#4d515b 51%,#383c46 100%);
+			background: linear-gradient(to bottom,  #61656f 0%,#545962 49%,#50555e 50%,#4d515b 51%,#383c46 100%);
+			border: 1px solid #2c323f;
+			border-radius: 5px;
+			box-sizing: content-box;
+			float: left;
+			height: 42px;
+			width: 42px;
+			.img {
+				border: 1px solid $darker;
+				box-sizing: content-box;
+				height: 32px !important;
+				margin: 4px;
+				width: 32px !important;
+			}
+		}
+		.user-info {
+			color: #eef;
+			float: left;
+			font-size: 11px;
+			margin-left: 10px;
+			margin-top: 3px;
+			&.logged-out { margin-top: 0; }
+			.highlight { font-weight: bold; }
+			a { color: inherit; }
+			b {
+				font-size: 15px;
+				display: block;
+				line-height: 1.5em;
+			}
+		}
+	}
 }
 
 /** NAVIGATION BAR **/
@@ -688,14 +691,14 @@ a.room-mark-as-read {
 /** GLOBAL TITLE BAR **/
 
 .title-bar {
-	overflow: hidden;
-	padding: 5px 0 18px 0;
-	vertical-align: bottom;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	margin-top: 5px;
 	.title {
 		font-size: 24px;
 		font-weight: bold;
 		letter-spacing: 2px;
-		margin-right: 120px;
 		span {
 			color: #bbb;
 			display: block;
@@ -707,7 +710,8 @@ a.room-mark-as-read {
 		}
 	}
 	.buttons {
-		margin-top: 15px;
+		align-self: flex-end;
+		white-space: nowrap;
 	}
 }
 
@@ -1057,15 +1061,13 @@ a.room-mark-as-read {
 	}
 }
 .thread-buttons {
-	margin: 18px 0;
-	overflow: hidden;
-	padding: 15px 0;
+	margin: 30px 0;
+	overflow: auto;
 	.replies {
 		font-size: 21px;
 		font-weight: bold;
-		span {
-			color: $accent;
-		}
+		line-height: 36px;
+		span { color: $accent; }
 	}
 }
 .thread-post-reply {
@@ -1119,20 +1121,20 @@ a.room-mark-as-read {
 		.user-info {
 			color: #444;
 			font-size: 9px;
+			line-height: 1.4em;
 			list-style: none;
-			margin: 20px 5px;
-			overflow: hidden;
+			margin: 20px 8px;
+			overflow: auto;
 			li {
-				padding: 0 3px;
 				text-align: right;
-				b {
-					float: left;
-				}
+				b { float: left; }
 			}
 		}
 	}
 	.content {
 		display: table-cell;
+		padding-left: 15px;
+		vertical-align: top;
 		.quote {
 			overflow: hidden;
 			position: absolute;
@@ -1229,7 +1231,7 @@ a.room-mark-as-read {
 			bottom: 0;
 			border-top: 1px solid rgba(#000, 0.1);
 			left: 0;
-			padding: 5px 5px 8px 5px;
+			padding: 5px;
 			position: absolute;
 			right: 0;
 			text-align: right;
@@ -1466,12 +1468,15 @@ a.room-mark-as-read {
 	a {
 		background: url('../images/page.png') repeat-x;
 		border: 1px solid #ddd;
-		box-shadow: 0px 0px 2px rgba(#000, 0.1);
+		box-shadow: 0 0 2px rgba(#000, 0.1);
 		color: #444;
 		display: inline-block;
 		font-size: 11px;
 		font-weight: bold;
-		padding: 2px 5px;
+		line-height: 20px;
+		min-width: 20px;
+		padding: 0 5px;
+		text-align: center;
 		text-shadow: 1px 1px 0px #fff;
 		&:hover {
 			background: url('../images/page-hover.png') repeat-x;
@@ -1650,7 +1655,9 @@ a.room-mark-as-read {
 		}
 	}
 	.content {
+		display: table-cell;
 		padding: 15px 10px;
+		vertical-align: top;
 		ul, ol { margin-left: 20px; }
 		p { margin-bottom: 5px; &:last-child { margin: 0; } }
 	}
@@ -1703,7 +1710,7 @@ a.room-mark-as-read {
 	display: table;
 	margin: 0 auto;
 	margin-bottom: 20px;
-	border-bottom: 3px solid #303747;
+	border-bottom: 3px solid $darker;
 	.previous {
 		color: #d9d9d9;
 		display: table-cell;
@@ -1730,7 +1737,7 @@ a.room-mark-as-read {
 /** PROGRESS BAR **/
 
 .progress-bar {
-	border: 1px solid #303747;
+	border: 1px solid $darker;
 	color: #bbb;
 	display: inline-block;
 	font-size: 9px;

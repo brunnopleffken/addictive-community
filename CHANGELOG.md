@@ -1,5 +1,34 @@
 # Changelog
 
+## v0.10.0 (2016-05-19)
+
+#### Added
+- Automated update to a newer version;
+- New built-in language: Russian (thanks to @zalexstudios);
+- Reply and forward private messages (thanks to @johnforte).
+
+#### Fixes
+- SQL syntax error when editing a language file via Admin CP (#72);
+- Broken URLs when a thread is written using non-latin characters (#74);
+- Issue with `json_encode()` and multibyte characters (#74);
+- Not loading page template when reporting abuse (#75);
+- Save username and e-mail on failed registration process (thanks to @johnforte);
+- Several other minor bug fixes and translation misspellings.
+
+#### Security
+- Improved data processing in posts to prevent Cross-Site Scripting (XSS).
+
+#### Deprecated
+- Removed the possibility of using the Facebook profile photo as avatar due to Graph API limitations to unregistered Web Applications (we do NOT plan to integrate Facebook login with Addictive Community soon).
+
+#### Changed
+- Community Dashboard in Admin CP now shows the complete server environment (#66);
+- Installer now checks the system requirements before the database deployment (thanks to @xQuByte and @halojoy);
+- Changed UI grid from `display: table` to the modern CSS3 flexbox;
+- Minor UI and UX enhancements and fixes.
+
+
+
 ## v0.9.0 (2016-03-15)
 
 *Yes, it's finally here!*

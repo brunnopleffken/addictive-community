@@ -70,7 +70,7 @@ class Search extends Application
 			$result['relevance'] = round($result['relevance'], 2);
 
 			foreach($keyword_highlight as $words) {
-				$result['post'] = preg_replace("/{$words}/mi", "<b style='background: #ffa'>$0</b>", $result['post']);
+				$result['post'] = preg_replace("/{$words}/mi", "<mark style='font-weight: bold'>$0</mark>", $result['post']);
 			}
 
 			$_result[] = $result;

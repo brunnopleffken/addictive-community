@@ -44,6 +44,7 @@
 	$t["P_POLL_CHOICES"] = "Poll Choices";
 	$t["P_POLL_CHOICES_DESC"] = "Put one answer per line. Maximum 15 answers.";
 	$t["P_ATTACHMENTS"] = "Attachments";
+	$t["P_ATTACHMENTS_MAX_SIZE"] = "File size should not exceed <b>%s</b>.";
 	$t["P_OPTIONS"] = "Thread Options";
 	$t["P_SET_ANNOUNCEMENT"] = "Set thread as Announcement";
 	$t["P_LOCK"] = "Lock thread after posting";

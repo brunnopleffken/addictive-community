@@ -142,6 +142,7 @@ class Thread extends Application
 		$this->Set("thread_info", $thread_info);
 		$this->Set("quote", $quote);
 		$this->Set("allow_uploads", $thread_info['upload']);
+		$this->Set("attachment_size_warning", i18n::Translate("P_ATTACHMENTS_MAX_SIZE", array($this->Core->config['general_max_attachment_size'] . "MB")));
 	}
 
 	/**
@@ -286,7 +287,7 @@ class Thread extends Application
 			);
 
 			// Serialize poll data array into JSON
-			$poll_data = json_encode($poll_data);
+			$poll_data = json_encode($poll_data, JSON_UNESCAPED_UNICODE);
 		}
 		else {
 			$poll_data = "";
@@ -941,6 +942,8 @@ class Thread extends Application
 			$first_post_info['edited'] = "";
 		}
 
+		$first_post_info['post'] = htmlentities($first_post_info['post']);
+
 		// Block bad words
 		$first_post_info['post'] = $this->_FilterBadWords($first_post_info['post']);
 
@@ -1000,6 +1003,9 @@ class Thread extends Application
 			else {
 				$result['rank'] = array();
 			}
+
+			// Transform HTML entities
+			$result['post'] = htmlentities($result['post']);
 
 			// Block bad words
 			$result['post'] = $this->_FilterBadWords($result['post']);

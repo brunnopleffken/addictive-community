@@ -1,8 +1,15 @@
 // VARIABLES
 
-$fontSans: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+$fontSans: Arial, 'Helvetica Neue', sans-serif;
 $fontSerif: Georgia, serif;
+
 $accent: #465068;
+$darker: darken($accent, 10%);
+$link-color: saturate($accent, 50%);
+
+$small: 768px;
+$medium: 992px;
+$large: 1200px;
 
 // MIXINS
 

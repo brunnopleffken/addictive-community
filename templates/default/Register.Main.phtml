@@ -1,5 +1,5 @@
 <div class="title-bar">
-	<div class="title fleft">
+	<div class="title">
 		<span><?php __($community_name) ?></span>
 		<?php __("R_TITLE") ?>
 	</div>
@@ -33,7 +33,7 @@
 		<form action="register/sign_up" method="post" class="validate">
 			<div class="input-box">
 				<div class="label"><?php __("R_USERNAME") ?></div>
-				<div class="field"><input type="text" name="username" id="username" class="required small" maxlength="20" onkeyup="CheckUsername()"> &nbsp; <em><?php __("R_USERNAME_NOTICE") ?></em></div>
+				<div class="field"><input type="text" name="username" id="username" class="required small" maxlength="20" onkeyup="CheckUsername()" value="<?php echo isset($_SESSION['Register']['Username'])? $_SESSION['Register']['Username']:''; ?>"> &nbsp; <em><?php __("R_USERNAME_NOTICE") ?></em></div>
 			</div>
 			<div class="input-box">
 				<div class="label"><?php __("R_PASSWORD") ?></div>
@@ -45,7 +45,7 @@
 			</div>
 			<div class="input-box">
 				<div class="label"><?php __("R_EMAIL_ADDR") ?></div>
-				<div class="field"><input type="text" name="email" id="email" class="required email medium"></div>
+				<div class="field"><input type="text" name="email" id="email" class="required email medium" value="<?php echo isset($_SESSION['Register']['Email'])? $_SESSION['Register']['Email']:'' ; ?>"></div>
 			</div>
 			<?php if($is_captcha): ?>
 				<div class="input-box">

@@ -92,8 +92,8 @@
 			$template = <<<HTML
 				<div class="step-box">
 					<div class="current"><h3>Step 1</h3><span class="tiny">EULA</span></div>
-					<div class="next"><h3>Step 2</h3><span class="tiny">Database Settings</span></div>
-					<div class="next"><h3>Step 3</h3><span class="tiny">Requirements</span></div>
+					<div class="next"><h3>Step 2</h3><span class="tiny">Requirements</span></div>
+					<div class="next"><h3>Step 3</h3><span class="tiny">Database Settings</span></div>
 					<div class="next"><h3>Step 4</h3><span class="tiny">Community Settings</span></div>
 					<div class="next"><h3>Step 5</h3><span class="tiny">Install</span></div>
 				</div>
@@ -123,102 +123,21 @@ HTML;
 
 		case 2:
 
-			// Second barrier to stop any unwanted reinstall
-
-			if(file_exists(".lock")) {
-				echo Html::Notification(
-					"Installer is locked! Please, remove the file <b>install/.lock</b> to proceed.", "failure", true
-				);
-				exit;
-			}
-
+			// Check system environment
 			// Show notification message about tables prefixes
-			$notification = Html::Notification(
-				"Don't worry, all tables are prefixed with <b>c_</b>.", "info", true
+			$mysql_information = Html::Notification(
+				"MySQL version will be checked in step 4.", "info", true
 			);
 
-			// Ok, proceed...
-
-			$template = <<<HTML
-				<div class="step-box">
-					<div class="previous"><h3>Step 1</h3><span class="tiny">EULA</span></div>
-					<div class="current"><h3>Step 2</h3><span class="tiny">Database Settings</span></div>
-					<div class="next"><h3>Step 3</h3><span class="tiny">Requirements</span></div>
-					<div class="next"><h3>Step 4</h3><span class="tiny">Community Settings</span></div>
-					<div class="next"><h3>Step 5</h3><span class="tiny">Install</span></div>
-				</div>
-
-				{$notification}
-
-				<form action="index.php?step=3" method="post" id="database-form">
-					<div class="input-box">
-						<div class="label">MySQL Host</div>
-						<div class="field"><input type="text" name="host" class="required small"></div>
-					</div>
-					<div class="input-box">
-						<div class="label">MySQL Port</div>
-						<div class="field"><input type="text" name="port" value="3306" class="required tiny"></div>
-					</div>
-					<div class="input-box">
-						<div class="label">Database</div>
-						<div class="field"><input type="text" name="database" class="required small"></div>
-					</div>
-					<div class="input-box">
-						<div class="label">Username</div>
-						<div class="field"><input type="text" name="username" class="required small"></div>
-					</div>
-					<div class="input-box">
-						<div class="label">Password</div>
-						<div class="field"><input type="password" name="password" class="small"></div>
-					</div>
-					<div class="input-box" style="text-align: center"><input type="submit" value="Proceed"></div>
-				</form>
-HTML;
-
-			break;
-
-		/**
-		 * --------------------------------------------------------------------
-		 * STEP 3
-		 * --------------------------------------------------------------------
-		 */
-
-		case 3:
-
-			session_start();
-
-			// Connect to database and get information
-			$installer = new Installer();
-
-			$_SESSION['db_server']   = $installer->input['db_server']   = $_REQUEST['host'];
-			$_SESSION['db_database'] = $installer->input['db_database'] = $_REQUEST['database'];
-			$_SESSION['db_username'] = $installer->input['db_username'] = $_REQUEST['username'];
-			$_SESSION['db_password'] = $installer->input['db_password'] = $_REQUEST['password'];
-			$_SESSION['db_port']     = $installer->input['db_port']     = $_REQUEST['port'];
-
-			$installer->InstallerDB();
-
-			$installer->Query("SELECT VERSION() AS mysql_version;");
-			$result = $installer->Fetch();
-
-			// Check system environment
-
-			preg_match("#[0-9]+\.[0-9]+\.[0-9]+#", $result['mysql_version'], $mysql_version);
-
 			$info['php-version'] = PHP_VERSION;
-			$info['mysql-version'] = $mysql_version[0];
 			$info['memory-limit'] = @ini_get("memory_limit");
 
 			$php_v = version_compare($info['php-version'], MIN_PHP_VERSION);
 			$php_check = ($php_v >= 0) ? "<span style='color: #090'>Yes ({$info['php-version']})</span>" : "<span style='color: #900'>No ({$info['php-version']})</span>";
 
-			$sql_v = version_compare($info['mysql-version'], MIN_SQL_VERSION);
-			$sql_check = ($sql_v >= 0) ? "<span style='color: #090'>Yes ({$info['mysql-version']})</span>" : "<span style='color: #900'>No ({$info['mysql-version']})</span>";
-
 			$environment = "<table class='table' style='width: 400px;'>";
 			$environment .= "<tr><td style='width:190px'>Server Software</td><td>{$_SERVER['SERVER_SOFTWARE']} {$_SERVER['SERVER_PROTOCOL']}</td></tr>";
 			$environment .= "<tr><td>PHP 5.3+</td><td>{$php_check}</td></tr>";
-			$environment .= "<tr><td>MySQL 5.1+</td><td>{$sql_check}</td></tr>";
 			$environment .= "</table>";
 
 			// Check PHP extensions
@@ -326,12 +245,13 @@ HTML;
 			$template = <<<HTML
 				<div class="step-box">
 					<div class="previous"><h3>Step 1</h3><span class="tiny">EULA</span></div>
-					<div class="previous"><h3>Step 2</h3><span class="tiny">Database Settings</span></div>
-					<div class="current"><h3>Step 3</h3><span class="tiny">Requirements</span></div>
+					<div class="current"><h3>Step 2</h3><span class="tiny">Requirements</span></div>
+					<div class="next"><h3>Step 3</h3><span class="tiny">Database Settings</span></div>
 					<div class="next"><h3>Step 4</h3><span class="tiny">Community Settings</span></div>
 					<div class="next"><h3>Step 5</h3><span class="tiny">Install</span></div>
 				</div>
 
+				{$mysql_information}
 				{$notification}
 
 				<form action="index.php?step=3" method="post">
@@ -352,8 +272,70 @@ HTML;
 						{$folders}
 					</div>
 					<div class="input-box" style="text-align: center">
-						<input type="button" value="Proceed" onclick="javascript:window.location.replace('index.php?step=4')" {$disabled}>
+						<input type="button" value="Proceed" onclick="javascript:window.location.replace('index.php?step=3')" {$disabled}>
 					</div>
+				</form>
+HTML;
+
+			break;
+
+		/**
+		 * --------------------------------------------------------------------
+		 * STEP 3
+		 * --------------------------------------------------------------------
+		 */
+
+		case 3:
+
+			// Second barrier to stop any unwanted reinstall
+
+			if(file_exists(".lock")) {
+				echo Html::Notification(
+					"Installer is locked! Please, remove the file <b>install/.lock</b> to proceed.", "failure", true
+				);
+				exit;
+			}
+
+			// Show notification message about tables prefixes
+			$notification = Html::Notification(
+				"Don't worry, all tables are prefixed with <b>c_</b>.", "info", true
+			);
+
+			// Ok, proceed...
+
+			$template = <<<HTML
+				<div class="step-box">
+					<div class="previous"><h3>Step 1</h3><span class="tiny">EULA</span></div>
+					<div class="previous"><h3>Step 2</h3><span class="tiny">Requirements</span></div>
+					<div class="current"><h3>Step 3</h3><span class="tiny">Database Settings</span></div>
+					<div class="next"><h3>Step 4</h3><span class="tiny">Community Settings</span></div>
+					<div class="next"><h3>Step 5</h3><span class="tiny">Install</span></div>
+				</div>
+
+				{$notification}
+
+				<form action="index.php?step=4" method="post" id="database-form">
+					<div class="input-box">
+						<div class="label">MySQL Host</div>
+						<div class="field"><input type="text" name="host" class="required small"></div>
+					</div>
+					<div class="input-box">
+						<div class="label">MySQL Port</div>
+						<div class="field"><input type="text" name="port" value="3306" class="required tiny"></div>
+					</div>
+					<div class="input-box">
+						<div class="label">Database</div>
+						<div class="field"><input type="text" name="database" class="required small"></div>
+					</div>
+					<div class="input-box">
+						<div class="label">Username</div>
+						<div class="field"><input type="text" name="username" class="required small"></div>
+					</div>
+					<div class="input-box">
+						<div class="label">Password</div>
+						<div class="field"><input type="password" name="password" class="small"></div>
+					</div>
+					<div class="input-box" style="text-align: center"><input type="submit" value="Proceed"></div>
 				</form>
 HTML;
 
@@ -369,6 +351,40 @@ HTML;
 
 			session_start();
 
+			// Get MySQL authentication info
+			$installer = new Installer();
+			$_SESSION['db_server']   = $installer->input['db_server']   = $_REQUEST['host'];
+			$_SESSION['db_database'] = $installer->input['db_database'] = $_REQUEST['database'];
+			$_SESSION['db_username'] = $installer->input['db_username'] = $_REQUEST['username'];
+			$_SESSION['db_password'] = $installer->input['db_password'] = $_REQUEST['password'];
+			$_SESSION['db_port']     = $installer->input['db_port']     = $_REQUEST['port'];
+
+			// Connect to database and get information
+			$installer->InstallerDB();
+			$installer->Query("SELECT VERSION() AS mysql_version;");
+			$result = $installer->Fetch();
+
+			preg_match("#[0-9]+\.[0-9]+\.[0-9]+#", $result['mysql_version'], $mysql_version);
+			$info['mysql-version'] = $mysql_version[0];
+
+			$sql_v = version_compare($info['mysql-version'], MIN_SQL_VERSION);
+
+			if($sql_v >= 0) {
+				// Show notification message about correct MySQL version
+				$mysql_information = Html::Notification(
+					"MySQL version is correct!", "info", true
+				);
+				$button_lock = "";
+			}
+			else {
+				// Show notification message about wrong MySQL version
+				$mysql_information = Html::Notification(
+					"MySQL version is incorrect! You can't continue. Required version of MySQL is 5.1 or higher.", "info", true
+				);
+				$button_lock = "disabled";
+			}
+
+			// Community URL and physical path
 			$dir = str_replace("install", "", getcwd());
 			$url = str_replace("install/index.php", "", $_SERVER['HTTP_REFERER']);
 			$url = preg_replace("#\?(.+?)*#", "", $url);
@@ -433,11 +449,13 @@ HTML;
 			$template = <<<HTML
 				<div class="step-box">
 					<div class="previous"><h3>Step 1</h3><span class="tiny">EULA</span></div>
-					<div class="previous"><h3>Step 2</h3><span class="tiny">Database Settings</span></div>
-					<div class="previous"><h3>Step 3</h3><span class="tiny">Requirements</span></div>
+					<div class="previous"><h3>Step 2</h3><span class="tiny">Requirements</span></div>
+					<div class="previous"><h3>Step 3</h3><span class="tiny">Database Settings</span></div>
 					<div class="current"><h3>Step 4</h3><span class="tiny">Community Settings</span></div>
 					<div class="next"><h3>Step 5</h3><span class="tiny">Install</span></div>
 				</div>
+
+				{$mysql_information}
 
 				<form action="index.php?step=5" method="post">
 
@@ -501,7 +519,7 @@ HTML;
 						<input type="hidden" name="db_username" value="{$_SESSION['db_username']}">
 						<input type="hidden" name="db_password" value="{$_SESSION['db_password']}">
 						<input type="hidden" name="db_port" value="{$_SESSION['db_port']}">
-						<input type="submit" value="Proceed">
+						<input type="submit" value="Proceed" {$button_lock}>
 					</div>
 
 				</form>
@@ -528,8 +546,8 @@ HTML;
 
 				<div class="step-box">
 					<div class="previous"><h3>Step 1</h3><span class="tiny">EULA</span></div>
-					<div class="previous"><h3>Step 2</h3><span class="tiny">Database Settings</span></div>
-					<div class="previous"><h3>Step 3</h3><span class="tiny">Requirements</span></div>
+					<div class="previous"><h3>Step 2</h3><span class="tiny">Requirements</span></div>
+					<div class="previous"><h3>Step 3</h3><span class="tiny">Database Settings</span></div>
 					<div class="previous"><h3>Step 4</h3><span class="tiny">Community Settings</span></div>
 					<div class="current"><h3>Step 5</h3><span class="tiny">Install</span></div>
 				</div>
@@ -573,10 +591,10 @@ HTML;
 	<meta charset="utf-8">
 	<title>Addictive Community</title>
 	<!-- Common Files -->
-	<link rel="stylesheet" href="../thirdparty/select2/select2.css">
+	<link rel="stylesheet" href="../thirdparty/select2/css/select2.min.css">
 	<link href="../themes/default-light/css/main.css" type="text/css" rel="stylesheet">
 	<script type="text/javascript" src="../thirdparty/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="../thirdparty/select2/select2.js"></script>
+	<script type="text/javascript" src="../thirdparty/select2/js/select2.min.js"></script>
 	<script type="text/javascript" src="../resources/main.js"></script>
 	<!-- Community Installer -->
 	<script type="text/javascript" src="installer.js"></script>

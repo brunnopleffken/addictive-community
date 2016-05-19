@@ -1,0 +1,34 @@
+<div class="title-bar">
+	<div class="title">
+		<span><?php __($community_name) ?></span><?php __("M_TITLE") ?>: <?php __("M_COMPOSE") ?>
+	</div>
+</div>
+
+<div class="box">
+	<form action="messenger/send" method="post" class="validate">
+		<div class="input-box">
+			<div class="label"><?php __("M_TO") ?></div>
+			<div class="field">
+				<select name="to" id="pmTo" class="medium required pm-to">
+					<option value="<?php echo $message['reply_user_id']; ?>"><?php echo $message['username']; ?></option>
+				</select>
+			</div>
+		</div>
+		<div class="input-box">
+			<div class="label"><?php __("M_SUBJECT") ?></div>
+			<div class="field"><input type="text" name="subject" class="large required" value="Re: <?php echo $message['subject']; ?>"></div>
+		</div>
+		<div class="input-box">
+			<div class="label"><?php __("M_MESSAGE") ?></div>
+			<div class="field">
+				<textarea name="post" id="post" class="full" rows="12"></textarea>
+			</div>
+		</div>
+		<div class="fleft">
+			<div class="error-message"><?php __("M_PM_ERROR") ?></div>
+		</div>
+		<div class="fright">
+			<input type="submit" value="<?php __("M_SEND") ?>">
+		</div>
+	</form>
+</div>

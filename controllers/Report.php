@@ -31,7 +31,7 @@ class Report extends Application
 	 */
 	public function Post($post_id)
 	{
-		$this->master = "ajax";
+		$this->master = "Ajax";
 
 		// Return variables
 		$this->Set("post_id", $post_id);
@@ -44,7 +44,7 @@ class Report extends Application
 	 */
 	public function Thread($thread_id)
 	{
-		$this->master = "ajax";
+		$this->master = "Ajax";
 
 		// Return variables
 		$this->Set("thread_id", $thread_id);

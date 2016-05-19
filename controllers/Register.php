@@ -53,7 +53,8 @@ class Register extends Application
 	public function SignUp()
 	{
 		$this->layout = false;
-
+		$_SESSION['Register']['Username']=Http::Request("username");
+		$_SESSION['Register']['Email']=Http::Request("email");
 		// Check if the entered CAPTCHA matches the registered in the session
 		if($this->Core->config['general_security_captcha']) {
 			if(Http::Request("captcha") != $_SESSION['captcha']) {
@@ -78,7 +79,10 @@ class Register extends Application
 		if(strlen(Http::Request("username")) < 3 || strlen(Http::Request("username")) > 20) {
 			$this->Core->Request("register?step=2&m=3");
 		}
-
+		unset($_SESSION['Register']['Username']);
+		unset($_SESSION['Register']['Email']);
+			
+		
 		// Check if Require Validation is TRUE in community settings
 		$usergroup = ($this->Core->config['general_security_validation']) ? 6 : 3;
 

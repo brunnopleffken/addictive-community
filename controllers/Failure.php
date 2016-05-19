@@ -6,7 +6,7 @@
 #  Created by Brunno Pleffken Hosti
 #  http://github.com/brunnopleffken/addictive-community
 #
-#  File: Error.php
+#  File: Failure.php
 #  License: GPLv2
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------

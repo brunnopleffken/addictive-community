@@ -17,5 +17,5 @@ Options -Indexes
   RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z_]+)/([0-9]+)$ index.php?c=$1&act=$2&id=$3 [QSA]
 
   # Thread: SEO friendly URLs
-  RewriteRule ^(thread)/([0-9]+)-([a-zA-Z0-9\-]+)$ index.php?c=$1&id=$2 [QSA]
+  RewriteRule ^(thread)/([0-9]+)-(.+)$ index.php?c=$1&id=$2 [QSA]
 </IfModule>

@@ -1,5 +1,5 @@
 <div class="title-bar">
-	<div class="title fleft">
+	<div class="title">
 		<span><?php __($community_name) ?></span>
 		<?php __("P_ADD_REPLY") ?>: <?php echo $thread_info['title'] ?>
 	</div>
@@ -25,7 +25,10 @@
 		<?php if($allow_uploads): ?>
 			<div class="input-box">
 				<div class="label"><?php __("P_ATTACHMENTS") ?></div>
-				<div class="field"><input type="file" name="attachment"></div>
+				<div class="field">
+					<div style='display: inline-block'><input type="file" name="attachment"></div>
+					<small><?php __($attachment_size_warning) ?></small>
+				</div>
 			</div>
 		<?php endif; ?>
 		<div class="fleft">

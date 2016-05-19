@@ -37,7 +37,7 @@
 						<td><label><?php echo $Admin->SelectCheckbox("general_member_enable_signature") ?> Enable signatures in posts and personal messages.</label></td>
 					</tr>
 					<tr>
-						<td class="title-fixed">Enable photo upload <span class="title-desc">This will restrict the avatars only in 'Facebook' and 'Gravatar'. Photos already sent will not be deleted.</span></td>
+						<td class="title-fixed">Enable photo upload <span class="title-desc">This will restrict the avatars to 'Gravatar' only. Photos already sent will not be affected.</span></td>
 						<td><label><?php echo $Admin->SelectCheckbox("general_member_enable_avatar_upload") ?> Allow members to send their own photos as avatar.</label></td>
 					</tr>
 					<tr>

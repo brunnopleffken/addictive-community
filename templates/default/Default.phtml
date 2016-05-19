@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title><?php __($page_title) ?><?php __($community_name) ?> (Powered by Addictive Community)</title>
+	<title><?php __($page_title . $community_name) ?> (Powered by Addictive Community)</title>
 	<base href="<?php __($community_url) ?>">
 	<link rel="search" type="application/opensearchdescription+xml" title="<?php __($community_name) ?>" href="community/open_search">
 	<link rel="icon" type="image/png" href="favicon.png">
@@ -13,26 +13,19 @@
 	<link rel="stylesheet" href="themes/<?php __($theme) ?>/css/main.css">
 	<link rel="stylesheet" href="thirdparty/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="thirdparty/fancybox/jquery.fancybox.css">
-	<link rel="stylesheet" href="thirdparty/select2/select2.css">
-	<!-- JS -->
-	<script src="thirdparty/jquery/jquery.min.js"></script>
-	<script src="thirdparty/tinymce/tinymce.min.js"></script>
-	<script src="thirdparty/fancybox/jquery.fancybox.pack.js"></script>
-	<script src="thirdparty/select2/select2.js"></script>
-	<script src="thirdparty/mustache/mustache.min.js"></script>
-	<script src="resources/main.js"></script>
+	<link rel="stylesheet" href="thirdparty/select2/css/select2.min.css">
+
 	<?php echo $this->head ?>
 </head>
 <body>
-	<!-- HEADER -->
-	<div id="topbar">
-		<div class="wrapper">
-			<div class="fleft">
+	<div id="topbar" class="container-fluid">
+		<div class="row">
+			<div class="small-12 small-hide medium-3 columns">
 				<a href="<?php __($website_url) ?>" target="_blank">
 					<?php __($website_name) ?>
 				</a>
 			</div>
-			<div class="fright">
+			<div class="small-12 medium-9 columns right">
 				<?php if($is_admin): ?>
 					<a href="admin/" target="_blank">Admin CP</a>
 				<?php endif; ?>
@@ -41,28 +34,38 @@
 				<a href="calendar"><?php __("CALENDAR") ?></a>
 				<a href="help"><?php __("HELP") ?></a>
 			</div>
-			<div class="fix"></div>
 		</div>
 	</div>
-	<div id="logo">
-		<div class="wrapper">
-			<a href="<?php __($community_url) ?>"><img src="themes/<?php __($theme) ?>/images/logo.png" class="logo" alt="Addictive Community"></a>
-			<div id="search">
-				<form action="search" method="get" class="validate">
-					<input type="text" name="q" size="25" class="required" value="<?php echo Http::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>">
-					<input type="submit" value="OK">
-				</form>
+
+	<div id="logo" class="container-fluid">
+		<div class="row">
+			<div class="small-12 medium-6 columns">
+				<a href="<?php __($community_url) ?>">
+					<img src="themes/<?php __($theme) ?>/images/logo.png" class="logo" alt="Addictive Community">
+				</a>
+			</div>
+			<div class="small-12 small-hide medium-6 columns">
+				<div id="search">
+					<form action="search" method="get" class="validate">
+						<input type="text" name="q" size="25" class="required" value="<?php echo Http::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>">
+						<input type="submit" value="OK">
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="wrapper">
-		<div id="breadcrumb"><a href="<?php __($community_url) ?>"><?php __($community_name) ?></a> <?php __($breadcrumb) ?></div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="small-12 columns">
+				<div id="breadcrumb"><a href="<?php __($community_url) ?>"><?php __($community_name) ?></a> <?php __($breadcrumb) ?></div>
+			</div>
+		</div>
 	</div>
 
-	<!-- CONTENT -->
-	<div class="wrapper">
-		<div class="container">
-			<div class="sidebar">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="columns sidebar">
 				<div class="sidebar-background">
 					<?php if($member_id == 0): ?>
 						<div class="sidebar-item">
@@ -86,7 +89,7 @@
 							</div>
 						</div>
 					<?php endif; ?>
-					<div class="sidebar-item">
+					<div class="sidebar-item" id="sidebar-rooms">
 						<div class="title"><?php __("SIDEBAR_ROOMS") ?></div>
 						<div class="list">
 							<?php foreach($sidebar_rooms as $k => $v): ?>
@@ -101,7 +104,7 @@
 						</div>
 					</div>
 					<?php if($show_members_online): ?>
-						<div class="sidebar-item">
+						<div class="sidebar-item" id="sidebar-online">
 							<div class="title"><?php __("SIDEBAR_MEMBERS_ONLINE") ?></div>
 							<div class="text">
 								<span class="subtitle"><?php __("SIDEBAR_MEMBER_COUNT", array($member_count)) ?></span>
@@ -111,9 +114,9 @@
 						</div>
 					<?php endif; ?>
 					<?php if($show_statistics): ?>
-						<div class="sidebar-item">
+						<div class="sidebar-item" id="sidebar-stats">
 							<div class="title"><?php __("SIDEBAR_STATISTICS") ?></div>
-							<div class="text">
+							<div class="text stats">
 								<span class="stats-name fleft"><?php __("SIDEBAR_S_THREADS") ?></span>
 								<b class="fright"><?php echo $stats['threads'] ?></b><br>
 								<span class="stats-name fleft"><?php __("SIDEBAR_S_POSTS") ?></span>
@@ -128,16 +131,26 @@
 					<?php endif; ?>
 				</div>
 			</div>
-			<div class="content">
+			<div class="columns">
 				<?php echo $this->content ?>
 			</div>
 		</div>
 	</div>
-	<div id="footer">
-		<div class="wrapper center">
-			Powered by Addictive Community <?php echo VERSION ?> &copy; <?php echo date("Y") ?> - All rights reserved.
-			<div class="fright"><a href="community/about" class="fancybox fancybox.ajax"><?php __("FOOTER_ABOUT") ?></a></div>
+
+	<div id="footer" class="container-fluid">
+		<div class="row">
+			<div class="small-12 columns center">
+				Powered by Addictive Community <?php echo VERSION ?> &copy; <?php echo date("Y") ?> - All rights reserved.
+			</div>
 		</div>
 	</div>
+
+	<!-- JS -->
+	<script src="thirdparty/jquery/jquery.min.js"></script>
+	<script src="thirdparty/tinymce/tinymce.min.js"></script>
+	<script src="thirdparty/fancybox/jquery.fancybox.pack.js"></script>
+	<script src="thirdparty/select2/js/select2.full.min.js"></script>
+	<script src="thirdparty/mustache/mustache.min.js"></script>
+	<script src="resources/main.js"></script>
 </body>
 </html>

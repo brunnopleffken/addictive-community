@@ -1,5 +1,5 @@
 <div class="title-bar">
-	<div class="title fleft">
+	<div class="title">
 		<span><?php __($community_name) ?></span><?php __("M_TITLE") ?>: <?php __("M_COMPOSE") ?>
 	</div>
 </div>
@@ -9,7 +9,9 @@
 		<div class="input-box">
 			<div class="label"><?php __("M_TO") ?></div>
 			<div class="field">
-				<input type="hidden" name="to" id="pmTo" class="medium required">
+				<select name="to" id="pmTo" class="medium required pm-to">
+					<option value=""></option>
+				</select>
 			</div>
 		</div>
 		<div class="input-box">

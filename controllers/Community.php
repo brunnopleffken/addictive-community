@@ -37,23 +37,6 @@ class Community extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * ABOUT ADDICTIVE COMMUNITY
-	 * --------------------------------------------------------------------
-	 */
-	public function About()
-	{
-		$this->master = "Ajax";
-
-		$data = array(
-			"version"  => VERSION . "-" . CHANNEL
-		);
-
-		// Return variables
-		$this->Set("data", $data);
-	}
-
-	/**
-	 * --------------------------------------------------------------------
 	 * FOR LOGGED IN MEMBERS: MARK ALL THREADS AS READ
 	 * --------------------------------------------------------------------
 	 */

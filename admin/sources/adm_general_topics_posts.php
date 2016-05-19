@@ -59,6 +59,10 @@
 						<td class="title-fixed">Allow guests to reply</td>
 						<td><label><?php echo $Admin->SelectCheckbox("thread_allow_guest_post") ?> Guests are allowed to reply any thread (not recommended).</label></td>
 					</tr>
+					<tr>
+						<td class="title-fixed">Attachment: max. file size</span></td>
+						<td><input type="text" name="general_max_attachment_size" class="nano" value="<?php echo $Admin->SelectConfig("general_max_attachment_size") ?>"> MB</td>
+					</tr>
 				</table>
 
 				<table class="table-list">

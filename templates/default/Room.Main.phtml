@@ -27,12 +27,15 @@
 </script>
 
 <div class="title-bar">
-	<div class="title fleft"><span><?php __($this->Config['general_community_name']) ?></span><?php __($room_info['name']) ?></div>
+	<div class="title">
+		<span><?php __($this->Config['general_community_name']) ?></span>
+		<?php __($room_info['name']) ?>
+	</div>
 	<?php if($this->Session->IsMember()): ?>
 		<?php if($room_info['read_only']): ?>
-			<div class="buttons fright"><a class="default-button disabled"><?php __("R_READ_ONLY") ?></a></div>
+			<div class="buttons"><a class="default-button disabled"><?php __("R_READ_ONLY") ?></a></div>
 		<?php else: ?>
-			<div class="buttons fright">
+			<div class="buttons">
 				<a href="thread/add/<?php __($room_id) ?>" class="default-button"><?php __("R_NEW_THREAD") ?></a>
 				<a href="thread/add/<?php __($room_id) ?>?poll=true" class="default-button"><?php __("R_NEW_POLL") ?></a>
 			</div>
@@ -57,7 +60,7 @@
 		<a href="room/<?php __($room_id) ?>?view=noreplies"><?php __("R_NO_REPLIES") ?></a>
 		<a href="room/<?php __($room_id) ?>?view=bestanswered"><?php __("R_ANSWERED") ?></a>
 		<a href="room/<?php __($room_id) ?>?view=polls"><?php __("R_POLLS") ?></a>
-		<div class="fright"><a href="feeds/room/<?php __($room_id) ?>" class="rss"><i class="fa fa-rss"></i></a></div>
+		<div class="fright"><a href="feeds/room/<?php __($room_id) ?>" class="rss" target="_blank"><i class="fa fa-rss"></i></a></div>
 	</div>
 </div>
 
@@ -110,10 +113,11 @@
 
 <div class="title-bar">
 	<?php if($this->Session->IsMember()): ?>
+		<div class="title"></div>
 		<?php if($room_info['read_only']): ?>
-			<div class="buttons fright"><a class="default-button disabled"><?php __("R_READ_ONLY") ?></a></div>
+			<div class="buttons"><a class="default-button disabled"><?php __("R_READ_ONLY") ?></a></div>
 		<?php else: ?>
-			<div class="buttons fright">
+			<div class="buttons">
 				<a href="thread/add/<?php __($room_id) ?>" class="default-button"><?php __("R_NEW_THREAD") ?></a>
 				<a href="thread/add/<?php __($room_id) ?>?poll=true" class="default-button"><?php __("R_NEW_POLL") ?></a>
 			</div>

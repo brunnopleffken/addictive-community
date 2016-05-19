@@ -194,7 +194,7 @@
 							<div class="quote-content"><?php echo $reply[$k]['quote_post'] ?></div>
 						</div>
 					<?php endif; ?>
-					<div><?php __(html_entity_decode($reply[$k]['post'])) ?></div>
+					<div><?php __($reply[$k]['post']) ?></div>
 					<div class="attachments">
 						<?php if($reply[$k]['attach_id'] != 0): ?>
 							<span class="title">Attachment</span>

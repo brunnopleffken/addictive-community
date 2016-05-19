@@ -24,7 +24,7 @@
 
 	// System environment
 
-	$phpversion = "PHP " . phpversion();
+	$srvsoft = $_SERVER["SERVER_SOFTWARE"];
 
 	$Db->Query("SELECT VERSION() AS version;");
 	$mysql_v = $Db->Fetch();
@@ -39,6 +39,10 @@
 			INNER JOIN c_members m ON (r.sender_id = m.m_id)
 			LEFT JOIN c_threads t ON (r.thread_id = t.t_id)
 			ORDER BY rp_id DESC LIMIT 15;");
+
+	if($Db->Rows($reports) == 0) {
+		$html = "<tr><td colspan='7' class='center'>There are no abuse reports at the moment.</td></tr>";
+	}
 
 	while($report = $Db->Fetch($reports)) {
 		$report['date'] = $Core->DateFormat($report['date']);
@@ -85,6 +89,12 @@
 	<h1>Dashboard</h1>
 
 	<div id="content">
+		<?php
+		//checks to see if install directory is still on the server, and shows a warning.
+		if(file_exists(__DIR__.'/../../install') || is_dir(__DIR__.'/../../install')){
+			echo HTML::Notification('It is recommended to delete the install folder.','warning',true);
+		}
+		?>
 		<div class="grid-row">
 			<!-- LEFT -->
 			<div class="grid-half">
@@ -126,8 +136,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="title">PHP Version</td>
-						<td><?php __($phpversion); ?></td>
+						<td class="title">Server Software</td>
+						<td><?php __($srvsoft); ?></td>
 					</tr>
 					<tr>
 						<td class="title">MySQL Version</td>

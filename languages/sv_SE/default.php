@@ -13,7 +13,7 @@
 	$t["SIDEBAR_LOGOUT"] = "Logga ut";
 	$t["SIDEBAR_ROOMS"] = "Rum";
 	$t["SIDEBAR_MEMBERS_ONLINE"] = "Medlemmar Inloggade";
-	$t["SIDEBAR_MEMBER_COUNT"] = "Meddlemmar (%d)";
+	$t["SIDEBAR_MEMBER_COUNT"] = "Medlemmar (%d)";
 	$t["SIDEBAR_MEMBER_VIEWING"] = "Tittar";
 	$t["SIDEBAR_GUEST_COUNT"] = "Gäster (%d)";
 	$t["SIDEBAR_STATISTICS"] = "Statistik";
@@ -21,7 +21,6 @@
 	$t["SIDEBAR_S_POSTS"] = "Inlägg";
 	$t["SIDEBAR_S_MEMBERS"] = "Medlemmar";
 	$t["SIDEBAR_S_LAST"] = "Nyaste Medlemmen";
-	$t["FOOTER_ABOUT"] = "Om";
 	$t["M_1"] = "Januari";
 	$t["M_2"] = "Februari";
 	$t["M_3"] = "Mars";

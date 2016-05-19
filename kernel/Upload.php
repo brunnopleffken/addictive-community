@@ -58,6 +58,15 @@ class Upload
 			// Get timestamp
 			$timestamp = time();
 
+			// Validate maximum attachment file size
+			$max_attachment_size_mb = $this->Db->Query("SELECT value FROM c_config WHERE field = 'general_max_attachment_size';");
+			$max_attachment_size_mb = $this->Db->Fetch();
+			$max_attachment_size_bytes = $max_attachment_size_mb['value'] * 1048576;
+
+			if($file['size'] >= $max_attachment_size_bytes) {
+				Html::Error("The uploaded file size exceeds " . $max_attachment_size_mb['value'] . "MB!");
+			}
+
 			// Get filename and extension
 			$filename = explode(".", $file['name']);
 			$this->file_extension = strtolower(end($filename));

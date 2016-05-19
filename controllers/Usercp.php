@@ -131,34 +131,19 @@ class Usercp extends Application
 
 		// Gravatar or custom photo?
 		$photo_info['gravatar'] = "";
-		$photo_info['facebook'] = "";
 		$photo_info['custom']   = "";
 
-		// Notification if Facebook account is not set
-		$facebook_info = "";
 		if($this->Session->member_info['photo_type'] == "gravatar") {
 			$photo_info['gravatar'] = "checked";
-		}
-		elseif($this->Session->member_info['photo_type'] == "facebook") {
-			$photo_info['facebook'] = "checked";
 		}
 		else {
 			$photo_info['custom'] = "checked";
 		}
 
-		if($this->Session->member_info['im_facebook'] == "") {
-			$photo_info['facebook'] = "disabled";
-			$facebook_info = Html::Notification(
-				"You must fill in the \"Facebook\" text field in order to use your Facebook photo as avatar.", "info"
-			);
-		}
-
-		// Gravatar and Facebook image
+		// Gravatar image
 		$photo_choose = $this->Session->member_info;
 		$photo_choose['photo_type'] = "gravatar";
 		$photo_info['gravatar_image'] = $this->Core->GetAvatar($photo_choose, 240);
-		$photo_choose['photo_type'] = "facebook";
-		$photo_info['facebook_image'] = $this->Core->GetAvatar($photo_choose, 240);
 
 		// Page info
 		$page_info['title'] = i18n::Translate("C_TITLE");
@@ -353,7 +338,7 @@ class Usercp extends Application
 		$photo_type = Http::Request("photo_type");
 
 		// Do processes!
-		if($photo_type == "gravatar" || $photo_type == "facebook") {
+		if($photo_type == "gravatar") {
 			// Change photo type to 'gravatar'
 			$this->Db->Update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
 			$this->Core->Redirect("usercp/photo?m=1");
