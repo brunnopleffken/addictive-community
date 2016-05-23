@@ -529,6 +529,6 @@ a.room-mark-as-read { color: #999; display: inline-block; font-size: 10px; lette
 .pages a.page-selected { background: transparent; box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2) inset; }
 
 /** FOOTER **/
-#footer { background: #000; color: #ccc; font-size: 11px; margin-top: 15px; overflow: auto; padding: 8px; }
+#footer { background: #000; color: #ccc; font-size: 11px; margin-top: 20px; padding-top: 8px; padding-bottom: 8px; }
 #footer a { color: #ccc; }
 #footer a:hover { color: #fff; text-decoration: none; }

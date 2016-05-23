@@ -1790,9 +1790,9 @@ a.room-mark-as-read {
 	background: #000;
 	color: #ccc;
 	font-size: 11px;
-	margin-top: 15px;
-	overflow: auto;
-	padding: 8px;
+	margin-top: 20px;
+	padding-top: 8px;
+	padding-bottom: 8px;
 	a {
 		color: #ccc;
 		&:hover {
