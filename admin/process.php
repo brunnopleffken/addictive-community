@@ -360,6 +360,53 @@ switch($do) {
 
 		break;
 
+	case "install_theme":
+
+		// Get locale code
+		$code = Http::Request("id");
+
+		// Get array from language JSON manifest
+		$theme_info = json_decode(file_get_contents("../themes/" . $code . "/_theme.json"), true);
+
+		// Insert new language into DB
+		$theme = array(
+			"name"         => $theme_info['name'],
+			"directory"    => $theme_info['directory'],
+			"author_name"  => $theme_info['name'],
+			"author_email" => $theme_info['email'],
+			"is_active"    => 1
+		);
+
+		$Db->Insert("c_themes", $theme);
+		$Admin->RegisterLog("Installed new theme : " . $code);
+
+		header("Location: " . $_SERVER['HTTP_REFERER']);
+		exit;
+
+		break;
+
+	case "theme_remove":
+
+		// Get locale code
+		$id = Http::Request("id");
+
+		// Transfer all members using this theme to default
+		$default_theme = $Admin->SelectConfig("theme_default_set");
+
+		$Db->Query("SELECT directory FROM c_themes WHERE theme_id = {$id};");
+		$theme_directory = $Db->Fetch();
+
+		$Db->Query("UPDATE c_members SET theme = '{$default_theme}' WHERE theme = '{$theme_directory['directory']}';");
+
+		// Delete from database
+		$Db->Query("DELETE FROM c_themes WHERE theme_id = {$id};");
+		$Admin->RegisterLog("Uninstalled theme: " . $theme_directory['directory']);
+
+		header("Location: " . $_SERVER['HTTP_REFERER']);
+		exit;
+
+		break;
+
 	case "disable_emoticon":
 
 		// Get emoticon ID
