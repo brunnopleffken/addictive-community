@@ -362,10 +362,10 @@ switch($do) {
 
 	case "install_theme":
 
-		// Get locale code
+		// Get theme name
 		$code = Http::Request("id");
 
-		// Get array from language JSON manifest
+		// Get array from theme JSON manifest
 		$theme_info = json_decode(file_get_contents("../themes/" . $code . "/_theme.json"), true);
 
 		// Insert new language into DB
@@ -387,7 +387,7 @@ switch($do) {
 
 	case "theme_remove":
 
-		// Get locale code
+		// Get theme name
 		$id = Http::Request("id");
 
 		// Transfer all members using this theme to default
@@ -401,6 +401,53 @@ switch($do) {
 		// Delete from database
 		$Db->Query("DELETE FROM c_themes WHERE theme_id = {$id};");
 		$Admin->RegisterLog("Uninstalled theme: " . $theme_directory['directory']);
+
+		header("Location: " . $_SERVER['HTTP_REFERER']);
+		exit;
+
+		break;
+
+	case "install_template":
+
+		// Get template name
+		$code = Http::Request("id");
+
+		// Get array from template JSON manifest
+		$template_info = json_decode(file_get_contents("../templates/" . $code . "/_template.json"), true);
+
+		// Insert new language into DB
+		$template = array(
+			"name"         => $template_info['name'],
+			"directory"    => $template_info['directory'],
+			"author_name"  => $template_info['name'],
+			"author_email" => $template_info['email'],
+			"is_active"    => 1
+		);
+
+		$Db->Insert("c_templates", $template);
+		$Admin->RegisterLog("Installed new template : " . $code);
+
+		header("Location: " . $_SERVER['HTTP_REFERER']);
+		exit;
+
+		break;
+
+	case "template_remove":
+
+		// Get template name
+		$id = Http::Request("id");
+
+		// Transfer all members using this template to default
+		$default_template = $Admin->SelectConfig("template_default_set");
+
+		$Db->Query("SELECT directory FROM c_templates WHERE tpl_id = {$id};");
+		$template_directory = $Db->Fetch();
+
+		$Db->Query("UPDATE c_members SET template = '{$default_template}' WHERE template = '{$template_directory['directory']}';");
+
+		// Delete from database
+		$Db->Query("DELETE FROM c_templates WHERE tpl_id = {$id};");
+		$Admin->RegisterLog("Uninstalled template: " . $template_directory['directory']);
 
 		header("Location: " . $_SERVER['HTTP_REFERER']);
 		exit;
