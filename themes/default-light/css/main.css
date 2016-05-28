@@ -199,9 +199,10 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 
 /** HEADER **/
 #topbar { background: #000; color: #ccc; font-size: 11px; }
-#topbar a { color: #c9c9c9; display: inline-block; font-size: 10px; line-height: 26px; margin-right: 10px; padding: 0 10px; text-transform: uppercase; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
+#topbar a { color: #c9c9c9; display: inline-block; font-size: 10px; line-height: 26px; margin-right: 10px; padding: 0 5px; text-transform: uppercase; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
 #topbar a:hover { background-color: #2f2f2f; color: #fff; text-decoration: none; }
 #topbar a:last-child { margin-right: 0; }
+@media (min-width: 768px) { #topbar a { padding: 0 10px; } }
 
 #logo { margin-bottom: 20px; margin-top: 20px; }
 #logo .logo { height: 50px; width: 300px; }

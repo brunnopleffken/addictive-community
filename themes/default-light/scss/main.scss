@@ -347,7 +347,7 @@ form {
 		font-size: 10px;
 		line-height: 26px;
 		margin-right: 10px;
-		padding: 0 10px;
+		padding: 0 5px;
 		text-transform: uppercase;
 		@include transition(300ms);
 		&:hover {
@@ -356,6 +356,11 @@ form {
 			text-decoration: none;
 		}
 		&:last-child { margin-right: 0; }
+	}
+	@media (min-width: #{$small}) {
+		a {
+			padding: 0 10px;
+		}
 	}
 }
 
