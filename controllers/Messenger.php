@@ -232,45 +232,62 @@ class Messenger extends Application
 		// Redirect
 		$this->Core->Redirect("messenger");
 	}
-	/*****************************
-	* VIEW: FORWARDING A MESSAGE TO ANOTHER USER
-	*
-	*/
-	public function Forward($id){
-		$member_id=$this->Session->session_info['member_id'];
-		if($id){
-		   $this->Db->Query("SELECT `username`,`subject`,`message` FROM `c_messages` LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id` WHERE `pm_id`={$id} LIMIT 1");
-		   $message=$this->Db->fetch();
-		   if($message){
-		      $this->Set('message',$message);
-		    }else{
+
+	/**
+	 * --------------------------------------------------------------------
+	 * VIEW: FORWARDING A MESSAGE TO ANOTHER USER
+	 * --------------------------------------------------------------------
+	 */
+	public function Forward($id)
+	{
+		$member_id = $this->Session->session_info['member_id'];
+
+		if($id) {
+			$this->Db->Query("SELECT `username`,`subject`,`message` FROM `c_messages`
+					LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id`
+					WHERE `pm_id`={$id} LIMIT 1");
+
+			$message = $this->Db->fetch();
+
+			if($message) {
+				$this->Set('message', $message);
+			}
+			else {
+				$this->Core->Redirect("messenger");
+			}
+		}
+		else {
 			$this->Core->Redirect("messenger");
-		    }
-		   
-		}else{
-		  $this->Core->Redirect("messenger");
 		}
 	}
-	/*************************************
-	*
-	* VIEW: REPLYING TO A MESSAGE
-	*
-	*************************************/
-	public function Reply($id){
-		$member_id=$this->Session->session_info['member_id'];
-		if($id){
-		   //Load message user is replying to
-		   $this->Db->Query("SELECT `username`,`m_id` AS `reply_user_id`,`subject` FROM `c_messages` LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id` WHERE `pm_id`={$id} AND `to_id`={$member_id} LIMIT 1");
-		   $message=$this->Db->fetch();
-		   if($message){
-		      //Set this message so the view can use the information
-		      $this->Set('message',$message);
-		    }else{
+
+	/**
+	 * --------------------------------------------------------------------
+	 * VIEW: REPLYING TO A MESSAGE
+	 * --------------------------------------------------------------------
+	 */
+	public function Reply($id)
+	{
+		$member_id = $this->Session->session_info['member_id'];
+
+		if($id) {
+			//Load message user is replying to
+			$this->Db->Query("SELECT `username`,`m_id` AS `reply_user_id`,`subject` FROM `c_messages`
+					LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id` WHERE `pm_id`={$id}
+					AND `to_id`={$member_id} LIMIT 1");
+
+			$message = $this->Db->fetch();
+
+			if($message) {
+				//Set this message so the view can use the information
+				$this->Set('message', $message);
+			}
+			else {
+				$this->Core->Redirect("messenger");
+			}
+		}
+		else {
 			$this->Core->Redirect("messenger");
-		    }
-		   
-		}else{
-		  $this->Core->Redirect("messenger");
 		}
 	}
 }
