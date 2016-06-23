@@ -115,7 +115,8 @@
   .columns.xlarge-offset-10 { margin-left: 83.33333%; }
   .columns.xlarge-offset-11 { margin-left: 91.66667%; }
   .columns.xlarge-offset-12 { margin-left: 100%; } }
-@media (max-width: 768px) { .small-hide { display: none; } }
+@media (max-width: 768px) { .small-hide { display: none; }
+  .small-block { display: block; } }
 /** GLOBAL **/
 body { background: #f1f1f1; font-family: Arial, "Helvetica Neue", sans-serif; font-size: 13px; }
 body h1 { margin-bottom: 8px; }
@@ -273,7 +274,7 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .room-item .info .description { color: #333; font-size: 13px; }
 .room-item .info .moderators, .room-item .info .redirect { color: #ccc; font-size: 10px; letter-spacing: 1px; line-height: 1em; margin-top: 10px; text-transform: uppercase; }
 .room-item .info .moderators a, .room-item .info .redirect a { color: inherit; }
-.room-item .info .last-post { border-top: 1px solid #eee; font-size: 10px; line-height: 28px; margin-top: 10px; position: relative; text-transform: uppercase; }
+.room-item .info .last-post { border-top: 1px solid #eee; font-size: 10px; line-height: 1; margin-top: 10px; padding-bottom: 8px; padding-top: 8px; position: relative; text-transform: uppercase; }
 .room-item .info .last-post i { font-size: 11px; }
 .room-item .info .last-post span { margin-right: 15px; }
 .room-item .room-stats { background: #465068; vertical-align: top; width: 100px; }
@@ -300,7 +301,7 @@ a.room-mark-as-read { color: #999; display: inline-block; font-size: 10px; lette
 .thread-item .middle .author i:last-child { margin-left: 15px; }
 .thread-item .info { background: rgba(180, 180, 180, 0.1); display: table-cell; font-size: 14px; font-weight: bold; text-align: center; width: 70px; vertical-align: middle; }
 .thread-item .info i { font-size: 30px; }
-.thread-item .stats { background: #465068; display: table-cell; padding: 0 5px; line-height: 1em; vertical-align: middle; width: 180px; }
+.thread-item .stats { background: #465068; display: table-cell; padding: 0 5px; position: relative; line-height: 1em; vertical-align: middle; width: 180px; }
 .thread-item .stats .label { color: #fff; overflow: hidden; padding: 3px 0; white-space: nowrap; }
 .thread-item .stats .label .value { display: inline-block; font-size: 11px; margin-left: 6px; }
 .thread-item .stats .label .value a { color: #fff; }
@@ -477,8 +478,8 @@ a.room-mark-as-read { color: #999; display: inline-block; font-size: 10px; lette
 .calendar .week { background: #fff url("../images/bar-bg.png"); border-bottom: 1px solid #ccc; font-size: 11px; font-weight: bold; padding: 5px 8px; text-align: center; width: 14%; }
 .calendar .day { background: #fff; border-top: 1px solid #eee; font-size: 16px; padding: 24px 0; text-align: center; }
 .calendar .day a { border-radius: 50%; color: #000; display: inline-block; line-height: 25px; width: 26px; }
-.calendar .day.today a { color: #c00 !important; }
-.calendar .day.event a { background-color: #465068; color: #fff; font-size: 14px; }
+.calendar .day.today a { color: #c00; }
+.calendar .day.event a { background-color: #465068; color: #fff !important; font-size: 14px; }
 .calendar .day.event a:hover { text-decoration: none; }
 .calendar .fill { background: #fff; padding: 20px; }
 

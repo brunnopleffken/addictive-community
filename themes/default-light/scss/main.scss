@@ -623,9 +623,7 @@ form {
 	@include transition(300ms);
 	&:first-child { margin-top: 10px; }
 	&:hover { color: #000; }
-	i {
-		float: right;
-	}
+	i { float: right; }
 }
 .room-item {
 	background: #fff;
@@ -667,8 +665,10 @@ form {
 		.last-post {
 			border-top: 1px solid #eee;
 			font-size: 10px;
-			line-height: 28px;
+			line-height: 1;
 			margin-top: 10px;
+			padding-bottom: 8px;
+			padding-top: 8px;
 			position: relative;
 			text-transform: uppercase;
 			i { font-size: 11px; }
@@ -796,6 +796,7 @@ a.room-mark-as-read {
 		background: $accent;
 		display: table-cell;
 		padding: 0 5px;
+		position: relative;
 		line-height: 1em;
 		vertical-align: middle;
 		width: 180px;
@@ -1558,12 +1559,12 @@ a.room-mark-as-read {
 			width: 26px;
 		}
 		&.today {
-			a { color: #c00 !important; }
+			a { color: #c00; }
 		}
 		&.event {
 			a {
 				background-color: $accent;
-				color: #fff;
+				color: #fff !important;
 				font-size: 14px;
 				&:hover { text-decoration: none; }
 			}
