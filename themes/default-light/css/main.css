@@ -225,10 +225,11 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .sidebar-item:first-child { margin-top: 0; }
 .sidebar-item .title { background: #465068 url("../images/bar-bg.png") repeat-x; border-radius: 5px 5px 0 0; color: #fff; font-size: 14px; font-weight: bold; padding: 10px 12px; }
 .sidebar-item .text { background: #fcfcfc; border: 1px solid #ddd; border-top: 0; border-radius: 0 0 5px 5px; padding: 10px; }
-.sidebar-item .text.stats { line-height: 1.4em; }
 .sidebar-item .text .subtitle { color: #999; display: block; font-size: 14px; margin-bottom: 6px; }
 .sidebar-item .text .online-list { font-size: 12px; }
-.sidebar-item .text .stats-name { color: #888; }
+.sidebar-item dl.stats { line-height: 1.4em; }
+.sidebar-item dl.stats dt { color: #999; float: left; }
+.sidebar-item dl.stats dd { float: right; font-weight: bold; }
 .sidebar-item .list .item { background: #fdfdfd; border: 1px solid #eee; border-top: 0; padding: 10px 12px; position: relative; -webkit-transition: 300ms; -moz-transition: 300ms; transition: 300ms; }
 .sidebar-item .list .item:hover { background: #f7f7f7; }
 .sidebar-item .list .item:last-child { border-radius: 0 0 7px 7px; }

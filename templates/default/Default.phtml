@@ -98,7 +98,9 @@
 										<?php echo $sidebar_rooms[$k]['name'] ?>
 									</a>
 									<span><?php echo $sidebar_rooms[$k]['threads'] ?></span>
-									<?php if($sidebar_rooms[$k]['password']): ?><i class="fa fa-lock"></i><?php endif; ?>
+									<?php if($sidebar_rooms[$k]['password']): ?>
+										<i class="fa fa-lock"></i>
+									<?php endif; ?>
 								</div>
 							<?php endforeach; ?>
 						</div>
@@ -107,26 +109,34 @@
 						<div class="sidebar-item" id="sidebar-online">
 							<div class="title"><?php __("SIDEBAR_MEMBERS_ONLINE") ?></div>
 							<div class="text">
-								<span class="subtitle"><?php __("SIDEBAR_MEMBER_COUNT", array($member_count)) ?></span>
+								<span class="subtitle">
+									<?php __("SIDEBAR_MEMBER_COUNT", array($member_count)) ?>
+								</span>
 								<div class="online-list"><?php echo $member_list ?></div>
-								<span class="subtitle" style="margin-top: 10px"><?php __("SIDEBAR_GUEST_COUNT", array($guests_count)) ?></span>
+								<span class="subtitle" style="margin-top: 10px">
+									<?php __("SIDEBAR_GUEST_COUNT", array($guests_count)) ?>
+								</span>
 							</div>
 						</div>
 					<?php endif; ?>
 					<?php if($show_statistics): ?>
 						<div class="sidebar-item" id="sidebar-stats">
 							<div class="title"><?php __("SIDEBAR_STATISTICS") ?></div>
-							<div class="text stats">
-								<span class="stats-name fleft"><?php __("SIDEBAR_S_THREADS") ?></span>
-								<b class="fright"><?php echo $stats['threads'] ?></b><br>
-								<span class="stats-name fleft"><?php __("SIDEBAR_S_POSTS") ?></span>
-								<b class="fright"><?php echo $stats['posts'] ?></b><br>
-								<span class="stats-name fleft"><?php __("SIDEBAR_S_MEMBERS") ?></span>
-								<b class="fright"><?php echo $stats['members'] ?></b><br>
-								<span class="stats-name fleft"><?php __("SIDEBAR_S_LAST") ?></span>
-								<b class="fright"><a href="profile/<?php echo $stats['lastmemberid'] ?>"><?php echo $stats['lastmembername'] ?></a></b>
+							<dl class="text stats">
+								<dt><?php __("SIDEBAR_S_THREADS") ?></dt>
+								<dd><?php echo $stats['threads'] ?></dd><br>
+								<dt><?php __("SIDEBAR_S_POSTS") ?></dt>
+								<dd><?php echo $stats['posts'] ?></dd><br>
+								<dt><?php __("SIDEBAR_S_MEMBERS") ?></dt>
+								<dd><?php echo $stats['members'] ?></dd><br>
+								<dt><?php __("SIDEBAR_S_LAST") ?></dt>
+								<dd>
+									<a href="profile/<?php echo $stats['lastmemberid'] ?>">
+										<?php echo $stats['lastmembername'] ?>
+									</a>
+								</dd>
 								<div class="fix"></div>
-							</div>
+							</dl>
 						</div>
 					<?php endif; ?>
 				</div>
