@@ -49,7 +49,7 @@
 	$t["P_SET_ANNOUNCEMENT"] = "Set thread as Announcement";
 	$t["P_LOCK"] = "Lock thread after posting";
 	$t["P_ERROR"] = "Your message is empty.";
-	$t["P_NEW_ERROR"] = "Name and post content are required fields.";
+	$t["P_NEW_ERROR"] = "Title and post content are required fields.";
 	$t["P_NEW_THREAD_SUBMIT"] = "Add New Thread";
 	$t["P_ADD_REPLY_SUBMIT"] = "Add Reply";
 	$t["T_MOD_OPTIONS"] = "Moderation Options";
