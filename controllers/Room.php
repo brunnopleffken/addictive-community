@@ -23,6 +23,11 @@ class Room extends Application
 		if(Http::Request("act") == "load_more") {
 			// Update session table with room ID
 			$id = Http::Request("id", true);
+
+			if($id == null && !is_numeric($id)) {
+				$this->Core->Redirect("500");
+			}
+
 			$session = $this->Session->session_id;
 			$this->Db->Update("c_sessions", "location_room_id = {$id}", "s_id = '{$session}'");
 		}
@@ -35,9 +40,19 @@ class Room extends Application
 	 */
 	public function Main($id)
 	{
+		// Check if $id exists and is a number
+		if($id == null && !is_numeric($id)) {
+			$this->Core->Redirect("500");
+		}
+
 		// Get room information
 		$this->Db->Query("SELECT * FROM c_rooms WHERE r_id = {$id}");
 		$room_info = $this->Db->Fetch();
+
+		// Redirect to Error 404 if the thread doesn't exist
+		if($room_info == null) {
+			$this->Core->Redirect("404");
+		}
 
 		// Is the room protected?
 		if($room_info['password'] != "") {

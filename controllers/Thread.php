@@ -23,6 +23,11 @@ class Thread extends Application
 	 */
 	public function Main($id)
 	{
+		// Check if $id exists and is a number
+		if($id == null && !is_numeric($id)) {
+			$this->Core->Redirect("500");
+		}
+
 		// Define messages
 		$message_id = Http::Request("m", true);
 		$notification = array("",
@@ -785,6 +790,11 @@ class Thread extends Application
 				(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t
 				INNER JOIN c_rooms r ON (r.r_id = t.room_id) WHERE t.t_id = '{$id}';");
 		$thread_info = $this->Db->Fetch($thread);
+
+		// Redirect to Error 404 if the thread doesn't exist
+		if($thread_info == null) {
+			$this->Core->Redirect("404");
+		}
 
 		// Calculate the number of actual replies (first post is not a reply)
 		$thread_info['post_count_display'] = $thread_info['post_count'] - 1;
