@@ -58,6 +58,11 @@ class Calendar extends Application
 	 */
 	public function View()
 	{
+		// Redirect to Error 404 if the thread doesn't exist
+		if(!Http::Request("date")) {
+			$this->Core->Redirect("500");
+		}
+
 		// Get date and convert to array
 		$date = explode("-", Http::Request("date"));
 

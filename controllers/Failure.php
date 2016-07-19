@@ -45,6 +45,12 @@ class Failure extends Application
 			),
 			'deleted_member' => array(
 				"", "deleted"
+			),
+			'404' => array(
+				"", "404"
+			),
+			'500' => array(
+				"", "500"
 			)
 		);
 
