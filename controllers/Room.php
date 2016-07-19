@@ -86,8 +86,8 @@ class Room extends Application
 		$offset = $page * $threads_per_page;
 
 		// Get threads
-		$this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS author_email,
-				author.photo_type AS author_type, author.photo AS author_photo, lastpost.username AS last_post_name,
+		$this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS email,
+				author.photo_type AS photo_type, author.photo AS author_photo, lastpost.username AS last_post_name,
 				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
 				INNER JOIN c_members AS lastpost ON (c_threads.last_post_member_id = lastpost.m_id)
