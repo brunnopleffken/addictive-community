@@ -36,9 +36,9 @@ Free open-source discussion board (forum) software, written in object-oriented P
 
 ### Requirements
 
-* Apache 2 or IIS webserver running on any major operating system;
-* Enabled Apache mod_rewrite or IIS URL Rewriter;
-* PHP 5.3 or higher;
+* Apache 2 webserver running on any major operating system;
+* Enabled Apache mod_rewrite;
+* PHP 5.4 or higher;
 * MySQL 5.1 or higher.
 
 #### This is a Beta version!
