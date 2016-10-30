@@ -27,7 +27,7 @@ class Messenger extends Application
 		$this->Session->NoGuest();
 
 		// Save logged in member ID into $member_id
-		$this->member_id= $this->Session->member_info['m_id'];
+		$this->member_id = $this->Session->member_info['m_id'];
 	}
 
 	/**
