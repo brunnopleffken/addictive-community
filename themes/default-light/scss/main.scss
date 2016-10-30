@@ -1816,3 +1816,23 @@ a.room-mark-as-read {
 		}
 	}
 }
+
+/** SELECT2 PLUGIN **/
+
+.select2-container--default {
+	.select2-selection--single {
+		border: 1px solid #ccc !important;
+		border-radius: 3px;
+		box-shadow: 0px 0px 2px rgba(#000, 0.1) inset;
+		height: 29px !important;
+	}
+	.select2-results__option--highlighted[aria-selected] {
+		background-color: $accent !important;
+	}
+}
+
+.select2-dropdown {
+	border-color: #ccc !important;
+	border-radius: 3px;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}

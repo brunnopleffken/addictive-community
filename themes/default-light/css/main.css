@@ -535,3 +535,9 @@ a.room-mark-as-read { color: #999; display: inline-block; font-size: 10px; lette
 #footer { background: #000; color: #ccc; font-size: 11px; margin-top: 20px; padding-top: 8px; padding-bottom: 8px; }
 #footer a { color: #ccc; }
 #footer a:hover { color: #fff; text-decoration: none; }
+
+/** SELECT2 PLUGIN **/
+.select2-container--default .select2-selection--single { border: 1px solid #ccc !important; border-radius: 3px; box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1) inset; height: 29px !important; }
+.select2-container--default .select2-results__option--highlighted[aria-selected] { background-color: #465068 !important; }
+
+.select2-dropdown { border-color: #ccc !important; border-radius: 3px; box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); }
