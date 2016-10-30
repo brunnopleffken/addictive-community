@@ -191,7 +191,7 @@ class Main
 			$this->content = ob_get_clean();
 
 			// Load master page
-			require("templates/" . $this->template . "/" . $this->instance->master . ".phtml");
+			require("templates/" . $this->template . "/layouts/" . $this->instance->master . ".phtml");
 		}
 	}
 
