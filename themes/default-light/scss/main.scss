@@ -1481,9 +1481,8 @@ a.room-mark-as-read {
 	margin-bottom: 12px;
 	text-align: right;
 	a {
-		background: url('../images/page.png') repeat-x;
+		background-color: #f9f9f9;
 		border: 1px solid #ddd;
-		box-shadow: 0 0 2px rgba(#000, 0.1);
 		color: #444;
 		display: inline-block;
 		font-size: 11px;
@@ -1493,14 +1492,15 @@ a.room-mark-as-read {
 		padding: 0 5px;
 		text-align: center;
 		text-shadow: 1px 1px 0px #fff;
+		transition: 100ms;
 		&:hover {
-			background: url('../images/page-hover.png') repeat-x;
+			background-color: #fff;
 			text-decoration: none;
 		}
 	}
 	.page-selected {
-		background: transparent;
-		box-shadow: 0px 0px 3px rgba(#000, 0.2) inset;
+		background-color: #f3f3f3;
+		box-shadow: 1px 1px 5px 0px rgba(#000, 0.1) inset;
 	}
 }
 
