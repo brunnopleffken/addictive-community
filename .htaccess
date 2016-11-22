@@ -1,6 +1,9 @@
 # Disable directory browsing
 Options -Indexes
 
+ErrorDocument 404 /404
+ErrorDocument 500 /500
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
