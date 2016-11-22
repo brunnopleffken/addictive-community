@@ -1,5 +1,28 @@
 # Changelog
 
+## v0.11.0 (2016-11-22)
+
+#### Added
+- Add/remove themes and templates via Admin CP (thanks to @xQuByte);
+- New pages for HTTP errors 404/Not Found and 500/Internal Server Error.
+
+#### Fixes
+- Disable registration now works properly showing a warning (thanks to @xQuByte);
+- Forwarding Personal Messages not working due to pending Pull Request.
+
+#### Changed
+- Master templates are now inside the `\templates\[theme]\layouts` directory.
+
+#### Security
+- Improved validations for controllers, IDs and reference values;
+- Fixed an XSS vulnerability when ordering the list of members (#98);
+- A lot of third-party plugins were update to their latest version.
+
+#### Deprecated
+- Support for IE9 and older is now deprecated.
+
+
+
 ## v0.10.0 (2016-05-19)
 
 #### Added

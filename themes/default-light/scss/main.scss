@@ -347,7 +347,7 @@ form {
 		font-size: 10px;
 		line-height: 26px;
 		margin-right: 10px;
-		padding: 0 10px;
+		padding: 0 5px;
 		text-transform: uppercase;
 		@include transition(300ms);
 		&:hover {
@@ -356,6 +356,11 @@ form {
 			text-decoration: none;
 		}
 		&:last-child { margin-right: 0; }
+	}
+	@media (min-width: #{$small}) {
+		a {
+			padding: 0 10px;
+		}
 	}
 }
 
@@ -448,7 +453,6 @@ form {
 		border-top: 0;
 		border-radius: 0 0 5px 5px;
 		padding: 10px;
-		&.stats { line-height: 1.4em; }
 		.subtitle {
 			color: #999;
 			display: block;
@@ -456,7 +460,17 @@ form {
 			margin-bottom: 6px;
 		}
 		.online-list { font-size: 12px; }
-		.stats-name { color: #888; }
+	}
+	dl.stats {
+		line-height: 1.4em;
+		dt {
+			color: #999;
+			float: left;
+		}
+		dd {
+			float: right;
+			font-weight: bold;
+		}
 	}
 	.list {
 		.item {
@@ -529,15 +543,15 @@ form {
 			color: #eef;
 			float: left;
 			font-size: 11px;
+			line-height: 1.6em;
 			margin-left: 10px;
-			margin-top: 3px;
-			&.logged-out { margin-top: 0; }
+			margin-top: 6px;
+			&.logged-out { margin: 3px 10px; }
 			.highlight { font-weight: bold; }
 			a { color: inherit; }
 			b {
 				font-size: 15px;
 				display: block;
-				line-height: 1.5em;
 			}
 		}
 	}
@@ -609,9 +623,7 @@ form {
 	@include transition(300ms);
 	&:first-child { margin-top: 10px; }
 	&:hover { color: #000; }
-	i {
-		float: right;
-	}
+	i { float: right; }
 }
 .room-item {
 	background: #fff;
@@ -653,8 +665,10 @@ form {
 		.last-post {
 			border-top: 1px solid #eee;
 			font-size: 10px;
-			line-height: 28px;
+			line-height: 1;
 			margin-top: 10px;
+			padding-bottom: 8px;
+			padding-top: 8px;
 			position: relative;
 			text-transform: uppercase;
 			i { font-size: 11px; }
@@ -782,6 +796,7 @@ a.room-mark-as-read {
 		background: $accent;
 		display: table-cell;
 		padding: 0 5px;
+		position: relative;
 		line-height: 1em;
 		vertical-align: middle;
 		width: 180px;
@@ -1466,9 +1481,8 @@ a.room-mark-as-read {
 	margin-bottom: 12px;
 	text-align: right;
 	a {
-		background: url('../images/page.png') repeat-x;
+		background-color: #f9f9f9;
 		border: 1px solid #ddd;
-		box-shadow: 0 0 2px rgba(#000, 0.1);
 		color: #444;
 		display: inline-block;
 		font-size: 11px;
@@ -1478,14 +1492,15 @@ a.room-mark-as-read {
 		padding: 0 5px;
 		text-align: center;
 		text-shadow: 1px 1px 0px #fff;
+		transition: 100ms;
 		&:hover {
-			background: url('../images/page-hover.png') repeat-x;
+			background-color: #fff;
 			text-decoration: none;
 		}
 	}
 	.page-selected {
-		background: transparent;
-		box-shadow: 0px 0px 3px rgba(#000, 0.2) inset;
+		background-color: #f3f3f3;
+		box-shadow: 1px 1px 5px 0px rgba(#000, 0.1) inset;
 	}
 }
 
@@ -1544,12 +1559,12 @@ a.room-mark-as-read {
 			width: 26px;
 		}
 		&.today {
-			a { color: #c00 !important; }
+			a { color: #c00; }
 		}
 		&.event {
 			a {
 				background-color: $accent;
-				color: #fff;
+				color: #fff !important;
 				font-size: 14px;
 				&:hover { text-decoration: none; }
 			}
@@ -1790,9 +1805,9 @@ a.room-mark-as-read {
 	background: #000;
 	color: #ccc;
 	font-size: 11px;
-	margin-top: 15px;
-	overflow: auto;
-	padding: 8px;
+	margin-top: 20px;
+	padding-top: 8px;
+	padding-bottom: 8px;
 	a {
 		color: #ccc;
 		&:hover {
@@ -1800,4 +1815,24 @@ a.room-mark-as-read {
 			text-decoration: none;
 		}
 	}
+}
+
+/** SELECT2 PLUGIN **/
+
+.select2-container--default {
+	.select2-selection--single {
+		border: 1px solid #ccc !important;
+		border-radius: 3px;
+		box-shadow: 0px 0px 2px rgba(#000, 0.1) inset;
+		height: 29px !important;
+	}
+	.select2-results__option--highlighted[aria-selected] {
+		background-color: $accent !important;
+	}
+}
+
+.select2-dropdown {
+	border-color: #ccc !important;
+	border-radius: 3px;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
 }

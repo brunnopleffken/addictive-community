@@ -23,6 +23,11 @@ class Room extends Application
 		if(Http::Request("act") == "load_more") {
 			// Update session table with room ID
 			$id = Http::Request("id", true);
+
+			if($id == null && !is_numeric($id)) {
+				$this->Core->Redirect("500");
+			}
+
 			$session = $this->Session->session_id;
 			$this->Db->Update("c_sessions", "location_room_id = {$id}", "s_id = '{$session}'");
 		}
@@ -35,9 +40,19 @@ class Room extends Application
 	 */
 	public function Main($id)
 	{
+		// Check if $id exists and is a number
+		if($id == null && !is_numeric($id)) {
+			$this->Core->Redirect("500");
+		}
+
 		// Get room information
 		$this->Db->Query("SELECT * FROM c_rooms WHERE r_id = {$id}");
 		$room_info = $this->Db->Fetch();
+
+		// Redirect to Error 404 if the thread doesn't exist
+		if($room_info == null) {
+			$this->Core->Redirect("404");
+		}
 
 		// Is the room protected?
 		if($room_info['password'] != "") {
@@ -86,8 +101,8 @@ class Room extends Application
 		$offset = $page * $threads_per_page;
 
 		// Get threads
-		$this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS author_email,
-				author.photo_type AS author_type, author.photo AS author_photo, lastpost.username AS last_post_name,
+		$this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS email,
+				author.photo_type AS photo_type, author.photo AS author_photo, lastpost.username AS last_post_name,
 				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
 				INNER JOIN c_members AS lastpost ON (c_threads.last_post_member_id = lastpost.m_id)

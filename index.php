@@ -127,6 +127,12 @@ class Main
 		$controller = $this->controller = ucwords($controller);
 		$action = ($action != "") ? Text::FormatActionName($this->action) : $this->action = "Main";
 
+		// Redirect to Error 404 page if controller doesn't exist
+		if(!file_exists("controllers/" . $controller . ".php")) {
+			$action = str_replace("index.php", "", $_SERVER['PHP_SELF']);
+			header("Location: " . $action . "500");
+		}
+
 		// Load Application controller
 		require("controllers/Application.php");
 		require("controllers/" . $controller . ".php");
@@ -143,8 +149,14 @@ class Main
 		}
 
 		// Execute Controller with the provided action method
-		$this->instance->Run();
-		$this->instance->$action($this->id);
+		if(method_exists($this->instance, $action)) {
+			$this->instance->Run();
+			$this->instance->$action($this->id);
+		}
+		else {
+			$action = str_replace("index.php", "", $_SERVER['PHP_SELF']);
+			header("Location: " . $action . "500");
+		}
 
 		// Execute Controller::_AfterAction() method
 		if(method_exists($this->instance, "_AfterAction")) {
@@ -179,7 +191,7 @@ class Main
 			$this->content = ob_get_clean();
 
 			// Load master page
-			require("templates/" . $this->template . "/" . $this->instance->master . ".phtml");
+			require("templates/" . $this->template . "/layouts/" . $this->instance->master . ".phtml");
 		}
 	}
 

@@ -39,7 +39,7 @@
 		}
 		else {
 			$theme['default'] = "";
-			$theme['remove']= "<a href='main.php?act=templates&p=theme_remove&id={$theme['theme_id']}'><i class='fa fa-fw fa-remove'></i></a>";
+			$theme['remove']= "<a href='process.php?do=theme_remove&id={$theme['theme_id']}'><i class='fa fa-fw fa-remove'></i></a>";
 		}
 
 		// Never allow to remove English language pack
@@ -74,7 +74,7 @@
 					<td style='color:#bbb'>/themes/{$theme}</td>
 					<td style='color:#bbb'>{$theme_info['author']} ({$theme_info['email']})</td>
 					<td style='color:#bbb' colspan='2'>Not installed</td>
-					<td colspan='3'><a href='' title='Install'><i class='fa fa-fw fa-gears'></i></a></td>
+					<td colspan='3'><a href='process.php?do=install_theme&id={$theme}' title='Install'><i class='fa fa-fw fa-gears'></i></a></td>
 				</tr>");
 		}
 	}

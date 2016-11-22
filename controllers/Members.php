@@ -45,7 +45,7 @@ class Members extends Application
 			$label = strtoupper($value);
 
 			$selected = (Http::Request("letter") == $value) ? "class='page-selected'" : "";
-			$order = (Http::Request("order")) ? "&order=" . $_REQUEST['order']: "";
+			$order = (Http::Request("order")) ? "&order=" . Http::Request("order") : "";
 
 			$letter_list .= "<a href='members?letter={$value}{$order}' {$selected}>{$label}</a>\n";
 		}

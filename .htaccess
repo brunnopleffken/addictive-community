@@ -1,6 +1,9 @@
 # Disable directory browsing
 Options -Indexes
 
+ErrorDocument 404 /404
+ErrorDocument 500 /500
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
@@ -9,6 +12,10 @@ Options -Indexes
 
   # /logout is not a controller, just a shortcut to Login::Logout()
   RewriteRule ^(logout)$ index.php?c=login&act=logout
+
+  # Errors
+  RewriteRule ^(404)$ index.php?c=failure&t=404 [QSA]
+  RewriteRule ^(500)$ index.php?c=failure&t=500 [QSA]
 
   # Controller, Actions and IDs
   RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?c=$1 [QSA]

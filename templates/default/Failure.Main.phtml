@@ -57,4 +57,16 @@
 		<h2><?php __("E_DELETED") ?></h2><br>
 		<h3><?php __("E_DELETED_MESSAGE", $community_name) ?></h3>
 	</div>
+<?php elseif($action == "404"): ?>
+	<div class="box center" style='padding: 40px 0'>
+		<i class="fa fa-meh-o" style="font-size: 50px"></i><br><br>
+		<h2><?php __("E_NOT_FOUND") ?></h2><br>
+		<h3><?php __("E_NOT_FOUND_MESSAGE", $community_name) ?></h3>
+	</div>
+<?php elseif($action == "500"): ?>
+	<div class="box center" style='padding: 40px 0'>
+		<i class="fa fa-exclamation-triangle" style="font-size: 50px"></i><br><br>
+		<h2><?php __("E_SERVER_ERROR") ?></h2><br>
+		<h3><?php __("E_SERVER_ERROR_MESSAGE", $community_name) ?></h3>
+	</div>
 <?php endif; ?>

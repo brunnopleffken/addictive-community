@@ -43,6 +43,9 @@ class Register extends Application
 		$this->Set("notification", $notification[$message_id]);
 		$this->Set("general_security_validation", $this->Core->config['general_security_validation']);
 		$this->Set("is_captcha", $this->Core->config['general_security_captcha']);
+		$this->Set("is_register_disabled", $this->Core->config['general_disable_registrations']);
+		
+
 	}
 
 	/**
