@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.11.0 (xxxx-xx-xx)
+## v0.11.0 (2016-11-22)
 
 #### Added
 - Add/remove themes and templates via Admin CP (thanks to @xQuByte);
