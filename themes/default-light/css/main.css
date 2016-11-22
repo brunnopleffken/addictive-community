@@ -241,11 +241,11 @@ form .checkbox.checked { background-color: #465068; border: 1px solid #465068; }
 .sidebar-item .user { background: #31394a url("../images/bar-bg.png"); border-radius: 7px; color: #eee; overflow: hidden; padding: 8px; }
 .sidebar-item .user .avatar { background: #61656f; background: -moz-linear-gradient(top, #61656f 0%, #545962 49%, #50555e 50%, #4d515b 51%, #383c46 100%); background: -webkit-linear-gradient(top, #61656f 0%, #545962 49%, #50555e 50%, #4d515b 51%, #383c46 100%); background: linear-gradient(to bottom, #61656f 0%, #545962 49%, #50555e 50%, #4d515b 51%, #383c46 100%); border: 1px solid #2c323f; border-radius: 5px; box-sizing: content-box; float: left; height: 42px; width: 42px; }
 .sidebar-item .user .avatar .img { border: 1px solid #31394a; box-sizing: content-box; height: 32px !important; margin: 4px; width: 32px !important; }
-.sidebar-item .user .user-info { color: #eef; float: left; font-size: 11px; margin-left: 10px; margin-top: 3px; }
-.sidebar-item .user .user-info.logged-out { margin-top: 0; }
+.sidebar-item .user .user-info { color: #eef; float: left; font-size: 11px; line-height: 1.6em; margin-left: 10px; margin-top: 6px; }
+.sidebar-item .user .user-info.logged-out { margin: 3px 10px; }
 .sidebar-item .user .user-info .highlight { font-weight: bold; }
 .sidebar-item .user .user-info a { color: inherit; }
-.sidebar-item .user .user-info b { font-size: 15px; display: block; line-height: 1.5em; }
+.sidebar-item .user .user-info b { font-size: 15px; display: block; }
 
 /** NAVIGATION BAR **/
 .navigation .navbar { background: #465068; padding: 5px 0 0 20px; }

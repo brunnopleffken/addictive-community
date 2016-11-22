@@ -543,15 +543,15 @@ form {
 			color: #eef;
 			float: left;
 			font-size: 11px;
+			line-height: 1.6em;
 			margin-left: 10px;
-			margin-top: 3px;
-			&.logged-out { margin-top: 0; }
+			margin-top: 6px;
+			&.logged-out { margin: 3px 10px; }
 			.highlight { font-weight: bold; }
 			a { color: inherit; }
 			b {
 				font-size: 15px;
 				display: block;
-				line-height: 1.5em;
 			}
 		}
 	}
