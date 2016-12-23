@@ -13,6 +13,7 @@
 
 
 $(document).ready(function($) {
+  'use strict';
 
 	/**
 	 * REPLACE ALL REGULAR <select> FIELDS WITH A FANCY ONE
@@ -282,7 +283,7 @@ $(document).ready(function($) {
 	 */
 
 	(function() {
-		$('input[type=checkbox]').each(function(i, v) {
+		$('input[type=checkbox]').each(function(i) {
 			var $checkbox = $(this);
 
 			// Hide checkbox and prepend it with <A>
@@ -529,8 +530,7 @@ function CheckPassword() {
 /**
  * Check username length (greater than 3 chars, enable submit button)
  */
-function CheckUsername()
-{
+function CheckUsername() {
 	var username = $('#username').val();
 	if(username.length < 3 || username.length > 20) {
 		$('#formSubmit').attr('disabled', 'disabled');
