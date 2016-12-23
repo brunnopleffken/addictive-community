@@ -7,10 +7,6 @@ config.php
 # Don't remove index.html files
 !index.html
 
-# SASS #
-*.sass-cache
-prepros.cfg
-
 # Folder config file #
 Desktop.ini
 
@@ -22,3 +18,6 @@ Desktop.ini
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Node
+node_modules

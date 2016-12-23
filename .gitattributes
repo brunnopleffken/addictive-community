@@ -10,3 +10,5 @@ themes/default-light/scss/* linguist-vendored
 CHANGELOG.md export-ignore
 CONTRIBUTE.md export-ignore
 README.md export-ignore
+package.json export-ignore
+gulpfile.js export-ignore
