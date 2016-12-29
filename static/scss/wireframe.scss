@@ -1,0 +1,782 @@
+@import "variables";
+
+// HEADER
+
+header {
+	.top-half {
+		background-color: $accent-darker;
+		.row {
+			flex-direction: row-reverse;
+		}
+		a {
+			color: #ccc;
+			display: inline-block;
+			font-size: 10px;
+			margin-right: 10px;
+			padding: 10px;
+			text-transform: uppercase;
+			transition: 300ms;
+			&:hover {
+				color: #fff;
+				background-color: rgba(#fff, 0.1);
+				text-decoration: none;
+			}
+			&:last-child {
+				margin: 0;
+			}
+		}
+	}
+	.bottom-half {
+		.logo {
+			display: block;
+			height: 35px;
+			margin: 10px 0;
+		}
+		.search {
+			background-color: $accent-dark;
+			border-radius: 6px;
+			float: right;
+			margin-right: 10px;
+			padding: 11px;
+			.search-input {
+				border: 0;
+				box-shadow: 0;
+				margin-right: 10px;
+				width: 250px;
+			}
+			.search-submit {
+				background-color: $accent-light;
+				font-weight: bold;
+				padding: 8px;
+				text-shadow: none;
+				&:hover {
+					background-color: $accent-lighter;
+				}
+			}
+		}
+	}
+	@media (max-width: $xsmall) {
+		.top-half {
+			a {
+				span {
+					display: none;
+				}
+			}
+		}
+		.bottom-half {
+			.col-6 {
+				flex: 1;
+			}
+			.logo {
+				height: auto;
+				max-width: 280px;
+			}
+		}
+	}
+	@media (min-width: $xsmall) {
+		.top-half {
+			a {
+				i {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+// SIDEBAR
+
+.sidebar {
+	box-shadow: none;
+	.user-box {
+		background-color: $accent-darker;
+		border-radius: 4px;
+		color: #fff;
+		margin-bottom: 10px;
+		overflow: auto;
+		a {
+			color: lighten($accent, 55%);
+			&.username {
+				display: inline-block;
+				font-weight: bold;
+				font-size: 16px;
+				margin-bottom: 4px;
+			}
+		}
+		img {
+			border-radius: 2px;
+			float: left;
+			height: 40px;
+			margin-right: 10px;
+			width: 40px;
+		}
+		ul {
+			list-style: none;
+			li {
+				float: left;
+				font-size: 12px;
+				&:before {
+					content: ('·');
+					margin: 0 3px;
+				}
+				&:first-child {
+					&:before { display: none; }
+				}
+			}
+		}
+	}
+	.panel:not(:last-child) {
+		margin-bottom: 10px;
+	}
+	.rooms {
+		list-style: none;
+		li {
+			&:not(:last-child) {
+				border-bottom: 1px solid #eee;
+			}
+			a {
+				color: $default;
+				display: block;
+				font-size: 12px;
+				font-weight: bold;
+				line-height: 14px;
+				padding: 10px;
+				transition: 100ms;
+				&:hover {
+					background-color: rgba(#000, 0.02);
+					color: #333;
+					text-decoration: none;
+				}
+				.badge {
+					float: right;
+					font-weight: normal;
+					margin-top: -3px;
+				}
+			}
+		}
+	}
+	.members {
+		dt {
+			color: $default-light;
+			margin-bottom: 5px;
+			&:last-child {
+				margin: 0;
+			}
+		}
+		dd {
+			font-size: 12px;
+			line-height: 1.3em;
+			margin-bottom: 10px;
+		}
+	}
+	.stats {
+		text-align: right;
+		& > * { line-height: 1.4em; }
+		dt {
+			color: $default-light;
+			float: left;
+		}
+		dd {
+			// float: right;
+			font-weight: bold;
+		}
+	}
+}
+
+// NAMESPACES
+// The first word of each CSS class indicates the namespace
+// .room-icon .room-info-description
+//  ^^^^       ^^^^
+
+// -- Community Home
+
+.category {
+	color: $default-light;
+	cursor: pointer;
+	font-weight: bold;
+	letter-spacing: 0.3em;
+	margin-bottom: 20px;
+	transition: 300ms;
+	&:hover { color: $default-darker; }
+	i { float: right; }
+	&-container {
+		margin-bottom: 20px;
+	}
+}
+
+.community {
+	display: flex;
+	margin-bottom: 10px;
+	&-icon {
+		align-self: center;
+		flex: 0 0 90px;
+		font-size: 40px;
+		i { vertical-align: text-top; }
+	}
+	&-info {
+		flex: 1;
+		padding: 12px 10px 10px 0;
+		&-title {
+			display: inline-block;
+			font-size: 20px;
+			font-weight: bold;
+			letter-spacing: 0.05em;
+			margin-bottom: 10px;
+		}
+		&-description {
+			font-size: 12px;
+			line-height: 1.4em;
+		}
+		&-stats {
+			font-size: 10px;
+			line-height: 12px;
+			text-transform: uppercase;
+			& > span {
+				margin-right: 20px;
+				i {
+					font-size: 12px;
+					margin-right: 5px;
+				}
+			}
+		}
+		hr {
+			border-top: 1px solid #eee;
+			border-width: 1px 0 0 0;
+			margin: 10px 0;
+			height: 1px;
+		}
+	}
+	&-stats {
+		background-color: $accent;
+		color: #fff;
+		flex: 0 0 110px;
+		&-item {
+			border-bottom: 1px dotted rgba(#fff, 0.2);
+			font-size: 16px;
+			font-weight: bold;
+			overflow: auto;
+			padding: 15px;
+			i { margin-right: 20px; }
+		}
+	}
+	&-mark-as-read {
+		a {
+			color: $default-light;
+			font-size: 10px;
+			letter-spacing: 0.3em;
+			text-shadow: 1px 1px 0 #fff;
+			text-transform: uppercase;
+		}
+	}
+	@media (max-width: $xsmall) {
+		&-icon {
+			display: none;
+		}
+		&-info {
+			padding-left: 10px;
+			&-stats {
+				& > span {
+					display: block;
+					line-height: 18px;
+				}
+			}
+		}
+		&-stats {
+			flex: 0 1 auto !important;
+		}
+	}
+}
+
+//-- Room view
+
+.room {
+	&-header {
+		margin-bottom: 20px;
+		position: relative;
+		h1 {
+			margin-bottom: 0;
+		}
+		&-buttons {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			.btn {
+				margin-left: 5px;
+			}
+		}
+	}
+	&-item {
+		border-left: 3px solid transparent;
+		margin-bottom: 10px;
+		display: flex;
+		&-image {
+			align-self: center;
+			flex: 0 0 100px;
+			margin-left: -3px;
+			img {
+				display: block;
+				height: 50px;
+				margin: auto;
+				width: 50px;
+			}
+		}
+		&-description {
+			flex: 1 1 auto;
+			overflow: hidden;
+			padding: 10px 0;
+			&-title {
+				display: inline-block;
+				font-size: 20px;
+				margin-bottom: 10px;
+			}
+			&-excerpt {
+				font-size: 12px;
+				line-height: 14px;
+				margin-bottom: 10px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			&-stats {
+				color: $default;
+				display: inline;
+				font-size: 10px;
+				text-transform: uppercase;
+				span {
+					line-height: 12px;
+					margin-right: 20px;
+					i {
+						font-size: 12px;
+						margin-right: 5px;
+					}
+				}
+			}
+		}
+		&-replies {
+			background-color: rgba(#000, 0.03);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding: 0 10px;
+			font-weight: bold;
+			text-align: center;
+			i {
+				display: block;
+				font-size: 30px;
+				margin: 0 10px;
+				margin-bottom: 5px;
+			}
+		}
+		&-stats {
+			background-color: $accent;
+			display: flex;
+			flex-flow: column wrap;
+			justify-content: center;
+			padding: 10px;
+			.label {
+				color: #fff;
+				flex: 0 1 auto;
+				font-size: 12px;
+				white-space: nowrap;
+				width: 14em;
+				span {
+					display: block;
+					line-height: 20px;
+				}
+				a {
+					color: #fff;
+				}
+				i {
+					font-size: 14px;
+					margin-right: 5px;
+					vertical-align: text-top;
+				}
+			}
+		}
+		&.new {
+			border-color: $accent;
+			.room-item-description-title {
+				font-weight: bold;
+			}
+		}
+		&.locked {
+			border-color: #b00;
+			background-color: #fff9f9;
+		}
+		&.announcement {
+			border-color: #009;
+			background-color: #f9f9ff;
+		}
+		&.answered {
+			border-color: #090;
+		}
+	}
+	@media (max-width: $xsmall) {
+		&-item {
+			&-description {
+				padding-left: 10px;
+				&-stats {
+					span {
+						display: block;
+						i { display: none; }
+					}
+				}
+			}
+		}
+	}
+	&-footer {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		overflow: auto;
+		&-buttons {
+			float: right;
+			.btn {
+				margin-left: 5px;
+			}
+		}
+	}
+}
+
+//-- Thread view
+
+.thread {
+	&-post {
+		&-author {
+			background-color: #f6f6f6;
+			border: 1px solid $default-lighter;
+			border-width: 1px 0;
+			overflow: auto;
+			padding: 10px;
+			&-avatar {
+				border: 1px solid $default-lighter;
+				float: left;
+				height: 50px;
+				margin-right: 10px;
+			}
+			&-info {
+				float: left;
+				& > a {
+					display: inline-block;
+					font-weight: bold;
+					font-size: 18px;
+					margin-bottom: 4px;
+				}
+				& > span {
+					color: $default-dark;
+					display: block;
+					font-size: 9px;
+					line-height: 12px;
+					text-transform: uppercase;
+				}
+			}
+			&-share {
+				float: right;
+				a {
+					color: $default-lighter;
+					font-size: 20px;
+					transition: 300ms;
+					&:hover {
+						color: $default-light;
+					}
+				}
+			}
+		}
+		&-content {
+			padding: 20px 10px;
+			h1 {
+				margin-bottom: 20px;
+			}
+			&-body {
+				& > * {
+					line-height: 1.4em;
+				}
+				p:not(:last-child) {
+					margin-bottom: 5px;
+				}
+			}
+		}
+		&-info {
+			border-top: 1px solid #eee;
+			color: $default;
+			font-size: 10px;
+			line-height: 12px;
+			padding: 10px;
+			text-transform: uppercase;
+			i {
+				font-size: 12px;
+			}
+		}
+	}
+	&-buttons {
+		margin-bottom: 20px;
+		overflow: auto;
+		&-replies {
+			font-size: 20px;
+			font-weight: bold;
+			line-height: 38px;
+			span {
+				color: $accent;
+			}
+		}
+	}
+	&-reply {
+		&-content {
+			display: flex;
+			&-author {
+				flex: 0 0 200px;
+				padding: 10px;
+				&-avatar {
+					background-image: url('../images/photo-stack.png');
+					background-size: 128px;
+					height: 128px;
+					margin: auto;
+					margin-bottom: 10px;
+					padding: 16px;
+					width: 128px;
+					img {
+						height: 96px;
+						display: block;
+					}
+				}
+				&-username {
+					display: inline-block;
+					font-size: 16px;
+					font-weight: bold;
+					margin-bottom: 10px;
+				}
+				&-rank {
+					color: $default;
+					display: block;
+					font-size: 10px;
+					letter-spacing: 0.2em;
+					margin-bottom: 20px;
+					text-transform: uppercase;
+				}
+				&-info {
+					list-style: none;
+					text-align: right;
+					& > li {
+						color: $default-darker;
+						font-size: 10px;
+						line-height: 1.4em;
+						span {
+							float: left;
+							font-weight: bold;
+						}
+					}
+				}
+			}
+			&-body {
+				flex: 1;
+				padding: 20px 10px;
+				position: relative;
+				&-date {
+					color: $default-light;
+					font-size: 10px;
+					letter-spacing: 0.1em;
+					line-height: 12px;
+					margin-bottom: 20px;
+					text-transform: uppercase;
+				}
+				&-reply {
+					color: $default-lighter;
+					display: inline-block;
+					font-size: 10px;
+					letter-spacing: 0.1em;
+					line-height: 30px;
+					position: absolute;
+					right: 10px;
+					text-transform: uppercase;
+					top: 10px;
+					transition: 300ms;
+					&:hover {
+						color: $default-light;
+						text-decoration: none;
+						span {
+							opacity: 1;
+						}
+					}
+					span {
+						color: $default-light;
+						opacity: 0;
+						transition: 300ms;
+					}
+					i {
+						font-size: 20px;
+						margin-left: 5px;
+						vertical-align: middle;
+					}
+				}
+				&-quote {
+					background-color: rgba(#000, 0.03);
+					border-left: 2px solid $accent;
+					margin-bottom: 20px;
+					padding: 10px;
+					&-author {
+						color: $default;
+						font-size: 10px;
+						letter-spacing: 0.1em;
+						margin-bottom: 10px;
+						text-transform: uppercase;
+						strong {
+							color: #000;
+						}
+					}
+					&-message {
+						font-size: 12px;
+						& > * { line-height: 1.3em; }
+					}
+				}
+				&-post {
+					& > * {
+						line-height: 1.4em;
+					}
+					p:not(:last-child) {
+						margin-bottom: 5px;
+					}
+				}
+			}
+		}
+		&-options {
+			background-color: rgba(#000, 0.02);
+			border-top: 1px solid $default-lighter;
+			flex: 1 0 100%;
+			padding: 10px;
+		}
+	}
+	@media (max-width: $xsmall) {
+		&-reply {
+			&-content {
+				flex-wrap: wrap;
+				&-author {
+					border-bottom: 1px solid $default-lighter;
+					flex: 1 0 100%;
+					text-align: left;
+					&-avatar {
+						background: transparent;
+						float: left;
+						height: 60px;
+						margin: 0 10px 0 0;
+						padding: 0;
+						width: 60px;
+						img {
+							width: 60px;
+							height: 60px;
+							border: 1px solid $default-lighter;
+						}
+					}
+					&-username {
+						margin-bottom: 5px;
+					}
+				}
+				&-body {
+					flex: 1 0 100%;
+					padding: 10px;
+					&-date {
+						margin-bottom: 10px;
+					}
+				}
+			}
+		}
+	}
+	&-related {
+		small {
+			display: block;
+			margin-bottom: 10px;
+		}
+	}
+}
+
+// FOOTER
+
+footer {
+	background-color: $accent-darker;
+	color: #ccc;
+	font-size: 11px;
+	padding: 10px 0;
+	a {
+		color: #ccc;
+		&:hover { color: #fff; }
+	}
+}
+
+// RESPONSIVE LAYOUT
+
+.content-row {
+	flex-wrap: nowrap !important;
+}
+
+#sidebar {
+	padding-left: 10px;
+	padding-right: 10px;
+	flex: 0 0 300px;
+	@media (max-width: $small) {
+		display: none;
+	}
+}
+#content {
+	flex: 1;
+	min-width: 0;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+// PROFILE
+
+.profile {
+	&-header {
+		height: 250px;
+		margin-bottom: 20px;
+		position: relative;
+		&-background {
+			background-position: center;
+			background-repeat: no-repeat;;
+			background-size: cover;
+			bottom: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			z-index: -1;
+			.inner-shadow {
+				background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 35%, black 100%);
+				height: 100%;
+			}
+		}
+		&-info {
+			bottom: 20px;
+			display: flex;
+			align-items: flex-end;
+			left: 20px;
+			position: absolute;
+			right: 20px;
+			.avatar {
+				border: 2px solid #fff;
+				flex: 0 0 150px;
+				img {
+					display: block;
+					width: 150px;
+				}
+			}
+			.details {
+				color: #fff;
+				flex: 1;
+				margin-left: 20px;
+				.username {
+					font-size: 36px;
+					margin-bottom: 20px;
+				}
+				.item {
+					float: left;
+					margin-right: 30px;
+					span {
+						color: $default;
+						display: block;
+						font-size: 12px;
+						margin-bottom: 5px;
+						text-transform: uppercase;
+					}
+				}
+			}
+		}
+	}
+}

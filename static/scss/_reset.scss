@@ -1,0 +1,13 @@
+// Reset all elements
+* {
+	box-sizing: border-box;
+	line-height: 1;
+	margin: 0;
+	outline: none;
+	padding: 0;
+}
+
+button::-moz-focus-inner, input::-moz-focus-inner {
+	padding: 0 !important;
+	border: 0 !important;
+}
