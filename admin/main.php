@@ -242,6 +242,8 @@ HTML;
 			</div>
 			<div class="fright">
 				<a href="https://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">View Addictive Comunity on GitHub</a>
+				<a href="https://github.com/brunnopleffken/addictive-community/issues" target="_blank" class="transition">Issues</a>
+				<a href="https://github.com/brunnopleffken/addictive-community/blob/master/CHANGELOG.md" target="_blank" class="transition">Changelog</a>
 			</div>
 			<div class="fix"></div>
 		</div>
