@@ -9,6 +9,10 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Html;
+use \AC\Kernel\Http;
+use \AC\Kernel\Template;
+
 // List of directories
 
 $dir_list = array();
