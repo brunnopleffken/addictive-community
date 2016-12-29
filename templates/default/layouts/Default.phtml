@@ -8,10 +8,12 @@
 	<base href="<?php __($community_url) ?>">
 	<link rel="search" type="application/opensearchdescription+xml" title="<?php __($community_name) ?>" href="community/open_search">
 	<link rel="icon" type="image/png" href="favicon.png">
-	<!-- META -->
+
+	<!-- Meta Tags -->
 	<meta name="generator" content="Addictive Community <?php echo VERSION ?>">
 	<meta name="description" content="<?php __($meta_description) ?>">
-	<!-- CSS -->
+
+	<!-- CSS Files -->
 	<link rel="stylesheet" href="thirdparty/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="thirdparty/fancybox/jquery.fancybox.css">
 	<link rel="stylesheet" href="thirdparty/select2/css/select2.min.css">
@@ -22,151 +24,151 @@
 	<?php echo $this->head ?>
 </head>
 <body>
-	<div id="topbar" class="container-fluid">
-		<div class="row">
-			<div class="small-hide medium-3 columns">
-				<a href="<?php __($website_url) ?>" target="_blank">
-					<?php __($website_name) ?>
-				</a>
-			</div>
-			<div class="small-12 medium-9 columns right">
+
+<header>
+	<div class="top-half outer">
+		<div class="row space-between">
+			<div class="col-flexible text-right">
 				<?php if($is_admin): ?>
-					<a href="admin/" target="_blank">Admin CP</a>
+					<a href="admin/" target="_blank"><span>Admin CP</span><i class="fa fa-lock"></i></a>
 				<?php endif; ?>
-				<a href="search"><?php __("SEARCH") ?></a>
-				<a href="members"><?php __("MEMBERLIST") ?></a>
-				<a href="calendar"><?php __("CALENDAR") ?></a>
-				<a href="help"><?php __("HELP") ?></a>
+				<a href="search"><span><?php __("SEARCH") ?></span><i class="fa fa-search"></i></a>
+				<a href="members"><span><?php __("MEMBERLIST") ?></span><i class="fa fa-users"></i></a>
+				<a href="calendar"><span><?php __("CALENDAR") ?></span><i class="fa fa-calendar"></i></a>
+				<a href="help"><span><?php __("HELP") ?></span><i class="fa fa-question-circle"></i></a>
+			</div>
+			<div class="col-flexible hide-xs">
+				<a href="<?php echo $website_url ?>" target="_blank"><?php echo $website_name ?></a>
 			</div>
 		</div>
 	</div>
-
-	<div id="logo" class="container-fluid">
-		<div class="row">
-			<div class="small-12 medium-6 columns">
-				<a href="<?php __($community_url) ?>">
-					<img src="themes/<?php __($theme) ?>/images/logo.png" class="logo" alt="Addictive Community">
+	<div class="bottom-half outer">
+		<div class="row space-between">
+			<div class="col-6">
+				<a href="<?php echo $community_url ?>">
+					<img src="themes/<?php __($theme) ?>/images/logo.svg" class="logo" alt="Addictive Community">
 				</a>
 			</div>
-			<div class="small-12 small-hide medium-6 columns">
-				<div id="search">
-					<form action="search" method="get" class="validate">
-						<input type="text" name="q" size="25" class="required" value="<?php echo \AC\Kernel\Http::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>">
-						<input type="submit" value="OK">
-					</form>
-				</div>
+			<div class="search hide-sm">
+				<form action="search" method="get" class="validate">
+					<input type="text" name="q" class="form-control search-input required" value="<?php echo \AC\Kernel\Http::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>"><!--
+					--><button type="submit" class="btn btn-default search-submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<ul class="breadcrumb">
+					<li><a href="">Home</a></li>
+					<li>Lorem ipsum dolor</li>
+				</ul>
 			</div>
 		</div>
 	</div>
+</header>
 
-	<div class="container-fluid">
-		<div class="row">
-			<div class="small-12 columns">
-				<div id="breadcrumb"><a href="<?php __($community_url) ?>"><?php __($community_name) ?></a> <?php __($breadcrumb) ?></div>
-			</div>
-		</div>
-	</div>
-
-	<div class="container-fluid">
-		<div class="row">
-			<div class="columns sidebar">
-				<div class="sidebar-background">
-					<?php if($member_id == 0): ?>
-						<div class="sidebar-item">
-							<div class="user">
-								<div class="user-info logged-out">
-									<b><?php __("SIDEBAR_WELCOME") ?></b>
-									<a class="fancybox fancybox.ajax" href="login"><?php __("SIDEBAR_LOGIN") ?></a> &middot; <a href="register" class="highlight"><?php __("SIDEBAR_C_ACCOUNT") ?></a>
-								</div>
-							</div>
-						</div>
-					<?php else: ?>
-						<div class="sidebar-item">
-							<div class="user">
-								<div class="avatar">
-									<?php __(\AC\Kernel\Html::Crop($member_info['avatar'], 30, 30, "img")) ?>
-								</div>
-								<div class="user-info">
-									<b><a href="profile/<?php echo $member_info['m_id'] ?>" title="<?php __("SIDEBAR_PROFILE", array($member_info['username'])) ?>"><?php __($member_info['username']) ?></a></b>
-									<a href="usercp"><?php __("SIDEBAR_USERCP") ?></a> &middot; <a href="messenger"><?php __("SIDEBAR_INBOX", array($unread_messages)) ?></a> &middot; <a href="logout"><?php __("SIDEBAR_LOGOUT") ?></a>
-								</div>
-							</div>
-						</div>
-					<?php endif; ?>
-					<div class="sidebar-item" id="sidebar-rooms">
-						<div class="title"><?php __("SIDEBAR_ROOMS") ?></div>
-						<div class="list">
+<main class="outer">
+	<div class="row content-row">
+		<div class="" id="sidebar">
+			<div class="block sidebar">
+				<?php if($member_id == 0): ?>
+					<div class="block flat user-box">
+						<a href="/" class="username">
+							<?php __("SIDEBAR_WELCOME") ?>
+						</a>
+						<ul>
+							<li><a href="login" class="fancybox fancybox.ajax"><?php __("SIDEBAR_LOGIN") ?></a></li>
+							<li><a href="register" class="font-w600"><?php __("SIDEBAR_C_ACCOUNT") ?></a></li>
+						</ul>
+					</div>
+				<?php else: ?>
+					<div class="block flat user-box">
+						<img src="http://www.gravatar.com/avatar/d4863bc04b657b65c24b02aa0b62f32e?s=80&d=mm&r=g">
+						<a href="profile/<?php echo $member_info['m_id'] ?>" class="username">
+							<?php __($member_info['username']) ?>
+						</a>
+						<ul>
+							<li><a href="usercp"><?php __("SIDEBAR_USERCP") ?></a></li>
+							<li><a href="messenger"><?php __("SIDEBAR_INBOX", array($unread_messages)) ?></a></li>
+							<li><a href="logout"><?php __("SIDEBAR_LOGOUT") ?></a></li>
+						</ul>
+					</div>
+				<?php endif; ?>
+				<div class="panel">
+					<div class="panel-title"><?php __("SIDEBAR_ROOMS") ?></div>
+					<div class="panel-content">
+						<ul class="rooms">
 							<?php foreach($sidebar_rooms as $k => $v): ?>
-								<div class="item">
+								<li>
 									<a href="room/<?php echo $sidebar_rooms[$k]['r_id'] ?>">
 										<?php echo $sidebar_rooms[$k]['name'] ?>
+										<?php if($sidebar_rooms[$k]['password']): ?>
+											<span class="badge"><i class="fa fa-lock"></i></span>
+										<?php else: ?>
+											<span class="badge"><?php echo $sidebar_rooms[$k]['threads'] ?></span>
+										<?php endif; ?>
 									</a>
-									<span><?php echo $sidebar_rooms[$k]['threads'] ?></span>
-									<?php if($sidebar_rooms[$k]['password']): ?>
-										<i class="fa fa-lock"></i>
-									<?php endif; ?>
-								</div>
+								</li>
 							<?php endforeach; ?>
+						</ul>
+					</div>
+				</div>
+				<?php if($show_members_online): ?>
+					<div class="panel">
+						<div class="panel-title"><?php __("SIDEBAR_MEMBERS_ONLINE") ?></div>
+						<div class="panel-content body">
+							<dl class="members">
+								<dt><?php __("SIDEBAR_MEMBER_COUNT", array($member_count)) ?></dt>
+								<dd><?php echo $member_list ?></dd>
+								<dt><?php __("SIDEBAR_GUEST_COUNT", array($guests_count)) ?></dt>
+							</dl>
 						</div>
 					</div>
-					<?php if($show_members_online): ?>
-						<div class="sidebar-item" id="sidebar-online">
-							<div class="title"><?php __("SIDEBAR_MEMBERS_ONLINE") ?></div>
-							<div class="text">
-								<span class="subtitle">
-									<?php __("SIDEBAR_MEMBER_COUNT", array($member_count)) ?>
-								</span>
-								<div class="online-list"><?php echo $member_list ?></div>
-								<span class="subtitle" style="margin-top: 10px">
-									<?php __("SIDEBAR_GUEST_COUNT", array($guests_count)) ?>
-								</span>
-							</div>
-						</div>
-					<?php endif; ?>
-					<?php if($show_statistics): ?>
-						<div class="sidebar-item" id="sidebar-stats">
-							<div class="title"><?php __("SIDEBAR_STATISTICS") ?></div>
-							<dl class="text stats">
+				<?php endif; ?>
+				<?php if($show_statistics): ?>
+					<div class="panel">
+						<div class="panel-title"><?php __("SIDEBAR_STATISTICS") ?></div>
+						<div class="panel-content body">
+							<dl class="stats">
 								<dt><?php __("SIDEBAR_S_THREADS") ?></dt>
-								<dd><?php echo $stats['threads'] ?></dd><br>
+								<dd><?php echo $stats['threads'] ?></dd>
 								<dt><?php __("SIDEBAR_S_POSTS") ?></dt>
-								<dd><?php echo $stats['posts'] ?></dd><br>
+								<dd><?php echo $stats['posts'] ?></dd>
 								<dt><?php __("SIDEBAR_S_MEMBERS") ?></dt>
-								<dd><?php echo $stats['members'] ?></dd><br>
+								<dd><?php echo $stats['members'] ?></dd>
 								<dt><?php __("SIDEBAR_S_LAST") ?></dt>
 								<dd>
 									<a href="profile/<?php echo $stats['lastmemberid'] ?>">
 										<?php echo $stats['lastmembername'] ?>
 									</a>
 								</dd>
-								<div class="fix"></div>
 							</dl>
 						</div>
-					<?php endif; ?>
-				</div>
-			</div>
-			<div class="columns">
-				<?php echo $this->content ?>
+					</div>
+				<?php endif; ?>
 			</div>
 		</div>
-	</div>
-
-	<div id="footer" class="container-fluid">
-		<div class="row">
-			<div class="small-12 columns center">
-				Powered by
-				<a href="https://github.com/brunnopleffken/addictive-community" target="_blank">Addictive Community</a>
-				<?php echo VERSION . "-" . CHANNEL ?> &copy; <?php echo date("Y") ?> - All rights reserved.
-			</div>
+		<div class="" id="content">
+			<?php echo $this->content ?>
 		</div>
 	</div>
+</main>
 
-	<!-- JS -->
-	<script src="thirdparty/jquery/jquery.min.js"></script>
-	<script src="thirdparty/tinymce/tinymce.min.js"></script>
-	<script src="thirdparty/fancybox/jquery.fancybox.pack.js"></script>
-	<script src="thirdparty/select2/js/select2.full.min.js"></script>
-	<script src="thirdparty/mustache/mustache.min.js"></script>
-	<script src="static/js/main.js"></script>
+<footer class="text-center">
+	Powered by
+	<a href="https://github.com/brunnopleffken/addictive-community" target="_blank">Addictive Community</a>
+	<?php echo VERSION . "-" . CHANNEL ?> &copy; <?php echo date("Y") ?> - All rights reserved.
+</footer>
+
+<!-- JS -->
+<script src="thirdparty/jquery/jquery.min.js"></script>
+<script src="thirdparty/tinymce/tinymce.min.js"></script>
+<script src="thirdparty/fancybox/jquery.fancybox.pack.js"></script>
+<script src="thirdparty/select2/js/select2.full.min.js"></script>
+<script src="thirdparty/mustache/mustache.min.js"></script>
+<script src="static/js/main.js"></script>
+
 </body>
 </html>
