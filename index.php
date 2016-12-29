@@ -11,6 +11,8 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC;
+
 // Run initialization file before loading Main()
 require("init.php");
 
@@ -52,7 +54,7 @@ class Main
 	public function __construct()
 	{
 		// Load kernel classes
-		$this->_LoadKernel();
+		spl_autoload_register('_AutoLoader', true, true);
 
 		// Load configuration file
 		if(is_file("config.php")) {
@@ -99,21 +101,6 @@ class Main
 		// OK, let's go...
 		$this->_LoadController($this->controller, $this->action);
 		$this->_LoadView($this->controller, $this->action);
-	}
-
-	/**
-	 * --------------------------------------------------------------------
-	 * LOAD MAIN KERNEL/CORE MODULES
-	 * --------------------------------------------------------------------
-	 */
-	private function _LoadKernel()
-	{
-		foreach(scandir("kernel") as $filename) {
-			if(substr_count($filename, ".php") < 1) {
-				continue; // Ignore non-PHP files
-			}
-			require("kernel/" . $filename);
-		}
 	}
 
 	/**

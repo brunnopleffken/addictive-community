@@ -45,6 +45,33 @@ define("YEAR", 31536000);
 
 /**
  * --------------------------------------------------------------------
+ * AUTOLOADER
+ * --------------------------------------------------------------------
+ */
+
+function _AutoLoader($class_name)
+{
+	$path = __DIR__;
+	$bits = explode("\\", ltrim($class_name, "\\"));
+	$class = array_pop($bits);
+
+	foreach(array_merge($bits, array($class)) as $i => $bit) {
+		if($i == 1 && $bit == "Kernel") {
+			$path .= "/kernel/{$class}";
+		}
+	}
+
+	$path = $path . ".php";
+
+	if(!file_exists($path)) {
+		return false;
+	}
+
+	require_once($path);
+}
+
+/**
+ * --------------------------------------------------------------------
  * The awesome internationalization function!
  * Translation INDEX is provided in $string to locate the corresponding
  * translated string. If the INDEX does not exists, the value in
