@@ -1,42 +1,42 @@
 <?php
 
-	## ---------------------------------------------------
-	#  ADDICTIVE COMMUNITY
-	## ---------------------------------------------------
-	#  Developed by Brunno Pleffken Hosti
-	#  File: index.php
-	#  License: GPLv2
-	#  Copyright: (c) 2016 - Addictive Community
-	## ---------------------------------------------------
+## ---------------------------------------------------
+#  ADDICTIVE COMMUNITY
+## ---------------------------------------------------
+#  Developed by Brunno Pleffken Hosti
+#  File: index.php
+#  License: GPLv2
+#  Copyright: (c) 2016 - Addictive Community
+## ---------------------------------------------------
 
-	require_once("../init.php");
-	require_once("../kernel/Html.php");
-	require_once("../kernel/Http.php");
+require_once("../init.php");
+require_once("../kernel/Html.php");
+require_once("../kernel/Http.php");
 
-	// Display error messages
-	// e.g.: index.php?error=1
+// Display error messages
+// e.g.: index.php?error=1
 
-	if(Http::Request("error")) {
-		$error = Http::Request("error");
+if(Http::Request("error")) {
+	$error = Http::Request("error");
 
-		switch($error) {
-			case 1:
-				$message = Html::Notification("Wrong username and/or password. Please, try again!", "failure");
-				break;
-			case 2:
-				$message = Html::Notification("Please, log-in to access the Admin Control Panel.", "warning");
-				break;
-			case 3:
-				$message = Html::Notification("This administrator session has expired.", "warning");
-				break;
-			case 4:
-				$message = Html::Notification("You don't have permission to access Admin CP.", "failure");
-				break;
-		}
+	switch($error) {
+		case 1:
+			$message = Html::Notification("Wrong username and/or password. Please, try again!", "failure");
+			break;
+		case 2:
+			$message = Html::Notification("Please, log-in to access the Admin Control Panel.", "warning");
+			break;
+		case 3:
+			$message = Html::Notification("This administrator session has expired.", "warning");
+			break;
+		case 4:
+			$message = Html::Notification("You don't have permission to access Admin CP.", "failure");
+			break;
 	}
-	else {
-		$message = "";
-	}
+}
+else {
+	$message = "";
+}
 
 ?>
 <!DOCTYPE html>
