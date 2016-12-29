@@ -9,6 +9,10 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
+use \AC\Kernel\Http;
+use \AC\Kernel\Text;
+
 // Include files...
 
 require_once("../config.php");

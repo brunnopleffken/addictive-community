@@ -9,6 +9,9 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Html;
+use \AC\Kernel\Http;
+
 require_once("../init.php");
 require_once("../kernel/Html.php");
 require_once("../kernel/Http.php");
