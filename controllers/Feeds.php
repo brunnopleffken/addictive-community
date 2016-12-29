@@ -11,6 +11,10 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Controllers;
+
+use \AC\Kernel\Text;
+
 class Feeds extends Application
 {
 	/**

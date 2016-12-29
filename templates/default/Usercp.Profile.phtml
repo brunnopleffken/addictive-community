@@ -39,9 +39,9 @@
 			<div class="label"><?php __("C_BIRTHDATE") ?></div>
 			<div class="field">
 				<?php
-				__(Html::Days("b_day", $member['b_day'], true) . " ");
-				__(Html::Months("b_month", false, $member['b_month'], true) . " ");
-				__(Html::Years("b_year", 80, 0, $member['b_year'], true));
+				__(\AC\Kernel\Html::Days("b_day", $member['b_day'], true) . " ");
+				__(\AC\Kernel\Html::Months("b_month", false, $member['b_month'], true) . " ");
+				__(\AC\Kernel\Html::Years("b_year", 80, 0, $member['b_year'], true));
 				?>
 			</div>
 		</div>

@@ -10,8 +10,8 @@
 <div class="box">
 	<form method="post" id="calendar-set-date">
 		<?php __("C_GOTO") ?>:
-		<?php __(Html::Months("month", false, $c_month)) ?>
-		<?php __(Html::Years("year", 3, 3, $c_year)) ?>
+		<?php __(\AC\Kernel\Html::Months("month", false, $c_month)) ?>
+		<?php __(\AC\Kernel\Html::Years("year", 3, 3, $c_year)) ?>
 		<input type="submit" value="<?php __("C_GO") ?>">
 	</form>
 </div>

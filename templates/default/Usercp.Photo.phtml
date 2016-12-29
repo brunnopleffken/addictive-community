@@ -31,7 +31,7 @@
 			<div class="label"><?php __("C_GRAVATAR_SETTINGS") ?></div>
 			<div class="field">
 				<div class="fleft" style="margin-right: 15px">
-					<?php __(Html::Crop($photo_info['gravatar_image'], 120, 120)) ?>
+					<?php __(\AC\Kernel\Html::Crop($photo_info['gravatar_image'], 120, 120)) ?>
 				</div>
 				<div class="fleft">
 					<?php __("C_GRAVATAR_MESSAGE") ?>
@@ -43,7 +43,7 @@
 			<div class="label"><?php __("C_PHOTO_UPLOAD") ?></div>
 			<div class="field">
 				<div class="fleft custom-photo-placeholder" style="margin-right: 15px">
-					<?php __(Html::Crop("public/avatar/" . $member_info['photo'], 120, 120)) ?>
+					<?php __(\AC\Kernel\Html::Crop("public/avatar/" . $member_info['photo'], 120, 120)) ?>
 				</div>
 				<div class="fleft"><input type="file" name="file_upload"></div>
 				<div class="fix"></div>

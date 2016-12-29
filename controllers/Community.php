@@ -11,6 +11,11 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Controllers;
+
+use \AC\Kernel\i18n;
+use \AC\Kernel\Text;
+
 class Community extends Application
 {
 	// List of categories

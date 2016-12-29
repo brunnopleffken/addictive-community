@@ -130,6 +130,7 @@ class Main
 		// Load Application controller
 		require("controllers/Application.php");
 		require("controllers/" . $controller . ".php");
+		$controller = "\\AC\\Controllers\\" . $controller;
 		$this->instance = new $controller();
 
 		// Create an instance of non-static Kernel classes in Application controller

@@ -15,11 +15,11 @@
 			<div class="label"><?php __("C_NEW_DATE") ?></div>
 			<div class="field">
 				<?php
-					__(Html::Days("day", date("d")) . " ");
-					__(Html::Months("month", false, date("m")) . " ");
-					__(Html::Years("year", 0, 3)) . __("C_NEW_AT");
-					__(Html::Hours("hour") . ":");
-					__(Html::Minutes("minute"));
+					__(\AC\Kernel\Html::Days("day", date("d")) . " ");
+					__(\AC\Kernel\Html::Months("month", false, date("m")) . " ");
+					__(\AC\Kernel\Html::Years("year", 0, 3)) . __("C_NEW_AT");
+					__(\AC\Kernel\Html::Hours("hour") . ":");
+					__(\AC\Kernel\Html::Minutes("minute"));
 				?>
 			</div>
 		</div>

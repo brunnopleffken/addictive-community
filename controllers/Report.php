@@ -11,6 +11,10 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Controllers;
+
+use \AC\Kernel\Http;
+
 class Report extends Application
 {
 	/**

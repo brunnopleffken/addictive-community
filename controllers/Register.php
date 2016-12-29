@@ -11,6 +11,14 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Controllers;
+
+use \AC\Kernel\Email;
+use \AC\Kernel\Html;
+use \AC\Kernel\Http;
+use \AC\Kernel\i18n;
+use \AC\Kernel\Text;
+
 class Register extends Application
 {
 	/**
@@ -44,7 +52,7 @@ class Register extends Application
 		$this->Set("general_security_validation", $this->Core->config['general_security_validation']);
 		$this->Set("is_captcha", $this->Core->config['general_security_captcha']);
 		$this->Set("is_register_disabled", $this->Core->config['general_disable_registrations']);
-		
+
 
 	}
 
@@ -84,8 +92,8 @@ class Register extends Application
 		}
 		unset($_SESSION['Register']['Username']);
 		unset($_SESSION['Register']['Email']);
-			
-		
+
+
 		// Check if Require Validation is TRUE in community settings
 		$usergroup = ($this->Core->config['general_security_validation']) ? 6 : 3;
 

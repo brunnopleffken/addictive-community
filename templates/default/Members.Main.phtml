@@ -31,7 +31,7 @@
 	<?php if(!empty($results)): ?>
 		<?php foreach($results as $k => $v): ?>
 			<tr>
-				<td class="min"><?php __(Html::Crop($results[$k]['avatar'], 42, 42, "avatar")) ?></td>
+				<td class="min"><?php __(\AC\Kernel\Html::Crop($results[$k]['avatar'], 42, 42, "avatar")) ?></td>
 				<td style="font-size: 15px;">
 					<a href="profile/<?php __($results[$k]['m_id']) ?>"><b><?php __($results[$k]['username']) ?></b></a>
 				</td>

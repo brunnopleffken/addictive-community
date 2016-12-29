@@ -11,6 +11,11 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Controllers;
+
+use \AC\Kernel\Http;
+use \AC\Kernel\Text;
+
 class Login extends Application
 {
 	/**

@@ -44,7 +44,7 @@
 </div>
 
 <?php if($room_info['rules_visible']): ?>
-	<?php echo Html::Notification($room_info['rules_text'], "warning", true, $room_info['rules_title']) ?>
+	<?php echo \AC\Kernel\Html::Notification($room_info['rules_text'], "warning", true, $room_info['rules_title']) ?>
 <?php endif; ?>
 
 <div class="navigation">

@@ -11,6 +11,13 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Controllers;
+
+use \AC\Kernel\i18n;
+use \AC\Kernel\Template;
+use \AC\Kernel\Text;
+use \AC\Kernel\Upload;
+
 class Profile extends Application
 {
 	// Basic memeber information

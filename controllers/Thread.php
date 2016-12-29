@@ -11,6 +11,14 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Controllers;
+
+use \AC\Kernel\Html;
+use \AC\Kernel\Http;
+use \AC\Kernel\i18n;
+use \AC\Kernel\Text;
+use \AC\Kernel\Upload;
+
 class Thread extends Application
 {
 	// Thread information

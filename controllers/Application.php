@@ -11,6 +11,11 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Controllers;
+
+use \AC\Kernel\i18n;
+use \AC\Kernel\Text;
+
 class Application
 {
 	// True: show layout; false: hide layout and master page

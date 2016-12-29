@@ -18,7 +18,7 @@
 	<div class="header">
 		<div class="author">
 			<a href="profile/<?php __($first_post_info['author_id']) ?>">
-				<?php __(Html::Crop($first_post_info['avatar'], 42, 42, "avatar")) ?>
+				<?php __(\AC\Kernel\Html::Crop($first_post_info['avatar'], 42, 42, "avatar")) ?>
 			</a>
 			<div class="author-info">
 				<a href="profile/<?php __($first_post_info['author_id']) ?>"><?php __($first_post_info['username']) ?></a>
@@ -26,7 +26,7 @@
 				<div><?php __($first_post_info['posts']) ?> <?php __("T_POSTS_LOWCASE") ?></div>
 			</div>
 			<div class="fright" style="margin-top: 11px">
-				<div class="fb-share-button" data-href="<?php echo Http::CurrentUrl() ?>" data-layout="button_count"></div>
+				<div class="fb-share-button" data-href="<?php echo \AC\Kernel\Http::CurrentUrl() ?>" data-layout="button_count"></div>
 			</div>
 			<div class="fright" style="margin-top: 11px; margin-right: 10px">
 				<a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
@@ -47,7 +47,7 @@
 							<span class="file-icon <?php __($first_post_info['type']) ?>"></span>
 							<div class="file-name">
 								<span><?php __($first_post_info['filename']) ?></span>
-								<?php __(Text::FileSizeFormat($first_post_info['size'])) ?>
+								<?php __(\AC\Kernel\Text::FileSizeFormat($first_post_info['size'])) ?>
 							</div>
 						</a>
 					</div>
@@ -156,7 +156,7 @@
 				<?php if($reply[$k]['usergroup'] != 0): ?>
 					<div class="photostack">
 						<a href="profile/<?php __($reply[$k]['author_id']) ?>">
-							<?php __(Html::Crop($reply[$k]['avatar'], 96, 96, "avatar")) ?>
+							<?php __(\AC\Kernel\Html::Crop($reply[$k]['avatar'], 96, 96, "avatar")) ?>
 						</a>
 					</div>
 					<p class="name"><a href="profile/<?php __($reply[$k]['author_id']) ?>"><?php __($reply[$k]['username']) ?></a></p>
@@ -203,7 +203,7 @@
 									<span class="file-icon <?php __($reply[$k]['type']) ?>"></span>
 									<div class="file-name">
 										<span><?php __($reply[$k]['filename']) ?></span>
-										<?php __(Text::FileSizeFormat($reply[$k]['size'])) ?>
+										<?php __(\AC\Kernel\Text::FileSizeFormat($reply[$k]['size'])) ?>
 									</div>
 								</a>
 							</div>

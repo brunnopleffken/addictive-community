@@ -16,7 +16,7 @@
 	<div class="subnav">
 		<a href="messenger" <?php __($selected_folder[0]) ?>><?php __("M_FOLDER_INBOX") ?></a>
 		<a href="messenger?folder=sent" <?php __($selected_folder[1]) ?>><?php __("M_FOLDER_SENT") ?></a>
-		<?php if(Http::Request("folder") != "sent"): ?>
+		<?php if(\AC\Kernel\Http::Request("folder") != "sent"): ?>
 			<div class="progress-bar" style="width: 204px; float: right; margin-top: 9px"><div class="fill" style="width: <?php __($percentage_width) ?>"></div><span><?php __("M_STORAGE", array($num_results, $max_storage_size)) ?></span></div>
 		<?php endif; ?>
 	</div>

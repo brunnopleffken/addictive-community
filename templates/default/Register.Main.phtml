@@ -6,7 +6,7 @@
 </div>
 
 <?php if($is_register_disabled == 1): ?>
-	<?php echo Html::Notification("Registration has been disabled.", "warning"); ?>
+	<?php echo \AC\Kernel\Html::Notification("Registration has been disabled.", "warning"); ?>
 <?php else: ?>
 
 	<?php if($step == 1): ?>

@@ -11,6 +11,12 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Controllers;
+
+use \AC\Kernel\Html;
+use \AC\Kernel\Http;
+use \AC\Kernel\i18n;
+
 class Failure extends Application
 {
 	/**

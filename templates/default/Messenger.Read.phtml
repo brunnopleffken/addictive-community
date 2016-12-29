@@ -1,6 +1,6 @@
 <div class="title-bar">
 	<div class="title"><span><?php __($community_name) ?></span><?php __($message['subject']) ?></div>
-	<?php if(Http::Request("is") != "sent"): ?>
+	<?php if(\AC\Kernel\Http::Request("is") != "sent"): ?>
 		<div class="buttons">
 			<a href="messenger/reply/<?php __($message['pm_id']) ?>" class="default-button"><?php __("M_REPLY") ?></a>
 			<a href="messenger/forward/<?php __($message['pm_id']) ?>" class="default-button"><?php __("M_FORWARD") ?></a>
@@ -13,7 +13,7 @@
 	<div class="author">
 		<div class="photostack">
 			<a href="profile/<?php __($message['from_id']) ?>">
-				<?php __(Html::Crop($message['avatar'], 96, 96, "avatar")) ?>
+				<?php __(\AC\Kernel\Html::Crop($message['avatar'], 96, 96, "avatar")) ?>
 			</a>
 		</div>
 		<p class="name"><a href="profile/<?php __($message['from_id']) ?>"><?php __($message['username']) ?></a></p>
