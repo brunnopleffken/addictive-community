@@ -1,30 +1,32 @@
 <?php
 
-	## ---------------------------------------------------
-	#  ADDICTIVE COMMUNITY
-	## ---------------------------------------------------
-	#  Developed by Brunno Pleffken Hosti
-	#  File: adm_system_logs.php
-	#  License: GPLv2
-	#  Copyright: (c) 2016 - Addictive Community
-	## ---------------------------------------------------
+## ---------------------------------------------------
+#  ADDICTIVE COMMUNITY
+## ---------------------------------------------------
+#  Developed by Brunno Pleffken Hosti
+#  File: adm_system_logs.php
+#  License: GPLv2
+#  Copyright: (c) 2016 - Addictive Community
+## ---------------------------------------------------
 
-	// Get administration/moderation logs
+use \AC\Kernel\Template;
 
-	$Db->Query("SELECT l.*, m.username FROM c_logs l
-		INNER JOIN c_members m ON (m.m_id = l.member_id)
-		ORDER BY log_id DESC LIMIT 50;");
+// Get administration/moderation logs
 
-	while($reg = $Db->Fetch()) {
-		$reg['time'] = $Core->DateFormat($reg['time']);
+$Db->Query("SELECT l.*, m.username FROM c_logs l
+	INNER JOIN c_members m ON (m.m_id = l.member_id)
+	ORDER BY log_id DESC LIMIT 50;");
 
-		Template::Add("<tr>
-				<td>{$reg['username']}</td>
-				<td>{$reg['act']}</td>
-				<td>{$reg['time']}</td>
-				<td>{$reg['ip_address']}</td>
-			</tr>");
-	}
+while($reg = $Db->Fetch()) {
+	$reg['time'] = $Core->DateFormat($reg['time']);
+
+	Template::Add("<tr>
+			<td>{$reg['username']}</td>
+			<td>{$reg['act']}</td>
+			<td>{$reg['time']}</td>
+			<td>{$reg['ip_address']}</td>
+		</tr>");
+}
 
 ?>
 

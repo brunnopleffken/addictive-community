@@ -1,58 +1,61 @@
 <?php
 
-	## ---------------------------------------------------
-	#  ADDICTIVE COMMUNITY
-	## ---------------------------------------------------
-	#  Developed by Brunno Pleffken Hosti
-	#  File: adm_languages_file.php
-	#  License: GPLv2
-	#  Copyright: (c) 2016 - Addictive Community
-	## ---------------------------------------------------
+## ---------------------------------------------------
+#  ADDICTIVE COMMUNITY
+## ---------------------------------------------------
+#  Developed by Brunno Pleffken Hosti
+#  File: adm_languages_file.php
+#  License: GPLv2
+#  Copyright: (c) 2016 - Addictive Community
+## ---------------------------------------------------
 
-	// Get variables
+use \AC\Kernel\Http;
+use \AC\Kernel\Template;
 
-	$name = Http::Request("id");
-	$dir  = Http::Request("dir");
+// Get variables
 
-	// Get file content
+$name = Http::Request("id");
+$dir  = Http::Request("dir");
 
-	$file_path = "../languages/" . $dir . "/" . $name . ".php";
+// Get file content
 
-	require_once($file_path);
+$file_path = "../languages/" . $dir . "/" . $name . ".php";
 
-	// Build table
+require_once($file_path);
 
-	foreach($t as $k => $v) {
-		Template::Add("<tr>
-				<td class='title-fixed'>{$k}<input type='hidden' name='index[]' value='{$k}'></td>
-				<td><textarea name='{$k}' rows='3' cols='64'>{$v}</textarea></td>
-			</tr>");
-	}
+// Build table
+
+foreach($t as $k => $v) {
+	Template::Add("<tr>
+			<td class='title-fixed'>{$k}<input type='hidden' name='index[]' value='{$k}'></td>
+			<td><textarea name='{$k}' rows='3' cols='64'>{$v}</textarea></td>
+		</tr>");
+}
 
 ?>
 
-	<h1>Editing language file: <?php echo ucwords($name) ?></h1>
+<h1>Editing language file: <?php echo ucwords($name) ?></h1>
 
-	<div id="content">
-		<div class="grid-row">
-			<form action="process.php?do=savelang" method="post">
-				<table class="table-list">
-					<tr>
-						<th colspan="10">
-							<div class="fleft">Language File</div>
-						</th>
-					</tr>
-					<tr class="subtitle">
-						<td>Index Name</td>
-						<td>Translation</td>
-					</tr>
-					<?php echo Template::Get() ?>
-				</table>
-				<div class="box fright">
-					<input type="hidden" name="file" value="<?php echo $name ?>">
-					<input type="hidden" name="dir" value="<?php echo $dir ?>">
-					<input type="submit" value="Save File">
-				</div>
-			</form>
-		</div>
+<div id="content">
+	<div class="grid-row">
+		<form action="process.php?do=savelang" method="post">
+			<table class="table-list">
+				<tr>
+					<th colspan="10">
+						<div class="fleft">Language File</div>
+					</th>
+				</tr>
+				<tr class="subtitle">
+					<td>Index Name</td>
+					<td>Translation</td>
+				</tr>
+				<?php echo Template::Get() ?>
+			</table>
+			<div class="box fright">
+				<input type="hidden" name="file" value="<?php echo $name ?>">
+				<input type="hidden" name="dir" value="<?php echo $dir ?>">
+				<input type="submit" value="Save File">
+			</div>
+		</form>
 	</div>
+</div>

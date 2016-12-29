@@ -1,55 +1,59 @@
 <?php
 
-	## ---------------------------------------------------
-	#  ADDICTIVE COMMUNITY
-	## ---------------------------------------------------
-	#  Developed by Brunno Pleffken Hosti
-	#  File: adm_rooms_categories.php
-	#  License: GPLv2
-	#  Copyright: (c) 2016 - Addictive Community
-	## ---------------------------------------------------
+## ---------------------------------------------------
+#  ADDICTIVE COMMUNITY
+## ---------------------------------------------------
+#  Developed by Brunno Pleffken Hosti
+#  File: adm_rooms_categories.php
+#  License: GPLv2
+#  Copyright: (c) 2016 - Addictive Community
+## ---------------------------------------------------
 
-	// Messages
+use \AC\Kernel\Html;
+use \AC\Kernel\Http;
+use \AC\Kernel\Template;
 
-	$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+// Messages
 
-	switch($msg) {
-		case 1:
-			$message = Html::Notification("The categories has been successfully updated.", "success");
-			break;
-		case 2:
-			$message = Html::Notification("The room has been successfully removed and all its rooms were moved to the first category.", "success");
-			break;
-		default:
-			$message = "";
-			break;
+$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+
+switch($msg) {
+	case 1:
+		$message = Html::Notification("The categories has been successfully updated.", "success");
+		break;
+	case 2:
+		$message = Html::Notification("The room has been successfully removed and all its rooms were moved to the first category.", "success");
+		break;
+	default:
+		$message = "";
+		break;
+}
+
+
+// Get list of categories
+
+$categories = $Db->Query("SELECT * FROM c_categories ORDER BY c_id;");
+
+while($category = $Db->Fetch($categories)) {
+	$checked = ($category['visible'] == 1) ? "checked='checked'" : "";
+
+	if($categories->num_rows > 1) {
+		$remove = "<a href='process.php?do=remove_category&id={$category['c_id']}'><i class='fa fa-fw fa-remove'></i></a>";
+	}
+	else {
+		$remove = "";
 	}
 
-
-	// Get list of categories
-
-	$categories = $Db->Query("SELECT * FROM c_categories ORDER BY c_id;");
-
-	while($category = $Db->Fetch($categories)) {
-		$checked = ($category['visible'] == 1) ? "checked='checked'" : "";
-
-		if($categories->num_rows > 1) {
-			$remove = "<a href='process.php?do=remove_category&id={$category['c_id']}'><i class='fa fa-fw fa-remove'></i></a>";
-		}
-		else {
-			$remove = "";
-		}
-
-		Template::Add("<tr>
-				<td class='min'><input type='text' name='category[{$category['c_id']}][order_n]' value='{$category['order_n']}' style='width: 25px'></td>
-				<td><b>{$category['name']}</b></td>
-				<td class='min'>
-					<input type='hidden' name='category[{$category['c_id']}][visible]' value='0'>
-					<input type='checkbox' name='category[{$category['c_id']}][visible]' value='1' {$checked}>
-				</td>
-				<td class='min'>{$remove}</td>
-			</tr>");
-	}
+	Template::Add("<tr>
+			<td class='min'><input type='text' name='category[{$category['c_id']}][order_n]' value='{$category['order_n']}' style='width: 25px'></td>
+			<td><b>{$category['name']}</b></td>
+			<td class='min'>
+				<input type='hidden' name='category[{$category['c_id']}][visible]' value='0'>
+				<input type='checkbox' name='category[{$category['c_id']}][visible]' value='1' {$checked}>
+			</td>
+			<td class='min'>{$remove}</td>
+		</tr>");
+}
 
 ?>
 

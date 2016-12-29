@@ -1,101 +1,105 @@
 <?php
 
-	## ---------------------------------------------------
-	#  ADDICTIVE COMMUNITY
-	## ---------------------------------------------------
-	#  Developed by Brunno Pleffken Hosti
-	#  File: adm_languages_edit.php
-	#  License: GPLv2
-	#  Copyright: (c) 2016 - Addictive Community
-	## ---------------------------------------------------
+## ---------------------------------------------------
+#  ADDICTIVE COMMUNITY
+## ---------------------------------------------------
+#  Developed by Brunno Pleffken Hosti
+#  File: adm_languages_edit.php
+#  License: GPLv2
+#  Copyright: (c) 2016 - Addictive Community
+## ---------------------------------------------------
 
-	$id = Http::Request("id");
-	$notification = "";
+use \AC\Kernel\Html;
+use \AC\Kernel\Http;
+use \AC\Kernel\Template;
 
-	// Change language name
+$id = Http::Request("id");
+$notification = "";
 
-	if(Http::Request("language_name")) {
-		$new_language_name = Http::Request("language_name");
+// Change language name
 
-		$Db->Query("UPDATE c_languages SET name = '{$new_language_name}' WHERE l_id = '{$id}';");
+if(Http::Request("language_name")) {
+	$new_language_name = Http::Request("language_name");
 
-		$notification = Html::Notification(
-			"You have successfylly changed the language name to {$new_language_name}", "success"
-		);
-	}
+	$Db->Query("UPDATE c_languages SET name = '{$new_language_name}' WHERE l_id = '{$id}';");
 
-	// Get language info
+	$notification = Html::Notification(
+		"You have successfylly changed the language name to {$new_language_name}", "success"
+	);
+}
 
-	$Db->Query("SELECT * FROM c_languages WHERE l_id = '{$id}';");
-	$lang = $Db->Fetch();
+// Get language info
 
-	// Get list of files
+$Db->Query("SELECT * FROM c_languages WHERE l_id = '{$id}';");
+$lang = $Db->Fetch();
 
-	$handle = opendir("../languages/" . $lang['directory']);
+// Get list of files
 
-	while($file = readdir($handle)) {
-		if($file != "." &&
-			$file != ".." &&
-			$file != "_language.json" &&
-			$file != ".DS_Store"
-		) {
+$handle = opendir("../languages/" . $lang['directory']);
 
-			$url = preg_replace("#(.+)\.php#", "$1", $file);
+while($file = readdir($handle)) {
+	if($file != "." &&
+		$file != ".." &&
+		$file != "_language.json" &&
+		$file != ".DS_Store"
+	) {
 
-			if(!is_writable("../languages/" . $lang['directory'] . "/" . $file)) {
-				$notification = Html::Notification(
-					"The language files in this directory are not writable. Please, set all files to CHMOD 777.", "failure", true
-				);
-				$edit = "<i class='fa fa-ban'></i>
+		$url = preg_replace("#(.+)\.php#", "$1", $file);
+
+		if(!is_writable("../languages/" . $lang['directory'] . "/" . $file)) {
+			$notification = Html::Notification(
+				"The language files in this directory are not writable. Please, set all files to CHMOD 777.", "failure", true
+			);
+			$edit = "<i class='fa fa-ban'></i>
 </span>";
-			}
-			else {
-				$edit = "<a href='?act=languages&p=file&id={$url}&dir={$lang['directory']}'><i class='fa fa-pencil'></i></a>";
-			}
-
-			Template::Add("<tr>
-					<td><a href='?act=languages&p=file&id={$url}&dir={$lang['directory']}'><b>{$file}</b></a></td>
-					<td>{$edit}</td>
-				</tr>");
 		}
+		else {
+			$edit = "<a href='?act=languages&p=file&id={$url}&dir={$lang['directory']}'><i class='fa fa-pencil'></i></a>";
+		}
+
+		Template::Add("<tr>
+				<td><a href='?act=languages&p=file&id={$url}&dir={$lang['directory']}'><b>{$file}</b></a></td>
+				<td>{$edit}</td>
+			</tr>");
 	}
+}
 
 ?>
 
-	<h1>Manage Language: <?php echo $lang['name'] ?></h1>
+<h1>Manage Language: <?php echo $lang['name'] ?></h1>
 
-	<div id="content">
-		<div class="grid-row">
+<div id="content">
+	<div class="grid-row">
 
-			<?php echo $notification ?>
+		<?php echo $notification ?>
 
-			<table class="table-list">
-				<tr>
-					<th colspan="10">
-						<div class="fleft">Language Files</div>
-					</th>
-				</tr>
-				<tr class="subtitle">
-					<td>File</td>
-					<td class="min"></td>
-				</tr>
-				<?php echo Template::Get() ?>
-			</table>
+		<table class="table-list">
+			<tr>
+				<th colspan="10">
+					<div class="fleft">Language Files</div>
+				</th>
+			</tr>
+			<tr class="subtitle">
+				<td>File</td>
+				<td class="min"></td>
+			</tr>
+			<?php echo Template::Get() ?>
+		</table>
 
-			<table class="table-list">
-				<tr>
-					<th colspan="10"><div class="fleft">Settings</div></th>
-				</tr>
-				<tr>
-					<td class="title-fixed">Language Name</td>
-					<td>
-						<form action="#" method="post">
-							<input type="text" name="language_name" class="medium" value="<?php __($lang['name']) ?>">
-							<div class="fright"><input type="submit" value="Save Settings"></div>
-						</form>
-					</td>
-				</tr>
-			</table>
+		<table class="table-list">
+			<tr>
+				<th colspan="10"><div class="fleft">Settings</div></th>
+			</tr>
+			<tr>
+				<td class="title-fixed">Language Name</td>
+				<td>
+					<form action="#" method="post">
+						<input type="text" name="language_name" class="medium" value="<?php __($lang['name']) ?>">
+						<div class="fright"><input type="submit" value="Save Settings"></div>
+					</form>
+				</td>
+			</tr>
+		</table>
 
-		</div>
 	</div>
+</div>

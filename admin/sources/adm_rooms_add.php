@@ -1,124 +1,123 @@
 <?php
 
-	## ---------------------------------------------------
-	#  ADDICTIVE COMMUNITY
-	## ---------------------------------------------------
-	#  Developed by Brunno Pleffken Hosti
-	#  File: adm_rooms_add.php
-	#  License: GPLv2
-	#  Copyright: (c) 2016 - Addictive Community
-	## ---------------------------------------------------
+## ---------------------------------------------------
+#  ADDICTIVE COMMUNITY
+## ---------------------------------------------------
+#  Developed by Brunno Pleffken Hosti
+#  File: adm_rooms_add.php
+#  License: GPLv2
+#  Copyright: (c) 2016 - Addictive Community
+## ---------------------------------------------------
 
-	// ---------------------------------------------------
-	// Get list of categories
-	// ---------------------------------------------------
+// ---------------------------------------------------
+// Get list of categories
+// ---------------------------------------------------
 
-	$categories = "";
-	$Db->Query("SELECT * FROM c_categories");
+$categories = "";
+$Db->Query("SELECT * FROM c_categories");
 
-	while($_result = $Db->Fetch()) {
-		$categories .= "<option value='{$_result['c_id']}'>{$_result['name']}</option>";
-	}
+while($_result = $Db->Fetch()) {
+	$categories .= "<option value='{$_result['c_id']}'>{$_result['name']}</option>";
+}
 
-	// ---------------------------------------------------
-	// Create permission matrix
-	// ---------------------------------------------------
+// ---------------------------------------------------
+// Create permission matrix
+// ---------------------------------------------------
 
-	// View
+// View
 
-	function MatrixView()
-	{
-		global $Db;
+function MatrixView()
+{
+	global $Db;
 
-		$Db->Query("SELECT * FROM c_usergroups;");
+	$Db->Query("SELECT * FROM c_usergroups;");
 
-		$title = "";
-		$checkboxes = "";
+	$title = "";
+	$checkboxes = "";
 
-		while($view_g = $Db->Fetch()) {
-			$title .= "<td>{$view_g['name']}</td>";
+	while($view_g = $Db->Fetch()) {
+		$title .= "<td>{$view_g['name']}</td>";
 
-			if($view_g['view_board'] == 1) {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='view[]' value='V_{$view_g['g_id']}' checked></td>";
-			}
-			else {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='view[]' value='V_{$view_g['g_id']}'></td>";
-			}
+		if($view_g['view_board'] == 1) {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='view[]' value='V_{$view_g['g_id']}' checked></td>";
 		}
-
-		$view = "
-		<table cellspacing='0'><tr>
-			{$title}
-			</tr><tr>
-			{$checkboxes}
-		</tr></table>";
-
-		return $view;
-	}
-
-	// Post
-
-	function MatrixPost()
-	{
-		global $Db;
-
-		$Db->Query("SELECT * FROM c_usergroups;");
-
-		$title = "";
-		$checkboxes = "";
-
-		while($view_g = $Db->Fetch()) {
-			$title .= "<td>{$view_g['name']}</td>";
-
-			if($view_g['post_new_threads'] == 1) {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='post[]' value='V_{$view_g['g_id']}' checked></td>";
-			}
-			else {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='post[]' value='V_{$view_g['g_id']}'></td>";
-			}
+		else {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='view[]' value='V_{$view_g['g_id']}'></td>";
 		}
-
-		$post = "
-		<table cellspacing='0'><tr>
-			{$title}
-			</tr><tr>
-			{$checkboxes}
-		</tr></table>";
-
-		return $post;
 	}
 
-	// Reply
+	$view = "
+	<table cellspacing='0'>
+		<tr>{$title}</tr>
+		<tr>{$checkboxes}</tr>
+	</table>";
 
-	function MatrixReply()
-	{
-		global $Db;
+	return $view;
+}
 
-		$Db->Query("SELECT * FROM c_usergroups;");
+// Post
 
-		$title = "";
-		$checkboxes = "";
+function MatrixPost()
+{
+	global $Db;
 
-		while($view_g = $Db->Fetch()) {
-			$title .= "<td>{$view_g['name']}</td>";
+	$Db->Query("SELECT * FROM c_usergroups;");
 
-			if($view_g['reply_threads'] == 1) {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='reply[]' value='V_{$view_g['g_id']}' checked></td>";
-			}
-			else {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='reply[]' value='V_{$view_g['g_id']}'></td>";
-			}
+	$title = "";
+	$checkboxes = "";
+
+	while($view_g = $Db->Fetch()) {
+		$title .= "<td>{$view_g['name']}</td>";
+
+		if($view_g['post_new_threads'] == 1) {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='post[]' value='V_{$view_g['g_id']}' checked></td>";
 		}
-
-		$reply = "
-		<table cellspacing='0'><tr>
-			{$title}
-			</tr><tr>
-			{$checkboxes}
-		</tr></table>";
-
-		return $reply;
+		else {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='post[]' value='V_{$view_g['g_id']}'></td>";
+		}
 	}
+
+	$post = "
+	<table cellspacing='0'><tr>
+		{$title}
+		</tr><tr>
+		{$checkboxes}
+	</tr></table>";
+
+	return $post;
+}
+
+// Reply
+
+function MatrixReply()
+{
+	global $Db;
+
+	$Db->Query("SELECT * FROM c_usergroups;");
+
+	$title = "";
+	$checkboxes = "";
+
+	while($view_g = $Db->Fetch()) {
+		$title .= "<td>{$view_g['name']}</td>";
+
+		if($view_g['reply_threads'] == 1) {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='reply[]' value='V_{$view_g['g_id']}' checked></td>";
+		}
+		else {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='reply[]' value='V_{$view_g['g_id']}'></td>";
+		}
+	}
+
+	$reply = "
+	<table cellspacing='0'><tr>
+		{$title}
+		</tr><tr>
+		{$checkboxes}
+	</tr></table>";
+
+	return $reply;
+}
 
 ?>
 
@@ -126,7 +125,6 @@
 
 <div id="content">
 	<div class="grid-row">
-		<!-- LEFT -->
 		<form action="process.php?do=newroom" method="post">
 
 			<table class="table-list">
