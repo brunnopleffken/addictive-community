@@ -11,6 +11,8 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Kernel;
+
 class Upload
 {
 	// List of dangerous extensions, although these files can also be

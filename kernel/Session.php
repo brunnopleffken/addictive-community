@@ -11,6 +11,8 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Kernel;
+
 class Session
 {
 	// Database class and Main->info array

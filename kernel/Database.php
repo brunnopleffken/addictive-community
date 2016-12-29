@@ -11,6 +11,8 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Kernel;
+
 /**
  * --------------------------------------------------------------------
  * DATABASE CONNECTION CLASS INTERFACE

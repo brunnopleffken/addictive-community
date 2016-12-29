@@ -13,6 +13,13 @@
 
 namespace AC;
 
+use \AC\Kernel\Core;
+use \AC\Kernel\Database;
+use \AC\Kernel\Http;
+use \AC\Kernel\i18n;
+use \AC\Kernel\Session;
+use \AC\Kernel\Text;
+
 // Run initialization file before loading Main()
 require("init.php");
 

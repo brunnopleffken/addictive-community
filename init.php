@@ -80,5 +80,5 @@ function _AutoLoader($class_name)
  */
 function __($string, $variables = array())
 {
-	echo i18n::Translate($string, $variables);
+	echo \AC\Kernel\i18n::Translate($string, $variables);
 }
