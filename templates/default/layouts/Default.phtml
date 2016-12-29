@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php __($page_title . $community_name) ?> (Powered by Addictive Community)</title>
 	<base href="<?php __($community_url) ?>">
 	<link rel="search" type="application/opensearchdescription+xml" title="<?php __($community_name) ?>" href="community/open_search">
@@ -13,7 +15,9 @@
 	<link rel="stylesheet" href="thirdparty/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="thirdparty/fancybox/jquery.fancybox.css">
 	<link rel="stylesheet" href="thirdparty/select2/css/select2.min.css">
-	<link rel="stylesheet" href="themes/<?php __($theme) ?>/css/main.css">
+	<link rel="stylesheet" href="static/css/framework.css">
+	<link rel="stylesheet" href="static/css/wireframe.css">
+	<link rel="stylesheet" href="themes/<?php __($theme) ?>/css/theme.css">
 
 	<?php echo $this->head ?>
 </head>
@@ -163,6 +167,6 @@
 	<script src="thirdparty/fancybox/jquery.fancybox.pack.js"></script>
 	<script src="thirdparty/select2/js/select2.full.min.js"></script>
 	<script src="thirdparty/mustache/mustache.min.js"></script>
-	<script src="resources/main.js"></script>
+	<script src="static/js/main.js"></script>
 </body>
 </html>
