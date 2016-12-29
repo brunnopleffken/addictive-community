@@ -19,77 +19,46 @@ use \AC\Kernel\Text;
 use \AC\Kernel\Template;
 
 // First... check if the login sessions exists!
-
 session_start();
-
 if(!isset($_SESSION['admin_m_id'])) {
 	header("Location: index.php?error=2");
 }
 
 // If we have a validate session, check the running time.
 // If it's older than 30 minutes, ask for a log in
-
-$minutes = 30;
-
-if($_SESSION['admin_time'] < (time() - 60 * $minutes)) {
+if($_SESSION['admin_time'] < (time() - 60 * 30)) {
 	session_destroy();
 	header("Location: index.php?error=3");
 }
 
-// Call files
-
+// Call required files
 require_once("../init.php");
 require_once("../config.php");
 
+// Define autoloader
+spl_autoload_register('_AutoLoader', true, true);
+
 // Load kernel drivers
-
-require("../kernel/Admin.php");
-require("../kernel/Database.php");
-require("../kernel/Core.php");
-require("../kernel/Html.php");
-require("../kernel/Http.php");
-require("../kernel/i18n.php");
-require("../kernel/Text.php");
-require("../kernel/Template.php");
-
 $Db = new Database();
 $Db->Connect($config);
-
 $Db->Query("SELECT * FROM c_config;");
 $Core = new Core($Db, $Db->FetchConfig());
 $Admin = new Admin($Db);
 
-require_once("sources/template.php");
-
 // Update session time
-
 $_SESSION['admin_time'] = time();
 
 // Admin info
-
-$Db->Query("SELECT username, time_offset FROM c_members
-	WHERE m_id = '{$_SESSION['admin_m_id']}';");
-
+$Db->Query("SELECT username, time_offset FROM c_members WHERE m_id = '{$_SESSION['admin_m_id']}';");
 $admin_info = $Db->Fetch();
 
-// Get HTML header template
-
-__($layout['header']);
-
-// Get page content
-
+// Define page content
 $act = (Http::Request("act")) ? Http::Request("act") : "dashboard";
-$p   = (Http::Request("p")) ? Http::Request("p") : "main";
+$p = (Http::Request("p")) ? Http::Request("p") : "main";
 
-__(CreateMenu($act));
-
-require_once("sources/adm_{$act}_{$p}.php");
-
-// Get HTML footer template
-
-__($layout['footer']);
-
+// ---------------------------------------------------
 // Navigation menu template
+// ---------------------------------------------------
 
 function CreateMenu($section)
 {
@@ -247,3 +216,53 @@ HTML;
 
 	return $nav;
 }
+
+?><!DOCTYPE html>
+<html>
+<head>
+	<title>Addictive Community - Administration Panel</title>
+	<meta charset="utf-8">
+	<link href="styles/admin_style.css" type="text/css" rel="stylesheet">
+	<link href="../thirdparty/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+	<script src="../thirdparty/jquery/jquery.min.js"></script>
+	<!-- Code Mirror -->
+	<script src="../thirdparty/codemirror/codemirror.js"></script>
+	<link href="../thirdparty/codemirror/codemirror.css" type="text/css" rel="stylesheet">
+	<script src="../thirdparty/codemirror/mode/css/css.js"></script>
+	<!-- Admin JS -->
+	<script src="admin.js"></script>
+</head>
+
+<body>
+
+	<div id="topbar">
+		<div class="wrapper">
+			<div class="fleft">
+				<a href="../" target="_blank" class="toplinks transition">&laquo; Go to your Community</a>
+			</div>
+			<div class="fright">
+				<a href="https://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">View Addictive Comunity on GitHub</a>
+			</div>
+			<div class="fix"></div>
+		</div>
+	</div>
+
+	<div id="logo">
+		<div class="wrapper">
+			<a href="main.php" title="Admin CP Dashboard"><img src="images/logo.png" class="logo-image"></a>
+		</div>
+	</div>
+
+	<div class="wrapper">
+		<?php echo CreateMenu($act); ?>
+		<?php require_once("sources/adm_{$act}_{$p}.php"); ?>
+	</div>
+
+	<div id="footer">
+		<div class="wrapper center">
+			<span>Powered by Addictive Community <?php echo VERSION ?> &copy; 2014 - All rights reserved.</span>
+		</div>
+	</div>
+
+</body>
+</html>
