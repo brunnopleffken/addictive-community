@@ -134,7 +134,7 @@ class Application
 		// If member is logged in
 		if($this->Session->IsMember()) {
 			// Get user avatar
-			$this->Session->member_info['avatar'] = $this->Core->GetAvatar($this->Session->member_info, 60);
+			$this->Session->member_info['avatar'] = $this->Core->GetAvatar($this->Session->member_info, 80);
 
 			// Number of new private messages
 			$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages

@@ -203,9 +203,9 @@ class Html
 	 * CROP IMAGE TO FILL AREA
 	 * --------------------------------------------------------------------
 	 */
-	public static function Crop($image, $w = 0, $h = 0, $class = "")
+	public static function Crop($image, $size = 0, $class = "")
 	{
-		return "<div style=\"display:inline-block; width:{$w}px; height:{$h}px; background: url('{$image}') no-repeat center top; background-size:cover; image-rendering: optimizeQuality;\" class='{$class}'></div>";
+		return "<div style=\"display:block; width:{$size}px; height:{$size}px; background: url('{$image}') no-repeat center top; background-size:cover\" class='{$class}'></div>";
 	}
 
 	/**

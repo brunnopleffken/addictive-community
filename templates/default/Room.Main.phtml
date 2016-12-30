@@ -38,7 +38,7 @@
 	<?php foreach($threads as $k => $v): ?>
 		<div class="block no-padding room-item <?php echo $threads[$k]['class'] ?>">
 			<div class="room-item-image hide-xs">
-				<img src="http://placehold.it/50x50?text=50">
+				<?php echo \AC\Kernel\Html::Crop($threads[$k]['author_avatar'], 50, "image") ?>
 			</div>
 			<div class="room-item-description">
 				<a href="thread/<?php echo $threads[$k]['t_id'] . "-" . $threads[$k]['slug'] ?>" class="room-item-description-title">

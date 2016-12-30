@@ -224,8 +224,7 @@ class Room extends Application
 		$result['last_post_date'] = $this->Core->DateFormat($result['last_post_date']);
 
 		// Author avatar
-		$result['author_avatar'] = $this->Core->GetAvatar($result, 84);
-		$result['author_avatar'] = Html::Crop($result['author_avatar'], 42, 42, "image");
+		$result['author_avatar'] = $this->Core->GetAvatar($result, 100);
 
 		// Build phrases using internationalization
 		$result['author_name'] = i18n::Translate("R_STARTED_BY", array($result['author_name']));

@@ -102,7 +102,7 @@ header {
 				margin-bottom: 4px;
 			}
 		}
-		img {
+		.image {
 			border-radius: 2px;
 			float: left;
 			height: 40px;
@@ -313,11 +313,9 @@ header {
 			align-self: center;
 			flex: 0 0 100px;
 			margin-left: -3px;
-			img {
+			.image {
 				display: block;
-				height: 50px;
 				margin: auto;
-				width: 50px;
 			}
 		}
 		&-description {

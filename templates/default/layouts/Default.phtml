@@ -85,7 +85,7 @@
 					</div>
 				<?php else: ?>
 					<div class="block flat user-box">
-						<img src="http://placehold.it/40x40?text=40">
+						<?php echo \AC\Kernel\Html::Crop($member_info['avatar'], 40, "image") ?>
 						<a href="profile/<?php echo $member_info['m_id'] ?>" class="username">
 							<?php __($member_info['username']) ?>
 						</a>
