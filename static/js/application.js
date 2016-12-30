@@ -76,12 +76,13 @@ $(document).ready(function($) {
 	 */
 
 	(function() {
-		$('.navigation .subnav a').each(function() {
-			var elementUrl = new RegExp('(' + ($(this).attr('href')).replace('?', '\\?') + ')$');
+		var links = document.querySelectorAll('.nav .nav-bottom a');
+		[].forEach.call(links, function(link) {
+			var elementUrl = new RegExp('(' + (link.href).replace('?', '\\?') + ')$');
 			var browserUrl = window.location.href;
 
 			if(elementUrl.test(browserUrl)) {
-				$(this).addClass('selected');
+				link.className = 'active';
 			}
 		});
 	}).call(this);
