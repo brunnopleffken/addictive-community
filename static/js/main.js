@@ -33,7 +33,7 @@ $(document).ready(function($) {
 	 */
 
 	(function() {
-		$('.room-category').on('click', function() {
+		$('.category').on('click', function() {
 			var catId = $(this).data('toggle-id');
 			var icon = $(this).find('i');
 
