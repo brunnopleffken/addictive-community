@@ -373,9 +373,58 @@ textarea.form-control {
 	}
 }
 
-.progress {
-	.progress-bar {
-		// ...
+// PROGRESS BAR
+// SYNTAX:
+//   .progress-bar
+//     .fill(style="width: 100%")
+//     span Inner label
+//     .label
+//       span Outer label
+
+.progress-bar {
+	border: 1px solid $accent;
+	height: 20px;
+	padding: 1px;
+	position: relative;
+	width: 100%;
+	.fill {
+		background-color: $accent;
+		display: inline-block;
+		height: 16px;
+	}
+	& > span {
+		color: #ccc;
+		font-size: 10px;
+		position: absolute;
+		text-transform: uppercase;
+		top: 4px;
+		right: 4px;
+	}
+	.label {
+		overflow: visible;
+		position: absolute;
+		top: -1px;
+		right: -15px;
+		width: 1px;
+		& > span {
+			background-color: $accent;
+			display: inline-block;
+			color: #fff;
+			font-size: 10px;
+			line-height: 20px;
+			padding: 0 5px;
+			&:before {
+				border-color: rgba(0, 0, 0, 0) #465068 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+				border-style: solid;
+				border-width: 5px 5px 5px 0;
+				content: "";
+				height: 0;
+				left: -5px;
+				position: absolute;
+				top: 5px;
+				width: 0;
+			}
+		}
 	}
 }
 
