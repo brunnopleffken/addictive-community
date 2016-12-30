@@ -207,43 +207,6 @@ $(document).ready(function($) {
 	}).call(this);
 
 	/**
-	 * REPLACE CHECKBOXES WITH A CUSTOM ONE
-	 */
-
-	(function() {
-		$('input[type=checkbox]').each(function(i) {
-			var $checkbox = $(this);
-
-			// Hide checkbox and prepend it with <A>
-			$checkbox.addClass('checkbox-' + i).hide();
-			$('<a class="checkbox" id="checkbox-' + i + '"></a>').insertBefore($checkbox);
-
-			// If the checkbox is already checked
-			if($checkbox.is('[checked]')) {
-				$('a#checkbox-' + i).addClass('checked');
-				$checkbox.addClass('checked');
-			}
-		});
-
-		$('body').on('click', 'a.checkbox', function(event) {
-			var $link = $(this);
-			var $checkbox = $('input[type=checkbox].' + $link.attr('id'));
-
-			// Add/remove class .checked from the element <a>
-			$link.toggleClass('checked');
-
-			// Add/remove attribute CHECKED from the corresponding INPUT[type=checkbox]
-			if($checkbox.hasClass('checked')) {
-				$checkbox.prop('checked', false).removeClass('checked');
-			} else {
-				$checkbox.prop('checked', true).addClass('checked');
-			}
-
-			event.preventDefault();
-		});
-	}).call(this);
-
-	/**
 	 * LOAD COMPLETE TINYMCE ON THREAD/REPLY POSTS
 	 */
 
