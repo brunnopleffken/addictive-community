@@ -141,7 +141,7 @@ $(document).ready(function($) {
 
 			// Validade INPUT text, INPUT password and TEXTAREAs
 
-			$(this).find('input[type=text], input[type=password], textarea, select').filter('.required').each(function() {
+			$(this).find('input[type=text], input[type=password], textarea, select').filter('[required]').each(function() {
 				if(this.value == '') {
 					$(this).addClass('error');
 					stopSend = true;
@@ -259,8 +259,8 @@ $(document).ready(function($) {
 			$field.hide();
 
 			// Add an text field and a button
-			$field.parent().append('<input type="text" name="attachment_filename" id="attachment_filename" class="medium" readonly> ');
-			$field.parent().append('<button id="attachment_button"><i class="fa fa-upload"></i> Upload</button>');
+			$field.parent().append('<input type="text" name="attachment_filename" id="attachment_filename" class="form-control" style="width: calc(100% - 110px)" readonly>');
+			$field.parent().append('<button id="attachment_button" class="btn btn-default" style="margin-left: 10px; width: 100px"><i class="fa fa-upload"></i> Upload</button>');
 
 			// Also add .required if input[file] has .required class
 			if($field.hasClass('required')) {
