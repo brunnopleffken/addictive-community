@@ -1,4 +1,4 @@
-.mce-container,.mce-container *,.mce-widget,.mce-widget *,.mce-reset{margin:0;padding:0;border:0;outline:0;vertical-align:top;background:0 0;text-decoration:none;color:#333;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;text-shadow:none;float:none;position:static;width:auto;height:auto;white-space:nowrap;cursor:inherit;-webkit-tap-highlight-color:transparent;line-height:normal;font-weight:400;text-align:left;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;direction:ltr;max-width:none}
+.mce-container,.mce-container *,.mce-widget,.mce-widget *,.mce-reset{margin:0;padding:0;border:0;outline:0;vertical-align:top;background:0 0;text-decoration:none;color:#333;font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;text-shadow:none;float:none;position:static;width:auto;height:auto;white-space:nowrap;cursor:inherit;-webkit-tap-highlight-color:transparent;line-height:normal;font-weight:400;text-align:left;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;direction:ltr;max-width:none}
 .mce-widget button{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
 .mce-container [unselectable]{-moz-user-select:none;-webkit-user-select:none;-o-user-select:none;user-select:none}
 .mce-fade{opacity:0;-webkit-transition:opacity .15s linear;transition:opacity .15s linear}
@@ -260,7 +260,7 @@ i.mce-i-resize{color:#333}
 .mce-rtl .mce-tabs{text-align:right;direction:rtl}
 .mce-rtl .mce-tab{border-width:0 0 0 1px}
 .mce-textbox{background:#fff;border:1px solid #c5c5c5;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);box-shadow:inset 0 1px 1px rgba(0,0,0,.075);display:inline-block;-webkit-transition:border linear .2s,box-shadow linear .2s;transition:border linear .2s,box-shadow linear .2s;height:28px;resize:none;padding:0 4px 0 4px;white-space:pre-wrap;;color:#333}
-.mce-textbox:focus,.mce-textbox.mce-focus{border-color:rgba(82,168,236,.8);-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(82,168,236,.65);-moz-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(82,168,236,.65);box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(82,168,236,.65)}
+.mce-textbox:focus,.mce-textbox.mce-focus{border-color:#aaa;}
 .mce-placeholder .mce-textbox{color:#aaa}
 .mce-textbox.mce-multiline{padding:4px}
 .mce-textbox.mce-disabled{color:#adadad}
