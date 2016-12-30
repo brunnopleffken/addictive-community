@@ -187,6 +187,7 @@ form {
 	padding: 8px 12px;
 	text-shadow: 1px 1px 0 #000;
 	transition: 200ms;
+	user-select: none;
 	&:hover {
 		text-decoration: none;
 	}
@@ -210,6 +211,20 @@ form {
 		text-shadow: none;
 		&:hover {
 			color: #222;
+		}
+	}
+	&.btn-disabled, &[disabled] {
+		background-color: #ddd;
+		box-shadow: none;
+		color: #900;
+		cursor: not-allowed;
+		text-shadow: 1px 1px 0px #fff !important;
+		&:hover {
+			background-color: #ccc;
+		}
+		&:active {
+			background-color: #ddd;
+			box-shadow: none;
 		}
 	}
 
