@@ -1,9 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-# Exclude Sass files from language stats
-themes/default-light/scss/* linguist-vendored
-
 # Exclude these files from releases...
 .gitignore export-ignore
 .gitattributes export-ignore
