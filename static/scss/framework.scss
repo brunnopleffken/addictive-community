@@ -96,6 +96,12 @@ form {
 		display: inline-block;
 		line-height: 32px;
 	}
+	.error-message {
+		color: #a00;
+		display: none;
+		font-weight: bold;
+		line-height: 32px;
+	}
 }
 
 .form-group {
@@ -114,6 +120,14 @@ form {
 		font-weight: bold;
 		padding-top: 8px;
 		padding-bottom: 8px;
+		small {
+			color: $default-darker;
+			display: block;
+			font-weight: normal;
+			font-size: 12px;
+			font-style: italic;
+			margin-top: 5px;
+		}
 	}
 	@media (max-width: $xsmall) {
 		.label, [class*=col-] {

@@ -135,12 +135,14 @@ $(document).ready(function($) {
 	 * input.numeric  Validates if the value is numeric only
 	 */
 
+	 // Add 'novalidate' to all forms because we're using the custom one right below
 	$('form').attr('novalidate', true);
 
 	$(document).on('submit', 'form', function(event) {
 		var stopSend = false;
 		var form = this;
 
+		// Add .error to all invalid text fields
 		$('input:invalid').addClass('error');
 
 		try {
@@ -152,8 +154,7 @@ $(document).ready(function($) {
 			else {
 				$('.mce-edit-area').removeClass('error');
 			}
-		}
-		catch(e) {
+		} catch(e) {
 			console.log(e);
 		}
 
@@ -224,7 +225,7 @@ $(document).ready(function($) {
 				selector: '#post',
 				statusbar: false,
 				media_alt_source: false,
-				toolbar: 'bold italic underline strikethrough | forecolor | alignleft aligncenter alignright | link image media | bullist numlist | subscript superscript | removeformat'
+				toolbar: 'bold italic underline strikethrough | forecolor | alignleft aligncenter alignright | bullist numlist | link image media | subscript superscript | removeformat'
 			});
 		} catch(e) {
 			console.log(e);
@@ -238,16 +239,16 @@ $(document).ready(function($) {
 	(function() {
 		try {
 			tinymce.init({
+				element_format: 'html',
 				entity_encoding: 'raw',
 				link_title: false,
-				plugins: ['link image'],
+				default_link_target: "_blank",
+				target_list: false,
+				plugins: ['textcolor lists link image'],
 				menubar: false,
 				selector: '#signature',
 				statusbar: false,
-				target_list: [
-					{title: 'New page', value: '_blank'},
-				],
-				toolbar: 'bold italic underline strikethrough | link image | subscript superscript | removeformat'
+				toolbar: 'bold italic underline strikethrough | forecolor | link image | subscript superscript | removeformat'
 			});
 		} catch(e) {
 			console.log(e);
