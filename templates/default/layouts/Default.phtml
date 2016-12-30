@@ -44,12 +44,12 @@
 	</div>
 	<div class="bottom-half outer">
 		<div class="row space-between">
-			<div class="col-6">
+			<div class="col-flexible">
 				<a href="<?php echo $community_url ?>">
 					<img src="themes/<?php __($theme) ?>/images/logo.svg" class="logo" alt="Addictive Community">
 				</a>
 			</div>
-			<div class="search hide-sm">
+			<div class="col-flexible search hide-sm">
 				<form action="search" method="get" class="validate">
 					<input type="text" name="q" class="form-control search-input required" value="<?php echo \AC\Kernel\Http::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>"><!--
 					--><button type="submit" class="btn btn-default search-submit">
@@ -85,7 +85,7 @@
 					</div>
 				<?php else: ?>
 					<div class="block flat user-box">
-						<img src="http://www.gravatar.com/avatar/d4863bc04b657b65c24b02aa0b62f32e?s=80&d=mm&r=g">
+						<img src="http://placehold.it/40x40?text=40">
 						<a href="profile/<?php echo $member_info['m_id'] ?>" class="username">
 							<?php __($member_info['username']) ?>
 						</a>

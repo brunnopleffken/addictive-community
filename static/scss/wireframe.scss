@@ -35,7 +35,6 @@ header {
 		.search {
 			background-color: $accent-dark;
 			border-radius: 6px;
-			float: right;
 			margin-right: 10px;
 			padding: 11px;
 			.search-input {
@@ -64,7 +63,7 @@ header {
 			}
 		}
 		.bottom-half {
-			.col-6 {
+			.col-flexible {
 				flex: 1;
 			}
 			.logo {
