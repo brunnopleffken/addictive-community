@@ -9,6 +9,12 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Admin;
+use \AC\Kernel\Database;
+use \AC\Kernel\Core;
+use \AC\Kernel\Http;
+use \AC\Kernel\Text;
+
 // First... check if the login sessions exists!
 
 session_start();
