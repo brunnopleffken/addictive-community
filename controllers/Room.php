@@ -140,32 +140,32 @@ class Room extends Application
 		// Filter thread list
 		switch($view) {
 			case "mythreads":
-				$menu  = array("", "selected");
+				$menu  = array("", "active");
 				$where = "AND author_member_id = '{$this->Session->member_info['m_id']}'";
 				$order = "last_post_date DESC";
 				break;
 			case "topreplies":
-				$menu  = array("selected", "");
+				$menu  = array("active", "");
 				$where = "";
 				$order = "replies DESC";
 				break;
 			case "noreplies":
-				$menu  = array("selected", "");
+				$menu  = array("active", "");
 				$where = "AND replies = '1'";
 				$order = "last_post_date DESC";
 				break;
 			case "bestanswered":
-				$menu  = array("selected", "");
+				$menu  = array("active", "");
 				$where = "AND with_best_answer = '1'";
 				$order = "last_post_date DESC";
 				break;
 			case "polls":
-				$menu  = array("selected", "");
+				$menu  = array("active", "");
 				$where = "AND poll_question <> ''";
 				$order = "last_post_date DESC";
 				break;
 			default:
-				$menu  = array("selected", "");
+				$menu  = array("active", "");
 				$where = "";
 				$order = "last_post_date DESC";
 		}

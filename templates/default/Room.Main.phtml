@@ -1,45 +1,17 @@
-<script id="thread-item-template" type="x-tmpl-mustache">
-<div class="thread-item {{class}} {{to_be_opened}}">
-	<div class="avatar">{{{author_avatar}}}</div>
-	<div class="middle">
-		<a href="thread/{{t_id}}-{{slug}}" class="title">{{title}}</a>
-		<div class="description">{{description}}</div>
-		<div class="author">
-			<i class="fa fa-user"></i> {{author_name}}
-			<i class="fa fa-clock-o"></i> {{start_date}}
-		</div>
-	</div>
-	<div class="info">
-		<i class="fa fa-comments"></i><br>{{replies}}
-	</div>
-	<div class="stats">
-		<div class="label">
-			<i class="fa fa-fw fa-eye"></i><span class="value">{{views}}</span>
-		</div>
-		<div class="label">
-			<i class="fa fa-fw fa-user"></i><span class="value"><a href="profile/{{last_post_member_id}}" title="{{last_post_name}}">{{last_post_name}}</a></span>
-		</div>
-		<div class="label">
-			<i class="fa fa-fw fa-clock-o"></i><span class="value">{{last_post_date}}</span>
-		</div>
-	</div>
-</div>
-</script>
-
-<div class="title-bar">
-	<div class="title">
-		<span><?php __($this->Config['general_community_name']) ?></span>
-		<?php __($room_info['name']) ?>
-	</div>
+<div class="room-header">
+	<h1>
+		<small><?php echo $this->Config['general_community_name'] ?></small>
+		<?php echo $room_info['name'] ?>
+	</h1>
 	<?php if($this->Session->IsMember()): ?>
-		<?php if($room_info['read_only']): ?>
-			<div class="buttons"><a class="default-button disabled"><?php __("R_READ_ONLY") ?></a></div>
-		<?php else: ?>
-			<div class="buttons">
-				<a href="thread/add/<?php __($room_id) ?>" class="default-button"><?php __("R_NEW_THREAD") ?></a>
-				<a href="thread/add/<?php __($room_id) ?>?poll=true" class="default-button"><?php __("R_NEW_POLL") ?></a>
-			</div>
-		<?php endif; ?>
+		<div class="room-header-buttons">
+			<?php if($room_info['read_only']): ?>
+				<a class="btn btn-default btn-disabled font-w600"><?php __("R_READ_ONLY") ?></a>
+			<?php else: ?>
+				<a href="thread/add/<?php echo $room_id ?>" class="btn btn-default font-w600"><?php __("R_NEW_THREAD") ?></a>
+				<a href="thread/add/<?php echo $room_id ?>?poll=1" class="btn btn-default font-w600"><?php __("R_NEW_POLL") ?></a>
+			<?php endif; ?>
+		</div>
 	<?php endif; ?>
 </div>
 
@@ -47,80 +19,77 @@
 	<?php echo \AC\Kernel\Html::Notification($room_info['rules_text'], "warning", true, $room_info['rules_title']) ?>
 <?php endif; ?>
 
-<div class="navigation">
-	<div class="navbar">
-		<a href="room/<?php __($room_id) ?>" class="<?php __($menu[0]) ?>"><?php __("R_ALL") ?></a>
-		<?php if($this->Session->IsMember()): ?>
-			<a href="room/<?php __($room_id) ?>?view=mythreads" class="<?php __($menu[1]) ?>"><?php __("R_MY_THREADS") ?></a>
-		<?php endif; ?>
+<div class="nav room-nav">
+	<div class="nav-top">
+		<a href="room/<?php echo $room_id ?>" class="<?php echo $menu[0] ?>"><?php __("R_ALL") ?></a>
+		<a href="room/<?php echo $room_id ?>?view=mythreads" class="<?php echo $menu[1] ?>"><?php __("R_MY_THREADS") ?></a>
 	</div>
-	<div class="subnav">
-		<a href="room/<?php __($room_id) ?>"><?php __("R_LAST_REPLY") ?></a>
-		<a href="room/<?php __($room_id) ?>?view=topreplies"><?php __("R_TOP_THREADS") ?></a>
-		<a href="room/<?php __($room_id) ?>?view=noreplies"><?php __("R_NO_REPLIES") ?></a>
-		<a href="room/<?php __($room_id) ?>?view=bestanswered"><?php __("R_ANSWERED") ?></a>
-		<a href="room/<?php __($room_id) ?>?view=polls"><?php __("R_POLLS") ?></a>
-		<div class="fright"><a href="feeds/room/<?php __($room_id) ?>" class="rss" target="_blank"><i class="fa fa-rss"></i></a></div>
+	<div class="nav-bottom">
+		<a href="room/<?php echo $room_id ?>" class="active"><?php __("R_LAST_REPLY") ?></a>
+		<a href="room/<?php echo $room_id ?>?view=topreplies"><?php __("R_TOP_THREADS") ?></a>
+		<a href="room/<?php echo $room_id ?>?view=noreplies"><?php __("R_NO_REPLIES") ?></a>
+		<a href="room/<?php echo $room_id ?>?view=bestanswered"><?php __("R_ANSWERED") ?></a>
+		<a href="room/<?php echo $room_id ?>?view=polls"><?php __("R_POLLS") ?></a>
+		<a href="feeds/room/<?php echo $room_id ?>" class="pull-right"><i class="fa fa-rss"></i></a>
 	</div>
 </div>
 
 <?php if(!empty($threads)): ?>
 	<?php foreach($threads as $k => $v): ?>
-		<div class="thread-item <?php __($threads[$k]['class'] . " " . $threads[$k]['to_be_opened']) ?>">
-			<div class="avatar">
-				<?php __($threads[$k]['author_avatar']) ?>
+		<div class="block no-padding room-item <?php echo $threads[$k]['class'] ?>">
+			<div class="room-item-image hide-xs">
+				<img src="http://placehold.it/50x50?text=50">
 			</div>
-			<div class="middle">
-				<a href="thread/<?php __($threads[$k]['t_id'] . "-" . $threads[$k]['slug']) ?>" class="title">
-					<?php __($threads[$k]['title']) ?>
+			<div class="room-item-description">
+				<a href="thread/<?php echo $threads[$k]['t_id'] . "-" . $threads[$k]['slug'] ?>" class="room-item-description-title">
+					<?php echo $threads[$k]['title'] ?>
 				</a>
-				<div class="description"><?php __($threads[$k]['description']) ?></div>
-				<div class="author">
-					<i class="fa fa-user"></i><?php __($threads[$k]['author_name']) ?>
-					<i class="fa fa-clock-o"></i><?php __($threads[$k]['start_date']) ?>
-				</div>
-			</div>
-			<div class="info">
-				<i class="fa fa-comments"></i><br><?php __($threads[$k]['replies']) ?>
-			</div>
-			<div class="stats">
-				<div class="label">
-					<i class="fa fa-fw fa-eye"></i><span class="value"><?php __($threads[$k]['views']) ?></span>
-				</div>
-				<div class="label">
-					<i class="fa fa-fw fa-user"></i><!--
-					--><span class="value">
-						<a href="profile/<?php __($threads[$k]['last_post_member_id']) ?>" title="<?php __($threads[$k]['last_post_by']) ?>">
-							<?php __($threads[$k]['last_post_name']) ?>
-						</a>
+				<div class="room-item-description-excerpt hide-xs"><?php echo $threads[$k]['description'] ?></div>
+				<div class="room-item-description-stats">
+					<span>
+						<i class="fa fa-user"></i> <?php echo $threads[$k]['author_name'] ?>
+					</span>
+					<span>
+						<i class="fa fa-clock-o"></i> <?php echo $threads[$k]['start_date'] ?>
 					</span>
 				</div>
+			</div>
+			<div class="room-item-replies">
+				<i class="fa fa-comments"></i><?php echo $threads[$k]['replies'] ?>
+			</div>
+			<div class="room-item-stats hide-xs">
 				<div class="label">
-					<i class="fa fa-fw fa-clock-o"></i><span class="value"><?php __($threads[$k]['last_post_date']) ?></span>
+					<span>
+						<i class="fa fa-fw fa-user"></i><a href="profile/<?php echo $threads[$k]['last_post_member_id'] ?>" title="<?php echo $threads[$k]['last_post_by'] ?>"><?php echo $threads[$k]['last_post_name'] ?></a>
+					</span>
+					<span><i class="fa fa-fw fa-clock-o"></i><?php echo $threads[$k]['last_post_date'] ?></span>
+					<span><i class="fa fa-fw fa-eye"></i><?php echo $threads[$k]['views'] ?></span>
 				</div>
 			</div>
 		</div>
 	<?php endforeach; ?>
-	<div class="load-more center">
-		<div class="loader"></div>
-		<a href="room/load_more/<?php __($room_id) ?>"><?php __("R_LOAD_MORE") ?></a>
-	</div>
 <?php else: ?>
-	<div class="thread-item">
-		<div class="center"><?php __("R_NO_THREADS") ?></div>
-	</div>
+	<div class="block text-center"><?php __("R_NO_THREADS") ?></div>
 <?php endif; ?>
 
-<div class="title-bar">
+<div class="room-footer">
 	<?php if($this->Session->IsMember()): ?>
-		<div class="title"></div>
-		<?php if($room_info['read_only']): ?>
-			<div class="buttons"><a class="default-button disabled"><?php __("R_READ_ONLY") ?></a></div>
-		<?php else: ?>
-			<div class="buttons">
-				<a href="thread/add/<?php __($room_id) ?>" class="default-button"><?php __("R_NEW_THREAD") ?></a>
-				<a href="thread/add/<?php __($room_id) ?>?poll=true" class="default-button"><?php __("R_NEW_POLL") ?></a>
-			</div>
-		<?php endif; ?>
+		<div class="room-footer-buttons">
+			<?php if($room_info['read_only']): ?>
+				<a class="btn btn-default btn-disabled font-w600"><?php __("R_READ_ONLY") ?></a>
+			<?php else: ?>
+				<a href="thread/add/<?php echo $room_id ?>" class="btn btn-default font-w600"><?php __("R_NEW_THREAD") ?></a>
+				<a href="thread/add/<?php echo $room_id ?>?poll=1" class="btn btn-default font-w600"><?php __("R_NEW_POLL") ?></a>
+			<?php endif; ?>
+		</div>
 	<?php endif; ?>
+	<ul class="pagination">
+		<li><a href=""><i class="fa fa-angle-double-left"></i></a></li>
+		<?php for($i = 1; $i <= $pages; $i++): ?>
+			<li class="active">
+				<a href="room/<?php echo $room_id . "?p=" . $i ?>"><?php echo $i ?></a>
+			</li>
+		<?php endfor; ?>
+		<li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
+	</ul>
 </div>

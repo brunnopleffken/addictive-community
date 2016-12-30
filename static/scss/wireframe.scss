@@ -296,6 +296,7 @@ header {
 			margin-bottom: 0;
 		}
 		&-buttons {
+			font-size: 0;
 			position: absolute;
 			right: 0;
 			bottom: 0;
@@ -392,7 +393,7 @@ header {
 				}
 			}
 		}
-		&.new {
+		&.unread {
 			border-color: $accent;
 			.room-item-description-title {
 				font-weight: bold;
@@ -400,7 +401,7 @@ header {
 		}
 		&.locked {
 			border-color: #b00;
-			background-color: #fff9f9;
+			background-color: #fffcfc;
 		}
 		&.announcement {
 			border-color: #009;
@@ -409,17 +410,17 @@ header {
 		&.answered {
 			border-color: #090;
 		}
-	}
-	@media (max-width: $xsmall) {
-		&-item {
-			&-description {
-				padding-left: 10px;
-				&-stats {
-					span {
-						display: block;
-						i { display: none; }
-					}
-				}
+		&.hot {
+			.room-item-stats {
+				background: $accent url('../images/hot-thread.png') no-repeat top right;
+				background-size: 32px;
+			}
+		}
+		&.to-be-opened {
+			opacity: 0.5;
+			transition: 300ms;
+			&:hover {
+				opacity: 0.9;
 			}
 		}
 	}
@@ -429,8 +430,25 @@ header {
 		overflow: auto;
 		&-buttons {
 			float: right;
+			font-size: 0;
 			.btn {
 				margin-left: 5px;
+			}
+		}
+	}
+	@media (max-width: $xsmall) {
+		&-header {
+			padding-bottom: 50px;
+		}
+		&-item {
+			&-description {
+				padding-left: 10px;
+				&-stats {
+					span {
+						display: block;
+						i { display: none; }
+					}
+				}
 			}
 		}
 	}
