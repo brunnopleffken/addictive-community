@@ -272,24 +272,18 @@ textarea.form-control {
 .checkbox-control {
 	display: block;
 	padding-bottom: 5px;
-	&:first-child {
-		padding-top: 8px;
-	}
-	&:last-child {
-		padding-bottom: 8px;
-	}
-	input {
-		display: none;
-	}
+	&:first-child { padding-top: 8px; }
+	&:last-child { padding-bottom: 8px; }
+	input { display: none; }
 	span {
 		border: 1px solid $default-lighter;
 		background-color: #fff;
 		border-radius: 3px;
 		color: #fff;
 		cursor: pointer;
+		display: inline-block;
 		font-family: FontAwesome;
 		font-size: 12px;
-		display: inline-block;
 		line-height: 14px;
 		text-align: center;
 		transition: 200ms;
@@ -300,6 +294,44 @@ textarea.form-control {
 	input:checked + span {
 		background-color: $accent;
 		border-color: $accent;
+	}
+}
+
+.radio-control {
+	display: block;
+	padding-bottom: 5px;
+	&:first-child { padding-top: 8px; }
+	&:last-child { padding-bottom: 8px; }
+	input { display: none; }
+	span {
+		border: 1px solid $default-lighter;
+		background-color: #fff;
+		border-radius: 8px;
+		color: #fff;
+		cursor: pointer;
+		display: inline-block;
+		height: 16px;
+		position: relative;
+		vertical-align: text-top;
+		user-select: none;
+		width: 16px;
+		&:before {
+			background-color: #fff;
+			border-radius: 5px;
+			content: ('');
+			display: block;
+			position: absolute;
+			top: 2px;
+			left: 2px;
+			transition: 200ms;
+			width: 10px;
+			height: 10px;
+		}
+	}
+	input:checked + span {
+		&:before {
+			background-color: $accent;
+		}
 	}
 }
 
