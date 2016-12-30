@@ -19,6 +19,9 @@ use \AC\Kernel\i18n;
 
 class Room extends Application
 {
+	// Number of threads per page
+	private $threads_per_page;
+
 	/**
 	 * --------------------------------------------------------------------
 	 * RUN BEFORE MAIN()
@@ -78,6 +81,9 @@ class Room extends Application
 		// Get list of threads
 		$threads = $this->_GetThreads($id);
 
+		// Get number of pages
+		$pages = ceil(count($threads) / $this->threads_per_page);
+
 		// Page info
 		$page_info['title'] = $room_info['name'];
 		$page_info['bc'] = array($room_info['name']);
@@ -88,39 +94,7 @@ class Room extends Application
 		$this->Set("room_info", $room_info);
 		$this->Set("threads", $threads);
 		$this->Set("view", Http::Request("view"));
-	}
-
-	/**
-	 * --------------------------------------------------------------------
-	 * ROOM PAGINATION ("LOAD MORE..." LINK)
-	 * --------------------------------------------------------------------
-	 */
-	public function LoadMore($id)
-	{
-		$this->layout = false;
-
-		// Threads per page
-		$page = Http::Request("page", true);
-		$threads_per_page = $this->Core->config['threads_per_page'];
-
-		// Calculate SQL offset
-		$offset = $page * $threads_per_page;
-
-		// Get threads
-		$this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email AS email,
-				author.photo_type AS photo_type, author.photo AS author_photo, lastpost.username AS last_post_name,
-				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
-				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
-				INNER JOIN c_members AS lastpost ON (c_threads.last_post_member_id = lastpost.m_id)
-				WHERE room_id = {$id} ORDER BY announcement DESC, last_post_date DESC
-				LIMIT {$threads_per_page} OFFSET {$offset};");
-
-		// Process data
-		while($result = $this->Db->Fetch()) {
-			$_thread[] = $this->_ParseThread($result);
-		}
-
-		echo json_encode($_thread);
+		$this->Set("pages", $pages);
 	}
 
 	/**
@@ -202,6 +176,11 @@ class Room extends Application
 		// If admin, then also select all invisible threads; and threads with an opening date
 		$is_admin = ($this->Session->IsAdmin()) ? "" : "AND c_threads.start_date < " . time();
 
+		// Set SQL pagination (OFFSET)
+		$this->threads_per_page = $this->Core->config['threads_per_page'];
+		$page = Http::Request("p", true) ? Http::Request("p", true) : 1;
+		$page = $page * $this->threads_per_page - $this->threads_per_page;
+
 		// Execute query
 		$threads = $this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email,
 				author.photo_type, author.photo, lastpost.username AS last_post_name,
@@ -209,7 +188,7 @@ class Room extends Application
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
 				INNER JOIN c_members AS lastpost ON (c_threads.last_post_member_id = lastpost.m_id)
 				WHERE room_id = {$room_id} {$where} {$is_admin} ORDER BY announcement DESC, {$order}
-				LIMIT 10;");
+				LIMIT {$page}, 10;");
 
 		// Process data
 		while($result = $this->Db->Fetch($threads)) {

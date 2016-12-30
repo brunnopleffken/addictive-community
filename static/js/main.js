@@ -406,50 +406,6 @@ $(document).ready(function($) {
 	});
 
 	/**
-	 * PAGINATION ON THREADS
-	 */
-
-	(function() {
-		// Page number
-		var pageNumber = 1;
-
-		$('.load-more a').on('click', function(event) {
-			// Parse template using Mustache.js
-			var template = $('#thread-item-template').html();
-			Mustache.parse(template);
-
-			$.ajax({
-				url: $(this).attr('href'),
-				method: 'post',
-				dataType: 'json',
-				data: { page: pageNumber },
-				beforeSend: function() {
-					$('.load-more a').hide();
-					$('.load-more .loader').show();
-					pageNumber++;  // Increase page number
-				}
-			})
-			.done(function(data) {
-				if(data.length > 0) {
-					for(var i = 0; i < data.length; i++) {
-						var rendered = Mustache.render(template, data[i]);
-						$(rendered).insertBefore('.load-more');
-					}
-					$('.load-more a').show();
-				}
-				else {
-					console.log("No more threads to show...");
-					$('.load-more').hide();
-				}
-			})
-			.always(function() {
-				$('.load-more .loader').hide();
-			});
-			event.preventDefault();
-		});
-	}).call(this);
-
-	/**
 	 * DELETE POST: CONFIRMATION MESSAGE
 	 */
 
