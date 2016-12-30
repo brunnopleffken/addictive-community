@@ -213,16 +213,17 @@ $(document).ready(function($) {
 	(function() {
 		try {
 			tinymce.init({
+				element_format: 'html',
 				entity_encoding: 'raw',
 				link_title: false,
-				plugins: ['link image'],
+				default_link_target: "_blank",
+				target_list: false,
+				plugins: ['textcolor lists link image media'],
 				menubar: false,
 				selector: '#post',
 				statusbar: false,
-				target_list: [
-					{title: 'New page', value: '_blank'},
-				],
-				toolbar: 'bold italic underline strikethrough | alignleft aligncenter alignright | link image | bullist numlist | blockquote | subscript superscript | removeformat'
+				media_alt_source: false,
+				toolbar: 'bold italic underline strikethrough | forecolor | alignleft aligncenter alignright | link image media | bullist numlist | subscript superscript | removeformat'
 			});
 		} catch(e) {
 			console.log(e);
