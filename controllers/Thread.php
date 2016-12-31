@@ -213,7 +213,7 @@ class Thread extends Application
 	 * INSERT NEW REPLY INTO DATABASE
 	 * --------------------------------------------------------------------
 	 */
-	public function Save($id)
+	public function SaveReply($id)
 	{
 		$this->layout = false;
 
