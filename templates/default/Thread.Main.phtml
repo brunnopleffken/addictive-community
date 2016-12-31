@@ -19,10 +19,10 @@
 			<div class="thread-attachments">
 				<div class="title"><?php __("P_ATTACHMENTS") ?></div>
 				<div class="attachment">
-					<a href="<?php __($first_post_info['attachment_link']) ?>" target="_blank" rel="nofollow">
-						<span class="file-icon <?php __($first_post_info['type']) ?>"></span>
+					<a href="<?php echo $first_post_info['attachment_link'] ?>" target="_blank" rel="nofollow">
+						<span class="file-icon <?php echo $first_post_info['type'] ?>"></span>
 						<div class="file-name">
-							<span><?php __($first_post_info['filename']) ?></span>
+							<span><?php echo $first_post_info['filename'] ?></span>
 							<?php __(\AC\Kernel\Text::FileSizeFormat($first_post_info['size'])) ?>
 						</div>
 					</a>
@@ -56,7 +56,7 @@
 				<!-- END answered poll -->
 			<?php else: ?>
 				<!-- START poll options -->
-				<form action="thread/save_poll/<?php __($thread_id) ?>" method="post">
+				<form action="thread/save_poll/<?php echo $thread_id ?>" method="post">
 					<div class="questions">
 						<?php foreach($thread_info['poll']['choices'] as $index => $question): ?>
 							<label class="option radio-control">
@@ -83,7 +83,7 @@
 
 	<div class="thread-post-info">
 		<i class="fa fa-clock-o"></i>
-		<?php __("T_POSTED_ON", array($first_post_info['post_date'])) ?> <?php __($first_post_info['edited']) ?>
+		<?php __("T_POSTED_ON", array($first_post_info['post_date'])) ?> <?php echo $first_post_info['edited'] ?>
 		<?php if($this->Session->member_info['m_id'] != 0): ?>
 			<ul class="options-list pull-right hide-xs">
 				<?php if($first_post_info['is_author']): ?>
@@ -94,7 +94,7 @@
 					</li>
 				<?php endif; ?>
 				<li>
-					<a href="report/thread/<?php __($thread_id) ?>" class="fancybox fancybox.ajax">
+					<a href="report/thread/<?php echo $thread_id ?>" class="fancybox fancybox.ajax">
 						<i class="fa fa-exclamation-triangle"></i><span><?php __("T_REPORT_ABUSE") ?></span>
 					</a>
 				</li>
@@ -157,7 +157,7 @@
 					</a>
 					<div class="thread-reply-content-body-date">
 						<?php __("T_POSTED_ON", array($reply[$k]['post_date'])) ?>
-						<?php __($reply[$k]['edited']) ?>
+						<?php echo $reply[$k]['edited'] ?>
 					</div>
 					<?php if($reply[$k]['has_quote']): ?>
 						<!-- START quote -->
@@ -178,10 +178,10 @@
 						<div class="thread-attachments">
 							<div class="title"><?php __("P_ATTACHMENTS") ?></div>
 							<div class="attachment">
-								<a href="<?php __($reply[$k]['attachment_link']) ?>" target="_blank" rel="nofollow">
-									<span class="file-icon <?php __($reply[$k]['type']) ?>"></span>
+								<a href="<?php echo $reply[$k]['attachment_link'] ?>" target="_blank" rel="nofollow">
+									<span class="file-icon <?php echo $reply[$k]['type'] ?>"></span>
 									<div class="file-name">
-										<span><?php __($reply[$k]['filename']) ?></span>
+										<span><?php echo $reply[$k]['filename'] ?></span>
 										<?php __(\AC\Kernel\Text::FileSizeFormat($reply[$k]['size'])) ?>
 									</div>
 								</a>
@@ -234,9 +234,9 @@
 	<?php if($related_thread_list): ?>
 		<?php foreach($related_thread_list as $k => $v): ?>
 			<div class="item">
-				<span><?php __($related_thread_list[$k]['thread_date']) ?></span>
-				<a href="thread/<?php __($related_thread_list[$k]['t_id'] . "-" . $related_thread_list[$k]['slug']) ?>">
-					<?php __($related_thread_list[$k]['title']) ?>
+				<span><?php echo $related_thread_list[$k]['thread_date'] ?></span>
+				<a href="thread/<?php echo $related_thread_list[$k]['t_id'] . "-" . $related_thread_list[$k]['slug'] ?>">
+					<?php echo $related_thread_list[$k]['title'] ?>
 				</a>
 			</div>
 		<?php endforeach; ?>
