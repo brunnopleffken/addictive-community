@@ -910,7 +910,7 @@ class Thread extends Application
 	{
 		if($this->Core->config['language_bad_words'] != "") {
 			$bad_words = explode("\n", $this->Core->config['language_bad_words']);
-			$bad_words_list = preg_replace("/(\r|\n)/i", "", "/(" . implode("|", $bad_words) . ")/i");
+			$bad_words_list = preg_replace("/(\r|\n)/i", "", "/\b(" . implode("|", $bad_words) . ")\b/i");
 
 			return preg_replace($bad_words_list, $this->Core->config['language_bad_words_replacement'], $text);
 		}
