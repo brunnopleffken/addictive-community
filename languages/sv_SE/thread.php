@@ -58,4 +58,9 @@
 	$t["T_MOD_UNSET_ANNOUNCEMENT"] = "Ta bort den här tråden från ett tillkännagivande";
 	$t["T_MOD_DELETE_THREAD"] = "Radera Tråden";
 	$t["T_MOD_DELETE_MESSAGE"] = "Är du säker på att du vill radera tråden? Det kan inte göras ogjort!";
+	$t["T_AUTO_TITLE"] = "Ange trådens öppning/låsning tidpunkt.";
+	$t["T_AUTO_DESCRIPTION"] = "Definiera när tråden kommer att öppnas och låsas. Om du inte använder denna möjlighet så lämna alla fält som de är.";
+	$t["T_AUTO_DETAILS"] = "NOTERA: Trådens öppning/låsning tid baseras på forumets tidszon (just nu satt till <strong>%s hours</strong> i <a href='admin/' target='_blank'>Admin CP</a>), inte på medlems tidszon. Detta är för att garantera att alla medlemmar ser tråden vid samma tid.";
+	$t["T_AUTO_OPEN_AT"] = "Öppnas tid... <small>(lämna tomt för att posta meddetsamma)</small>";
+	$t["T_AUTO_CLOSE_AT"] = "Låses tid... <small>(lämna tomt för att inte sätta låsningstid)</small>";
 ?>
