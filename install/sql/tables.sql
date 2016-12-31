@@ -1,6 +1,7 @@
 CREATE TABLE `c_attachments` (
   `a_id` int(6) NOT NULL AUTO_INCREMENT,
   `member_id` int(8) NOT NULL,
+  `private` int(1) NOT NULL DEFAULT '0',
   `date` int(10) NOT NULL,
   `filename` varchar(50) NOT NULL DEFAULT '',
   `type` varchar(50) NOT NULL DEFAULT '',
