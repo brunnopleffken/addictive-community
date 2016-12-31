@@ -180,10 +180,7 @@ class Html
 		if($persistent) {
 			$persistent = "persistent";
 		}
-		if($custom_title != "") {
-			$title = $custom_title;
-		}
-		$html = "<div class='notification " . $code . " " . $persistent . "'><p><strong>" . $title . "</strong> " . $message . "</p></div>";
+		$html = "<div class='notification " . $code . " " . $persistent . "'><p><strong>" . $custom_title . "</strong> " . $message . "</p></div>";
 
 		return $html;
 	}
@@ -217,5 +214,30 @@ class Html
 	{
 		echo "<h1>Error!</h1><p>" . $message . "</p><hr><em>Addictive Community - (c) " . date("Y") . " All rights reserved.</em>";
 		exit;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * BUILD PAGINATION
+	 * --------------------------------------------------------------------
+	 */
+	public static function Paginate($number_of_pages, $current_page, $url, $label = true)
+	{
+		$template = "<ul class=\"pagination\">";
+
+		if($label) {
+			$template .= "<li class=\"label\">Pages:</li>";
+		}
+
+		for($i = 1; $i <= $number_of_pages; $i++) {
+			$class = $current_page == $i ? "class=\"active\"" : "";
+			$formatted_url = sprintf($url, $i);
+
+			$template .= "<li {$class}><a href=\"{$formatted_url}\">{$i}</a></li>";
+		}
+
+		$template .= "</ul>";
+
+		return $template;
 	}
 }

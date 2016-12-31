@@ -24,6 +24,9 @@ class Thread extends Application
 	// Thread information
 	private $thread_info = array();
 
+	// Member ranks
+	private $ranks = array();
+
 	/**
 	 * --------------------------------------------------------------------
 	 * SHOW THREAD
@@ -87,9 +90,6 @@ class Thread extends Application
 		$pages = $this->_GetPages();
 		$replies = $this->_GetReplies($id, $pages);
 
-		// Build pagination links
-		$pagination = $this->_BuildPaginationLinks($pages, $id);
-
 		// Get related threads
 		$related_thread_list = $this->_RelatedThreads($id);
 
@@ -105,7 +105,7 @@ class Thread extends Application
 		$this->Set("enable_signature", $this->Core->config['general_member_enable_signature']);
 		$this->Set("first_post_info", $first_post_info);
 		$this->Set("reply", $replies);
-		$this->Set("pagination", $pagination);
+		$this->Set("pages", $pages);
 		$this->Set("related_thread_list", $related_thread_list);
 		$this->Set("is_moderator", $this->_IsModerator($this->thread_info['moderators']));
 	}
@@ -131,7 +131,7 @@ class Thread extends Application
 		}
 
 		// If member is replying another post (quote)
-		if(Http::Request("quote")) {
+		if(Http::Request("quote", true)) {
 			$quote_post_id = Http::Request("quote", true);
 			$this->Db->Query("SELECT p_id, post FROM c_posts WHERE p_id = {$quote_post_id};");
 			$quote = $this->Db->Fetch();
@@ -218,7 +218,7 @@ class Thread extends Application
 		$this->layout = false;
 
 		// Get room ID
-		$room_id = Http::Request("room_id");
+		$room_id = Http::Request("room_id", true);
 
 		// Format new post array
 		$post = array(
@@ -787,7 +787,7 @@ class Thread extends Application
 	private function _GetThreadInfo($id)
 	{
 		// Select thread info from database
-		$thread = $this->Db->Query("SELECT t.t_id, t.title, t.start_date, t.lock_date, t.room_id, t.author_member_id,
+		$thread = $this->Db->Query("SELECT t.t_id, t.title, t.slug, t.start_date, t.lock_date, t.room_id, t.author_member_id,
 				t.locked, t.announcement, t.last_post_date, t.poll_question, t.poll_data, t.poll_allow_multiple,
 				r.r_id, r.name, r.perm_view, r.perm_reply, r.moderators,
 				(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t
@@ -957,7 +957,7 @@ class Thread extends Application
 
 		// Block bad words and parse HTML entities
 		$result['post'] = $this->_FilterBadWords($result['post']);
-		$result['post'] = $this->_ParseText($result['post']);
+		$result['post'] = $this->_ParseDBText($result['post']);
 
 		// Get attachment link, if there is one
 		if($result['attach_id'] != 0) {
@@ -982,14 +982,14 @@ class Thread extends Application
 				LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
 				WHERE thread_id = '{$id}' AND first_post = '0'
 				ORDER BY best_answer DESC, post_date ASC
-				LIMIT {$pages['for_sql']},{$pages['items_per_page']};");
+				LIMIT {$pages['offset']},{$pages['posts_per_page']};");
 
 		while($result = $this->Db->Fetch($replies)) {
 			// Is this a best answer or a regular reply?
 			$result['bestanswer_class'] = ($result['best_answer'] == 1) ? "best-answer" : "";
 
 			// Member information
-			$result['avatar'] = $this->Core->GetAvatar($result, 192);
+			$result['avatar'] = $this->Core->GetAvatar($result, 196);
 			$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 			$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
@@ -1015,7 +1015,7 @@ class Thread extends Application
 
 			// Block bad words and parse HTML entities
 			$result['post'] = $this->_FilterBadWords($result['post']);
-			$result['post'] = $this->_ParseText($result['post']);
+			$result['post'] = $this->_ParseDBText($result['post']);
 
 			// Get attachment link, if there is one
 			if($result['attach_id'] != 0) {
@@ -1049,25 +1049,50 @@ class Thread extends Application
 			}
 
 			// Build post/thread action controls
-			$result['post_controls'] = "";
-			$result['thread_controls'] = "";
+			$result['post_controls'] = [];
 
-			// Post controls
+			// Member controls: edit or delete post
 			if($result['author_id'] == $this->Session->member_info['m_id'] || $this->Session->IsAdmin()) {
-				$result['post_controls'] = "<a href='thread/edit/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_EDIT") . "</a> "
-					. "<a href='#deleteThreadConfirm' data-post='{$result['p_id']}' data-thread='{$id}' data-member='{$result['author_id']}' class='fancybox delete-post-button small-button grey'>" . i18n::Translate("T_DELETE") . "</a>";
+				// Edit post
+				array_push($result['post_controls'], array(
+					"url"   => "thread/edit/{$result['p_id']}",
+					"class" => "",
+					"data"  => "",
+					"icon"  => "fa-pencil",
+					"text"  => i18n::Translate("T_EDIT")
+				));
+				// Delete post
+				array_push($result['post_controls'], array(
+					"url"   => "#deleteThreadConfirm",
+					"class" => "fancybox delete-post-button",
+					"data"  => "data-post='{$result['p_id']}' data-thread='{$id}' data-member='{$result['author_id']}'",
+					"icon"  => "fa-ban",
+					"text"  => i18n::Translate("T_DELETE")
+				));
 			}
 
-			// Thread controls
+			// Set/uset best answer
 			if($this->thread_info['author_member_id'] == $this->Session->member_info['m_id']
 				&& $result['author_id'] != $this->Session->member_info['m_id']) {
 				if($result['best_answer'] == 0) {
-					// Set post as Best Answer
-					$result['thread_controls'] = "<a href='thread/setbestanswer/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_BEST_SET") . "</a>";
+					// Set as best answer
+					array_push($result['post_controls'], array(
+						"url"   => "thread/setbestanswer/{$result['p_id']}",
+						"class" => "",
+						"data"  => "",
+						"icon"  => "fa-thumbs-o-up",
+						"text"  => i18n::Translate("T_BEST_SET")
+					));
 				}
 				else {
-					// Unset post as Best Answer
-					$result['thread_controls'] = "<a href='thread/unsetbestanswer/{$result['p_id']}' class='small-button grey'>" . i18n::Translate("T_BEST_UNSET") . "</a>";
+					// Remove best answer
+					array_push($result['post_controls'], array(
+						"url"   => "thread/unsetbestanswer/{$result['p_id']}",
+						"class" => "",
+						"data"  => "",
+						"icon"  => "fa-thumbs-o-down",
+						"text"  => i18n::Translate("T_BEST_UNSET")
+					));
 				}
 			}
 
@@ -1082,7 +1107,7 @@ class Thread extends Application
 	 * PARSE POST TEXT
 	 * --------------------------------------------------------------------
 	 */
-	private function _ParseText($text)
+	private function _ParseDBText($text)
 	{
 		$text = htmlentities($text);
 		$text = html_entity_decode($text);
@@ -1107,61 +1132,24 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * GET NUMBER OF PAGES AND VALUES FOR SQL QUERY
+	 * GET NUMBER OF PAGES AND SQL OFFSET
 	 * --------------------------------------------------------------------
 	 */
 	private function _GetPages()
 	{
-		$pages['items_per_page'] = $this->Core->config['thread_posts_per_page'];
+		$pages['posts_per_page'] = $this->Core->config['thread_posts_per_page'];
 		$total_posts = $this->thread_info['post_count'] - 1;
 
-		// page number for SQL sentences
-		$pages['for_sql'] = (Http::Request("p")) ? Http::Request("p") * $pages['items_per_page'] - $pages['items_per_page'] : 0;
+		// Calculated SQL offset
+		$pages['offset'] = Http::Request("p", true)
+			? Http::Request("p", true) * $pages['posts_per_page'] - $pages['posts_per_page']
+			: 0;
 
-		// page number for HTML page numbers
-		$pages['display'] = (isset($_REQUEST['p'])) ? $_REQUEST['p'] : 1;
-		$pages['total'] = ceil($total_posts / $pages['items_per_page']);
+		// Page numbers for HTML pagination
+		$pages['current'] = Http::Request("p", true) ? Http::Request("p", true) : 1;
+		$pages['total'] = ceil($total_posts / $pages['posts_per_page']);
 
 		return $pages;
-	}
-
-	/**
-	 * --------------------------------------------------------------------
-	 * RETURN PAGINATION HTML
-	 * --------------------------------------------------------------------
-	 */
-	private function _BuildPaginationLinks($pages, $thread_id)
-	{
-		$html = "";
-		if($pages['total'] != 0) {
-			$html .= "<div class='pages'>" . i18n::Translate("T_PAGES") . ": ";
-
-			// If it is not the first page, show link "Back"
-			if($pages['display'] != 1) {
-				$prev = $pages['display'] - 1;
-				$html .= "<a href='thread/{$thread_id}?p={$prev}'>&laquo;</a>\n";
-			}
-
-			// Page numbers
-			for($i = 1; $i <= $pages['total']; $i++) {
-				if($i == $pages['display']) {
-					$html .= "<a href='thread/{$thread_id}?p={$i}' class='page-selected'>{$i}</a>\n";
-				}
-				else {
-					$html .= "<a href='thread/{$thread_id}?p={$i}'>{$i}</a>\n";
-				}
-			}
-
-			// If it is not the last page, show link "Next"
-			if($pages['display'] != $i - 1) {
-				$next = $pages['display'] + 1;
-				$html .= "<a href='thread/{$thread_id}?p={$next}'>&raquo;</a>\n";
-			}
-
-			$html .= "</div>";
-		}
-
-		return $html;
 	}
 
 	/**
@@ -1221,7 +1209,7 @@ class Thread extends Application
 	 */
 	private function _IsModeratorFromThreadId($thread_id = 0)
 	{
-		// Get thread moderators
+		// Get room moderators
 		$this->Db->Query("SELECT r.moderators FROM c_threads t
 				INNER JOIN c_rooms r ON (r.r_id = t.room_id)
 				WHERE t_id = {$thread_id};");
@@ -1238,11 +1226,13 @@ class Thread extends Application
 	 */
 	private function _MemberRank($posts = 0)
 	{
-		$this->Db->Query("SELECT * FROM c_ranks;");
-		$_ranks = $this->Db->FetchToArray();
-		$_ranks = array_reverse($_ranks);
+		// Get list of ranks just once and save results
+		if(empty($this->ranks)) {
+			$this->Db->Query("SELECT * FROM c_ranks ORDER BY min_posts DESC;");
+			$this->ranks = $this->Db->FetchToArray();
+		}
 
-		foreach($_ranks as $rank) {
+		foreach($this->ranks as $rank) {
 			if($posts >= $rank['min_posts']) {
 				return $rank;
 			}
