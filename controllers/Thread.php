@@ -1042,7 +1042,7 @@ class Thread extends Application
 				// Return results
 				$result['quote_author'] = $quoted_post_result['author'];
 				$result['quote_time'] = $this->Core->DateFormat($quoted_post_result['post_date']);
-				$result['quote_post'] = $quoted_post_result['post'];
+				$result['quote_post'] = $this->_ParseDBText($quoted_post_result['post']);
 			}
 			else {
 				$result['has_quote'] = false;
