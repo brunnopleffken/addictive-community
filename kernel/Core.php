@@ -114,33 +114,6 @@ class Core
 
 	/**
 	 * --------------------------------------------------------------------
-	 * PARSE EMOTICONS INSIDE POSTS AND MESSAGES :)
-	 * --------------------------------------------------------------------
-	 */
-	public function ParseEmoticons($text, $emoticons = array())
-	{
-		if($this->config['thread_allow_emoticons']) {
-			// Empty array to store emoticons :O
-			$translate = array();
-
-			// Folder where images are located in ;)
-			$folder = "public/emoticons/" . $this->config['emoticon_default_set'];
-
-			foreach($emoticons as $item) {
-				$shortcut = Text::Sanitize($item['shortcut']);
-				$translate[$shortcut] = "<img src='{$folder}/{$item['filename']}' class='emoticon' alt='{$item['shortcut']}'>";
-			}
-
-			$retval = strtr(html_entity_decode($text), $translate);
-			return Text::RemoveHTMLElements($retval);
-		}
-		else {
-			return Text::RemoveHTMLElements($text);
-		}
-	}
-
-	/**
-	 * --------------------------------------------------------------------
 	 * CREATE CANONICAL TAG URL
 	 * --------------------------------------------------------------------
 	 */

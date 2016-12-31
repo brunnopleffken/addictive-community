@@ -80,17 +80,12 @@ class Thread extends Application
 			$this->Db->Update("c_threads", "views = views + 1", "t_id = '{$id}'");
 		}
 
-		// Get emoticons
-		$emoticons = $this->Db->Query("SELECT * FROM c_emoticons
-				WHERE emoticon_set = '" . $this->Core->config['emoticon_default_set'] . "' AND display = '1';");
-		$emoticons = $this->Db->FetchToArray($emoticons);
-
 		// Get first post
-		$first_post_info = $this->_GetFirstPost($id, $emoticons);
+		$first_post_info = $this->_GetFirstPost($id);
 
 		// Get replies
 		$pages = $this->_GetPages();
-		$replies = $this->_GetReplies($id, $emoticons, $pages);
+		$replies = $this->_GetReplies($id, $pages);
 
 		// Build pagination links
 		$pagination = $this->_BuildPaginationLinks($pages, $id);
@@ -929,10 +924,10 @@ class Thread extends Application
 	 * GET FIRST POST CONTENT
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetFirstPost($id, $emoticons)
+	private function _GetFirstPost($id)
 	{
 		// Declare return array
-		$first_post_info = array();
+		$result = array();
 
 		$first_post = $this->Db->Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id,
 				c_attachments.*, c_threads.title, c_threads.locked, c_members.*, edit.username AS edit_username FROM c_posts
@@ -942,38 +937,34 @@ class Thread extends Application
 				LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
 				WHERE thread_id = '{$id}' AND first_post = '1' LIMIT 1;");
 
-		$first_post_info = $this->Db->Fetch($first_post);
+		$result = $this->Db->Fetch($first_post);
 
 		// Format first thread
-		$first_post_info['avatar'] = $this->Core->GetAvatar($first_post_info, 96);
-		$first_post_info['post_date'] = $this->Core->DateFormat($first_post_info['post_date']);
+		$result['avatar'] = $this->Core->GetAvatar($result, 96);
+		$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
 		// Check if the currently logged in member is the thread author
-		$first_post_info['is_author'] = ($first_post_info['author_id'] == $this->Session->session_info['member_id']);
+		$result['is_author'] = ($result['author_id'] == $this->Session->session_info['member_id']);
 
 		// Show label if post was edited
-		if(isset($first_post_info['edit_time'])) {
-			$first_post_info['edit_time'] = $this->Core->DateFormat($first_post_info['edit_time']);
-			$first_post_info['edited']    = "(" . i18n::Translate("T_EDITED", array($first_post_info['edit_time'], $first_post_info['edit_username'])) . ")";
+		if(isset($result['edit_time'])) {
+			$result['edit_time'] = $this->Core->DateFormat($result['edit_time']);
+			$result['edited']    = "(" . i18n::Translate("T_EDITED", array($result['edit_time'], $result['edit_username'])) . ")";
 		}
 		else {
-			$first_post_info['edited'] = "";
+			$result['edited'] = "";
 		}
 
-		$first_post_info['post'] = htmlentities($first_post_info['post']);
-
-		// Block bad words
-		$first_post_info['post'] = $this->_FilterBadWords($first_post_info['post']);
-
-		// Get emoticons
-		$first_post_info['post'] = $this->Core->ParseEmoticons($first_post_info['post'], $emoticons);
+		// Block bad words and parse HTML entities
+		$result['post'] = $this->_FilterBadWords($result['post']);
+		$result['post'] = $this->_ParseText($result['post']);
 
 		// Get attachment link, if there is one
-		if($first_post_info['attach_id'] != 0) {
-			$first_post_info['attachment_link'] = $this->_GetAttachment($first_post_info);
+		if($result['attach_id'] != 0) {
+			$result['attachment_link'] = $this->_GetAttachment($result);
 		}
 
-		return $first_post_info;
+		return $result;
 	}
 
 	/**
@@ -981,7 +972,7 @@ class Thread extends Application
 	 * GET REPLIES
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetReplies($id, $emoticons, $pages)
+	private function _GetReplies($id, $pages)
 	{
 		$reply_result = array();
 
@@ -1022,14 +1013,9 @@ class Thread extends Application
 				$result['rank'] = array();
 			}
 
-			// Transform HTML entities
-			$result['post'] = htmlentities($result['post']);
-
-			// Block bad words
+			// Block bad words and parse HTML entities
 			$result['post'] = $this->_FilterBadWords($result['post']);
-
-			// Get emoticons
-			$result['post'] = $this->Core->ParseEmoticons($result['post'], $emoticons);
+			$result['post'] = $this->_ParseText($result['post']);
 
 			// Get attachment link, if there is one
 			if($result['attach_id'] != 0) {
@@ -1089,6 +1075,20 @@ class Thread extends Application
 		}
 
 		return $reply_result;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * PARSE POST TEXT
+	 * --------------------------------------------------------------------
+	 */
+	private function _ParseText($text)
+	{
+		$text = htmlentities($text);
+		$text = html_entity_decode($text);
+		$text = Text::RemoveHTMLElements($text);
+
+		return $text;
 	}
 
 	/**

@@ -22,6 +22,21 @@
 	<link rel="stylesheet" href="themes/<?php __($theme) ?>/css/theme.css">
 
 	<?php echo $this->head ?>
+
+	<script>
+		var ROOT = "<?php echo $community_url ?>";
+		var EMOTICON_DIR = "<?php echo $emoticon_dir ?>";
+		var EMOTICONS = [
+			<?php
+				$row = [];
+				foreach($emoticon_set as $emoticon) {
+					$row[] = "[" . implode(", ", $emoticon) . "]";
+				}
+
+				echo implode(",\n", $row);
+			?>
+		];
+	</script>
 </head>
 <body>
 

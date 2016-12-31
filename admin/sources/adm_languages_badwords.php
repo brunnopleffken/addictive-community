@@ -19,7 +19,7 @@ switch($msg) {
 		$message = Html::Notification("The settings has been successfully changed.", "success");
 		break;
 	default:
-		$message = "";
+		$message = Html::Notification("Words must be exact match! If you censor the word \"ass\", the word \"asshole\" will NOT be censored.", "warning");
 		break;
 }
 

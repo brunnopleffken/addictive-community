@@ -102,6 +102,9 @@ class Application
 		// SIDEBAR: get community statistics
 		$this->_GetStats();
 
+		// Get emoticons
+		$this->_GetEmoticons();
+
 		// Is community offline?
 		if($this->Core->config['general_offline']) {
 			if(!strstr($_SERVER['REQUEST_URI'], "error")) {
@@ -223,5 +226,29 @@ class Application
 		$_stats['lastmembername'] = $stats_result_temp['username'];
 
 		$this->Set("stats", $_stats);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * GET LIST OF EMOTICONS (REQUIRED FOR TINYMCE)
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetEmoticons()
+	{
+		$emoticons = array();
+		$this->Db->Query("SELECT * FROM c_emoticons WHERE display = 1;");
+
+		$add_quotes = function($value) {
+			return "'{$value}'";
+		};
+
+		while($emoticon = $this->Db->Fetch()) {
+			$emoticons[] = $emoticon['filename'];
+		}
+
+		$emoticons = array_map($add_quotes, $emoticons);
+
+		$this->Set("emoticon_dir", $this->Core->config['emoticon_default_set']);
+		$this->Set("emoticon_set", array_chunk($emoticons, 4));
 	}
 }

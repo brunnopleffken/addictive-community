@@ -220,12 +220,12 @@ $(document).ready(function($) {
 				link_title: false,
 				default_link_target: "_blank",
 				target_list: false,
-				plugins: ['textcolor lists link image media'],
+				plugins: ['textcolor lists link image media emoticons'],
 				menubar: false,
 				selector: '#post',
 				statusbar: false,
 				media_alt_source: false,
-				toolbar: 'bold italic underline strikethrough | forecolor | alignleft aligncenter alignright | bullist numlist | link image media | subscript superscript | removeformat'
+				toolbar: 'bold italic underline strikethrough | forecolor | alignleft aligncenter alignright | bullist numlist | emoticons | link image media | subscript superscript | removeformat'
 			});
 		} catch(e) {
 			console.log(e);
