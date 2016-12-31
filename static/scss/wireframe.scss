@@ -915,10 +915,6 @@ footer {
 			.avatar {
 				border: 2px solid #fff;
 				flex: 0 0 150px;
-				img {
-					display: block;
-					width: 150px;
-				}
 			}
 			.details {
 				color: #fff;
@@ -926,7 +922,7 @@ footer {
 				margin-left: 20px;
 				.username {
 					font-size: 36px;
-					margin-bottom: 20px;
+					margin-bottom: 15px;
 				}
 				.item {
 					float: left;
@@ -957,25 +953,11 @@ footer {
 		&:hover { text-decoration: none; }
 	}
 	.file-icon {
-		color: #333;
 		float: left;
-		font-family: FontAwesome;
 		font-size: 40px;
 		margin-right: 10px;
-		text-shadow: 1px 1px 0px rgba(#000, 0.1);
-		vertical-align: middle;
 		width: 35px;
-		&.doc:after { content: "\F1C2"; }
-		&.htm:after { content: "\F1C9"; }
-		&.img:after { content: "\F1C5"; }
-		&.mp3:after { content: "\F1C7"; }
-		&.pdf:after { content: "\F1C1"; }
-		&.ppt:after { content: "\F1C4"; }
-		&.txt:after { content: "\F0F6"; }
-		&.vid:after { content: "\F1C8"; }
-		&.xls:after { content: "\F1C3"; }
-		&.zip:after { content: "\F1C6"; }
-		&.blank:after { content: "\F016"; }
+		vertical-align: middle;
 	}
 	.file-name {
 		color: #000;
@@ -993,6 +975,23 @@ footer {
 			width: calc(230px - 70px);
 		}
 	}
+}
+
+.file-icon {
+	color: #333;
+	font-family: FontAwesome;
+	text-shadow: 1px 1px 0px rgba(#000, 0.1);
+	&.doc:after { content: "\F1C2"; }
+	&.htm:after { content: "\F1C9"; }
+	&.img:after { content: "\F1C5"; }
+	&.mp3:after { content: "\F1C7"; }
+	&.pdf:after { content: "\F1C1"; }
+	&.ppt:after { content: "\F1C4"; }
+	&.txt:after { content: "\F0F6"; }
+	&.vid:after { content: "\F1C8"; }
+	&.xls:after { content: "\F1C3"; }
+	&.zip:after { content: "\F1C6"; }
+	&.blank:after { content: "\F016"; }
 }
 
 // TINYMCE

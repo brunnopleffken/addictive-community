@@ -43,7 +43,7 @@ class Profile extends Application
 		}
 
 		// Member avatar
-		$info['avatar'] = $this->Core->GetAvatar($info, 320);
+		$info['avatar'] = $this->Core->GetAvatar($info, 300);
 		$info['cover'] = $this->Core->GetAvatar($info, 1024);
 
 		// Readable join date
@@ -71,14 +71,16 @@ class Profile extends Application
 		}
 
 		// Member gender icon
-		if($this->info['gender'] == "M") {
-			$this->info['gender'] = "<i class='fa fa-fw fa-mars'></i> Male";
-		}
-		elseif($this->info['gender'] == "F") {
-			$this->info['gender'] = "<i class='fa fa-fw fa-venus'></i> Female";
-		}
-		else {
-			$this->info['gender'] = "---";
+		switch($this->info['gender']) {
+			case 'M':
+				$this->info['gender'] = "<i class='fa fa-fw fa-mars'></i> Male";
+				break;
+			case 'F':
+				$this->info['gender'] = "<i class='fa fa-fw fa-venus'></i> Female";
+				break;
+			default:
+				$this->info['gender'] = "---";
+				break;
 		}
 
 		// Location and Google Maps link
@@ -121,7 +123,7 @@ class Profile extends Application
 		while($threads = $this->Db->Fetch()) {
 			$threads['start_date'] = $this->Core->DateFormat($threads['start_date'], "long");
 			Template::Add ("<tr>
-				<td class='table-label'>{$threads['start_date']}</td>
+				<td class='min text-muted'>{$threads['start_date']}</td>
 				<td><a href='thread/{$threads['t_id']}-{$threads['slug']}'>{$threads['title']}</a></td>
 			</tr>");
 		}
@@ -138,11 +140,13 @@ class Profile extends Application
 		while($posts = $this->Db->Fetch()) {
 			$posts['post_date'] = $this->Core->DateFormat($posts['post_date'], "long");
 			Template::Add("<tr>
-				<td class='table-label'>{$posts['post_date']}</td>
+				<td class='min text-muted'>{$posts['post_date']}</td>
 				<td><a href='thread/{$posts['t_id']}-{$posts['slug']}'><b>{$posts['title']}</b></a></td>
 			</tr>
 			<tr>
-				<td colspan='2' class='parsing' style='border-bottom: 1px solid #eee; padding: 10px 10px 20px 10px'>{$posts['post']}</td>
+				<td colspan='2' class='parsing' style='border-bottom: 1px solid #eee; padding: 0 10px 10px 10px'>
+					{$posts['post']}
+				</td>
 			</tr>");
 		}
 
@@ -173,13 +177,16 @@ class Profile extends Application
 		$Upload = new Upload($this->Db);
 
 		// Select all attachments of a user
-		$this->Db->Query("SELECT * FROM c_attachments WHERE member_id = '{$id}';");
+		$this->Db->Query("SELECT * FROM c_attachments WHERE member_id = '{$id}' AND private = 0;");
 
 		while($result = $this->Db->Fetch()) {
-			$result['icon'] = "<div class='file-icon {$result['type']}'></div>";
-			$result['filename'] = "<a href='public/attachments/{$id}/{$result['filename']}' target='_blank'>{$result['filename']}</a>";
+			$url = "public/attachments/{$id}/{$result['date']}/{$result['filename']}";
+
+			$result['icon'] = "<div class='file-icon {$result['type']}' style='font-size: 24px'></div>";
+			$result['filename'] = "<a href='{$url}' target='_blank'>{$result['filename']}</a>";
 			$result['type'] = $Upload->TranslateFileType($result['type']);
 			$result['size'] = Text::FileSizeFormat($result['size']);
+
 			$attachments[] = $result;
 		}
 

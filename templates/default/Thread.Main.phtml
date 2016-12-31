@@ -2,7 +2,7 @@
 	<div class="thread-post-author pull-clear">
 		<img src="http://www.gravatar.com/avatar/d4863bc04b657b65c24b02aa0b62f32e?s=100&d=mm&r=g" class="thread-post-author-avatar">
 		<div class="thread-post-author-info">
-			<a href="#"><?php echo $first_post_info['username'] ?></a>
+			<a href="profile/<?php echo $first_post_info['m_id'] ?>"><?php echo $first_post_info['username'] ?></a>
 			<span><?php echo $first_post_info['posts'] ?> <?php __("T_POSTS_LOWCASE") ?> &middot; Registered: 22 Nov 2016</span>
 			<span><?php echo $first_post_info['location'] ?></span>
 		</div>
@@ -132,7 +132,9 @@
 						<div class="thread-reply-content-author-avatar">
 							<?php echo \AC\Kernel\Html::Crop($reply[$k]['avatar'], 98, "image") ?>
 						</div>
-						<a href="#" class="thread-reply-content-author-username"><?php echo $reply[$k]['username'] ?></a>
+						<a href="profile/<?php echo $reply[$k]['m_id'] ?>" class="thread-reply-content-author-username">
+							<?php echo $reply[$k]['username'] ?>
+						</a>
 						<!-- START tablet/desktop only -->
 						<span class="thread-reply-content-author-rank hide-xs">
 							<span class="pips"><?php echo $reply[$k]['rank_pips'] ?></span>

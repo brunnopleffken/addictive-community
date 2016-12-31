@@ -1,53 +1,56 @@
 <div class="profile-header">
-	<div class="background" style="background-image: url('<?php __($info['cover']) ?>')"><div class="cover"></div></div>
-	<?php __(\AC\Kernel\Html::Crop($info['avatar'], 160, 160, "avatar")) ?>
-	<div class="member-title"><?php __($info['member_title']) ?></div>
-	<div class="member-info">
-		<span class="username"><?php __($info['username']) ?></span>
-		<div class="item"><span><?php __("P_POSTS") ?></span><?php __($info['posts']) ?></div>
-		<div class="item"><span><?php __("P_REGISTERED") ?></span><?php __($info['joined']) ?></div>
-		<div class="item"><span><?php __("P_USERGROUP") ?></span><?php __($info['name']) ?></div>
+	<div class="profile-header-background" style="background-image: url('<?php echo $info['cover'] ?>')">
+		<div class="inner-shadow"></div>
+	</div>
+	<div class="profile-header-info">
+		<div class="avatar">
+			<a href="<?php echo $info['avatar'] ?>" class="fancybox fancybox.image">
+				<?php __(\AC\Kernel\Html::Crop($info['avatar'], 150, "image")) ?>
+			</a>
+		</div>
+		<div class="details">
+			<div class="username"><?php echo $info['username'] ?></div>
+			<div class="item"><span><?php __("P_POSTS") ?></span><?php echo $info['posts'] ?></div>
+			<div class="item"><span><?php __("P_REGISTERED") ?></span><?php echo $info['joined'] ?></div>
+			<div class="item"><span><?php __("P_USERGROUP") ?></span><?php echo $info['name'] ?></div>
+		</div>
 	</div>
 </div>
 
-<div class="navigation">
-	<div class="navbar">
-		<a href="profile/<?php __($profile_member_id) ?>" class="transition selected"><?php __("P_PROFILE") ?></a>
+<div class="block no-padding">
+	<div class="nav room-nav">
+		<div class="nav-top">
+			<a href="profile/<?php echo $profile_member_id ?>"><?php __("P_PROFILE") ?></a>
+			<a href="profile/posts/<?php echo $profile_member_id ?>"><?php __("P_LAST_POSTS") ?></a>
+			<a href="profile/attachments/<?php echo $profile_member_id ?>" class="active"><?php __("P_ATTACHMENTS") ?></a>
+		</div>
 	</div>
-	<div class="subnav">
-		<a href="profile/<?php __($profile_member_id) ?>"><?php __("P_MY_PROFILE") ?></a>
-		<a href="profile/posts/<?php __($profile_member_id) ?>"><?php __("P_LAST_POSTS") ?></a>
-		<a href="profile/attachments/<?php __($profile_member_id) ?>"><?php __("P_ATTACHMENTS") ?></a>
-	</div>
-</div>
-
-<div class="profile">
-	<div class="box">
-		<!-- ATTACHMENTS -->
-		<table class="table-list no-shadow">
-			<tr>
-				<th colspan="4"><?php __("P_ATTACHMENTS") ?></th>
-			</tr>
-			<tr class="subtitle">
-				<td class="min"></td>
-				<td><?php __("P_NAME") ?></td>
-				<td><?php __("P_FILETYPE") ?></td>
-				<td><?php __("P_FILESIZE") ?></td>
-			</tr>
-			<?php if(!empty($attachments)): ?>
-				<?php foreach($attachments as $file): ?>
-					<tr>
-						<td><?php __($file['icon']) ?></td>
-						<td><?php __($file['filename']) ?></td>
-						<td><?php __($file['type']) ?></td>
-						<td><?php __($file['size']) ?></td>
-					</tr>
-				<?php endforeach; ?>
-			<?php else: ?>
+	<div class="block-nav-content">
+		<table class="table">
+			<thead>
 				<tr>
-					<td colspan="4" class="center"><?php __("P_NO_ATTACHMENTS") ?></td>
+					<td></td>
+					<td class="text-s14"><?php __("P_NAME") ?></td>
+					<td class="text-s14"><?php __("P_FILETYPE") ?></td>
+					<td class="text-s14"><?php __("P_FILESIZE") ?></td>
 				</tr>
-			<?php endif; ?>
+			</thead>
+			<tbody>
+				<?php if(!empty($attachments)): ?>
+					<?php foreach($attachments as $file): ?>
+						<tr>
+							<td class="min"><?php echo $file['icon'] ?></td>
+							<td><?php echo $file['filename'] ?></td>
+							<td><?php echo $file['type'] ?></td>
+							<td><?php echo $file['size'] ?></td>
+						</tr>
+					<?php endforeach; ?>
+				<?php else: ?>
+					<tr>
+						<td colspan="4" class="center"><?php __("P_NO_ATTACHMENTS") ?></td>
+					</tr>
+				<?php endif; ?>
+			</tbody>
 		</table>
 	</div>
 </div>
