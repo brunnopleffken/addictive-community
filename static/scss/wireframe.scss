@@ -715,6 +715,7 @@ header {
 		}
 	}
 	&-related {
+		margin-top: 20px;
 		small {
 			display: block;
 			margin-bottom: 10px;
@@ -780,6 +781,36 @@ header {
 			letter-spacing: 0.2em;
 			margin-bottom: 10px;
 			text-transform: uppercase;
+		}
+	}
+	&-moderation {
+		&-title {
+			cursor: pointer;
+			font-size: 16px;
+			font-weight: bold;
+			letter-spacing: 0.1em;
+			margin-bottom: 10px;
+		}
+		&-content {
+			display: none;
+			a {
+				color: $default-light;
+				display: block;
+				font-size: 10px;
+				letter-spacing: 0.1em;
+				line-height: 35px;
+				text-transform: uppercase;
+				transition: 300ms;
+				&:hover {
+					color: $default-dark;
+					text-decoration: none;
+				}
+				i {
+					font-size: 20px;
+					margin-right: 10px;
+					vertical-align: sub;
+				}
+			}
 		}
 	}
 	@media (max-width: $xsmall) {

@@ -103,6 +103,8 @@
 	</div>
 </div>
 
+<!-- BUTTONS -->
+
 <div class="thread-buttons">
 	<?php if($this->Session->IsMember()): ?>
 		<?php if($thread_info['locked'] == 0 && $thread_info['allow_to_reply']): ?>
@@ -117,6 +119,8 @@
 		<?php __("T_REPLIES") ?>: <span><?php echo $thread_info['post_count_display'] ?></span>
 	</div>
 </div>
+
+<!-- REPLIES -->
 
 <?php if(!empty($reply)): ?>
 	<?php foreach($reply as $k => $v): ?>
@@ -216,6 +220,8 @@
 	<div class="block text-center"><?php __("T_NO_REPLIES") ?></div>
 <?php endif; ?>
 
+<!-- PAGINATION AND BUTTONS -->
+
 <div class="thread-buttons">
 	<?php if($this->Session->IsMember()): ?>
 		<?php if($thread_info['locked'] == 0 && $thread_info['allow_to_reply']): ?>
@@ -228,6 +234,41 @@
 	<?php endif; ?>
 	<?php echo \AC\Kernel\Html::Paginate($pages['total'], $pages['current'], "{$_SERVER['REDIRECT_URL']}?p=%d") ?>
 </div>
+
+<!-- MODERATION -->
+
+<?php if($is_moderator): ?>
+	<div class="thread-moderation">
+		<div class="thread-moderation-title" data-toggle="thread-moderation-options">
+			<i class="fa fa-fw fa-angle-right"></i><?php __("T_MOD_OPTIONS") ?>
+		</div>
+		<div class="thread-moderation-content block" id="thread-moderation-options" style="margin-bottom: 0">
+			<?php if($thread_info['locked'] == 0): ?>
+				<a href="thread/lock/<?php echo $thread_id ?>">
+					<i class="fa fa-fw fa-lock"></i><?php __("T_MOD_LOCK_THREAD") ?>
+				</a>
+			<?php else: ?>
+				<a href="thread/unlock/<?php echo $thread_id ?>">
+					<i class="fa fa-fw fa-unlock"></i><?php __("T_MOD_UNLOCK_THREAD") ?>
+				</a>
+			<?php endif; ?>
+			<?php if($thread_info['announcement'] == 0): ?>
+				<a href="thread/announcement_set/<?php echo $thread_id ?>">
+					<i class="fa fa-fw fa-thumb-tack"></i><?php __("T_MOD_SET_ANNOUNCEMENT") ?>
+				</a>
+			<?php else: ?>
+				<a href="thread/announcement_unset/<?php echo $thread_id ?>">
+					<i class="fa fa-fw fa-thumb-tack"></i><?php __("T_MOD_UNSET_ANNOUNCEMENT") ?>
+				</a>
+			<?php endif; ?>
+			<a href="thread/delete/<?php echo $thread_id ?>" id="thread-delete" data-confirm="<?php __("T_MOD_DELETE_MESSAGE") ?>">
+				<i class="fa fa-fw fa-times-circle"></i><?php __("T_MOD_DELETE_THREAD") ?>
+			</a>
+		</div>
+	</div>
+<?php endif; ?>
+
+<!-- RELATED THREADS -->
 
 <div class="block flat thread-related">
 	<h2>Related Threads</h2>
@@ -245,7 +286,8 @@
 	<?php endif; ?>
 </div>
 
-<!-- START delete lightbox -->
+<!-- DELETE POST LIGHTBOX -->
+
 <div id="deleteThreadConfirm" style="display: none">
 	<form action="thread/delete_post" method="post">
 		<table class="table-list no-borders" style="width:350px; margin:0">
@@ -269,4 +311,3 @@
 		</table>
 	</form>
 </div>
-<!-- END delete lightbox -->
