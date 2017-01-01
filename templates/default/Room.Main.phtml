@@ -36,7 +36,7 @@
 
 <?php if(!empty($threads)): ?>
 	<?php foreach($threads as $k => $v): ?>
-		<div class="block no-padding room-item <?php echo $threads[$k]['class'] ?>">
+		<div class="block padding-no room-item <?php echo $threads[$k]['class'] ?>">
 			<div class="room-item-image hide-xs">
 				<?php echo \AC\Kernel\Html::Crop($threads[$k]['author_avatar'], 50, "image") ?>
 			</div>
