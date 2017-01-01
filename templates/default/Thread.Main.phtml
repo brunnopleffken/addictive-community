@@ -273,7 +273,7 @@
 <!-- RELATED THREADS -->
 
 <div class="block flat thread-related">
-	<h2>Related Threads</h2>
+	<h2><?php __("T_RELATED") ?></h2>
 	<?php if($related_thread_list): ?>
 		<?php foreach($related_thread_list as $k => $v): ?>
 			<div class="item">
@@ -284,7 +284,7 @@
 			</div>
 		<?php endforeach; ?>
 	<?php else: ?>
-		<small class="text-muted">There are no related threads to show.</small>
+		<small class="text-muted"><?php __("T_NO_RELATED") ?></small>
 	<?php endif; ?>
 </div>
 
