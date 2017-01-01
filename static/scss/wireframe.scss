@@ -850,6 +850,126 @@ header {
 	}
 }
 
+// CALENDAR
+
+.table.calendar {
+	thead {
+		td {
+			text-align: center;
+			width: calc(100% / 7);
+		}
+	}
+	tbody {
+		td {
+			font-size: 16px;
+			padding: 25px 0;
+			position: relative;
+			text-align: center;
+			a {
+				color: #000;
+				display: inline-block;
+				line-height: 26px;
+				width: 26px;
+			}
+			&.today {
+				a {
+					color: #d00;
+					font-weight: bold;
+				}
+			}
+			&.event {
+				a {
+					background-color: $accent;
+					border-radius: 13px;
+					color: #fff;
+				}
+			}
+		}
+	}
+}
+
+.calendar-events {
+	display: table;
+	width: 100%;
+	.marker {
+		background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAD0lEQVQIW2N0C8zwYQACAAhlAU0RIoPTAAAAAElFTkSuQmCC) repeat-y center;
+		display: table-cell;
+		position: relative;
+		width: 60px;
+		span {
+			background-color: $accent;
+			border-radius: 50%;
+			display: block;
+			height: 12px;
+			left: 50%;
+			margin-left: -6px;
+			margin-top: -6px;
+			position: absolute;
+			top: 50%;
+			width: 12px;
+		}
+	}
+	.details {
+		display: table-cell;
+		.block {
+			display: table;
+			margin: 5px 0;
+			width: 100%;
+			.event-time {
+				display: table-cell;
+				font-size: 22px;
+				font-weight: bold;
+				vertical-align: middle;
+				width: 80px;
+			}
+			.event-content {
+				display: table-cell;
+				h3 {
+					font-size: 20px;
+					letter-spacing: 0.1em;
+					margin-bottom: 5px;
+				}
+				.tiny {
+					color: $default-light;
+					font-size: 10px;
+					margin-bottom: 10px;
+					text-transform: uppercase;
+				}
+			}
+		}
+	}
+	&:first-child {
+		.marker {
+			&:before {
+				background-color: #f1f1f1;
+				content: ('');
+				display: block;
+				height: 50%;
+				position: absolute;
+				top: 0;
+				width: 50px;
+			}
+		}
+	}
+	&:last-child {
+		margin-bottom: 20px;
+		.marker {
+			&:before {
+				background-color: #f1f1f1;
+				bottom: 0;
+				content: ('');
+				display: block;
+				height: 50%;
+				position: absolute;
+				width: 50px;
+			}
+		}
+	}
+	&:only-child {
+		.marker { background: transparent; }
+	}
+}
+
 // FOOTER
 
 footer {
@@ -1004,6 +1124,10 @@ footer {
 }
 
 // SELECT2
+
+.select2-container {
+	vertical-align: bottom;
+}
 
 .select2-container--default {
 	.select2-selection--single {

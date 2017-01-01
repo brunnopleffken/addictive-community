@@ -1,29 +1,28 @@
-<div class="title-bar">
-	<div class="title">
-		<span><?php __($community_name) ?></span>
-		<?php __("C_TITLE") ?>: <?php __($formatted_date) ?>
+<h1>
+	<small><?php echo $community_name ?></small>
+	<?php __("C_TITLE") ?>: <?php echo $formatted_date ?>
+</h1>
+
+<div class="nav room-nav">
+	<div class="nav-top">
+		<a href="calendar/view?date=<?php echo \AC\Kernel\Http::Request("date") ?>" class="active"><?php __("C_VIEW") ?></a>
+	</div>
+	<div class="nav-bottom">
+		<a href="calendar/view?date=<?php echo \AC\Kernel\Http::Request("date") ?>"><?php __("C_VIEW_ALL") ?></a>
+		<a href="calendar/view?date=<?php echo \AC\Kernel\Http::Request("date") ?>&type=private"><?php __("C_VIEW_PRIVATE") ?></a>
 	</div>
 </div>
 
-<div class="navigation">
-	<div class="navbar">
-		<a href="calendar/view?date=<?php __(\AC\Kernel\Http::Request("date")) ?>" class="selected"><?php __("C_VIEW") ?></a>
-	</div>
-	<div class="subnav">
-		<a href="calendar/view?date=<?php __(\AC\Kernel\Http::Request("date")) ?>"><?php __("C_VIEW_ALL") ?></a>
-	</div>
-</div>
-
-<?php if($count || $bday_count): ?>
+<?php if($events_count || $bday_count): ?>
 	<div class="events-container">
 	<?php foreach($birthdays as $birthday): ?>
 		<div class="calendar-events">
 			<div class="marker"><span></span></div>
 			<div class="details">
-				<div class="box">
+				<div class="block">
 					<div class="event-time" style="text-align: center; font-size: 28px;"><i class="fa fa-birthday-cake"></i></div>
 					<div class="event-content" style="padding: 15px 0 15px 10px">
-						<h3 style="margin:0">Birthday of <a href="profile/<?php __($birthday['m_id']) ?>"><?php __($birthday['username']) ?></a></h3>
+						<h3 style="margin:0">Birthday of <a href="profile/<?php echo $birthday['m_id'] ?>"><?php echo $birthday['username'] ?></a></h3>
 					</div>
 				</div>
 			</div>
@@ -33,12 +32,12 @@
 		<div class="calendar-events">
 			<div class="marker"><span></span></div>
 			<div class="details">
-				<div class="box">
-					<div class="event-time"><?php __(date("H:i", $event['timestamp'])) ?></div>
+				<div class="block">
+					<div class="event-time"><?php echo date("H:i", $event['timestamp']) ?></div>
 					<div class="event-content">
-						<h3><?php __($event['title']) ?></h3>
+						<h3><?php echo $event['title'] ?></h3>
 						<div class="tiny"><?php __("C_VIEW_BY", $event['username']) ?></div>
-						<?php __($event['text']) ?>
+						<p><?php echo $event['text'] ?></p>
 					</div>
 				</div>
 			</div>
@@ -46,7 +45,11 @@
 	<?php endforeach; ?>
 	</div>
 <?php else: ?>
-	<div class="box center">
+	<div class="block text-center">
 		<?php __("C_NO_EVENTS") ?>
 	</div>
 <?php endif; ?>
+
+<div class="text-right">
+	<a href="calendar?month=<?php echo $date[1] ?>&year=<?php echo $date[0] ?>" class="btn btn-default"><?php __("C_TITLE") ?></a>
+</div>

@@ -73,12 +73,17 @@ class Calendar extends Application
 		// Get date and convert to array
 		$date = explode("-", Http::Request("date"));
 
+		// Filter by type?
+		// NOTE: until now, just private events
+		$filter = Http::Request("type") ? "AND type = 'private'" : "";
+
 		// Get all events
 		$this->Db->Query("SELECT e.*, m.username FROM c_events e
 				INNER JOIN c_members m ON (e.author = m.m_id)
 				WHERE year = {$date[0]}
 					AND month = {$date[1]}
 					AND day = {$date[2]}
+					{$filter}
 				ORDER BY timestamp ASC;");
 
 		$events_count = ($this->Db->Rows() > 0) ? true : false;
@@ -103,7 +108,8 @@ class Calendar extends Application
 		$this->Set("page_info", $page_info);
 
 		// Return variables
-		$this->Set("count", $events_count);
+		$this->Set("date", $date);
+		$this->Set("events_count", $events_count);
 		$this->Set("events", $events_result);
 		$this->Set("bday_count", $birthday_count);
 		$this->Set("birthdays", $birthday_result);
@@ -176,8 +182,8 @@ class Calendar extends Application
 	private function _GenerateCalendar()
 	{
 		// Get current date/year, if not set
-		$current_month = (Http::Request("month")) ? Http::Request("month") : date("m");
-		$current_year  = (Http::Request("year")) ? Http::Request("year") : date("Y");
+		$current_month = (Http::Request("month", true)) ? Http::Request("month", true) : date("m");
+		$current_year  = (Http::Request("year", true)) ? Http::Request("year", true) : date("Y");
 
 		// What is the day of today?
 		$today_info = getdate(time());
@@ -207,24 +213,26 @@ class Calendar extends Application
 		$w_day = $date_components['wday'];
 
 		// Create the table tag opener and day headers
-		Template::Add("<table class='calendar'>");
+		Template::Add("<table class='table calendar'><thead>");
 		Template::Add("<tr><th colspan='7'>{$m_name} {$current_year}</th></tr>");
-		Template::Add("<tr>");
 
 		// Create the calendar headers
+		Template::Add("<tr>");
 		foreach($w_days as $day) {
-			Template::Add("<td class='week'>{$day}</td>");
+			Template::Add("<td>{$day}</td>");
 		}
+		Template::Add("</tr></thead>");
 
 		// Create the rest of the calendar
 		// Initiate the day counter, starting with the 1st.
 		$current_day = 1;
-		Template::Add("</tr><tr>");
+
+		Template::Add("<tr>");
 
 		// The variable $w_day is used to ensure that the calendar
 		// display consists of exactly 7 columns.
 		if ($w_day > 0) {
-			Template::Add("<td class='fill' colspan='{$w_day}'>&nbsp;</td>");
+			Template::Add("<td colspan='{$w_day}'>&nbsp;</td>");
 		}
 
 		$month = str_pad($current_month, 2, "0", STR_PAD_LEFT);
@@ -259,20 +267,21 @@ class Calendar extends Application
 				$current_year  == $today_info['year'] &&
 				$current_day   == $today_info['mday']
 			) {
-				Template::Add("<td class='day today {$event_class}'><a href='calendar/view?date={$date}'>{$current_day}</a></td>");
+				Template::Add("<td class='today {$event_class}'><a href='calendar/view?date={$date}'>{$current_day}</a></td>");
 			}
 			else {
-				Template::Add("<td class='day {$event_class}'><a href='calendar/view?date={$date}'>{$current_day}</a></td>");
+				Template::Add("<td class='{$event_class}'><a href='calendar/view?date={$date}'>{$current_day}</a></td>");
 			}
 
 			// Increment counters
 			$current_day++;
 			$w_day++;
 		}
+
 		// Complete the row of the last week in month, if necessary
 		if ($w_day != 7) {
 			$remaining_days = 7 - $w_day;
-			Template::Add("<td class='fill' colspan='{$remaining_days}'>&nbsp;</td>");
+			Template::Add("<td colspan='{$remaining_days}'>&nbsp;</td>");
 		}
 
 		// Export templates
