@@ -26,6 +26,11 @@
 	&-w600 { font-weight: bold; }
 }
 
+.padding {
+	&-#{10} { padding: 10px !important; }
+	&-#{20} { padding: 20px !important; }
+}
+
 // RESPONSIVE
 
 @media (max-width: $small) {

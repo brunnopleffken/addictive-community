@@ -143,6 +143,7 @@ form {
 
 .input-group {
 	display: table;
+	width: 100%;
 	&-addon {
 		border: 1px solid #ccc;
 		border-radius: 3px;
@@ -526,7 +527,6 @@ ul.options-list {
 // NAVIGATION TAB BAR
 
 .nav {
-	margin-bottom: 20px;
 	&-top {
 		background-color: $accent;
 		overflow: auto;
@@ -552,6 +552,7 @@ ul.options-list {
 	}
 	&-bottom {
 		background-color: #fff;
+		margin-bottom: 20px;
 		overflow: auto;
 		padding: 0 20px;
 		a {
@@ -601,7 +602,7 @@ ul.options-list {
 		margin-right: -10px;
 	}
 	&-nav-content {
-		padding: 0 20px 1px 20px;
+		padding: 20px 20px 1px 20px;
 	}
 }
 

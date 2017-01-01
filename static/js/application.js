@@ -165,7 +165,7 @@ $(document).ready(function($) {
 
 		if(stopSend == true) {
 			event.preventDefault();
-			$(this).find('.error-message').css('display', 'inline-block').hide().fadeIn();
+			$(this).find('.error-message').fadeIn();
 		}
 	});
 
@@ -173,8 +173,9 @@ $(document).ready(function($) {
 	 * REMOVE .error CLASS ON FOCUS (FOR input[type=text] ELEMENTS)
 	 */
 
-	$(document).on('focus', '.error', function() {
+	$('form').on('focus', '.error', function() {
 		$(this).removeClass('error');
+		$(document).find('.error-message').fadeOut();
 	});
 
 	/**
