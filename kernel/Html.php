@@ -209,6 +209,10 @@ class Html
 	 */
 	public static function Crop($image, $size = 0, $class = "")
 	{
+		if($image == "public/avatar/") {
+			$image = "static/images/no-photo.png";
+		}
+
 		return "<div style=\"display:block; width:{$size}px; height:{$size}px; background: url('{$image}') no-repeat center top; background-size:cover\" class='{$class}'></div>";
 	}
 
