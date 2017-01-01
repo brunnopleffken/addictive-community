@@ -5,7 +5,7 @@
 	&-justify { text-align: justify; }
 	&-nowrap { white-space: nowrap; }
 	&-muted { color: $default-light; }
-	&-s0 { font-size: 0; }
+	&-s0 { font-size: 0 !important; }
 	&-s14 { font-size: 14px !important; }
 }
 
@@ -17,13 +17,13 @@
 
 .push {
 	display: block;
-	&-#{10} { margin-bottom: 10px; }
-	&-#{20} { margin-bottom: 20px; }
+	&-#{10} { margin-bottom: 10px !important; }
+	&-#{20} { margin-bottom: 20px !important; }
 }
 
 .font {
-	&-w400 { font-weight: normal; }
-	&-w600 { font-weight: bold; }
+	&-w400 { font-weight: normal !important; }
+	&-w600 { font-weight: bold !important; }
 }
 
 .padding {
