@@ -1,56 +1,67 @@
-<div class="title-bar">
-	<div class="title">
-		<span><?php __($community_name) ?></span>
-		<?php __("M_TITLE") ?>
-	</div>
+<h1>
+	<small><?php echo $community_name ?></small>
+	<?php __("M_TITLE") ?>
+</h1>
+
+<div class="pull-clear push-10">
+	<ul class="pagination condensed pull-right">
+		<?php  echo $letter_first ?>
+		<?php  echo $letter_list ?>
+		<?php  echo $numbers ?>
+	</ul>
 </div>
 
-<div class="classification">
-	<?php __($letter_first) ?>
-	<?php __($letter_list) ?>
-</div>
-
-<table class="table-list">
-	<tr>
-		<th colspan="6">
-			<div class="fright">
-				<a href="members" class="small-button grey white"><?php __("M_MEMBER_NAME") ?></a>
-				<a href="members?order=join" class="small-button grey white"><?php __("M_JOIN_DATE") ?></a>
-				<a href="members?order=post" class="small-button grey white"><?php __("M_POST_COUNT") ?></a>
-			</div>
-		</th>
-	</tr>
-	<tr class="subtitle">
-		<td class="min">&nbsp;</td>
-		<td><?php __("M_MEMBER_NAME") ?></td>
-		<td><?php __("M_JOINED") ?></td>
-		<td><?php __("M_POSTS") ?></td>
-		<td><?php __("M_LOCATION") ?></td>
-		<td><?php __("M_GROUP") ?></td>
-	</tr>
-	<?php if(!empty($results)): ?>
-		<?php foreach($results as $k => $v): ?>
+<div class="block no-padding">
+	<table class="table">
+		<thead>
 			<tr>
-				<td class="min"><?php __(\AC\Kernel\Html::Crop($results[$k]['avatar'], 42, 42, "avatar")) ?></td>
-				<td style="font-size: 15px;">
-					<a href="profile/<?php __($results[$k]['m_id']) ?>"><b><?php __($results[$k]['username']) ?></b></a>
-				</td>
-				<td><?php __($results[$k]['joined']) ?></td>
-				<td><?php __($results[$k]['posts']) ?></td>
-				<td><?php __($results[$k]['location']) ?></td>
-				<td><?php __($results[$k]['name']) ?></td>
+				<th colspan="6">
+					<?php if($term): ?>
+					<?php __("M_SEARCH") ?>: "<?php echo $term ?>"
+					<?php endif; ?>
+					<div class="pull-right text-s0">
+						<a href="members?<?php echo $letter_param ?>order=name" class="label invert"><?php __("M_MEMBER_NAME") ?></a>
+						<a href="members?<?php echo $letter_param ?>order=join" class="label invert"><?php __("M_JOIN_DATE") ?></a>
+						<a href="members?<?php echo $letter_param ?>order=post" class="label invert"><?php __("M_POST_COUNT") ?></a>
+					</div>
+				</th>
 			</tr>
-		<?php endforeach; ?>
-	<?php else: ?>
-		<tr>
-			<td colspan="6" class="center"><?php __("M_NO_RESULTS") ?></td>
-		</tr>
-	<?php endif; ?>
-</table>
+			<tr>
+				<td class="min"></td>
+				<td><?php __("M_MEMBER_NAME") ?></td>
+				<td><?php __("M_JOINED") ?></td>
+				<td><?php __("M_POSTS") ?></td>
+				<td><?php __("M_LOCATION") ?></td>
+				<td><?php __("M_GROUP") ?></td>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if(!empty($results)): ?>
+				<?php foreach($results as $k => $v): ?>
+					<tr>
+						<td class="min"><?php echo \AC\Kernel\Html::Crop($results[$k]['avatar'], 40) ?></td>
+						<td class="font-w600">
+							<a href="profile/<?php echo $results[$k]['m_id'] ?>"><?php echo $results[$k]['username'] ?></a>
+						</td>
+						<td><?php echo $results[$k]['joined'] ?></td>
+						<td><?php echo $results[$k]['posts'] ?></td>
+						<td><?php echo $results[$k]['location'] ?></td>
+						<td><?php echo $results[$k]['name'] ?></td>
+					</tr>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<tr>
+					<td colspan="6" class="text-center"><?php __("M_NO_RESULTS") ?></td>
+				</tr>
+			<?php endif; ?>
+		</tbody>
+	</table>
+</div>
 
-<div class="box">
-	<form method="get" class="validate">
-		<?php __("M_SEARCH") ?>: <input type="text" name="username" class="small required">
-		<input type="submit" value="OK">
+<div class="block">
+	<form method="get" class="inline">
+		<p class="form-control-static"><?php __("M_SEARCH") ?>:</p>
+		<input type="text" name="term" minlength="3" class="form-control span-3" required>
+		<input type="submit" class="btn btn-default" value="OK">
 	</form>
 </div>
