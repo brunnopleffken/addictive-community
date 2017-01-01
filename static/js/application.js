@@ -144,8 +144,9 @@ $(document).ready(function($) {
 
 		// Add .error to all invalid text fields
 		$('input:invalid').addClass('error');
+		$('textarea:invalid').addClass('error');
 
-		try {
+		if(typeof tinymce.editors[0] != 'undefined' && tinymce.editors[0].id == 'post') {
 			// Validate TinyMCE textarea
 			if(tinymce.get('post').getContent() == "") {
 				$('.mce-edit-area').addClass('error');
@@ -154,8 +155,6 @@ $(document).ready(function($) {
 			else {
 				$('.mce-edit-area').removeClass('error');
 			}
-		} catch(e) {
-			console.log(e);
 		}
 
 		// Check form validity
