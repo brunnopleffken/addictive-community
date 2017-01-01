@@ -136,17 +136,6 @@ class Community extends Application
 
 		$result['online'] = $this->Db->Fetch($online);
 
-		// If last post timestamp is not zero / no posts
-		$result['last_post_date'] = ($result['last_post_date'] > 0) ? $this->Core->DateFormat($result['last_post_date']) : "---";
-
-		// If thread and/or last poster username is empty, show dashes instead
-		if($result['title'] == null) {
-			$result['title'] = "---";
-		}
-		if($result['username'] == null) {
-			$result['username'] = "---";
-		}
-
 		// Get moderators
 		$moderators_array = unserialize($result['moderators']);
 		if(!empty($moderators_array)) {
@@ -202,6 +191,15 @@ class Community extends Application
 			$result['title'] = "<a href='thread/{$result['t_id']}-{$result['slug']}'>{$result['title']}</a>";
 		}
 
+		// If last post timestamp is not zero / no posts
+		$result['last_post_date'] = ($result['last_post_date'] > 0) ? $this->Core->DateFormat($result['last_post_date']) : "---";
+
+		// If room has no posts, show dashes as placeholder
+		if($result['thread_count'] == 0) {
+			$result['title'] = "---";
+			$result['username'] = "---";
+		}
+
 		// Save result in array
 		return $result;
 	}
@@ -215,14 +213,18 @@ class Community extends Application
 	{
 		$has_unread = false;
 
-		$threads = $this->Db->Query("SELECT t_id, last_post_date FROM c_threads WHERE room_id = {$room_id};");
+		// Get cookies
+		$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
+		$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
+
+		// Look for threads where last_post_date is earlier than login time
+		$threads = $this->Db->Query("SELECT t_id, last_post_date FROM c_threads
+				WHERE room_id = {$room_id} AND last_post_date >= {$login_time_cookie};");
 
 		while($result = $this->Db->Fetch($threads)) {
-			$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
 			if($read_threads_cookie) {
-				$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
 				$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
-				if(!in_array($result['t_id'], $read_threads) && $login_time_cookie < $result['last_post_date']) {
+				if(!in_array($result['t_id'], $read_threads)) {
 					$has_unread = true;
 				}
 			}
