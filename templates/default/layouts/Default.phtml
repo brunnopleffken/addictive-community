@@ -65,8 +65,8 @@
 				</a>
 			</div>
 			<div class="col-flexible search hide-sm">
-				<form action="search" method="get" class="validate">
-					<input type="text" name="q" class="form-control search-input required" value="<?php echo \AC\Kernel\Http::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>"><!--
+				<form action="search" method="get">
+					<input type="text" name="q" class="form-control search-input" value="<?php echo \AC\Kernel\Http::Request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>"><!--
 					--><button type="submit" class="btn btn-default search-submit">
 						<i class="fa fa-search"></i>
 					</button>

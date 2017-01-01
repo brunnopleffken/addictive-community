@@ -213,7 +213,7 @@ class Html
 			$image = "static/images/no-photo.png";
 		}
 
-		return "<div style=\"display:block; width:{$size}px; height:{$size}px; background: url('{$image}') no-repeat center top; background-size:cover\" class='{$class}'></div>";
+		return "<div style=\"display:block; width:{$size}px; height:{$size}px; background: url('{$image}') no-repeat center top; background-size:cover\" class='crop {$class}'></div>";
 	}
 
 	/**

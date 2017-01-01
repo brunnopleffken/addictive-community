@@ -12,3 +12,10 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 	padding: 0 !important;
 	border: 0 !important;
 }
+
+// Disable image anti-aliasing when in Retina display
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    img, .crop {
+    	image-rendering: crisp-edges;
+    }
+}

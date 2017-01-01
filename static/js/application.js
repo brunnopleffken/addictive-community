@@ -143,17 +143,17 @@ $(document).ready(function($) {
 		var form = this;
 
 		// Add .error to all invalid text fields
-		$('input:invalid').addClass('error');
-		$('textarea:invalid').addClass('error');
+		$(this).find('input:invalid').addClass('error');
+		$(this).find('textarea:invalid').addClass('error');
 
 		if(typeof tinymce.editors[0] != 'undefined' && tinymce.editors[0].id == 'post') {
 			// Validate TinyMCE textarea
 			if(tinymce.get('post').getContent() == "") {
-				$('.mce-edit-area').addClass('error');
+				$(this).find('.mce-edit-area').addClass('error');
 				stopSend = true;
 			}
 			else {
-				$('.mce-edit-area').removeClass('error');
+				$(this).find('.mce-edit-area').removeClass('error');
 			}
 		}
 
