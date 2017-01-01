@@ -1,85 +1,103 @@
-<div class="title-bar">
-	<div class="title">
-		<span><?php __($community_name) ?></span><?php __("C_TITLE") ?>
-	</div>
-</div>
+<h1>
+	<small><?php echo $community_name ?></small>
+	<?php __("C_TITLE") ?>
+</h1>
 
-<div class="navigation">
-	<div class="navbar">
-		<a href="usercp" class="<?php __($menu[0]) ?>"><?php __("C_SUMMARY") ?></a>
-		<a href="usercp/profile" class="<?php __($menu[1]) ?>"><?php __("C_PROFILE") ?></a>
-		<a href="usercp/photo" class="<?php __($menu[2]) ?>"><?php __("C_PHOTO") ?></a>
-		<a href="usercp/signature" class="<?php __($menu[3]) ?>"><?php __("C_SIGNATURE") ?></a>
-		<a href="usercp/settings" class="<?php __($menu[4]) ?>"><?php __("C_SETTINGS") ?></a>
-		<a href="usercp/password" class="<?php __($menu[5]) ?>"><?php __("C_PASSWORD") ?></a>
+<div class="block no-padding">
+	<div class="nav room-nav">
+		<div class="nav-top">
+			<a href="usercp" class="<?php __($menu[0]) ?>"><?php __("C_SUMMARY") ?></a>
+			<a href="usercp/profile" class="<?php __($menu[1]) ?>"><?php __("C_PROFILE") ?></a>
+			<a href="usercp/photo" class="<?php __($menu[2]) ?>"><?php __("C_PHOTO") ?></a>
+			<a href="usercp/signature" class="<?php __($menu[3]) ?>"><?php __("C_SIGNATURE") ?></a>
+			<a href="usercp/settings" class="<?php __($menu[4]) ?>"><?php __("C_SETTINGS") ?></a>
+			<a href="usercp/password" class="<?php __($menu[5]) ?>"><?php __("C_PASSWORD") ?></a>
+		</div>
 	</div>
-</div>
-
-<div class="box no-shadow">
-	<?php __($notification) ?>
-	<form action="usercp/save_profile" method="post" class="validate">
-		<div class="input-box">
-			<div class="label"><?php __("C_MEMBER_TITLE") ?></div>
-			<div class="field"><input type="text" name="member_title" value="<?php __($member['member_title']) ?>" class="large"></div>
-		</div>
-		<div class="input-box">
-			<div class="label"><?php __("C_ABOUT_ME") ?></div>
-			<div class="field"><textarea name="profile" rows="5" class="large"><?php __($member['profile']) ?></textarea></div>
-		</div>
-		<div class="input-box">
-			<div class="label"><?php __("C_EMAIL_ADDR") ?></div>
-			<div class="field">
-				<input type="text" name="email" value="<?php __($member['email']) ?>" class="required email medium">
-				<input type="hidden" name="hide_email" value="0">
-				<input type="checkbox" name="hide_email" id="hide_email" value="1" <?php __($profile['hide_email_status']) ?>>
-				<em class="tiny"><?php __("C_EMAIL_HIDE") ?></em>
+	<div class="block-nav-content padding-10">
+		<?php __($notification) ?>
+		<form action="usercp/save_profile" method="post">
+			<div class="form-group grid">
+				<label for="teste" class="col-2"><?php __("C_MEMBER_TITLE") ?></label>
+				<div class="col-4">
+					<input type="text" name="member_title" class="form-control" value="<?php echo $member['member_title'] ?>">
+				</div>
 			</div>
-		</div>
-		<div class="input-box">
-			<div class="label"><?php __("C_BIRTHDATE") ?></div>
-			<div class="field">
-				<?php
-				__(\AC\Kernel\Html::Days("b_day", $member['b_day'], true) . " ");
-				__(\AC\Kernel\Html::Months("b_month", false, $member['b_month'], true) . " ");
-				__(\AC\Kernel\Html::Years("b_year", 80, 0, $member['b_year'], true));
-				?>
+			<div class="form-group grid">
+				<label for="teste" class="col-2"><?php __("C_ABOUT_ME") ?></label>
+				<div class="col-6">
+					<textarea name="profile" rows="4" class="form-control"><?php echo $member['profile'] ?></textarea>
+				</div>
 			</div>
-		</div>
-		<div class="input-box">
-			<div class="label"><?php __("C_GENDER") ?></div>
-			<div class="field">
-				<select name="gender" class="select2-no-search" style="width: 100px">
-					<option value="0">---</option>
-					<option value="M" <?php __($profile['male']) ?>><?php __("C_GENDER_MALE") ?></option>
-					<option value="F" <?php __($profile['female']) ?>><?php __("C_GENDER_FEMALE") ?></option>
-				</select>
+			<div class="form-group grid">
+				<label for="teste" class="col-2"><?php __("C_EMAIL_ADDR") ?></label>
+				<div class="col-5">
+					<input type="email" name="email" class="form-control" value="<?php echo $member['email'] ?>">
+				</div>
+				<div class="col-5 form-control-static">
+					<label class="checkbox-control">
+						<input type="hidden" name="hide_email" value="0">
+						<input type="checkbox" name="hide_email" value="1" <?php __($profile['hide_email_status']) ?>>
+						<span><i class="fa fa-check"></i></span>
+						<small><?php __("C_EMAIL_HIDE") ?></small>
+					</label>
+				</div>
 			</div>
-		</div>
-		<div class="input-box">
-			<div class="label"><?php __("C_LOCATION") ?></div>
-			<div class="field"><input type="text" name="location" value="<?php __($member['location']) ?>" class="medium"></div>
-		</div>
-		<div class="input-box">
-			<div class="label"><?php __("C_WEBSITE") ?></div>
-			<div class="field"><input type="text" name="website" value="<?php __($member['website']) ?>" class="large"></div>
-		</div>
-		<div class="input-box">
-			<div class="label">Facebook</div>
-			<div class="field inline-label">
-				<span>http://www.facebook.com/</span><!--
-				--><input type="text" name="im_facebook" placeholder="username" value="<?php __($member['im_facebook']) ?>" class="small">
+			<div class="form-group grid">
+				<label for="teste" class="col-2"><?php __("C_BIRTHDATE") ?></label>
+				<div class="col-10">
+					<?php
+						echo \AC\Kernel\Html::Days("b_day", $member['b_day'], true) . " ";
+						echo \AC\Kernel\Html::Months("b_month", false, $member['b_month'], true) . " ";
+						echo \AC\Kernel\Html::Years("b_year", 80, 0, $member['b_year'], true);
+					?>
+				</div>
 			</div>
-		</div>
-		<div class="input-box">
-			<div class="label">Twitter</div>
-			<div class="field inline-label">
-				<span>@</span><!--
-				--><input type="text" name="im_twitter" placeholder="username" value="<?php __($member['im_twitter']) ?>" class="small">
+			<div class="form-group grid">
+				<label for="teste" class="col-2"><?php __("C_GENDER") ?></label>
+				<div class="col-10">
+					<select name="gender" class="select2-no-search" style="width: 120px">
+						<option value="0">---</option>
+						<option value="M" <?php __($profile['male']) ?>><?php __("C_GENDER_MALE") ?></option>
+						<option value="F" <?php __($profile['female']) ?>><?php __("C_GENDER_FEMALE") ?></option>
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="fleft">
-			<div class="error-message"><?php __("C_EMAIL_MESSAGE") ?></div>
-		</div>
-		<div class="fright"><input type="submit" value="<?php __("C_UPDATE_PROFILE") ?>"></div>
-	</form>
+			<div class="form-group grid">
+				<label for="teste" class="col-2"><?php __("C_LOCATION") ?></label>
+				<div class="col-4">
+					<input type="text" name="location" class="form-control" value="<?php echo $member['location'] ?>">
+				</div>
+			</div>
+			<div class="form-group grid">
+				<label for="teste" class="col-2"><?php __("C_WEBSITE") ?></label>
+				<div class="col-5">
+					<input type="url" name="website" class="form-control" value="<?php echo $member['website'] ?>">
+				</div>
+			</div>
+			<div class="form-group grid">
+				<label for="teste" class="col-2">Facebook</label>
+				<div class="col-4">
+					<div class="input-group">
+						<div class="input-group-addon">facebook.com/</div>
+						<input type="text" name="im_facebook" class="form-control" value="<?php echo $member['im_facebook'] ?>">
+					</div>
+				</div>
+			</div>
+			<div class="form-group grid">
+				<label for="teste" class="col-2">Twitter</label>
+				<div class="col-3">
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-at"></i></div>
+						<input type="text" name="im_twitter" class="form-control" value="<?php echo $member['im_twitter'] ?>">
+					</div>
+				</div>
+			</div>
+			<div class="pull-clear">
+				<div class="pull-right">
+					<input type="submit" value="<?php __("C_UPDATE_PROFILE") ?>" class="btn btn-default">
+				</div>
+			</div>
+		</form>
+	</div>
 </div>

@@ -107,14 +107,14 @@ $(document).ready(function($) {
 	 */
 
 	(function() {
-		if($('.photoSelect:checked').val() == 'gravatar') {
+		if($('.photo-select:checked').val() == 'gravatar') {
 			$('#gravatar').show();
 		}
-		else if($('.photoSelect:checked').val() == 'custom') {
+		else if($('.photo-select:checked').val() == 'custom') {
 			$('#custom').show();
 		}
 
-		$('.photoSelect').on('change', function() {
+		$('.photo-select').on('change', function() {
 			var value = $(this).val();
 
 			if(value == 'custom') {
