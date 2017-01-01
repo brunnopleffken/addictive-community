@@ -48,6 +48,7 @@ class Database implements IDatabase
 	private $result;
 
 	// Log of queries of the current session
+	private $debug = false;
 	private $log = array();
 
 	/**
@@ -87,11 +88,21 @@ class Database implements IDatabase
 	 * SENDS A UNIQUE QUERY TO THE CURRENTLY ACTIVE DATABASE
 	 * --------------------------------------------------------------------
 	 */
-	public function Query($sql)
+	public function Query($sql, $ext_backtrace = 0)
 	{
 		// Execute SQL query
 		$this->query = mysqli_query($this->link, $sql);
-		$this->log[] = $sql;
+
+		if($this->debug) {
+			$backtrace = ($ext_backtrace == 0) ? debug_backtrace() : $ext_backtrace;
+			$this->log[] = array(
+				"sql" => preg_replace("/\n\s*/", " ", $sql),
+				"backtrace" => array(
+					"file" => $backtrace[0]['file'],
+					"line" => $backtrace[0]['line']
+				)
+			);
+		}
 
 		// In case of error...
 		if(!$this->query) {
@@ -209,8 +220,10 @@ class Database implements IDatabase
 
 		// Insert into table
 		$sql = "INSERT INTO {$table} (" . implode(", ", $fields) . ") VALUES (" . implode(", ", $values) . ");";
-		$this->query = mysqli_query($this->link, $sql);
-		$this->log[] = $sql;
+
+		// Save backtrace if debug is 'true' and run query
+		$backtrace = ($this->debug) ? debug_backtrace() : null;
+		$this->query = $this->Query($sql, $backtrace);
 
 		// In case of error...
 		if(!$this->query) {
@@ -245,8 +258,9 @@ class Database implements IDatabase
 			$sql = "UPDATE {$table} SET {$data} WHERE {$where};";
 		}
 
-		$this->query = $this->Query($sql);
-		$this->log[] = $sql;
+		// Save backtrace if debug is 'true' and run query
+		$backtrace = ($this->debug) ? debug_backtrace() : null;
+		$this->query = $this->Query($sql, $backtrace);
 
 		if(!$this->query) {
 			$this->Exception("An error occoured on the following query: " . $sql);
@@ -263,8 +277,10 @@ class Database implements IDatabase
 	public function Delete($table, $where = 1)
 	{
 		$sql = "DELETE FROM {$table} WHERE {$where};";
-		$this->query = $this->Query($sql);
-		$this->log[] = $sql;
+
+		// Save backtrace if debug is 'true' and run query
+		$backtrace = ($this->debug) ? debug_backtrace() : null;
+		$this->query = $this->Query($sql, $backtrace);
 
 		if(!$this->query) {
 			$this->Exception("An error occoured on the following query: " . $sql);
