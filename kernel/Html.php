@@ -165,22 +165,29 @@ class Html
 	{
 		switch($code) {
 			case "warning":
+				$class = "alert-warning";
 				$title = "WARNING!";
 				break;
 			case "success":
+				$class = "alert-success";
 				$title = "SUCCESS!";
 				break;
 			case "failure":
+				$class = "alert-danger";
 				$title = "ERROR!";
 				break;
 			case "info":
+				$class = "alert-info";
 				$title = "INFORMATION:";
 				break;
 		}
 		if($persistent) {
 			$persistent = "persistent";
 		}
-		$html = "<div class='notification " . $code . " " . $persistent . "'><p><strong>" . $custom_title . "</strong> " . $message . "</p></div>";
+		if($custom_title != "") {
+			$title = $custom_title;
+		}
+		$html = "<div class='alert {$class} {$persistent}'><strong>{$title}</strong> {$message}</div>";
 
 		return $html;
 	}

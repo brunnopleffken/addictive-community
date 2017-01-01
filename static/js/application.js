@@ -26,7 +26,7 @@ $(document).ready(function($) {
 	 * FADE OUT ALL NOTIFICATIONS AFTER 3 SECONDS IF HAS NOT .persistent CLASS
 	 */
 
-	$('.notification').not('.persistent').delay(3000).fadeOut(1000);
+	$('.alert').not('.persistent').delay(3000).fadeOut(1000);
 
 	/**
 	 * TOGGLE CATEGORIES

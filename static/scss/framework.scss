@@ -351,25 +351,25 @@ textarea.form-control {
 		font-family: FontAwesome;
 		margin-right: 10px;
 	}
-	&.success {
+	&.alert-success {
 		background-color: #e7ffb9;
 		border-color: #c1d779;
 		color: #3c5a01;
 		&:before { content: ('\f058'); }
 	}
-	&.danger {
+	&.alert-danger {
 		background-color: #fccac1;
 		border-color: #e18b7c;
 		color: #ac260f;
 		&:before { content: ('\f057'); }
 	}
-	&.warning {
+	&.alert-warning {
 		background-color: #ffe9ad;
 		border-color: #eac572;
 		color: #826200;
 		&:before { content: ('\f071'); }
 	}
-	&.info {
+	&.alert-info {
 		background-color: #d1e4f3;
 		border-color: #99c4ea;
 		color: #235685;
