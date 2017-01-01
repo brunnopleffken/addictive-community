@@ -41,8 +41,16 @@ h2 {
 	margin-bottom: 20px;
 }
 
+// TYPOGRAPHY
+
 p {
 	line-height: 1.4em;
+}
+
+mark {
+	background-color: rgba(#a00, 0.1);
+	color: #a00;
+	padding: 0 0.2em;
 }
 
 // COMPONENTS
@@ -591,9 +599,6 @@ ul.options-list {
 	box-shadow: 1px 1px 5px rgba(#000, 0.1);
 	margin-bottom: 20px;
 	padding: 10px;
-	&.no-padding {
-		padding: 0;
-	}
 	&.flat {
 		box-shadow: none;
 	}

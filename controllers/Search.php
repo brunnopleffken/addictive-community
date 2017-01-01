@@ -19,6 +19,12 @@ use \AC\Kernel\i18n;
 
 class Search extends Application
 {
+	// Search term
+	private $term = false;
+
+	// If 'no_results' is true, show start page
+	private $no_search = true;
+
 	/**
 	 * --------------------------------------------------------------------
 	 * VIEW SEARCH ENGINE RESULTS
@@ -28,12 +34,49 @@ class Search extends Application
 	{
 		// Declare empty variables
 		$warning = "";
-		$_result = array();
+		$search_results = array();
 
-		// Get keyword
-		$keyword = Http::Request("q");
+		// Get term
+		$this->term = Http::Request("q");
 
-		// Are we searching in an specific post?
+		if($this->term) {
+			// Perform FULLTEXT search
+			$search_results = $this->_PerformSearch();
+
+			// Has search
+			$this->no_search = false;
+		}
+
+		// Number of results
+		$num_results = count($search_results);
+
+		// Page info
+		$page_info['title'] = i18n::Translate("S_TITLE");
+		$page_info['bc'] = array(i18n::Translate("S_TITLE"));
+		$this->Set("page_info", $page_info);
+
+		// Return variables
+		$this->Set("term", $this->term);
+		$this->Set("no_search", $this->no_search);
+		$this->Set("num_results", $num_results);
+		$this->Set("warning", $warning);
+		$this->Set("results", $search_results);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * PERFORM FULLTEXT SEARCH
+	 * --------------------------------------------------------------------
+	 */
+	private function _PerformSearch()
+	{
+		// Empty results array
+		$results = array();
+
+		// Split keyword for highlighting
+		$term_highlight = explode(" ", $this->term);
+
+		// Are we searching in an specific post in a thread?
 		$mode = Http::Request("mode");
 		switch($mode) {
 			case "post":
@@ -55,45 +98,29 @@ class Search extends Application
 				break;
 		}
 
-		// Split keyword for highlighting
-		$keyword_highlight = explode(" ", $keyword);
-
 		// Perform database query
-		$this->Db->Query("SELECT t.t_id, t.title, t.slug, m.m_id, m.username, m.email, p.author_id, p.post_date, p.post,
-				MATCH(p.post) AGAINST ('{$keyword}') AS relevance FROM c_posts p
+		$this->Db->Query("SELECT t.t_id, t.title, t.slug, m.username, p.post_date, p.post FROM c_posts p
 				INNER JOIN c_threads t ON (p.thread_id = t.t_id)
 				INNER JOIN c_members m ON (p.author_id = m.m_id)
-				WHERE {$where} MATCH(post) AGAINST ('{$keyword}') {$order}
+				WHERE {$where} MATCH(post) AGAINST ('{$this->term}') {$order}
 				LIMIT 100;");
 
-		// Too many results
-		if($this->Db->Rows() >= 90) {
+		if($this->Db->Rows() >= 100) {
+			// Too many results
 			$warning = Html::Notification("There are too many results for this search. Please try your search again with more specific keywords.", "warning", true);
 		}
+		else {
+			while($result = $this->Db->Fetch()) {
+				$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
-		while($result = $this->Db->Fetch()) {
-			$result['post_date'] = $this->Core->DateFormat($result['post_date']);
-			$result['relevance'] = round($result['relevance'], 2);
+				foreach($term_highlight as $words) {
+					$result['post'] = preg_replace("/\b{$words}\b/mi", "<mark>$0</mark>", $result['post']);
+				}
 
-			foreach($keyword_highlight as $words) {
-				$result['post'] = preg_replace("/{$words}/mi", "<mark style='font-weight: bold'>$0</mark>", $result['post']);
+				$results[] = $result;
 			}
-
-			$_result[] = $result;
 		}
 
-		// Number of results
-		$num_results = count($_result);
-
-		// Page info
-		$page_info['title'] = i18n::Translate("S_TITLE");
-		$page_info['bc'] = array(i18n::Translate("S_TITLE"));
-		$this->Set("page_info", $page_info);
-
-		// Return variables
-		$this->Set("keyword", $keyword);
-		$this->Set("num_results", $num_results);
-		$this->Set("warning", $warning);
-		$this->Set("results", $_result);
+		return $results;
 	}
 }
