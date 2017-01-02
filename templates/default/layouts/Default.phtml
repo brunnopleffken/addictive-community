@@ -50,7 +50,9 @@
 				<a href="search"><span><?php __("SEARCH") ?></span><i class="fa fa-search"></i></a>
 				<a href="members"><span><?php __("MEMBERLIST") ?></span><i class="fa fa-users"></i></a>
 				<a href="calendar"><span><?php __("CALENDAR") ?></span><i class="fa fa-calendar"></i></a>
-				<a href="help"><span><?php __("HELP") ?></span><i class="fa fa-question-circle"></i></a>
+				<?php if($member_id == 0): ?>
+					<a href="register"><span><?php __("SIDEBAR_C_ACCOUNT") ?></span><i class="fa fa-star"></i></a>
+				<?php endif; ?>
 			</div>
 			<div class="col-flexible hide-xs">
 				<a href="<?php echo $website_url ?>" target="_blank"><?php echo $website_name ?></a>
