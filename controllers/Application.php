@@ -141,7 +141,7 @@ class Application
 
 			// Number of new private messages
 			$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages
-					WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 1;");
+					WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 0;");
 
 			$unread_messages = $this->Db->Fetch();
 
