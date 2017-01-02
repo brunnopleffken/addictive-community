@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Html;
 use \AC\Kernel\i18n;
 use \AC\Kernel\Text;
 

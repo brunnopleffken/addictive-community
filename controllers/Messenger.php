@@ -140,7 +140,6 @@ class Messenger extends Application
 		$this->Set("page_info", $page_info);
 
 		// Return variables
-		$this->Set("sender_id", $this->Session->session_info['member_id']);
 		$this->Set("message", $message);
 		$this->Set("enable_signature", $this->Core->config['general_member_enable_signature']);
 	}

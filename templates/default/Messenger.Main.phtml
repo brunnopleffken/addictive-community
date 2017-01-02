@@ -34,6 +34,9 @@
 					<tr>
 						<th colspan="5">
 							<?php __("M_FOLDER_INBOX") ?>
+							<div class="pull-right text-s0">
+								<a class="label invert" id="delete-messages"><?php __("M_DELETE_SELECTED") ?></a>
+							</div>
 						</th>
 					</tr>
 					<tr>
@@ -74,9 +77,6 @@
 				<tr>
 					<th colspan="5">
 						<?php __("M_FOLDER_SENT") ?>
-						<div class="pull-right text-s0">
-							<a class="label invert" id="delete-messages"><?php __("M_DELETE_SELECTED") ?></a>
-						</div>
 					</th>
 				</tr>
 				<tr>
@@ -96,7 +96,7 @@
 					<?php endforeach; ?>
 					<?php else: ?>
 					<tr>
-						<td colspan="5" class="min center"><?php __("M_NO_PM_INBOX") ?></td>
+						<td colspan="5" class="text-center"><?php __("M_NO_PM_INBOX") ?></td>
 					</tr>
 				<?php endif; ?>
 			</tbody>

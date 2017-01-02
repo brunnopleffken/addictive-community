@@ -1,5 +1,5 @@
 <div class="header">
-	<?php if($message['from_id'] == $sender_id): ?>
+	<?php if($message['to_id'] == $member_id): ?>
 		<h1>
 			<small><?php echo $community_name ?></small>
 			<?php echo $message['subject'] ?>
