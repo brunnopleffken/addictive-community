@@ -169,11 +169,12 @@ class Messenger extends Application
 		$users = array();
 
 		// Get member name
+		$member_id = $this->Session->session_info['member_id'];
 		$term = Http::Request("term");
 
 		// Get list of usernames
 		$result = $this->Db->Query("SELECT m_id, username FROM c_members
-				WHERE username LIKE '%{$term}%' AND usergroup <> 0;");
+				WHERE username LIKE '%{$term}%' AND usergroup <> 0 AND m_id <> {$member_id};");
 
 		while($row = $result->fetch_assoc()) {
 			$users[] = array(
