@@ -187,6 +187,25 @@ header {
 // .room-icon .room-info-description
 //  ^^^^       ^^^^
 
+// Headers
+
+.header {
+	margin-bottom: 20px;
+	position: relative;
+	h1 {
+		margin-bottom: 0;
+	}
+	&-buttons {
+		font-size: 0;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		.btn {
+			margin-left: 5px;
+		}
+	}
+}
+
 // -- Community Home
 
 .category {
@@ -289,22 +308,6 @@ header {
 //-- Room view
 
 .room {
-	&-header {
-		margin-bottom: 20px;
-		position: relative;
-		h1 {
-			margin-bottom: 0;
-		}
-		&-buttons {
-			font-size: 0;
-			position: absolute;
-			right: 0;
-			bottom: 0;
-			.btn {
-				margin-left: 5px;
-			}
-		}
-	}
 	&-item {
 		border-left: 3px solid transparent;
 		margin-bottom: 10px;

@@ -1,10 +1,10 @@
-<div class="room-header">
+<div class="header">
 	<h1>
-		<small><?php echo $this->Config['general_community_name'] ?></small>
+		<small><?php echo $community_name ?></small>
 		<?php echo $room_info['name'] ?>
 	</h1>
 	<?php if($this->Session->IsMember()): ?>
-		<div class="room-header-buttons">
+		<div class="header-buttons">
 			<?php if($room_info['read_only']): ?>
 				<a class="btn btn-default btn-disabled font-w600"><?php __("R_READ_ONLY") ?></a>
 			<?php else: ?>
