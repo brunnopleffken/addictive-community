@@ -251,9 +251,23 @@ textarea.form-control {
 	&.btn-disabled, &[disabled] {
 		background-color: #ddd;
 		box-shadow: none;
-		color: #900;
+		color: #999;
 		cursor: not-allowed;
 		text-shadow: 1px 1px 0px #fff !important;
+		&:hover {
+			background-color: #ddd;
+			color: #999;
+		}
+		&:active {
+			background-color: #ddd;
+			box-shadow: none;
+		}
+	}
+	&.btn-cancel {
+		background-color: #ddd;
+		box-shadow: none;
+		color: #900;
+		text-shadow: 1px 1px 0px #eee !important;
 		&:hover {
 			background-color: #ccc;
 		}
