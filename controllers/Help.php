@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
 
 class Help extends Application
@@ -24,6 +25,9 @@ class Help extends Application
 	 */
 	public function Main()
 	{
+		$this->Core->redirect("404");
+		exit;
+
 		$_topics = array();
 
 		// Get help topics list
@@ -49,6 +53,9 @@ class Help extends Application
 	 */
 	public function View($id)
 	{
+		$this->Core->redirect("404");
+		exit;
+
 		// Get the topic
 		$this->Db->Query("SELECT * FROM c_help WHERE h_id = '{$id}';");
 		$help = $this->Db->Fetch();
