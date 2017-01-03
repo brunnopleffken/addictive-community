@@ -9,6 +9,8 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Html;
+
 // Type dot-dot is so boring...
 define("ROOT", "../../");
 

@@ -56,8 +56,8 @@ switch($task) {
 
 		// List of tables that should exist
 		$tables = array(
-			"c_attachments", "c_config", "c_emails", "c_emoticons",
-			"c_events", "c_follow", "c_help", "c_languages",
+			"c_attachments", "c_categories", "c_config", "c_emails",
+			"c_emoticons", "c_events", "c_help", "c_languages",
 			"c_logs", "c_members", "c_messages", "c_posts",
 			"c_ranks", "c_reports", "c_rooms", "c_sessions",
 			"c_stats", "c_templates", "c_themes", "c_threads",

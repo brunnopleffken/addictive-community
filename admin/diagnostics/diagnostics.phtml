@@ -36,7 +36,7 @@
 	<div class="wrapper">
 		<h1>Diagnostic Tool</h1>
 		<div id="content">
-			<?php echo Html::Notification("Run this tool just if you have a failed installation of Addictive Community, not before, otherwise you might get obvious errors of empty database or files.", "warning"); ?>
+			<?php echo \AC\Kernel\Html::Notification("Run this tool just if you have a failed installation of Addictive Community, not before, otherwise you might get obvious errors of empty database or files.", "warning"); ?>
 
 			<table class="table-list">
 				<tr>
@@ -76,11 +76,11 @@
 					<td><span id="env-apache">Not tested</span></td>
 				</tr>
 				<tr>
-					<td style="width:200px">Check PHP version</td>
+					<td style="width:200px">Check PHP version (>5.3)</td>
 					<td><span id="env-php">Not tested</span></td>
 				</tr>
 				<tr>
-					<td style="width:200px">Check MySQL version</td>
+					<td style="width:200px">Check MySQL version (>5.5)</td>
 					<td><span id="env-mysql">Not tested</span></td>
 				</tr>
 				<tr>
@@ -91,15 +91,14 @@
 
 			<div id="everything-ok" style="display: none">
 				<h3>Everything seems to be OK. If you're experiencing any problem, feel free to <a href="https://github.com/brunnopleffken/addictive-community/issues">report it on GitHub</a>.
-				<br>For security reasons, your installer were locked again. To rerun the Diagnostic Tool, delete the file 'installer/.lock'.</h3>
+				<br>For security reasons, your installer were locked again. To rerun the Diagnostic Tool, delete the file "installer/.lock" again.</h3>
 			</div>
 			<br>
 			<p>When <a href="https://github.com/brunnopleffken/addictive-community/issues/new">opening a new issue report</a>, please, copy and paste the information below (it doesn't contain sensitive information):</p>
 			<br>
-			<textarea rows="15" style="width: 800px; font-family: monospace; font-size: 11px" onclick="this.select()">ADDICTIVE COMMUNITY AND SERVER INFO
+			<textarea rows="15" style="width: 800px; font-family: monospace; font-size: 11px" onclick="this.select()" readonly>ADDICTIVE COMMUNITY AND SERVER INFO
 - Software version: Addictive Community <?php echo VERSION ?>;
 - Server software: <?php echo $_SERVER['SERVER_SOFTWARE'] ?>;
-- Document root: <?php echo $_SERVER['DOCUMENT_ROOT'] ?>;
 - PHP version: <?php echo PHP_VERSION ?>;
 
 APACHE MODULES
