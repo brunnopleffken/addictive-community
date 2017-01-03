@@ -217,15 +217,18 @@ class Community extends Application
 		$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
 		$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
 
-		// Look for threads where last_post_date is earlier than login time
-		$threads = $this->Db->Query("SELECT t_id, last_post_date FROM c_threads
-				WHERE room_id = {$room_id} AND last_post_date >= {$login_time_cookie};");
+		if($login_time_cookie) {
+			// Look for threads where last_post_date is earlier than login time
+			$threads = $this->Db->Query("SELECT t_id, last_post_date FROM c_threads
+					WHERE room_id = {$room_id} AND last_post_date >= {$login_time_cookie};");
 
-		while($result = $this->Db->Fetch($threads)) {
-			if($read_threads_cookie) {
-				$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
-				if(!in_array($result['t_id'], $read_threads)) {
-					$has_unread = true;
+			// Check if the returned threads has been already read
+			while($result = $this->Db->Fetch($threads)) {
+				if($read_threads_cookie) {
+					$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
+					if(!in_array($result['t_id'], $read_threads)) {
+						$has_unread = true;
+					}
 				}
 			}
 		}
