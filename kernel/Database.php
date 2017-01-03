@@ -307,7 +307,18 @@ class Database implements IDatabase
 	 */
 	public function Log()
 	{
-		return $this->log;
+		$template = "<table>";
+		foreach($this->log as $statement) {
+			$template .= "<tr>";
+			$template .= "<td colspan='2' style='font-size: 10px; white-space:nowrap'><strong>{$statement['sql']}</strong></td>";
+			$template .= "</tr><tr>";
+			$template .= "<td style='font-size:10px;white-space:nowrap;padding-bottom:10px'>{$statement['backtrace']['line']}</td>";
+			$template .= "<td style='font-size:10px;white-space:nowrap;padding-bottom:10px'>{$statement['backtrace']['file']}</td>";
+			$template .= "</tr>";
+		}
+		$template .= "</table>";
+
+		return $template;
 	}
 
 	/**
