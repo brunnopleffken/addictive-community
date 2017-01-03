@@ -15,6 +15,7 @@ namespace AC;
 
 use \AC\Kernel\Core;
 use \AC\Kernel\Database;
+use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
 use \AC\Kernel\Session;
@@ -64,15 +65,15 @@ class Main
 		spl_autoload_register('_AutoLoader', true, true);
 
 		// Load configuration file
-		if(is_file("config.php")) {
-			require_once("config.php");
+		if(is_file("config.ini")) {
+			$config = parse_ini_file("config.ini");
 		}
 		else {
 			Html::Error("Configuration file is missing.");
 		}
 
-		// If config.php is empty, go to Addictive Community installer
-		if(filesize("config.php") == 0 || empty($config)) {
+		// If config.ini is empty, go to Addictive Community installer
+		if(empty($config)) {
 			header("Location: install/");
 			exit;
 		}
