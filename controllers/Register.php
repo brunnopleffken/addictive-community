@@ -29,7 +29,7 @@ class Register extends Application
 	public function Main()
 	{
 		// Get step
-		$step = (!Http::Request("step")) ? 1 : Http::Request("step");
+		$step = (!Http::Request("step", true)) ? 1 : Http::Request("step", true);
 
 		// Notifications
 		$message_id = Http::Request("m", true);

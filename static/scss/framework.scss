@@ -366,7 +366,6 @@ textarea.form-control {
 
 .alert {
 	border: 1px solid transparent;
-	// font-size: 12px;
 	margin-bottom: 20px;
 	padding: 15px;
 	&:before {
@@ -706,5 +705,35 @@ ul.options-list {
 			opacity: 1;
 			text-decoration: none;
 		}
+	}
+}
+
+.step-box {
+	display: flex;
+	margin: auto;
+	margin-bottom: 10px;
+	& > div {
+		border-bottom: 2px solid $accent-darker;
+		flex: 1 1 auto;
+		padding: 10px 0;
+		text-align: center;
+		h3 {
+			margin-bottom: 2px;
+		}
+		small {
+			opacity: 0.8;
+		}
+		&.prev {
+			h3, small {
+				color: $default-lighter;
+			}
+		}
+		&.current {
+			background-color: $accent;
+			color: #fff;
+		}
+	}
+	@media (max-width: $xsmall) {
+		width: 100% !important;
 	}
 }

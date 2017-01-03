@@ -361,31 +361,41 @@ $(document).ready(function($) {
  * OUT-OF-SCOPE UTILS FUNCTIONS FOR GENERAL USAGE
  */
 
-/**
- * Check if passwords match
- */
-function CheckPassword() {
-	var password = $('#password').val();
-	var confirm = $('#password_conf').val();
-	if(password != confirm) {
-		$('#passwdMatch').fadeIn().css('display', 'inline-block');
-		$('#formSubmit').attr('disabled', 'disabled');
-	}
-	else {
-		$('#passwdMatch').fadeOut().css('display', 'none');
-		$('#formSubmit').attr('disabled', false);
-	}
-}
+var register = {
+	checkUsernamePassed: false,
+	checkPasswordPassed: false,
+	checkUsername: function() {
+		var username = $('#username').val();
+		if(username.length < 3 || username.length > 20) {
+			register.checkUsernamePassed = false;
+		}
+		else {
+			register.checkUsernamePassed = true;
+		}
 
-/**
- * Check username length (greater than 3 chars, enable submit button)
- */
-function CheckUsername() {
-	var username = $('#username').val();
-	if(username.length < 3 || username.length > 20) {
-		$('#formSubmit').attr('disabled', 'disabled');
+		register.enableSubmit();
+	},
+	checkPassword: function() {
+		var password = $('#password').val();
+		var confirm = $('#password_conf').val();
+
+		if(password != confirm) {
+			$('#passwdMatch').fadeIn().css('display', 'inline-block');
+			register.checkPasswordPassed = false;
+		}
+		else {
+			$('#passwdMatch').fadeOut().css('display', 'none');
+			register.checkPasswordPassed = true;
+		}
+
+		register.enableSubmit();
+	},
+	enableSubmit: function() {
+		if(register.checkUsernamePassed && register.checkPasswordPassed) {
+			$('#formSubmit').attr('disabled', false);
+		}
+		else {
+			$('#formSubmit').attr('disabled', 'disabled');
+		}
 	}
-	else {
-		$('#formSubmit').attr('disabled', false);
-	}
-}
+};
