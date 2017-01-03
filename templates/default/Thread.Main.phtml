@@ -292,13 +292,17 @@
 
 <div id="deleteThreadConfirm" style="display: none">
 	<form action="thread/delete_post" method="post">
-		<table class="table-list no-borders" style="width:350px; margin:0">
-			<tr>
-				<th>
-					<div class="fleft"><?php __("T_DELETE_POST") ?></div>
-					<div class="fright"><a href="javascript:jQuery.fancybox.close();" class="small-button grey white transition"><?php __("T_CLOSE") ?></a></div>
-				</th>
-			</tr>
+		<table class="table no-border" style="width:350px; margin:0">
+			<thead>
+				<tr>
+					<th>
+						<?php __("T_DELETE_POST") ?>
+						<div class="pull-right text-s0">
+							<a href="javascript:$.fancybox.close();" class="label invert"><?php __("T_CLOSE") ?></a>
+						</div>
+					</th>
+				</tr>
+			</thead>
 			<tr>
 				<td class="min"><?php __("T_DELETE_NOTICE") ?></td>
 			</tr>
@@ -307,7 +311,7 @@
 					<input type="hidden" name="pid" id="delete_post_id" value="">
 					<input type="hidden" name="tid" id="delete_thread_id" value="">
 					<input type="hidden" name="mid" id="delete_member_id" value="">
-					<input type="submit" value="<?php __("T_DELETE_POST") ?>">
+					<input type="submit" class="btn btn-default" value="<?php __("T_DELETE_POST") ?>">
 				</td>
 			</tr>
 		</table>

@@ -95,7 +95,7 @@ $(document).ready(function($) {
 		$('.fancybox').fancybox({
 			autoSize: true,
 			closeBtn: false,
-			modal: false,
+			modal: true,
 			padding: 2
 		});
 	} catch(e) {
@@ -129,13 +129,10 @@ $(document).ready(function($) {
 	}).call(this);
 
 	/**
-	 * CSS CLASSES FOR VALIDATION
-	 * input.url      Validates http://xxx.com or http://xxx.com.br
-	 * input.email    Validates me@me.com or me@me.com.br
-	 * input.numeric  Validates if the value is numeric only
+	 * HTML5 FORM VALIDATION
 	 */
 
-	 // Add 'novalidate' to all forms because we're using the custom one right below
+	// Add 'novalidate' to all forms because we're using the custom one right below
 	$('form').attr('novalidate', true);
 
 	$(document).on('submit', 'form', function(event) {

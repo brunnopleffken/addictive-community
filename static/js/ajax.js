@@ -10,7 +10,7 @@
  */
 
 
-$(document).ready(function() {
+(function() {
 	/**
 	 * REPLACE ALL REGULAR <select> FIELDS WITH A FANCY ONE
 	 */
@@ -70,100 +70,39 @@ $(document).ready(function() {
 	});
 
 	/**
-	 * CSS CLASSES FOR VALIDATION
-	 * input.url      Validates http://xxx.com or http://xxx.com.br
-	 * input.email    Validates me@me.com or me@me.com.br
-	 * input.numeric  Validates if the value is numeric only
+	 * HTML5 FORM VALIDATION
 	 */
 
-	$('form').on('submit', function(event) {
-		if($(this).hasClass('validate')) {
+	// Add 'novalidate' to all forms because we're using the custom one right below
+	$('form').attr('novalidate', true);
 
-			var stopSend = false;
+	$(document).on('submit', 'form', function(event) {
+		var stopSend = false;
+		var form = this;
 
-			// Validade INPUT text, INPUT password and TEXTAREAs
+		// Add .error to all invalid text fields
+		$(this).find('input:invalid').addClass('error');
+		$(this).find('textarea:invalid').addClass('error');
 
-			$(this).find('input[type=text], input[type=password], textarea, select').filter('.required').each(function(){
-				if(this.value == '') {
-					$(this).addClass('error');
-					stopSend = true;
-				}
-				else {
-					$(this).removeClass('error');
-				}
-			});
-
-			// Is the URL valid?
-
-			$(this).find('.url').filter('.required').each(function(){
-				var str = this.value;
-				var pattern = new RegExp(/(http:\/\/)([a-zA-Z0-9\._-]+\.)[a-zA-Z-0-9]{2,3}/);
-				var result = pattern.test(str);
-
-				if(!result) {
-					$(this).addClass('error');
-					stopSend = true;
-				}
-				else {
-					$(this).removeClass('error');
-				}
-			});
-
-			// Is the e-mail address valid?
-
-			$(this).find('.email').filter('.required').each(function(){
-				var str = this.value;
-				var pattern = new RegExp(/^[a-z0-9_\.\-]+\@[a-z0-9_\.\-]+\.[a-z]{2,3}$/gm);
-				var result = pattern.test(str);
-
-				if(!result) {
-					$(this).addClass('error');
-					stopSend = true;
-				}
-				else {
-					$(this).removeClass('error');
-				}
-			});
-
-			// Numeric only field
-
-			$(this).find('.numeric').filter('.required').each(function(){
-				var str = this.value;
-				var pattern = new RegExp(/([0-9]*)/);
-				var result = pattern.test(str);
-
-				if(!result) {
-					$(this).addClass('error');
-					stopSend = true;
-				}
-				else {
-					$(this).removeClass('error');
-				}
-			});
-
-			// Alphanumerics ONLY
-
-			$(this).find('.alphanumeric').filter('.required').each(function(){
-				var str = this.value;
-				var pattern = new RegExp(/([a-zA-Z0-9\s]*)/);
-				var result = pattern.test(str);
-
-				if(!result) {
-					$(this).addClass('error');
-					stopSend = true;
-				}
-				else {
-					$(this).removeClass('error');
-				}
-			});
-
-			// IF there is an error, show message!
-			// ...otherwise, send form as it should be
-
-			if(stopSend == true) {
-				event.preventDefault();
-				$(this).find('.error-message').css('display', 'inline-block').hide().fadeIn();
+		if(typeof tinymce.editors[0] != 'undefined' && tinymce.editors[0].id == 'post') {
+			// Validate TinyMCE textarea
+			if(tinymce.get('post').getContent() == "") {
+				$(this).find('.mce-edit-area').addClass('error');
+				stopSend = true;
 			}
+			else {
+				$(this).find('.mce-edit-area').removeClass('error');
+			}
+		}
+
+		// Check form validity
+		if(!form.checkValidity()) {
+			stopSend = true;
+		}
+
+		if(stopSend == true) {
+			event.preventDefault();
+			$(this).find('.error-message').fadeIn();
 		}
 	});
 
@@ -171,7 +110,9 @@ $(document).ready(function() {
 	 * REMOVE .error CLASS ON FOCUS (FOR input[type=text] ELEMENTS)
 	 */
 
-	$(document).on('focus', '.error', function() {
+	$('form').on('focus', '.error', function() {
 		$(this).removeClass('error');
+		$(document).find('.error-message').fadeOut();
 	});
-});
+
+}).call(this);
