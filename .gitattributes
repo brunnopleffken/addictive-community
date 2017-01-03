@@ -1,6 +1,9 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
+# Exclude vendor plugins and assets from language stats
+thirdparty/* linguist-vendored
+
 # Exclude these files from releases...
 .gitignore export-ignore
 .gitattributes export-ignore
