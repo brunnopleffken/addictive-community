@@ -1,16 +1,19 @@
-# Addictive Community files #
+# Addictive Community files
 /install/.lock
 /public/attachments/*
 /public/avatar/*
-config.php
+config.ini
 
 # Don't remove index.html files
 !index.html
 
-# Folder config file #
+# Node.js packages
+node_modules
+
+# Folder config file
 Desktop.ini
 
-# OS generated files #
+# OS generated files
 .DS_Store
 .DS_Store?
 ._*
@@ -18,6 +21,3 @@ Desktop.ini
 .Trashes
 ehthumbs.db
 Thumbs.db
-
-# Node
-node_modules
