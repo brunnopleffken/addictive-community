@@ -245,6 +245,15 @@ header {
 			font-size: 12px;
 			line-height: 1.4em;
 		}
+		&-moderators {
+			background: url('../images/moderators.png') no-repeat;
+			background-size: 13px 8px;
+			background-position: 0 1px;
+			color: $default-darker;
+			font-size: 12px;
+			margin-top: 10px;
+			padding-left: 19px;
+		}
 		&-stats {
 			font-size: 10px;
 			line-height: 12px;

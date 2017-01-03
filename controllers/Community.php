@@ -144,13 +144,13 @@ class Community extends Application
 
 			// Build moderators list
 			foreach($moderators as $member_id) {
-				$mod_details = $this->Db->Query("SELECT m_id, username FROM c_members WHERE m_id = {$member_id};");
-				$member = $this->Db->Fetch($mod_details);
+				$moderator_details = $this->Db->Query("SELECT m_id, username FROM c_members WHERE m_id = {$member_id};");
+				$member = $moderator_details->fetch_assoc();
 
 				$moderator_list[] = "<a href='profile/{$member['m_id']}'>{$member['username']}</a>";
 			}
 
-			$result['moderators_list'] = "<div class='moderators'>Moderators: " . Text::ToList($moderator_list) . "</div>";
+			$result['moderators_list'] = "<div class='community-info-moderators'>" . i18n::Translate("C_MODERATORS") . ": " . Text::ToList($moderator_list) . "</div>";
 		}
 		else {
 			$result['moderators_list'] = "";
