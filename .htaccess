@@ -4,6 +4,11 @@ Options -Indexes
 ErrorDocument 404 /404
 ErrorDocument 500 /500
 
+<Files "config.ini">
+  Order Allow,Deny
+  Deny from all
+</Files>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 

@@ -18,22 +18,22 @@ $result = false;
 // Run tasks
 switch($task) {
 	case 'config-exists':
-		if(file_exists("../../config.php")) {
+		if(file_exists("../../config.ini")) {
 			$result = true;
 		}
 		$status = array("status" => $result);
 		break;
 
 	case 'config-has-data':
-		require("../../config.php");
-		if(filesize("../../config.php") > 0 && !empty($config)) {
+		$config = parse_ini_file("../../config.ini");
+		if(filesize("../../config.ini") > 0 && !empty($config)) {
 			$result = true;
 		}
 		$status = array("status" => $result);
 		break;
 
 	case 'db-connect':
-		require("../../config.php");
+		$config = parse_ini_file("../../config.ini");
 		$link = mysqli_connect($config['db_server'], $config['db_username'], $config['db_password']);
 		if($link) {
 			$result = true;
@@ -42,7 +42,7 @@ switch($task) {
 		break;
 
 	case 'db-database':
-		require("../../config.php");
+		$config = parse_ini_file("../../config.ini");
 		$link = mysqli_connect($config['db_server'], $config['db_username'], $config['db_password']);
 		$query = mysqli_query($link, "SHOW DATABASES LIKE '{$config['db_database']}';");
 		if(mysqli_num_rows($query) > 0) {
@@ -52,7 +52,7 @@ switch($task) {
 		break;
 
 	case 'db-tables':
-		require("../../config.php");
+		$config = parse_ini_file("../../config.ini");
 
 		// List of tables that should exist
 		$tables = array(
@@ -92,7 +92,7 @@ switch($task) {
 		break;
 
 	case 'env-mysql':
-		require("../../config.php");
+		$config = parse_ini_file("../../config.ini");
 		$link = mysqli_connect($config['db_server'], $config['db_username'], $config['db_password']);
 		if(version_compare($link->server_info, 5.5) >= 0) {
 			$result = true;

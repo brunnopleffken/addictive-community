@@ -25,12 +25,12 @@ Free open-source discussion board (forum) software, written in object-oriented P
 ## Installing
 
 1. [Download](https://github.com/brunnopleffken/addictive-community/releases) the latest version of Addictive Community. Upload all the files contained in this archive (retaining the directory structure).
-2. Change the following files and directories permissions to read and write (CHMOD 777 or -rwxrwxrwx): `config.php`, `/install`, `/public/attachments` and `/public/avatar`.
+2. Change the following files and directories permissions to read and write (CHMOD 777 or -rwxrwxrwx): `config.ini`, `/install`, `/public/attachments` and `/public/avatar`.
 3. Run your Addictive Community (e.g. http://www.mywebsite.com/forum). You should be redirected to the installer (if not, read the note below). Please, have the login data of the MySQL server (host server, username and password), as well as the database name.
 4. Follow the steps and wait until the installer gets your community ready.
 5. Enjoy your fresh install of Addictive Community!
 
-*NOTE: If you are not redirected to the installer, make sure your config.php file is empty.*
+*NOTE: If you are not redirected to the installer, make sure your config.ini file is empty.*
 
 *NOTE #2: For production environment never use `git clone` nor download ZIP from `development` branch. Always download the ZIP file of the [latest official release](https://github.com/brunnopleffken/addictive-community/releases).*
 

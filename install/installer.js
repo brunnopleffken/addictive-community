@@ -69,8 +69,6 @@ $(document).ready(function($) {
 function eula() {
 	var checkbox = document.getElementById("agree");
 
-	console.log(checkbox.checked);
-
 	if(checkbox.checked == false) {
 		alert("You must agree to the EULA to proceed with installation.");
 		return false;

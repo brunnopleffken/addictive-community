@@ -33,7 +33,9 @@ if($_SESSION['admin_time'] < (time() - 60 * 30)) {
 
 // Call required files
 require_once("../init.php");
-require_once("../config.php");
+
+// Load configuration file
+$config = parse_ini_file("../config.ini");
 
 // Define autoloader
 spl_autoload_register('_AutoLoader', true, true);

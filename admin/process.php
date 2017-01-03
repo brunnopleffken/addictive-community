@@ -32,9 +32,7 @@ if($_SESSION['admin_time'] < (time() - 60 * 30)) {
 }
 
 // Call files, classes, functions, etc
-
 require_once("../init.php");
-require_once("../config.php");
 require_once("../kernel/Admin.php");
 require_once("../kernel/Core.php");
 require_once("../kernel/Html.php");
@@ -42,6 +40,10 @@ require_once("../kernel/Http.php");
 require_once("../kernel/Text.php");
 require_once("../kernel/Database.php");
 
+// Load configuration file
+$config = parse_ini_file("../config.ini");
+
+// Load classes
 $Db = new Database();
 $Core = new Core($Db, $config);
 $Admin = new Admin($Db);

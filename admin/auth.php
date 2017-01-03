@@ -14,14 +14,14 @@ use \AC\Kernel\Http;
 use \AC\Kernel\Text;
 
 // Include files...
-
-require_once("../config.php");
 require_once("../kernel/Text.php");
 require_once("../kernel/Http.php");
 require_once("../kernel/Database.php");
 
-// Load MySQL driver and connect
+// Load configuration file
+$config = parse_ini_file("../config.ini");
 
+// Load MySQL driver and connect
 $Db = new Database();
 $Db->Connect($config);
 
