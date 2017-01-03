@@ -61,7 +61,7 @@
 	$t["T_MOD_DELETE_MESSAGE"] = "Are you sure you want to delete this thread? This action CANNOT be undone!";
 	$t["T_AUTO_TITLE"] = "Set thread auto-open/lock date";
 	$t["T_AUTO_DESCRIPTION"] = "Define when the thread will be opened and locked. To not use this feature, leave all fields as is.";
-	$t["T_AUTO_DETAILS"] = "NOTE: The thread opening/lock dates are based on the default timezone of the community (currently set as <strong>%s hours</strong> in <a href='admin/' target='_blank'>Admin CP</a>), not the member's timezone. This is to ensure all members will be visualizing the thread at the same time.";
+	$t["T_AUTO_DETAILS"] = "NOTE: The thread opening/lock dates are based on the default community timezone (currently set as <strong>%s hours</strong> in <a href='admin/' target='_blank'>Admin CP</a>), not the member's timezone. This is to ensure that all members view the topic at the same time regardless of where they are.";
 	$t["T_AUTO_OPEN_AT"] = "Open at... <small>(leave blank to post immediately)</small>";
 	$t["T_AUTO_CLOSE_AT"] = "And lock at... <small>(leave blank to not set a locking time)</small>";
 ?>

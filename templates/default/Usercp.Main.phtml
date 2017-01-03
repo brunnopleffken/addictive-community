@@ -1,46 +1,49 @@
-<div class="title-bar">
-	<div class="title">
-		<span><?php __($community_name) ?></span><?php __("C_TITLE") ?>
+<h1>
+	<small><?php echo $community_name ?></small>
+	<?php __("C_TITLE") ?>
+</h1>
+
+<div class="block padding-no">
+	<div class="nav">
+		<div class="nav-top">
+			<a href="usercp" class="<?php __($menu[0]) ?>"><?php __("C_SUMMARY") ?></a>
+			<a href="usercp/profile" class="<?php __($menu[1]) ?>"><?php __("C_PROFILE") ?></a>
+			<a href="usercp/photo" class="<?php __($menu[2]) ?>"><?php __("C_PHOTO") ?></a>
+			<a href="usercp/signature" class="<?php __($menu[3]) ?>"><?php __("C_SIGNATURE") ?></a>
+			<a href="usercp/settings" class="<?php __($menu[4]) ?>"><?php __("C_SETTINGS") ?></a>
+			<a href="usercp/password" class="<?php __($menu[5]) ?>"><?php __("C_PASSWORD") ?></a>
+		</div>
 	</div>
-</div>
-
-<div class="navigation">
-	<div class="navbar">
-		<a href="usercp" class="<?php __($menu[0]) ?>"><?php __("C_SUMMARY") ?></a>
-		<a href="usercp/profile" class="<?php __($menu[1]) ?>"><?php __("C_PROFILE") ?></a>
-		<a href="usercp/photo" class="<?php __($menu[2]) ?>"><?php __("C_PHOTO") ?></a>
-		<a href="usercp/signature" class="<?php __($menu[3]) ?>"><?php __("C_SIGNATURE") ?></a>
-		<a href="usercp/settings" class="<?php __($menu[4]) ?>"><?php __("C_SETTINGS") ?></a>
-		<a href="usercp/password" class="<?php __($menu[5]) ?>"><?php __("C_PASSWORD") ?></a>
+	<div class="block-nav-content">
+		<h2><?php __("C_ACCOUNT_SUMMARY") ?></h2>
+		<table class="table">
+			<tbody>
+				<tr>
+					<td class="min text-muted"><?php __("C_TOTAL_POSTS") ?></td>
+					<td><?php echo $posts_total ?> <?php __("C_POSTS") ?></td>
+				</tr>
+				<tr>
+					<td class="min text-muted"><?php __("C_REGISTERED") ?></td>
+					<td><?php echo $register_date ?></td>
+				</tr>
+				<tr>
+					<td class="min text-muted"><?php __("C_AVERAGE_POSTS") ?></td>
+					<td><?php echo $posts_average ?> <?php __("C_POSTS_PER_DAY") ?></td>
+				</tr>
+			</tbody>
+		</table>
+		<h2><?php __("C_PM_SUMMARY") ?></h2>
+		<table class="table">
+			<tbody>
+				<tr>
+					<td class="min text-muted"><?php __("C_PM_TOTAL") ?></td>
+					<td><?php echo $pm_total ?> <?php __("C_PM_MESSAGES") ?></td>
+				</tr>
+				<tr>
+					<td class="min text-muted"><?php __("C_PM_LEFT") ?></td>
+					<td><?php echo $pm_space_left ?></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
-</div>
-
-<div class="box no-shadow usercp-summary">
-	<h2><?php __("C_ACCOUNT_SUMMARY") ?></h2>
-	<table class="table-list no-shadow">
-		<tr>
-			<td class="table-label"><?php __("C_TOTAL_POSTS") ?></td>
-			<td><?php echo $posts_total ?> <?php __("C_POSTS") ?></td>
-		</tr>
-		<tr>
-			<td class="table-label"><?php __("C_REGISTERED") ?></td>
-			<td><?php echo $register_date ?></td>
-		</tr>
-		<tr>
-			<td class="table-label"><?php __("C_AVERAGE_POSTS") ?></td>
-			<td><?php echo $posts_average ?> <?php __("C_POSTS_PER_DAY") ?></td>
-		</tr>
-	</table>
-
-	<h2><?php __("C_PM_SUMMARY") ?></h2>
-	<table class="table-list no-shadow">
-		<tr>
-			<td class="table-label"><?php __("C_PM_TOTAL") ?></td>
-			<td><?php echo $pm_total ?> <?php __("C_PM_MESSAGES") ?></td>
-		</tr>
-		<tr>
-			<td class="table-label"><?php __("C_PM_LEFT") ?></td>
-			<td><?php echo $pm_space_left ?></td>
-		</tr>
-	</table>
 </div>

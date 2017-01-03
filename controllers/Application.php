@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Html;
 use \AC\Kernel\i18n;
 use \AC\Kernel\Text;
 
@@ -102,6 +103,9 @@ class Application
 		// SIDEBAR: get community statistics
 		$this->_GetStats();
 
+		// Get emoticons
+		$this->_GetEmoticons();
+
 		// Is community offline?
 		if($this->Core->config['general_offline']) {
 			if(!strstr($_SERVER['REQUEST_URI'], "error")) {
@@ -134,11 +138,11 @@ class Application
 		// If member is logged in
 		if($this->Session->IsMember()) {
 			// Get user avatar
-			$this->Session->member_info['avatar'] = $this->Core->GetAvatar($this->Session->member_info, 60);
+			$this->Session->member_info['avatar'] = $this->Core->GetAvatar($this->Session->member_info, 80);
 
 			// Number of new private messages
 			$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages
-					WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 1;");
+					WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 0;");
 
 			$unread_messages = $this->Db->Fetch();
 
@@ -223,5 +227,29 @@ class Application
 		$_stats['lastmembername'] = $stats_result_temp['username'];
 
 		$this->Set("stats", $_stats);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * GET LIST OF EMOTICONS (REQUIRED FOR TINYMCE)
+	 * --------------------------------------------------------------------
+	 */
+	private function _GetEmoticons()
+	{
+		$emoticons = array();
+		$this->Db->Query("SELECT * FROM c_emoticons WHERE display = 1;");
+
+		$add_quotes = function($value) {
+			return "'{$value}'";
+		};
+
+		while($emoticon = $this->Db->Fetch()) {
+			$emoticons[] = $emoticon['filename'];
+		}
+
+		$emoticons = array_map($add_quotes, $emoticons);
+
+		$this->Set("emoticon_dir", $this->Core->config['emoticon_default_set']);
+		$this->Set("emoticon_set", array_chunk($emoticons, 4));
 	}
 }

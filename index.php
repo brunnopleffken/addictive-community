@@ -84,7 +84,7 @@ class Main
 		// Get query strings from URL
 		$this->controller = strtolower(Http::Request("c"));
 		$this->action = strtolower(Http::Request("act"));
-		$this->id = strtolower(Http::Request("id"));
+		$this->id = Http::Request("id", true);
 
 		// If there isn't any controller defined
 		if(!$this->controller) {

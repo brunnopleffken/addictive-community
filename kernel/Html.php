@@ -165,15 +165,19 @@ class Html
 	{
 		switch($code) {
 			case "warning":
+				$class = "alert-warning";
 				$title = "WARNING!";
 				break;
 			case "success":
+				$class = "alert-success";
 				$title = "SUCCESS!";
 				break;
 			case "failure":
+				$class = "alert-danger";
 				$title = "ERROR!";
 				break;
 			case "info":
+				$class = "alert-info";
 				$title = "INFORMATION:";
 				break;
 		}
@@ -183,7 +187,7 @@ class Html
 		if($custom_title != "") {
 			$title = $custom_title;
 		}
-		$html = "<div class='notification " . $code . " " . $persistent . "'><p><strong>" . $title . "</strong> " . $message . "</p></div>";
+		$html = "<div class='alert {$class} {$persistent}'><strong>{$title}</strong> {$message}</div>";
 
 		return $html;
 	}
@@ -203,9 +207,13 @@ class Html
 	 * CROP IMAGE TO FILL AREA
 	 * --------------------------------------------------------------------
 	 */
-	public static function Crop($image, $w = 0, $h = 0, $class = "")
+	public static function Crop($image, $size = 0, $class = "")
 	{
-		return "<div style=\"display:inline-block; width:{$w}px; height:{$h}px; background: url('{$image}') no-repeat center top; background-size:cover; image-rendering: optimizeQuality;\" class='{$class}'></div>";
+		if($image == "public/avatar/") {
+			$image = "static/images/no-photo.png";
+		}
+
+		return "<div style=\"display:block; width:{$size}px; height:{$size}px; background: url('{$image}') no-repeat center top; background-size:cover\" class='crop {$class}'></div>";
 	}
 
 	/**
@@ -217,5 +225,30 @@ class Html
 	{
 		echo "<h1>Error!</h1><p>" . $message . "</p><hr><em>Addictive Community - (c) " . date("Y") . " All rights reserved.</em>";
 		exit;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * BUILD PAGINATION
+	 * --------------------------------------------------------------------
+	 */
+	public static function Paginate($number_of_pages, $current_page, $url, $label = true)
+	{
+		$template = "<ul class=\"pagination\">";
+
+		if($label) {
+			$template .= "<li class=\"label\">Pages:</li>";
+		}
+
+		for($i = 1; $i <= $number_of_pages; $i++) {
+			$class = $current_page == $i ? "class=\"active\"" : "";
+			$formatted_url = sprintf($url, $i);
+
+			$template .= "<li {$class}><a href=\"{$formatted_url}\">{$i}</a></li>";
+		}
+
+		$template .= "</ul>";
+
+		return $template;
 	}
 }

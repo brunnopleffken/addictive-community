@@ -1,37 +1,60 @@
-<div class="title-bar">
-	<div class="title">
-		<span><?php __($community_name) ?></span>
-		<?php __("C_TITLE") ?>: <?php __("C_ADD") ?>
-	</div>
-</div>
+<h1>
+	<small><?php echo $community_name ?></small>
+	<?php __("C_TITLE") ?>: <?php __("C_ADD") ?>
+</h1>
 
-<div class="box">
-	<form action="calendar/save" method="post" class="validate">
-		<div class="input-box">
-			<div class="label"><?php __("C_NEW_TITLE") ?></div>
-			<div class="field"><input type="text" name="title" class="large required"></div>
+<div class="block">
+	<form action="calendar/save" method="post">
+		<div class="form-group grid">
+			<label for="teste" class="col-2"><?php __("C_NEW_TITLE") ?></label>
+			<div class="col-6">
+				<input type="text" name="title" class="form-control" required>
+			</div>
 		</div>
-		<div class="input-box">
-			<div class="label"><?php __("C_NEW_DATE") ?></div>
-			<div class="field">
+		<div class="form-group grid">
+			<label for="teste" class="col-2"><?php __("C_NEW_DATE") ?></label>
+			<div class="col-10">
 				<?php
-					__(\AC\Kernel\Html::Days("day", date("d")) . " ");
-					__(\AC\Kernel\Html::Months("month", false, date("m")) . " ");
-					__(\AC\Kernel\Html::Years("year", 0, 3)) . __("C_NEW_AT");
-					__(\AC\Kernel\Html::Hours("hour") . ":");
-					__(\AC\Kernel\Html::Minutes("minute"));
+					echo \AC\Kernel\Html::Days("day", date("d")) . " ";
+					echo \AC\Kernel\Html::Months("month", false, date("m")) . " ";
+					echo \AC\Kernel\Html::Years("year", 0, 3);
+					echo "<span class='form-control-static'>&nbsp;";
+						__("C_NEW_AT");
+					echo "&nbsp;</span>";
+					echo \AC\Kernel\Html::Hours("hour") . " : ";
+					echo \AC\Kernel\Html::Minutes("minute");
 				?>
 			</div>
 		</div>
-		<div class="input-box">
-			<div class="label"><?php __("C_NEW_TYPE") ?></div>
-			<div class="field">
-				<select name="type" class="select2 select2-no-search medium">
+		<div class="form-group grid">
+			<label for="teste" class="col-2"><?php __("C_NEW_TYPE") ?></label>
+			<div class="col-4">
+				<select name="type" class="select2 select2-no-search span-12">
 					<option value="public"><?php __("C_NEW_PUBLIC") ?></option>
 					<option value="private"><?php __("C_NEW_PRIVATE") ?></option>
 				</select>
 			</div>
 		</div>
+		<div class="form-group grid">
+			<label for="teste" class="col-2"><?php __("C_NEW_DESC") ?></label>
+			<div class="col-6">
+				<textarea name="text" rows="8" class="form-control" required></textarea>
+			</div>
+		</div>
+		<div class="pull-clear">
+			<div class="pull-left">
+				<div class="error-message"><?php __("C_NEW_ERROR") ?></div>
+			</div>
+			<div class="pull-right">
+				<input type="submit" class="btn btn-default" value="<?php __("C_ADD") ?>">
+			</div>
+		</div>
+	</form>
+</div>
+
+<!--
+<div class="box">
+	<form action="calendar/save" method="post" class="validate">
 		<div class="input-box">
 			<div class="label"><?php __("C_NEW_DESC") ?></div>
 			<div class="field">
@@ -44,3 +67,4 @@
 		<div class="fright"><input type="submit" value="<?php __("C_ADD") ?>"></div>
 	</form>
 </div>
+-->

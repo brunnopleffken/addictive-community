@@ -54,7 +54,8 @@ class Text
 	public static function RemoveHTMLElements($text)
 	{
 		// Dangerous HTML elements
-		$text = str_replace("<!--", "", $text);
+		$text = str_replace("<!--", "&lt;!--", $text);
+		$text = str_replace("-->", "--&gt;", $text);
 		$text = preg_replace("/(<\?php|<\?=|\?>)/", "", $text); // No PHP open/close tags
 		$text = preg_replace("/(<script>|<\/script>)/", "", $text); // No JS
 		$text = preg_replace("/(<applet>|<\/applet>|<object>|<\/object>|<embed>|<\/embed>)/", "", $text); // No embedded elements

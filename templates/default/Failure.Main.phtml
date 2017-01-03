@@ -1,72 +1,78 @@
-<div class="title-bar">
-	<div class="title">
-		<span><?php __($community_name) ?></span><?php __($title) ?>
-	</div>
-</div>
+<h1>
+	<small><?php echo $community_name ?></small>
+	<?php echo $title ?>
+</h1>
 
 <?php __($error) ?>
 
 <?php if($action == "login"): ?>
-	<form action="login/authenticate" method="post" class="validate">
-		<div class="box">
-			<div class="input-box">
-				<div class="label"><?php __("E_USERNAME") ?></div>
-				<div class="field"><input type="text" name="username" class="required medium"></div>
+	<form action="login/authenticate" method="post">
+		<div class="block">
+			<div class="form-group grid">
+				<label for="teste" class="col-2"><?php __("E_USERNAME") ?></label>
+				<div class="col-4">
+					<input type="text" name="username" class="form-control" required>
+				</div>
 			</div>
-			<div class="input-box">
-				<div class="label"><?php __("E_PASSWORD") ?></div>
-				<div class="field"><input type="password" name="password" class="required medium"></div>
+			<div class="form-group grid">
+				<label for="teste" class="col-2"><?php __("E_PASSWORD") ?></label>
+				<div class="col-4">
+					<input type="password" name="password" class="form-control" required>
+				</div>
 			</div>
-			<div class="fleft">
-				<div class="error-message"><?php __("E_LOGIN_ERROR") ?></div>
-			</div>
-			<div class="fright">
-				<input type="hidden" name="exception_referrer" value="true">
-				<input type="submit" value="<?php __("E_LOGIN") ?>">
+			<div class="pull-clear">
+				<div class="pull-left">
+					<div class="error-message"><?php __("E_LOGIN_ERROR") ?></div>
+				</div>
+				<div class="pull-right">
+					<input type="submit" value="<?php __("E_LOGIN") ?>" class="btn btn-default">
+				</div>
 			</div>
 		</div>
 	</form>
 <?php elseif($action == "protected"): ?>
-	<form action="room/unlock" method="post" class="validate">
-		<div class="box">
-			<div class="input-box">
-				<div class="label"><?php __("E_PASSWORD") ?></div>
-				<div class="field"><input type="password" name="password" class="required medium"></div>
+	<form action="room/unlock" method="post">
+		<div class="block">
+			<div class="form-group grid">
+				<label for="teste" class="col-2"><?php __("E_PASSWORD") ?></label>
+				<div class="col-4">
+					<input type="password" name="password" class="form-control" required>
+				</div>
 			</div>
-			<div class="fright">
+			<div class="text-right">
 				<input type="hidden" name="room" value="<?php echo $_GET['room'] ?>">
-				<input type="submit" value="<?php __("E_PROCEED") ?>">
+				<input type="submit" value="<?php __("E_PROCEED") ?>" class="btn btn-default">
 			</div>
 		</div>
 	</form>
 <?php elseif($action == "offline"): ?>
-	<div class="box center" style='padding: 40px 0'>
+	<div class="block text-center" style='padding: 40px 0'>
 		<i class="fa fa-user-times" style="font-size: 50px"></i><br><br>
 		<h2><?php __("E_OFFLINE_TITLE") ?></h2><br>
 		<h3><?php __("E_OFFLINE_MESSAGE", $community_name) ?></h3>
 	</div>
 <?php elseif($action == "update"): ?>
-	<div class="box center" style='padding: 40px 0'>
-		<i class="fa fa-refresh" style="font-size: 50px"></i><br><br>
+	<div class="block text-center" style='padding: 40px 0'>
+		<i class="fa fa-refresh fa-spin" style="font-size: 50px"></i><br><br>
 		<h2><?php __("E_UPDATING") ?></h2><br>
-		<h3><?php __("E_UPDATING_MESSAGE", $community_name) ?></h3>
+		<h3><?php __("E_UPDATING_MESSAGE") ?></h3>
 	</div>
 <?php elseif($action == "deleted"): ?>
-	<div class="box center" style='padding: 40px 0'>
+	<div class="block text-center" style='padding: 40px 0'>
 		<i class="fa fa-user-times" style="font-size: 50px"></i><br><br>
 		<h2><?php __("E_DELETED") ?></h2><br>
-		<h3><?php __("E_DELETED_MESSAGE", $community_name) ?></h3>
+		<h3><?php __("E_DELETED_MESSAGE") ?></h3>
 	</div>
 <?php elseif($action == "404"): ?>
-	<div class="box center" style='padding: 40px 0'>
+	<div class="block text-center" style='padding: 40px 0'>
 		<i class="fa fa-meh-o" style="font-size: 50px"></i><br><br>
 		<h2><?php __("E_NOT_FOUND") ?></h2><br>
-		<h3><?php __("E_NOT_FOUND_MESSAGE", $community_name) ?></h3>
+		<h3><?php __("E_NOT_FOUND_MESSAGE") ?></h3>
 	</div>
 <?php elseif($action == "500"): ?>
-	<div class="box center" style='padding: 40px 0'>
+	<div class="block text-center" style='padding: 40px 0'>
 		<i class="fa fa-exclamation-triangle" style="font-size: 50px"></i><br><br>
 		<h2><?php __("E_SERVER_ERROR") ?></h2><br>
-		<h3><?php __("E_SERVER_ERROR_MESSAGE", $community_name) ?></h3>
+		<h3><?php __("E_SERVER_ERROR_MESSAGE") ?></h3>
 	</div>
 <?php endif; ?>

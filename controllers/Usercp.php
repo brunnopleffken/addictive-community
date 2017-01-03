@@ -45,7 +45,7 @@ class Usercp extends Application
 	public function Main()
 	{
 		// Define selected menu item
-		$menu = array("selected", "", "", "", "", "");
+		$menu = array("active", "", "", "", "", "");
 
 		// Get total posts
 		$posts_total = $this->Session->member_info['posts'];
@@ -88,7 +88,7 @@ class Usercp extends Application
 	public function Profile()
 	{
 		// Define selected menu item
-		$menu = array("", "selected", "", "", "", "");
+		$menu = array("", "active", "", "", "", "");
 
 		// Define messages
 		$message_id = Http::Request("m", true);
@@ -128,7 +128,7 @@ class Usercp extends Application
 	public function Photo()
 	{
 		// Define selected menu item
-		$menu = array("", "", "selected", "", "", "");
+		$menu = array("", "", "active", "", "", "");
 
 		// Define messages
 		$message_id = Http::Request("m", true);
@@ -136,21 +136,28 @@ class Usercp extends Application
 			Html::Notification(i18n::Translate("C_MESSAGE_2"), "success")
 		);
 
-		// Gravatar or custom photo?
-		$photo_info['gravatar'] = "";
-		$photo_info['custom']   = "";
-
+		// Member has selected Gravatar or custom photo?
 		if($this->Session->member_info['photo_type'] == "gravatar") {
 			$photo_info['gravatar'] = "checked";
+			$photo_info['custom']   = "";
 		}
 		else {
+			$photo_info['gravatar'] = "";
 			$photo_info['custom'] = "checked";
 		}
 
+		// If custom photo is blank, show placeholder instead
+		if($this->Session->member_info['photo'] == "") {
+			$photo_info['photo'] = "static/images/no-photo.png";
+		}
+		else {
+			$photo_info['photo'] = "public/avatar/" . $photo_info['photo'];
+		}
+
 		// Gravatar image
-		$photo_choose = $this->Session->member_info;
-		$photo_choose['photo_type'] = "gravatar";
-		$photo_info['gravatar_image'] = $this->Core->GetAvatar($photo_choose, 240);
+		$tmp = $this->Session->member_info;
+		$tmp['photo_type'] = "gravatar";
+		$photo_info['gravatar_image'] = $this->Core->GetAvatar($tmp, 240);
 
 		// Page info
 		$page_info['title'] = i18n::Translate("C_TITLE");
@@ -172,7 +179,7 @@ class Usercp extends Application
 	public function Signature()
 	{
 		// Define selected menu item
-		$menu = array("", "", "", "selected", "", "");
+		$menu = array("", "", "", "active", "", "");
 
 		// Define messages
 		$message_id = Http::Request("m", true);
@@ -198,7 +205,7 @@ class Usercp extends Application
 	public function Settings()
 	{
 		// Define selected menu item
-		$menu = array("", "", "", "", "selected", "");
+		$menu = array("", "", "", "", "active", "");
 
 		// Define messages
 		$message_id = Http::Request("m", true);
@@ -282,7 +289,7 @@ class Usercp extends Application
 	public function Password()
 	{
 		// Define selected menu item
-		$menu = array("", "", "", "", "", "selected");
+		$menu = array("", "", "", "", "", "active");
 
 		// Define messages
 		$message_id = Http::Request("m", true);

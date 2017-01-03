@@ -58,7 +58,7 @@ class Messenger extends Application
 			$selected_folder[1] = "class='selected'";
 
 			// Select SENT personal messages
-			$this->Db->Query("SELECT m.pm_id, m.to_id, m.subject, m.status, m.sent_date, u.username
+			$messages = $this->Db->Query("SELECT m.pm_id, m.to_id, m.subject, m.status, m.sent_date, u.username
 					FROM c_messages m INNER JOIN c_members u ON (m.to_id = u.m_id)
 					WHERE m.from_id = '{$this->member_id}' ORDER BY m.sent_date DESC;");
 		}
@@ -67,25 +67,23 @@ class Messenger extends Application
 			$selected_folder[1] = "";
 
 			// Select INBOX personal messages
-			$this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username
+			$messages = $this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username
 					FROM c_messages m INNER JOIN c_members u ON (m.from_id = u.m_id)
 					WHERE m.to_id = '{$this->member_id}' ORDER BY m.sent_date DESC;");
 		}
 
-		// Number of results
-		$num_results = $this->Db->Rows();
-
 		// Used storage
+		$number_of_messages = $messages->num_rows;
 		$max_storage_size = $this->Core->config['member_pm_storage'];
-		$percentage_width = (200 / $max_storage_size) * $num_results . "px";
+		$percentage_width = (100 / $max_storage_size) * $number_of_messages . "%";
 
 		// Results
 		$results = array();
 
-		while($result = $this->Db->Fetch()) {
-			$result['icon_class'] = ($result['status'] == 1 && $folder == "inbox") ? "fa-envelope" : "fa-envelope-o";
-			$result['subject']    = ($result['status'] == 1 && $folder == "inbox") ? "<b>" . $result['subject'] . "<b>" : $result['subject'];
-			$result['sent_date']  = $this->Core->DateFormat($result['sent_date']);
+		while($result = $messages->fetch_assoc()) {
+			$result['icon_class'] = ($result['status'] == 0 && $folder == "inbox") ? "fa-envelope" : "fa-envelope-o";
+			$result['subject'] = ($result['status'] == 0 && $folder == "inbox") ? "<b>" . $result['subject'] . "<b>" : $result['subject'];
+			$result['sent_date'] = $this->Core->DateFormat($result['sent_date']);
 			$results[] = $result;
 		}
 
@@ -97,7 +95,7 @@ class Messenger extends Application
 		// Return variables
 		$this->Set("folder", $folder);
 		$this->Set("selected_folder", $selected_folder);
-		$this->Set("num_results", $num_results);
+		$this->Set("num_results", $number_of_messages);
 		$this->Set("max_storage_size", $max_storage_size);
 		$this->Set("percentage_width", $percentage_width);
 		$this->Set("results", $results);
@@ -112,25 +110,25 @@ class Messenger extends Application
 	public function Read($id)
 	{
 		// Get message info and post
-		$this->Db->Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type
+		$post = $this->Db->Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type
 				FROM c_messages p LEFT JOIN c_members m ON (p.from_id = m.m_id)
 				WHERE pm_id = {$id} AND (to_id = {$this->member_id} OR from_id = {$this->member_id});");
 
-		if($this->Db->Rows() == 1) {
-			$message = $this->Db->Fetch();
+		if($post->num_rows == 1) {
+			$message = $post->fetch_assoc();
 
 			// If not, set message as read
-			if($message['status'] == 1) {
+			if($message['status'] == 0) {
 				$time = time();
 				$this->Db->Update("c_messages", array(
-					"status = 0",
+					"status = 1",
 					"read_date = {$time}"
 				), "pm_id = {$id}");
 			}
 
 			// Format content
 			$message['sent_date'] = $this->Core->DateFormat($message['sent_date']);
-			$message['avatar'] = $this->Core->GetAvatar($message, 96);
+			$message['avatar'] = $this->Core->GetAvatar($message, 198);
 		}
 		else {
 			$this->Core->Redirect("messenger?m=2");
@@ -167,19 +165,20 @@ class Messenger extends Application
 	public function GetUsernames()
 	{
 		$this->layout = false;
+		$users = array();
 
 		// Get member name
+		$member_id = $this->Session->session_info['member_id'];
 		$term = Http::Request("term");
 
 		// Get list of usernames
-		$this->Db->Query("SELECT m_id, username FROM c_members WHERE username LIKE '%{$term}%' AND usergroup <> 0;");
+		$result = $this->Db->Query("SELECT m_id, username FROM c_members
+				WHERE username LIKE '%{$term}%' AND usergroup <> 0 AND m_id <> {$member_id};");
 
-		$users = array();
-
-		while($result = $this->Db->Fetch()) {
+		while($row = $result->fetch_assoc()) {
 			$users[] = array(
-				"m_id"     => $result['m_id'],
-				"username" => $result['username']
+				"m_id"     => $row['m_id'],
+				"username" => $row['username']
 			);
 		}
 
@@ -200,7 +199,7 @@ class Messenger extends Application
 			"from_id"   => $this->member_id,
 			"to_id"     => Http::Request("to", true),
 			"subject"   => Http::Request("subject"),
-			"status"    => 1,
+			"status"    => 0,
 			"sent_date" => time(),
 			"message"   => $_REQUEST['post']
 		);
@@ -223,14 +222,16 @@ class Messenger extends Application
 
 		// Get information
 		$member_id = $this->Session->session_info['member_id'];
-		$selected = $_REQUEST["pm"];
 
 		// Execute deletion
 		if($id) {
+			// Delete single message (when reading one)
 			$this->Db->Delete("c_messages", "pm_id = {$id} AND to_id = {$member_id}");
 		}
 		else {
-			foreach($selected as $pm_id) {
+			// Delete multiple messages (from inbox)
+			$selected_messages = Http::Request("pm");
+			foreach($selected_messages as $pm_id) {
 				$this->Db->Delete("c_messages", "pm_id = {$pm_id} AND to_id = {$member_id}");
 			}
 		}

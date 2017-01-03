@@ -37,22 +37,29 @@ class Members extends Application
 			"y", "z"
 		);
 
-		// If there is a letter selected, don't let "All" selected
-		if(Http::Request("letter")) {
-			$first = "<a href='members'>" . i18n::Translate("M_ALL") . "</a>\n";
+		// If there is a search, letter or number selected, don't let "All" selected
+		if(Http::Request("term") || Http::Request("letter") || Http::Request("numbers")) {
+			$first = "<li><a href='members'>" . i18n::Translate("M_ALL") . "</a></li>\n";
 		}
 		else {
-			$first = "<a href='members' class='page-selected'>" . i18n::Translate("M_ALL") . "</a>\n";
+			$first = "<li class='active'><a href='members'>" . i18n::Translate("M_ALL") . "</a></li>\n";
 		}
 
 		// Build letter list
 		foreach($letters as $value) {
 			$label = strtoupper($value);
-
-			$selected = (Http::Request("letter") == $value) ? "class='page-selected'" : "";
+			$selected = (Http::Request("letter") == $value) ? "class='active'" : "";
 			$order = (Http::Request("order")) ? "&order=" . Http::Request("order") : "";
 
-			$letter_list .= "<a href='members?letter={$value}{$order}' {$selected}>{$label}</a>\n";
+			$letter_list .= "<li {$selected}><a href='members?letter={$value}{$order}'>{$label}</a></li>\n";
+		}
+
+		// If there is a number selected, don't let "0-9" selected
+		if(Http::Request("numbers")) {
+			$numbers = "<li class='active'><a href='members?numbers=true'>0-9</a></li>\n";
+		}
+		else {
+			$numbers = "<li><a href='members?numbers=true'>0-9</a></li>\n";
 		}
 
 		// Get member list
@@ -66,6 +73,7 @@ class Members extends Application
 		// Return variables
 		$this->Set("letter_first", $first);
 		$this->Set("letter_list", $letter_list);
+		$this->Set("numbers", $numbers);
 		$this->Set("results", $results);
 	}
 
@@ -77,48 +85,58 @@ class Members extends Application
 	private function _GetMemberList()
 	{
 		// Declare return variable
+		$term = false;
 		$_result = array();
 
 		// Sort by username, join date or number of posts
-		if(Http::Request("order")) {
-			switch(Http::Request("order")) {
-				case "join":
-					$order = "ORDER BY joined DESC";
-					break;
-				case "post":
-					$order = "ORDER BY posts DESC";
-					break;
-			}
-		}
-		else {
-			$order = "ORDER BY username";
-		}
-
-		// Search by username
-		if(Http::Request("username")) {
-			$username = Http::Request("username");
-			$order = "AND username LIKE '%{$username}%' {$order};";
+		switch(Http::Request("order")) {
+			case "join":
+				$order = "ORDER BY joined DESC";
+				break;
+			case "post":
+				$order = "ORDER BY posts DESC";
+				break;
+			case "name":
+			default:
+				$order = "ORDER BY username";
+				break;
 		}
 
-		// Filter by first letter and execute query!
-		if(Http::Request("letter")) {
+		// Filter is blank ("all")
+		$filter = $letter_param = "";
+
+		if(Http::Request("term")) {
+			// Search by username
+			$term = Http::Request("term");
+			$filter = "AND username LIKE '%{$term}%'";
+		}
+		elseif(Http::Request("letter")) {
+			// Filter by first letter and execute query!
 			$letter = Http::Request("letter");
-			$members = $this->Db->Query("SELECT * FROM c_members
-					LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id)
-					WHERE usergroup <> 0 AND username LIKE '{$letter}%' {$order};");
+			$filter = "AND username LIKE '{$letter}%'";
+			$letter_param = "letter={$letter}&";
 		}
-		else {
-			$members = $this->Db->Query("SELECT * FROM c_members
-					LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id)
-					WHERE usergroup <> 0 {$order};");
+		elseif(Http::Request("numbers")) {
+			// Filter by numbers
+			$filter = "AND username REGEXP '^[0-9]'";
 		}
+
+		$sql = "SELECT * FROM c_members
+				LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id)
+				WHERE usergroup <> 0 {$filter} {$order};";
+
+		$members = $this->Db->Query($sql);
 
 		// Iterate between results
 		while($result = $this->Db->Fetch($members)) {
-			$result['avatar'] = $this->Core->GetAvatar($result, 72);
+			$result['avatar'] = $this->Core->GetAvatar($result, 80);
 			$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 			$_result[] = $result;
 		}
+
+		// Return variables
+		$this->Set("term", $term);
+		$this->Set("letter_param", $letter_param);
 
 		return $_result;
 	}

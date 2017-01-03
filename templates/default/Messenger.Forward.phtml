@@ -1,38 +1,41 @@
-<div class="title-bar">
-	<div class="title">
-		<span><?php __($community_name) ?></span><?php __("M_TITLE") ?>: <?php __("M_COMPOSE") ?>
-	</div>
-</div>
+<h1>
+	<small><?php echo $community_name ?></small>
+	<?php __("M_TITLE") ?>: <?php __("M_FORWARD") ?>
+</h1>
 
-<div class="box">
-	<form action="messenger/send" method="post" class="validate">
-		<div class="input-box">
-			<div class="label"><?php __("M_TO") ?></div>
-			<div class="field">
-				<select name="to" id="pmTo" class="medium required pm-to">
+<div class="block">
+	<form action="messenger/send" method="post">
+		<div class="form-group grid">
+			<label for="teste" class="col-2"><?php __("M_TO") ?></label>
+			<div class="col-4">
+				<select name="to" id="pmTo" class="pm-to span-12" required>
 					<option value=""></option>
 				</select>
 			</div>
 		</div>
-		<div class="input-box">
-			<div class="label"><?php __("M_SUBJECT") ?></div>
-			<div class="field"><input type="text" name="subject" class="large required" value="FW: <?php echo $message['subject'] ?>"></div>
-		</div>
-		<div class="input-box">
-			<div class="label"><?php __("M_MESSAGE") ?></div>
-			<div class="field">
-				<textarea name="post" id="post" class="full" rows="12"><br />
------------------Forwarding Message------------------<br />
-From: <?php echo $message['username']; ?><br />
-<?php echo $message['message']; ?>
-</textarea>
+		<div class="form-group grid">
+			<label for="teste" class="col-2"><?php __("M_SUBJECT") ?></label>
+			<div class="col-6">
+				<input type="text" name="subject" class="form-control" value="Fwd: <?php echo $message['subject'] ?>" required>
 			</div>
 		</div>
-		<div class="fleft">
-			<div class="error-message"><?php __("M_PM_ERROR") ?></div>
+		<div class="form-group grid">
+			<label for="" class="col-2"><?php __("M_MESSAGE") ?></label>
+			<div class="col-10">
+				<textarea name="post" id="post" rows="20"><br>
+<p>----------------- Forwarding Message ------------------<br>
+From: <?php echo $message['username'] ?></p>
+<?php echo $message['message']; ?>
+				</textarea>
+			</div>
 		</div>
-		<div class="fright">
-			<input type="submit" value="<?php __("M_SEND") ?>">
+		<div class="pull-clear">
+			<div class="pull-left">
+				<div class="error-message"><?php __("M_PM_ERROR") ?></div>
+			</div>
+			<div class="pull-right">
+				<input type="submit" class="btn btn-default" value="<?php __("M_SEND") ?>">
+			</div>
 		</div>
 	</form>
 </div>

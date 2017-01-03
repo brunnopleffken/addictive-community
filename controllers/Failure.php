@@ -32,13 +32,13 @@ class Failure extends Application
 		// Error list
 		$errors = array(
 			'not_allowed' => array(
-				Html::Notification(i18n::Translate("E_MESSAGE_NOT_ALLOWED"), "warning", true), "login"
+				Html::Notification(i18n::Translate("E_MESSAGE_NOT_ALLOWED"), "failure", true), "login"
 			),
 			'validated' => array(
 				Html::Notification(i18n::Translate("E_MESSAGE_VALIDATED"), "success", true), "login"
 			),
 			'protected_room' => array(
-				Html::Notification(i18n::Translate("E_MESSAGE_PROTECTED"), "failure", true), "protected"
+				Html::Notification(i18n::Translate("E_MESSAGE_PROTECTED"), "warning", true), "protected"
 			),
 			'thread_locked' => array(
 				Html::Notification(i18n::Translate("E_MESSAGE_LOCKED_THREAD"), "failure", true), false

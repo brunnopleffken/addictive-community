@@ -1,26 +1,20 @@
-<div class="title-bar">
-	<div class="title">
-		<span><?php __($community_name) ?></span>
-		<?php __("C_TITLE") ?>
-	</div>
-</div>
+<h1>
+	<small><?php echo $community_name ?></small>
+	<?php __("C_TITLE") ?>
+</h1>
 
-<?php __($notification) ?>
-
-<div class="box">
-	<form method="post" id="calendar-set-date">
+<div class="block">
+	<form method="get" id="calendar-set-date">
 		<?php __("C_GOTO") ?>:
-		<?php __(\AC\Kernel\Html::Months("month", false, $c_month)) ?>
-		<?php __(\AC\Kernel\Html::Years("year", 3, 3, $c_year)) ?>
-		<input type="submit" value="<?php __("C_GO") ?>">
+		<?php echo \AC\Kernel\Html::Months("month", false, $c_month) ?>
+		<?php echo \AC\Kernel\Html::Years("year", 2, 2, $c_year) ?>
+		<input type="submit" class="btn btn-default" value="<?php __("C_GO") ?>">
 	</form>
 </div>
 
-<?php __($calendar) ?>
+<?php echo $calendar ?>
 
-<div class="fright">
-	<form>
-		<input type="button" onclick="window.location.href='calendar/add'" value="<?php __("C_ADD") ?>">
-		<input type="button" onclick="window.location.href='calendar'" value="<?php __("C_SHOW") ?>">
-	</form>
+<div class="text-right">
+	<a href="calendar/add" class="btn btn-default"><?php __("C_ADD") ?></a>
+	<a href="calendar" class="btn btn-default"><?php __("C_SHOW") ?></a>
 </div>
