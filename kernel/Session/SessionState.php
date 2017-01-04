@@ -75,11 +75,11 @@ class SessionState extends Session
 		else {
 			if($has_session) {
 				// Is not a member; has session
-				self::GuestSession('update', self::$session_token);
+				self::GuestSession(self::$session_token);
 			}
 			else {
 				// Is not a member; and has no session
-				self::GuestSession('create');
+				self::GuestSession();
 			}
 		}
 
@@ -130,7 +130,7 @@ class SessionState extends Session
 	 * Update a guest session (create it if it doesn't exist)
 	 * --------------------------------------------------------------------
 	 */
-	private static function GuestSession($action, $session_token = "")
+	private static function GuestSession($session_token = "")
 	{
 		Database::Query("INSERT INTO c_sessions
 			(session_token, member_id, ip_address, activity_time, usergroup, anonymous) VALUES
