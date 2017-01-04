@@ -21,6 +21,9 @@ use \AC\Kernel\Session\SessionState;
 
 class Room extends Application
 {
+	// Room ID
+	private $room_id = 0;
+
 	// Number of threads per page
 	private $threads_per_page;
 
@@ -31,15 +34,16 @@ class Room extends Application
 	 */
 	public function _BeforeAction()
 	{
-		// Update session table with room ID
-		$id = Http::Request("id", true);
+		// Get and sanitize room ID
+		$this->room_id = Http::Request("id", true);
 
-		if($id == null || $id == false) {
+		if(!$this->room_id) {
 			$this->Core->Redirect("500");
 		}
 
+		// Update session table with room ID
 		$session_token = SessionState::$session_token;
-		Database::Update("c_sessions", "location_room_id = {$id}", "session_token = '{$session_token}'");
+		Database::Update("c_sessions", "location_room_id = {$this->room_id}", "session_token = '{$session_token}'");
 	}
 
 	/**
@@ -49,16 +53,11 @@ class Room extends Application
 	 */
 	public function Main($id)
 	{
-		// Check if $id exists and is a number
-		if($id == null && !is_numeric($id)) {
-			$this->Core->Redirect("500");
-		}
-
 		// Get room information
-		Database::Query("SELECT * FROM c_rooms WHERE r_id = {$id}");
+		Database::Query("SELECT * FROM c_rooms WHERE r_id = {$this->room_id}");
 		$room_info = Database::Fetch();
 
-		// Redirect to Error 404 if the thread doesn't exist
+		// Redirect to Error 404 if the room doesn't exist
 		if($room_info == null) {
 			$this->Core->Redirect("404");
 		}
@@ -67,7 +66,7 @@ class Room extends Application
 		if($room_info['password'] != "") {
 			$room_session_name = "room_" . $room_info['r_id'];
 			if(!SessionState::GetCookie($room_session_name)) {
-				$this->Core->Redirect("failure?t=protected_room&room=" . $id);
+				$this->Core->Redirect("failure?t=protected_room&room=" . $this->room_id);
 			}
 		}
 
@@ -75,11 +74,11 @@ class Room extends Application
 		$room_info['perm_view'] = unserialize($room_info['perm_view']);
 		$permission_value = "V_" . SessionState::$user_data['usergroup'];
 		if(!in_array($permission_value, $room_info['perm_view'])) {
-			header("Location: index.php?msg=1");
+			header("Location: room/{$this->room_id}?msg=1");
 		}
 
 		// Get list of threads
-		$threads = $this->_GetThreads($id);
+		$threads = $this->_GetThreads();
 
 		// Get number of pages
 		$pages = ceil(count($threads) / $this->threads_per_page);
@@ -91,7 +90,7 @@ class Room extends Application
 
 		// Return variables
 		$this->Set("is_member", SessionState::IsMember());
-		$this->Set("room_id", $id);
+		$this->Set("room_id", $this->room_id);
 		$this->Set("room_info", $room_info);
 		$this->Set("threads", $threads);
 		$this->Set("view", Http::Request("view"));
@@ -130,10 +129,10 @@ class Room extends Application
 	 * Get list of threads
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetThreads($room_id)
+	private function _GetThreads()
 	{
 		// Declare return variable
-		$_thread = array();
+		$thread = array();
 
 		// Get query string (room/id?view=mythreads|topreplies|noreplies|bestanswered)
 		$view = Http::Request("view");
@@ -188,15 +187,15 @@ class Room extends Application
 				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
 				INNER JOIN c_members AS lastpost ON (c_threads.last_post_member_id = lastpost.m_id)
-				WHERE room_id = {$room_id} {$where} {$is_admin} ORDER BY announcement DESC, {$order}
+				WHERE room_id = {$this->room_id} {$where} {$is_admin} ORDER BY announcement DESC, {$order}
 				LIMIT {$page}, 10;");
 
-		// Process data
-		while($result = Database::Fetch($threads)) {
-			$_thread[] = $this->_ParseThread($result);
+		// Process returned data
+		while($row = Database::Fetch($threads)) {
+			$thread[] = $this->_ParseThread($row);
 		}
 
-		return $_thread;
+		return $thread;
 	}
 
 	/**
