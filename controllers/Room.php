@@ -17,6 +17,7 @@ use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
+use \AC\Kernel\Session\SessionState;
 
 class Room extends Application
 {
@@ -25,7 +26,7 @@ class Room extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * RUN BEFORE MAIN()
+	 * Run before Main()
 	 * --------------------------------------------------------------------
 	 */
 	public function _BeforeAction()
@@ -37,13 +38,13 @@ class Room extends Application
 			$this->Core->Redirect("500");
 		}
 
-		$session_id = SessionState::$session_id;
-		Database::Update("c_sessions", "location_room_id = {$id}", "s_id = '{$session_id}'");
+		$session_token = SessionState::$session_token;
+		Database::Update("c_sessions", "location_room_id = {$id}", "session_token = '{$session_token}'");
 	}
 
 	/**
 	 * --------------------------------------------------------------------
-	 * VIEW ROOM (THREAD LIST)
+	 * View Room (a.k.a. thread list)
 	 * --------------------------------------------------------------------
 	 */
 	public function Main($id)
@@ -65,14 +66,14 @@ class Room extends Application
 		// Is the room protected?
 		if($room_info['password'] != "") {
 			$room_session_name = "room_" . $room_info['r_id'];
-			if(!$this->Session->GetCookie($room_session_name)) {
+			if(!SessionState::GetCookie($room_session_name)) {
 				$this->Core->Redirect("failure?t=protected_room&room=" . $id);
 			}
 		}
 
 		// Check permissions
 		$room_info['perm_view'] = unserialize($room_info['perm_view']);
-		$permission_value = "V_" . $this->Session->member_info['usergroup'];
+		$permission_value = "V_" . SessionState::$user_data['usergroup'];
 		if(!in_array($permission_value, $room_info['perm_view'])) {
 			header("Location: index.php?msg=1");
 		}
@@ -89,6 +90,7 @@ class Room extends Application
 		$this->Set("page_info", $page_info);
 
 		// Return variables
+		$this->Set("is_member", SessionState::IsMember());
 		$this->Set("room_id", $id);
 		$this->Set("room_info", $room_info);
 		$this->Set("threads", $threads);
@@ -98,7 +100,7 @@ class Room extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * UNLOCK PROTECTED ROOMS
+	 * Unlock protected rooms
 	 * --------------------------------------------------------------------
 	 */
 	public function Unlock()
@@ -113,7 +115,7 @@ class Room extends Application
 
 		if($password == $room_info['password']) {
 			$room_session_name = "room_" . $room_id;
-			$this->Session->CreateCookie($room_session_name, 1);
+			SessionState::CreateCookie($room_session_name, 1);
 			$this->Core->Redirect("room/" . $room_id);
 			exit;
 		}
@@ -125,7 +127,7 @@ class Room extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * GET LIST OF THREADS
+	 * Get list of threads
 	 * --------------------------------------------------------------------
 	 */
 	private function _GetThreads($room_id)
@@ -173,7 +175,7 @@ class Room extends Application
 		$this->Set("menu", $menu);
 
 		// If admin, then also select all invisible threads; and threads with an opening date
-		$is_admin = ($this->Session->IsAdmin()) ? "" : "AND c_threads.start_date < " . time();
+		$is_admin = (SessionState::IsAdmin()) ? "" : "AND c_threads.start_date < " . time();
 
 		// Set SQL pagination (OFFSET)
 		$this->threads_per_page = $this->Core->config['threads_per_page'];
@@ -199,16 +201,17 @@ class Room extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * PARSE AND PROCESS THREAD INFO
+	 * Parce and process thread information
 	 * --------------------------------------------------------------------
 	 */
 	private function _ParseThread($result)
 	{
 		// Check if thread has already been read
 		$is_unread = false;
-		$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
+		$read_threads_cookie = SessionState::GetCookie("addictive_community_read_threads");
+
 		if($read_threads_cookie) {
-			$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
+			$login_time_cookie = SessionState::GetCookie("addictive_community_login_time");
 			$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
 			if(!in_array($result['t_id'], $read_threads) && $login_time_cookie < $result['last_post_date']) {
 				$is_unread = true;

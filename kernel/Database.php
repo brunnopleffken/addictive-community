@@ -169,14 +169,9 @@ class Database
 	 * NUMBER OF ROWS AFFECTED BY THE LAST INSERT/UPDATE/REPLACE/DELETE OP.
 	 * --------------------------------------------------------------------
 	 */
-	public static function AffectedRows($result = null)
+	public static function AffectedRows()
 	{
-		if($result == null) {
-			$result = self::$link;
-		}
-
-		self::$resultset = mysqli_affected_rows($result);
-
+		self::$resultset = mysqli_affected_rows(self::$link);
 		return self::$resultset;
 	}
 
@@ -249,8 +244,12 @@ class Database
 	 * DELETE ENTRIES ON DATABASE
 	 * --------------------------------------------------------------------
 	 */
-	public static function Delete($table, $where = 1)
+	public static function Delete($table, $where = null)
 	{
+		if($where == null) {
+			Html::Error("You're running a Database::Delete() comand without WHERE.");
+		}
+
 		$sql = "DELETE FROM {$table} WHERE {$where};";
 
 		// Save backtrace if debug is 'true' and run query
@@ -281,16 +280,23 @@ class Database
 	 */
 	public static function Log()
 	{
-		$template = "<table>";
-		foreach(self::$log as $statement) {
-			$template .= "<tr>";
-			$template .= "<td colspan='2' style='font-size: 10px; white-space:nowrap'><strong>{$statement['sql']}</strong></td>";
-			$template .= "</tr><tr>";
-			$template .= "<td style='font-size:10px;white-space:nowrap;padding-bottom:10px'>{$statement['backtrace']['line']}</td>";
-			$template .= "<td style='font-size:10px;white-space:nowrap;padding-bottom:10px'>{$statement['backtrace']['file']}</td>";
-			$template .= "</tr>";
+		if(self::$debug) {
+			$template = "<table class='table' style='margin:20px 0'>";
+			$template .= "<thead><tr><th>Executed SQL Statements</th></tr></thead>";
+			foreach(self::$log as $statement) {
+				$template .= "<tr><td style='font-size: 12px'>";
+				$template .= "<strong style='font-family:consolas,monospace'>{$statement['sql']}</strong><br>";
+				$template .= "[{$statement['backtrace']['line']}] ";
+				$template .= "{$statement['backtrace']['file']}";
+				$template .= "</td></tr>";
+			}
+			$template .= "</table></div>";
 		}
-		$template .= "</table>";
+		else {
+			$backtrace = debug_backtrace();
+			$template = "<div class='alert alert-warning persistent'><strong>Unable to view logs!</strong>
+				Database debug is disabled. Delete log viewer from {$backtrace[0]['file']} line {$backtrace[0]['line']}.</div>";
+		}
 
 		return $template;
 	}

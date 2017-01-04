@@ -3,7 +3,7 @@
 		<small><?php echo $community_name ?></small>
 		<?php echo $room_info['name'] ?>
 	</h1>
-	<?php if($this->Session->IsMember()): ?>
+	<?php if($is_member): ?>
 		<div class="header-buttons">
 			<?php if($room_info['read_only']): ?>
 				<a class="btn btn-default btn-disabled font-w600"><?php __("R_READ_ONLY") ?></a>
@@ -73,7 +73,7 @@
 <?php endif; ?>
 
 <div class="room-footer">
-	<?php if($this->Session->IsMember()): ?>
+	<?php if($is_member): ?>
 		<div class="room-footer-buttons">
 			<?php if($room_info['read_only']): ?>
 				<a class="btn btn-default btn-disabled font-w600"><?php __("R_READ_ONLY") ?></a>

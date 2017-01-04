@@ -57,11 +57,14 @@ function _AutoLoader($class_name)
 
 	foreach(array_merge($bits, array($class)) as $i => $bit) {
 		if($i == 1 && $bit == "Kernel") {
-			$path .= "/kernel/{$class}";
+			$path .= "/kernel";
+		}
+		if($i == 2 && $bit != $class) {
+			$path .= "/{$bit}";
 		}
 	}
 
-	$path = $path . ".php";
+	$path = $path . "/{$class}.php";
 
 	if(!file_exists($path)) {
 		return false;

@@ -15,6 +15,7 @@ namespace AC\Controllers;
 
 use \AC\Kernel\Database;
 use \AC\Kernel\i18n;
+use \AC\Kernel\Session\SessionState;
 use \AC\Kernel\Text;
 
 class Community extends Application
@@ -38,7 +39,7 @@ class Community extends Application
 		// Return variables
 		$this->Set("categories", $this->categories);
 		$this->Set("rooms", $this->rooms);
-		$this->Set("is_logged", $this->Session->IsMember());
+		$this->Set("is_logged", SessionState::IsMember());
 	}
 
 	/**
@@ -91,7 +92,7 @@ class Community extends Application
 		$now = time();
 
 		// If member is Admin, show invisible rooms too
-		if($this->Session->IsMember() && $this->Session->IsAdmin()) {
+		if(SessionState::IsMember() && SessionState::IsAdmin()) {
 			$visibility = "";
 		}
 		else {
@@ -215,8 +216,8 @@ class Community extends Application
 		$has_unread = false;
 
 		// Get cookies
-		$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
-		$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
+		$read_threads_cookie = SessionState::GetCookie("addictive_community_read_threads");
+		$login_time_cookie = SessionState::GetCookie("addictive_community_login_time");
 
 		if($login_time_cookie) {
 			// Look for threads where last_post_date is earlier than login time

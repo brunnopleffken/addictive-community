@@ -18,7 +18,7 @@ use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
-use \AC\Kernel\Session;
+use \AC\Kernel\Session\SessionState;
 use \AC\Kernel\Text;
 
 // Run initialization file before loading Main()
@@ -38,7 +38,6 @@ class Main
 
 	// Instances of non-static Kernel classes
 	private $Core;
-	private $Session;
 
 	// Configurations
 	private $Config = array();
@@ -91,8 +90,8 @@ class Main
 		}
 
 		// Initialize Session() class
-		$this->Session = new Session($this->Db, $this->controller);
-		$this->Session->UpdateSession();
+		SessionState::Initialize($this->controller);
+		SessionState::UpdateSession();
 
 		// Get settings from database
 		$this->_GetConfig();
@@ -102,7 +101,7 @@ class Main
 		$this->_GetLanguage();
 
 		// Instantiate class Core()
-		$this->Core = new Core($this->Db, $this->Config, $this->Session->member_info);
+		$this->Core = new Core($this->Config, SessionState::$user_data);
 
 		// OK, let's go...
 		$this->_LoadController($this->controller, $this->action);
@@ -134,7 +133,6 @@ class Main
 
 		// Create an instance of non-static Kernel classes in Application controller
 		$this->instance->Core = $this->Core;
-		$this->instance->Session = $this->Session;
 
 		// Execute Controller::_BeforeAction() method
 		if(method_exists($this->instance, "_BeforeAction")) {
@@ -206,21 +204,15 @@ class Main
 	 */
 	private function _GetTemplate()
 	{
-		if($this->Session->session_info['member_id']) {
+		if(SessionState::$user_data['m_id']) {
 			// Get member-defined theme
-			$this->theme = $this->Session->member_info['theme'];
-			$this->Config['theme'] = $this->theme;
-
-			$this->template = $this->Session->member_info['template'];
-			$this->Config['template'] = $this->template;
+			$this->Config['theme'] = $this->theme = SessionState::$user_data['theme'];
+			$this->Config['template'] = $this->template = SessionState::$user_data['template'];
 		}
 		else {
 			// Get default theme set
-			$this->theme = $this->Config['theme_default_set'];
-			$this->Config['theme'] = $this->theme;
-
-			$this->template = $this->Config['template_default_set'];
-			$this->Config['template'] = $this->template;
+			$this->Config['theme'] = $this->theme = $this->Config['theme_default_set'];
+			$this->Config['template'] = $this->template = $this->Config['template_default_set'];
 		}
 	}
 
@@ -232,8 +224,8 @@ class Main
 	private function _GetLanguage()
 	{
 		// Get default or member set language
-		if($this->Session->session_info['member_id']) {
-			$this->language = $this->Session->member_info['language'];
+		if(SessionState::$user_data['m_id']) {
+			$this->language = SessionState::$user_data['language'];
 		}
 		else {
 			$this->language = $this->Config['language_default_set'];

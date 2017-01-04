@@ -201,18 +201,16 @@ CREATE TABLE `c_rooms` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_sessions` (
-  `s_id` varchar(60) NOT NULL,
+  `session_token` varchar(32) NOT NULL DEFAULT '',
   `member_id` int(11) DEFAULT NULL,
-  `username` varchar(50) DEFAULT NULL,
   `ip_address` varchar(46) DEFAULT NULL,
-  `browser` varchar(200) DEFAULT NULL,
   `activity_time` int(10) DEFAULT NULL,
   `usergroup` int(2) DEFAULT NULL,
   `anonymous` int(1) DEFAULT NULL,
-  `location_type` varchar(30) DEFAULT NULL,
+  `location_controller` varchar(30) DEFAULT NULL,
   `location_id` int(6) DEFAULT NULL,
   `location_room_id` int(3) DEFAULT NULL,
-  PRIMARY KEY (`s_id`)
+  PRIMARY KEY (`session_token`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `c_stats` (

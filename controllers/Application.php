@@ -16,6 +16,7 @@ namespace AC\Controllers;
 use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\i18n;
+use \AC\Kernel\Session\SessionState;
 use \AC\Kernel\Text;
 
 class Application
@@ -35,7 +36,6 @@ class Application
 	 * --------------------------------------------------------------------
 	 */
 	public $Core;    // Main core functions
-	public $Session; // Session management and member information
 
 	/**
 	 * --------------------------------------------------------------------
@@ -125,7 +125,7 @@ class Application
 		$this->Set("website_url", $this->Core->config['general_website_url']);
 		$this->Set("show_members_online", $this->Core->config['general_sidebar_online']);
 		$this->Set("show_statistics", $this->Core->config['general_sidebar_stats']);
-		$this->Set("is_admin", $this->Session->IsAdmin());
+		$this->Set("is_admin", SessionState::IsAdmin());
 	}
 
 	/**
@@ -136,18 +136,18 @@ class Application
 	private function _GetMemberInfo()
 	{
 		// If member is logged in
-		if($this->Session->IsMember()) {
+		if(SessionState::IsMember()) {
 			// Get user avatar
-			$this->Session->member_info['avatar'] = $this->Core->GetAvatar($this->Session->member_info, 80);
+			SessionState::$user_data['avatar'] = $this->Core->GetAvatar(SessionState::$user_data, 80);
 
 			// Number of new private messages
 			Database::Query("SELECT COUNT(*) AS total FROM c_messages
-					WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 0;");
+					WHERE to_id = '" . SessionState::$user_data['m_id'] . "' AND status = 0;");
 
 			$unread_messages = Database::Fetch();
 
-			$this->Set("member_id", $this->Session->member_info['m_id']);
-			$this->Set("member_info", $this->Session->member_info);
+			$this->Set("member_id", SessionState::$user_data['m_id']);
+			$this->Set("member_info", SessionState::$user_data);
 			$this->Set("unread_messages", $unread_messages['total']);
 		}
 		else {
@@ -187,7 +187,7 @@ class Application
 				ORDER BY s.activity_time DESC;");
 
 		while($members = Database::Fetch($members_online)) {
-			$viewing = i18n::Translate("SIDEBAR_MEMBER_VIEWING") . ": " . ucwords($members['location_type']);
+			$viewing = i18n::Translate("SIDEBAR_MEMBER_VIEWING") . ": " . ucwords($members['location_controller']);
 			$online[] = "<a href='profile/{$members['member_id']}' title='{$viewing}'>{$members['username']}</a>";
 		}
 
@@ -197,7 +197,7 @@ class Application
 		$this->Set("member_list", $member_list);
 
 		// Number of guests
-		Database::Query("SELECT COUNT(s_id) AS count FROM c_sessions WHERE member_id = 0;");
+		Database::Query("SELECT COUNT(session_token) AS count FROM c_sessions WHERE member_id = 0;");
 		$guests_count = Database::Fetch();
 		$guests_count = $guests_count['count'];
 		$this->Set("guests_count", $guests_count);

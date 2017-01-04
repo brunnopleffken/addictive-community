@@ -898,7 +898,7 @@ class Thread extends Application
 	private function _UpdateSessionTable()
 	{
 		// Update session table with room ID
-		$session = $this->Session->session_id;
+		$session = $this->Session->session_token;
 		Database::Update("c_sessions", "location_room_id = {$this->thread_info['room_id']}", "s_id = '{$session}'");
 	}
 
