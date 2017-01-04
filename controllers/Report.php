@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Http;
 
 class Report extends Application
@@ -72,8 +73,8 @@ class Report extends Application
 			$mode = "post";
 			$post_id = Http::Request("post_id", true);
 
-			$this->Db->Query("SELECT thread_id FROM c_posts WHERE p_id = {$post_id};");
-			$result = $this->Db->Fetch();
+			Database::Query("SELECT thread_id FROM c_posts WHERE p_id = {$post_id};");
+			$result = Database::Fetch();
 
 			$thread_id = $result['thread_id'];
 		}
@@ -91,7 +92,7 @@ class Report extends Application
 		);
 
 		// Save report on DB
-		$this->Db->Insert("c_reports", $report_info);
+		Database::Insert("c_reports", $report_info);
 
 		// Redirect to its respective notification
 		if($mode == "thread") {

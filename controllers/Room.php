@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
@@ -29,17 +30,15 @@ class Room extends Application
 	 */
 	public function _BeforeAction()
 	{
-		if(Http::Request("act") == "load_more") {
-			// Update session table with room ID
-			$id = Http::Request("id", true);
+		// Update session table with room ID
+		$id = Http::Request("id", true);
 
-			if($id == null && !is_numeric($id)) {
-				$this->Core->Redirect("500");
-			}
-
-			$session = $this->Session->session_id;
-			$this->Db->Update("c_sessions", "location_room_id = {$id}", "s_id = '{$session}'");
+		if($id == null || $id == false) {
+			$this->Core->Redirect("500");
 		}
+
+		$session_id = SessionState::$session_id;
+		Database::Update("c_sessions", "location_room_id = {$id}", "s_id = '{$session_id}'");
 	}
 
 	/**
@@ -55,8 +54,8 @@ class Room extends Application
 		}
 
 		// Get room information
-		$this->Db->Query("SELECT * FROM c_rooms WHERE r_id = {$id}");
-		$room_info = $this->Db->Fetch();
+		Database::Query("SELECT * FROM c_rooms WHERE r_id = {$id}");
+		$room_info = Database::Fetch();
 
 		// Redirect to Error 404 if the thread doesn't exist
 		if($room_info == null) {
@@ -109,8 +108,8 @@ class Room extends Application
 		$password = Http::Request("password");
 		$room_id  = Http::Request("room", true);
 
-		$this->Db->Query("SELECT password FROM c_rooms WHERE r_id = {$room_id}");
-		$room_info = $this->Db->Fetch();
+		Database::Query("SELECT password FROM c_rooms WHERE r_id = {$room_id}");
+		$room_info = Database::Fetch();
 
 		if($password == $room_info['password']) {
 			$room_session_name = "room_" . $room_id;
@@ -182,7 +181,7 @@ class Room extends Application
 		$page = $page * $this->threads_per_page - $this->threads_per_page;
 
 		// Execute query
-		$threads = $this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email,
+		$threads = Database::Query("SELECT c_threads.*, author.username AS author_name, author.email,
 				author.photo_type, author.photo, lastpost.username AS last_post_name,
 				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
@@ -191,7 +190,7 @@ class Room extends Application
 				LIMIT {$page}, 10;");
 
 		// Process data
-		while($result = $this->Db->Fetch($threads)) {
+		while($result = Database::Fetch($threads)) {
 			$_thread[] = $this->_ParseThread($result);
 		}
 

@@ -155,7 +155,7 @@ class Database
 	 * GET NUMBER OF ROWS IN RESULT (FOR SELECT STATEMENTS ONLY)
 	 * --------------------------------------------------------------------
 	 */
-	public function Rows($result = null)
+	public static function Rows($result = null)
 	{
 		if($result == null) {
 			$result = self::$query;

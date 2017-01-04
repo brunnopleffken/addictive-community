@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
@@ -78,7 +79,7 @@ class Calendar extends Application
 		$filter = Http::Request("type") ? "AND type = 'private'" : "";
 
 		// Get all events
-		$this->Db->Query("SELECT e.*, m.username FROM c_events e
+		Database::Query("SELECT e.*, m.username FROM c_events e
 				INNER JOIN c_members m ON (e.author = m.m_id)
 				WHERE year = {$date[0]}
 					AND month = {$date[1]}
@@ -86,8 +87,8 @@ class Calendar extends Application
 					{$filter}
 				ORDER BY timestamp ASC;");
 
-		$events_count = ($this->Db->Rows() > 0) ? true : false;
-		$events_result = $this->Db->FetchToArray();
+		$events_count = (Database::Rows() > 0) ? true : false;
+		$events_result = Database::FetchToArray();
 
 		// Format date to make it readable for human beings
 		$formatted_date = date(
@@ -96,11 +97,11 @@ class Calendar extends Application
 		);
 
 		// Get all birthdays
-		$this->Db->Query("SELECT m_id, username FROM c_members
+		Database::Query("SELECT m_id, username FROM c_members
 				WHERE b_day = {$date[2]} AND b_month = {$date[1]};");
 
-		$birthday_count = ($this->Db->Rows() > 0) ? true : false;
-		$birthday_result = $this->Db->FetchToArray();
+		$birthday_count = (Database::Rows() > 0) ? true : false;
+		$birthday_result = Database::FetchToArray();
 
 		// Page info
 		$page_info['title'] = i18n::Translate("C_TITLE");
@@ -141,7 +142,7 @@ class Calendar extends Application
 		);
 
 		// Insert into database and redirect
-		$this->Db->Insert("c_events", $event);
+		Database::Insert("c_events", $event);
 		$this->Core->Redirect("calendar?m=1");
 	}
 
@@ -158,13 +159,13 @@ class Calendar extends Application
 		$member_id = $this->Session->member_info['m_id'];
 
 		// Check if selected event exists
-		$this->Db->Query("SELECT e_id FROM c_events
+		Database::Query("SELECT e_id FROM c_events
 				WHERE e_id = '{$event_id}' AND author_id = '{$member_id}';");
 
 		// if it exists, remove from DB
 		// Otherwise, show error message
-		if($this->Db->Rows() > 0) {
-			$this->Db->Delete("c_events", "e_id = {$event_id}");
+		if(Database::Rows() > 0) {
+			Database::Delete("c_events", "e_id = {$event_id}");
 		}
 		else {
 			Html::Error("The selected event doesn't exist.");
@@ -247,7 +248,7 @@ class Calendar extends Application
 			$current_day_formatted = str_pad($current_day, 2, "0", STR_PAD_LEFT);
 			$date = "{$current_year}-{$current_month}-{$current_day_formatted}";
 
-			$this->Db->Query("SELECT
+			Database::Query("SELECT
 					(SELECT COUNT(*) FROM c_events
 						WHERE day = '{$current_day_formatted}'
 							AND month = '{$current_month}'
@@ -256,7 +257,7 @@ class Calendar extends Application
 						WHERE b_day = {$current_day_formatted} AND b_month = {$current_month}) AS birthday_number,
 					(SELECT SUM(event_number + birthday_number)) AS events_total;");
 
-			$event_count = $this->Db->Fetch();
+			$event_count = Database::Fetch();
 			$event_total = $event_count['events_total'];
 
 			// If day has an event, add class .event to it

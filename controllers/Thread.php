@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
@@ -80,7 +81,7 @@ class Thread extends Application
 		// Avoid page navigation from incrementing visit counter
 		$_SERVER['HTTP_REFERER'] = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : false;
 		if(!strstr($_SERVER['HTTP_REFERER'], "thread")) {
-			$this->Db->Update("c_threads", "views = views + 1", "t_id = '{$id}'");
+			Database::Update("c_threads", "views = views + 1", "t_id = '{$id}'");
 		}
 
 		// Get first post
@@ -121,9 +122,9 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Get thread info
-		$this->Db->Query("SELECT t.t_id, t.title, t.lock_date, t.locked, r.r_id, r.name, r.upload FROM c_threads t
+		Database::Query("SELECT t.t_id, t.title, t.lock_date, t.locked, r.r_id, r.name, r.upload FROM c_threads t
 				INNER JOIN c_rooms r ON (t.room_id = r.r_id) WHERE t_id = {$id};");
-		$thread_info = $this->Db->Fetch();
+		$thread_info = Database::Fetch();
 
 		// Check if thread is locked
 		if($thread_info['locked'] == 1 || ($thread_info['lock_date'] != 0 && $thread_info['lock_date'] < time())) {
@@ -133,8 +134,8 @@ class Thread extends Application
 		// If member is replying another post (quote)
 		if(Http::Request("quote", true)) {
 			$quote_post_id = Http::Request("quote", true);
-			$this->Db->Query("SELECT p_id, post FROM c_posts WHERE p_id = {$quote_post_id};");
-			$quote = $this->Db->Fetch();
+			Database::Query("SELECT p_id, post FROM c_posts WHERE p_id = {$quote_post_id};");
+			$quote = Database::Fetch();
 		}
 		else {
 			$quote = array();
@@ -163,8 +164,8 @@ class Thread extends Application
 		// Do not allow guests
 		$this->Session->NoGuest();
 
-		$this->Db->Query("SELECT r_id, name, upload, moderators FROM c_rooms WHERE r_id = {$room_id};");
-		$room_info = $this->Db->Fetch();
+		Database::Query("SELECT r_id, name, upload, moderators FROM c_rooms WHERE r_id = {$room_id};");
+		$room_info = Database::Fetch();
 
 		// Page info
 		$page_info['title'] = i18n::Translate("P_NEW_THREAD") . ": " . $room_info['name'];
@@ -190,8 +191,8 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Get post info
-		$this->Db->Query("SELECT * FROM c_posts WHERE p_id = {$post_id};");
-		$post_info = $this->Db->Fetch();
+		Database::Query("SELECT * FROM c_posts WHERE p_id = {$post_id};");
+		$post_info = Database::Fetch();
 
 		// If the author isn't the user currently logged in
 		// check if is an administrator
@@ -200,8 +201,8 @@ class Thread extends Application
 		}
 
 		// Get thread info
-		$this->Db->Query("SELECT title FROM c_threads WHERE t_id = {$post_info['thread_id']};");
-		$thread_info = $this->Db->Fetch();
+		Database::Query("SELECT title FROM c_threads WHERE t_id = {$post_info['thread_id']};");
+		$thread_info = Database::Fetch();
 
 		// Return variables
 		$this->Set("thread_info", $thread_info);
@@ -237,30 +238,30 @@ class Thread extends Application
 		$post['attach_id'] = $Upload->Attachment(Http::File("attachment"), $post['author_id']);
 
 		// Insert new post into DB
-		$this->Db->Insert("c_posts", $post);
+		Database::Insert("c_posts", $post);
 
 		// Update: thread stats
-		$this->Db->Update("c_threads", array(
+		Database::Update("c_threads", array(
 			"replies = replies + 1",
 			"last_post_date = '{$post['post_date']}'",
 			"last_post_member_id = '{$post['author_id']}'"
 		), "t_id = '{$post['thread_id']}'");
 
 		// Update: room stats
-		$this->Db->Update("c_rooms", array(
+		Database::Update("c_rooms", array(
 			"last_post_date = '{$post['post_date']}'",
 			"last_post_thread = '{$post['thread_id']}'",
 			"last_post_member = '{$post['author_id']}'"
 		), "r_id = '{$room_id}'");
 
 		// Update: member stats
-		$this->Db->Update("c_members", array(
+		Database::Update("c_members", array(
 			"posts = posts + 1",
 			"last_post_date = '{$post['post_date']}'"
 		), "m_id = '{$post['author_id']}'");
 
 		// Update: community stats
-		$this->Db->Update("c_stats", "post_count = post_count + 1");
+		Database::Update("c_stats", "post_count = post_count + 1");
 
 		// Redirect back to post
 		$this->Core->Redirect("thread/" . $id);
@@ -362,12 +363,12 @@ class Thread extends Application
 			"poll_data"           => $poll_data,
 			"poll_allow_multiple" => (isset($_POST['poll_allow_multiple'])) ? 1 : 0
 		);
-		$this->Db->Insert("c_threads", $thread);
+		Database::Insert("c_threads", $thread);
 
 		// Insert first post
 		$post = array(
 			"author_id"   => $this->Session->member_info['m_id'],
-			"thread_id"   => $this->Db->GetLastID(),
+			"thread_id"   => Database::GetLastID(),
 			"post_date"   => $thread['last_post_date'],
 			"ip_address"  => $_SERVER['REMOTE_ADDR'],
 			"post"        => str_replace("'", "&apos;", $_POST['post']),
@@ -378,22 +379,22 @@ class Thread extends Application
 		$Upload = new Upload($this->Db);
 		$post['attach_id'] = $Upload->Attachment(Http::File("attachment"), $post['author_id']);
 
-		$this->Db->Insert("c_posts", $post);
+		Database::Insert("c_posts", $post);
 
 		// Update tables
 
-		$this->Db->Update("c_rooms", array(
+		Database::Update("c_rooms", array(
 			"last_post_date = '{$post['post_date']}'",
 			"last_post_thread = '{$post['thread_id']}'",
 			"last_post_member = '{$post['author_id']}'"
 		), "r_id = '{$thread['room_id']}'");
 
-		$this->Db->Update("c_stats", array(
+		Database::Update("c_stats", array(
 			"post_count = post_count + 1",
 			"thread_count = thread_count + 1"
 		));
 
-		$this->Db->Update("c_members", array(
+		Database::Update("c_members", array(
 			"posts = posts + 1",
 			"last_post_date = '{$post['post_date']}'"
 		), "m_id = '{$post['author_id']}'");
@@ -415,8 +416,8 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Get author ID from database for security reasons
-		$this->Db->Query("SELECT author_id FROM c_posts WHERE p_id = {$post_id};");
-		$post_info = $this->Db->Fetch();
+		Database::Query("SELECT author_id FROM c_posts WHERE p_id = {$post_id};");
+		$post_info = Database::Fetch();
 
 		// If the author isn't the user currently logged in
 		// check if is an administrator
@@ -431,7 +432,7 @@ class Thread extends Application
 		);
 
 		// Insert edited post on DB
-		$this->Db->Update("c_posts", $post, "p_id = {$post_id}");
+		Database::Update("c_posts", $post, "p_id = {$post_id}");
 
 		// Redirect
 		$this->Core->Redirect("thread/" . Http::Request("thread_id", true) . "#post-" . $post_id);
@@ -461,16 +462,16 @@ class Thread extends Application
 		}
 
 		// Remove post
-		$this->Db->Delete("c_posts", "p_id = {$post_id}");
+		Database::Delete("c_posts", "p_id = {$post_id}");
 
 		// Update thread statistics
-		$this->Db->Update("c_threads", "replies = replies - 1", "t_id = {$thread_id}");
+		Database::Update("c_threads", "replies = replies - 1", "t_id = {$thread_id}");
 
 		// Update member statistics
-		$this->Db->Update("c_members", "posts = posts - 1", "m_id = {$author_id}");
+		Database::Update("c_members", "posts = posts - 1", "m_id = {$author_id}");
 
 		// Update community statistics
-		$this->Db->Update("c_stats", "post_count = post_count - 1");
+		Database::Update("c_stats", "post_count = post_count - 1");
 
 		// Redirect back to post
 		$this->Core->Redirect("thread/" . $thread_id . "?m=3");
@@ -494,7 +495,7 @@ class Thread extends Application
 		}
 
 		// Lock thread
-		$this->Db->Update("c_threads", "locked = 1", "t_id = {$thread_id}");
+		Database::Update("c_threads", "locked = 1", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -503,7 +504,7 @@ class Thread extends Application
 			"act"        => "Locked thread: ID #" . $thread_id,
 			"ip_address" => $_SERVER['REMOTE_ADDR']
 		);
-		$this->Db->Insert("c_logs", $log);
+		Database::Insert("c_logs", $log);
 
 		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=4");
@@ -527,7 +528,7 @@ class Thread extends Application
 		}
 
 		// Lock thread
-		$this->Db->Update("c_threads", "locked = 0", "t_id = {$thread_id}");
+		Database::Update("c_threads", "locked = 0", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -536,7 +537,7 @@ class Thread extends Application
 			"act"        => "Unlocked thread: ID #" . $thread_id,
 			"ip_address" => $_SERVER['REMOTE_ADDR']
 		);
-		$this->Db->Insert("c_logs", $log);
+		Database::Insert("c_logs", $log);
 
 		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=5");
@@ -560,7 +561,7 @@ class Thread extends Application
 		}
 
 		// Lock thread
-		$this->Db->Update("c_threads", "announcement = 1", "t_id = {$thread_id}");
+		Database::Update("c_threads", "announcement = 1", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -569,7 +570,7 @@ class Thread extends Application
 			"act"        => "Set thread ID #" . $thread_id . " as announcement",
 			"ip_address" => $_SERVER['REMOTE_ADDR']
 		);
-		$this->Db->Insert("c_logs", $log);
+		Database::Insert("c_logs", $log);
 
 		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=6");
@@ -593,7 +594,7 @@ class Thread extends Application
 		}
 
 		// Lock thread
-		$this->Db->Update("c_threads", "announcement = 0", "t_id = {$thread_id}");
+		Database::Update("c_threads", "announcement = 0", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
 		$log = array(
@@ -602,7 +603,7 @@ class Thread extends Application
 			"act"        => "Removed thread ID #" . $thread_id . " as announcement",
 			"ip_address" => $_SERVER['REMOTE_ADDR']
 		);
-		$this->Db->Insert("c_logs", $log);
+		Database::Insert("c_logs", $log);
 
 		// Redirect
 		header("Location: " . preg_replace("/(\?m=[0-9])/", "", $_SERVER['HTTP_REFERER']) . "?m=7");
@@ -626,19 +627,19 @@ class Thread extends Application
 		}
 
 		// Get room ID
-		$this->Db->Query("SELECT room_id FROM c_threads WHERE t_id = {$thread_id};");
-		$thread_info = $this->Db->Fetch(); // $thread_info['room_id']
+		Database::Query("SELECT room_id FROM c_threads WHERE t_id = {$thread_id};");
+		$thread_info = Database::Fetch(); // $thread_info['room_id']
 		$room_id = $thread_info['room_id'];
 
 		// Delete all posts in this thread
-		$this->Db->Delete("c_posts", "thread_id = {$thread_id}");
-		$deleted_posts = $this->Db->AffectedRows();
+		Database::Delete("c_posts", "thread_id = {$thread_id}");
+		$deleted_posts = Database::AffectedRows();
 
 		// Delete thread itself
-		$this->Db->Delete("c_threads", "t_id = {$thread_id}");
+		Database::Delete("c_threads", "t_id = {$thread_id}");
 
 		// Update community/room statistics
-		$this->Db->Update("c_stats", array(
+		Database::Update("c_stats", array(
 			"thread_count = thread_count - 1",
 			"post_count = post_count - {$deleted_posts}"
 		));
@@ -650,7 +651,7 @@ class Thread extends Application
 			"act"        => "Deleted thread: ID #" . $thread_id,
 			"ip_address" => $_SERVER['REMOTE_ADDR']
 		);
-		$this->Db->Insert("c_logs", $log);
+		Database::Insert("c_logs", $log);
 
 		// Redirect
 		$this->Core->Redirect("room/" . $room_id . "?m=7");
@@ -667,18 +668,18 @@ class Thread extends Application
 
 		// Check if the member logged in is the author of the thread
 		// This will protect the script from ill-intentioned people
-		$this->Db->Query("SELECT thread_id,
+		Database::Query("SELECT thread_id,
 				(SELECT author_member_id
 					FROM c_threads
 					WHERE c_threads.t_id = c_posts.thread_id)
 				AS thread_author
 				FROM c_posts WHERE p_id = 9;");
 
-		$thread = $this->Db->Fetch();
+		$thread = Database::Fetch();
 
 		if($this->Session->member_info['m_id'] == $thread['thread_author']) {
-			$this->Db->Update("c_posts", "best_answer = 1", "p_id = {$reply_id}");
-			$this->Db->Update("c_threads", "with_best_answer = 1", "t_id = {$thread['thread_id']}");
+			Database::Update("c_posts", "best_answer = 1", "p_id = {$reply_id}");
+			Database::Update("c_threads", "with_best_answer = 1", "t_id = {$thread['thread_id']}");
 			$this->Core->Redirect("HTTP_REFERER");
 		}
 		else {
@@ -697,18 +698,18 @@ class Thread extends Application
 
 		// Check if the member logged in is the author of the thread
 		// This will protect the script from ill-intentioned people
-		$this->Db->Query("SELECT thread_id,
+		Database::Query("SELECT thread_id,
 				(SELECT author_member_id
 					FROM c_threads
 					WHERE c_threads.t_id = c_posts.thread_id)
 				AS thread_author
 				FROM c_posts WHERE p_id = 9;");
 
-		$thread = $this->Db->Fetch();
+		$thread = Database::Fetch();
 
 		if($this->Session->member_info['m_id'] == $thread['thread_author']) {
-			$this->Db->Update("c_posts", "best_answer = 0", "p_id = {$reply_id}");
-			$this->Db->Update("c_threads", "with_best_answer = 0", "t_id = {$thread['thread_id']}");
+			Database::Update("c_posts", "best_answer = 0", "p_id = {$reply_id}");
+			Database::Update("c_threads", "with_best_answer = 0", "t_id = {$thread['thread_id']}");
 			$this->Core->Redirect("HTTP_REFERER");
 		}
 		else {
@@ -729,8 +730,8 @@ class Thread extends Application
 		$this->Session->NoGuest();
 
 		// Get updated poll info in DB
-		$this->Db->Query("SELECT poll_data, poll_allow_multiple FROM c_threads WHERE t_id = {$thread_id};");
-		$thread_info = $this->Db->Fetch();
+		Database::Query("SELECT poll_data, poll_allow_multiple FROM c_threads WHERE t_id = {$thread_id};");
+		$thread_info = Database::Fetch();
 		$poll_data = json_decode($thread_info['poll_data'], true);
 
 		if($thread_info['poll_allow_multiple'] == 0) {
@@ -752,7 +753,7 @@ class Thread extends Application
 
 		// Update thread information with encoded data
 		$encoded = json_encode($poll_data);
-		$this->Db->Update("c_threads", "poll_data = '{$encoded}'", "t_id = {$thread_id}");
+		Database::Update("c_threads", "poll_data = '{$encoded}'", "t_id = {$thread_id}");
 
 		// Redirect
 		$this->Core->Redirect("HTTP_REFERER");
@@ -787,12 +788,12 @@ class Thread extends Application
 	private function _GetThreadInfo($id)
 	{
 		// Select thread info from database
-		$thread = $this->Db->Query("SELECT t.t_id, t.title, t.slug, t.start_date, t.lock_date, t.room_id, t.author_member_id,
+		$thread = Database::Query("SELECT t.t_id, t.title, t.slug, t.start_date, t.lock_date, t.room_id, t.author_member_id,
 				t.locked, t.announcement, t.last_post_date, t.poll_question, t.poll_data, t.poll_allow_multiple,
 				r.r_id, r.name, r.perm_view, r.perm_reply, r.moderators,
 				(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t
 				INNER JOIN c_rooms r ON (r.r_id = t.room_id) WHERE t.t_id = '{$id}';");
-		$thread_info = $this->Db->Fetch($thread);
+		$thread_info = Database::Fetch($thread);
 
 		// Redirect to Error 404 if the thread doesn't exist
 		if($thread_info == null) {
@@ -898,7 +899,7 @@ class Thread extends Application
 	{
 		// Update session table with room ID
 		$session = $this->Session->session_id;
-		$this->Db->Update("c_sessions", "location_room_id = {$this->thread_info['room_id']}", "s_id = '{$session}'");
+		Database::Update("c_sessions", "location_room_id = {$this->thread_info['room_id']}", "s_id = '{$session}'");
 	}
 
 	/**
@@ -929,7 +930,7 @@ class Thread extends Application
 		// Declare return array
 		$result = array();
 
-		$first_post = $this->Db->Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id,
+		$first_post = Database::Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id,
 				c_attachments.*, c_threads.title, c_threads.locked, c_members.*, edit.username AS edit_username FROM c_posts
 				INNER JOIN c_threads ON (c_posts.thread_id = c_threads.t_id)
 				INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
@@ -937,7 +938,7 @@ class Thread extends Application
 				LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
 				WHERE thread_id = '{$id}' AND first_post = '1' LIMIT 1;");
 
-		$result = $this->Db->Fetch($first_post);
+		$result = Database::Fetch($first_post);
 
 		// Format first thread
 		$result['avatar'] = $this->Core->GetAvatar($result, 96);
@@ -976,7 +977,7 @@ class Thread extends Application
 	{
 		$reply_result = array();
 
-		$replies = $this->Db->Query("SELECT c_posts.*, c_attachments.*, c_members.*, edit.username AS edit_username FROM c_posts
+		$replies = Database::Query("SELECT c_posts.*, c_attachments.*, c_members.*, edit.username AS edit_username FROM c_posts
 				INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
 				LEFT JOIN c_members AS edit ON (c_posts.edit_author = edit.m_id)
 				LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
@@ -984,7 +985,7 @@ class Thread extends Application
 				ORDER BY best_answer DESC, post_date ASC
 				LIMIT {$pages['offset']},{$pages['posts_per_page']};");
 
-		while($result = $this->Db->Fetch($replies)) {
+		while($result = Database::Fetch($replies)) {
 			// Is this a best answer or a regular reply?
 			$result['bestanswer_class'] = ($result['best_answer'] == 1) ? "best-answer" : "";
 
@@ -1034,10 +1035,10 @@ class Thread extends Application
 			// Get quoted post
 			if($result['quote_post_id'] != 0) {
 				$result['has_quote'] = true;
-				$quoted_post = $this->Db->Query("SELECT c_posts.post_date, c_posts.post, c_members.username AS author FROM c_posts
+				$quoted_post = Database::Query("SELECT c_posts.post_date, c_posts.post, c_members.username AS author FROM c_posts
 						INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
 						WHERE p_id = {$result['quote_post_id']};");
-				$quoted_post_result = $this->Db->Fetch();
+				$quoted_post_result = Database::Fetch();
 
 				// Return results
 				$result['quote_author'] = $quoted_post_result['author'];
@@ -1170,10 +1171,10 @@ class Thread extends Application
 		}
 
 		$thread_search = implode(" ", $thread_search);
-		$this->Db->Query("SELECT *, MATCH(title) AGAINST ('{$thread_search}') AS relevance FROM c_threads
+		Database::Query("SELECT *, MATCH(title) AGAINST ('{$thread_search}') AS relevance FROM c_threads
 				WHERE t_id <> {$id} AND MATCH(title) AGAINST ('{$thread_search}');");
 
-		while($thread = $this->Db->Fetch()) {
+		while($thread = Database::Fetch()) {
 			$thread['thread_date'] = $this->Core->DateFormat($thread['last_post_date'], "short");
 			$related_thread_list[] = $thread;
 		}
@@ -1210,11 +1211,11 @@ class Thread extends Application
 	private function _IsModeratorFromThreadId($thread_id = 0)
 	{
 		// Get room moderators
-		$this->Db->Query("SELECT r.moderators FROM c_threads t
+		Database::Query("SELECT r.moderators FROM c_threads t
 				INNER JOIN c_rooms r ON (r.r_id = t.room_id)
 				WHERE t_id = {$thread_id};");
 
-		$moderators = $this->Db->Fetch();
+		$moderators = Database::Fetch();
 
 		return $this->_IsModerator($moderators['moderators']);
 	}
@@ -1228,8 +1229,8 @@ class Thread extends Application
 	{
 		// Get list of ranks just once and save results
 		if(empty($this->ranks)) {
-			$this->Db->Query("SELECT * FROM c_ranks ORDER BY min_posts DESC;");
-			$this->ranks = $this->Db->FetchToArray();
+			Database::Query("SELECT * FROM c_ranks ORDER BY min_posts DESC;");
+			$this->ranks = Database::FetchToArray();
 		}
 
 		foreach($this->ranks as $rank) {

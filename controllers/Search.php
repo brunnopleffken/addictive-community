@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
@@ -99,18 +100,18 @@ class Search extends Application
 		}
 
 		// Perform database query
-		$this->Db->Query("SELECT t.t_id, t.title, t.slug, m.username, p.post_date, p.post FROM c_posts p
+		Database::Query("SELECT t.t_id, t.title, t.slug, m.username, p.post_date, p.post FROM c_posts p
 				INNER JOIN c_threads t ON (p.thread_id = t.t_id)
 				INNER JOIN c_members m ON (p.author_id = m.m_id)
 				WHERE {$where} MATCH(post) AGAINST ('{$this->term}') {$order}
 				LIMIT 100;");
 
-		if($this->Db->Rows() >= 100) {
+		if(Database::Rows() >= 100) {
 			// Too many results
 			$warning = Html::Notification("There are too many results for this search. Please try your search again with more specific keywords.", "warning", true);
 		}
 		else {
-			while($result = $this->Db->Fetch()) {
+			while($result = Database::Fetch()) {
 				$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
 				foreach($term_highlight as $words) {

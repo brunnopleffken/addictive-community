@@ -141,10 +141,10 @@ class Application
 			$this->Session->member_info['avatar'] = $this->Core->GetAvatar($this->Session->member_info, 80);
 
 			// Number of new private messages
-			$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages
+			Database::Query("SELECT COUNT(*) AS total FROM c_messages
 					WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 0;");
 
-			$unread_messages = $this->Db->Fetch();
+			$unread_messages = Database::Fetch();
 
 			$this->Set("member_id", $this->Session->member_info['m_id']);
 			$this->Set("member_info", $this->Session->member_info);

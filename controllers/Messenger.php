@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
@@ -58,7 +59,7 @@ class Messenger extends Application
 			$selected_folder[1] = "class='selected'";
 
 			// Select SENT personal messages
-			$messages = $this->Db->Query("SELECT m.pm_id, m.to_id, m.subject, m.status, m.sent_date, u.username
+			$messages = Database::Query("SELECT m.pm_id, m.to_id, m.subject, m.status, m.sent_date, u.username
 					FROM c_messages m INNER JOIN c_members u ON (m.to_id = u.m_id)
 					WHERE m.from_id = '{$this->member_id}' ORDER BY m.sent_date DESC;");
 		}
@@ -67,7 +68,7 @@ class Messenger extends Application
 			$selected_folder[1] = "";
 
 			// Select INBOX personal messages
-			$messages = $this->Db->Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username
+			$messages = Database::Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username
 					FROM c_messages m INNER JOIN c_members u ON (m.from_id = u.m_id)
 					WHERE m.to_id = '{$this->member_id}' ORDER BY m.sent_date DESC;");
 		}
@@ -110,7 +111,7 @@ class Messenger extends Application
 	public function Read($id)
 	{
 		// Get message info and post
-		$post = $this->Db->Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type
+		$post = Database::Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type
 				FROM c_messages p LEFT JOIN c_members m ON (p.from_id = m.m_id)
 				WHERE pm_id = {$id} AND (to_id = {$this->member_id} OR from_id = {$this->member_id});");
 
@@ -120,7 +121,7 @@ class Messenger extends Application
 			// If not, set message as read
 			if($message['status'] == 0) {
 				$time = time();
-				$this->Db->Update("c_messages", array(
+				Database::Update("c_messages", array(
 					"status = 1",
 					"read_date = {$time}"
 				), "pm_id = {$id}");
@@ -172,7 +173,7 @@ class Messenger extends Application
 		$term = Http::Request("term");
 
 		// Get list of usernames
-		$result = $this->Db->Query("SELECT m_id, username FROM c_members
+		$result = Database::Query("SELECT m_id, username FROM c_members
 				WHERE username LIKE '%{$term}%' AND usergroup <> 0 AND m_id <> {$member_id};");
 
 		while($row = $result->fetch_assoc()) {
@@ -205,7 +206,7 @@ class Messenger extends Application
 		);
 
 		// Send message
-		$this->Db->Insert("c_messages", $pm);
+		Database::Insert("c_messages", $pm);
 
 		// Redirect
 		$this->Core->Redirect("messenger?m=1");
@@ -226,13 +227,13 @@ class Messenger extends Application
 		// Execute deletion
 		if($id) {
 			// Delete single message (when reading one)
-			$this->Db->Delete("c_messages", "pm_id = {$id} AND to_id = {$member_id}");
+			Database::Delete("c_messages", "pm_id = {$id} AND to_id = {$member_id}");
 		}
 		else {
 			// Delete multiple messages (from inbox)
 			$selected_messages = Http::Request("pm");
 			foreach($selected_messages as $pm_id) {
-				$this->Db->Delete("c_messages", "pm_id = {$pm_id} AND to_id = {$member_id}");
+				Database::Delete("c_messages", "pm_id = {$pm_id} AND to_id = {$member_id}");
 			}
 		}
 
@@ -250,11 +251,11 @@ class Messenger extends Application
 		$member_id = $this->Session->session_info['member_id'];
 
 		if($id) {
-			$this->Db->Query("SELECT `username`,`subject`,`message` FROM `c_messages`
+			Database::Query("SELECT `username`,`subject`,`message` FROM `c_messages`
 					LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id`
 					WHERE `pm_id`={$id} LIMIT 1");
 
-			$message = $this->Db->fetch();
+			$message = Database::fetch();
 
 			if($message) {
 				$this->Set('message', $message);
@@ -279,11 +280,11 @@ class Messenger extends Application
 
 		if($id) {
 			//Load message user is replying to
-			$this->Db->Query("SELECT `username`,`m_id` AS `reply_user_id`,`subject` FROM `c_messages`
+			Database::Query("SELECT `username`,`m_id` AS `reply_user_id`,`subject` FROM `c_messages`
 					LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id` WHERE `pm_id`={$id}
 					AND `to_id`={$member_id} LIMIT 1");
 
-			$message = $this->Db->fetch();
+			$message = Database::fetch();
 
 			if($message) {
 				//Set this message so the view can use the information

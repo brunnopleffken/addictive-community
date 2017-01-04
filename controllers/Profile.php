@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\i18n;
 use \AC\Kernel\Template;
 use \AC\Kernel\Text;
@@ -31,11 +32,11 @@ class Profile extends Application
 	public function _BeforeAction($id)
 	{
 		// Fetch member information
-		$this->Db->Query("SELECT c_members.*, c_usergroups.name,
+		Database::Query("SELECT c_members.*, c_usergroups.name,
 				(SELECT COUNT(*) FROM c_posts WHERE c_posts.author_id = c_members.m_id AND best_answer = 1) as bestanswers
 				FROM c_members LEFT JOIN c_usergroups ON (c_usergroups.g_id = c_members.usergroup)
 				WHERE m_id = '{$id}';");
-		$info = $this->Db->Fetch();
+		$info = Database::Fetch();
 
 		if($info['usergroup'] == 0 || empty($info)) {
 			$this->Core->Redirect("failure?t=deleted_member");
@@ -116,11 +117,11 @@ class Profile extends Application
 	public function Posts($id)
 	{
 		// Select threads
-		$this->Db->Query("SELECT t_id, title, slug, start_date FROM c_threads
+		Database::Query("SELECT t_id, title, slug, start_date FROM c_threads
 				WHERE author_member_id = '{$id}' AND approved = '1'
 				ORDER BY start_date DESC LIMIT 5;");
 
-		while($threads = $this->Db->Fetch()) {
+		while($threads = Database::Fetch()) {
 			$threads['start_date'] = $this->Core->DateFormat($threads['start_date'], "long");
 			Template::Add ("<tr>
 				<td class='min text-muted'>{$threads['start_date']}</td>
@@ -132,12 +133,12 @@ class Profile extends Application
 		Template::Clean();
 
 		// Select posts
-		$this->Db->Query("SELECT p.post_date, p.post, t.t_id, t.title, t.slug FROM c_posts p
+		Database::Query("SELECT p.post_date, p.post, t.t_id, t.title, t.slug FROM c_posts p
 				INNER JOIN c_threads t ON (t.t_id = p.thread_id)
 				WHERE author_id = '{$id}'
 				ORDER BY post_date DESC LIMIT 5;");
 
-		while($posts = $this->Db->Fetch()) {
+		while($posts = Database::Fetch()) {
 			$posts['post_date'] = $this->Core->DateFormat($posts['post_date'], "long");
 			Template::Add("<tr>
 				<td class='min text-muted'>{$posts['post_date']}</td>
@@ -177,9 +178,9 @@ class Profile extends Application
 		$Upload = new Upload($this->Db);
 
 		// Select all attachments of a user
-		$this->Db->Query("SELECT * FROM c_attachments WHERE member_id = '{$id}' AND private = 0;");
+		Database::Query("SELECT * FROM c_attachments WHERE member_id = '{$id}' AND private = 0;");
 
-		while($result = $this->Db->Fetch()) {
+		while($result = Database::Fetch()) {
 			$url = "public/attachments/{$id}/{$result['date']}/{$result['filename']}";
 
 			$result['icon'] = "<div class='file-icon {$result['type']}' style='font-size: 24px'></div>";

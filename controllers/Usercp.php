@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
@@ -60,9 +61,9 @@ class Usercp extends Application
 		$average_posts = round($posts_total / floor($days), 1);
 
 		// Get number of private messages
-		$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages
+		Database::Query("SELECT COUNT(*) AS total FROM c_messages
 				WHERE to_id = {$this->Session->member_info['m_id']};");
-		$pm = $this->Db->Fetch();
+		$pm = Database::Fetch();
 
 		$space_left = $this->Core->config['member_pm_storage'] - $pm['total'];
 
@@ -254,18 +255,18 @@ class Usercp extends Application
 
 		// Language list
 		$settings['lang_list'] = "";
-		$this->Db->Query("SELECT * FROM c_languages WHERE is_active = 1 ORDER BY name;");
+		Database::Query("SELECT * FROM c_languages WHERE is_active = 1 ORDER BY name;");
 
-		while($lang = $this->Db->Fetch()) {
+		while($lang = Database::Fetch()) {
 			$selected = ($this->Session->member_info['language'] == $lang['directory']) ? "selected" : "";
 			$settings['lang_list'] .= "<option value='{$lang['directory']}' {$selected}>{$lang['name']}</option>\n";
 		}
 
 		// Template list
 		$settings['theme_list'] = "";
-		$this->Db->Query("SELECT * FROM c_themes WHERE is_active = 1 ORDER BY name;");
+		Database::Query("SELECT * FROM c_themes WHERE is_active = 1 ORDER BY name;");
 
-		while($theme = $this->Db->Fetch()) {
+		while($theme = Database::Fetch()) {
 			$selected = ($this->Session->member_info['theme'] == $theme['directory']) ? "selected" : "";
 			$settings['theme_list'] .= "<option value='{$theme['directory']}' {$selected}>{$theme['name']}</option>\n";
 		}
@@ -335,7 +336,7 @@ class Usercp extends Application
 		);
 
 		// Save and redirect...
-		$this->Db->Update("c_members", $info, "m_id = {$this->member_id}");
+		Database::Update("c_members", $info, "m_id = {$this->member_id}");
 		$this->Core->Redirect("usercp/profile?m=1");
 	}
 
@@ -354,13 +355,13 @@ class Usercp extends Application
 		// Do processes!
 		if($photo_type == "gravatar") {
 			// Change photo type to 'gravatar'
-			$this->Db->Update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
+			Database::Update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
 			$this->Core->Redirect("usercp/photo?m=1");
 		}
 		else {
 			// User photo already hosted on community's server
 			if($_FILES['file_upload']['name'] == "") {
-				$this->Db->Update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
+				Database::Update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
 				$this->Core->Redirect("usercp/photo?m=1");
 			}
 			else {
@@ -371,8 +372,8 @@ class Usercp extends Application
 
 				if(in_array($file_extension, $allowed_extensions)) {
 					// Select current photo, if exists
-					$this->Db->Query("SELECT photo FROM c_members WHERE m_id = '{$this->member_id}';");
-					$current_photo = $this->Db->Fetch();
+					Database::Query("SELECT photo FROM c_members WHERE m_id = '{$this->member_id}';");
+					$current_photo = Database::Fetch();
 					$current_photo = ($current_photo['photo'] != "") ? $current_photo['photo'] : null;
 
 					// Delete special characters and diacritics
@@ -393,7 +394,7 @@ class Usercp extends Application
 					$new_file_name = $this->member_id . "." . $file_extension;
 					move_uploaded_file($_FILES['file_upload']['tmp_name'], "public/avatar/" . $new_file_name);
 
-					$this->Db->Update("c_members", array(
+					Database::Update("c_members", array(
 						"photo_type = '{$photo_type}'",
 						"photo = '{$new_file_name}'"
 					), "m_id = '{$this->member_id}'");
@@ -421,7 +422,7 @@ class Usercp extends Application
 		);
 
 		// Save and redirect...
-		$this->Db->Update("c_members", $info, "m_id = {$this->member_id}");
+		Database::Update("c_members", $info, "m_id = {$this->member_id}");
 		$this->Core->Redirect("usercp/signature?m=1");
 	}
 
@@ -442,7 +443,7 @@ class Usercp extends Application
 		);
 
 		// Save and redirect...
-		$this->Db->Update("c_members", $info, "m_id = {$this->member_id}");
+		Database::Update("c_members", $info, "m_id = {$this->member_id}");
 		$this->Core->Redirect("usercp/settings?m=1");
 	}
 
@@ -467,8 +468,8 @@ class Usercp extends Application
 		$conf_pass = Text::Encrypt(Http::Request("conf_password"), $salt);
 
 		// Check if member and password matches
-		$this->Db->Query("SELECT COUNT(*) AS result FROM c_members WHERE m_id = '{$this->member_id}' AND password = '{$current}';");
-		$count = $this->Db->Fetch();
+		Database::Query("SELECT COUNT(*) AS result FROM c_members WHERE m_id = '{$this->member_id}' AND password = '{$current}';");
+		$count = Database::Fetch();
 
 		if($count['result'] == 0) {
 			// If old password is wrong: redirect and show error message
@@ -481,7 +482,7 @@ class Usercp extends Application
 
 		// Continue...
 		$info = array("password" => $new_pass);
-		$this->Db->Update("c_members", $info, "m_id = {$this->member_id}");
+		Database::Update("c_members", $info, "m_id = {$this->member_id}");
 
 		// Redirect
 		$this->Core->Redirect("usercp/password?m=1");

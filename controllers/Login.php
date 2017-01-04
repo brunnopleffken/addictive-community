@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Http;
 use \AC\Kernel\Text;
 
@@ -48,11 +49,11 @@ class Login extends Application
 			$username = Http::Request("username");
 			$password = Text::Encrypt(Http::Request("password"), $salt);
 
-			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
+			Database::Query("SELECT m_id, username, password, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");
 
-			if($this->Db->Rows()) {
-				$user_info = $this->Db->Fetch();
+			if(Database::Rows()) {
+				$user_info = Database::Fetch();
 				$user_info['anonymous']  = (Http::Request("anonymous", true)) ? 1 : 0;
 				$user_info['remember']   = (Http::Request("remember", true)) ? 1 : 0;
 				$user_info['session_id'] = $_SESSION['session_id'];
@@ -98,12 +99,12 @@ class Login extends Application
 			$username = Http::Request("username");
 			$password = Text::Encrypt(Http::Request("password"), $salt);
 
-			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
+			Database::Query("SELECT m_id, username, password, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");
 
 			// Check if username and password match
-			if($this->Db->Rows()) {
-				$user_info = $this->Db->Fetch();
+			if(Database::Rows()) {
+				$user_info = Database::Fetch();
 
 				// Check if user has been banned (user group #4)
 				if($user_info['usergroup'] == 4) {
