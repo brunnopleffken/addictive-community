@@ -31,7 +31,7 @@ class Search extends Application
 	 * VIEW SEARCH ENGINE RESULTS
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Declare empty variables
 		$warning = "";

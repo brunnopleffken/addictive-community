@@ -25,7 +25,7 @@ class Failure extends Application
 	 * VIEW: ERROR PAGE
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Get type of error
 		$type = Http::Request("t");

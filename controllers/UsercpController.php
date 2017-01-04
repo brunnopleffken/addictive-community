@@ -43,7 +43,7 @@ class Usercp extends Application
 	 * VIEW: USER CONTROL PANEL - DASHBOARD
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Define selected menu item
 		$menu = array("active", "", "", "", "", "");

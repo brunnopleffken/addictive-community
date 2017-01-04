@@ -51,7 +51,7 @@ class Room extends Application
 	 * View Room (a.k.a. thread list)
 	 * --------------------------------------------------------------------
 	 */
-	public function Main($id)
+	public function Index($id)
 	{
 		// Get room information
 		Database::Query("SELECT * FROM c_rooms WHERE r_id = {$this->room_id}");

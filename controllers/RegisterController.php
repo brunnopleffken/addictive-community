@@ -27,7 +27,7 @@ class Register extends Application
 	 * VIEW: REGISTER NEW MEMBER
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Get step
 		$step = (!Http::Request("step", true)) ? 1 : Http::Request("step", true);

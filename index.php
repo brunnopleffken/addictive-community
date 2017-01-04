@@ -117,17 +117,17 @@ class Main
 	{
 		// Controllers names are in UpperCamelCase, but URLs in lowercase
 		$controller = $this->controller = ucwords($controller);
-		$action = ($action != "") ? Text::FormatActionName($this->action) : $this->action = "Main";
+		$action = ($action != "") ? Text::FormatActionName($this->action) : $this->action = "Index";
 
 		// Redirect to Error 404 page if controller doesn't exist
-		if(!file_exists("controllers/" . $controller . ".php")) {
+		if(!file_exists("controllers/" . $controller . "Controller.php")) {
 			$action = str_replace("index.php", "", $_SERVER['PHP_SELF']);
 			header("Location: " . $action . "500");
 		}
 
 		// Load Application controller
-		require("controllers/Application.php");
-		require("controllers/" . $controller . ".php");
+		require("controllers/ApplicationController.php");
+		require("controllers/" . $controller . "Controller.php");
 		$controller = "\\AC\\Controllers\\" . $controller;
 		$this->instance = new $controller();
 

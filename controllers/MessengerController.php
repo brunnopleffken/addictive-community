@@ -42,7 +42,7 @@ class Messenger extends Application
 	 * VIEW INBOX
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Define messages
 		$message_id = Http::Request("m", true);

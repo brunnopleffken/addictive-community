@@ -25,7 +25,7 @@ class Login extends Application
 	 * LOGIN FORM
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Load "/templates/.../Ajax.php" as Master Page
 		$this->master = "Ajax";

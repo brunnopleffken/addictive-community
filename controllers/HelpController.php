@@ -24,7 +24,7 @@ class Help extends Application
 	 * VIEW HELP TOPICS
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		$this->Core->redirect("404");
 		exit;

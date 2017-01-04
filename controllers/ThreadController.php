@@ -33,7 +33,7 @@ class Thread extends Application
 	 * SHOW THREAD
 	 * --------------------------------------------------------------------
 	 */
-	public function Main($id)
+	public function Index($id)
 	{
 		// Check if $id exists and is a number
 		if($id == null && !is_numeric($id)) {

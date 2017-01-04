@@ -24,7 +24,7 @@ class Members extends Application
 	 * MEMBER LIST
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		$selected = "";
 		$letter_list = "";

@@ -26,7 +26,7 @@ class Calendar extends Application
 	 * VIEW CALENDAR
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Define messages
 		$message_id = Http::Request("m", true);

@@ -31,7 +31,7 @@ class Community extends Application
 	 * COMMUNITY HOME
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Get rooms and categories
 		$_rooms = $this->_GetRooms();
