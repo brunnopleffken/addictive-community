@@ -43,7 +43,7 @@ class Login extends Application
 		// Hash
 		$salt = array(
 			"hash" => $this->Core->config['security_salt_hash'],
-			"key"  => $this->Core->config['security_salt_key']
+			"key" => $this->Core->config['security_salt_key']
 		);
 
 		if(Http::Request("username") && Http::Request("password")) {
@@ -55,9 +55,9 @@ class Login extends Application
 
 			if(Database::Rows()) {
 				$member_info = Database::Fetch();
-				$member_info['anonymous']  = (Http::Request("anonymous", true)) ? 1 : 0;
-				$member_info['remember']   = (Http::Request("remember", true)) ? 1 : 0;
-				$member_info['session_token'] = $_SESSION['session_token'];
+				$member_info['anonymous'] = (Http::Request("anonymous", true)) ? 1 : 0;
+				$member_info['remember'] = (Http::Request("remember", true)) ? 1 : 0;
+				$member_info['session_token'] = SessionState::Retrieve("session_token");
 
 				// Check if member session was created successfully
 				SessionState::CreateMemberSession($member_info);
