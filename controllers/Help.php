@@ -29,14 +29,9 @@ class Help extends Application
 		$this->Core->redirect("404");
 		exit;
 
-		$_topics = array();
-
 		// Get help topics list
 		Database::Query("SELECT h_id, title, short_desc FROM c_help ORDER BY title ASC;");
-
-		while($help = Database::Fetch()) {
-			$_topics[] = $help;
-		}
+		$_topics = Database::FetchToArray();
 
 		// Page info
 		$page_info['title'] = i18n::Translate("H_TITLE");

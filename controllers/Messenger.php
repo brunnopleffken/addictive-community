@@ -255,7 +255,7 @@ class Messenger extends Application
 					LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id`
 					WHERE `pm_id`={$id} LIMIT 1");
 
-			$message = Database::fetch();
+			$message = Database::Fetch();
 
 			if($message) {
 				$this->Set('message', $message);
@@ -284,7 +284,7 @@ class Messenger extends Application
 					LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id` WHERE `pm_id`={$id}
 					AND `to_id`={$member_id} LIMIT 1");
 
-			$message = Database::fetch();
+			$message = Database::Fetch();
 
 			if($message) {
 				//Set this message so the view can use the information
