@@ -124,8 +124,5 @@ class Session
 			unset($_COOKIE[$name]);
 			setcookie($name, "", 1, "/");
 		}
-		else {
-			throw new Exception("Could not unload cookie '" . $name . "'.");
-		}
 	}
 }

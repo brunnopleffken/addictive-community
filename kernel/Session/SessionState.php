@@ -168,8 +168,18 @@ class SessionState extends Session
 			self::$user_data = $user_data;
 		}
 		else {
-			// Remove session
-			// Remove all cookies
+			$member_id = SessionState::GetCookie("member_id");
+
+			// Delete session from the database (if any)
+			Database::Delete("c_sessions", "member_id = {$member_id}");
+
+			// Destroy cookies
+			SessionState::UnloadCookie("member_id");
+			SessionState::UnloadCookie("login_time");
+			SessionState::UnloadCookie("read_threads");
+
+			// Redirect
+			header("Location: /");
 		}
 	}
 
