@@ -18,9 +18,6 @@ class Core
 	// Community configurations
 	public $config = array();
 
-	// Database class
-	private $Db;
-
 	// Logged member information
 	private $member_info = array();
 
@@ -29,10 +26,9 @@ class Core
 	 * CORE() CLASS CONSTRUCTOR
 	 * --------------------------------------------------------------------
 	 */
-	public function __construct($database, $configurations, $member_info = array())
+	public function __construct($configurations, $member_info = array())
 	{
 		// Load database layer and configurations array
-		$this->Db = $database;
 		$this->config = $configurations;
 		$this->member_info = $member_info;
 	}

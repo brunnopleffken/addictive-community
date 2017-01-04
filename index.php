@@ -38,7 +38,6 @@ class Main
 
 	// Instances of non-static Kernel classes
 	private $Core;
-	private $Db;
 	private $Session;
 
 	// Configurations
@@ -79,8 +78,7 @@ class Main
 		}
 
 		// Instance of Database() class
-		$this->Db = new Database();
-		$this->Db->Connect($config);
+		Database::Connect($config);
 
 		// Get query strings from URL
 		$this->controller = strtolower(Http::Request("c"));
@@ -135,7 +133,6 @@ class Main
 		$this->instance = new $controller();
 
 		// Create an instance of non-static Kernel classes in Application controller
-		$this->instance->Db = $this->Db;
 		$this->instance->Core = $this->Core;
 		$this->instance->Session = $this->Session;
 
@@ -198,8 +195,8 @@ class Main
 	 */
 	public function _GetConfig()
 	{
-		$this->Db->Query("SELECT * FROM c_config;");
-		$this->Config = $this->Db->FetchConfig();
+		Database::Query("SELECT * FROM c_config;");
+		$this->Config = Database::FetchConfig();
 	}
 
 	/**

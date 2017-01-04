@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\i18n;
 use \AC\Kernel\Text;
 
@@ -98,10 +99,10 @@ class Community extends Application
 		}
 
 		// Get categories
-		$categories_result = $this->Db->Query("SELECT * FROM c_categories
+		$categories_result = Database::Query("SELECT * FROM c_categories
 				WHERE visible = 1 ORDER BY order_n, c_id;");
 
-		while($category = $this->Db->Fetch($categories_result)) {
+		while($category = Database::Fetch($categories_result)) {
 			// Categories
 			$this->categories[$category['c_id']] = $category;
 

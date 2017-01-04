@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\i18n;
 use \AC\Kernel\Text;
@@ -33,7 +34,6 @@ class Application
 	 * CLASSES INSTANCES
 	 * --------------------------------------------------------------------
 	 */
-	public $Db;      // Database abstraction layer class
 	public $Core;    // Main core functions
 	public $Session; // Session management and member information
 
@@ -162,13 +162,13 @@ class Application
 	 */
 	private function _GetRooms()
 	{
-		$rooms = $this->Db->Query("SELECT c_rooms.r_id, c_rooms.name, c_rooms.password,
+		$rooms = Database::Query("SELECT c_rooms.r_id, c_rooms.name, c_rooms.password,
 				(SELECT COUNT(*) FROM c_threads WHERE c_threads.room_id = c_rooms.r_id) AS threads
 				FROM c_rooms WHERE invisible = 0;");
 
 		$_sidebar_rooms = array();
 
-		while($result = $this->Db->Fetch($rooms)) {
+		while($result = Database::Fetch($rooms)) {
 			$_sidebar_rooms[] = $result;
 		}
 		$this->Set("sidebar_rooms", $_sidebar_rooms);
@@ -184,12 +184,12 @@ class Application
 		$online = array();
 		$session_expiration = $this->Core->config['general_session_expiration'];
 
-		$members_online = $this->Db->Query("SELECT s.*, m.username FROM c_sessions s
+		$members_online = Database::Query("SELECT s.*, m.username FROM c_sessions s
 				INNER JOIN c_members m ON (s.member_id = m.m_id)
 				WHERE s.member_id <> 0 AND s.activity_time > '{$session_expiration}' AND s.anonymous = 0
 				ORDER BY s.activity_time DESC;");
 
-		while($members = $this->Db->Fetch($members_online)) {
+		while($members = Database::Fetch($members_online)) {
 			$viewing = i18n::Translate("SIDEBAR_MEMBER_VIEWING") . ": " . ucwords($members['location_type']);
 			$online[] = "<a href='profile/{$members['member_id']}' title='{$viewing}'>{$members['username']}</a>";
 		}
@@ -200,8 +200,8 @@ class Application
 		$this->Set("member_list", $member_list);
 
 		// Number of guests
-		$this->Db->Query("SELECT COUNT(s_id) AS count FROM c_sessions WHERE member_id = 0;");
-		$guests_count = $this->Db->Fetch();
+		Database::Query("SELECT COUNT(s_id) AS count FROM c_sessions WHERE member_id = 0;");
+		$guests_count = Database::Fetch();
 		$guests_count = $guests_count['count'];
 		$this->Set("guests_count", $guests_count);
 	}
@@ -213,15 +213,15 @@ class Application
 	 */
 	private function _GetStats()
 	{
-		$this->Db->Query("SELECT * FROM c_stats;");
-		$stats_result_temp = $this->Db->Fetch();
+		Database::Query("SELECT * FROM c_stats;");
+		$stats_result_temp = Database::Fetch();
 
 		$_stats['threads'] = $stats_result_temp['thread_count'];
 		$_stats['posts'] = $stats_result_temp['post_count'];
 		$_stats['members'] = $stats_result_temp['member_count'];
 
-		$this->Db->Query("SELECT m_id, username FROM c_members ORDER BY m_id DESC LIMIT 1;");
-		$stats_result_temp = $this->Db->Fetch();
+		Database::Query("SELECT m_id, username FROM c_members ORDER BY m_id DESC LIMIT 1;");
+		$stats_result_temp = Database::Fetch();
 
 		$_stats['lastmemberid']   = $stats_result_temp['m_id'];
 		$_stats['lastmembername'] = $stats_result_temp['username'];
@@ -237,13 +237,13 @@ class Application
 	private function _GetEmoticons()
 	{
 		$emoticons = array();
-		$this->Db->Query("SELECT * FROM c_emoticons WHERE display = 1;");
+		Database::Query("SELECT * FROM c_emoticons WHERE display = 1;");
 
 		$add_quotes = function($value) {
 			return "'{$value}'";
 		};
 
-		while($emoticon = $this->Db->Fetch()) {
+		while($emoticon = Database::Fetch()) {
 			$emoticons[] = $emoticon['filename'];
 		}
 
