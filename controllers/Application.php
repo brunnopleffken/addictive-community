@@ -186,7 +186,7 @@ class Application
 
 		$members_online = Database::Query("SELECT s.*, m.username FROM c_sessions s
 				INNER JOIN c_members m ON (s.member_id = m.m_id)
-				WHERE s.member_id <> 0 AND s.activity_time > '{$session_expiration}' AND s.anonymous = 0
+				WHERE s.member_id <> 0 AND s.anonymous = 0
 				ORDER BY s.activity_time DESC;");
 
 		while($members = Database::Fetch($members_online)) {
