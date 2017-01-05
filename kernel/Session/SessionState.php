@@ -98,7 +98,7 @@ class SessionState extends Session
 	{
 		// Delete all existing rows in DB with the same member or session ID
 		Database::Delete("c_sessions",
-			"session_token = '{$member_info['m_id']}' OR member_id = '{$member_info['session_token']}'"
+			"session_token = '{$member_info['session_token']}' OR member_id = '{$member_info['m_id']}'"
 		);
 
 		// Remember user session?
