@@ -28,24 +28,18 @@ class Upload
 	// Uploaded file type
 	private $file_type = "";
 
-	// Database class
-	private $Db;
-
 	/**
 	 * --------------------------------------------------------------------
 	 * CONSTRUCTOR
 	 * --------------------------------------------------------------------
 	 */
-	public function __construct($database)
+	public function __construct()
 	{
 		// List of dangerous file types by OS
 		$forbidden_mac = array("app", "command", "dmg");
 		$forbidden_win = array("bat", "bin", "cmd", "com", "exe", "lnk", "msi", "pif", "scr");
 		$forbidden_web = array("html", "js", "php", "phtml");
 		$this->forbidden_extensions = array_merge($forbidden_win, $forbidden_mac, $forbidden_web);
-
-		// Store database class
-		$this->Db = &$database;
 	}
 
 	/**
@@ -61,8 +55,8 @@ class Upload
 			$timestamp = time();
 
 			// Validate maximum attachment file size
-			$max_attachment_size_mb = $this->Db->Query("SELECT value FROM c_config WHERE field = 'general_max_attachment_size';");
-			$max_attachment_size_mb = $this->Db->Fetch();
+			$max_attachment_size_mb = Database::Query("SELECT value FROM c_config WHERE field = 'general_max_attachment_size';");
+			$max_attachment_size_mb = Database::Fetch();
 			$max_attachment_size_bytes = $max_attachment_size_mb['value'] * 1048576;
 
 			if($file['size'] >= $max_attachment_size_bytes) {
@@ -115,8 +109,8 @@ class Upload
 				"size"      => $file['size']
 			);
 
-			$this->Db->Insert("c_attachments", $attachment);
-			return $this->Db->GetLastID();
+			Database::Insert("c_attachments", $attachment);
+			return Database::GetLastID();
 		}
 		else {
 			return 0;
