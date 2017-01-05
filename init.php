@@ -30,6 +30,9 @@ header('Content-Type: text/html; charset=utf-8');
 define("VERSION", "v0.12.0");
 define("CHANNEL", "Beta"); // e.g.: Alpha, Beta, Release Candidate, Final
 
+define("MIN_PHP_VERSION", 5.4);
+define("MIN_SQL_VERSION", 5.1);
+
 /**
  * --------------------------------------------------------------------
  * TIME DEFINITION CONSTANTS

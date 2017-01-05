@@ -24,9 +24,6 @@ require("../init.php");
 require("../kernel/Html.php");
 require("../kernel/Database.php");
 
-define("MIN_PHP_VERSION", 5.3);
-define("MIN_SQL_VERSION", 5.1);
-
 $template = "";
 
 /**
