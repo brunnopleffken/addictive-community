@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Core;
 use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\i18n;
@@ -30,12 +31,18 @@ class Application
 	// Dictionary of keys and value to be shown on View
 	public $view_data = array();
 
+	// Kernel\Core class
+	public $Core;
+
 	/**
 	 * --------------------------------------------------------------------
-	 * CLASSES INSTANCES
+	 * APPLICATION CONSTRUCTOR
 	 * --------------------------------------------------------------------
 	 */
-	public $Core;    // Main core functions
+	public function __construct(Core $core_instance)
+	{
+		$this->Core = $core_instance;
+	}
 
 	/**
 	 * --------------------------------------------------------------------
@@ -179,7 +186,6 @@ class Application
 	private function _GetMembersOnline()
 	{
 		$online = array();
-		$session_expiration = $this->Core->config['general_session_expiration'];
 
 		$members_online = Database::Query("SELECT s.*, m.username FROM c_sessions s
 				INNER JOIN c_members m ON (s.member_id = m.m_id)

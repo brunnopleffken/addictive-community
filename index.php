@@ -129,10 +129,7 @@ class Main
 		require("controllers/ApplicationController.php");
 		require("controllers/" . $controller . "Controller.php");
 		$controller = "\\AC\\Controllers\\" . $controller;
-		$this->instance = new $controller();
-
-		// Create an instance of non-static Kernel classes in Application controller
-		$this->instance->Core = $this->Core;
+		$this->instance = new $controller($this->Core);
 
 		// Execute Controller::_BeforeAction() method
 		if(method_exists($this->instance, "_BeforeAction")) {
