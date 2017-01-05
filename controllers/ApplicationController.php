@@ -146,8 +146,8 @@ class Application
 
 			$unread_messages = Database::Fetch();
 
-			$this->Set("member_id", SessionState::$user_data['m_id']);
 			$this->Set("member_info", SessionState::$user_data);
+			$this->Set("member_id", SessionState::$user_data['m_id']); // Just a shortcut :)
 			$this->Set("unread_messages", $unread_messages['total']);
 		}
 		else {

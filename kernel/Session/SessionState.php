@@ -208,4 +208,16 @@ class SessionState extends Session
 		}
 		return false;
 	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * Redirect to HTTP 403 if user is a guest
+	 * --------------------------------------------------------------------
+	 */
+	public static function NoGuest()
+	{
+		if(self::$user_data['usergroup'] == 5) {
+			header("Location: /403");
+		}
+	}
 }

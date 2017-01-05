@@ -69,7 +69,7 @@
 							</label>
 						<?php endforeach; ?>
 					</div>
-					<?php if($this->Session->member_info['m_id'] != 0): ?>
+					<?php if($member_id != 0): ?>
 						<input type="submit" value="Vote" class="btn btn-default">
 					<?php else: ?>
 						<input type="submit" value="You're unable to vote" disabled>
@@ -84,7 +84,7 @@
 	<div class="thread-post-info">
 		<i class="fa fa-clock-o"></i>
 		<?php __("T_POSTED_ON", array($first_post_info['post_date'])) ?> <?php echo $first_post_info['edited'] ?>
-		<?php if($this->Session->member_info['m_id'] != 0): ?>
+		<?php if($member_id != 0): ?>
 			<ul class="options-list pull-right hide-xs">
 				<?php if($first_post_info['is_author']): ?>
 					<li>
@@ -106,7 +106,7 @@
 <!-- BUTTONS -->
 
 <div class="thread-buttons">
-	<?php if($this->Session->IsMember()): ?>
+	<?php if($is_member): ?>
 		<?php if($thread_info['locked'] == 0 && $thread_info['allow_to_reply']): ?>
 			<a href="thread/reply/<?php echo $thread_id ?>" class="btn btn-default btn-lg pull-right"><?php __("T_BTN_ADD") ?></a>
 		<?php elseif($thread_info['obsolete']): ?>
@@ -198,7 +198,7 @@
 			</div>
 			<div class="thread-reply-options pull-clear">
 				<ul class="options-list pull-left">
-					<?php if($this->Session->IsMember()): ?>
+					<?php if($is_member): ?>
 						<li>
 							<a href="report/post/<?php echo $reply[$k]['p_id'] ?>" class="fancybox fancybox.ajax">
 								<i class="fa fa-exclamation-triangle"></i><span><?php __("T_REPORT_POST") ?></span>
@@ -225,7 +225,7 @@
 <!-- PAGINATION AND BUTTONS -->
 
 <div class="thread-buttons">
-	<?php if($this->Session->IsMember()): ?>
+	<?php if($is_member): ?>
 		<?php if($thread_info['locked'] == 0 && $thread_info['allow_to_reply']): ?>
 			<a href="thread/reply/<?php echo $thread_id ?>" class="btn btn-default btn-lg pull-right"><?php __("T_BTN_ADD") ?></a>
 		<?php elseif($thread_info['obsolete']): ?>

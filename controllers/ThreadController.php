@@ -17,11 +17,15 @@ use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
+use \AC\Kernel\Session\SessionState;
 use \AC\Kernel\Text;
 use \AC\Kernel\Upload;
 
 class Thread extends Application
 {
+	// Thread ID
+	private $thread_id = 0;
+
 	// Thread information
 	private $thread_info = array();
 
@@ -33,16 +37,18 @@ class Thread extends Application
 	 * SHOW THREAD
 	 * --------------------------------------------------------------------
 	 */
-	public function Index($id)
+	public function Index()
 	{
-		// Check if $id exists and is a number
-		if($id == null && !is_numeric($id)) {
+		$this->thread_id = Http::Request("id", true);
+
+		// Check if $this->thread_id exists and is a number
+		if(!$this->thread_id) {
 			$this->Core->Redirect("500");
 		}
 
 		// Define messages
 		$message_id = Http::Request("m", true);
-		$notification = array("",
+		$notification = ["",
 			Html::Notification(i18n::Translate("T_MESSAGE_1"), "success"),
 			Html::Notification(i18n::Translate("T_MESSAGE_2"), "success"),
 			Html::Notification(i18n::Translate("T_MESSAGE_3"), "success"),
@@ -50,22 +56,22 @@ class Thread extends Application
 			Html::Notification(i18n::Translate("T_MESSAGE_5"), "success"),
 			Html::Notification(i18n::Translate("T_MESSAGE_6"), "success"),
 			Html::Notification(i18n::Translate("T_MESSAGE_7"), "success")
-		);
+        ];
 
 		// Get thread information
-		$this->thread_info = $this->_GetThreadInfo($id);
+		$this->thread_info = $this->_GetThreadInfo();
 
 		// Define notification if the thread has a locking date
 		$has_date_notification = null;
 
-		if($this->Session->IsAdmin() && $this->thread_info['lock_date'] > time()) {
+		if(SessionState::IsAdmin() && $this->thread_info['lock_date'] > time()) {
 			$formatted_date = $this->Core->DateFormat($this->thread_info['lock_date']);
 			$has_date_notification = Html::Notification(
 				"This thread will be locked in <b>" . $formatted_date . "</b>", "warning", true
 			);
 		}
 
-		if($this->Session->IsAdmin() && $this->thread_info['start_date'] > time()) {
+		if(SessionState::IsAdmin() && $this->thread_info['start_date'] > time()) {
 			$formatted_date = $this->Core->DateFormat($this->thread_info['start_date']);
 			$has_date_notification = Html::Notification(
 				"This thread is invisible and will be opened in <b>" . $formatted_date . "</b>", "info", true
@@ -81,25 +87,25 @@ class Thread extends Application
 		// Avoid page navigation from incrementing visit counter
 		$_SERVER['HTTP_REFERER'] = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : false;
 		if(!strstr($_SERVER['HTTP_REFERER'], "thread")) {
-			Database::Update("c_threads", "views = views + 1", "t_id = '{$id}'");
+			Database::Update("c_threads", "views = views + 1", "t_id = '{$this->thread_id}'");
 		}
 
 		// Get first post
-		$first_post_info = $this->_GetFirstPost($id);
+		$first_post_info = $this->_GetFirstPost();
 
 		// Get replies
 		$pages = $this->_GetPages();
-		$replies = $this->_GetReplies($id, $pages);
+		$replies = $this->_GetReplies($pages);
 
 		// Get related threads
-		$related_thread_list = $this->_RelatedThreads($id);
+		$related_thread_list = $this->_RelatedThreads();
 
 		// Page info
 		$page_info['title'] = $this->thread_info['title'];
 		$page_info['bc'] = array($this->thread_info['name'], $this->thread_info['title']);
 		$this->Set("page_info", $page_info);
 
-		$this->Set("thread_id", $id);
+		$this->Set("thread_id", $this->thread_id);
 		$this->Set("thread_info", $this->thread_info);
 		$this->Set("notification", $notification[$message_id]);
 		$this->Set("has_date_notification", $has_date_notification);
@@ -108,6 +114,7 @@ class Thread extends Application
 		$this->Set("reply", $replies);
 		$this->Set("pages", $pages);
 		$this->Set("related_thread_list", $related_thread_list);
+		$this->Set("is_member", SessionState::IsMember());
 		$this->Set("is_moderator", $this->_IsModerator($this->thread_info['moderators']));
 	}
 
@@ -119,7 +126,7 @@ class Thread extends Application
 	public function Reply($id)
 	{
 		// Do not allow guests
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Get thread info
 		Database::Query("SELECT t.t_id, t.title, t.lock_date, t.locked, r.r_id, r.name, r.upload FROM c_threads t
@@ -162,7 +169,7 @@ class Thread extends Application
 	public function Add($room_id)
 	{
 		// Do not allow guests
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		Database::Query("SELECT r_id, name, upload, moderators FROM c_rooms WHERE r_id = {$room_id};");
 		$room_info = Database::Fetch();
@@ -188,7 +195,7 @@ class Thread extends Application
 	public function Edit($post_id)
 	{
 		// Don't allow guests
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Get post info
 		Database::Query("SELECT * FROM c_posts WHERE p_id = {$post_id};");
@@ -196,7 +203,7 @@ class Thread extends Application
 
 		// If the author isn't the user currently logged in
 		// check if is an administrator
-		if($this->Session->session_info['member_id'] != $post_info['author_id'] && !$this->Session->IsAdmin()) {
+		if(SessionState::$user_data['m_id'] != $post_info['author_id'] && !SessionState::IsAdmin()) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
@@ -223,7 +230,7 @@ class Thread extends Application
 
 		// Format new post array
 		$post = array(
-			"author_id"     => $this->Session->member_info['m_id'],
+			"author_id"     => SessionState::$user_data['m_id'],
 			"thread_id"     => Http::Request("id", true),
 			"post_date"     => time(),
 			"ip_address"    => $_SERVER['REMOTE_ADDR'],
@@ -234,8 +241,10 @@ class Thread extends Application
 		);
 
 		// Send attachments
-		$Upload = new Upload($this->Db);
-		$post['attach_id'] = $Upload->Attachment(Http::File("attachment"), $post['author_id']);
+		if(Http::File("attachment")) {
+			$Upload = new Upload();
+			$post['attach_id'] = $Upload->Attachment(Http::File("attachment"), $post['author_id']);
+		}
 
 		// Insert new post into DB
 		Database::Insert("c_posts", $post);
@@ -347,7 +356,7 @@ class Thread extends Application
 		$thread = array(
 			"title"               => Http::Request("title"),
 			"slug"                => Text::Slug(htmlspecialchars_decode(Http::Request("title"), ENT_QUOTES)),
-			"author_member_id"    => $this->Session->member_info['m_id'],
+			"author_member_id"    => SessionState::$user_data['m_id'],
 			"replies"             => 1,
 			"views"               => 0,
 			"start_date"          => $open_time,
@@ -355,7 +364,7 @@ class Thread extends Application
 			"room_id"             => Http::Request("room_id", true),
 			"announcement"        => Http::Request("announcement", true) ? Http::Request("announcement") : 0,
 			"last_post_date"       => time(),
-			"last_post_member_id"  => $this->Session->member_info['m_id'],
+			"last_post_member_id"  => SessionState::$user_data['m_id'],
 			"locked"              => Http::Request("locked", true) ? Http::Request("announcement") : 0,
 			"approved"            => 1,
 			"with_best_answer"     => 0,
@@ -367,7 +376,7 @@ class Thread extends Application
 
 		// Insert first post
 		$post = array(
-			"author_id"   => $this->Session->member_info['m_id'],
+			"author_id"   => SessionState::$user_data['m_id'],
 			"thread_id"   => Database::GetLastID(),
 			"post_date"   => $thread['last_post_date'],
 			"ip_address"  => $_SERVER['REMOTE_ADDR'],
@@ -376,8 +385,11 @@ class Thread extends Application
 			"first_post"  => 1
 		);
 
-		$Upload = new Upload($this->Db);
-		$post['attach_id'] = $Upload->Attachment(Http::File("attachment"), $post['author_id']);
+		// Send attachments
+		if(Http::File("attachment")) {
+			$Upload = new Upload();
+			$post['attach_id'] = $Upload->Attachment(Http::File("attachment"), $post['author_id']);
+		}
 
 		Database::Insert("c_posts", $post);
 
@@ -413,7 +425,7 @@ class Thread extends Application
 		$this->layout = false;
 
 		// Do not allow guests
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Get author ID from database for security reasons
 		Database::Query("SELECT author_id FROM c_posts WHERE p_id = {$post_id};");
@@ -421,14 +433,14 @@ class Thread extends Application
 
 		// If the author isn't the user currently logged in
 		// check if is an administrator
-		if($this->Session->session_info['member_id'] != $post_info['author_id'] && !$this->Session->IsAdmin()) {
+		if(SessionState::$user_data['m_id'] != $post_info['author_id'] && !SessionState::IsAdmin()) {
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
 		$post = array(
 			"post"        => $_REQUEST['post'],
 			"edit_time"   => time(),
-			"edit_author" => $this->Session->member_info['m_id']
+			"edit_author" => SessionState::$user_data['m_id']
 		);
 
 		// Insert edited post on DB
@@ -448,7 +460,7 @@ class Thread extends Application
 		$this->layout = false;
 
 		// Do not allow guests
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Get post information
 		$author_id = Http::Request("mid", true);
@@ -457,7 +469,7 @@ class Thread extends Application
 
 		// If the author isn't the user currently logged in
 		// check if is an administrator
-		if($this->Session->session_info['member_id'] != $author_id && !$this->Session->IsAdmin()) {
+		if(SessionState::$user_data['m_id'] != $author_id && !SessionState::IsAdmin()) {
 			Html::Error("You cannot delete a post that you did not publish.");
 		}
 
@@ -487,7 +499,7 @@ class Thread extends Application
 		$this->layout = false;
 
 		// Do not allow guests
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Do not allow unauthorized members
 		if(!$this->_IsModeratorFromThreadId($thread_id)) {
@@ -499,7 +511,7 @@ class Thread extends Application
 
 		// Register Moderation log in DB
 		$log = array(
-			"member_id"  => $this->Session->session_info['member_id'],
+			"member_id"  => SessionState::$user_data['m_id'],
 			"time"       => time(),
 			"act"        => "Locked thread: ID #" . $thread_id,
 			"ip_address" => $_SERVER['REMOTE_ADDR']
@@ -520,7 +532,7 @@ class Thread extends Application
 		$this->layout = false;
 
 		// Do not allow guests
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Do not allow unauthorized members
 		if(!$this->_IsModeratorFromThreadId($thread_id)) {
@@ -532,7 +544,7 @@ class Thread extends Application
 
 		// Register Moderation log in DB
 		$log = array(
-			"member_id"  => $this->Session->session_info['member_id'],
+			"member_id"  => SessionState::$user_data['m_id'],
 			"time"       => time(),
 			"act"        => "Unlocked thread: ID #" . $thread_id,
 			"ip_address" => $_SERVER['REMOTE_ADDR']
@@ -553,7 +565,7 @@ class Thread extends Application
 		$this->layout = false;
 
 		// Do not allow guests
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Do not allow unauthorized members
 		if(!$this->_IsModeratorFromThreadId($thread_id)) {
@@ -565,7 +577,7 @@ class Thread extends Application
 
 		// Register Moderation log in DB
 		$log = array(
-			"member_id"  => $this->Session->session_info['member_id'],
+			"member_id"  => SessionState::$user_data['m_id'],
 			"time"       => time(),
 			"act"        => "Set thread ID #" . $thread_id . " as announcement",
 			"ip_address" => $_SERVER['REMOTE_ADDR']
@@ -586,7 +598,7 @@ class Thread extends Application
 		$this->layout = false;
 
 		// Do not allow guests
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Do not allow unauthorized members
 		if(!$this->_IsModeratorFromThreadId($thread_id)) {
@@ -598,7 +610,7 @@ class Thread extends Application
 
 		// Register Moderation log in DB
 		$log = array(
-			"member_id"  => $this->Session->session_info['member_id'],
+			"member_id"  => SessionState::$user_data['m_id'],
 			"time"       => time(),
 			"act"        => "Removed thread ID #" . $thread_id . " as announcement",
 			"ip_address" => $_SERVER['REMOTE_ADDR']
@@ -619,7 +631,7 @@ class Thread extends Application
 		$this->layout = false;
 
 		// Do not allow guests
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Do not allow unauthorized members
 		if(!$this->_IsModeratorFromThreadId($thread_id)) {
@@ -646,7 +658,7 @@ class Thread extends Application
 
 		// Register Moderation log in DB
 		$log = array(
-			"member_id"  => $this->Session->session_info['member_id'],
+			"member_id"  => SessionState::$user_data['m_id'],
 			"time"       => time(),
 			"act"        => "Deleted thread: ID #" . $thread_id,
 			"ip_address" => $_SERVER['REMOTE_ADDR']
@@ -677,7 +689,7 @@ class Thread extends Application
 
 		$thread = Database::Fetch();
 
-		if($this->Session->member_info['m_id'] == $thread['thread_author']) {
+		if(SessionState::$user_data['m_id'] == $thread['thread_author']) {
 			Database::Update("c_posts", "best_answer = 1", "p_id = {$reply_id}");
 			Database::Update("c_threads", "with_best_answer = 1", "t_id = {$thread['thread_id']}");
 			$this->Core->Redirect("HTTP_REFERER");
@@ -707,7 +719,7 @@ class Thread extends Application
 
 		$thread = Database::Fetch();
 
-		if($this->Session->member_info['m_id'] == $thread['thread_author']) {
+		if(SessionState::$user_data['m_id'] == $thread['thread_author']) {
 			Database::Update("c_posts", "best_answer = 0", "p_id = {$reply_id}");
 			Database::Update("c_threads", "with_best_answer = 0", "t_id = {$thread['thread_id']}");
 			$this->Core->Redirect("HTTP_REFERER");
@@ -727,7 +739,7 @@ class Thread extends Application
 		$this->layout = false;
 
 		// Do not allow guests
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Get updated poll info in DB
 		Database::Query("SELECT poll_data, poll_allow_multiple FROM c_threads WHERE t_id = {$thread_id};");
@@ -739,7 +751,7 @@ class Thread extends Application
 			$poll_data['replies'][Http::Request("chosen_option")] += 1;
 
 			// Add member ID to voters list
-			array_push($poll_data['voters'], $this->Session->member_info['m_id']);
+			array_push($poll_data['voters'], SessionState::$user_data['m_id']);
 		}
 		else {
 			// If poll allows multiple choice
@@ -748,7 +760,7 @@ class Thread extends Application
 			}
 
 			// Add member ID to voters list
-			array_push($poll_data['voters'], $this->Session->member_info['m_id']);
+			array_push($poll_data['voters'], SessionState::$user_data['m_id']);
 		}
 
 		// Update thread information with encoded data
@@ -766,16 +778,16 @@ class Thread extends Application
 	 */
 	private function _CheckUnread()
 	{
-		$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
+		$read_threads_cookie = SessionState::GetCookie("read_threads");
 		if($read_threads_cookie) {
-			$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
+			$login_time_cookie = SessionState::GetCookie("login_time");
 			$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
 			if(!in_array($this->thread_info['t_id'], $read_threads) && $login_time_cookie < $this->thread_info['last_post_date']) {
 				array_push($read_threads, $this->thread_info['t_id']);
 			}
 
 			$read_threads_cookie = json_encode($read_threads);
-			$this->Session->CreateCookie("addictive_community_read_threads", $read_threads_cookie);
+			SessionState::CreateCookie("read_threads", $read_threads_cookie);
 		}
 	}
 
@@ -785,14 +797,14 @@ class Thread extends Application
 	 * IT'S AN OBSOLETE THREAD AND PERMISSIONS
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetThreadInfo($id)
+	private function _GetThreadInfo()
 	{
 		// Select thread info from database
 		$thread = Database::Query("SELECT t.t_id, t.title, t.slug, t.start_date, t.lock_date, t.room_id, t.author_member_id,
 				t.locked, t.announcement, t.last_post_date, t.poll_question, t.poll_data, t.poll_allow_multiple,
 				r.r_id, r.name, r.perm_view, r.perm_reply, r.moderators,
 				(SELECT COUNT(*) FROM c_posts p WHERE p.thread_id = t.t_id) AS post_count FROM c_threads t
-				INNER JOIN c_rooms r ON (r.r_id = t.room_id) WHERE t.t_id = '{$id}';");
+				INNER JOIN c_rooms r ON (r.r_id = t.room_id) WHERE t.t_id = '{$this->thread_id}';");
 		$thread_info = Database::Fetch($thread);
 
 		// Redirect to Error 404 if the thread doesn't exist
@@ -808,14 +820,14 @@ class Thread extends Application
 
 		// Check permission to read
 		$thread_info['perm_view'] = unserialize($thread_info['perm_view']);
-		$permission_value = "V_" . $this->Session->member_info['usergroup'];
+		$permission_value = "V_" . SessionState::$user_data['usergroup'];
 		if(!in_array($permission_value, $thread_info['perm_view'])) {
 			$this->Core->Redirect("HTTP_REFERER");
 		}
 
 		// Check permission to reply
 		$thread_info['perm_reply'] = unserialize($thread_info['perm_reply']);
-		$permission_value = "V_" . $this->Session->member_info['usergroup'];
+		$permission_value = "V_" . SessionState::$user_data['usergroup'];
 		if(in_array($permission_value, $thread_info['perm_reply'])) {
 			$thread_info['allow_to_reply'] = true;
 		}
@@ -878,7 +890,7 @@ class Thread extends Application
 			);
 
 			// Check if user has already voted in this poll
-			$poll_info['has_voted'] = in_array($this->Session->member_info['m_id'], $poll_info['voters']);
+			$poll_info['has_voted'] = in_array(SessionState::$user_data['m_id'], $poll_info['voters']);
 		}
 		else {
 			// If not, return false
@@ -898,8 +910,8 @@ class Thread extends Application
 	private function _UpdateSessionTable()
 	{
 		// Update session table with room ID
-		$session = $this->Session->session_token;
-		Database::Update("c_sessions", "location_room_id = {$this->thread_info['room_id']}", "s_id = '{$session}'");
+		$session = SessionState::$session_token;
+		Database::Update("c_sessions", "location_room_id = {$this->thread_id}", "session_token = '{$session}'");
 	}
 
 	/**
@@ -925,7 +937,7 @@ class Thread extends Application
 	 * GET FIRST POST CONTENT
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetFirstPost($id)
+	private function _GetFirstPost()
 	{
 		// Declare return array
 		$result = array();
@@ -936,7 +948,7 @@ class Thread extends Application
 				INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
 				LEFT JOIN c_members AS edit ON (c_posts.edit_author = edit.m_id)
 				LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
-				WHERE thread_id = '{$id}' AND first_post = '1' LIMIT 1;");
+				WHERE thread_id = '{$this->thread_id}' AND first_post = '1' LIMIT 1;");
 
 		$result = Database::Fetch($first_post);
 
@@ -945,7 +957,7 @@ class Thread extends Application
 		$result['post_date'] = $this->Core->DateFormat($result['post_date']);
 
 		// Check if the currently logged in member is the thread author
-		$result['is_author'] = ($result['author_id'] == $this->Session->session_info['member_id']);
+		$result['is_author'] = ($result['author_id'] == SessionState::$user_data['m_id']);
 
 		// Show label if post was edited
 		if(isset($result['edit_time'])) {
@@ -973,7 +985,7 @@ class Thread extends Application
 	 * GET REPLIES
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetReplies($id, $pages)
+	private function _GetReplies($pages)
 	{
 		$reply_result = array();
 
@@ -981,7 +993,7 @@ class Thread extends Application
 				INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
 				LEFT JOIN c_members AS edit ON (c_posts.edit_author = edit.m_id)
 				LEFT JOIN c_attachments ON (c_posts.attach_id = c_attachments.a_id)
-				WHERE thread_id = '{$id}' AND first_post = '0'
+				WHERE thread_id = '{$this->thread_id}' AND first_post = '0'
 				ORDER BY best_answer DESC, post_date ASC
 				LIMIT {$pages['offset']},{$pages['posts_per_page']};");
 
@@ -1053,7 +1065,7 @@ class Thread extends Application
 			$result['post_controls'] = [];
 
 			// Member controls: edit or delete post
-			if($result['author_id'] == $this->Session->member_info['m_id'] || $this->Session->IsAdmin()) {
+			if($result['author_id'] == SessionState::$user_data['m_id'] || SessionState::IsAdmin()) {
 				// Edit post
 				array_push($result['post_controls'], array(
 					"url"   => "thread/edit/{$result['p_id']}",
@@ -1066,15 +1078,15 @@ class Thread extends Application
 				array_push($result['post_controls'], array(
 					"url"   => "#deleteThreadConfirm",
 					"class" => "fancybox delete-post-button",
-					"data"  => "data-post='{$result['p_id']}' data-thread='{$id}' data-member='{$result['author_id']}'",
+					"data"  => "data-post='{$result['p_id']}' data-thread='{$this->thread_id}' data-member='{$result['author_id']}'",
 					"icon"  => "fa-ban",
 					"text"  => i18n::Translate("T_DELETE")
 				));
 			}
 
 			// Set/uset best answer
-			if($this->thread_info['author_member_id'] == $this->Session->member_info['m_id']
-				&& $result['author_id'] != $this->Session->member_info['m_id']) {
+			if($this->thread_info['author_member_id'] == SessionState::$user_data['m_id']
+				&& $result['author_id'] != SessionState::$user_data['m_id']) {
 				if($result['best_answer'] == 0) {
 					// Set as best answer
 					array_push($result['post_controls'], array(
@@ -1158,7 +1170,7 @@ class Thread extends Application
 	 * GET LIST OF RELATED THREADS
 	 * --------------------------------------------------------------------
 	 */
-	private function _RelatedThreads($id)
+	private function _RelatedThreads()
 	{
 		$thread_list = "";
 		$thread_search = explode(" ", strtolower($this->thread_info['title']));
@@ -1172,7 +1184,7 @@ class Thread extends Application
 
 		$thread_search = implode(" ", $thread_search);
 		Database::Query("SELECT *, MATCH(title) AGAINST ('{$thread_search}') AS relevance FROM c_threads
-				WHERE t_id <> {$id} AND MATCH(title) AGAINST ('{$thread_search}');");
+				WHERE t_id <> {$this->thread_id} AND MATCH(title) AGAINST ('{$thread_search}');");
 
 		while($thread = Database::Fetch()) {
 			$thread['thread_date'] = $this->Core->DateFormat($thread['last_post_date'], "short");
@@ -1194,12 +1206,12 @@ class Thread extends Application
 
 		// Check if room has moderators and if
 		// the current member is a moderator
-		if(!empty($moderators_array) && in_array($this->Session->member_info['m_id'], $moderators_array)) {
+		if(!empty($moderators_array) && in_array(SessionState::$user_data['m_id'], $moderators_array)) {
 			return true;
 		}
 		else {
 			// If member is not a moderator, check if is an Administrator
-			return $this->Session->IsAdmin();
+			return SessionState::IsAdmin();
 		}
 	}
 
