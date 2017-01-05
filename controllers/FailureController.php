@@ -30,6 +30,9 @@ class Failure extends Application
 		// Get type of error
 		$type = Http::Request("t");
 
+		// Show "Error" as master template in these statuses...
+		$show_error_when = array('offline', 'update', '403', '404', '500');
+
 		// Error list
 		$errors = array(
 			'not_allowed' => array(
@@ -53,11 +56,14 @@ class Failure extends Application
 			'deleted_member' => array(
 				"", "deleted"
 			),
+			'403' => array(
+				"", "403", "Error 403"
+			),
 			'404' => array(
-				"", "404"
+				"", "404", "Error 404"
 			),
 			'500' => array(
-				"", "500"
+				"", "500", "Error 500"
 			)
 		);
 
@@ -67,6 +73,15 @@ class Failure extends Application
 		}
 		else {
 			$title = i18n::Translate("E_ERROR_TITLE");
+		}
+
+		// Show custom title
+		if(isset($errors[$type][2])) {
+			$title = $errors[$type][2];
+		}
+
+		if(in_array($type, $show_error_when)) {
+			$this->master = "Error";
 		}
 
 		// Return variables
