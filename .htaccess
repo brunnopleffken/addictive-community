@@ -1,6 +1,7 @@
 # Disable directory browsing
 Options -Indexes
 
+ErrorDocument 403 /403
 ErrorDocument 404 /404
 ErrorDocument 500 /500
 
@@ -19,6 +20,7 @@ ErrorDocument 500 /500
   RewriteRule ^(logout)$ index.php?c=login&act=logout
 
   # Errors
+  RewriteRule ^(403)$ index.php?c=failure&t=403 [QSA]
   RewriteRule ^(404)$ index.php?c=failure&t=404 [QSA]
   RewriteRule ^(500)$ index.php?c=failure&t=500 [QSA]
 
