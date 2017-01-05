@@ -175,7 +175,7 @@ class Profile extends Application
 		$attachments = array();
 
 		// Instance of Upload() class
-		$Upload = new Upload($this->Db);
+		$Upload = new Upload();
 
 		// Select all attachments of a user
 		Database::Query("SELECT * FROM c_attachments WHERE member_id = '{$id}' AND private = 0;");
