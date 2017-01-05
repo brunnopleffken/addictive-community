@@ -1,15 +1,15 @@
 <h1>
-	<small><?php echo $community_name ?></small>
-	<?php __("C_TITLE") ?>: <?php echo $formatted_date ?>
+	<small><?= $community_name ?></small>
+	<?php __("C_TITLE") ?>: <?= $formatted_date ?>
 </h1>
 
 <div class="nav room-nav">
 	<div class="nav-top">
-		<a href="calendar/view?date=<?php echo \AC\Kernel\Http::Request("date") ?>" class="active"><?php __("C_VIEW") ?></a>
+		<a href="calendar/view?date=<?= \AC\Kernel\Http::Request("date") ?>" class="active"><?php __("C_VIEW") ?></a>
 	</div>
 	<div class="nav-bottom">
-		<a href="calendar/view?date=<?php echo \AC\Kernel\Http::Request("date") ?>"><?php __("C_VIEW_ALL") ?></a>
-		<a href="calendar/view?date=<?php echo \AC\Kernel\Http::Request("date") ?>&type=private"><?php __("C_VIEW_PRIVATE") ?></a>
+		<a href="calendar/view?date=<?= \AC\Kernel\Http::Request("date") ?>"><?php __("C_VIEW_ALL") ?></a>
+		<a href="calendar/view?date=<?= \AC\Kernel\Http::Request("date") ?>&type=private"><?php __("C_VIEW_PRIVATE") ?></a>
 	</div>
 </div>
 
@@ -22,7 +22,7 @@
 				<div class="block">
 					<div class="event-time" style="text-align: center; font-size: 28px;"><i class="fa fa-birthday-cake"></i></div>
 					<div class="event-content" style="padding: 15px 0 15px 10px">
-						<h3 style="margin:0">Birthday of <a href="profile/<?php echo $birthday['m_id'] ?>"><?php echo $birthday['username'] ?></a></h3>
+						<h3 style="margin:0">Birthday of <a href="profile/<?= $birthday['m_id'] ?>"><?= $birthday['username'] ?></a></h3>
 					</div>
 				</div>
 			</div>
@@ -33,11 +33,11 @@
 			<div class="marker"><span></span></div>
 			<div class="details">
 				<div class="block">
-					<div class="event-time"><?php echo date("H:i", $event['timestamp']) ?></div>
+					<div class="event-time"><?= date("H:i", $event['timestamp']) ?></div>
 					<div class="event-content">
-						<h3><?php echo $event['title'] ?></h3>
+						<h3><?= $event['title'] ?></h3>
 						<div class="tiny"><?php __("C_VIEW_BY", $event['username']) ?></div>
-						<p><?php echo $event['text'] ?></p>
+						<p><?= $event['text'] ?></p>
 					</div>
 				</div>
 			</div>
@@ -51,5 +51,5 @@
 <?php endif; ?>
 
 <div class="text-right">
-	<a href="calendar?month=<?php echo $date[1] ?>&year=<?php echo $date[0] ?>" class="btn btn-default"><?php __("C_TITLE") ?></a>
+	<a href="calendar?month=<?= $date[1] ?>&year=<?= $date[0] ?>" class="btn btn-default"><?php __("C_TITLE") ?></a>
 </div>

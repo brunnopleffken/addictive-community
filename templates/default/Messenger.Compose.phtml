@@ -1,12 +1,12 @@
 <h1>
-	<small><?php echo $community_name ?></small>
+	<small><?= $community_name ?></small>
 	<?php __("M_TITLE") ?>: <?php __("M_COMPOSE") ?>
 </h1>
 
 <div class="block">
 	<form action="messenger/send" method="post">
 		<div class="form-group grid">
-			<label for="teste" class="col-2"><?php __("M_TO") ?></label>
+			<label class="col-2"><?php __("M_TO") ?></label>
 			<div class="col-4">
 				<select name="to" id="pmTo" class="pm-to span-12" required>
 					<option value=""></option>
@@ -14,7 +14,7 @@
 			</div>
 		</div>
 		<div class="form-group grid">
-			<label for="teste" class="col-2"><?php __("M_SUBJECT") ?></label>
+			<label class="col-2"><?php __("M_SUBJECT") ?></label>
 			<div class="col-6">
 				<input type="text" name="subject" class="form-control" required>
 			</div>

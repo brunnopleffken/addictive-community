@@ -1,69 +1,69 @@
 <div class="header">
 	<h1>
-		<small><?php echo $community_name ?></small>
-		<?php echo $room_info['name'] ?>
+		<small><?= $community_name ?></small>
+		<?= $room_info['name'] ?>
 	</h1>
 	<?php if($is_member): ?>
 		<div class="header-buttons">
 			<?php if($room_info['read_only']): ?>
 				<a class="btn btn-default btn-disabled font-w600"><?php __("R_READ_ONLY") ?></a>
 			<?php else: ?>
-				<a href="thread/add/<?php echo $room_id ?>" class="btn btn-default font-w600"><?php __("R_NEW_THREAD") ?></a>
-				<a href="thread/add/<?php echo $room_id ?>?poll=1" class="btn btn-default font-w600"><?php __("R_NEW_POLL") ?></a>
+				<a href="thread/add/<?= $room_id ?>" class="btn btn-default font-w600"><?php __("R_NEW_THREAD") ?></a>
+				<a href="thread/add/<?= $room_id ?>?poll=1" class="btn btn-default font-w600"><?php __("R_NEW_POLL") ?></a>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 </div>
 
 <?php if($room_info['rules_visible']): ?>
-	<?php echo \AC\Kernel\Html::Notification($room_info['rules_text'], "warning", true, $room_info['rules_title']) ?>
+	<?= \AC\Kernel\Html::Notification($room_info['rules_text'], "warning", true, $room_info['rules_title']) ?>
 <?php endif; ?>
 
 <div class="nav room-nav">
 	<div class="nav-top">
-		<a href="room/<?php echo $room_id ?>" class="<?php echo $menu[0] ?>"><?php __("R_ALL") ?></a>
-		<a href="room/<?php echo $room_id ?>?view=mythreads" class="<?php echo $menu[1] ?>"><?php __("R_MY_THREADS") ?></a>
+		<a href="room/<?= $room_id ?>" class="<?= $menu[0] ?>"><?php __("R_ALL") ?></a>
+		<a href="room/<?= $room_id ?>?view=mythreads" class="<?= $menu[1] ?>"><?php __("R_MY_THREADS") ?></a>
 	</div>
 	<div class="nav-bottom">
-		<a href="room/<?php echo $room_id ?>"><?php __("R_LAST_REPLY") ?></a>
-		<a href="room/<?php echo $room_id ?>?view=topreplies"><?php __("R_TOP_THREADS") ?></a>
-		<a href="room/<?php echo $room_id ?>?view=noreplies"><?php __("R_NO_REPLIES") ?></a>
-		<a href="room/<?php echo $room_id ?>?view=bestanswered"><?php __("R_ANSWERED") ?></a>
-		<a href="room/<?php echo $room_id ?>?view=polls"><?php __("R_POLLS") ?></a>
-		<a href="feeds/room/<?php echo $room_id ?>" class="pull-right"><i class="fa fa-rss"></i></a>
+		<a href="room/<?= $room_id ?>"><?php __("R_LAST_REPLY") ?></a>
+		<a href="room/<?= $room_id ?>?view=topreplies"><?php __("R_TOP_THREADS") ?></a>
+		<a href="room/<?= $room_id ?>?view=noreplies"><?php __("R_NO_REPLIES") ?></a>
+		<a href="room/<?= $room_id ?>?view=bestanswered"><?php __("R_ANSWERED") ?></a>
+		<a href="room/<?= $room_id ?>?view=polls"><?php __("R_POLLS") ?></a>
+		<a href="feeds/room/<?= $room_id ?>" class="pull-right"><i class="fa fa-rss"></i></a>
 	</div>
 </div>
 
 <?php if(!empty($threads)): ?>
 	<?php foreach($threads as $k => $v): ?>
-		<div class="block padding-no room-item <?php echo $threads[$k]['class'] ?>">
+		<div class="block padding-no room-item <?= $threads[$k]['class'] ?>">
 			<div class="room-item-image hide-xs">
-				<?php echo \AC\Kernel\Html::Crop($threads[$k]['author_avatar'], 50, "image") ?>
+				<?= \AC\Kernel\Html::Crop($threads[$k]['author_avatar'], 50, "image") ?>
 			</div>
 			<div class="room-item-description">
-				<a href="thread/<?php echo $threads[$k]['t_id'] . "-" . $threads[$k]['slug'] ?>" class="room-item-description-title">
-					<?php echo $threads[$k]['title'] ?>
+				<a href="thread/<?= $threads[$k]['t_id'] . "-" . $threads[$k]['slug'] ?>" class="room-item-description-title">
+					<?= $threads[$k]['title'] ?>
 				</a>
-				<div class="room-item-description-excerpt hide-xs"><?php echo $threads[$k]['description'] ?></div>
+				<div class="room-item-description-excerpt hide-xs"><?= $threads[$k]['description'] ?></div>
 				<div class="room-item-description-stats">
 					<span>
-						<i class="fa fa-user"></i> <?php echo $threads[$k]['author_name'] ?>
+						<i class="fa fa-user"></i> <?= $threads[$k]['author_name'] ?>
 					</span>
 					<span>
-						<i class="fa fa-clock-o"></i> <?php echo $threads[$k]['start_date'] ?>
+						<i class="fa fa-clock-o"></i> <?= $threads[$k]['start_date'] ?>
 					</span>
 				</div>
 			</div>
 			<div class="room-item-replies">
-				<i class="fa fa-comments"></i><?php echo $threads[$k]['replies'] ?>
+				<i class="fa fa-comments"></i><?= $threads[$k]['replies'] ?>
 			</div>
 			<div class="room-item-stats hide-xs">
 				<div class="label">
 					<span>
-						<i class="fa fa-fw fa-user"></i><a href="profile/<?php echo $threads[$k]['last_post_member_id'] ?>" title="<?php echo $threads[$k]['last_post_by'] ?>"><?php echo $threads[$k]['last_post_name'] ?></a>
+						<i class="fa fa-fw fa-user"></i><a href="profile/<?= $threads[$k]['last_post_member_id'] ?>" title="<?= $threads[$k]['last_post_by'] ?>"><?= $threads[$k]['last_post_name'] ?></a>
 					</span>
-					<span><i class="fa fa-fw fa-clock-o"></i><?php echo $threads[$k]['last_post_date'] ?></span>
-					<span><i class="fa fa-fw fa-eye"></i><?php echo $threads[$k]['views'] ?></span>
+					<span><i class="fa fa-fw fa-clock-o"></i><?= $threads[$k]['last_post_date'] ?></span>
+					<span><i class="fa fa-fw fa-eye"></i><?= $threads[$k]['views'] ?></span>
 				</div>
 			</div>
 		</div>
@@ -78,8 +78,8 @@
 			<?php if($room_info['read_only']): ?>
 				<a class="btn btn-default btn-disabled font-w600"><?php __("R_READ_ONLY") ?></a>
 			<?php else: ?>
-				<a href="thread/add/<?php echo $room_id ?>" class="btn btn-default font-w600"><?php __("R_NEW_THREAD") ?></a>
-				<a href="thread/add/<?php echo $room_id ?>?poll=1" class="btn btn-default font-w600"><?php __("R_NEW_POLL") ?></a>
+				<a href="thread/add/<?= $room_id ?>" class="btn btn-default font-w600"><?php __("R_NEW_THREAD") ?></a>
+				<a href="thread/add/<?= $room_id ?>?poll=1" class="btn btn-default font-w600"><?php __("R_NEW_POLL") ?></a>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
@@ -87,7 +87,7 @@
 		<li><a href=""><i class="fa fa-angle-double-left"></i></a></li>
 		<?php for($i = 1; $i <= $pages; $i++): ?>
 			<li class="active">
-				<a href="room/<?php echo $room_id . "?p=" . $i ?>"><?php echo $i ?></a>
+				<a href="room/<?= $room_id . "?p=" . $i ?>"><?= $i ?></a>
 			</li>
 		<?php endfor; ?>
 		<li><a href=""><i class="fa fa-angle-double-right"></i></a></li>

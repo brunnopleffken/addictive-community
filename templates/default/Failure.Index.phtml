@@ -1,6 +1,6 @@
 <h1>
-	<small><?php echo $community_name ?></small>
-	<?php echo $title ?>
+	<small><?= $community_name ?></small>
+	<?= $title ?>
 </h1>
 
 <?php __($error) ?>
@@ -9,13 +9,13 @@
 	<form action="login/authenticate" method="post">
 		<div class="block">
 			<div class="form-group grid">
-				<label for="teste" class="col-2"><?php __("E_USERNAME") ?></label>
+				<label class="col-2"><?php __("E_USERNAME") ?></label>
 				<div class="col-4">
 					<input type="text" name="username" class="form-control" required>
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label for="teste" class="col-2"><?php __("E_PASSWORD") ?></label>
+				<label class="col-2"><?php __("E_PASSWORD") ?></label>
 				<div class="col-4">
 					<input type="password" name="password" class="form-control" required>
 				</div>
@@ -34,13 +34,13 @@
 	<form action="room/unlock" method="post">
 		<div class="block">
 			<div class="form-group grid">
-				<label for="teste" class="col-2"><?php __("E_PASSWORD") ?></label>
+				<label class="col-2"><?php __("E_PASSWORD") ?></label>
 				<div class="col-4">
 					<input type="password" name="password" class="form-control" required>
 				</div>
 			</div>
 			<div class="text-right">
-				<input type="hidden" name="room" value="<?php echo $_GET['room'] ?>">
+				<input type="hidden" name="room" value="<?= $_GET['room'] ?>">
 				<input type="submit" value="<?php __("E_PROCEED") ?>" class="btn btn-default">
 			</div>
 		</div>

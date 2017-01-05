@@ -1,5 +1,5 @@
 <h1>
-	<small><?php echo $community_name ?></small>
+	<small><?= $community_name ?></small>
 	<?php __("C_TITLE") ?>
 </h1>
 
@@ -18,15 +18,15 @@
 		<?php __($notification) ?>
 		<form action="usercp/save_photo" method="post" enctype="multipart/form-data">
 			<div class="form-group grid">
-				<label for="teste" class="col-3"><?php __("C_PHOTO_SOURCE") ?></label>
+				<label class="col-3"><?php __("C_PHOTO_SOURCE") ?></label>
 				<div class="col-9">
 					<label class="radio-control">
-						<input type="radio" name="photo_type" class="photo-select" value="gravatar" <?php echo $photo_info['gravatar'] ?>><span></span>
+						<input type="radio" name="photo_type" class="photo-select" value="gravatar" <?= $photo_info['gravatar'] ?>><span></span>
 						Gravatar
 					</label>
 					<?php if($enable_upload): ?>
 						<label class="radio-control">
-							<input type="radio" name="photo_type" class="photo-select" value="custom" <?php echo $photo_info['custom'] ?>><span></span>
+							<input type="radio" name="photo_type" class="photo-select" value="custom" <?= $photo_info['custom'] ?>><span></span>
 							<?php __("C_PHOTO_CUSTOM") ?>
 						</label>
 					<?php endif; ?>
@@ -35,10 +35,10 @@
 
 			<!-- GRAVATAR -->
 			<div class="form-group grid" id="gravatar" style="display: none">
-				<label for="teste" class="col-3"><?php __("C_GRAVATAR_SETTINGS") ?></label>
+				<label class="col-3"><?php __("C_GRAVATAR_SETTINGS") ?></label>
 				<div class="col-9">
 					<div class="pull-left" style="margin-right: 20px">
-						<?php echo \AC\Kernel\Html::Crop($photo_info['gravatar_image'], 120) ?>
+						<?= \AC\Kernel\Html::Crop($photo_info['gravatar_image'], 120) ?>
 					</div>
 					<p><?php __("C_GRAVATAR_MESSAGE") ?></p>
 				</div>
@@ -46,10 +46,10 @@
 
 			<!-- CUSTOM -->
 			<div class="form-group grid" id="custom" style="display: none">
-				<label for="teste" class="col-3"><?php __("C_PHOTO_UPLOAD") ?></label>
+				<label class="col-3"><?php __("C_PHOTO_UPLOAD") ?></label>
 				<div class="col-9">
 					<div class="pull-left custom-photo-placeholder" style="margin-right: 20px">
-						<?php echo \AC\Kernel\Html::Crop($photo_info['photo'], 120) ?>
+						<?= \AC\Kernel\Html::Crop($photo_info['photo'], 120) ?>
 					</div>
 					<div class="pull-left" style="width: 400px">
 						<input type="file" name="file_upload">

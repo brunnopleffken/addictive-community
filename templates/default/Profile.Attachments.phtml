@@ -1,18 +1,18 @@
 <div class="profile-header">
-	<div class="profile-header-background" style="background-image: url('<?php echo $info['cover'] ?>')">
+	<div class="profile-header-background" style="background-image: url('<?= $info['cover'] ?>')">
 		<div class="inner-shadow"></div>
 	</div>
 	<div class="profile-header-info">
 		<div class="avatar">
-			<a href="<?php echo $info['avatar'] ?>" class="fancybox fancybox.image">
+			<a href="<?= $info['avatar'] ?>" class="fancybox fancybox.image">
 				<?php __(\AC\Kernel\Html::Crop($info['avatar'], 150, "image")) ?>
 			</a>
 		</div>
 		<div class="details">
-			<div class="username"><?php echo $info['username'] ?></div>
-			<div class="item"><span><?php __("P_POSTS") ?></span><?php echo $info['posts'] ?></div>
-			<div class="item"><span><?php __("P_REGISTERED") ?></span><?php echo $info['joined'] ?></div>
-			<div class="item"><span><?php __("P_USERGROUP") ?></span><?php echo $info['name'] ?></div>
+			<div class="username"><?= $info['username'] ?></div>
+			<div class="item"><span><?php __("P_POSTS") ?></span><?= $info['posts'] ?></div>
+			<div class="item"><span><?php __("P_REGISTERED") ?></span><?= $info['joined'] ?></div>
+			<div class="item"><span><?php __("P_USERGROUP") ?></span><?= $info['name'] ?></div>
 		</div>
 	</div>
 </div>
@@ -20,9 +20,9 @@
 <div class="block padding-no">
 	<div class="nav room-nav">
 		<div class="nav-top">
-			<a href="profile/<?php echo $profile_member_id ?>"><?php __("P_PROFILE") ?></a>
-			<a href="profile/posts/<?php echo $profile_member_id ?>"><?php __("P_LAST_POSTS") ?></a>
-			<a href="profile/attachments/<?php echo $profile_member_id ?>" class="active"><?php __("P_ATTACHMENTS") ?></a>
+			<a href="profile/<?= $profile_member_id ?>"><?php __("P_PROFILE") ?></a>
+			<a href="profile/posts/<?= $profile_member_id ?>"><?php __("P_LAST_POSTS") ?></a>
+			<a href="profile/attachments/<?= $profile_member_id ?>" class="active"><?php __("P_ATTACHMENTS") ?></a>
 		</div>
 	</div>
 	<div class="block-nav-content">
@@ -39,10 +39,10 @@
 				<?php if(!empty($attachments)): ?>
 					<?php foreach($attachments as $file): ?>
 						<tr>
-							<td class="min"><?php echo $file['icon'] ?></td>
-							<td><?php echo $file['filename'] ?></td>
-							<td><?php echo $file['type'] ?></td>
-							<td><?php echo $file['size'] ?></td>
+							<td class="min"><?= $file['icon'] ?></td>
+							<td><?= $file['filename'] ?></td>
+							<td><?= $file['type'] ?></td>
+							<td><?= $file['size'] ?></td>
 						</tr>
 					<?php endforeach; ?>
 				<?php else: ?>

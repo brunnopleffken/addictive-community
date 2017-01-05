@@ -9,7 +9,7 @@
 	<link rel="icon" type="image/png" href="favicon.png">
 
 	<!-- Meta Tags -->
-	<meta name="generator" content="Addictive Community <?php echo VERSION ?>">
+	<meta name="generator" content="Addictive Community <?= VERSION ?>">
 	<meta name="description" content="<?php __($meta_description) ?>">
 
 	<!-- CSS Files -->
@@ -31,14 +31,14 @@
 			<div class="col-flexible text-right">
 			</div>
 			<div class="col-flexible hide-xs">
-				<a href="<?php echo $website_url ?>" target="_blank"><?php echo $website_name ?></a>
+				<a href="<?= $website_url ?>" target="_blank"><?= $website_name ?></a>
 			</div>
 		</div>
 	</div>
 	<div class="bottom-half outer">
 		<div class="row space-between">
 			<div class="col-flexible">
-				<a href="<?php echo $community_url ?>">
+				<a href="<?= $community_url ?>">
 					<img src="static/images/logo.svg" class="logo" alt="Addictive Community">
 				</a>
 			</div>
@@ -65,7 +65,7 @@
 			</div>
 		</div>
 		<div class="" id="content">
-			<?php echo $this->content ?>
+			<?= $this->content ?>
 		</div>
 	</div>
 </main>
@@ -73,7 +73,7 @@
 <footer class="text-center">
 	Powered by
 	<a href="https://github.com/brunnopleffken/addictive-community" target="_blank">Addictive Community</a>
-	<?php echo VERSION . "-" . CHANNEL ?> &copy; <?php echo date("Y") ?> - All rights reserved.
+	<?= VERSION . "-" . CHANNEL ?> &copy; <?= date("Y") ?> - All rights reserved.
 </footer>
 
 </body>

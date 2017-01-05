@@ -1,5 +1,5 @@
 <h1>
-	<small><?php echo $community_name ?></small>
+	<small><?= $community_name ?></small>
 	<?php __("C_TITLE") ?>
 </h1>
 
@@ -20,15 +20,15 @@
 			<tbody>
 				<tr>
 					<td class="min text-muted"><?php __("C_TOTAL_POSTS") ?></td>
-					<td><?php echo $posts_total ?> <?php __("C_POSTS") ?></td>
+					<td><?= $posts_total ?> <?php __("C_POSTS") ?></td>
 				</tr>
 				<tr>
 					<td class="min text-muted"><?php __("C_REGISTERED") ?></td>
-					<td><?php echo $register_date ?></td>
+					<td><?= $register_date ?></td>
 				</tr>
 				<tr>
 					<td class="min text-muted"><?php __("C_AVERAGE_POSTS") ?></td>
-					<td><?php echo $posts_average ?> <?php __("C_POSTS_PER_DAY") ?></td>
+					<td><?= $posts_average ?> <?php __("C_POSTS_PER_DAY") ?></td>
 				</tr>
 			</tbody>
 		</table>
@@ -37,11 +37,11 @@
 			<tbody>
 				<tr>
 					<td class="min text-muted"><?php __("C_PM_TOTAL") ?></td>
-					<td><?php echo $pm_total ?> <?php __("C_PM_MESSAGES") ?></td>
+					<td><?= $pm_total ?> <?php __("C_PM_MESSAGES") ?></td>
 				</tr>
 				<tr>
 					<td class="min text-muted"><?php __("C_PM_LEFT") ?></td>
-					<td><?php echo $pm_space_left ?></td>
+					<td><?= $pm_space_left ?></td>
 				</tr>
 			</tbody>
 		</table>

@@ -1,16 +1,16 @@
 <h1>
-	<small><?php echo $community_name ?></small>
-	<?php __("P_ADD_REPLY") ?>: <?php echo $thread_info['title'] ?>
+	<small><?= $community_name ?></small>
+	<?php __("P_ADD_REPLY") ?>: <?= $thread_info['title'] ?>
 </h1>
 
 <div class="block">
-	<form action="thread/save_reply/<?php echo $thread_id ?>" method="post" enctype="multipart/form-data">
+	<form action="thread/save_reply/<?= $thread_id ?>" method="post" enctype="multipart/form-data">
 		<?php if(!empty($quote)): ?>
 			<div class="form-group grid">
 				<label for="" class="col-2"><?php __("P_QUOTE") ?></label>
 				<div class="col-10" style="padding: 8px 10px">
-					<?php echo $quote['post'] ?>
-					<input type="hidden" name="quote_post_id" value="<?php echo $quote['p_id'] ?>">
+					<?= $quote['post'] ?>
+					<input type="hidden" name="quote_post_id" value="<?= $quote['p_id'] ?>">
 				</div>
 			</div>
 		<?php endif; ?>
@@ -33,8 +33,8 @@
 				<div class="error-message"><?php __("P_ERROR") ?></div>
 			</div>
 			<div class="pull-right">
-				<input type="hidden" name="room_id" value="<?php echo $thread_info['r_id'] ?>">
-				<input type="hidden" name="thread_id" value="<?php echo $thread_id ?>">
+				<input type="hidden" name="room_id" value="<?= $thread_info['r_id'] ?>">
+				<input type="hidden" name="thread_id" value="<?= $thread_id ?>">
 				<input type="submit" value="<?php __("P_ADD_REPLY_SUBMIT") ?>" class="btn btn-default">
 			</div>
 		</div>

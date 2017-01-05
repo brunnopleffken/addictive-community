@@ -1,18 +1,18 @@
 <h1>
-	<small><?php echo $community_name ?></small>
+	<small><?= $community_name ?></small>
 	<?php __("C_TITLE") ?>: <?php __("C_ADD") ?>
 </h1>
 
 <div class="block">
 	<form action="calendar/save" method="post">
 		<div class="form-group grid">
-			<label for="teste" class="col-2"><?php __("C_NEW_TITLE") ?></label>
+			<label class="col-2"><?php __("C_NEW_TITLE") ?></label>
 			<div class="col-6">
 				<input type="text" name="title" class="form-control" required>
 			</div>
 		</div>
 		<div class="form-group grid">
-			<label for="teste" class="col-2"><?php __("C_NEW_DATE") ?></label>
+			<label class="col-2"><?php __("C_NEW_DATE") ?></label>
 			<div class="col-10">
 				<?php
 					echo \AC\Kernel\Html::Days("day", date("d")) . " ";
@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		<div class="form-group grid">
-			<label for="teste" class="col-2"><?php __("C_NEW_TYPE") ?></label>
+			<label class="col-2"><?php __("C_NEW_TYPE") ?></label>
 			<div class="col-4">
 				<select name="type" class="select2 select2-no-search span-12">
 					<option value="public"><?php __("C_NEW_PUBLIC") ?></option>
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<div class="form-group grid">
-			<label for="teste" class="col-2"><?php __("C_NEW_DESC") ?></label>
+			<label class="col-2"><?php __("C_NEW_DESC") ?></label>
 			<div class="col-6">
 				<textarea name="text" rows="8" class="form-control" required></textarea>
 			</div>
