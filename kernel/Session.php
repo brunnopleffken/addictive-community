@@ -54,6 +54,7 @@ class Session
 	{
 		if($name != "") {
 			unset($_SESSION[$name]);
+			return true;
 		}
 		else {
 			return session_destroy();
@@ -65,7 +66,7 @@ class Session
 	 * Return all current sessions
 	 * --------------------------------------------------------------------
 	 */
-	public static function List()
+	public static function Show()
 	{
 		Text::PR($_SESSION);
 	}

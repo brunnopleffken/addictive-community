@@ -14,7 +14,6 @@
 namespace AC\Controllers;
 
 use \AC\Kernel\Database;
-use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
 use \AC\Kernel\Session\SessionState;
@@ -51,7 +50,7 @@ class Room extends Application
 	 * View Room (a.k.a. thread list)
 	 * --------------------------------------------------------------------
 	 */
-	public function Index($id)
+	public function Index()
 	{
 		// Get room information
 		Database::Query("SELECT * FROM c_rooms WHERE r_id = {$this->room_id}");
@@ -140,8 +139,9 @@ class Room extends Application
 		// Filter thread list
 		switch($view) {
 			case "mythreads":
+				$member_id = SessionState::$user_data['m_id'];
 				$menu  = array("", "active");
-				$where = "AND author_member_id = '{$this->Session->member_info['m_id']}'";
+				$where = "AND author_member_id = '{$member_id}'";
 				$order = "last_post_date DESC";
 				break;
 			case "topreplies":

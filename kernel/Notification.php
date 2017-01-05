@@ -45,7 +45,7 @@ class Notification
 		self::$class_template = str_replace("{2}", $persistent_class_name, self::$class_template);
 		$message = vsprintf(self::$html_template, array(self::$class_template, $arguments[0]));
 
-		Sessions::Write("Notification.Flash", $message);
+		Session::Write("Notification.Flash", $message);
 	}
 
 	/**
@@ -56,10 +56,10 @@ class Notification
 
 	public static function Render()
 	{
-		$notification = Sessions::Retrieve("Notification.Flash");
+		$notification = Session::Retrieve("Notification.Flash");
 
 		if($notification) {
-			Sessions::Destroy("Notification.Flash");
+			Session::Destroy("Notification.Flash");
 		}
 
 		return $notification;

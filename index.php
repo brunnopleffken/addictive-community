@@ -101,7 +101,7 @@ class Main
 		$this->_GetLanguage();
 
 		// Instantiate class Core()
-		$this->Core = new Core($this->Config, SessionState::$user_data);
+		$this->Core = new Core($this->Config);
 
 		// OK, let's go...
 		$this->_LoadController($this->controller, $this->action);

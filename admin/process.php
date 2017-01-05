@@ -309,6 +309,7 @@ switch($do) {
 
 		if(fwrite($handle, $file_content)) {
 			fclose($handle);
+			$Admin->RegisterLog("Edited CSS file: " . Http::Request("css_file"));
 			header("Location: main.php?act=templates&p=themes");
 			exit;
 		}
@@ -316,8 +317,6 @@ switch($do) {
 			header("Location: main.php?act=templates&p=themes");
 			exit;
 		}
-
-		$Admin->RegisterLog("Edited CSS file: " . Http::Request("css_file"));
 
 		break;
 

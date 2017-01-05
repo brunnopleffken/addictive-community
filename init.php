@@ -71,6 +71,7 @@ function _AutoLoader($class_name)
 	}
 
 	require_once($path);
+	return true;
 }
 
 /**

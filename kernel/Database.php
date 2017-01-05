@@ -72,13 +72,13 @@ class Database
 
 		if(self::$debug) {
 			$backtrace = ($ext_backtrace == 0) ? debug_backtrace() : $ext_backtrace;
-			self::$log[] = array(
+			self::$log[] = [
 				"sql" => preg_replace("/\n\s*/", " ", $sql),
-				"backtrace" => array(
+				"backtrace" => [
 					"file" => $backtrace[0]['file'],
 					"line" => $backtrace[0]['line']
-				)
-			);
+				]
+			];
 		}
 
 		// In case of error...
@@ -309,7 +309,7 @@ class Database
 	private static function Exception($message = "")
 	{
 		if($message == "") {
-			Html::Error(mysqli_error());
+			Html::Error(mysqli_error(self::$link));
 		}
 		else {
 			Html::Error($message);

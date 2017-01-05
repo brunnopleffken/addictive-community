@@ -81,6 +81,7 @@ class Search extends Application
 		$mode = Http::Request("mode");
 		switch($mode) {
 			case "post":
+				$id = null;
 				$where = "thread_id = '{$id}' AND";
 				break;
 			default:

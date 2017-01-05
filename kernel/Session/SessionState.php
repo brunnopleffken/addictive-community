@@ -75,7 +75,7 @@ class SessionState extends Session
 		else {
 			if($has_session) {
 				// Is not a member; has session
-				self::GuestSession(self::$session_token);
+				self::GuestSession();
 			}
 			else {
 				// Is not a member; and has no session
@@ -130,7 +130,7 @@ class SessionState extends Session
 	 * Update a guest session (create it if it doesn't exist)
 	 * --------------------------------------------------------------------
 	 */
-	private static function GuestSession($session_token = "")
+	private static function GuestSession()
 	{
 		Database::Query("INSERT INTO c_sessions
 			(session_token, member_id, ip_address, activity_time, usergroup, anonymous) VALUES
@@ -154,18 +154,26 @@ class SessionState extends Session
 		$session_token = Session::Retrieve("session_token");
 		$member_id = Session::GetCookie("member_id");
 
-		// Validate token and member ID association
+		// Fields to select from c_members
+		// These fields are required globally in Addictive Community
+		$fields = implode(", ", [
+			"m_id", "username", "usergroup", "email", "theme",
+			"template","time_offset", "language", "photo", "photo_type"
+		]);
+
 		$find_member = Database::Query("SELECT * FROM c_sessions
 			WHERE session_token = '{$session_token}' AND member_id = '{$member_id}';");
 
 		if(Database::Rows($find_member)) {
-			Database::Query("SELECT m_id, username, usergroup, email, theme, template, time_offset, language, photo, photo_type
-				FROM c_members WHERE m_id = {$member_id};");
+			// Get and save user information for later use
+			Database::Query("SELECT {$fields} FROM c_members WHERE m_id = {$member_id};");
+			self::$user_data = Database::Fetch();
 
-			$user_data = Database::Fetch();
-
-			// Store member ID and user group for later use
-			self::$user_data = $user_data;
+			// Update activity time and controller
+			$now = time();
+			Database::Query("UPDATE c_sessions
+				SET activity_time = '{$now}', location_controller = '" . self::$controller_name . "'
+				WHERE session_token = '{$session_token}';");
 		}
 		else {
 			$member_id = SessionState::GetCookie("member_id");

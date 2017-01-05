@@ -34,7 +34,7 @@ class Community extends Application
 	public function Index()
 	{
 		// Get rooms and categories
-		$_rooms = $this->_GetRooms();
+		$this->_GetRooms();
 
 		// Return variables
 		$this->Set("categories", $this->categories);
@@ -50,8 +50,8 @@ class Community extends Application
 	public function MarkAllAsRead()
 	{
 		// Overwrite cookies
-		$this->Session->CreateCookie("addictive_community_login_time", time(), 1);
-		$this->Session->CreateCookie("addictive_community_read_threads", json_encode(array()), 1);
+		SessionState::CreateCookie("addictive_community_login_time", time(), 1);
+		SessionState::CreateCookie("addictive_community_read_threads", json_encode(array()), 1);
 
 		// Go back to community
 		$this->Core->Redirect("HTTP_REFERER");

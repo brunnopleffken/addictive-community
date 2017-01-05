@@ -13,24 +13,22 @@
 
 namespace AC\Kernel;
 
+use AC\Kernel\Session\SessionState;
+
 class Core
 {
 	// Community configurations
 	public $config = array();
-
-	// Logged member information
-	private $member_info = array();
 
 	/**
 	 * --------------------------------------------------------------------
 	 * CORE() CLASS CONSTRUCTOR
 	 * --------------------------------------------------------------------
 	 */
-	public function __construct($configurations, $member_info = array())
+	public function __construct($configurations)
 	{
 		// Load database layer and configurations array
 		$this->config = $configurations;
-		$this->member_info = $member_info;
 	}
 
 	/**
@@ -61,13 +59,17 @@ class Core
 		// Get long/short time formats from configurations table
 		if($format == "long") {
 			$format = $this->config['date_long_format'];  // Get long format date from $_config
-		}
-		else {
+		} else {
 			$format = $this->config['date_short_format'];  // Get short format date from $_config
 		}
 
 		// Get timezone offset
-		$user_offset = (isset($this->member_info['time_offset'])) ? $this->member_info['time_offset'] : $this->config['date_default_offset'];
+		if(isset(SessionState::$user_data['time_offset'])) {
+			$user_offset = SessionState::$user_data['time_offset'];
+		} else {
+			$user_offset = $this->config['date_default_offset'];
+		}
+
 		$timezone_offset = $user_offset * HOUR;
 
 		// format and return it

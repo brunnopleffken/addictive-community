@@ -1,3 +1,4 @@
+<?= $thread_info['obsolete_notification'] ?>
 <div class="block padding-no thread">
 	<div class="thread-post-author pull-clear">
 		<img src="http://www.gravatar.com/avatar/d4863bc04b657b65c24b02aa0b62f32e?s=100&d=mm&r=g" class="thread-post-author-avatar">
@@ -107,10 +108,10 @@
 
 <div class="thread-buttons">
 	<?php if($is_member): ?>
-		<?php if($thread_info['locked'] == 0 && $thread_info['allow_to_reply']): ?>
-			<a href="thread/reply/<?= $thread_id ?>" class="btn btn-default btn-lg pull-right"><?php __("T_BTN_ADD") ?></a>
-		<?php elseif($thread_info['obsolete']): ?>
+		<?php if($thread_info['obsolete']): ?>
 			<a class="btn btn-default btn-lg btn-disabled pull-right"><?php __("T_BTN_OBSOLETE") ?></a>
+		<?php elseif($thread_info['locked'] == 0 && $thread_info['allow_to_reply']): ?>
+			<a href="thread/reply/<?= $thread_id ?>" class="btn btn-default btn-lg pull-right"><?php __("T_BTN_ADD") ?></a>
 		<?php else: ?>
 			<a class="btn btn-default btn-lg btn-disabled pull-right"><?php __("T_BTN_LOCKED") ?></a>
 		<?php endif; ?>
@@ -226,10 +227,10 @@
 
 <div class="thread-buttons">
 	<?php if($is_member): ?>
-		<?php if($thread_info['locked'] == 0 && $thread_info['allow_to_reply']): ?>
-			<a href="thread/reply/<?= $thread_id ?>" class="btn btn-default btn-lg pull-right"><?php __("T_BTN_ADD") ?></a>
-		<?php elseif($thread_info['obsolete']): ?>
+		<?php if($thread_info['obsolete']): ?>
 			<a class="btn btn-default btn-lg btn-disabled pull-right"><?php __("T_BTN_OBSOLETE") ?></a>
+		<?php elseif($thread_info['locked'] == 0 && $thread_info['allow_to_reply']): ?>
+			<a href="thread/reply/<?= $thread_id ?>" class="btn btn-default btn-lg pull-right"><?php __("T_BTN_ADD") ?></a>
 		<?php else: ?>
 			<a class="btn btn-default btn-lg btn-disabled pull-right"><?php __("T_BTN_LOCKED") ?></a>
 		<?php endif; ?>

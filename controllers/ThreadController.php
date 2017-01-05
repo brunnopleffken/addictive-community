@@ -158,7 +158,11 @@ class Thread extends Application
 		$this->Set("thread_info", $thread_info);
 		$this->Set("quote", $quote);
 		$this->Set("allow_uploads", $thread_info['upload']);
-		$this->Set("attachment_size_warning", i18n::Translate("P_ATTACHMENTS_MAX_SIZE", array($this->Core->config['general_max_attachment_size'] . "MB")));
+		$this->Set("attachment_size_warning",
+			i18n::Translate("P_ATTACHMENTS_MAX_SIZE", array(
+				$this->Core->config['general_max_attachment_size'] . "MB")
+			)
+		);
 	}
 
 	/**
@@ -281,13 +285,14 @@ class Thread extends Application
 	 * CREATE A NEW THREAD
 	 * --------------------------------------------------------------------
 	 */
-	public function SaveThread($room_id)
+	public function SaveThread()
 	{
 		$this->layout = false;
 
 		// If we're adding a poll, build poll array
 		if(Http::Request("poll_question")) {
 			// Transform list of choices in an array
+			$replies = array();
 			$questions = explode("\r\n", trim(Http::Request("poll_choices")));
 			$questions = array_filter($questions, "trim");
 
@@ -835,12 +840,12 @@ class Thread extends Application
 			$thread_info['allow_to_reply'] = false;
 		}
 
-		// Check if it's an obsolete thread
-		$obsolete_notification = "";
+		// Check if it's an obsolete thread (if enabled)
+		$thread_info['obsolete_notification'] = "";
 		$obsolete_seconds = $this->Core->config['thread_obsolete_value'] * DAY;
-		if($this->Core->config['thread_obsolete'] != 0 && ($thread_info['last_post_date'] + $obsolete_seconds) < time()) {
+		if(($thread_info['last_post_date'] + $obsolete_seconds) < time()) {
 			$thread_info['obsolete'] = true;
-			$obsolete_notification = Html::Notification(
+			$thread_info['obsolete_notification'] = Html::Notification(
 				i18n::Translate("T_OBSOLETE", array($this->Core->config['thread_obsolete_value'])), "warning", true
 			);
 		}
@@ -939,9 +944,7 @@ class Thread extends Application
 	 */
 	private function _GetFirstPost()
 	{
-		// Declare return array
-		$result = array();
-
+		// Get first post info
 		$first_post = Database::Query("SELECT c_posts.*, c_threads.t_id, c_threads.tags, c_threads.room_id,
 				c_attachments.*, c_threads.title, c_threads.locked, c_members.*, edit.username AS edit_username FROM c_posts
 				INNER JOIN c_threads ON (c_posts.thread_id = c_threads.t_id)
@@ -1047,7 +1050,7 @@ class Thread extends Application
 			// Get quoted post
 			if($result['quote_post_id'] != 0) {
 				$result['has_quote'] = true;
-				$quoted_post = Database::Query("SELECT c_posts.post_date, c_posts.post, c_members.username AS author FROM c_posts
+				Database::Query("SELECT c_posts.post_date, c_posts.post, c_members.username AS author FROM c_posts
 						INNER JOIN c_members ON (c_posts.author_id = c_members.m_id)
 						WHERE p_id = {$result['quote_post_id']};");
 				$quoted_post_result = Database::Fetch();
@@ -1172,7 +1175,6 @@ class Thread extends Application
 	 */
 	private function _RelatedThreads()
 	{
-		$thread_list = "";
 		$thread_search = explode(" ", strtolower($this->thread_info['title']));
 		$related_thread_list = array();
 

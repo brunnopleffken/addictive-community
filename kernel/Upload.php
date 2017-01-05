@@ -191,6 +191,7 @@ class Upload
 	{
 		if(is_array($extensions_list)) {
 			$this->allowed_extensions = $extensions_list;
+			return true;
 		}
 		else {
 			return false;

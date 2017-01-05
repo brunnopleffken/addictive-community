@@ -111,6 +111,9 @@ class Login extends Application
 				$data = array("authenticated" => false, "message" => "Wrong username or password");
 			}
 		}
+		else {
+			$data = array("authenticated" => false, "message" => "Username or password is required");
+		}
 
 		echo json_encode($data);
 	}
