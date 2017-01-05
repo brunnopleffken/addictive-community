@@ -17,6 +17,7 @@ use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
+use \AC\Kernel\Session\SessionState;
 use \AC\Kernel\Template;
 
 class Calendar extends Application
@@ -51,7 +52,7 @@ class Calendar extends Application
 	public function Add()
 	{
 		// Do not allow guests to view this page
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Page info
 		$page_info['title'] = i18n::Translate("C_ADD");
@@ -127,7 +128,7 @@ class Calendar extends Application
 		$event = array(
 			"title"     => Http::Request("title"),
 			"type"      => Http::Request("type"),
-			"author"    => $this->Session->member_info['m_id'],
+			"author"    => SessionState::$user_data['m_id'],
 			"day"       => Http::Request("day"),
 			"month"     => Http::Request("month"),
 			"year"      => Http::Request("year"),
@@ -156,11 +157,11 @@ class Calendar extends Application
 		$this->layout = false;
 
 		// Get current logged in member ID
-		$member_id = $this->Session->member_info['m_id'];
+		$member_id = SessionState::$user_data['m_id'];
 
 		// Check if selected event exists
 		Database::Query("SELECT e_id FROM c_events
-				WHERE e_id = '{$event_id}' AND author_id = '{$member_id}';");
+				WHERE e_id = '{$event_id}' AND author = '{$member_id}';");
 
 		// if it exists, remove from DB
 		// Otherwise, show error message
@@ -235,8 +236,6 @@ class Calendar extends Application
 		if ($w_day > 0) {
 			Template::Add("<td colspan='{$w_day}'>&nbsp;</td>");
 		}
-
-		$month = str_pad($current_month, 2, "0", STR_PAD_LEFT);
 
 		while ($current_day <= $num_days) {
 			// Seventh column (Saturday) reached. Start a new row.

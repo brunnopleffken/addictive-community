@@ -15,6 +15,7 @@ namespace AC\Controllers;
 
 use \AC\Kernel\Database;
 use \AC\Kernel\Http;
+use \AC\Kernel\Session\SessionState;
 
 class Report extends Application
 {
@@ -26,7 +27,7 @@ class Report extends Application
 	public function _BeforeAction()
 	{
 		// Yeah, to avoid SPAM guests cannot send reports
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 	}
 
 	/**

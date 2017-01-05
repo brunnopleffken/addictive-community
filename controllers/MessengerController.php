@@ -17,6 +17,7 @@ use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
+use AC\Kernel\Session\SessionState;
 
 class Messenger extends Application
 {
@@ -31,10 +32,10 @@ class Messenger extends Application
 	public function _BeforeAction()
 	{
 		// This section is for members only
-		$this->Session->NoGuest();
+		SessionState::NoGuest();
 
 		// Save logged in member ID into $member_id
-		$this->member_id = $this->Session->member_info['m_id'];
+		$this->member_id = SessionState::$user_data['m_id'];
 	}
 
 	/**
@@ -169,7 +170,7 @@ class Messenger extends Application
 		$users = array();
 
 		// Get member name
-		$member_id = $this->Session->session_info['member_id'];
+		$member_id = SessionState::$user_data['member_id'];
 		$term = Http::Request("term");
 
 		// Get list of usernames
@@ -222,7 +223,7 @@ class Messenger extends Application
 		$this->layout = false;
 
 		// Get information
-		$member_id = $this->Session->session_info['member_id'];
+		$member_id = SessionState::$user_data['member_id'];
 
 		// Execute deletion
 		if($id) {
@@ -248,12 +249,10 @@ class Messenger extends Application
 	 */
 	public function Forward($id)
 	{
-		$member_id = $this->Session->session_info['member_id'];
-
 		if($id) {
-			Database::Query("SELECT `username`,`subject`,`message` FROM `c_messages`
-					LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id`
-					WHERE `pm_id`={$id} LIMIT 1");
+			Database::Query("SELECT username, subject, message FROM c_messages
+					LEFT JOIN c_members ON c_messages.from_id = c_members.m_id
+					WHERE pm_id = {$id} LIMIT 1");
 
 			$message = Database::Fetch();
 
@@ -276,7 +275,7 @@ class Messenger extends Application
 	 */
 	public function Reply($id)
 	{
-		$member_id = $this->Session->session_info['member_id'];
+		$member_id = SessionState::$user_data['member_id'];
 
 		if($id) {
 			//Load message user is replying to
