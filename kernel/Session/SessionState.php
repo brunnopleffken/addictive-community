@@ -159,7 +159,7 @@ class SessionState extends Session
 			WHERE session_token = '{$session_token}' AND member_id = '{$member_id}';");
 
 		if(Database::Rows($find_member)) {
-			$member = Database::Query("SELECT m_id, username, usergroup, email, theme, template, language, photo_type
+			Database::Query("SELECT m_id, username, usergroup, email, theme, template, time_offset, language, photo, photo_type
 				FROM c_members WHERE m_id = {$member_id};");
 
 			$user_data = Database::Fetch();

@@ -83,7 +83,7 @@ class Core
 	 * $section: public|admin
 	 * --------------------------------------------------------------------
 	 */
-	public function GetAvatar($info = array(), $size = 96, $section = "public", $d = "mm", $r = "g")
+	public function GetAvatar($info = array(), $size = 96, $d = "mm", $r = "g")
 	{
 		switch($info['photo_type']) {
 			// Gravatar photo
@@ -95,13 +95,13 @@ class Core
 
 			// Uploaded photo
 			case "custom":
-				if($section == "public") {
-					$url = "public/avatar/{$info['photo']}";
-				}
-				else {
-					// Modify relative path when viewing in Admin CP
-					$url = "../public/avatar/{$info['photo']}";
-				}
+				// If custom photo is blank, show placeholder instead
+				$url = $info['photo'] == "" ? "static/images/no-photo.png" : "public/avatar/" . $info['photo'];
+				break;
+
+			// Something happened...
+			default:
+				$url = "static/images/no-photo.png";
 				break;
 		}
 
