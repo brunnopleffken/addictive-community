@@ -80,7 +80,7 @@ switch($step) {
 		if(is_writable("../config.ini")) {
 			$handle = fopen("../config.ini", "w");
 
-			$file_content = "# MySQL configuration file for Addictive Community
+			$file_content = "; MySQL configuration file for Addictive Community
 db_server = \"{$data['db_server']}\"
 db_username = \"{$data['db_username']}\"
 db_password = \"{$data['db_password']}\"
