@@ -222,10 +222,23 @@ class Text
 	 * CONVERT string_with_underscore TO StringWithUnderscore
 	 * --------------------------------------------------------------------
 	 */
-	public static function FormatActionName($action_name = "")
+	public static function CamelCase($string = "")
 	{
-		$action_name = preg_replace("/(_)/", " ", $action_name);
-		$action_name = preg_replace("/([\s])/", "", ucwords($action_name));
-		return $action_name;
+		$string = preg_replace("/(_)/", " ", $string);
+		$string = preg_replace("/([\s])/", "", ucwords($string));
+		return $string;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * CONVERT string_with_underscore TO stringWithUnderscore
+	 * --------------------------------------------------------------------
+	 */
+	public static function LowerCamelCase($string = "")
+	{
+		$string = self::CamelCase($string);
+		$replace = strtolower(substr($string, 0, 1));
+		$result = $replace . substr($string, 1);
+		return $result;
 	}
 }

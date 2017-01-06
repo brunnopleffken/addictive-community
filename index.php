@@ -117,7 +117,7 @@ class Main
 	{
 		// Controllers names are in UpperCamelCase, but URLs in lowercase
 		$controller = $this->controller = ucwords($controller);
-		$action = ($action != "") ? Text::FormatActionName($this->action) : $this->action = "Index";
+		$action = ($action != "") ? Text::CamelCase($this->action) : $this->action = "Index";
 
 		// Redirect to Error 404 page if controller doesn't exist
 		if(!file_exists("controllers/" . $controller . "Controller.php")) {
@@ -175,7 +175,7 @@ class Main
 
 			// Load page content
 			ob_start();
-			require("templates/" . $this->template . "/" . $this->controller . "." . Text::FormatActionName($this->action) . ".phtml");
+			require("templates/" . $this->template . "/" . $this->controller . "." . Text::CamelCase($this->action) . ".phtml");
 			$this->content = ob_get_clean();
 
 			// Load master page
