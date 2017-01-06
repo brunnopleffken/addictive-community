@@ -18,7 +18,7 @@ use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
-use \AC\Kernel\Session;
+use \AC\Kernel\Session\SessionState;
 use \AC\Kernel\Text;
 
 // Run initialization file before loading Main()
@@ -38,8 +38,6 @@ class Main
 
 	// Instances of non-static Kernel classes
 	private $Core;
-	private $Db;
-	private $Session;
 
 	// Configurations
 	private $Config = array();
@@ -79,8 +77,7 @@ class Main
 		}
 
 		// Instance of Database() class
-		$this->Db = new Database();
-		$this->Db->Connect($config);
+		Database::Connect($config);
 
 		// Get query strings from URL
 		$this->controller = strtolower(Http::Request("c"));
@@ -93,8 +90,8 @@ class Main
 		}
 
 		// Initialize Session() class
-		$this->Session = new Session($this->Db, $this->controller);
-		$this->Session->UpdateSession();
+		SessionState::Initialize($this->controller);
+		SessionState::UpdateSession();
 
 		// Get settings from database
 		$this->_GetConfig();
@@ -104,7 +101,7 @@ class Main
 		$this->_GetLanguage();
 
 		// Instantiate class Core()
-		$this->Core = new Core($this->Db, $this->Config, $this->Session->member_info);
+		$this->Core = new Core($this->Config);
 
 		// OK, let's go...
 		$this->_LoadController($this->controller, $this->action);
@@ -120,24 +117,19 @@ class Main
 	{
 		// Controllers names are in UpperCamelCase, but URLs in lowercase
 		$controller = $this->controller = ucwords($controller);
-		$action = ($action != "") ? Text::FormatActionName($this->action) : $this->action = "Main";
+		$action = ($action != "") ? Text::FormatActionName($this->action) : $this->action = "Index";
 
 		// Redirect to Error 404 page if controller doesn't exist
-		if(!file_exists("controllers/" . $controller . ".php")) {
+		if(!file_exists("controllers/" . $controller . "Controller.php")) {
 			$action = str_replace("index.php", "", $_SERVER['PHP_SELF']);
 			header("Location: " . $action . "500");
 		}
 
 		// Load Application controller
-		require("controllers/Application.php");
-		require("controllers/" . $controller . ".php");
+		require("controllers/ApplicationController.php");
+		require("controllers/" . $controller . "Controller.php");
 		$controller = "\\AC\\Controllers\\" . $controller;
-		$this->instance = new $controller();
-
-		// Create an instance of non-static Kernel classes in Application controller
-		$this->instance->Db = $this->Db;
-		$this->instance->Core = $this->Core;
-		$this->instance->Session = $this->Session;
+		$this->instance = new $controller($this->Core);
 
 		// Execute Controller::_BeforeAction() method
 		if(method_exists($this->instance, "_BeforeAction")) {
@@ -198,8 +190,8 @@ class Main
 	 */
 	public function _GetConfig()
 	{
-		$this->Db->Query("SELECT * FROM c_config;");
-		$this->Config = $this->Db->FetchConfig();
+		Database::Query("SELECT * FROM c_config;");
+		$this->Config = Database::FetchConfig();
 	}
 
 	/**
@@ -209,21 +201,15 @@ class Main
 	 */
 	private function _GetTemplate()
 	{
-		if($this->Session->session_info['member_id']) {
+		if(SessionState::$user_data['m_id']) {
 			// Get member-defined theme
-			$this->theme = $this->Session->member_info['theme'];
-			$this->Config['theme'] = $this->theme;
-
-			$this->template = $this->Session->member_info['template'];
-			$this->Config['template'] = $this->template;
+			$this->Config['theme'] = $this->theme = SessionState::$user_data['theme'];
+			$this->Config['template'] = $this->template = SessionState::$user_data['template'];
 		}
 		else {
 			// Get default theme set
-			$this->theme = $this->Config['theme_default_set'];
-			$this->Config['theme'] = $this->theme;
-
-			$this->template = $this->Config['template_default_set'];
-			$this->Config['template'] = $this->template;
+			$this->Config['theme'] = $this->theme = $this->Config['theme_default_set'];
+			$this->Config['template'] = $this->template = $this->Config['template_default_set'];
 		}
 	}
 
@@ -235,8 +221,8 @@ class Main
 	private function _GetLanguage()
 	{
 		// Get default or member set language
-		if($this->Session->session_info['member_id']) {
-			$this->language = $this->Session->member_info['language'];
+		if(SessionState::$user_data['m_id']) {
+			$this->language = SessionState::$user_data['language'];
 		}
 		else {
 			$this->language = $this->Config['language_default_set'];

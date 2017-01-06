@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Template;
 
@@ -25,9 +26,9 @@ foreach($dir as $k => $v) {
 
 // List of languages
 
-$Db->Query("SELECT * FROM c_languages ORDER BY name ASC;");
+Database::Query("SELECT * FROM c_languages ORDER BY name ASC;");
 
-while($lang = $Db->Fetch()) {
+while($lang = Database::Fetch()) {
 	$lang['is_active']  = ($lang['is_active'] == 1) ? "<i class='fa fa-fw fa-check'></i>" : "";
 	$lang['remove'] = "<a href='process.php?do=uninstall_language&id={$lang['l_id']}'><i class='fa fa-fw fa-remove'></i></a>";
 

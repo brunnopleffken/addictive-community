@@ -1,10 +1,10 @@
 <h1>
-	<small><?php echo $community_name ?></small>
+	<small><?= $community_name ?></small>
 	<?php __("R_TITLE") ?>
 </h1>
 
 <?php if($is_register_disabled == 1): ?>
-	<?php echo \AC\Kernel\Html::Notification("Registration has been disabled.", "warning", true); ?>
+	<?= \AC\Kernel\Html::Notification("Registration has been disabled.", "warning", true); ?>
 <?php else: ?>
 	<div class="block">
 		<?php if($step == 1): ?>
@@ -30,24 +30,24 @@
 				<div class="current"><h3><?php __("R_STEP_2") ?></h3><small><?php __("R_STEP_YOUR_ACCOUNT") ?></small></div>
 				<div><h3><?php __("R_STEP_3") ?></h3><small><?php __("R_STEP_CONFIRMATION") ?></small></div>
 			</div>
-			<?php echo $notification ?>
+			<?= $notification ?>
 			<form action="register/sign_up" method="post">
 				<div class="form-group grid">
-					<label for="teste" class="col-3"><?php __("R_USERNAME") ?></label>
+					<label class="col-3"><?php __("R_USERNAME") ?></label>
 					<div class="col-3">
 						<input type="text" name="username" id="username" maxlength="20" class="form-control" onkeyup="register.checkUsername()" required>
 					</div>
 					<em class="form-control-static col-6"><?php __("R_USERNAME_NOTICE") ?></em>
 				</div>
 				<div class="form-group grid">
-					<label for="teste" class="col-3"><?php __("R_PASSWORD") ?></label>
+					<label class="col-3"><?php __("R_PASSWORD") ?></label>
 					<div class="col-3">
 						<input type="password" name="password" id="password" class="form-control" required>
 					</div>
 					<em class="form-control-static col-6"><?php __("R_PASSWORD_NOTICE") ?></em>
 				</div>
 				<div class="form-group grid">
-					<label for="teste" class="col-3"><?php __("R_RETYPE_PASSWD") ?></label>
+					<label class="col-3"><?php __("R_RETYPE_PASSWD") ?></label>
 					<div class="col-3">
 						<input type="password" name="password_conf" id="password_conf" class="form-control" onkeyup="register.checkPassword()" required>
 					</div>
@@ -56,14 +56,14 @@
 					</div>
 				</div>
 				<div class="form-group grid">
-					<label for="teste" class="col-3"><?php __("R_EMAIL_ADDR") ?></label>
+					<label class="col-3"><?php __("R_EMAIL_ADDR") ?></label>
 					<div class="col-5">
 						<input type="email" name="email" class="form-control" required>
 					</div>
 				</div>
 				<?php if($is_captcha): ?>
 					<div class="form-group grid">
-						<label for="teste" class="col-3">
+						<label class="col-3">
 							<?php __("R_CAPTCHA") ?>
 							<small><?php __("R_CAPTCHA_DESCRIPTION") ?></small>
 						</label>

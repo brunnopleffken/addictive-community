@@ -9,12 +9,14 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
+
 // User group list
 
 $list = "";
-$Db->Query("SELECT * FROM c_usergroups ORDER BY g_id");
+Database::Query("SELECT * FROM c_usergroups ORDER BY g_id");
 
-while($group = $Db->Fetch()) {
+while($group = Database::Fetch()) {
 	if($group['g_id'] == 3) {
 		$list .= "<option value='{$group['g_id']}' selected>{$group['name']}</option>";
 	}

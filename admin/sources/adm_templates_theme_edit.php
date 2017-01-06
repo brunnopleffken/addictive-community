@@ -9,13 +9,14 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
 // Theme details
 $id = Http::Request("id");
-$Db->Query("SELECT * FROM c_themes WHERE theme_id = {$id};");
-$themes = $Db->Fetch();
+Database::Query("SELECT * FROM c_themes WHERE theme_id = {$id};");
+$themes = Database::Fetch();
 
 $filename = "../themes/" . $themes['directory'] . "/css/main.css";
 

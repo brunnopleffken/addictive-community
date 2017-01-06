@@ -9,18 +9,19 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 
 // Get board overview
 
-$Db->Query("SELECT COUNT(*) AS total FROM c_members;");
-$registered = $Db->Fetch();
+Database::Query("SELECT COUNT(*) AS total FROM c_members;");
+$registered = Database::Fetch();
 
-$Db->Query("SELECT COUNT(*) AS total FROM c_posts;");
-$posts = $Db->Fetch();
+Database::Query("SELECT COUNT(*) AS total FROM c_posts;");
+$posts = Database::Fetch();
 
-$Db->Query("SELECT COUNT(*) AS total FROM c_threads;");
-$threads = $Db->Fetch();
+Database::Query("SELECT COUNT(*) AS total FROM c_threads;");
+$threads = Database::Fetch();
 
 $posts['average'] = round($posts['total'] / $threads['total'], 1);
 
@@ -28,8 +29,8 @@ $posts['average'] = round($posts['total'] / $threads['total'], 1);
 
 $server_software = $_SERVER["SERVER_SOFTWARE"];
 
-$Db->Query("SELECT VERSION() AS version;");
-$mysql_v = $Db->Fetch();
+Database::Query("SELECT VERSION() AS version;");
+$mysql_v = Database::Fetch();
 
 $mysqlversion = "MySQL " . $mysql_v['version'];
 
@@ -37,16 +38,16 @@ $mysqlversion = "MySQL " . $mysql_v['version'];
 
 $html = "";
 
-$reports = $Db->Query("SELECT r.*, m.username, t.title FROM c_reports r
+$reports = Database::Query("SELECT r.*, m.username, t.title FROM c_reports r
 		INNER JOIN c_members m ON (r.sender_id = m.m_id)
 		LEFT JOIN c_threads t ON (r.thread_id = t.t_id)
 		ORDER BY rp_id DESC LIMIT 15;");
 
-if($Db->Rows($reports) == 0) {
+if(Database::Rows($reports) == 0) {
 	$html = "<tr><td colspan='7' class='center'>There are no abuse reports at the moment.</td></tr>";
 }
 
-while($report = $Db->Fetch($reports)) {
+while($report = Database::Fetch($reports)) {
 	$report['date'] = $Core->DateFormat($report['date']);
 
 	if($report['post_id'] == 0) {

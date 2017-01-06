@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Template;
 
@@ -19,7 +20,7 @@ $message = "";
 if($_POST) {
 	foreach($_POST as $k => $v) {
 		$content = $v;
-		$Db->Query("UPDATE c_emails SET content = '{$content}' WHERE type = '{$k}';");
+		Database::Query("UPDATE c_emails SET content = '{$content}' WHERE type = '{$k}';");
 	}
 
 	$message = Html::Notification("E-mail templates has been successfully updated.", "success");
@@ -27,9 +28,9 @@ if($_POST) {
 
 // List of e-mail messages
 
-$Db->Query("SELECT * FROM c_emails ORDER BY type ASC;");
+Database::Query("SELECT * FROM c_emails ORDER BY type ASC;");
 
-while($template = $Db->Fetch()) {
+while($template = Database::Fetch()) {
 	$template['content'] = str_replace("<br />", "", $template['content']);
 	Template::Add("<tr>
 			<td>{$template['description']}</td>

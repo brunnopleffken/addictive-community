@@ -11,9 +11,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
-use \AC\Kernel\Core;
 use \AC\Kernel\Database;
-use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Text;
 
@@ -25,9 +23,7 @@ use \AC\Kernel\Text;
 
 // Load kernel modules
 require_once("../init.php");
-require_once("../kernel/Core.php");
 require_once("../kernel/Database.php");
-require_once("../kernel/Html.php");
 require_once("../kernel/Http.php");
 require_once("../kernel/Text.php");
 

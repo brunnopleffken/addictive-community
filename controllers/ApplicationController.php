@@ -13,8 +13,11 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Core;
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\i18n;
+use \AC\Kernel\Session\SessionState;
 use \AC\Kernel\Text;
 
 class Application
@@ -28,14 +31,18 @@ class Application
 	// Dictionary of keys and value to be shown on View
 	public $view_data = array();
 
+	// Kernel\Core class
+	public $Core;
+
 	/**
 	 * --------------------------------------------------------------------
-	 * CLASSES INSTANCES
+	 * APPLICATION CONSTRUCTOR
 	 * --------------------------------------------------------------------
 	 */
-	public $Db;      // Database abstraction layer class
-	public $Core;    // Main core functions
-	public $Session; // Session management and member information
+	public function __construct(Core $core_instance)
+	{
+		$this->Core = $core_instance;
+	}
 
 	/**
 	 * --------------------------------------------------------------------
@@ -125,7 +132,7 @@ class Application
 		$this->Set("website_url", $this->Core->config['general_website_url']);
 		$this->Set("show_members_online", $this->Core->config['general_sidebar_online']);
 		$this->Set("show_statistics", $this->Core->config['general_sidebar_stats']);
-		$this->Set("is_admin", $this->Session->IsAdmin());
+		$this->Set("is_admin", SessionState::IsAdmin());
 	}
 
 	/**
@@ -136,18 +143,18 @@ class Application
 	private function _GetMemberInfo()
 	{
 		// If member is logged in
-		if($this->Session->IsMember()) {
+		if(SessionState::IsMember()) {
 			// Get user avatar
-			$this->Session->member_info['avatar'] = $this->Core->GetAvatar($this->Session->member_info, 80);
+			SessionState::$user_data['avatar'] = $this->Core->GetAvatar(SessionState::$user_data, 80);
 
 			// Number of new private messages
-			$this->Db->Query("SELECT COUNT(*) AS total FROM c_messages
-					WHERE to_id = '{$this->Session->member_info['m_id']}' AND status = 0;");
+			Database::Query("SELECT COUNT(*) AS total FROM c_messages
+					WHERE to_id = '" . SessionState::$user_data['m_id'] . "' AND status = 0;");
 
-			$unread_messages = $this->Db->Fetch();
+			$unread_messages = Database::Fetch();
 
-			$this->Set("member_id", $this->Session->member_info['m_id']);
-			$this->Set("member_info", $this->Session->member_info);
+			$this->Set("member_info", SessionState::$user_data);
+			$this->Set("member_id", SessionState::$user_data['m_id']); // Just a shortcut :)
 			$this->Set("unread_messages", $unread_messages['total']);
 		}
 		else {
@@ -162,15 +169,12 @@ class Application
 	 */
 	private function _GetRooms()
 	{
-		$rooms = $this->Db->Query("SELECT c_rooms.r_id, c_rooms.name, c_rooms.password,
+		Database::Query("SELECT c_rooms.r_id, c_rooms.name, c_rooms.password,
 				(SELECT COUNT(*) FROM c_threads WHERE c_threads.room_id = c_rooms.r_id) AS threads
 				FROM c_rooms WHERE invisible = 0;");
 
-		$_sidebar_rooms = array();
+		$_sidebar_rooms = Database::FetchToArray();
 
-		while($result = $this->Db->Fetch($rooms)) {
-			$_sidebar_rooms[] = $result;
-		}
 		$this->Set("sidebar_rooms", $_sidebar_rooms);
 	}
 
@@ -182,15 +186,14 @@ class Application
 	private function _GetMembersOnline()
 	{
 		$online = array();
-		$session_expiration = $this->Core->config['general_session_expiration'];
 
-		$members_online = $this->Db->Query("SELECT s.*, m.username FROM c_sessions s
+		$members_online = Database::Query("SELECT s.*, m.username FROM c_sessions s
 				INNER JOIN c_members m ON (s.member_id = m.m_id)
-				WHERE s.member_id <> 0 AND s.activity_time > '{$session_expiration}' AND s.anonymous = 0
+				WHERE s.member_id <> 0 AND s.anonymous = 0
 				ORDER BY s.activity_time DESC;");
 
-		while($members = $this->Db->Fetch($members_online)) {
-			$viewing = i18n::Translate("SIDEBAR_MEMBER_VIEWING") . ": " . ucwords($members['location_type']);
+		while($members = Database::Fetch($members_online)) {
+			$viewing = i18n::Translate("SIDEBAR_MEMBER_VIEWING") . ": " . ucwords($members['location_controller']);
 			$online[] = "<a href='profile/{$members['member_id']}' title='{$viewing}'>{$members['username']}</a>";
 		}
 
@@ -200,8 +203,8 @@ class Application
 		$this->Set("member_list", $member_list);
 
 		// Number of guests
-		$this->Db->Query("SELECT COUNT(s_id) AS count FROM c_sessions WHERE member_id = 0;");
-		$guests_count = $this->Db->Fetch();
+		Database::Query("SELECT COUNT(session_token) AS count FROM c_sessions WHERE member_id = 0;");
+		$guests_count = Database::Fetch();
 		$guests_count = $guests_count['count'];
 		$this->Set("guests_count", $guests_count);
 	}
@@ -213,15 +216,15 @@ class Application
 	 */
 	private function _GetStats()
 	{
-		$this->Db->Query("SELECT * FROM c_stats;");
-		$stats_result_temp = $this->Db->Fetch();
+		Database::Query("SELECT * FROM c_stats;");
+		$stats_result_temp = Database::Fetch();
 
 		$_stats['threads'] = $stats_result_temp['thread_count'];
 		$_stats['posts'] = $stats_result_temp['post_count'];
 		$_stats['members'] = $stats_result_temp['member_count'];
 
-		$this->Db->Query("SELECT m_id, username FROM c_members ORDER BY m_id DESC LIMIT 1;");
-		$stats_result_temp = $this->Db->Fetch();
+		Database::Query("SELECT m_id, username FROM c_members ORDER BY m_id DESC LIMIT 1;");
+		$stats_result_temp = Database::Fetch();
 
 		$_stats['lastmemberid']   = $stats_result_temp['m_id'];
 		$_stats['lastmembername'] = $stats_result_temp['username'];
@@ -237,13 +240,13 @@ class Application
 	private function _GetEmoticons()
 	{
 		$emoticons = array();
-		$this->Db->Query("SELECT * FROM c_emoticons WHERE display = 1;");
+		Database::Query("SELECT * FROM c_emoticons WHERE display = 1;");
 
 		$add_quotes = function($value) {
 			return "'{$value}'";
 		};
 
-		while($emoticon = $this->Db->Fetch()) {
+		while($emoticon = Database::Fetch()) {
 			$emoticons[] = $emoticon['filename'];
 		}
 

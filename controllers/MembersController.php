@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
 
@@ -23,7 +24,7 @@ class Members extends Application
 	 * MEMBER LIST
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		$selected = "";
 		$letter_list = "";
@@ -125,10 +126,10 @@ class Members extends Application
 				LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id)
 				WHERE usergroup <> 0 {$filter} {$order};";
 
-		$members = $this->Db->Query($sql);
+		$members = Database::Query($sql);
 
 		// Iterate between results
-		while($result = $this->Db->Fetch($members)) {
+		while($result = Database::Fetch($members)) {
 			$result['avatar'] = $this->Core->GetAvatar($result, 80);
 			$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 			$_result[] = $result;

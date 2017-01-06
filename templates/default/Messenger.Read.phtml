@@ -1,18 +1,18 @@
 <div class="header">
 	<?php if($message['to_id'] == $member_id): ?>
 		<h1>
-			<small><?php echo $community_name ?></small>
-			<?php echo $message['subject'] ?>
+			<small><?= $community_name ?></small>
+			<?= $message['subject'] ?>
 		</h1>
 		<div class="header-buttons">
-			<a href="messenger/reply/<?php echo $message['pm_id'] ?>" class="btn btn-default"><?php __("M_REPLY") ?></a>
-			<a href="messenger/forward/<?php echo $message['pm_id'] ?>" class="btn btn-default"><?php __("M_FORWARD") ?></a>
-			<a href="messenger/delete/<?php echo $message['pm_id'] ?>" class="btn btn-default"><?php __("M_DELETE") ?></a>
+			<a href="messenger/reply/<?= $message['pm_id'] ?>" class="btn btn-default"><?php __("M_REPLY") ?></a>
+			<a href="messenger/forward/<?= $message['pm_id'] ?>" class="btn btn-default"><?php __("M_FORWARD") ?></a>
+			<a href="messenger/delete/<?= $message['pm_id'] ?>" class="btn btn-default"><?php __("M_DELETE") ?></a>
 		</div>
 	<?php else: ?>
 		<h1>
-			<small><?php echo $community_name ?></small>
-			<?php __("M_FOLDER_SENT") ?>: <?php echo $message['subject'] ?>
+			<small><?= $community_name ?></small>
+			<?php __("M_FOLDER_SENT") ?>: <?= $message['subject'] ?>
 		</h1>
 	<?php endif; ?>
 </div>
@@ -21,10 +21,10 @@
 	<div class="thread-reply-content">
 		<div class="thread-reply-content-author text-center">
 			<div class="thread-reply-content-author-avatar">
-				<?php echo \AC\Kernel\Html::Crop($message['avatar'], 98, "image") ?>
+				<?= \AC\Kernel\Html::Crop($message['avatar'], 98, "image") ?>
 			</div>
-			<a href="profile/<?php echo $message['from_id'] ?>" class="thread-reply-content-author-username">
-				<?php echo $message['username'] ?>
+			<a href="profile/<?= $message['from_id'] ?>" class="thread-reply-content-author-username">
+				<?= $message['username'] ?>
 			</a>
 		</div>
 		<div class="thread-reply-content-body">
@@ -32,7 +32,7 @@
 				<?php __("M_SENT_ON", array($message['sent_date'])) ?>
 			</div>
 			<div class="thread-reply-content-body-post">
-				<?php echo $message['message'] ?>
+				<?= $message['message'] ?>
 			</div>
 		</div>
 	</div>

@@ -1,21 +1,21 @@
 <h1>
-	<small><?php echo $community_name ?></small>
+	<small><?= $community_name ?></small>
 	<?php __("M_TITLE") ?>: <?php __("M_REPLY") ?>
 </h1>
 
 <div class="block">
 	<form action="messenger/send" method="post">
 		<div class="form-group grid">
-			<label for="teste" class="col-2"><?php __("M_TO") ?></label>
+			<label class="col-2"><?php __("M_TO") ?></label>
 			<div class="col-4">
-				<input type="hidden" name="to" value="<?php echo $message['reply_user_id'] ?>">
-				<div class="form-control-static"><?php echo $message['username'] ?></div>
+				<input type="hidden" name="to" value="<?= $message['reply_user_id'] ?>">
+				<div class="form-control-static"><?= $message['username'] ?></div>
 			</div>
 		</div>
 		<div class="form-group grid">
-			<label for="teste" class="col-2"><?php __("M_SUBJECT") ?></label>
+			<label class="col-2"><?php __("M_SUBJECT") ?></label>
 			<div class="col-6">
-				<input type="text" name="subject" class="form-control" value="Re: <?php echo $message['subject'] ?>" required>
+				<input type="text" name="subject" class="form-control" value="Re: <?= $message['subject'] ?>" required>
 			</div>
 		</div>
 		<div class="form-group grid">

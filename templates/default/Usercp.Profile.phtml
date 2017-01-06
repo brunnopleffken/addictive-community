@@ -1,5 +1,5 @@
 <h1>
-	<small><?php echo $community_name ?></small>
+	<small><?= $community_name ?></small>
 	<?php __("C_TITLE") ?>
 </h1>
 
@@ -18,21 +18,21 @@
 		<?php __($notification) ?>
 		<form action="usercp/save_profile" method="post">
 			<div class="form-group grid">
-				<label for="teste" class="col-2"><?php __("C_MEMBER_TITLE") ?></label>
+				<label class="col-2"><?php __("C_MEMBER_TITLE") ?></label>
 				<div class="col-4">
-					<input type="text" name="member_title" class="form-control" value="<?php echo $member['member_title'] ?>">
+					<input type="text" name="member_title" class="form-control" value="<?= $member['member_title'] ?>">
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label for="teste" class="col-2"><?php __("C_ABOUT_ME") ?></label>
+				<label class="col-2"><?php __("C_ABOUT_ME") ?></label>
 				<div class="col-6">
-					<textarea name="profile" rows="4" class="form-control"><?php echo $member['profile'] ?></textarea>
+					<textarea name="profile" rows="4" class="form-control"><?= $member['profile'] ?></textarea>
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label for="teste" class="col-2"><?php __("C_EMAIL_ADDR") ?></label>
+				<label class="col-2"><?php __("C_EMAIL_ADDR") ?></label>
 				<div class="col-5">
-					<input type="email" name="email" class="form-control" value="<?php echo $member['email'] ?>">
+					<input type="email" name="email" class="form-control" value="<?= $member['email'] ?>">
 				</div>
 				<div class="col-5 form-control-static">
 					<label class="checkbox-control">
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label for="teste" class="col-2"><?php __("C_BIRTHDATE") ?></label>
+				<label class="col-2"><?php __("C_BIRTHDATE") ?></label>
 				<div class="col-10">
 					<?php
 						echo \AC\Kernel\Html::Days("b_day", $member['b_day'], true) . " ";
@@ -54,7 +54,7 @@
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label for="teste" class="col-2"><?php __("C_GENDER") ?></label>
+				<label class="col-2"><?php __("C_GENDER") ?></label>
 				<div class="col-10">
 					<select name="gender" class="select2-no-search" style="width: 120px">
 						<option value="0">---</option>
@@ -64,32 +64,32 @@
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label for="teste" class="col-2"><?php __("C_LOCATION") ?></label>
+				<label class="col-2"><?php __("C_LOCATION") ?></label>
 				<div class="col-4">
-					<input type="text" name="location" class="form-control" value="<?php echo $member['location'] ?>">
+					<input type="text" name="location" class="form-control" value="<?= $member['location'] ?>">
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label for="teste" class="col-2"><?php __("C_WEBSITE") ?></label>
+				<label class="col-2"><?php __("C_WEBSITE") ?></label>
 				<div class="col-5">
-					<input type="url" name="website" class="form-control" value="<?php echo $member['website'] ?>">
+					<input type="url" name="website" class="form-control" value="<?= $member['website'] ?>">
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label for="teste" class="col-2">Facebook</label>
+				<label class="col-2">Facebook</label>
 				<div class="col-4">
 					<div class="input-group">
-						<div class="input-group-addon">facebook.com/</div>
-						<input type="text" name="im_facebook" class="form-control" value="<?php echo $member['im_facebook'] ?>">
+						<div class="input-group-addon">fb.me/</div>
+						<input type="text" name="im_facebook" class="form-control" value="<?= $member['im_facebook'] ?>">
 					</div>
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label for="teste" class="col-2">Twitter</label>
+				<label class="col-2">Twitter</label>
 				<div class="col-3">
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-at"></i></div>
-						<input type="text" name="im_twitter" class="form-control" value="<?php echo $member['im_twitter'] ?>">
+						<input type="text" name="im_twitter" class="form-control" value="<?= $member['im_twitter'] ?>">
 					</div>
 				</div>
 			</div>

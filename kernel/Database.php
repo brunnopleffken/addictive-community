@@ -13,72 +13,49 @@
 
 namespace AC\Kernel;
 
-/**
- * --------------------------------------------------------------------
- * DATABASE CONNECTION CLASS INTERFACE
- * --------------------------------------------------------------------
- */
-interface IDatabase
+class Database
 {
-	public function Query($query);
-	public function Fetch($result = "");
-	public function FetchConfig($result = "");
-	public function FetchToArray($result = "");
-	public function Rows($result = "");
-	public function Insert($table, $array);
-	public function Update($table, $array, $where);
-	public function GetLastID();
-}
+	// Database connection settings
+	private static $connection_config = array();
 
-/**
- * --------------------------------------------------------------------
- * MYSQL DATABASE CLASS
- * --------------------------------------------------------------------
- */
-class Database implements IDatabase
-{
-	// Database connection information
-	private $config = array();
-
-	// Database connection
-	private $link;
+	// Database connection link
+	private static $link;
 
 	// Database result link of the last executed query
-	private $query;
-	private $result;
+	private static $query;
+	private static $resultset;
 
 	// Log of queries of the current session
-	private $debug = false;
-	private $log = array();
+	private static $debug = false;
+	private static $log = array();
 
 	/**
 	 * --------------------------------------------------------------------
 	 * MANUALLY OPEN A NEW CONNECTION TO A MYSQL SERVER
 	 * --------------------------------------------------------------------
 	 */
-	public function Connect($config = array())
+	public static function Connect($connection_config = array())
 	{
 		// Store configuration info as class property
-		$this->config = $config;
+		self::$connection_config = $connection_config;
 
 		// Connect to MySQL server
-		$this->link = @mysqli_connect(
-			$this->config['db_server'],
-			$this->config['db_username'],
-			$this->config['db_password'],
-			$this->config['db_database'],
-			$this->config['db_port']
+		self::$link = @mysqli_connect(
+			self::$connection_config['db_server'],
+			self::$connection_config['db_username'],
+			self::$connection_config['db_password'],
+			self::$connection_config['db_database'],
+			self::$connection_config['db_port']
 		);
 
 		// Show error message in case of error
 		if(mysqli_connect_errno()) {
-			$this->Exception(mysqli_connect_error());
+			self::Exception(mysqli_connect_error());
 			return false;
 		}
 		else {
 			// Set response charset to UTF-8
-			mysqli_set_charset($this->link, "utf8");
-			unset($this->config);
+			mysqli_set_charset(self::$link, "utf8");
 			return true;
 		}
 	}
@@ -88,31 +65,31 @@ class Database implements IDatabase
 	 * SENDS A UNIQUE QUERY TO THE CURRENTLY ACTIVE DATABASE
 	 * --------------------------------------------------------------------
 	 */
-	public function Query($sql, $ext_backtrace = 0)
+	public static function Query($sql, $ext_backtrace = 0)
 	{
 		// Execute SQL query
-		$this->query = mysqli_query($this->link, $sql);
+		self::$query = mysqli_query(self::$link, $sql);
 
-		if($this->debug) {
+		if(self::$debug) {
 			$backtrace = ($ext_backtrace == 0) ? debug_backtrace() : $ext_backtrace;
-			$this->log[] = array(
+			self::$log[] = [
 				"sql" => preg_replace("/\n\s*/", " ", $sql),
-				"backtrace" => array(
+				"backtrace" => [
 					"file" => $backtrace[0]['file'],
 					"line" => $backtrace[0]['line']
-				)
-			);
+				]
+			];
 		}
 
 		// In case of error...
-		if(!$this->query) {
-			$this->Exception(
+		if(!self::$query) {
+			self::Exception(
 				"An error occoured on the following query: " . $sql . "<br><br>"
-				. "<textarea cols='90' rows='5'>" . $this->link->error . "</textarea>"
+				. "<textarea cols='90' rows='5'>" . self::$link->error . "</textarea>"
 			);
 		}
 
-		return $this->query;
+		return self::$query;
 	}
 
 	/**
@@ -120,17 +97,17 @@ class Database implements IDatabase
 	 * FETCH A RESULT ROW AS AN ASSOCIATIVE ARRAY (USED IN "WHILE" LOOPS)
 	 * --------------------------------------------------------------------
 	 */
-	public function Fetch($result = "")
+	public static function Fetch($result = null)
 	{
 		// If any SQL command is passed as parameter...
-		if($result == "") {
-			$result = $this->query;
+		if($result == null) {
+			$result = self::$query;
 		}
 
 		// Fetch results from database
-		$this->result = mysqli_fetch_assoc($result);
+		self::$resultset = $result->fetch_assoc();
 
-		return $this->result;
+		return self::$resultset;
 	}
 
 	/**
@@ -138,18 +115,18 @@ class Database implements IDatabase
 	 * FETCH A RESULT ROW AS AN ASSOCIATIVE ARRAY TO BE USED IN CONFIG
 	 * --------------------------------------------------------------------
 	 */
-	public function FetchConfig($result = "")
+	public static function FetchConfig($result = null)
 	{
 		// If any SQL command is passed as parameter...
-		if($result == "") {
-			$result = $this->query;
+		if($result == null) {
+			$result = self::$query;
 		}
 
-		while($_result = mysqli_fetch_assoc($result)) {
-			$_retval[$_result['field']] = $_result['value'];
+		while($row = $result->fetch_assoc()) {
+			$config[$row['field']] = $row['value'];
 		}
 
-		return $_retval;
+		return $config;
 	}
 
 	/**
@@ -157,20 +134,20 @@ class Database implements IDatabase
 	 * FETCH A RESULT ROW AS AS A REGULAR ASSOCIATIVE ARRAY
 	 * --------------------------------------------------------------------
 	 */
-	public function FetchToArray($result = "")
+	public static function FetchToArray($result = null)
 	{
-		$_retval = array();
+		$results_array = array();
 
 		// If any SQL command is passed as parameter...
-		if($result == "") {
-			$result = $this->query;
+		if($result == null) {
+			$result = self::$query;
 		}
 
-		while($_result = mysqli_fetch_assoc($result)) {
-			$_retval[] = $_result;
+		while($row = $result->fetch_assoc()) {
+			$results_array[] = $row;
 		}
 
-		return $_retval;
+		return $results_array;
 	}
 
 	/**
@@ -178,15 +155,13 @@ class Database implements IDatabase
 	 * GET NUMBER OF ROWS IN RESULT (FOR SELECT STATEMENTS ONLY)
 	 * --------------------------------------------------------------------
 	 */
-	public function Rows($result = "")
+	public static function Rows($result = null)
 	{
-		if($result == "") {
-			$result = $this->query;
+		if($result == null) {
+			$result = self::$query;
 		}
 
-		$this->result = mysqli_num_rows($result);
-
-		return $this->result;
+		return $result->num_rows;
 	}
 
 	/**
@@ -194,15 +169,10 @@ class Database implements IDatabase
 	 * NUMBER OF ROWS AFFECTED BY THE LAST INSERT/UPDATE/REPLACE/DELETE OP.
 	 * --------------------------------------------------------------------
 	 */
-	public function AffectedRows($result = "")
+	public static function AffectedRows()
 	{
-		if($result == "") {
-			$result = $this->link;
-		}
-
-		$this->result = mysqli_affected_rows($result);
-
-		return $this->result;
+		self::$resultset = mysqli_affected_rows(self::$link);
+		return self::$resultset;
 	}
 
 	/**
@@ -210,7 +180,7 @@ class Database implements IDatabase
 	 * INSERT DATA FROM AN ARRAY INTO A TABLE
 	 * --------------------------------------------------------------------
 	 */
-	public function Insert($table, $array)
+	public static function Insert($table, $array)
 	{
 		// Loop through array
 		foreach($array as $f => $v) {
@@ -222,15 +192,15 @@ class Database implements IDatabase
 		$sql = "INSERT INTO {$table} (" . implode(", ", $fields) . ") VALUES (" . implode(", ", $values) . ");";
 
 		// Save backtrace if debug is 'true' and run query
-		$backtrace = ($this->debug) ? debug_backtrace() : null;
-		$this->query = $this->Query($sql, $backtrace);
+		$backtrace = (self::$debug) ? debug_backtrace() : null;
+		self::$query = self::Query($sql, $backtrace);
 
 		// In case of error...
-		if(!$this->query) {
-			$this->Exception("An error occoured on the following query: " . $sql);
+		if(!self::$query) {
+			self::Exception("An error occoured on the following query: " . $sql);
 		}
 
-		return $this->query;
+		return self::$query;
 	}
 
 	/**
@@ -238,7 +208,7 @@ class Database implements IDatabase
 	 * UPDATE AN ENTRY ON DATABASE FROM AN ARRAY
 	 * --------------------------------------------------------------------
 	 */
-	public function Update($table, $data, $where = 1)
+	public static function Update($table, $data, $where = 1)
 	{
 		if(is_array($data)) {
 			// Check if it's an associative array or a sequential array
@@ -259,14 +229,14 @@ class Database implements IDatabase
 		}
 
 		// Save backtrace if debug is 'true' and run query
-		$backtrace = ($this->debug) ? debug_backtrace() : null;
-		$this->query = $this->Query($sql, $backtrace);
+		$backtrace = (self::$debug) ? debug_backtrace() : null;
+		self::$query = self::Query($sql, $backtrace);
 
-		if(!$this->query) {
-			$this->Exception("An error occoured on the following query: " . $sql);
+		if(!self::$query) {
+			self::Exception("An error occoured on the following query: " . $sql);
 		}
 
-		return $this->query;
+		return self::$query;
 	}
 
 	/**
@@ -274,19 +244,23 @@ class Database implements IDatabase
 	 * DELETE ENTRIES ON DATABASE
 	 * --------------------------------------------------------------------
 	 */
-	public function Delete($table, $where = 1)
+	public static function Delete($table, $where = null)
 	{
+		if($where == null) {
+			Html::Error("You're running a Database::Delete() comand without WHERE.");
+		}
+
 		$sql = "DELETE FROM {$table} WHERE {$where};";
 
 		// Save backtrace if debug is 'true' and run query
-		$backtrace = ($this->debug) ? debug_backtrace() : null;
-		$this->query = $this->Query($sql, $backtrace);
+		$backtrace = (self::$debug) ? debug_backtrace() : null;
+		self::$query = self::Query($sql, $backtrace);
 
-		if(!$this->query) {
-			$this->Exception("An error occoured on the following query: " . $sql);
+		if(!self::$query) {
+			self::Exception("An error occoured on the following query: " . $sql);
 		}
 
-		return $this->query;
+		return self::$query;
 	}
 
 	/**
@@ -294,10 +268,9 @@ class Database implements IDatabase
 	 * GET THE ID GENERATED IN THE LAST QUERY
 	 * --------------------------------------------------------------------
 	 */
-	public function GetLastID()
+	public static function GetLastID()
 	{
-		$id = mysqli_insert_id($this->link);
-		return $id;
+		return mysqli_insert_id(self::$link);
 	}
 
 	/**
@@ -305,18 +278,25 @@ class Database implements IDatabase
 	 * RETURN LOG OF EXECUTED QUERIES
 	 * --------------------------------------------------------------------
 	 */
-	public function Log()
+	public static function Log()
 	{
-		$template = "<table>";
-		foreach($this->log as $statement) {
-			$template .= "<tr>";
-			$template .= "<td colspan='2' style='font-size: 10px; white-space:nowrap'><strong>{$statement['sql']}</strong></td>";
-			$template .= "</tr><tr>";
-			$template .= "<td style='font-size:10px;white-space:nowrap;padding-bottom:10px'>{$statement['backtrace']['line']}</td>";
-			$template .= "<td style='font-size:10px;white-space:nowrap;padding-bottom:10px'>{$statement['backtrace']['file']}</td>";
-			$template .= "</tr>";
+		if(self::$debug) {
+			$template = "<table class='table' style='margin:20px 0'>";
+			$template .= "<thead><tr><th>Executed SQL Statements</th></tr></thead>";
+			foreach(self::$log as $statement) {
+				$template .= "<tr><td style='font-size: 12px'>";
+				$template .= "<strong style='font-family:consolas,monospace'>{$statement['sql']}</strong><br>";
+				$template .= "[{$statement['backtrace']['line']}] ";
+				$template .= "{$statement['backtrace']['file']}";
+				$template .= "</td></tr>";
+			}
+			$template .= "</table></div>";
 		}
-		$template .= "</table>";
+		else {
+			$backtrace = debug_backtrace();
+			$template = "<div class='alert alert-warning persistent'><strong>Unable to view logs!</strong>
+				Database debug is disabled. Delete log viewer from {$backtrace[0]['file']} line {$backtrace[0]['line']}.</div>";
+		}
 
 		return $template;
 	}
@@ -326,10 +306,10 @@ class Database implements IDatabase
 	 * SHOW MYSQL ERROR MESSAGE
 	 * --------------------------------------------------------------------
 	 */
-	private function Exception($message = "")
+	private static function Exception($message = "")
 	{
 		if($message == "") {
-			Html::Error(mysqli_error());
+			Html::Error(mysqli_error(self::$link));
 		}
 		else {
 			Html::Error($message);

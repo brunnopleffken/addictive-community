@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
@@ -21,7 +22,7 @@ if($execute) {
 		case "optimize":
 
 			$tables = "";
-			$Db->Query("SHOW TABLES;");
+			Database::Query("SHOW TABLES;");
 
 			while($table = $sql->Fetch()) {
 				foreach($table as $db => $name) {
@@ -31,7 +32,7 @@ if($execute) {
 
 			$tables = substr($tables, 0, -2);
 
-			$Db->Query("OPTIMIZE TABLE {$tables};");
+			Database::Query("OPTIMIZE TABLE {$tables};");
 			$Admin->RegisterLog("Database optimization.");
 
 			echo Html::Notification(
@@ -44,9 +45,9 @@ if($execute) {
 		case "repair":
 
 			$tables = "";
-			$Db->Query("SHOW TABLES;");
+			Database::Query("SHOW TABLES;");
 
-			while($table = $Db->Fetch()) {
+			while($table = Database::Fetch()) {
 				foreach($table as $db => $name) {
 					$tables .= $name . ", ";
 				}
@@ -54,7 +55,7 @@ if($execute) {
 
 			$tables = substr($tables, 0, -2);
 
-			$Db->Query("REPAIR TABLE {$tables};");
+			Database::Query("REPAIR TABLE {$tables};");
 			$Admin->RegisterLog("Database repairing.");
 
 			echo Html::Notification(
@@ -70,9 +71,9 @@ if($execute) {
 
 $html = "";
 
-$Db->Query("SHOW TABLE STATUS;");
+Database::Query("SHOW TABLE STATUS;");
 
-while($table = $Db->Fetch()) {
+while($table = Database::Fetch()) {
 	$html .= "<tr>
 			<td>{$table['Name']}</td>
 			<td>{$table['Rows']}</td>

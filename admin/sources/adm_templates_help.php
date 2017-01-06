@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
@@ -28,9 +29,9 @@ switch($msg) {
 
 // Room list
 
-$Db->Query("SELECT * FROM c_help ORDER BY title;");
+Database::Query("SELECT * FROM c_help ORDER BY title;");
 
-while($topic = $Db->Fetch()) {
+while($topic = Database::Fetch()) {
 	Template::Add("
 		<tr>
 			<td>

@@ -13,7 +13,9 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Http;
+use \AC\Kernel\Session\SessionState;
 use \AC\Kernel\Text;
 
 class Login extends Application
@@ -23,7 +25,7 @@ class Login extends Application
 	 * LOGIN FORM
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Load "/templates/.../Ajax.php" as Master Page
 		$this->master = "Ajax";
@@ -41,35 +43,27 @@ class Login extends Application
 		// Hash
 		$salt = array(
 			"hash" => $this->Core->config['security_salt_hash'],
-			"key"  => $this->Core->config['security_salt_key']
+			"key" => $this->Core->config['security_salt_key']
 		);
 
 		if(Http::Request("username") && Http::Request("password")) {
 			$username = Http::Request("username");
 			$password = Text::Encrypt(Http::Request("password"), $salt);
 
-			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
+			Database::Query("SELECT m_id, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");
 
-			if($this->Db->Rows()) {
-				$user_info = $this->Db->Fetch();
-				$user_info['anonymous']  = (Http::Request("anonymous", true)) ? 1 : 0;
-				$user_info['remember']   = (Http::Request("remember", true)) ? 1 : 0;
-				$user_info['session_id'] = $_SESSION['session_id'];
+			if(Database::Rows()) {
+				$member_info = Database::Fetch();
+				$member_info['anonymous'] = (Http::Request("anonymous", true)) ? 1 : 0;
+				$member_info['remember'] = (Http::Request("remember", true)) ? 1 : 0;
+				$member_info['session_token'] = SessionState::Retrieve("session_token");
 
 				// Check if member session was created successfully
-				$this->Session->CreateMemberSession($user_info);
+				SessionState::CreateMemberSession($member_info);
 
-				// Are we attempting to login from an exception page?
-				// HTML: <input type="hidden" name="exception_referrer" value="true">
-				if(Http::Request("exception_referrer")) {
-					// Redirect to Home
-					$this->Core->Redirect("/");
-				}
-				else {
-					// Continue...
-					header("Location: " . getenv("HTTP_REFERER"));
-				}
+				// Redirect to Home
+				$this->Core->Redirect("/");
 			}
 			else {
 				// No lines returned: show error
@@ -98,12 +92,12 @@ class Login extends Application
 			$username = Http::Request("username");
 			$password = Text::Encrypt(Http::Request("password"), $salt);
 
-			$this->Db->Query("SELECT m_id, username, password, usergroup FROM c_members
+			Database::Query("SELECT 1 FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");
 
 			// Check if username and password match
-			if($this->Db->Rows()) {
-				$user_info = $this->Db->Fetch();
+			if(Database::Rows()) {
+				$user_info = Database::Fetch();
 
 				// Check if user has been banned (user group #4)
 				if($user_info['usergroup'] == 4) {
@@ -116,6 +110,9 @@ class Login extends Application
 			else {
 				$data = array("authenticated" => false, "message" => "Wrong username or password");
 			}
+		}
+		else {
+			$data = array("authenticated" => false, "message" => "Username or password is required");
 		}
 
 		echo json_encode($data);
@@ -130,9 +127,16 @@ class Login extends Application
 	{
 		$this->layout = false;
 
-		// Destroy everything
-		$this->Session->DestroySession($this->Session->member_info['m_id']);
+		// Delete session from the database
+		$member_id = SessionState::$user_data['m_id'];
+		Database::Delete("c_sessions", "member_id = {$member_id}");
 
-		$this->Core->Redirect("");
+		// Destroy cookies
+		SessionState::UnloadCookie("member_id");
+		SessionState::UnloadCookie("login_time");
+		SessionState::UnloadCookie("read_threads");
+
+		// Redirect
+		$this->Core->Redirect("/");
 	}
 }

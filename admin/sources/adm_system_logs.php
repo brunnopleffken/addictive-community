@@ -9,15 +9,16 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Template;
 
 // Get administration/moderation logs
 
-$Db->Query("SELECT l.*, m.username FROM c_logs l
+Database::Query("SELECT l.*, m.username FROM c_logs l
 	INNER JOIN c_members m ON (m.m_id = l.member_id)
 	ORDER BY log_id DESC LIMIT 50;");
 
-while($reg = $Db->Fetch()) {
+while($reg = Database::Fetch()) {
 	$reg['time'] = $Core->DateFormat($reg['time']);
 
 	Template::Add("<tr>

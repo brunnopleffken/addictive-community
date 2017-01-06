@@ -13,28 +13,22 @@
 
 namespace AC\Kernel;
 
+use AC\Kernel\Session\SessionState;
+
 class Core
 {
 	// Community configurations
 	public $config = array();
-
-	// Database class
-	private $Db;
-
-	// Logged member information
-	private $member_info = array();
 
 	/**
 	 * --------------------------------------------------------------------
 	 * CORE() CLASS CONSTRUCTOR
 	 * --------------------------------------------------------------------
 	 */
-	public function __construct($database, $configurations, $member_info = array())
+	public function __construct($configurations)
 	{
 		// Load database layer and configurations array
-		$this->Db = $database;
 		$this->config = $configurations;
-		$this->member_info = $member_info;
 	}
 
 	/**
@@ -65,13 +59,17 @@ class Core
 		// Get long/short time formats from configurations table
 		if($format == "long") {
 			$format = $this->config['date_long_format'];  // Get long format date from $_config
-		}
-		else {
+		} else {
 			$format = $this->config['date_short_format'];  // Get short format date from $_config
 		}
 
 		// Get timezone offset
-		$user_offset = (isset($this->member_info['time_offset'])) ? $this->member_info['time_offset'] : $this->config['date_default_offset'];
+		if(isset(SessionState::$user_data['time_offset'])) {
+			$user_offset = SessionState::$user_data['time_offset'];
+		} else {
+			$user_offset = $this->config['date_default_offset'];
+		}
+
 		$timezone_offset = $user_offset * HOUR;
 
 		// format and return it
@@ -87,7 +85,7 @@ class Core
 	 * $section: public|admin
 	 * --------------------------------------------------------------------
 	 */
-	public function GetAvatar($info = array(), $size = 96, $section = "public", $d = "mm", $r = "g")
+	public function GetAvatar($info = array(), $size = 96, $d = "mm", $r = "g")
 	{
 		switch($info['photo_type']) {
 			// Gravatar photo
@@ -99,13 +97,13 @@ class Core
 
 			// Uploaded photo
 			case "custom":
-				if($section == "public") {
-					$url = "public/avatar/{$info['photo']}";
-				}
-				else {
-					// Modify relative path when viewing in Admin CP
-					$url = "../public/avatar/{$info['photo']}";
-				}
+				// If custom photo is blank, show placeholder instead
+				$url = $info['photo'] == "" ? "static/images/no-photo.png" : "public/avatar/" . $info['photo'];
+				break;
+
+			// Something happened...
+			default:
+				$url = "static/images/no-photo.png";
 				break;
 		}
 

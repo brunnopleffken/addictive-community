@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Email;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
@@ -26,7 +27,7 @@ class Register extends Application
 	 * VIEW: REGISTER NEW MEMBER
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Get step
 		$step = (!Http::Request("step", true)) ? 1 : Http::Request("step", true);
@@ -125,10 +126,10 @@ class Register extends Application
 		);
 
 		// Check if username or e-mail address already exists
-		$this->Db->Query("SELECT username, email FROM c_members
+		Database::Query("SELECT username, email FROM c_members
 				WHERE username = '{$register_info['username']}' OR email = '{$register_info['email']}';");
 
-		if($this->Db->Rows() > 0) {
+		if(Database::Rows() > 0) {
 			$this->Core->Redirect("register?step=2&m=4");
 		}
 
@@ -141,16 +142,16 @@ class Register extends Application
 			$Email = new Email($this->Core->config);
 
 			// Insert into database and update stats
-			$this->Db->Insert("c_members", $register_info);
-			$new_member_id = $this->Db->GetLastID();
-			$this->Db->Update("c_stats", "member_count = member_count + 1");
+			Database::Insert("c_members", $register_info);
+			$new_member_id = Database::GetLastID();
+			Database::Update("c_stats", "member_count = member_count + 1");
 
 			// Buid e-mail body
 			$validation_url = $this->Core->config['general_community_url']
 					. "register/validate?m={$new_member_id}&token={$register_info['token']}";
 
-			$this->Db->Query("SELECT content FROM c_emails WHERE type = 'validate';");
-			$email_raw_content = $this->Db->Fetch();
+			Database::Query("SELECT content FROM c_emails WHERE type = 'validate';");
+			$email_raw_content = Database::Fetch();
 
 			$email_formatted_content = sprintf($email_raw_content['content'],
 				$register_info['username'],
@@ -169,8 +170,8 @@ class Register extends Application
 		}
 		else {
 			// DO NOT REQUIRE VALIDATION
-			$this->Db->Insert("c_members", $register_info);
-			$this->Db->Update("c_stats", "member_count = member_count + 1");
+			Database::Insert("c_members", $register_info);
+			Database::Update("c_stats", "member_count = member_count + 1");
 			$this->Core->Redirect("register?step=3");
 		}
 
@@ -191,9 +192,9 @@ class Register extends Application
 		$token  = Http::Request("token");
 
 		// Check if user has already validated
-		$this->Db->Query("SELECT m_id, usergroup, token FROM c_members WHERE m_id = {$member};");
-		$validation_count = $this->Db->Rows();
-		$validation_results = $this->Db->Fetch();
+		Database::Query("SELECT m_id, usergroup, token FROM c_members WHERE m_id = {$member};");
+		$validation_count = Database::Rows();
+		$validation_results = Database::Fetch();
 
 		if($validation_count > 0) {
 			// Validate usergroup
@@ -207,7 +208,7 @@ class Register extends Application
 			}
 
 			// Validate and redirect
-			$this->Db->Update("c_members", "usergroup = '3'", "m_id = '{$member}'");
+			Database::Update("c_members", "usergroup = '3'", "m_id = '{$member}'");
 			$this->Core->Redirect("register?step=4");
 		}
 		else {

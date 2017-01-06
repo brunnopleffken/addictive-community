@@ -13,7 +13,9 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\i18n;
+use \AC\Kernel\Session\SessionState;
 use \AC\Kernel\Text;
 
 class Community extends Application
@@ -29,15 +31,15 @@ class Community extends Application
 	 * COMMUNITY HOME
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Get rooms and categories
-		$_rooms = $this->_GetRooms();
+		$this->_GetRooms();
 
 		// Return variables
 		$this->Set("categories", $this->categories);
 		$this->Set("rooms", $this->rooms);
-		$this->Set("is_logged", $this->Session->IsMember());
+		$this->Set("is_logged", SessionState::IsMember());
 	}
 
 	/**
@@ -48,8 +50,8 @@ class Community extends Application
 	public function MarkAllAsRead()
 	{
 		// Overwrite cookies
-		$this->Session->CreateCookie("addictive_community_login_time", time(), 1);
-		$this->Session->CreateCookie("addictive_community_read_threads", json_encode(array()), 1);
+		SessionState::CreateCookie("addictive_community_login_time", time(), 1);
+		SessionState::CreateCookie("addictive_community_read_threads", json_encode(array()), 1);
 
 		// Go back to community
 		$this->Core->Redirect("HTTP_REFERER");
@@ -90,7 +92,7 @@ class Community extends Application
 		$now = time();
 
 		// If member is Admin, show invisible rooms too
-		if($this->Session->IsMember() && $this->Session->IsAdmin()) {
+		if(SessionState::IsMember() && SessionState::IsAdmin()) {
 			$visibility = "";
 		}
 		else {
@@ -98,15 +100,15 @@ class Community extends Application
 		}
 
 		// Get categories
-		$categories_result = $this->Db->Query("SELECT * FROM c_categories
+		$categories_result = Database::Query("SELECT * FROM c_categories
 				WHERE visible = 1 ORDER BY order_n, c_id;");
 
-		while($category = $this->Db->Fetch($categories_result)) {
+		while($category = Database::Fetch($categories_result)) {
 			// Categories
 			$this->categories[$category['c_id']] = $category;
 
 			// Get rooms from DB
-			$rooms_result = $this->Db->Query("SELECT c_rooms.*, c_members.m_id, c_members.username,
+			$rooms_result = Database::Query("SELECT c_rooms.*, c_members.m_id, c_members.username,
 					c_threads.title, c_threads.start_date, c_threads.t_id, c_threads.slug,
 					(SELECT COUNT(*) FROM c_threads WHERE room_id = c_rooms.r_id) AS thread_count FROM c_rooms
 					LEFT JOIN c_members ON (c_members.m_id = c_rooms.last_post_member)
@@ -117,7 +119,7 @@ class Community extends Application
 					{$visibility} ORDER BY name ASC;");
 
 			// Process data
-			while($rooms = $this->Db->Fetch($rooms_result)) {
+			while($rooms = Database::Fetch($rooms_result)) {
 				$this->rooms[$category['c_id']][] = $this->_ParseRooms($rooms);
 			}
 		}
@@ -131,10 +133,10 @@ class Community extends Application
 	private function _ParseRooms($result)
 	{
 		// Get number of users online
-		$online = $this->Db->Query("SELECT COUNT(*) AS total FROM c_sessions
-				WHERE location_type IN ('room', 'thread') AND location_room_id = {$result['r_id']};");
+		$online = Database::Query("SELECT COUNT(*) AS total FROM c_sessions
+				WHERE location_controller IN ('room', 'thread') AND location_room_id = {$result['r_id']};");
 
-		$result['online'] = $this->Db->Fetch($online);
+		$result['online'] = Database::Fetch($online);
 
 		// Get moderators
 		$moderators_array = unserialize($result['moderators']);
@@ -144,7 +146,7 @@ class Community extends Application
 
 			// Build moderators list
 			foreach($moderators as $member_id) {
-				$moderator_details = $this->Db->Query("SELECT m_id, username FROM c_members WHERE m_id = {$member_id};");
+				$moderator_details = Database::Query("SELECT m_id, username FROM c_members WHERE m_id = {$member_id};");
 				$member = $moderator_details->fetch_assoc();
 
 				$moderator_list[] = "<a href='profile/{$member['m_id']}'>{$member['username']}</a>";
@@ -214,16 +216,16 @@ class Community extends Application
 		$has_unread = false;
 
 		// Get cookies
-		$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
-		$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
+		$read_threads_cookie = SessionState::GetCookie("addictive_community_read_threads");
+		$login_time_cookie = SessionState::GetCookie("addictive_community_login_time");
 
 		if($login_time_cookie) {
 			// Look for threads where last_post_date is earlier than login time
-			$threads = $this->Db->Query("SELECT t_id, last_post_date FROM c_threads
+			$threads = Database::Query("SELECT t_id, last_post_date FROM c_threads
 					WHERE room_id = {$room_id} AND last_post_date >= {$login_time_cookie};");
 
 			// Check if the returned threads has been already read
-			while($result = $this->Db->Fetch($threads)) {
+			while($result = Database::Fetch($threads)) {
 				if($read_threads_cookie) {
 					$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
 					if(!in_array($result['t_id'], $read_threads)) {

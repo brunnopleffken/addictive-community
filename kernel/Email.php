@@ -33,7 +33,7 @@ class Email
 	{
 		require("thirdparty/PHPMailer/PHPMailerAutoload.php");
 
-		$this->Mail = new PHPMailer();
+		$this->Mail = new \PHPMailer();
 
 		// Check if e-mail information is empty
 		if($config['general_email_smtp'] == "" || $config['general_email_port'] == "" ||
@@ -97,6 +97,7 @@ class Email
 				require("Html.php");
 			}
 			Html::Error("<b>Mailer Error:</b> " . $this->Mail->ErrorInfo);
+			return false;
 		}
 	}
 }

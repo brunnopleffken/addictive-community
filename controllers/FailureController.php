@@ -24,48 +24,58 @@ class Failure extends Application
 	 * VIEW: ERROR PAGE
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		// Get type of error
 		$type = Http::Request("t");
 
+		// Show "Error" as master template in these statuses...
+		$show_error_when = ['offline', 'update', '403', '404', '500'];
+
 		// Error list
-		$errors = array(
-			'not_allowed' => array(
+		$errors = [
+			'not_allowed' => [
 				Html::Notification(i18n::Translate("E_MESSAGE_NOT_ALLOWED"), "failure", true), "login"
-			),
-			'validated' => array(
+            ],
+			'validated' => [
 				Html::Notification(i18n::Translate("E_MESSAGE_VALIDATED"), "success", true), "login"
-			),
-			'protected_room' => array(
+            ],
+			'protected_room' => [
 				Html::Notification(i18n::Translate("E_MESSAGE_PROTECTED"), "warning", true), "protected"
-			),
-			'thread_locked' => array(
+            ],
+			'thread_locked' => [
 				Html::Notification(i18n::Translate("E_MESSAGE_LOCKED_THREAD"), "failure", true), false
-			),
-			'offline' => array(
+            ],
+			'offline' => [
 				"", "offline"
-			),
-			'update' => array(
+            ],
+			'update' => [
 				"", "update"
-			),
-			'deleted_member' => array(
+            ],
+			'deleted_member' => [
 				"", "deleted"
-			),
-			'404' => array(
-				"", "404"
-			),
-			'500' => array(
-				"", "500"
-			)
-		);
+            ],
+			'403' => [
+				"", "403", "Error 403"
+            ],
+			'404' => [
+				"", "404", "Error 404"
+            ],
+			'500' => [
+				"", "500", "Error 500"
+            ]
+        ];
 
 		// Is this an error, or just a notification message? Change title!
-		if(strpos($errors[$type][0], "success")) {
-			$title = i18n::Translate("E_SUCCESS_TITLE");
+        $title = strpos($errors[$type][0], "success") ? i18n::Translate("E_SUCCESS_TITLE") : i18n::Translate("E_ERROR_TITLE");
+
+		// Show custom title
+		if(isset($errors[$type][2])) {
+			$title = $errors[$type][2];
 		}
-		else {
-			$title = i18n::Translate("E_ERROR_TITLE");
+
+		if(in_array($type, $show_error_when)) {
+			$this->master = "Error";
 		}
 
 		// Return variables

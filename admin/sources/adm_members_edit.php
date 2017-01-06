@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
@@ -28,12 +29,12 @@ switch($msg) {
 $id = Http::Request("id", true);
 
 // Member info
-$Db->Query("SELECT * FROM c_members WHERE m_id = {$id};");
-$member = $Db->Fetch();
+Database::Query("SELECT * FROM c_members WHERE m_id = {$id};");
+$member = Database::Fetch();
 
 // Usergroups
-$Db->Query("SELECT * FROM c_usergroups;");
-while($usergroup = $Db->Fetch()) {
+Database::Query("SELECT * FROM c_usergroups;");
+while($usergroup = Database::Fetch()) {
 	$usergroup['selected'] = ($usergroup['g_id'] == $member['usergroup']) ? "selected" : "";
 	$usergroups[] = $usergroup;
 }

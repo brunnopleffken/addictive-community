@@ -187,9 +187,8 @@ class Html
 		if($custom_title != "") {
 			$title = $custom_title;
 		}
-		$html = "<div class='alert {$class} {$persistent}'><strong>{$title}</strong> {$message}</div>";
 
-		return $html;
+		return "<div class='alert {$class} {$persistent}'><strong>{$title}</strong> {$message}</div>";
 	}
 
 	/**

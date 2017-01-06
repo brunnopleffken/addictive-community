@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><?php __($page_title . $community_name) ?> (Powered by Addictive Community)</title>
+	<base href="<?php __($community_url) ?>">
+	<link rel="icon" type="image/png" href="favicon.png">
+
+	<!-- Meta Tags -->
+	<meta name="generator" content="Addictive Community <?= VERSION ?>">
+	<meta name="description" content="<?php __($meta_description) ?>">
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="thirdparty/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/framework.css">
+	<link rel="stylesheet" href="static/css/wireframe.css">
+	<link rel="stylesheet" href="themes/<?php __($theme) ?>/css/theme.css">
+
+	<style>
+		.grey-block { background-color: #f1f1f1; border-radius: 5px; margin-bottom: 10px; }
+		.grey-block:last-child { margin-bottom: 0; }
+	</style>
+</head>
+<body>
+
+<header>
+	<div class="top-half outer">
+		<div class="row space-between">
+			<div class="col-flexible text-right">
+			</div>
+			<div class="col-flexible hide-xs">
+				<a href="<?= $website_url ?>" target="_blank"><?= $website_name ?></a>
+			</div>
+		</div>
+	</div>
+	<div class="bottom-half outer">
+		<div class="row space-between">
+			<div class="col-flexible">
+				<a href="<?= $community_url ?>">
+					<img src="static/images/logo.svg" class="logo" alt="Addictive Community">
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<ul class="breadcrumb">
+					<li><a href="">Home</a></li>
+					<li>Error</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>
+
+<main class="outer">
+	<div class="row content-row">
+		<div class="" id="sidebar">
+			<div class="block sidebar">
+				<div class="grey-block" style="height: 60px;"></div>
+				<div class="grey-block" style="height: 70px;"></div>
+				<div class="grey-block" style="height: 113px;"></div>
+				<div class="grey-block" style="height: 130px;"></div>
+			</div>
+		</div>
+		<div class="" id="content">
+			<?= $this->content ?>
+		</div>
+	</div>
+</main>
+
+<footer class="text-center">
+	Powered by
+	<a href="https://github.com/brunnopleffken/addictive-community" target="_blank">Addictive Community</a>
+	<?= VERSION . "-" . CHANNEL ?> &copy; <?= date("Y") ?> - All rights reserved.
+</footer>
+
+</body>
+</html>

@@ -13,6 +13,7 @@
 
 namespace AC\Controllers;
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
 
@@ -23,19 +24,14 @@ class Help extends Application
 	 * VIEW HELP TOPICS
 	 * --------------------------------------------------------------------
 	 */
-	public function Main()
+	public function Index()
 	{
 		$this->Core->redirect("404");
 		exit;
 
-		$_topics = array();
-
 		// Get help topics list
-		$this->Db->Query("SELECT h_id, title, short_desc FROM c_help ORDER BY title ASC;");
-
-		while($help = $this->Db->Fetch()) {
-			$_topics[] = $help;
-		}
+		Database::Query("SELECT h_id, title, short_desc FROM c_help ORDER BY title ASC;");
+		$_topics = Database::FetchToArray();
 
 		// Page info
 		$page_info['title'] = i18n::Translate("H_TITLE");
@@ -57,8 +53,8 @@ class Help extends Application
 		exit;
 
 		// Get the topic
-		$this->Db->Query("SELECT * FROM c_help WHERE h_id = '{$id}';");
-		$help = $this->Db->Fetch();
+		Database::Query("SELECT * FROM c_help WHERE h_id = '{$id}';");
+		$help = Database::Fetch();
 
 		// Page info
 		$page_info['title'] = i18n::Translate("H_TITLE");

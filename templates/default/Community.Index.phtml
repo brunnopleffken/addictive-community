@@ -1,44 +1,44 @@
 <?php foreach($categories as $i => $category): ?>
-	<div class="category" data-toggle-id="<?php echo $i ?>">
-		<?php echo $category['name'] ?><i class="fa fa-angle-down"></i>
+	<div class="category" data-toggle-id="<?= $i ?>">
+		<?= $category['name'] ?><i class="fa fa-angle-down"></i>
 	</div>
 
-	<div class="category-container" id="category-<?php echo $i ?>">
+	<div class="category-container" id="category-<?= $i ?>">
 		<?php if(isset($rooms[$i])): ?>
 			<?php foreach($rooms[$i] as $k => $room): ?>
 				<div class="block padding-no community">
 					<div class="community-icon text-center">
-						<?php echo $room['icon'] ?>
+						<?= $room['icon'] ?>
 					</div>
 					<div class="community-info">
-						<a href="<?php echo $room['room_link'] ?>" class="community-info-title"><?php echo $room['name'] ?></a>
-						<p class="community-info-description"><?php echo $room['description'] ?></p>
-						<?php echo $room['moderators_list'] ?>
-						<?php echo $room['redirect'] ?>
+						<a href="<?= $room['room_link'] ?>" class="community-info-title"><?= $room['name'] ?></a>
+						<p class="community-info-description"><?= $room['description'] ?></p>
+						<?= $room['moderators_list'] ?>
+						<?= $room['redirect'] ?>
 						<hr>
 						<div class="community-info-stats">
 							<span>
 								<i class="fa fa-comment"></i>
-								<?php echo $room['title'] ?>
+								<?= $room['title'] ?>
 							</span>
 							<span>
 								<i class="fa fa-user"></i>
-								<a href="profile/<?php echo $room['last_post_member'] ?>"><?php echo $room['username'] ?></a>
+								<a href="profile/<?= $room['last_post_member'] ?>"><?= $room['username'] ?></a>
 							</span>
 							<span>
 								<i class="fa fa-clock-o"></i>
-								<?php echo $room['last_post_date'] ?>
+								<?= $room['last_post_date'] ?>
 							</span>
 						</div>
 					</div>
 					<div class="community-stats">
 						<div class="community-stats-item">
 							<i class="fa fa-comments"></i>
-							<span class="pull-right"><?php echo $room['thread_count'] ?></span>
+							<span class="pull-right"><?= $room['thread_count'] ?></span>
 						</div>
 						<div class="community-stats-item">
 							<i class="fa fa-user"></i>
-							<span class="pull-right"><?php echo $room['online']['total'] ?></span>
+							<span class="pull-right"><?= $room['online']['total'] ?></span>
 						</div>
 					</div>
 				</div>

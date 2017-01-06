@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
@@ -32,9 +33,9 @@ switch($msg) {
 
 // Get list of categories
 
-$categories = $Db->Query("SELECT * FROM c_categories ORDER BY c_id;");
+$categories = Database::Query("SELECT * FROM c_categories ORDER BY c_id;");
 
-while($category = $Db->Fetch($categories)) {
+while($category = Database::Fetch($categories)) {
 	$checked = ($category['visible'] == 1) ? "checked='checked'" : "";
 
 	if($categories->num_rows > 1) {

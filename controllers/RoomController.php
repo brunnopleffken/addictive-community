@@ -13,52 +13,50 @@
 
 namespace AC\Controllers;
 
-use \AC\Kernel\Html;
+use \AC\Kernel\Database;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
+use \AC\Kernel\Session\SessionState;
 
 class Room extends Application
 {
+	// Room ID
+	private $room_id = 0;
+
 	// Number of threads per page
 	private $threads_per_page;
 
 	/**
 	 * --------------------------------------------------------------------
-	 * RUN BEFORE MAIN()
+	 * Run before Main()
 	 * --------------------------------------------------------------------
 	 */
 	public function _BeforeAction()
 	{
-		if(Http::Request("act") == "load_more") {
-			// Update session table with room ID
-			$id = Http::Request("id", true);
+		// Get and sanitize room ID
+		$this->room_id = Http::Request("id", true);
 
-			if($id == null && !is_numeric($id)) {
-				$this->Core->Redirect("500");
-			}
-
-			$session = $this->Session->session_id;
-			$this->Db->Update("c_sessions", "location_room_id = {$id}", "s_id = '{$session}'");
+		if(!$this->room_id) {
+			$this->Core->Redirect("500");
 		}
+
+		// Update session table with room ID
+		$session_token = SessionState::$session_token;
+		Database::Update("c_sessions", "location_room_id = {$this->room_id}", "session_token = '{$session_token}'");
 	}
 
 	/**
 	 * --------------------------------------------------------------------
-	 * VIEW ROOM (THREAD LIST)
+	 * View Room (a.k.a. thread list)
 	 * --------------------------------------------------------------------
 	 */
-	public function Main($id)
+	public function Index()
 	{
-		// Check if $id exists and is a number
-		if($id == null && !is_numeric($id)) {
-			$this->Core->Redirect("500");
-		}
-
 		// Get room information
-		$this->Db->Query("SELECT * FROM c_rooms WHERE r_id = {$id}");
-		$room_info = $this->Db->Fetch();
+		Database::Query("SELECT * FROM c_rooms WHERE r_id = {$this->room_id}");
+		$room_info = Database::Fetch();
 
-		// Redirect to Error 404 if the thread doesn't exist
+		// Redirect to Error 404 if the room doesn't exist
 		if($room_info == null) {
 			$this->Core->Redirect("404");
 		}
@@ -66,20 +64,20 @@ class Room extends Application
 		// Is the room protected?
 		if($room_info['password'] != "") {
 			$room_session_name = "room_" . $room_info['r_id'];
-			if(!$this->Session->GetCookie($room_session_name)) {
-				$this->Core->Redirect("failure?t=protected_room&room=" . $id);
+			if(!SessionState::GetCookie($room_session_name)) {
+				$this->Core->Redirect("failure?t=protected_room&room=" . $this->room_id);
 			}
 		}
 
 		// Check permissions
 		$room_info['perm_view'] = unserialize($room_info['perm_view']);
-		$permission_value = "V_" . $this->Session->member_info['usergroup'];
+		$permission_value = "V_" . SessionState::$user_data['usergroup'];
 		if(!in_array($permission_value, $room_info['perm_view'])) {
-			header("Location: index.php?msg=1");
+			header("Location: room/{$this->room_id}?msg=1");
 		}
 
 		// Get list of threads
-		$threads = $this->_GetThreads($id);
+		$threads = $this->_GetThreads();
 
 		// Get number of pages
 		$pages = ceil(count($threads) / $this->threads_per_page);
@@ -90,7 +88,8 @@ class Room extends Application
 		$this->Set("page_info", $page_info);
 
 		// Return variables
-		$this->Set("room_id", $id);
+		$this->Set("is_member", SessionState::IsMember());
+		$this->Set("room_id", $this->room_id);
 		$this->Set("room_info", $room_info);
 		$this->Set("threads", $threads);
 		$this->Set("view", Http::Request("view"));
@@ -99,7 +98,7 @@ class Room extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * UNLOCK PROTECTED ROOMS
+	 * Unlock protected rooms
 	 * --------------------------------------------------------------------
 	 */
 	public function Unlock()
@@ -109,12 +108,12 @@ class Room extends Application
 		$password = Http::Request("password");
 		$room_id  = Http::Request("room", true);
 
-		$this->Db->Query("SELECT password FROM c_rooms WHERE r_id = {$room_id}");
-		$room_info = $this->Db->Fetch();
+		Database::Query("SELECT password FROM c_rooms WHERE r_id = {$room_id}");
+		$room_info = Database::Fetch();
 
 		if($password == $room_info['password']) {
 			$room_session_name = "room_" . $room_id;
-			$this->Session->CreateCookie($room_session_name, 1);
+			SessionState::CreateCookie($room_session_name, 1);
 			$this->Core->Redirect("room/" . $room_id);
 			exit;
 		}
@@ -126,13 +125,13 @@ class Room extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * GET LIST OF THREADS
+	 * Get list of threads
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetThreads($room_id)
+	private function _GetThreads()
 	{
 		// Declare return variable
-		$_thread = array();
+		$thread = array();
 
 		// Get query string (room/id?view=mythreads|topreplies|noreplies|bestanswered)
 		$view = Http::Request("view");
@@ -140,8 +139,9 @@ class Room extends Application
 		// Filter thread list
 		switch($view) {
 			case "mythreads":
+				$member_id = SessionState::$user_data['m_id'];
 				$menu  = array("", "active");
-				$where = "AND author_member_id = '{$this->Session->member_info['m_id']}'";
+				$where = "AND author_member_id = '{$member_id}'";
 				$order = "last_post_date DESC";
 				break;
 			case "topreplies":
@@ -174,7 +174,7 @@ class Room extends Application
 		$this->Set("menu", $menu);
 
 		// If admin, then also select all invisible threads; and threads with an opening date
-		$is_admin = ($this->Session->IsAdmin()) ? "" : "AND c_threads.start_date < " . time();
+		$is_admin = (SessionState::IsAdmin()) ? "" : "AND c_threads.start_date < " . time();
 
 		// Set SQL pagination (OFFSET)
 		$this->threads_per_page = $this->Core->config['threads_per_page'];
@@ -182,34 +182,35 @@ class Room extends Application
 		$page = $page * $this->threads_per_page - $this->threads_per_page;
 
 		// Execute query
-		$threads = $this->Db->Query("SELECT c_threads.*, author.username AS author_name, author.email,
+		$threads = Database::Query("SELECT c_threads.*, author.username AS author_name, author.email,
 				author.photo_type, author.photo, lastpost.username AS last_post_name,
 				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
 				INNER JOIN c_members AS lastpost ON (c_threads.last_post_member_id = lastpost.m_id)
-				WHERE room_id = {$room_id} {$where} {$is_admin} ORDER BY announcement DESC, {$order}
+				WHERE room_id = {$this->room_id} {$where} {$is_admin} ORDER BY announcement DESC, {$order}
 				LIMIT {$page}, 10;");
 
-		// Process data
-		while($result = $this->Db->Fetch($threads)) {
-			$_thread[] = $this->_ParseThread($result);
+		// Process returned data
+		while($row = Database::Fetch($threads)) {
+			$thread[] = $this->_ParseThread($row);
 		}
 
-		return $_thread;
+		return $thread;
 	}
 
 	/**
 	 * --------------------------------------------------------------------
-	 * PARSE AND PROCESS THREAD INFO
+	 * Parce and process thread information
 	 * --------------------------------------------------------------------
 	 */
 	private function _ParseThread($result)
 	{
 		// Check if thread has already been read
 		$is_unread = false;
-		$read_threads_cookie = $this->Session->GetCookie("addictive_community_read_threads");
+		$read_threads_cookie = SessionState::GetCookie("addictive_community_read_threads");
+
 		if($read_threads_cookie) {
-			$login_time_cookie = $this->Session->GetCookie("addictive_community_login_time");
+			$login_time_cookie = SessionState::GetCookie("addictive_community_login_time");
 			$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
 			if(!in_array($result['t_id'], $read_threads) && $login_time_cookie < $result['last_post_date']) {
 				$is_unread = true;

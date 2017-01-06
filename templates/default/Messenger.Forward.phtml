@@ -1,12 +1,12 @@
 <h1>
-	<small><?php echo $community_name ?></small>
+	<small><?= $community_name ?></small>
 	<?php __("M_TITLE") ?>: <?php __("M_FORWARD") ?>
 </h1>
 
 <div class="block">
 	<form action="messenger/send" method="post">
 		<div class="form-group grid">
-			<label for="teste" class="col-2"><?php __("M_TO") ?></label>
+			<label class="col-2"><?php __("M_TO") ?></label>
 			<div class="col-4">
 				<select name="to" id="pmTo" class="pm-to span-12" required>
 					<option value=""></option>
@@ -14,9 +14,9 @@
 			</div>
 		</div>
 		<div class="form-group grid">
-			<label for="teste" class="col-2"><?php __("M_SUBJECT") ?></label>
+			<label class="col-2"><?php __("M_SUBJECT") ?></label>
 			<div class="col-6">
-				<input type="text" name="subject" class="form-control" value="Fwd: <?php echo $message['subject'] ?>" required>
+				<input type="text" name="subject" class="form-control" value="Fwd: <?= $message['subject'] ?>" required>
 			</div>
 		</div>
 		<div class="form-group grid">
@@ -24,8 +24,8 @@
 			<div class="col-10">
 				<textarea name="post" id="post" rows="20"><br>
 <p>----------------- Forwarding Message ------------------<br>
-From: <?php echo $message['username'] ?></p>
-<?php echo $message['message']; ?>
+From: <?= $message['username'] ?></p>
+<?= $message['message']; ?>
 				</textarea>
 			</div>
 		</div>

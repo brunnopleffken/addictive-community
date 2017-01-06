@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
@@ -18,17 +19,17 @@ $username = (Http::Request("username")) ? Http::Request("username") : "";
 // Get member list
 
 if($username != "") {
-	$Db->Query("SELECT m.m_id, m.username, m.email, m.photo, m.photo_type, m.joined, m.posts, m.usergroup, u.g_id, u.name
+	Database::Query("SELECT m.m_id, m.username, m.email, m.photo, m.photo_type, m.joined, m.posts, m.usergroup, u.g_id, u.name
 			FROM c_members m INNER JOIN c_usergroups u ON (m.usergroup = u.g_id)
 			WHERE username LIKE '%{$username}%' ORDER BY m_id DESC LIMIT 10;");
 }
 else {
-	$Db->Query("SELECT m.m_id, m.username, m.email, m.photo, m.photo_type, m.joined, m.posts, m.usergroup, u.g_id, u.name
+	Database::Query("SELECT m.m_id, m.username, m.email, m.photo, m.photo_type, m.joined, m.posts, m.usergroup, u.g_id, u.name
 			FROM c_members m INNER JOIN c_usergroups u ON (m.usergroup = u.g_id)
 			ORDER BY m_id DESC LIMIT 10;");
 }
 
-while($member = $Db->Fetch()) {
+while($member = Database::Fetch()) {
 	$member['joined'] = $Core->DateFormat($member['joined']);
 
 	if($member['m_id'] != 1) {

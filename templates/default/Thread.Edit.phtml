@@ -1,14 +1,14 @@
 <h1>
-	<small><?php echo $community_name ?></small>
-	<?php __("P_EDIT_POST") ?>: <?php echo $thread_info['title'] ?>
+	<small><?= $community_name ?></small>
+	<?php __("P_EDIT_POST") ?>: <?= $thread_info['title'] ?>
 </h1>
 
 <div class="block">
-	<form action="thread/save_edit/<?php echo $post_info['p_id'] ?>" method="post" enctype="multipart/form-data">
+	<form action="thread/save_edit/<?= $post_info['p_id'] ?>" method="post" enctype="multipart/form-data">
 		<div class="form-group grid">
 			<label for="" class="col-2"><?php __("P_POST") ?></label>
 			<div class="col-10">
-				<textarea name="post" id="post" rows="30"><?php echo $post_info['post'] ?></textarea>
+				<textarea name="post" id="post" rows="30"><?= $post_info['post'] ?></textarea>
 			</div>
 		</div>
 		<div class="pull-clear">
@@ -16,7 +16,7 @@
 				<div class="error-message"><?php __("P_ERROR") ?></div>
 			</div>
 			<div class="pull-right">
-				<input type="hidden" name="thread_id" value="<?php echo $post_info['thread_id'] ?>">
+				<input type="hidden" name="thread_id" value="<?= $post_info['thread_id'] ?>">
 				<input type="submit" value="<?php __("T_EDIT") ?>" class="btn btn-default">
 			</div>
 		</div>

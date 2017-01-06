@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Template;
 
@@ -25,8 +26,8 @@ foreach($dir as $k => $v) {
 
 // List of templates
 
-$Db->Query("SELECT * FROM c_templates ORDER BY name ASC;");
-$templates = $Db->FetchToArray();
+Database::Query("SELECT * FROM c_templates ORDER BY name ASC;");
+$templates = Database::FetchToArray();
 
 foreach($templates as $template) {
 	$template['is_active']  = ($template['is_active'] == 1) ? "<i class='fa fa-check'></i>" : "";

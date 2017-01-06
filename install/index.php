@@ -24,8 +24,7 @@ require("../init.php");
 require("../kernel/Html.php");
 require("../kernel/Database.php");
 
-define("MIN_PHP_VERSION", 5.3);
-define("MIN_SQL_VERSION", 5.1);
+$template = "";
 
 /**
  * --------------------------------------------------------------------
@@ -72,9 +71,10 @@ switch($step){
 
 	case 1:
 
+		$eula = "";
 		$disabled = "";
 		$notification = "";
-		$button = "<input type='button' class='btn btn-default' value='Proceed' onclick='javascript:eula()'>";
+		$button = "<input type='button' class='btn btn-default' value='Proceed' onclick='eula()'>";
 
 		// Check if installer is locked
 
@@ -282,7 +282,7 @@ HTML;
 					{$folders}
 				</div>
 				<div class="form-group text-center">
-					<input type="button" class="btn btn-default" value="Proceed" onclick="javascript:window.location.replace('index.php?step=3')" {$disabled}>
+					<input type="button" class="btn btn-default" value="Proceed" onclick="window.location.replace('index.php?step=3')" {$disabled}>
 				</div>
 			</form>
 HTML;
@@ -539,7 +539,7 @@ HTML;
 				<div class="form-group grid">
 					<label for="teste" class="col-3">Confirm Password</label>
 					<div class="col-4">
-						<input type="password" name="adm_password2" class="form-control" id="adm_password2" onblur="javascript:checkPasswordMatch()" required>
+						<input type="password" name="adm_password2" class="form-control" id="adm_password2" onblur="checkPasswordMatch()" required>
 					</div>
 				</div>
 				<div class="form-group grid">

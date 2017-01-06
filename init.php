@@ -30,6 +30,9 @@ header('Content-Type: text/html; charset=utf-8');
 define("VERSION", "v0.12.0");
 define("CHANNEL", "Beta"); // e.g.: Alpha, Beta, Release Candidate, Final
 
+define("MIN_PHP_VERSION", 5.4);
+define("MIN_SQL_VERSION", 5.1);
+
 /**
  * --------------------------------------------------------------------
  * TIME DEFINITION CONSTANTS
@@ -57,17 +60,21 @@ function _AutoLoader($class_name)
 
 	foreach(array_merge($bits, array($class)) as $i => $bit) {
 		if($i == 1 && $bit == "Kernel") {
-			$path .= "/kernel/{$class}";
+			$path .= "/kernel";
+		}
+		if($i == 2 && $bit != $class) {
+			$path .= "/{$bit}";
 		}
 	}
 
-	$path = $path . ".php";
+	$path = $path . "/{$class}.php";
 
 	if(!file_exists($path)) {
 		return false;
 	}
 
 	require_once($path);
+	return true;
 }
 
 /**
