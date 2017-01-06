@@ -9,12 +9,13 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Http;
 
 // Get usergroup information
 $id = Http::Request("id", true);
-$Db->Query("SELECT * FROM c_usergroups WHERE g_id = {$id};");
-$usergroup = $Db->Fetch();
+Database::Query("SELECT * FROM c_usergroups WHERE g_id = {$id};");
+$usergroup = Database::Fetch();
 
 ?>
 

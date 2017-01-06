@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
@@ -23,7 +24,7 @@ $notification = Html::Notification(
 if(Http::Request("template_name")) {
 	$new_template_name = Http::Request("template_name");
 
-	$Db->Query("UPDATE c_templates SET name = '{$new_template_name}' WHERE tpl_id = '{$id}';");
+	Database::Query("UPDATE c_templates SET name = '{$new_template_name}' WHERE tpl_id = '{$id}';");
 
 	$notification = Html::Notification(
 		"You have successfylly changed the template name to {$new_template_name}", "success"
@@ -32,8 +33,8 @@ if(Http::Request("template_name")) {
 
 // Get template info
 
-$Db->Query("SELECT * FROM c_templates WHERE tpl_id = '{$id}';");
-$lang = $Db->Fetch();
+Database::Query("SELECT * FROM c_templates WHERE tpl_id = '{$id}';");
+$lang = Database::Fetch();
 
 ?>
 

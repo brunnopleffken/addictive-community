@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
@@ -32,9 +33,9 @@ switch($msg) {
 }
 
 // Get usergroup list
-$Db->Query("SELECT * FROM c_ranks ORDER BY min_posts;");
+Database::Query("SELECT * FROM c_ranks ORDER BY min_posts;");
 
-while($rank = $Db->Fetch()) {
+while($rank = Database::Fetch()) {
 	// Image has a higher priority than pip number
 	$symbol = "";
 	if($rank['pips'] != "") {

@@ -9,14 +9,16 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
+
 // ---------------------------------------------------
 // Get list of categories
 // ---------------------------------------------------
 
 $categories = "";
-$Db->Query("SELECT * FROM c_categories");
+Database::Query("SELECT * FROM c_categories");
 
-while($_result = $Db->Fetch()) {
+while($_result = Database::Fetch()) {
 	$categories .= "<option value='{$_result['c_id']}'>{$_result['name']}</option>";
 }
 
@@ -30,12 +32,12 @@ function MatrixView()
 {
 	global $Db;
 
-	$Db->Query("SELECT * FROM c_usergroups;");
+	Database::Query("SELECT * FROM c_usergroups;");
 
 	$title = "";
 	$checkboxes = "";
 
-	while($view_g = $Db->Fetch()) {
+	while($view_g = Database::Fetch()) {
 		$title .= "<td>{$view_g['name']}</td>";
 
 		if($view_g['view_board'] == 1) {
@@ -61,12 +63,12 @@ function MatrixPost()
 {
 	global $Db;
 
-	$Db->Query("SELECT * FROM c_usergroups;");
+	Database::Query("SELECT * FROM c_usergroups;");
 
 	$title = "";
 	$checkboxes = "";
 
-	while($view_g = $Db->Fetch()) {
+	while($view_g = Database::Fetch()) {
 		$title .= "<td>{$view_g['name']}</td>";
 
 		if($view_g['post_new_threads'] == 1) {
@@ -93,12 +95,12 @@ function MatrixReply()
 {
 	global $Db;
 
-	$Db->Query("SELECT * FROM c_usergroups;");
+	Database::Query("SELECT * FROM c_usergroups;");
 
 	$title = "";
 	$checkboxes = "";
 
-	while($view_g = $Db->Fetch()) {
+	while($view_g = Database::Fetch()) {
 		$title .= "<td>{$view_g['name']}</td>";
 
 		if($view_g['reply_threads'] == 1) {

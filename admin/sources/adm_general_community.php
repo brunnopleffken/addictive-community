@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
@@ -28,8 +29,8 @@ switch($msg) {
 
 // Languages
 
-$Db->Query("SELECT * FROM c_languages;");
-while($result = $Db->Fetch()) {
+Database::Query("SELECT * FROM c_languages;");
+while($result = Database::Fetch()) {
 	$languages[$result['directory']] = $result['name'];
 }
 

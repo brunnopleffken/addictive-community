@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
@@ -21,7 +22,7 @@ $notification = "";
 if(Http::Request("language_name")) {
 	$new_language_name = Http::Request("language_name");
 
-	$Db->Query("UPDATE c_languages SET name = '{$new_language_name}' WHERE l_id = '{$id}';");
+	Database::Query("UPDATE c_languages SET name = '{$new_language_name}' WHERE l_id = '{$id}';");
 
 	$notification = Html::Notification(
 		"You have successfylly changed the language name to {$new_language_name}", "success"
@@ -30,8 +31,8 @@ if(Http::Request("language_name")) {
 
 // Get language info
 
-$Db->Query("SELECT * FROM c_languages WHERE l_id = '{$id}';");
-$lang = $Db->Fetch();
+Database::Query("SELECT * FROM c_languages WHERE l_id = '{$id}';");
+$lang = Database::Fetch();
 
 // Get list of files
 

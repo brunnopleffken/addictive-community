@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Template;
 
 // List of emoticon in database
@@ -16,9 +17,9 @@ $emoticon_list_from_db = array();
 $emoticon_list_from_dir = array();
 
 // Get list of emoticons from database
-$emoticon_query = $Db->Query("SELECT * FROM c_emoticons ORDER BY filename;");
+$emoticon_query = Database::Query("SELECT * FROM c_emoticons ORDER BY filename;");
 
-while($emoticon = $Db->Fetch($emoticon_query)) {
+while($emoticon = Database::Fetch($emoticon_query)) {
 	$emoticon_list_from_db[] = $emoticon['filename'];
 
 	if($emoticon['display']) {

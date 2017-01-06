@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
@@ -18,9 +19,9 @@ $username = "";
 // User group list
 
 $list = "";
-$Db->Query("SELECT * FROM c_usergroups ORDER BY g_id");
+Database::Query("SELECT * FROM c_usergroups ORDER BY g_id");
 
-while($group = $Db->Fetch()) {
+while($group = Database::Fetch()) {
 	if($group['g_id'] == 3) {
 		$list .= "<option value='{$group['g_id']}' selected>{$group['name']}</option>";
 	}
@@ -35,11 +36,11 @@ while($group = $Db->Fetch()) {
 if(isset($_POST['username']) && strlen($_POST['username']) >= 2) {
 	$username = Text::Sanitize($_POST['username']);
 
-	$Db->Query("SELECT m.m_id, m.username, m.email, m.joined, m.photo, m.photo_type, m.posts, m.usergroup, u.g_id, u.name
+	Database::Query("SELECT m.m_id, m.username, m.email, m.joined, m.photo, m.photo_type, m.posts, m.usergroup, u.g_id, u.name
 			FROM c_members m INNER JOIN c_usergroups u ON (m.usergroup = u.g_id)
 			WHERE username LIKE '%{$username}%' AND m_id <> 1;");
 
-	while($member = $Db->Fetch()) {
+	while($member = Database::Fetch()) {
 		$member['joined'] = $Core->DateFormat($member['joined']);
 
 		if($member['usergroup'] == 4) {
@@ -71,11 +72,11 @@ if(Http::Request("do")) {
 
 	switch(Http::Request("do")) {
 		case "banishment":
-			$Db->Query("UPDATE c_members SET usergroup = 4 WHERE m_id = '{$id}';");
+			Database::Query("UPDATE c_members SET usergroup = 4 WHERE m_id = '{$id}';");
 			break;
 
 		case "remove":
-			$Db->Query("UPDATE c_members SET usergroup = 3 WHERE m_id = '{$id}';");
+			Database::Query("UPDATE c_members SET usergroup = 3 WHERE m_id = '{$id}';");
 			break;
 	}
 }

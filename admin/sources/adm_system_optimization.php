@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
@@ -26,11 +27,11 @@ if($execute) {
 
 			// Update member count
 
-			$Db->Query("SELECT COUNT(*) AS count FROM c_members;");
-			$total = $Db->Fetch();
+			Database::Query("SELECT COUNT(*) AS count FROM c_members;");
+			$total = Database::Fetch();
 			$total = $total['count'];
 
-			$Db->Query("UPDATE c_stats SET member_count = '{$total}';");
+			Database::Query("UPDATE c_stats SET member_count = '{$total}';");
 
 			// Exit
 
@@ -45,29 +46,29 @@ if($execute) {
 
 			// Update posts
 
-			$Db->Query("SELECT COUNT(*) AS count FROM c_posts;");
-			$total = $Db->Fetch();
+			Database::Query("SELECT COUNT(*) AS count FROM c_posts;");
+			$total = Database::Fetch();
 			$total = $total['count'];
 
-			$Db->Query("UPDATE c_stats SET post_count = '{$total}';");
+			Database::Query("UPDATE c_stats SET post_count = '{$total}';");
 
 			// Update threads
 
-			$Db->Query("SELECT COUNT(*) AS count FROM c_threads;");
-			$total = $Db->Fetch();
+			Database::Query("SELECT COUNT(*) AS count FROM c_threads;");
+			$total = Database::Fetch();
 			$total = $total['count'];
 
-			$Db->Query("UPDATE c_stats SET thread_count = '{$total}';");
+			Database::Query("UPDATE c_stats SET thread_count = '{$total}';");
 
 			// Update members thread count
 
-			$members = $Db->Query("SELECT m_id FROM c_members;");
+			$members = Database::Query("SELECT m_id FROM c_members;");
 
-			while($_members = $Db->Fetch($members)) {
-				$posts = $Db->Query("SELECT COUNT(*) AS total FROM c_posts WHERE author_id = '{$_members['m_id']}';");
+			while($_members = Database::Fetch($members)) {
+				$posts = Database::Query("SELECT COUNT(*) AS total FROM c_posts WHERE author_id = '{$_members['m_id']}';");
 
-				while($post_count = $Db->Fetch($posts)) {
-					$Db->Query("UPDATE c_members SET posts = '{$post_count['total']}' WHERE m_id = '{$_members['m_id']}';");
+				while($post_count = Database::Fetch($posts)) {
+					Database::Query("UPDATE c_members SET posts = '{$post_count['total']}' WHERE m_id = '{$_members['m_id']}';");
 				}
 			}
 
@@ -84,15 +85,15 @@ if($execute) {
 
 			// List threads (global)
 
-			$threads = $Db->Query("SELECT t_id FROM c_threads;");
+			$threads = Database::Query("SELECT t_id FROM c_threads;");
 
 			// Replies counting
 
-			while($_threads = $Db->Fetch($threads)) {
-				$posts = $Db->Query("SELECT COUNT(p_id) AS post_count FROM c_posts WHERE thread_id = '{$_threads['t_id']}';");
+			while($_threads = Database::Fetch($threads)) {
+				$posts = Database::Query("SELECT COUNT(p_id) AS post_count FROM c_posts WHERE thread_id = '{$_threads['t_id']}';");
 
 				while($_posts = $Db2->Fetch($posts)) {
-					$Db->Query("UPDATE c_threads SET replies = '{$_posts['post_count']}' WHERE t_id = '{$_threads['t_id']}';");
+					Database::Query("UPDATE c_threads SET replies = '{$_posts['post_count']}' WHERE t_id = '{$_threads['t_id']}';");
 				}
 			}
 

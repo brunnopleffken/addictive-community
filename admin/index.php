@@ -47,8 +47,8 @@ else {
 <head>
 	<meta charset="utf-8">
 	<title>Addictive Community</title>
-	<script src="../resources/jquery.min.js" type="text/javascript"></script>
-	<script src="../resources/main.js" type="text/javascript"></script>
+	<script src="../thirdparty/jquery/jquery.min.js" type="text/javascript"></script>
+	<script src="../static/js/application.js" type="text/javascript"></script>
 	<link href="styles/admin_style.css" type="text/css" rel="stylesheet">
 	<script type="text/javascript">
 		function autofocus(fieldname) {
@@ -58,7 +58,7 @@ else {
 	</script>
 </head>
 
-<body onload="javascript:autofocus('username')">
+<body onload="autofocus('username')">
 
 	<div id="topbar">
 		<div class="fleft"><a href="http://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">Addictive Community</a></div>

@@ -9,8 +9,8 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
-use \AC\Kernel\Http;
 use \AC\Kernel\Template;
 
 // List of directories
@@ -26,8 +26,8 @@ foreach($dir as $k => $v) {
 
 // List of themes
 
-$Db->Query("SELECT * FROM c_themes ORDER BY name ASC;");
-$themes = $Db->FetchToArray();
+Database::Query("SELECT * FROM c_themes ORDER BY name ASC;");
+$themes = Database::FetchToArray();
 
 foreach($themes as $theme) {
 	$theme['is_active']  = ($theme['is_active'] == 1) ? "<i class='fa fa-fw fa-check'></i>" : "";

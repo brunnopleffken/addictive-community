@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Http;
 
 // ---------------------------------------------------
@@ -17,8 +18,8 @@ use \AC\Kernel\Http;
 
 $id = Http::Request("id");
 
-$Db->Query("SELECT * FROM c_rooms WHERE r_id = '{$id}';");
-$room_info = $Db->Fetch();
+Database::Query("SELECT * FROM c_rooms WHERE r_id = '{$id}';");
+$room_info = Database::Fetch();
 
 ?>
 

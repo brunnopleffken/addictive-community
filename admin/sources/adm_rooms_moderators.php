@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
@@ -30,9 +31,9 @@ switch($msg) {
 }
 
 // Get rooms and its moderators
-$list = $Db->Query("SELECT r_id, name, url, moderators FROM c_rooms WHERE CHAR_LENGTH(url) = 0 OR url IS NULL;");
+$list = Database::Query("SELECT r_id, name, url, moderators FROM c_rooms WHERE CHAR_LENGTH(url) = 0 OR url IS NULL;");
 
-while($result = $Db->Fetch($list)) {
+while($result = Database::Fetch($list)) {
 	// Show list of moderators
 	if($result['moderators'] == "") {
 		$result['moderators_list'] = "---";
@@ -42,8 +43,8 @@ while($result = $Db->Fetch($list)) {
 		$moderator_list = array();
 
 		foreach($moderators as $member_id) {
-			$mod_info = $Db->Query("SELECT username FROM c_members WHERE m_id = {$member_id};");
-			$member = $Db->Fetch($mod_info);
+			$mod_info = Database::Query("SELECT username FROM c_members WHERE m_id = {$member_id};");
+			$member = Database::Fetch($mod_info);
 
 			$moderator_list[] = $member['username'];
 		}

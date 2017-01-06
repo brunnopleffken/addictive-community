@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
@@ -17,8 +18,8 @@ use \AC\Kernel\Template;
 
 $id = Http::Request("id", true);
 
-$Db->Query("SELECT name FROM c_rooms;");
-$room_info = $Db->Fetch();
+Database::Query("SELECT name FROM c_rooms;");
+$room_info = Database::Fetch();
 
 if(isset($_POST['username'])) {
 	// Must the page show search results?
@@ -27,11 +28,11 @@ if(isset($_POST['username'])) {
 	$username = $_POST['username'];
 	$logged_member = Http::Request("member_id", true);
 
-	$Db->Query("SELECT m_id, username, email, photo, photo_type FROM c_members
+	Database::Query("SELECT m_id, username, email, photo, photo_type FROM c_members
 			WHERE username LIKE '%{$username}%' AND m_id <> {$logged_member}
 			LIMIT 10;");
 
-	while($member = $Db->Fetch()) {
+	while($member = Database::Fetch()) {
 		Template::Add("<tr>
 				<td class='min'>" . Html::Crop($Core->GetAvatar($member, 40, "admin"), 40, 40) . "</td>
 				<td><h3>{$member['username']}</h3></td>

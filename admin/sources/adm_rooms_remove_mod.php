@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
@@ -19,8 +20,8 @@ $msg = (Http::Request("msg")) ? Http::Request("msg") : "";
 switch($msg) {
 	case 1:
 		$member_id = Http::Request("m_id");
-		$Db->Query("SELECT username FROM c_members WHERE m_id = {$member_id}");
-		$member_info = $Db->Fetch();
+		Database::Query("SELECT username FROM c_members WHERE m_id = {$member_id}");
+		$member_info = Database::Fetch();
 
 		$message = Html::Notification("You have successfully revoked the moderator permissions of {$member_info['username']} in this room.", "success");
 		break;
@@ -33,15 +34,15 @@ switch($msg) {
 
 $id = Http::Request("id", true);
 
-$_room_info = $Db->Query("SELECT name, moderators FROM c_rooms WHERE r_id = {$id};");
-$room_info = $Db->Fetch($_room_info);
+$_room_info = Database::Query("SELECT name, moderators FROM c_rooms WHERE r_id = {$id};");
+$room_info = Database::Fetch($_room_info);
 
 if($room_info['moderators'] != "") {
 	$moderators = unserialize($room_info['moderators']);
 
 	foreach($moderators as $member_id) {
-		$_member = $Db->Query("SELECT m_id, username, email, photo, photo_type FROM c_members WHERE m_id = {$member_id};");
-		$member = $Db->Fetch($_member);
+		$_member = Database::Query("SELECT m_id, username, email, photo, photo_type FROM c_members WHERE m_id = {$member_id};");
+		$member = Database::Fetch($_member);
 
 		Template::Add("<tr>
 				<td class='min'>" . Html::Crop($Core->GetAvatar($member, 30, "admin"), 30, 30) . "</td>

@@ -41,18 +41,17 @@ $config = parse_ini_file("../config.ini");
 spl_autoload_register('_AutoLoader', true, true);
 
 // Load kernel drivers
-$Db = new Database();
-$Db->Connect($config);
-$Db->Query("SELECT * FROM c_config;");
-$Core = new Core($Db, $Db->FetchConfig());
-$Admin = new Admin($Db);
+Database::Connect($config);
+Database::Query("SELECT * FROM c_config;");
+$Core = new Core(Database::FetchConfig());
+$Admin = new Admin();
 
 // Update session time
 $_SESSION['admin_time'] = time();
 
 // Admin info
-$Db->Query("SELECT username, time_offset FROM c_members WHERE m_id = '{$_SESSION['admin_m_id']}';");
-$admin_info = $Db->Fetch();
+Database::Query("SELECT username, time_offset FROM c_members WHERE m_id = '{$_SESSION['admin_m_id']}';");
+$admin_info = Database::Fetch();
 
 // Define page content
 $act = (Http::Request("act")) ? Http::Request("act") : "dashboard";

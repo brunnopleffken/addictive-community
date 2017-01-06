@@ -9,6 +9,7 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
+use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
@@ -28,9 +29,9 @@ switch($msg) {
 
 // Get usergroup list
 
-$Db->Query("SELECT * FROM c_usergroups");
+Database::Query("SELECT * FROM c_usergroups");
 
-while($group = $Db->Fetch()) {
+while($group = Database::Fetch()) {
 	$delete = ($group['stock'] == 0) ? "<i class='fa fa-remove'></i>" : "-";
 
 	Template::Add("<tr>

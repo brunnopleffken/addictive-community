@@ -15,22 +15,14 @@ namespace AC\Kernel;
 
 class Admin
 {
-	private $Db;
-
 	/**
 	 * --------------------------------------------------------------------
-	 * GET DATABASE CLASS
+	 * ADMIN CONSTRUCTOR
 	 * --------------------------------------------------------------------
 	 */
-	public function __construct($Database)
+	public function __construct()
 	{
-		if($Database) {
-			// Get Database class
-			$this->Db = $Database;
-		}
-		else {
-			return false;
-		}
+		// ...
 	}
 
 	/**
@@ -40,8 +32,8 @@ class Admin
 	 */
 	public function SelectConfig($field_name)
 	{
-		$this->Db->Query("SELECT value FROM c_config WHERE field = '{$field_name}';");
-		$fetch = $this->Db->Fetch();
+		Database::Query("SELECT value FROM c_config WHERE field = '{$field_name}';");
+		$fetch = Database::Fetch();
 
 		if($fetch['value']) {
 			return $fetch['value'];
@@ -78,8 +70,8 @@ class Admin
 	 */
 	public function SelectCheckbox($field_name)
 	{
-		$this->Db->Query("SELECT value FROM c_config WHERE field = '{$field_name}';");
-		$fetch = $this->Db->Fetch();
+		Database::Query("SELECT value FROM c_config WHERE field = '{$field_name}';");
+		$fetch = Database::Fetch();
 
 		if($fetch['value']) {
 			$str = "<input type='hidden' name='{$field_name}' value='0'><input type='checkbox' name='{$field_name}' value='1' checked>";
@@ -118,7 +110,7 @@ class Admin
 	{
 		if(is_array($post)) {
 			foreach($post as $k => $v) {
-				$this->Db->Query("UPDATE c_config SET value = '{$v}' WHERE field = '{$k}';");
+				Database::Query("UPDATE c_config SET value = '{$v}' WHERE field = '{$k}';");
 			}
 			return true;
 		}
@@ -140,10 +132,9 @@ class Admin
 			"message"   => $message,
 			"ip_addr"   => $_SERVER['REMOTE_ADDR']
 		);
-		$this->Db->Query("INSERT INTO c_logs (member_id, time, act, ip_address) VALUES
-			('{$log['member_id']}', '{$log['time']}', '{$log['message']}', '{$log['ip_addr']}');");
 
-		return true;
+		Database::Query("INSERT INTO c_logs (member_id, time, act, ip_address) VALUES
+			('{$log['member_id']}', '{$log['time']}', '{$log['message']}', '{$log['ip_addr']}');");
 	}
 
 	/**
