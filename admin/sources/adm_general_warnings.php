@@ -27,20 +27,22 @@ switch($msg) {
 
 <h1>Warnings</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<form action="process.php?do=save" method="post">
-			<?php echo $message ?>
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=save" method="post">
+		<?php echo $message ?>
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">General Warning Settings</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Maximum warning points<span class="title-desc">Reaching X warnings, the user is automatically banned from the community.</span></td>
-					<td><input type="text" name="general_warning_max" class="nano" value="<?php echo $Admin->SelectConfig("general_warning_max") ?>"> warnings</td>
-				</tr>
-			</table>
-			<div class="box fright"><input type="submit" value="Save Settings"></div>
-		</form>
-	</div>
+			</thead>
+			<tr>
+				<td class="font-w600">Maximum warning points<small>Reaching X warnings, the user is automatically banned from the community.</small></td>
+				<td><input type="text" name="general_warning_max" class="form-control span-1" value="<?php echo $Admin->SelectConfig("general_warning_max") ?>"> warnings</td>
+			</tr>
+		</table>
+		<div class="text-right">
+			<input type="submit" class="btn btn-default" value="Save Settings">
+		</div>
+	</form>
 </div>

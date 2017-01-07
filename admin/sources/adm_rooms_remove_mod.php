@@ -48,7 +48,7 @@ if($room_info['moderators'] != "") {
 				<td class='min'>" . Html::Crop($Core->GetAvatar($member, 30, "admin"), 30, 30) . "</td>
 				<td><h3>{$member['username']}</h3></td>
 				<td class='min'>
-					<a href='process.php?do=remove_moderator&m_id={$member['m_id']}&r_id={$id}' class='button-grey-default transition'>Revoke Moderator Permission</a>
+					<a href='process.php?do=remove_moderator&m_id={$member['m_id']}&r_id={$id}' class='btn btn-default btn-sm'>Revoke Moderator Permission</a>
 				</td>
 			</tr>");
 	}
@@ -56,20 +56,20 @@ if($room_info['moderators'] != "") {
 
 ?>
 
-<h1>Remove Moderator: <?php echo $room_info['name'] ?></h1>
+<h1>Remove Moderator: "<?php echo $room_info['name'] ?>"</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<?php echo $message ?>
-		<table class="table-list">
+<div class="block">
+	<?php echo $message ?>
+	<table class="table">
+		<thead>
 			<tr>
-				<th colspan="3">Moderators</th>
+				<th colspan="3">Moderators from <?php echo $room_info['name'] ?></th>
 			</tr>
-			<tr class="subtitle">
-				<td colspan="2">Member Name</td>
+			<tr>
+				<td colspan="2">Member Information</td>
 				<td></td>
 			</tr>
-			<?php echo Template::Get(); ?>
-		</table>
-	</div>
+		</thead>
+		<?php echo Template::Get(); ?>
+	</table>
 </div>

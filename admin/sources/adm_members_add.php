@@ -29,35 +29,37 @@ while($group = Database::Fetch()) {
 
 <h1>Add New Member</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<form action="process.php?do=save" method="post">
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=save" method="post">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">New Member Information</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Username</td>
-					<td><input type="text" name="username" class="small"></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Password</td>
-					<td><input type="text" name="password" class="small"></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">E-mail Address</td>
-					<td><input type="text" name="email" class="medium"></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">User Group</td>
-					<td>
-						<select>
-							<?php echo $list ?>
-						</select>
-					</td>
-				</tr>
-			</table>
-			<div class="box fright"><input type="submit" value="Register New Member"></div>
-		</form>
-	</div>
+			</thead>
+			<tr>
+				<td class="font-w600">Username</td>
+				<td><input type="text" name="username" class="form-control span-3"></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Password <small>Password field is visible</small></td>
+				<td><input type="text" name="password" class="form-control span-3"></td>
+			</tr>
+			<tr>
+				<td class="font-w600">E-mail Address</td>
+				<td><input type="email" name="email" class="form-control span-5"></td>
+			</tr>
+			<tr>
+				<td class="font-w600">User Group</td>
+				<td>
+					<select class="form-control span-3">
+						<?php echo $list ?>
+					</select>
+				</td>
+			</tr>
+		</table>
+		<div class="text-right">
+			<input type="submit" class="btn btn-default" value="Register New Member">
+		</div>
+	</form>
 </div>

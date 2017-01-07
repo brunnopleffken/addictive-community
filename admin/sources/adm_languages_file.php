@@ -27,8 +27,8 @@ require_once($file_path);
 
 foreach($t as $k => $v) {
 	Template::Add("<tr>
-			<td class='title-fixed'>{$k}<input type='hidden' name='index[]' value='{$k}'></td>
-			<td><textarea name='{$k}' rows='3' cols='64'>{$v}</textarea></td>
+			<td class='font-w600'>{$k}<input type='hidden' name='index[]' value='{$k}'></td>
+			<td><textarea name='{$k}' rows='2' class='form-control span-8'>{$v}</textarea></td>
 		</tr>");
 }
 
@@ -36,26 +36,26 @@ foreach($t as $k => $v) {
 
 <h1>Editing language file: <?php echo ucwords($name) ?></h1>
 
-<div id="content">
-	<div class="grid-row">
-		<form action="process.php?do=savelang" method="post">
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=savelang" method="post">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="10">
 						<div class="fleft">Language File</div>
 					</th>
 				</tr>
-				<tr class="subtitle">
+				<tr>
 					<td>Index Name</td>
 					<td>Translation</td>
 				</tr>
-				<?php echo Template::Get() ?>
-			</table>
-			<div class="box fright">
-				<input type="hidden" name="file" value="<?php echo $name ?>">
-				<input type="hidden" name="dir" value="<?php echo $dir ?>">
-				<input type="submit" value="Save File">
-			</div>
-		</form>
-	</div>
+			</thead>
+			<?php echo Template::Get() ?>
+		</table>
+		<div class="box fright">
+			<input type="hidden" name="file" value="<?php echo $name ?>">
+			<input type="hidden" name="dir" value="<?php echo $dir ?>">
+			<input type="submit" value="Save File">
+		</div>
+	</form>
 </div>

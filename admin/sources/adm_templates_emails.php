@@ -33,8 +33,8 @@ Database::Query("SELECT * FROM c_emails ORDER BY type ASC;");
 while($template = Database::Fetch()) {
 	$template['content'] = str_replace("<br />", "", $template['content']);
 	Template::Add("<tr>
-			<td>{$template['description']}</td>
-			<td><textarea name='{$template['type']}' rows='8' style='width:500px'>{$template['content']}</textarea></td>
+			<td class='font-w600'>{$template['description']}</td>
+			<td><textarea name='{$template['type']}' rows='8' class='form-control span-9'>{$template['content']}</textarea></td>
 		</tr>");
 }
 
@@ -44,24 +44,26 @@ while($template = Database::Fetch()) {
 
 <?php echo $message ?>
 
-<div id="content">
-	<div class="grid-row">
-		<?php echo Html::Notification("<u>Do not</u> change the position of the variables (%s and %d symbols are variables). You can use HTML tags, e.g: for line breaks, use &lt;br&gt;.", "warning"); ?>
-		<form action="main.php?act=templates&p=emails" method="post">
-			<table class="table-list">
+<div class="block">
+	<?php echo Html::Notification("<u>Do not</u> change the order of the variables (%s and %d symbols are variables). You can use HTML tags, e.g: for line breaks, use &lt;br&gt;.", "warning"); ?>
+	<form action="main.php?act=templates&p=emails" method="post">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="10">
 						<div class="fleft">E-mail Messages Templates</div>
 						<div class="fright"></div>
 					</th>
 				</tr>
-				<tr class="subtitle">
+				<tr>
 					<td>Template Name</td>
 					<td>Message</td>
 				</tr>
-				<?php echo Template::Get() ?>
-			</table>
-			<div class="fright"><input type="submit" value="Save E-mail Messages"></div>
-		</form>
-	</div>
+			</thead>
+			<?php echo Template::Get() ?>
+		</table>
+		<div class="text-right">
+			<input type="submit" class="btn btn-default" value="Save E-mail Messages">
+		</div>
+	</form>
 </div>

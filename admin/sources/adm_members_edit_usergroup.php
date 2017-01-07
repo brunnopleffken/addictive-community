@@ -21,21 +21,23 @@ $usergroup = Database::Fetch();
 
 <h1>Edit User Group: <?php echo $usergroup['name'] ?></h1>
 
-<div id="content">
-	<div class="grid-row">
-		<form action="process.php?do=update_usergroup&id=<?php echo $usergroup['g_id'] ?>" method="post">
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=update_usergroup&id=<?php echo $usergroup['g_id'] ?>" method="post">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="5">
 						<div class="fleft">User Group Information</div>
 					</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Name</td>
-					<td><input type="text" name="name" value="<?php echo $usergroup['name'] ?>" class="small"></td>
-				</tr>
-			</table>
-			<div class="fright"><input type="submit" value="Update User Group"></div>
-		</form>
-	</div>
+			</thead>
+			<tr>
+				<td class="font-w600">Name</td>
+				<td><input type="text" name="name" value="<?php echo $usergroup['name'] ?>" class="form-control span-4"></td>
+			</tr>
+		</table>
+		<div class="text-right">
+			<input type="submit" class="btn btn-default" value="Update User Group">
+		</div>
+	</form>
 </div>

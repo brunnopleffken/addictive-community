@@ -13,12 +13,13 @@
 
 <h1>General Settings</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<table class="table-list">
-			<tr>
-				<th>Settings Groups</th>
-			</tr>
+<div class="block">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Settings Groups</th>
+				</tr>
+			</thead>
 			<tr><td><a href="main.php?act=general&amp;p=calendars"><b>Calendars</b></a><br>Adjust calendar, events and birthday settings.</td></tr>
 			<tr><td><a href="main.php?act=general&amp;p=community"><b>Community</b></a><br>These settings control the basics of your community.</td></tr>
 			<tr><td><a href="main.php?act=general&amp;p=cookies"><b>Cookies</b></a><br>This section contains settings for cookies and sessions.</td></tr>
@@ -30,5 +31,4 @@
 			<tr><td><a href="main.php?act=general&amp;p=topics_posts"><b>Topics and Posts</b></a><br>These options control various elements when posting, reading threads and polls.</td></tr>
 			<tr><td><a href="main.php?act=general&amp;p=warnings"><b>Warnings</b></a><br>This section will allow you to configure warning and ban settings.</td></tr>
 		</table>
-	</div>
 </div>

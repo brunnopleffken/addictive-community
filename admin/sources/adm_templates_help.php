@@ -46,27 +46,27 @@ while($topic = Database::Fetch()) {
 
 ?>
 
-<h1>Help Topics</h1>
+<div class="header">
+	<h1>Help Topics</h1>
+	<div class="header-buttons">
+		<a href="main.php?act=templates&p=add_help" class="btn btn-default font-w600">Add New Topic</a>
+	</div>
+</div>
 
-<div id="content">
-	<div class="grid-row">
-		<form action="process.php?do=newroom" method="post">
-			<?php echo $message; ?>
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=newroom" method="post">
+		<?php echo $message; ?>
+		<table class="table">
+			<thead>
 				<tr>
-					<th colspan="5">
-						<div class="fleft">Help Topic List</div>
-						<div class="fright">
-							<a href="main.php?act=templates&p=helpadd" class="button-grey-default white transition">Add New Topic</a>
-						</div>
-					</th>
+					<th colspan="5">Help Topic List</th>
 				</tr>
-				<tr class="subtitle">
+				<tr>
 					<td>Topic</td>
 					<td colspan="3" class="min">Options</td>
 				</tr>
-				<?php echo Template::Get(); ?>
-			</table>
-		</form>
-	</div>
+			</thead>
+			<?php echo Template::Get(); ?>
+		</table>
+	</form>
 </div>

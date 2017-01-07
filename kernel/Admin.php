@@ -51,7 +51,7 @@ class Admin
 	 */
 	public function Dropdown($field_name, $options, $value = "", $class = "")
 	{
-		$str = "<select name='{$field_name}' class='{$class}'>";
+		$str = "<select name='{$field_name}' class='form-control {$class}'>";
 
 		foreach($options as $k => $v) {
 			$selected = ($k == $value) ? "selected" : "";

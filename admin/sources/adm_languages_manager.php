@@ -41,24 +41,24 @@ while($lang = Database::Fetch()) {
 			<td>/languages/{$lang['directory']}</td>
 			<td>{$lang['author_name']} ({$lang['author_email']})</td>
 			<td>{$lang['is_active']}</td>
-			<td class='min'><a href='main.php?act=languages&p=edit&id={$lang['l_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
-			<td class='min'>{$lang['remove']}</td>
+			<td class='text-center'><a href='main.php?act=languages&p=edit&id={$lang['l_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
+			<td class='text-center'>{$lang['remove']}</td>
 		</tr>");
 }
 
 // If there is uninstalled languages, show on list
 
 if(!empty($dir_list)) {
-	$not_installed_languages = Html::Notification("There are language packs available to install. Click on the gears icon to install.", "warning");
+	$not_installed_languages = Html::Notification("There are language packs available to install. Click on the gears icon to install.", "info", false, "New languages available:");
 	foreach($dir_list as $language) {
 		$language_info = json_decode(file_get_contents("../languages/" . $language . "/_language.json"), true);
 
 		Template::Add("<tr>
-				<td style='color:#bbb'><b>{$language_info['name']}</b></td>
-				<td style='color:#bbb'>/languages/{$language}</td>
-				<td style='color:#bbb'>{$language_info['author_name']} ({$language_info['author_email']})</td>
-				<td style='color:#bbb'>Not installed</td>
-				<td class='min'><a href='process.php?do=install_language&id={$language}' title='Install'><i class='fa fa-fw fa-gears'></i></a></td>
+				<td class='text-muted'><b>{$language_info['name']}</b></td>
+				<td class='text-muted'>/languages/{$language}</td>
+				<td class='text-muted'>{$language_info['author_name']} ({$language_info['author_email']})</td>
+				<td class='text-muted'>Not installed</td>
+				<td class='text-center'><a href='process.php?do=install_language&id={$language}' title='Install'><i class='fa fa-fw fa-gears'></i></a></td>
 				<td></td>
 			</tr>");
 	}
@@ -71,16 +71,16 @@ else {
 
 <h1>Language Manager</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<?php echo $not_installed_languages ?>
-		<table class="table-list">
+<div class="block">
+	<?php echo $not_installed_languages ?>
+	<table class="table">
+		<thead>
 			<tr>
 				<th colspan="10">
 					<div class="fleft">Installed Languages</div>
 				</th>
 			</tr>
-			<tr class="subtitle">
+			<tr>
 				<td>Language</td>
 				<td>Directory</td>
 				<td>Author</td>
@@ -88,7 +88,7 @@ else {
 				<td class="min">Edit</td>
 				<td class="min">Uninstall</td>
 			</tr>
-			<?php echo Template::Get() ?>
-		</table>
-	</div>
+		</thead>
+		<?php echo Template::Get() ?>
+	</table>
 </div>

@@ -27,23 +27,22 @@ switch($msg) {
 
 <h1>Calendars</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<form action="process.php?do=save" method="post">
-
-			<?php echo $message ?>
-
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=save" method="post">
+		<?php echo $message ?>
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">Calendars Settings</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Enable</td>
-					<td><label><?php echo $Admin->SelectCheckbox("general_calendar_enable") ?> Enable calendar and events</label></td>
-				</tr>
-			</table>
-
-			<div class="box fright"><input type="submit" value="Save Settings"></div>
-		</form>
-	</div>
+			</thead>
+			<tr>
+				<td class="font-w600">Enable</td>
+				<td><label><?php echo $Admin->SelectCheckbox("general_calendar_enable") ?> Enable calendar and events</label></td>
+			</tr>
+		</table>
+		<div class="text-right">
+			<input type="submit" class="btn btn-default" value="Save Settings">
+		</div>
+	</form>
 </div>

@@ -69,38 +69,37 @@ while($file = readdir($handle)) {
 
 <h1>Manage Language: <?php echo $lang['name'] ?></h1>
 
-<div id="content">
-	<div class="grid-row">
-
-		<?php echo $notification ?>
-
-		<table class="table-list">
+<div class="block">
+	<?php echo $notification ?>
+	<table class="table">
+		<thead>
 			<tr>
 				<th colspan="10">
 					<div class="fleft">Language Files</div>
 				</th>
 			</tr>
-			<tr class="subtitle">
+			<tr>
 				<td>File</td>
 				<td class="min"></td>
 			</tr>
-			<?php echo Template::Get() ?>
-		</table>
+		</thead>
+		<?php echo Template::Get() ?>
+	</table>
 
-		<table class="table-list">
+	<table class="table">
+		<thead>
 			<tr>
 				<th colspan="10"><div class="fleft">Settings</div></th>
 			</tr>
-			<tr>
-				<td class="title-fixed">Language Name</td>
-				<td>
-					<form action="#" method="post">
-						<input type="text" name="language_name" class="medium" value="<?php __($lang['name']) ?>">
-						<div class="fright"><input type="submit" value="Save Settings"></div>
-					</form>
-				</td>
-			</tr>
-		</table>
-
-	</div>
+		</thead>
+		<tr>
+			<td class="font-w600">Language Name</td>
+			<td>
+				<form action="#" method="post">
+					<input type="text" name="language_name" class="form-control span-3" value="<?php __($lang['name']) ?>">
+					<input type="submit" class="btn btn-default" value="Save Settings">
+				</form>
+			</td>
+		</tr>
+	</table>
 </div>

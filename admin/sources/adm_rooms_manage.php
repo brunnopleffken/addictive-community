@@ -47,39 +47,43 @@ while($room = Database::Fetch()) {
 	Template::Add("
 		<tr>
 			<td>
-				<b style='font-size:15px'>{$room['name']}</b><br>
-				{$room['description']}
+				<p>
+					<b style='font-size:15px'>{$room['name']}</b><br>
+					{$room['description']}
+				</p>
 			</td>
-			<td class='min'><a href='main.php?act=rooms&p=edit&id={$room['r_id']}' title='Edit'><i class='fa fa-pencil'></i></a></td>
-			<td class='min'><a href='main.php?act=rooms&p=delete&id={$room['r_id']}' title='Delete'><i class='fa fa-remove'></i></a></td>
-			<td class='min'><a href='main.php?act=rooms&p=resync&id={$room['r_id']}' title='Resynchronize'><i class='fa fa-refresh'></i></a></td>
+			<td class='min text-center'><a href='main.php?act=rooms&p=edit&id={$room['r_id']}' title='Edit'><i class='fa fa-pencil'></i></a></td>
+			<td class='min text-center'><a href='main.php?act=rooms&p=delete&id={$room['r_id']}' title='Delete'><i class='fa fa-remove'></i></a></td>
+			<td class='min text-center'><a href='main.php?act=rooms&p=resync&id={$room['r_id']}' title='Resynchronize: recount threads, replies and last post information'><i class='fa fa-refresh'></i></a></td>
 		</tr>
 	");
 }
 
 ?>
 
-<h1>Manage Rooms</h1>
+<div class="header">
+	<h1>Manage Rooms</h1>
+	<div class="header-buttons">
+		<a href="main.php?act=rooms&p=add" class="btn btn-default font-w600">Add New Room</a>
+	</div>
+</div>
 
-<div id="content">
-	<div class="grid-row">
-		<form action="process.php?do=newroom" method="post">
-			<?php echo $message; ?>
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=newroom" method="post">
+		<?php echo $message; ?>
+		<table class="table">
+			<thead>
 				<tr>
-					<th colspan="5">
-						<div class="fleft">Rooms Overview</div>
-						<div class="fright"><a href="main.php?act=rooms&p=add" class="button-grey-default white transition">Add New Room</a></div>
-					</th>
+					<th colspan="5">Rooms Overview</th>
 				</tr>
-				<tr class="subtitle">
+				<tr>
 					<td>Room</td>
 					<td>Edit</td>
 					<td>Delete</td>
 					<td>Resync</td>
 				</tr>
-				<?php echo Template::Get(); ?>
-			</table>
-		</form>
-	</div>
+			</thead>
+			<?php echo Template::Get(); ?>
+		</table>
+	</form>
 </div>

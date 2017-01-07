@@ -36,33 +36,35 @@ while($group = Database::Fetch()) {
 
 	Template::Add("<tr>
 			<td><b>{$group['name']}</b></td>
-			<td class='min'><a href='main.php?act=members&p=edit_usergroup&id={$group['g_id']}'><i class='fa fa-pencil'></i></a></td>
-			<td class='min'>{$delete}</td>
+			<td class='min text-center'><a href='main.php?act=members&p=edit_usergroup&id={$group['g_id']}'><i class='fa fa-pencil'></i></a></td>
+			<td class='min text-center'>{$delete}</td>
 		</tr>");
 }
 
 ?>
 
-<h1>User Groups</h1>
-
-<div id="content">
-	<div class="grid-row">
-		<?php echo $message ?>
-		<form action="process.php?do=save" method="post">
-			<table class="table-list">
-				<tr>
-					<th colspan="5">
-						<div class="fleft">User Groups Overview</div>
-						<div class="fright"><a href="main.php?act=members&p=newusergroup" class="button-grey-default white transition">New User Group</a></div>
-					</th>
-				</tr>
-				<tr class="subtitle">
-					<td>Name</td>
-					<td width="1%">Edit</td>
-					<td width="1%">Delete</td>
-				</tr>
-				<?php echo Template::Get() ?>
-			</table>
-		</form>
+<div class="header">
+	<h1>User Groups</h1>
+	<div class="header-buttons">
+		<a href="main.php?act=members&p=add_usergroup" class="btn btn-default font-w600">New User Group</a>
 	</div>
+</div>
+
+<div class="block">
+	<?php echo $message ?>
+	<form action="process.php?do=save" method="post">
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="5">User Groups Overview</th>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td class="min">Edit</td>
+					<td class="min">Delete</td>
+				</tr>
+			</thead>
+			<?php echo Template::Get() ?>
+		</table>
+	</form>
 </div>

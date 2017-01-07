@@ -56,11 +56,11 @@ foreach($themes as $theme) {
 			<td><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><b>{$theme['name']}</b></a></td>
 			<td>/themes/{$theme['directory']}</td>
 			<td>{$theme['author_name']} ({$theme['author_email']})</td>
-			<td class='min'>{$theme['is_active']}</td>
-			<td class='min'>{$theme['default']}</td>
-			<td class='min'><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
+			<td class='min text-center'>{$theme['is_active']}</td>
+			<td class='min text-center'>{$theme['default']}</td>
+			<td class='min text-center'><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
 			<!--<td class='min'><a href='main.php?act=templates&p=theme_download&id={$theme['theme_id']}'><i class='fa fa-fw fa-download'></i></a></td>-->
-			<td class='min'>{$theme['remove']}</td>
+			<td class='min text-center'>{$theme['remove']}</td>
 		</tr>");
 }
 
@@ -87,27 +87,27 @@ if(!empty($dir_list)) {
 
 <h1>Theme Manager</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<?php echo $not_installed_languages ?>
-		<table class="table-list">
+<div class="block">
+	<?php echo $not_installed_languages ?>
+	<table class="table">
+		<thead>
 			<tr>
 				<th colspan="10">
 					<div class="fleft">Installed Themes</div>
 					<div class="fright"></div>
 				</th>
 			</tr>
-			<tr class="subtitle">
+			<tr>
 				<td>Theme Name</td>
 				<td>Directory</td>
 				<td>Author</td>
 				<td>Active</td>
 				<td>Default</td>
-				<td class="min">Edit</td>
+				<td>Edit</td>
 				<!--<td class="min">Download</td>-->
-				<td class="min">Delete</td>
+				<td>Delete</td>
 			</tr>
-			<?php echo Template::Get() ?>
-		</table>
-	</div>
+		</thead>
+		<?php echo Template::Get() ?>
+	</table>
 </div>

@@ -18,7 +18,7 @@ $id = Http::Request("id");
 Database::Query("SELECT * FROM c_themes WHERE theme_id = {$id};");
 $themes = Database::Fetch();
 
-$filename = "../themes/" . $themes['directory'] . "/css/main.css";
+$filename = "../themes/" . $themes['directory'] . "/css/theme.css";
 
 // Notifications
 $not_writable = false;
@@ -40,12 +40,12 @@ $content = file_get_contents($filename);
 
 <h1>Edit Theme: <?php echo $themes['name'] ?></h1>
 
-<div id="content">
+<div class="block">
 	<?php echo $notification; ?>
 	<div class="grid-row">
 		<form action="process.php?do=edit_css" method="post">
 			<?php if(!$not_writable): ?>
-				<table class="table-list">
+				<table class="table">
 					<tr>
 						<th colspan="10">
 							<div class="fleft">Edit CSS</div>

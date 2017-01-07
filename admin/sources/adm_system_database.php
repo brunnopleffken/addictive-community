@@ -24,7 +24,7 @@ if($execute) {
 			$tables = "";
 			Database::Query("SHOW TABLES;");
 
-			while($table = $sql->Fetch()) {
+			while($table = Database::Fetch()) {
 				foreach($table as $db => $name) {
 					$tables .= $name . ", ";
 				}
@@ -67,10 +67,9 @@ if($execute) {
 	}
 }
 
-// Get administration/moderation logs
+// Get tables from database
 
 $html = "";
-
 Database::Query("SHOW TABLE STATUS;");
 
 while($table = Database::Fetch()) {
@@ -93,7 +92,7 @@ while($table = Database::Fetch()) {
 	}
 
 	function Repair() {
-		if(confirm('CAUTION\nIt is best to make a backup of a table before performing a table repair operation; under some circumstances the operation might cause data loss. Possible causes include but are not limited to file system errors. Proceed?')) {
+		if(confirm('CAUTION!\nIt is best to make a backup of a table before performing a table repair operation; under some circumstances the operation might cause data loss. Possible causes include but are not limited to file system errors. Proceed?')) {
 			window.location.href = 'main.php?act=system&p=database&execute=repair';
 		}
 		else {
@@ -103,27 +102,29 @@ while($table = Database::Fetch()) {
 
 </script>
 
-<h1>Database Toolbox</h1>
+<div class="header">
+	<h1>Database Toolbox</h1>
+	<div class="header-buttons">
+		<a class="btn btn-default font-w600" onclick="Optimize()">Optimize Tables</a>
+		<a class="btn btn-default font-w600" onclick="Repair()">Repair Corrupted Tables</a>
+	</div>
+</div>
 
-<div id="content">
-	<div class="grid-row">
-		<form action="process.php?do=optimize" method="post">
-			<div style="text-align: right; margin-bottom: 15px">
-				<input type="button" value="Optimize Tables" onclick="Optimize()">
-				<input type="button" value="Repair Corrupted Tables" onclick="Repair()">
-			</div>
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=optimize" method="post">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="4">Tables in Database</th>
 				</tr>
-				<tr class="subtitle">
+				<tr>
 					<td>Table Name</td>
 					<td>Entries</td>
-					<td>Engine</td>
+					<td>Storage Engine</td>
 					<td>Collation</td>
 				</tr>
-				<?php echo $html ?>
-			</table>
-		</form>
-	</div>
+			</thead>
+			<?php echo $html ?>
+		</table>
+	</form>
 </div>

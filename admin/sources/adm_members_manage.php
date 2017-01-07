@@ -41,13 +41,13 @@ while($member = Database::Fetch()) {
 
 	Template::Add("<tr>
 			<td>" . Html::Crop($Core->GetAvatar($member, 36, "admin"), 36, 36) . "</td>
-			<td><b>{$member['username']}</b></td>
+			<td><b><a href='../profile/{$member['m_id']}' target='_blank'>{$member['username']}</a></b></td>
 			<td>{$member['email']}</td>
 			<td>{$member['joined']}</td>
 			<td>{$member['name']}</td>
 			<td>{$member['posts']}</td>
-			<td class='min'><a href='main.php?act=members&amp;p=edit&amp;id={$member['m_id']}'><i class='fa fa-pencil'></i></a></td>
-			<td class='min'>{$remove}</td>
+			<td class='min text-center'><a href='main.php?act=members&amp;p=edit&amp;id={$member['m_id']}'><i class='fa fa-pencil'></i></a></td>
+			<td class='min text-center'>{$remove}</td>
 		</tr>");
 }
 
@@ -55,42 +55,40 @@ while($member = Database::Fetch()) {
 
 <h1>Manage Members</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<!-- SEARCH -->
-		<form action="#" method="post">
-			<div class="input-box">
-				<div class="input-box-label">Search</div>
-				<div class="input-box-field">
-					<input type="text" name="username" class="small" value="<?php echo $username ?>">
-					<div class="fright"><input type="submit" value="Find Member"></div>
-				</div>
+<div class="block">
+	<!-- SEARCH -->
+	<form action="#" method="post">
+		<div class="form-group grid">
+			<label for="" class="col-1">Search</label>
+			<div class="col-10">
+				<input type="text" name="username" class="form-control span-3" value="<?php echo $username ?>">
+				<input type="submit" class="btn btn-default" value="Find Member">
 			</div>
-		</form>
+		</div>
+	</form>
 
-		<br>
-
-		<form action="process.php?do=optimize" method="post">
-			<table class="table-list">
+	<form action="process.php?do=optimize" method="post">
+		<table class="table">
+			<thead>
 				<tr>
 					<?php if($username != ""): ?>
-					<th colspan="8">Search Results (output is also always limited by 10 results)</th>
+						<th colspan="8">Search Results (output is also always limited by 10 results)</th>
 					<?php else: ?>
-					<th colspan="8">Last 10 Registered Members</th>
+						<th colspan="8">Last 10 Registered Members</th>
 					<?php endif; ?>
 				</tr>
-				<tr class="subtitle">
-					<td width="1%"></td>
+				<tr>
+					<td class="min"></td>
 					<td>Username</td>
 					<td>E-mail Address</td>
-					<td>Joined</td>
+					<td>Joined (UTC Time)</td>
 					<td>Usergroup</td>
 					<td>Posts</td>
 					<td class="min">Edit</td>
 					<td class="min">Delete</td>
 				</tr>
-				<?php echo Template::Get() ?>
-			</table>
-		</form>
-	</div>
+			</thead>
+			<?php echo Template::Get() ?>
+		</table>
+	</form>
 </div>

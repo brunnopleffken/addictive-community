@@ -38,83 +38,86 @@ while($result = Database::Fetch()) {
 
 <h1>Community</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<form action="process.php?do=save" method="post">
-			<?php echo $message ?>
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=save" method="post">
+		<?php echo $message ?>
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">General Settings</th>
 				</tr>
+			</thead>
+			<tr>
+				<td class="font-w600">Community name</td>
+				<td><input type="text" name="general_community_name" value="<?php echo $Admin->SelectConfig("general_community_name") ?>" class="form-control span-4"></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Root path (URL)<small>Absolute URL of your community</small></td>
+				<td><input type="text" name="general_community_url" value="<?php echo $Admin->SelectConfig("general_community_url") ?>" class="form-control span-6"></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Default language<small>For guests and new members</small></td>
+				<td><?php echo $Admin->Dropdown("language_default_set", $languages, $Admin->SelectConfig("language_default_set"), "span-3") ?></td>
+			</tr>
+		</table>
 
-				<tr>
-					<td class="title-fixed">Community name</td>
-					<td><input type="text" name="general_community_name" value="<?php echo $Admin->SelectConfig("general_community_name") ?>" class="medium"></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Root path (URL)<span class="title-desc">Absolute URL of your community</span></td>
-					<td><input type="text" name="general_community_url" value="<?php echo $Admin->SelectConfig("general_community_url") ?>" class="large"></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Default language<span class="title-desc">Already registered members will not be affected</span></td>
-					<td><?php echo $Admin->Dropdown("language_default_set", $languages, $Admin->SelectConfig("language_default_set")) ?></td>
-				</tr>
-			</table>
-
-			<table class="table-list">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">Host Website Information</th>
 				</tr>
+			</thead>
+			<tr>
+				<td class="font-w600">Website name</td>
+				<td><input type="text" name="general_website_name" value="<?php echo $Admin->SelectConfig("general_website_name") ?>" class="form-control span-5"></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Website URL</td>
+				<td><input type="text" name="general_website_url" value="<?php echo $Admin->SelectConfig("general_website_url") ?>" class="form-control span-5"></td>
+			</tr>
+		</table>
 
-				<tr>
-					<td class="title-fixed">Website name</td>
-					<td><input type="text" name="general_website_name" value="<?php echo $Admin->SelectConfig("general_website_name") ?>" class="medium"></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Website URL</td>
-					<td><input type="text" name="general_website_url" value="<?php echo $Admin->SelectConfig("general_website_url") ?>" class="medium"></td>
-				</tr>
-			</table>
-
-			<table class="table-list">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">Interface Elements</th>
 				</tr>
+			</thead>
+			<tr>
+				<td class="font-w600">Logo image name</td>
+				<td><input type="text" name="general_community_logo" value="<?php echo $Admin->SelectConfig("general_community_logo") ?>" class="form-control span-3"></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Breadcrumb separator</td>
+				<td><input type="text" name="general_bread_separator" value="<?php echo $Admin->SelectConfig("general_bread_separator") ?>" class="form-control span-1"></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Show members online</td>
+				<td><label><?php echo $Admin->SelectCheckbox("general_sidebar_online") ?> Show members online in sidebar.</label></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Show statistics</td>
+				<td><label><?php echo $Admin->SelectCheckbox("general_sidebar_stats") ?> Show community statistics in sidebar.</label></td>
+			</tr>
+		</table>
 
-				<tr>
-					<td class="title-fixed">Logo image name</td>
-					<td><input type="text" name="general_community_logo" value="<?php echo $Admin->SelectConfig("general_community_logo") ?>" class="small"></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Breadcrumb separator</td>
-					<td><input type="text" name="general_bread_separator" value="<?php echo $Admin->SelectConfig("general_bread_separator") ?>" class="small"></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Show members online</td>
-					<td><label><?php echo $Admin->SelectCheckbox("general_sidebar_online") ?> Show members online in sidebar.</label></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Show statistics</td>
-					<td><label><?php echo $Admin->SelectCheckbox("general_sidebar_stats") ?> Show community statistics in sidebar.</label></td>
-				</tr>
-			</table>
-
-			<table class="table-list">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">SEO (Search Engine Optimization) Settings</th>
 				</tr>
-
-				<tr>
-					<td class="title-fixed">META Description</td>
-					<td><textarea name="seo_description" class="large" rows="3"><?php echo $Admin->SelectConfig("seo_description") ?></textarea></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">META Keywords</td>
-					<td><textarea name="seo_keywords" class="large" rows="3"><?php echo $Admin->SelectConfig("seo_keywords") ?></textarea></td>
-				</tr>
-			</table>
-
-			<div class="box fright"><input type="submit" value="Save Settings"></div>
-		</form>
-	</div>
+			</thead>
+			<tr>
+				<td class="font-w600">META Description</td>
+				<td><textarea name="seo_description" class="form-control span-6" rows="3"><?php echo $Admin->SelectConfig("seo_description") ?></textarea></td>
+			</tr>
+			<tr>
+				<td class="font-w600">META Keywords</td>
+				<td><textarea name="seo_keywords" class="form-control span-6" rows="3"><?php echo $Admin->SelectConfig("seo_keywords") ?></textarea></td>
+			</tr>
+		</table>
+		<div class="text-right">
+			<input type="submit" class="btn btn-default" value="Save Settings">
+		</div>
+	</form>
 </div>

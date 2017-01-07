@@ -27,23 +27,24 @@ switch($msg) {
 
 <h1>Cookies</h1>
 
-<div id="content">
+<div class="block">
 	<div class="grid-row">
 		<form action="process.php?do=save" method="post">
-
 			<?php echo $message ?>
-
-			<table class="table-list">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="2">General Cookies Settings</th>
+					</tr>
+				</thead>
 				<tr>
-					<th colspan="2">General Cookies Settings</th>
-				</tr>
-				<tr>
-					<td class="title-fixed">Expiration time (in seconds)</span></td>
-					<td><input type="text" name="general_session_expiration" class="nano" value="<?php echo $Admin->SelectConfig("general_session_expiration") ?>"> seconds</td>
+					<td class="font-w600">Expiration time</span></td>
+					<td><input type="text" name="general_session_expiration" class="form-control span-1" value="<?php echo $Admin->SelectConfig("general_session_expiration") ?>"> seconds</td>
 				</tr>
 			</table>
-
-			<div class="box fright"><input type="submit" value="Save Settings"></div>
+			<div class="text-right">
+				<input type="submit" class="btn btn-default" value="Save Settings">
+			</div>
 		</form>
 	</div>
 </div>

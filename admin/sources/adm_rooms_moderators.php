@@ -66,8 +66,8 @@ while($result = Database::Fetch($list)) {
 	Template::Add("<tr>
 			<td><strong>{$result['name']}</strong></td>
 			<td>{$result['moderators_list']}</td>
-			<td class='min'>{$result['add_link']}</td>
-			<td class='min'>{$result['remove_link']}</td>
+			<td class='min text-center'>{$result['add_link']}</td>
+			<td class='min text-center'>{$result['remove_link']}</td>
 		</tr>");
 }
 
@@ -75,20 +75,20 @@ while($result = Database::Fetch($list)) {
 
 <h1>Room Moderators</h1>
 
-<div id="content">
-	<div class="grid-row">
+<div class="block">
 		<?php echo $message ?>
-		<table class="table-list">
-			<tr>
-				<th colspan="4">List of Moderators per Room</th>
-			</tr>
-			<tr class="subtitle">
-				<td style="width: 250px">Room</td>
-				<td>Moderators</td>
-				<td class="min">Add New</td>
-				<td class="min">Remove</td>
-			</tr>
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="4">List of moderators per room</th>
+				</tr>
+				<tr>
+					<td style="width: 250px">Room</td>
+					<td>Moderators</td>
+					<td class="min">Add New</td>
+					<td class="min">Remove</td>
+				</tr>
+			</thead>
 			<?php echo Template::Get(); ?>
 		</table>
-	</div>
 </div>

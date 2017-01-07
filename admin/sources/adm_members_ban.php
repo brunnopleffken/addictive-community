@@ -13,6 +13,7 @@ use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
+use \AC\Kernel\Text;
 
 $username = "";
 
@@ -44,10 +45,10 @@ if(isset($_POST['username']) && strlen($_POST['username']) >= 2) {
 		$member['joined'] = $Core->DateFormat($member['joined']);
 
 		if($member['usergroup'] == 4) {
-			$member['ban_button'] = "<a href='?act=members&amp;p=ban&amp;do=remove&amp;id={$member['m_id']}' class='button-grey-default transition'>Remove Ban</a>";
+			$member['ban_button'] = "<a href='?act=members&amp;p=ban&amp;do=remove&amp;id={$member['m_id']}' class='btn btn-default btn-sm'>Remove Ban</a>";
 		}
 		else {
-			$member['ban_button'] = "<a href='?act=members&amp;p=ban&amp;do=banishment&amp;id={$member['m_id']}' class='button-grey-default transition'>Ban Member</a>";
+			$member['ban_button'] = "<a href='?act=members&amp;p=ban&amp;do=banishment&amp;id={$member['m_id']}' class='btn btn-default btn-sm'>Ban Member</a>";
 		}
 
 		Template::Add("<tr>
@@ -57,12 +58,12 @@ if(isset($_POST['username']) && strlen($_POST['username']) >= 2) {
 				<td>{$member['joined']}</td>
 				<td>{$member['name']}</td>
 				<td>{$member['posts']}</td>
-				<td>{$member['ban_button']}</td>
+				<td class='text-right'>{$member['ban_button']}</td>
 			</tr>");
 	}
 }
 else {
-	Template::Add("<tr><td colspan='7'>No members to show.</td></tr>");
+	Template::Add("<tr><td colspan='7' class='text-center'>No members to show.</td></tr>");
 }
 
 // Execute actions
@@ -85,37 +86,34 @@ if(Http::Request("do")) {
 
 <h1>Ban Member</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<!-- SEARCH -->
-		<form action="#" method="post">
-			<div class="input-box">
-				<div class="input-box-label">Search</div>
-				<div class="input-box-field">
-					<input type="text" name="username" class="small" value="<?php echo $username ?>">
-					<i>Type at least 2 characters.</i>
-					<div class="fright"><input type="submit" value="Find Member"></div>
-				</div>
+<div class="block">
+	<!-- SEARCH -->
+	<form action="#" method="post">
+		<div class="form-group grid">
+			<label for="" class="col-1">Search</label>
+			<div class="col-10">
+				<input type="text" name="username" class="form-control span-3" value="<?php echo $username ?>">
+				<input type="submit" class="btn btn-default" value="Find Member">
 			</div>
-		</form>
+		</div>
+	</form>
 
-		<br>
-
-		<!-- MEMBER LIST -->
-		<table class="table-list">
+	<!-- MEMBER LIST -->
+	<table class="table">
+		<thead>
 			<tr>
 				<th colspan="8">Select member for banishment</th>
 			</tr>
-			<tr class="subtitle">
+			<tr>
 				<td width="1%"></td>
 				<td>Username</td>
 				<td>E-mail Address</td>
 				<td>Joined</td>
 				<td>Usergroup</td>
 				<td>Posts</td>
-				<td width="1%"></td>
+				<td></td>
 			</tr>
-			<?php echo Template::Get() ?>
-		</table>
-	</div>
+		</thead>
+		<?php echo Template::Get() ?>
+	</table>
 </div>

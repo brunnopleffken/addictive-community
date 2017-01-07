@@ -46,13 +46,13 @@ while($category = Database::Fetch($categories)) {
 	}
 
 	Template::Add("<tr>
-			<td class='min'><input type='text' name='category[{$category['c_id']}][order_n]' value='{$category['order_n']}' style='width: 25px'></td>
+			<td class='min'><input type='number' name='category[{$category['c_id']}][order_n]' value='{$category['order_n']}' class='form-control' style='width: 50px'></td>
 			<td><b>{$category['name']}</b></td>
-			<td class='min'>
+			<td class='min text-center'>
 				<input type='hidden' name='category[{$category['c_id']}][visible]' value='0'>
 				<input type='checkbox' name='category[{$category['c_id']}][visible]' value='1' {$checked}>
 			</td>
-			<td class='min'>{$remove}</td>
+			<td class='min text-center'>{$remove}</td>
 		</tr>");
 }
 
@@ -60,40 +60,44 @@ while($category = Database::Fetch($categories)) {
 
 <h1>Categories</h1>
 
-<div id="content">
-	<div class="grid-row">
+<div class="block">
 		<?php echo $message ?>
-		<!-- LIST -->
 		<form action="process.php?do=update_categories" method="post" style="overflow: hidden">
-			<table class="table-list">
-				<tr>
-					<th colspan="4">Current categories</th>
-				</tr>
-				<tr class="subtitle">
-					<td>Order</td>
-					<td>Category</td>
-					<td class="min">Visible</td>
-					<td class="min">Delete</td>
-				</tr>
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="4">Current categories</th>
+					</tr>
+					<tr>
+						<td>Order</td>
+						<td>Category</td>
+						<td class="min">Visible</td>
+						<td class="min">Delete</td>
+					</tr>
+				</thead>
 				<?php echo Template::Get(); ?>
 			</table>
-			<div class="fright"><input type="submit" value="Update Categories"></div>
+			<div class="text-right">
+				<input type="submit" class="btn btn-default" value="Update Categories">
+			</div>
 		</form>
 
-		<br><br>
+		<hr>
 
-		<!-- ADD -->
 		<form action="process.php?do=new_category" method="post">
-			<table class="table-list">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="2">Add new category</th>
+					</tr>
+				</thead>
 				<tr>
-					<th colspan="2">Add New Category</th>
-				</tr>
-				<tr>
-					<td class="title-fixed">Category Name</td>
-					<td><input type="text" name="name" class="medium"></td>
+					<td class="font-w600">Category name</td>
+					<td><input type="text" name="name" class="form-control span-4"></td>
 				</tr>
 			</table>
-			<div class="fright"><input type="submit" value="Create Category"></div>
+			<div class="text-right">
+				<input type="submit" class="btn btn-default" value="Create Category">
+			</div>
 		</form>
-	</div>
 </div>

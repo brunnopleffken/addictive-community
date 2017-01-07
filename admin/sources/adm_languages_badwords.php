@@ -27,30 +27,32 @@ switch($msg) {
 
 <h1>Bad Words</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<form action="process.php?do=save" method="post">
-			<?php echo $message ?>
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=save" method="post">
+		<?php echo $message ?>
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="10">
 						<div class="fleft">List of Bad Words</div>
 					</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Replace with...</td>
-					<td>
-						<input type="text" name="language_bad_words_replacement" class="small" value="<?php echo $Admin->SelectConfig("language_bad_words_replacement") ?>">
-					</td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Bad words to be censored<span class="title-desc">One word per line.</span></td>
-					<td>
-						<textarea name="language_bad_words" rows="10" class="large"><?php echo $Admin->SelectConfig("language_bad_words") ?></textarea>
-					</td>
-				</tr>
-			</table>
-			<div class="box fright"><input type="submit" value="Save Bad Words"></div>
-		</form>
-	</div>
+			</thead>
+			<tr>
+				<td class="font-w600">Replace with...</td>
+				<td>
+					<input type="text" name="language_bad_words_replacement" class="form-control span-2" value="<?php echo $Admin->SelectConfig("language_bad_words_replacement") ?>">
+				</td>
+			</tr>
+			<tr>
+				<td class="font-w600">Bad words to be censored<small>One word per line.</small></td>
+				<td>
+					<textarea name="language_bad_words" rows="10" class="form-control span-6"><?php echo $Admin->SelectConfig("language_bad_words") ?></textarea>
+				</td>
+			</tr>
+		</table>
+		<div class="text-right">
+			<input type="submit" class="btn btn-default" value="Save Settings">
+		</div>
+	</form>
 </div>

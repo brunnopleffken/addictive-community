@@ -56,6 +56,9 @@ mark {
 // COMPONENTS
 
 hr {
+	border: 0;
+	border-top: 1px solid #eee;
+	height: 1px;
 	margin: 20px 0;
 }
 
@@ -228,6 +231,7 @@ textarea.form-control {
 	text-shadow: 1px 1px 0 #000;
 	transition: 200ms;
 	user-select: none;
+	white-space: nowrap;
 	&:hover {
 		text-decoration: none;
 	}

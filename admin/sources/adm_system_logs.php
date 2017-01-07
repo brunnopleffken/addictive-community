@@ -31,25 +31,21 @@ while($reg = Database::Fetch()) {
 
 ?>
 
-	<h1>Logs</h1>
+<h1>Logs</h1>
 
-	<div id="content">
-
-		<div class="grid-row">
-			<table class="table-list">
-				<tr>
-					<th colspan="4">Administration Logs</th>
-				</tr>
-				<tr class="subtitle">
-					<td>Username</td>
-					<td>Action</td>
-					<td>Date</td>
-					<td>IP</td>
-				</tr>
-
-				<?php echo Template::Get() ?>
-
-			</table>
-		</div>
-
-	</div>
+<div class="block">
+	<table class="table">
+		<thead>
+			<tr>
+				<th colspan="4">Administration Logs</th>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td>Action</td>
+				<td>Date</td>
+				<td>IP</td>
+			</tr>
+		</thead>
+		<?php echo Template::Get() ?>
+	</table>
+</div>

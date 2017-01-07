@@ -13,7 +13,7 @@
 
 <h1>Server Environment</h1>
 
-<div id="content">
+<div class="block">
 	<div class="grid-row">
 		<iframe src="sources/adm_system_phpinfo.php" style="width:100%; height: 600px"></iframe>
 	</div>

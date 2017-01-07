@@ -49,48 +49,54 @@ while($rank = Database::Fetch()) {
 			<td><b>{$rank['title']}</b></td>
 			<td>{$rank['min_posts']}</td>
 			<td>{$symbol}</td>
-			<td class='min'><a href='process.php?do=delete_rank&id={$rank['id']}'><i class='fa fa-fw fa-remove'></i></a></td>
+			<td class='text-center'>
+				<a href='process.php?do=delete_rank&id={$rank['id']}'><i class='fa fa-fw fa-remove'></i></a>
+			</td>
 		</tr>");
 }
 
 ?>
 
-<h1>Ranks</h1>
-
-<div id="content">
-	<div class="grid-row">
-		<?php echo $message ?>
-		<form action="process.php?do=save" method="post">
-			<table class="table-list">
-				<tr>
-					<th colspan="5">
-						<div class="fleft">Ranks Overview</div>
-						<div class="fright"><a href="main.php?act=members&p=newrank" class="button-grey-default white transition">New Rank</a></div>
-					</th>
-				</tr>
-				<tr class="subtitle">
-					<td>Rank Name</td>
-					<td>Min. Posts</td>
-					<td>Image or # of Pips</td>
-					<td width="1%">Delete</td>
-				</tr>
-				<?php echo Template::Get() ?>
-			</table>
-
-			<form action="process.php?do=save" method="post">
-				<table class="table-list">
-					<tr>
-						<th colspan="5">
-							<div class="fleft">Settings</div>
-						</th>
-					</tr>
-					<tr>
-						<td class="title-fixed">Enable ranks and promotions</td>
-						<td><?php echo $Admin->SelectCheckbox("general_member_enable_ranks") ?> Enable ranks for all members.</td>
-					</tr>
-				</table>
-				<div class="fright"><input type="submit" value="Save Settings"></div>
-			</form>
-		</form>
+<div class="header">
+	<h1>Ranks</h1>
+	<div class="header-buttons">
+		<a href="main.php?act=members&p=new_rank" class="btn btn-default font-w600">New Rank</a>
 	</div>
+</div>
+
+<div class="block">
+	<?php echo $message ?>
+	<table class="table">
+		<thead>
+			<tr>
+				<th colspan="5">Ranks Overview</th>
+			</tr>
+			<tr>
+				<td>Rank Name</td>
+				<td>Min. Posts</td>
+				<td>Image or # of Pips</td>
+				<td class="min">Delete</td>
+			</tr>
+		</thead>
+		<?php echo Template::Get() ?>
+	</table>
+
+	<hr>
+
+	<form action="process.php?do=save" method="post">
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="5">Settings</th>
+				</tr>
+			</thead>
+			<tr>
+				<td class="font-w600">Enable ranks and promotions</td>
+				<td><?php echo $Admin->SelectCheckbox("general_member_enable_ranks") ?> Enable ranks for all members</td>
+			</tr>
+		</table>
+		<div class="text-right">
+			<input type="submit" class="btn btn-default" value="Save Settings">
+		</div>
+	</form>
 </div>

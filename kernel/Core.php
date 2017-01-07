@@ -99,11 +99,12 @@ class Core
 			case "custom":
 				// If custom photo is blank, show placeholder instead
 				$url = $info['photo'] == "" ? "static/images/no-photo.png" : "public/avatar/" . $info['photo'];
+				$url = $this->config['general_community_url'] . $url;
 				break;
 
 			// Something happened...
 			default:
-				$url = "static/images/no-photo.png";
+				$url = $this->config['general_community_url'] . "static/images/no-photo.png";
 				break;
 		}
 

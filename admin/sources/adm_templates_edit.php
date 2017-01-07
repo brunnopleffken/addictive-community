@@ -40,15 +40,15 @@ $lang = Database::Fetch();
 
 <h1>Manage Template: <?php echo $lang['name'] ?></h1>
 
-<div id="content">
+<div class="block">
 	<div class="grid-row">
 		<?php echo $notification ?>
-		<table class="table-list">
+		<table class="table">
 			<tr>
 				<th colspan="10"><div class="fleft">Settings</div></th>
 			</tr>
 			<tr>
-				<td class="title-fixed">Template Name</td>
+				<td class="font-w600">Template Name</td>
 				<td>
 					<form action="#" method="post">
 						<input type="text" name="template_name" class="medium" value="<?php __($lang['name']) ?>">

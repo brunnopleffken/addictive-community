@@ -15,21 +15,9 @@ use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
+use \AC\Kernel\Session;
 use \AC\Kernel\Text;
 use \AC\Kernel\Template;
-
-// First... check if the login sessions exists!
-session_start();
-if(!isset($_SESSION['admin_m_id'])) {
-	header("Location: index.php?error=2");
-}
-
-// If we have a validate session, check the running time.
-// If it's older than 30 minutes, ask for a log in
-if($_SESSION['admin_time'] < (time() - 60 * 30)) {
-	session_destroy();
-	header("Location: index.php?error=3");
-}
 
 // Call required files
 require_once("../init.php");
@@ -39,6 +27,19 @@ $config = parse_ini_file("../config.ini");
 
 // Define autoloader
 spl_autoload_register('_AutoLoader', true, true);
+
+// First... check if the login sessions exists!
+Session::Init();
+if(!Session::Retrieve("admin_m_id")) {
+	header("Location: index.php?error=2");
+}
+
+// If we have a validate session, check the running time.
+// If it's older than 30 minutes, ask for a log in
+if(Session::Retrieve("admin_time") < (time() - 60 * 30)) {
+	Session::Destroy();
+	header("Location: index.php?error=3");
+}
 
 // Load kernel drivers
 Database::Connect($config);
@@ -57,26 +58,29 @@ $admin_info = Database::Fetch();
 $act = (Http::Request("act")) ? Http::Request("act") : "dashboard";
 $p = (Http::Request("p")) ? Http::Request("p") : "main";
 
-// ---------------------------------------------------
-// Navigation menu template
-// ---------------------------------------------------
 
+/**
+ * Create a navigation menu bar
+ *
+ * @param $section
+ * @return string
+ */
 function CreateMenu($section)
 {
 	$nav = "<div class=\"section-nav-container\">";
 
 	if($section == "dashboard") {
 	$nav .= <<<HTML
-		<div class="section-navbar">
-			<a href="main.php" class="nav-selected">Dashboard</a>
-			<a href="main.php?act=general" class="transition">General</a>
-			<a href="main.php?act=rooms" class="transition">Rooms</a>
-			<a href="main.php?act=members" class="transition">Members</a>
-			<a href="main.php?act=templates" class="transition">Themes & Templates</a>
-			<a href="main.php?act=languages" class="transition">Languages</a>
-			<a href="main.php?act=system" class="transition">System</a>
+		<div class="nav-top">
+			<a href="main.php" class="active">Dashboard</a>
+			<a href="main.php?act=general">General</a>
+			<a href="main.php?act=rooms">Rooms</a>
+			<a href="main.php?act=members">Members</a>
+			<a href="main.php?act=templates">Themes & Templates</a>
+			<a href="main.php?act=languages">Languages</a>
+			<a href="main.php?act=system">System</a>
 		</div>
-		<div class="section-subnav">
+		<div class="nav-bottom">
 			<a href="main.php">Community Dashboard</a>
 		</div>
 HTML;
@@ -84,16 +88,16 @@ HTML;
 
 	if($section == "general") {
 	$nav .= <<<HTML
-		<div class="section-navbar">
-			<a href="main.php" class="transition">Dashboard</a>
-			<a href="main.php?act=general" class="nav-selected">General</a>
-			<a href="main.php?act=rooms" class="transition">Rooms</a>
-			<a href="main.php?act=members" class="transition">Members</a>
-			<a href="main.php?act=templates" class="transition">Themes & Templates</a>
-			<a href="main.php?act=languages" class="transition">Languages</a>
-			<a href="main.php?act=system" class="transition">System</a>
+		<div class="nav-top">
+			<a href="main.php">Dashboard</a>
+			<a href="main.php?act=general" class="active">General</a>
+			<a href="main.php?act=rooms">Rooms</a>
+			<a href="main.php?act=members">Members</a>
+			<a href="main.php?act=templates">Themes & Templates</a>
+			<a href="main.php?act=languages">Languages</a>
+			<a href="main.php?act=system">System</a>
 		</div>
-		<div class="section-subnav">
+		<div class="nav-bottom">
 			<a href="main.php?act=general&amp;p=calendars">Calendars</a>
 			<a href="main.php?act=general&amp;p=community">Community</a>
 			<a href="main.php?act=general&amp;p=cookies">Cookies</a>
@@ -110,16 +114,16 @@ HTML;
 
 	if($section == "rooms") {
 	$nav .= <<<HTML
-		<div class="section-navbar">
-			<a href="main.php" class="transition">Dashboard</a>
-			<a href="main.php?act=general" class="transition">General</a>
-			<a href="main.php?act=rooms" class="nav-selected">Rooms</a>
-			<a href="main.php?act=members" class="transition">Members</a>
-			<a href="main.php?act=templates" class="transition">Themes & Templates</a>
-			<a href="main.php?act=languages" class="transition">Languages</a>
-			<a href="main.php?act=system" class="transition">System</a>
+		<div class="nav-top">
+			<a href="main.php">Dashboard</a>
+			<a href="main.php?act=general">General</a>
+			<a href="main.php?act=rooms" class="active">Rooms</a>
+			<a href="main.php?act=members">Members</a>
+			<a href="main.php?act=templates">Themes & Templates</a>
+			<a href="main.php?act=languages">Languages</a>
+			<a href="main.php?act=system">System</a>
 		</div>
-		<div class="section-subnav">
+		<div class="nav-bottom">
 			<a href="main.php?act=rooms&amp;p=manage">Manage Rooms</a>
 			<a href="main.php?act=rooms&amp;p=add">Add New Room</a>
 			<a href="main.php?act=rooms&amp;p=categories">Categories</a>
@@ -130,16 +134,16 @@ HTML;
 
 	if($section == "members") {
 	$nav .= <<<HTML
-		<div class="section-navbar">
-			<a href="main.php" class="transition">Dashboard</a>
-			<a href="main.php?act=general" class="transition">General</a>
-			<a href="main.php?act=rooms" class="transition">Rooms</a>
-			<a href="main.php?act=members" class="nav-selected">Members</a>
-			<a href="main.php?act=templates" class="transition">Themes & Templates</a>
-			<a href="main.php?act=languages" class="transition">Languages</a>
-			<a href="main.php?act=system" class="transition">System</a>
+		<div class="nav-top">
+			<a href="main.php">Dashboard</a>
+			<a href="main.php?act=general">General</a>
+			<a href="main.php?act=rooms">Rooms</a>
+			<a href="main.php?act=members" class="active">Members</a>
+			<a href="main.php?act=templates">Themes & Templates</a>
+			<a href="main.php?act=languages">Languages</a>
+			<a href="main.php?act=system">System</a>
 		</div>
-		<div class="section-subnav">
+		<div class="nav-bottom">
 			<a href="main.php?act=members&amp;p=add">Add New Member</a>
 			<a href="main.php?act=members&amp;p=ban">Ban Member</a>
 			<a href="main.php?act=members&amp;p=manage">Manage Members</a>
@@ -151,16 +155,16 @@ HTML;
 
 	if($section == "templates") {
 	$nav .= <<<HTML
-		<div class="section-navbar">
-			<a href="main.php" class="transition">Dashboard</a>
-			<a href="main.php?act=general" class="transition">General</a>
-			<a href="main.php?act=rooms" class="transition">Rooms</a>
-			<a href="main.php?act=members" class="transition">Members</a>
-			<a href="main.php?act=templates" class="nav-selected">Themes & Templates</a>
-			<a href="main.php?act=languages" class="transition">Languages</a>
-			<a href="main.php?act=system" class="transition">System</a>
+		<div class="nav-top">
+			<a href="main.php">Dashboard</a>
+			<a href="main.php?act=general">General</a>
+			<a href="main.php?act=rooms">Rooms</a>
+			<a href="main.php?act=members">Members</a>
+			<a href="main.php?act=templates" class="active">Themes & Templates</a>
+			<a href="main.php?act=languages">Languages</a>
+			<a href="main.php?act=system">System</a>
 		</div>
-		<div class="section-subnav">
+		<div class="nav-bottom">
 			<a href="main.php?act=templates&amp;p=themes">Theme Manager</a>
 			<a href="main.php?act=templates&amp;p=templates">Templates</a>
 			<a href="main.php?act=templates&amp;p=emails">E-mails</a>
@@ -174,16 +178,16 @@ HTML;
 
 	if($section == "languages") {
 	$nav .= <<<HTML
-		<div class="section-navbar">
-			<a href="main.php" class="transition">Dashboard</a>
-			<a href="main.php?act=general" class="transition">General</a>
-			<a href="main.php?act=rooms" class="transition">Rooms</a>
-			<a href="main.php?act=members" class="transition">Members</a>
-			<a href="main.php?act=templates" class="transition">Themes & Templates</a>
-			<a href="main.php?act=languages" class="nav-selected">Languages</a>
-			<a href="main.php?act=system" class="transition">System</a>
+		<div class="nav-top">
+			<a href="main.php">Dashboard</a>
+			<a href="main.php?act=general">General</a>
+			<a href="main.php?act=rooms">Rooms</a>
+			<a href="main.php?act=members">Members</a>
+			<a href="main.php?act=templates">Themes & Templates</a>
+			<a href="main.php?act=languages" class="active">Languages</a>
+			<a href="main.php?act=system">System</a>
 		</div>
-		<div class="section-subnav">
+		<div class="nav-bottom">
 			<a href="main.php?act=languages&amp;p=manager">Language Manager</a>
 			<!-- <a href="main.php?act=languages&amp;p=import">Import / Export</a> -->
 			<a href="main.php?act=languages&amp;p=badwords">Bad Words</a>
@@ -193,16 +197,16 @@ HTML;
 
 	if($section == "system") {
 	$nav .= <<<HTML
-		<div class="section-navbar">
-			<a href="main.php" class="transition">Dashboard</a>
-			<a href="main.php?act=general" class="transition">General</a>
-			<a href="main.php?act=rooms" class="transition">Rooms</a>
-			<a href="main.php?act=members" class="transition">Members</a>
-			<a href="main.php?act=templates" class="transition">Themes & Templates</a>
-			<a href="main.php?act=languages" class="transition">Languages</a>
-			<a href="main.php?act=system" class="nav-selected">System</a>
+		<div class="nav-top">
+			<a href="main.php">Dashboard</a>
+			<a href="main.php?act=general">General</a>
+			<a href="main.php?act=rooms">Rooms</a>
+			<a href="main.php?act=members">Members</a>
+			<a href="main.php?act=templates">Themes & Templates</a>
+			<a href="main.php?act=languages">Languages</a>
+			<a href="main.php?act=system" class="active">System</a>
 		</div>
-		<div class="section-subnav">
+		<div class="nav-bottom">
 			<a href="main.php?act=system&amp;p=database">Database Toolbox</a>
 			<a href="main.php?act=system&amp;p=logs">Logs</a>
 			<!-- <a href="main.php?act=system&amp;p=statistics">Statistics</a> -->
@@ -223,49 +227,74 @@ HTML;
 <head>
 	<title>Addictive Community - Administration Panel</title>
 	<meta charset="utf-8">
-	<link href="styles/admin_style.css" type="text/css" rel="stylesheet">
-	<link href="../thirdparty/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" href="../thirdparty/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../thirdparty/codemirror/codemirror.css">
+	<link rel="stylesheet" href="../static/css/framework.css">
+	<link rel="stylesheet" href="../static/css/wireframe.css">
+	<!-- JS Files -->
 	<script src="../thirdparty/jquery/jquery.min.js"></script>
-	<!-- Code Mirror -->
 	<script src="../thirdparty/codemirror/codemirror.js"></script>
-	<link href="../thirdparty/codemirror/codemirror.css" type="text/css" rel="stylesheet">
 	<script src="../thirdparty/codemirror/mode/css/css.js"></script>
-	<!-- Admin JS -->
 	<script src="admin.js"></script>
+	<!-- Admin JS -->
+
+	<style>
+		.wrapper { margin: auto; width: 1080px; }
+		.nav { margin-bottom: 40px; }
+
+		/* Rewrite some elements */
+		.alert { margin-bottom: 10px; }
+		td.font-w600 { width: 200px; }
+		td.font-w600 > small { display: block; font-size: 12px; font-weight: normal; font-style: italic; margin-top: 5px; }
+		td a i { color: #000; }
+
+		/* Addictive Community update */
+		.loader > img { float: left; height: 16px; margin-right: 5px; width: 16px; }
+		.update-message { display: none; line-height: 16px; }
+		.fail { color: #b00; }
+		.done { color: #090; }
+	</style>
 </head>
 
 <body>
 
-	<div id="topbar">
-		<div class="wrapper">
-			<div class="fleft">
-				<a href="../" target="_blank" class="toplinks transition">&laquo; Go to your Community</a>
+<header>
+		<div class="top-half outer">
+			<div class="row space-between">
+				<div class="col-flexible text-right">
+					<a href="https://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">View Addictive Comunity on GitHub</a>
+					<a href="https://github.com/brunnopleffken/addictive-community/issues" target="_blank" class="transition">Issues</a>
+					<a href="https://github.com/brunnopleffken/addictive-community/blob/master/CHANGELOG.md" target="_blank" class="transition">Changelog</a>
+				</div>
+				<div class="col-flexible hide-xs">
+					<a href="../" target="_blank" class="toplinks transition">&laquo; Go to your Community</a>
+				</div>
 			</div>
-			<div class="fright">
-				<a href="https://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">View Addictive Comunity on GitHub</a>
-				<a href="https://github.com/brunnopleffken/addictive-community/issues" target="_blank" class="transition">Issues</a>
-				<a href="https://github.com/brunnopleffken/addictive-community/blob/master/CHANGELOG.md" target="_blank" class="transition">Changelog</a>
+		</div>
+		<div class="bottom-half outer">
+			<div class="wrapper">
+				<div class="row space-between">
+					<a href="main.php">
+						<img src="../static/images/logo-admin.svg" class="logo" alt="Addictive Community">
+					</a>
+				</div>
 			</div>
-			<div class="fix"></div>
 		</div>
-	</div>
+</header>
 
-	<div id="logo">
-		<div class="wrapper">
-			<a href="main.php" title="Admin CP Dashboard"><img src="images/logo.png" class="logo-image"></a>
-		</div>
-	</div>
-
-	<div class="wrapper">
+<div class="wrapper">
+	<div class="nav">
 		<?php echo CreateMenu($act); ?>
-		<?php require_once("sources/adm_{$act}_{$p}.php"); ?>
 	</div>
 
-	<div id="footer">
-		<div class="wrapper center">
-			<span>Powered by Addictive Community <?php echo VERSION ?> &copy; 2014 - All rights reserved.</span>
-		</div>
-	</div>
+	<?php require_once("sources/adm_{$act}_{$p}.php"); ?>
+</div>
+
+<footer class="text-center">
+	Powered by
+	<a href="https://github.com/brunnopleffken/addictive-community" target="_blank">Addictive Community</a>
+	<?= VERSION . "-" . CHANNEL ?> &copy; <?= date("Y") ?> - All rights reserved.
+</footer>
 
 </body>
 </html>

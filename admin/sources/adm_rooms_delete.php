@@ -25,10 +25,10 @@ $room_info = Database::Fetch();
 
 <h1>Delete Room: <?php echo $room_info['name'] ?></h1>
 
-<div id="content">
+<div class="block">
 	<div class="grid-row">
 		<form action="process.php?do=deleteroom" method="post">
-			<table class="table-list">
+			<table class="table">
 				<tr>
 					<th colspan="2">Confirmation</th>
 				</tr>

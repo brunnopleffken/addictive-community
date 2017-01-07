@@ -27,70 +27,78 @@ switch($msg) {
 
 <h1>Threads and Posts</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<form action="process.php?do=save" method="post">
-			<?php echo $message ?>
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=save" method="post">
+		<?php echo $message ?>
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">Room Settings</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Threads per page</span></td>
-					<td><input type="text" name="threads_per_page" class="nano" value="<?php echo $Admin->SelectConfig("threads_per_page") ?>"> threads</td>
-				</tr>
-			</table>
+			</thead>
+			<tr>
+				<td class="font-w600">Threads per page</span></td>
+				<td><input type="text" name="threads_per_page" class="form-control span-1" value="<?php echo $Admin->SelectConfig("threads_per_page") ?>"> threads</td>
+			</tr>
+		</table>
 
-			<table class="table-list">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">Thread Settings</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Replies per page</span></td>
-					<td><input type="text" name="thread_posts_per_page" class="nano" value="<?php echo $Admin->SelectConfig("thread_posts_per_page") ?>"> replies</td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Hot Thread (min. posts)</td>
-					<td><input type="text" name="thread_posts_hot" class="nano" value="<?php echo $Admin->SelectConfig("thread_posts_hot") ?>"> minumum replies for a thread to become a Hot Thread.</td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Allow emoticons</td>
-					<td><label><?php echo $Admin->SelectCheckbox("thread_allow_emoticons") ?> Emoticons are allowed in posts, replies and personal messages.</label></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Allow guests to reply</td>
-					<td><label><?php echo $Admin->SelectCheckbox("thread_allow_guest_post") ?> Guests are allowed to reply any thread (not recommended).</label></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Attachment: max. file size</span></td>
-					<td><input type="text" name="general_max_attachment_size" class="nano" value="<?php echo $Admin->SelectConfig("general_max_attachment_size") ?>"> MB</td>
-				</tr>
-			</table>
+			</thead>
+			<tr>
+				<td class="font-w600">Replies per page</span></td>
+				<td><input type="text" name="thread_posts_per_page" class="form-control span-1" value="<?php echo $Admin->SelectConfig("thread_posts_per_page") ?>"> replies</td>
+			</tr>
+			<tr>
+				<td class="font-w600">Hot Thread (min. posts)</td>
+				<td><input type="text" name="thread_posts_hot" class="form-control span-1" value="<?php echo $Admin->SelectConfig("thread_posts_hot") ?>"> minumum replies for a thread to become a Hot Thread.</td>
+			</tr>
+			<tr>
+				<td class="font-w600">Allow emoticons</td>
+				<td><label><?php echo $Admin->SelectCheckbox("thread_allow_emoticons") ?> Emoticons are allowed in posts, replies and personal messages.</label></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Allow guests to reply</td>
+				<td><label><?php echo $Admin->SelectCheckbox("thread_allow_guest_post") ?> Guests are allowed to reply any thread (not recommended).</label></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Attachment: max. file size</span></td>
+				<td><input type="text" name="general_max_attachment_size" class="form-control span-1" value="<?php echo $Admin->SelectConfig("general_max_attachment_size") ?>"> MB</td>
+			</tr>
+		</table>
 
-			<table class="table-list">
+		<table class="table">
+			<thead>
 				<tr>
-					<th colspan="2">Best Answer Settings</th>
+					<th colspan="2">Best Reply Settings</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Show Best Answer in all pages</td>
-					<td><label><?php echo $Admin->SelectCheckbox("thread_best_answer_all_pages") ?> Show the best answer on top of all pages of a thread (not only the first page).</label></td>
-				</tr>
-			</table>
+			</thead>
+			<tr>
+				<td class="font-w600">Best reply in all pages</td>
+				<td><label><?php echo $Admin->SelectCheckbox("thread_best_answer_all_pages") ?> Show the best reply on top of all pages of a thread (not only the first page).</label></td>
+			</tr>
+		</table>
 
-			<table class="table-list">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">Obsolete Thread Feature</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Enable "Obsolete Thread"<span class="title-desc">Prevent old threads in the community rooms from being bumped.</span></td>
-					<td><label><?php echo $Admin->SelectCheckbox("thread_obsolete") ?> Allows a thread to become obsolete after X days (replies are not allowed).</label></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Days to become obsolete</td>
-					<td><input type="text" name="thread_obsolete_value" class="nano" value="<?php echo $Admin->SelectConfig("thread_obsolete_value") ?>"> days without answers for a thread to become obsolete.</td>
-				</tr>
-			</table>
-			<div class="box fright"><input type="submit" value="Save Settings"></div>
-		</form>
-	</div>
+			</thead>
+			<tr>
+				<td class="font-w600">Enable "Obsolete Thread"<small>Prevent old threads in the community rooms from being bumped.</small></td>
+				<td><label><?php echo $Admin->SelectCheckbox("thread_obsolete") ?> Allows a thread to become obsolete after X days (replies are not allowed).</label></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Days to become obsolete</td>
+				<td><input type="text" name="thread_obsolete_value" class="form-control span-1" value="<?php echo $Admin->SelectConfig("thread_obsolete_value") ?>"> days without answers for a thread to become obsolete.</td>
+			</tr>
+		</table>
+		<div class="text-right">
+			<input type="submit" class="btn btn-default" value="Save Settings">
+		</div>
+	</form>
 </div>
