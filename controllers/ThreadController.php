@@ -957,6 +957,7 @@ class Thread extends Application
 		// Format first thread
 		$result['avatar'] = $this->Core->GetAvatar($result, 96);
 		$result['post_date'] = $this->Core->DateFormat($result['post_date']);
+		$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
 
 		// Check if the currently logged in member is the thread author
 		$result['is_author'] = ($result['author_id'] == SessionState::$user_data['m_id']);

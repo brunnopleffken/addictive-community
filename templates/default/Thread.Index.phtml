@@ -4,7 +4,10 @@
 		<img src="http://www.gravatar.com/avatar/d4863bc04b657b65c24b02aa0b62f32e?s=100&d=mm&r=g" class="thread-post-author-avatar">
 		<div class="thread-post-author-info">
 			<a href="profile/<?= $first_post_info['m_id'] ?>"><?= $first_post_info['username'] ?></a>
-			<span><?= $first_post_info['posts'] ?> <?php __("T_POSTS_LOWCASE") ?> &middot; Registered: 22 Nov 2016</span>
+			<span>
+				<?= $first_post_info['posts'] ?> <?php __("T_POSTS_LOWCASE") ?> &middot;
+				<?php __("T_POST_REGISTERED") ?>: <?= $first_post_info['joined'] ?>
+			</span>
 			<span><?= $first_post_info['location'] ?></span>
 		</div>
 		<div class="thread-post-author-share">
