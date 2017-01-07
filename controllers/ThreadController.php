@@ -102,7 +102,7 @@ class Thread extends Application
 
 		// Page info
 		$page_info['title'] = $this->thread_info['title'];
-		$page_info['bc'] = array($this->thread_info['name'], $this->thread_info['title']);
+		$page_info['bc'] = [$this->thread_info['name'], $this->thread_info['title']];
 		$this->Set("page_info", $page_info);
 
 		$this->Set("thread_id", $this->thread_id);
@@ -145,12 +145,12 @@ class Thread extends Application
 			$quote = Database::Fetch();
 		}
 		else {
-			$quote = array();
+			$quote = [];
 		}
 
 		// Page info
 		$page_info['title'] = i18n::Translate("P_ADD_REPLY") . ": " . $thread_info['title'];
-		$page_info['bc'] = array($thread_info['name'], i18n::Translate("P_ADD_REPLY") . ": " . $thread_info['title']);
+		$page_info['bc'] = [$thread_info['name'], i18n::Translate("P_ADD_REPLY") . ": " . $thread_info['title']];
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -159,9 +159,7 @@ class Thread extends Application
 		$this->Set("quote", $quote);
 		$this->Set("allow_uploads", $thread_info['upload']);
 		$this->Set("attachment_size_warning",
-			i18n::Translate("P_ATTACHMENTS_MAX_SIZE", array(
-				$this->Core->config['general_max_attachment_size'] . "MB")
-			)
+			i18n::Translate("P_ATTACHMENTS_MAX_SIZE", [$this->Core->config['general_max_attachment_size'] . "MB"])
 		);
 	}
 
@@ -233,7 +231,7 @@ class Thread extends Application
 		$room_id = Http::Request("room_id", true);
 
 		// Format new post array
-		$post = array(
+		$post = [
 			"author_id"     => SessionState::$user_data['m_id'],
 			"thread_id"     => Http::Request("id", true),
 			"post_date"     => time(),
@@ -242,7 +240,7 @@ class Thread extends Application
 			"quote_post_id" => (Http::Request("quote_post_id", true)) ? Http::Request("quote_post_id", true) : 0,
 			"best_answer"   => 0,
 			"first_post"    => 0
-		);
+		];
 
 		// Send attachments
 		if(Http::File("attachment")) {
@@ -254,24 +252,24 @@ class Thread extends Application
 		Database::Insert("c_posts", $post);
 
 		// Update: thread stats
-		Database::Update("c_threads", array(
+		Database::Update("c_threads", [
 			"replies = replies + 1",
 			"last_post_date = '{$post['post_date']}'",
 			"last_post_member_id = '{$post['author_id']}'"
-		), "t_id = '{$post['thread_id']}'");
+		], "t_id = '{$post['thread_id']}'");
 
 		// Update: room stats
-		Database::Update("c_rooms", array(
+		Database::Update("c_rooms", [
 			"last_post_date = '{$post['post_date']}'",
 			"last_post_thread = '{$post['thread_id']}'",
 			"last_post_member = '{$post['author_id']}'"
-		), "r_id = '{$room_id}'");
+		], "r_id = '{$room_id}'");
 
 		// Update: member stats
-		Database::Update("c_members", array(
+		Database::Update("c_members", [
 			"posts = posts + 1",
 			"last_post_date = '{$post['post_date']}'"
-		), "m_id = '{$post['author_id']}'");
+		], "m_id = '{$post['author_id']}'");
 
 		// Update: community stats
 		Database::Update("c_stats", "post_count = post_count + 1");
@@ -292,7 +290,7 @@ class Thread extends Application
 		// If we're adding a poll, build poll array
 		if(Http::Request("poll_question")) {
 			// Transform list of choices in an array
-			$replies = array();
+			$replies = [];
 			$questions = explode("\r\n", trim(Http::Request("poll_choices")));
 			$questions = array_filter($questions, "trim");
 
@@ -303,11 +301,11 @@ class Thread extends Application
 			}
 
 			// Put everything together
-			$poll_data = array(
+			$poll_data = [
 				"questions" => $questions,
 				"replies"   => $replies,
-				"voters"    => array()
-			);
+				"voters"    => []
+			];
 
 			// Serialize poll data array into JSON
 			$poll_data = json_encode($poll_data, JSON_UNESCAPED_UNICODE);
@@ -358,7 +356,7 @@ class Thread extends Application
 		}
 
 		// Insert new thread item
-		$thread = array(
+		$thread = [
 			"title"               => Http::Request("title"),
 			"slug"                => Text::Slug(htmlspecialchars_decode(Http::Request("title"), ENT_QUOTES)),
 			"author_member_id"    => SessionState::$user_data['m_id'],
@@ -376,11 +374,11 @@ class Thread extends Application
 			"poll_question"       => Http::Request("poll_question"),
 			"poll_data"           => $poll_data,
 			"poll_allow_multiple" => (isset($_POST['poll_allow_multiple'])) ? 1 : 0
-		);
+		];
 		Database::Insert("c_threads", $thread);
 
 		// Insert first post
-		$post = array(
+		$post = [
 			"author_id"   => SessionState::$user_data['m_id'],
 			"thread_id"   => Database::GetLastID(),
 			"post_date"   => $thread['last_post_date'],
@@ -388,7 +386,7 @@ class Thread extends Application
 			"post"        => str_replace("'", "&apos;", $_POST['post']),
 			"best_answer" => 0,
 			"first_post"  => 1
-		);
+		];
 
 		// Send attachments
 		if(Http::File("attachment")) {
@@ -400,21 +398,21 @@ class Thread extends Application
 
 		// Update tables
 
-		Database::Update("c_rooms", array(
+		Database::Update("c_rooms", [
 			"last_post_date = '{$post['post_date']}'",
 			"last_post_thread = '{$post['thread_id']}'",
 			"last_post_member = '{$post['author_id']}'"
-		), "r_id = '{$thread['room_id']}'");
+		], "r_id = '{$thread['room_id']}'");
 
-		Database::Update("c_stats", array(
+		Database::Update("c_stats", [
 			"post_count = post_count + 1",
 			"thread_count = thread_count + 1"
-		));
+		]);
 
-		Database::Update("c_members", array(
+		Database::Update("c_members", [
 			"posts = posts + 1",
 			"last_post_date = '{$post['post_date']}'"
-		), "m_id = '{$post['author_id']}'");
+		], "m_id = '{$post['author_id']}'");
 
 		// Redirect
 		$this->Core->Redirect("thread/" . $post['thread_id'] . "-" . $thread['slug']);
@@ -442,11 +440,11 @@ class Thread extends Application
 			Html::Error("You cannot edit a post that you did not publish.");
 		}
 
-		$post = array(
+		$post = [
 			"post"        => $_REQUEST['post'],
 			"edit_time"   => time(),
 			"edit_author" => SessionState::$user_data['m_id']
-		);
+		];
 
 		// Insert edited post on DB
 		Database::Update("c_posts", $post, "p_id = {$post_id}");
@@ -515,12 +513,12 @@ class Thread extends Application
 		Database::Update("c_threads", "locked = 1", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
-		$log = array(
+		$log = [
 			"member_id"  => SessionState::$user_data['m_id'],
 			"time"       => time(),
 			"act"        => "Locked thread: ID #" . $thread_id,
 			"ip_address" => $_SERVER['REMOTE_ADDR']
-		);
+		];
 		Database::Insert("c_logs", $log);
 
 		// Redirect
@@ -548,12 +546,13 @@ class Thread extends Application
 		Database::Update("c_threads", "locked = 0", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
-		$log = array(
+		$log = [
 			"member_id"  => SessionState::$user_data['m_id'],
 			"time"       => time(),
 			"act"        => "Unlocked thread: ID #" . $thread_id,
 			"ip_address" => $_SERVER['REMOTE_ADDR']
-		);
+		];
+
 		Database::Insert("c_logs", $log);
 
 		// Redirect
@@ -581,12 +580,12 @@ class Thread extends Application
 		Database::Update("c_threads", "announcement = 1", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
-		$log = array(
+		$log = [
 			"member_id"  => SessionState::$user_data['m_id'],
 			"time"       => time(),
 			"act"        => "Set thread ID #" . $thread_id . " as announcement",
 			"ip_address" => $_SERVER['REMOTE_ADDR']
-		);
+		];
 		Database::Insert("c_logs", $log);
 
 		// Redirect
@@ -614,12 +613,12 @@ class Thread extends Application
 		Database::Update("c_threads", "announcement = 0", "t_id = {$thread_id}");
 
 		// Register Moderation log in DB
-		$log = array(
+		$log = [
 			"member_id"  => SessionState::$user_data['m_id'],
 			"time"       => time(),
 			"act"        => "Removed thread ID #" . $thread_id . " as announcement",
 			"ip_address" => $_SERVER['REMOTE_ADDR']
-		);
+		];
 		Database::Insert("c_logs", $log);
 
 		// Redirect
@@ -656,18 +655,18 @@ class Thread extends Application
 		Database::Delete("c_threads", "t_id = {$thread_id}");
 
 		// Update community/room statistics
-		Database::Update("c_stats", array(
+		Database::Update("c_stats", [
 			"thread_count = thread_count - 1",
 			"post_count = post_count - {$deleted_posts}"
-		));
+		]);
 
 		// Register Moderation log in DB
-		$log = array(
+		$log = [
 			"member_id"  => SessionState::$user_data['m_id'],
 			"time"       => time(),
 			"act"        => "Deleted thread: ID #" . $thread_id,
 			"ip_address" => $_SERVER['REMOTE_ADDR']
-		);
+		];
 		Database::Insert("c_logs", $log);
 
 		// Redirect
@@ -846,7 +845,7 @@ class Thread extends Application
 		if(($thread_info['last_post_date'] + $obsolete_seconds) < time()) {
 			$thread_info['obsolete'] = true;
 			$thread_info['obsolete_notification'] = Html::Notification(
-				i18n::Translate("T_OBSOLETE", array($this->Core->config['thread_obsolete_value'])), "warning", true
+				i18n::Translate("T_OBSOLETE", [$this->Core->config['thread_obsolete_value']]), "warning", true
 			);
 		}
 		else {
@@ -883,7 +882,7 @@ class Thread extends Application
 				}
 			}
 
-			$poll_info = array(
+			$poll_info = [
 				"has_poll"  => true,
 				"question"  => $thread_info['poll_question'],
 				"choices"   => $poll_data['questions'],
@@ -892,16 +891,16 @@ class Thread extends Application
 				"replies_p" => $poll_data['percentage'],
 				"voters"    => $poll_data['voters'],
 				"total"     => $total
-			);
+			];
 
 			// Check if user has already voted in this poll
 			$poll_info['has_voted'] = in_array(SessionState::$user_data['m_id'], $poll_info['voters']);
 		}
 		else {
 			// If not, return false
-			$poll_info = array(
+			$poll_info = [
 				"has_poll" => false
-			);
+			];
 		}
 
 		return $poll_info;
@@ -1026,7 +1025,7 @@ class Thread extends Application
 				}
 			}
 			else {
-				$result['rank'] = array();
+				$result['rank'] = [];
 			}
 
 			// Block bad words and parse HTML entities
@@ -1070,21 +1069,21 @@ class Thread extends Application
 			// Member controls: edit or delete post
 			if($result['author_id'] == SessionState::$user_data['m_id'] || SessionState::IsAdmin()) {
 				// Edit post
-				array_push($result['post_controls'], array(
+				array_push($result['post_controls'], [
 					"url"   => "thread/edit/{$result['p_id']}",
 					"class" => "",
 					"data"  => "",
 					"icon"  => "fa-pencil",
 					"text"  => i18n::Translate("T_EDIT")
-				));
+				]);
 				// Delete post
-				array_push($result['post_controls'], array(
+				array_push($result['post_controls'], [
 					"url"   => "#deleteThreadConfirm",
 					"class" => "fancybox delete-post-button",
 					"data"  => "data-post='{$result['p_id']}' data-thread='{$this->thread_id}' data-member='{$result['author_id']}'",
 					"icon"  => "fa-ban",
 					"text"  => i18n::Translate("T_DELETE")
-				));
+				]);
 			}
 
 			// Set/uset best answer
@@ -1092,23 +1091,23 @@ class Thread extends Application
 				&& $result['author_id'] != SessionState::$user_data['m_id']) {
 				if($result['best_answer'] == 0) {
 					// Set as best answer
-					array_push($result['post_controls'], array(
+					array_push($result['post_controls'], [
 						"url"   => "thread/setbestanswer/{$result['p_id']}",
 						"class" => "",
 						"data"  => "",
 						"icon"  => "fa-thumbs-o-up",
 						"text"  => i18n::Translate("T_BEST_SET")
-					));
+					]);
 				}
 				else {
 					// Remove best answer
-					array_push($result['post_controls'], array(
+					array_push($result['post_controls'], [
 						"url"   => "thread/unsetbestanswer/{$result['p_id']}",
 						"class" => "",
 						"data"  => "",
 						"icon"  => "fa-thumbs-o-down",
 						"text"  => i18n::Translate("T_BEST_UNSET")
-					));
+					]);
 				}
 			}
 
@@ -1153,6 +1152,8 @@ class Thread extends Application
 	 */
 	private function _GetPages()
 	{
+		$pages = [];
+
 		$pages['posts_per_page'] = $this->Core->config['thread_posts_per_page'];
 		$total_posts = $this->thread_info['post_count'] - 1;
 
@@ -1176,7 +1177,7 @@ class Thread extends Application
 	private function _RelatedThreads()
 	{
 		$thread_search = explode(" ", strtolower($this->thread_info['title']));
-		$related_thread_list = array();
+		$related_thread_list = [];
 
 		foreach($thread_search as $key => $value) {
 			if(strlen($value) < 4) {
