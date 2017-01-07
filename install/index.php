@@ -34,11 +34,11 @@ $template = "";
 
 class Installer extends Database
 {
-	public $input = array();
+	public static $input = array();
 
 	public function InstallerDB()
 	{
-		$this->Connect($this->input);
+		self::Connect(self::$input);
 	}
 }
 
@@ -352,7 +352,7 @@ HTML;
 				<div class="form-group grid">
 					<label for="teste" class="col-3">Password</label>
 					<div class="col-4">
-						<input type="password" name="password" class="form-control" required>
+						<input type="password" name="password" class="form-control">
 					</div>
 				</div>
 				<div class="form-group text-center">
@@ -375,11 +375,11 @@ HTML;
 
 		// Get MySQL authentication info
 		$installer = new Installer();
-		$_SESSION['db_server']   = $installer->input['db_server']   = $_REQUEST['host'];
-		$_SESSION['db_database'] = $installer->input['db_database'] = $_REQUEST['database'];
-		$_SESSION['db_username'] = $installer->input['db_username'] = $_REQUEST['username'];
-		$_SESSION['db_password'] = $installer->input['db_password'] = $_REQUEST['password'];
-		$_SESSION['db_port']     = $installer->input['db_port']     = $_REQUEST['port'];
+		$_SESSION['db_server']   = Installer::$input['db_server']   = $_REQUEST['host'];
+		$_SESSION['db_database'] = Installer::$input['db_database'] = $_REQUEST['database'];
+		$_SESSION['db_username'] = Installer::$input['db_username'] = $_REQUEST['username'];
+		$_SESSION['db_password'] = Installer::$input['db_password'] = $_REQUEST['password'];
+		$_SESSION['db_port']     = Installer::$input['db_port']     = $_REQUEST['port'];
 
 		// Connect to database and get information
 		$installer->InstallerDB();
@@ -397,13 +397,15 @@ HTML;
 				"MySQL version is supported (installed: MySQL v{$info['mysql-version']}).", "success", true, "CHECKED!"
 			);
 			$button_lock = "";
+			$supported = true;
 		}
 		else {
 			// Show notification message about wrong MySQL version
 			$mysql_information = Html::Notification(
-				"Addictive Community requires MySQL 5.1 or higher (installed: MySQL v{$info['mysql-version']}).", "failure", true
+				"Addictive Community requires MySQL v" . MIN_SQL_VERSION . " or higher (installed: MySQL v{$info['mysql-version']}).", "failure", true
 			);
 			$button_lock = "disabled";
+			$supported = false;
 		}
 
 		// Community URL and physical path
@@ -468,98 +470,116 @@ HTML;
 		}
 
 
-		$template = <<<HTML
-			<div class="step-box">
-				<div class="prev"><h3>Step 1</h3><small>EULA</small></div>
-				<div class="prev"><h3>Step 2</h3><small>Requirements</small></div>
-				<div class="prev"><h3>Step 3</h3><small>Database Settings</small></div>
-				<div class="current"><h3>Step 4</h3><small>Community Settings</small></div>
-				<div><h3>Step 5</h3><small>Install</small></div>
-			</div>
-
-			{$mysql_information}
-
-			<form action="index.php?step=5" method="post">
-
-				<div class="form-group grid">
-					<label for="teste" class="col-3">Community Name</label>
-					<div class="col-5">
-						<input type="text" name="community" class="form-control" required>
+		if($supported) {
+			$template = <<<HTML
+				<div class="step-box">
+					<div class="prev"><h3>Step 1</h3><small>EULA</small></div>
+					<div class="prev"><h3>Step 2</h3><small>Requirements</small></div>
+					<div class="prev"><h3>Step 3</h3><small>Database Settings</small></div>
+					<div class="current"><h3>Step 4</h3><small>Community Settings</small></div>
+					<div><h3>Step 5</h3><small>Install</small></div>
+				</div>
+	
+				{$mysql_information}
+	
+				<form action="index.php?step=5" method="post">
+	
+					<div class="form-group grid">
+						<label for="teste" class="col-3">Community Name</label>
+						<div class="col-5">
+							<input type="text" name="community" class="form-control" required>
+						</div>
 					</div>
-				</div>
-
-				<h2>Default Settings</h2>
-
-				<div class="form-group grid">
-					<label for="teste" class="col-3">Language</label>
-					<div class="col-9">
-						<select name="language" class="select2 span-5">
-							{$lang_list}
-						</select>
+	
+					<h2>Default Settings</h2>
+	
+					<div class="form-group grid">
+						<label for="teste" class="col-3">Language</label>
+						<div class="col-9">
+							<select name="language" class="select2 span-5">
+								{$lang_list}
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="form-group grid">
-					<label for="teste" class="col-3">Time Zone</label>
-					<div class="col-9">
-						<select name="timezone" class="select2 span-12">
-							{$tz_list}
-						</select>
+					<div class="form-group grid">
+						<label for="teste" class="col-3">Time Zone</label>
+						<div class="col-9">
+							<select name="timezone" class="select2 span-12">
+								{$tz_list}
+							</select>
+						</div>
 					</div>
-				</div>
-
-				<h2>Paths and URLs</h2>
-
-				<div class="form-group grid">
-					<label for="teste" class="col-3">Installation Path</label>
-					<div class="col-9">
-						<input type="text" name="install_path" class="form-control" value="{$dir}" required>
+	
+					<h2>Paths and URLs</h2>
+	
+					<div class="form-group grid">
+						<label for="teste" class="col-3">Installation Path</label>
+						<div class="col-9">
+							<input type="text" name="install_path" class="form-control" value="{$dir}" required>
+						</div>
 					</div>
-				</div>
-				<div class="form-group grid">
-					<label for="teste" class="col-3">Installation Path</label>
-					<div class="col-9">
-						<input type="text" name="install_url" class="form-control" value="{$url}" required>
+					<div class="form-group grid">
+						<label for="teste" class="col-3">Installation Path</label>
+						<div class="col-9">
+							<input type="text" name="install_url" class="form-control" value="{$url}" required>
+						</div>
 					</div>
-				</div>
-
-				<h2>Administrator Account</h2>
-
-				<div class="form-group grid">
-					<label for="teste" class="col-3">Username</label>
-					<div class="col-4">
-						<input type="text" name="adm_username" class="form-control" required>
+	
+					<h2>Administrator Account</h2>
+	
+					<div class="form-group grid">
+						<label for="teste" class="col-3">Username</label>
+						<div class="col-4">
+							<input type="text" name="adm_username" class="form-control" required>
+						</div>
 					</div>
-				</div>
-				<div class="form-group grid">
-					<label for="teste" class="col-3">Password</label>
-					<div class="col-4">
-						<input type="password" name="adm_password" class="form-control" id="adm_password" required>
+					<div class="form-group grid">
+						<label for="teste" class="col-3">Password</label>
+						<div class="col-4">
+							<input type="password" name="adm_password" class="form-control" id="adm_password" required>
+						</div>
 					</div>
-				</div>
-				<div class="form-group grid">
-					<label for="teste" class="col-3">Confirm Password</label>
-					<div class="col-4">
-						<input type="password" name="adm_password2" class="form-control" id="adm_password2" onblur="checkPasswordMatch()" required>
+					<div class="form-group grid">
+						<label for="teste" class="col-3">Confirm Password</label>
+						<div class="col-4">
+							<input type="password" name="adm_password2" class="form-control" id="adm_password2" onblur="checkPasswordMatch()" required>
+						</div>
 					</div>
-				</div>
-				<div class="form-group grid">
-					<label for="teste" class="col-3">E-mail</label>
-					<div class="col-6">
-						<input type="email" name="adm_email" class="form-control" required>
+					<div class="form-group grid">
+						<label for="teste" class="col-3">E-mail</label>
+						<div class="col-6">
+							<input type="email" name="adm_email" class="form-control" required>
+						</div>
 					</div>
-				</div>
-
-				<div class="form-group text-center">
-					<input type="hidden" name="db_server" value="{$_SESSION['db_server']}">
-					<input type="hidden" name="db_database" value="{$_SESSION['db_database']}">
-					<input type="hidden" name="db_username" value="{$_SESSION['db_username']}">
-					<input type="hidden" name="db_password" value="{$_SESSION['db_password']}">
-					<input type="hidden" name="db_port" value="{$_SESSION['db_port']}">
-					<input type="submit" class="btn btn-default" value="Proceed" {$button_lock}>
-				</div>
-
-			</form>
+	
+					<div class="form-group text-center">
+						<input type="hidden" name="db_server" value="{$_SESSION['db_server']}">
+						<input type="hidden" name="db_database" value="{$_SESSION['db_database']}">
+						<input type="hidden" name="db_username" value="{$_SESSION['db_username']}">
+						<input type="hidden" name="db_password" value="{$_SESSION['db_password']}">
+						<input type="hidden" name="db_port" value="{$_SESSION['db_port']}">
+						<input type="submit" class="btn btn-default" value="Proceed" {$button_lock}>
+					</div>
+	
+				</form>
 HTML;
+		}
+		else {
+			$instructions = file_get_contents("partials/mysql_outdated.html");
+			$template = <<<HTML
+				<div class="step-box">
+					<div class="prev"><h3>Step 1</h3><small>EULA</small></div>
+					<div class="prev"><h3>Step 2</h3><small>Requirements</small></div>
+					<div class="prev"><h3>Step 3</h3><small>Database Settings</small></div>
+					<div class="current"><h3>Step 4</h3><small>Community Settings</small></div>
+					<div><h3>Step 5</h3><small>Install</small></div>
+				</div>
+	
+				{$mysql_information}
+				{$instructions}
+
+HTML;
+		}
 
 		session_destroy();
 
