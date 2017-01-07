@@ -169,7 +169,8 @@ class Text
 	 */
 	public static function Slug($string, $replacement = "-")
 	{
-		$string = transliterator_transliterate("Any-Latin; Latin-ASCII; Lower()", $string);
+		$transliteration = Transliterator::create("Any-Latin; Latin-ASCII; Lower()");
+		$string = $transliteration->transliterate($string);
 		$string = preg_replace("/[^a-zA-Z0-9\s]/", "", $string);
 		$string = preg_replace("/[\s]+/", $replacement, $string);
 
