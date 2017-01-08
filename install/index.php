@@ -392,15 +392,26 @@ HTML;
 		$sql_v = version_compare($info['mysql-version'], MIN_SQL_VERSION);
 
 		if($sql_v >= 0) {
-			// Show notification message about correct MySQL version
-			$mysql_information = Html::Notification(
-				"MySQL version is supported (installed: MySQL v{$info['mysql-version']}).", "success", true, "CHECKED!"
-			);
-			$button_lock = "";
-			$supported = true;
+			Database::Query("SHOW TABLES;");
+			if(Database::Rows() != 0) {
+				// Show notification message about wrong MySQL version
+				$instructions = "";
+				$mysql_information = Html::Notification(
+					"The selected database is not empty. Remove all existing tables and try again.", "failure", true
+				);
+				$button_lock = "disabled";
+				$supported = false;
+			}
+			else {
+				// Don' show any notification if everything is OK
+				$mysql_information = "";
+				$button_lock = "";
+				$supported = true;
+			}
 		}
 		else {
 			// Show notification message about wrong MySQL version
+			$instructions = file_get_contents("partials/mysql_outdated.html");
 			$mysql_information = Html::Notification(
 				"Addictive Community requires MySQL v" . MIN_SQL_VERSION . " or higher (installed: MySQL v{$info['mysql-version']}).", "failure", true
 			);
@@ -565,7 +576,6 @@ HTML;
 HTML;
 		}
 		else {
-			$instructions = file_get_contents("partials/mysql_outdated.html");
 			$template = <<<HTML
 				<div class="step-box">
 					<div class="prev"><h3>Step 1</h3><small>EULA</small></div>
