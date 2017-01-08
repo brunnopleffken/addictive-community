@@ -338,12 +338,6 @@ HTML;
 					</div>
 				</div>
 				<div class="form-group grid">
-					<label for="teste" class="col-3">Database Name</label>
-					<div class="col-4">
-						<input type="text" name="database" class="form-control" required>
-					</div>
-				</div>
-				<div class="form-group grid">
 					<label for="teste" class="col-3">Username</label>
 					<div class="col-4">
 						<input type="text" name="username" class="form-control" required>
@@ -353,6 +347,12 @@ HTML;
 					<label for="teste" class="col-3">Password</label>
 					<div class="col-4">
 						<input type="password" name="password" class="form-control">
+					</div>
+				</div>
+				<div class="form-group grid">
+					<label for="teste" class="col-3">Database Name</label>
+					<div class="col-4">
+						<input type="text" name="database" class="form-control" required>
 					</div>
 				</div>
 				<div class="form-group text-center">
@@ -530,7 +530,7 @@ HTML;
 						</div>
 					</div>
 					<div class="form-group grid">
-						<label for="teste" class="col-3">Installation Path</label>
+						<label for="teste" class="col-3">Installation URL</label>
 						<div class="col-9">
 							<input type="text" name="install_url" class="form-control" value="{$url}" required>
 						</div>
