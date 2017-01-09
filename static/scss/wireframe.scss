@@ -468,8 +468,8 @@ header {
 			background-color: #f6f6f6;
 			border: 1px solid $default-lighter;
 			border-width: 1px 0;
-			overflow: auto;
 			padding: 10px;
+			height: 72px;
 			&-avatar {
 				border: 1px solid $default-lighter;
 				float: left;
@@ -494,12 +494,49 @@ header {
 			}
 			&-share {
 				float: right;
+				height: 35px;
+				position: relative;
+				&:hover {
+					& > div {
+						display: block;
+					}
+				}
 				a {
 					color: $default-lighter;
 					font-size: 20px;
 					transition: 300ms;
-					&:hover {
-						color: $default-light;
+					&:hover { color: $default-light; }
+				}
+				&-box {
+					background-color: #fff;
+					display: none;
+					position: absolute;
+					right: -15px;
+					top: 35px;
+					z-index: 999;
+					white-space: nowrap;
+					&:before {
+						border-style: solid;
+						border-width: 0 10px 10px 10px;
+						border-color: transparent transparent #fff transparent;
+						content: ('');
+						height: 0;
+						position: absolute;
+						right: 15px;
+						text-shadow: 1px 1px 10px #000;
+						top: -10px;
+						width: 0;
+					}
+					a {
+						display: inline-block;
+						font-size: 30px;
+						margin-left: 5px;
+						&:first-child { margin: 0; }
+						&.fb { color: #3b5998; }
+						&.tw { color: #1da1f2; }
+						&.rd { color: #ff4500; }
+						&.gp { color: #ff4500; }
+						&.ln { color: #0077b5; }
 					}
 				}
 			}

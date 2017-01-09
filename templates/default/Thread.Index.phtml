@@ -1,17 +1,24 @@
 <?= $thread_info['obsolete_notification'] ?>
 <div class="block padding-no thread">
-	<div class="thread-post-author pull-clear">
+	<div class="thread-post-author">
 		<img src="http://www.gravatar.com/avatar/d4863bc04b657b65c24b02aa0b62f32e?s=100&d=mm&r=g" class="thread-post-author-avatar">
 		<div class="thread-post-author-info">
 			<a href="profile/<?= $first_post_info['m_id'] ?>"><?= $first_post_info['username'] ?></a>
 			<span>
 				<?= $first_post_info['posts'] ?> <?php __("T_POSTS_LOWCASE") ?> &middot;
-				<?php __("T_POST_REGISTERED") ?>: <?= $first_post_info['joined'] ?>
+				<?= __("T_POST_REGISTERED") . ": " . $first_post_info['joined'] ?>
 			</span>
 			<span><?= $first_post_info['location'] ?></span>
 		</div>
 		<div class="thread-post-author-share">
 			<a href="#"><i class="fa fa-share-alt"></i></a>
+			<div class="block thread-post-author-share-box">
+				<a href="https://www.facebook.com/sharer/sharer.php?u=<?= $url ?>" class="fb"><i class="fa fa-facebook-square"></i></a>
+				<a href="http://twitter.com/share?text=<?= $first_post_info['title'] ?>&url=<?= $url ?>" class="tw"><i class="fa fa-twitter-square"></i></a>
+				<a href="http://www.reddit.com/submit?url=<?= $url ?>" class="rd"><i class="fa fa-reddit-square"></i></a>
+				<a href="https://plus.google.com/share?url=<?= $url ?>" class="gp"><i class="fa fa-google-plus-square"></i></a>
+				<a href="http://www.linkedin.com/shareArticle?mini=true&url=<?= $url ?>" class="ln"><i class="fa fa-linkedin-square"></i></a>
+			</div>
 		</div>
 	</div>
 	<div class="thread-post-content">

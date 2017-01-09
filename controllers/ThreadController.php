@@ -107,6 +107,7 @@ class Thread extends Application
 
 		$this->Set("thread_id", $this->thread_id);
 		$this->Set("thread_info", $this->thread_info);
+		$this->Set("url", urlencode($this->Core->CanonicalTag($this->thread_id)));
 		$this->Set("notification", $notification[$message_id]);
 		$this->Set("has_date_notification", $has_date_notification);
 		$this->Set("enable_signature", $this->Core->config['general_member_enable_signature']);

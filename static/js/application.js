@@ -91,16 +91,18 @@ $(document).ready(function($) {
 	 * BUILD LIGHTBOX WHEN LINK HAS .fancybox
 	 */
 
-	try {
-		$('.fancybox').fancybox({
-			autoSize: true,
-			closeBtn: false,
-			modal: true,
-			padding: 2
-		});
-	} catch(e) {
-		console.log(e);
-	}
+	(function() {
+		try {
+			$('.fancybox').fancybox({
+				autoSize: true,
+				closeBtn: false,
+				modal: true,
+				padding: 2
+			});
+		} catch(e) {
+			console.log(e);
+		}
+	}).call(this);
 
 	/**
 	 * USER CONTROL PANEL FUNCTIONS
@@ -348,6 +350,18 @@ $(document).ready(function($) {
 				$(this).removeClass('error');
 				$('input[type=submit]').removeAttr('disabled');
 			}
+		});
+	}).call(this);
+
+    /**
+	 * SOCIAL LINKS
+     */
+
+	(function() {
+		$('.thread-post-author-share-box a').on('click', function(event) {
+			var url = $(event.currentTarget).attr('href');
+			window.open(url, 'socialLinks', 'toolbar=no,width=550,height=550');
+			event.preventDefault();
 		});
 	}).call(this);
 
