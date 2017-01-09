@@ -47,7 +47,6 @@ class Main
 
 	// Page content
 	private $content;
-	private $head;
 
 	// Defined variables inside controller
 	private $view_data;
