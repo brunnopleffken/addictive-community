@@ -123,16 +123,18 @@ class Core
 
 	/**
 	 * --------------------------------------------------------------------
-	 * CREATE CANONICAL TAG URL
+	 * BREADCRUMB GENERATOR
 	 * --------------------------------------------------------------------
 	 */
-	public function Breadcrumb($page_info = array())
+	public function Breadcrumb($breadcrumb_path = array())
 	{
-		$breadcrumb = "";
+		$url = $this->config['general_community_url'];
+		$name = $this->config['general_community_name'];
+		$breadcrumb = "<li><a href='{$url}'>{$name}</a></li>";
 
-		if(!empty($page_info)) {
-			foreach($page_info['bc'] as $item) {
-				$breadcrumb .= " " . $this->config['general_bread_separator'] . " " . $item;
+		if(!empty($breadcrumb_path)) {
+			foreach($breadcrumb_path['bc'] as $item) {
+				$breadcrumb .= "<li>{$item}</li>";
 			}
 		}
 
@@ -141,7 +143,7 @@ class Core
 
 	/**
 	 * --------------------------------------------------------------------
-	 * CREATE CANONICAL TAG URL
+	 * SET HTML <TITLE> CONTENT
 	 * --------------------------------------------------------------------
 	 */
 	public function PageTitle($page_info = array())
