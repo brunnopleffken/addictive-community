@@ -45,6 +45,9 @@ h2 {
 
 p {
 	line-height: 1.4em;
+	&:not(:last-child) {
+		margin-bottom: 0.3em;
+	}
 }
 
 mark {

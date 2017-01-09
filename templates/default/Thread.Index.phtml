@@ -33,6 +33,9 @@
 				</div>
 			</div>
 		<?php endif; ?>
+		<div class="thread-post-content-signature">
+			<?= $first_post_info['signature'] ?>
+		</div>
 	</div>
 
 	<?php if($thread_info['poll']['has_poll']): ?>
@@ -198,6 +201,9 @@
 							</div>
 						</div>
 					<?php endif; ?>
+					<div class="thread-reply-content-body-signature">
+						<?= $reply[$k]['signature'] ?>
+					</div>
 				</div>
 			</div>
 			<div class="thread-reply-options pull-clear">

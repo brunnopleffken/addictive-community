@@ -513,8 +513,14 @@ header {
 				& > * {
 					line-height: 1.4em;
 				}
-				p:not(:last-child) {
-					margin-bottom: 5px;
+			}
+			&-signature {
+				color: $default;
+				font-size: 12px;
+				&:before {
+					content: ('---');
+					display: block;
+					margin: 10px 0;
 				}
 			}
 		}
@@ -708,8 +714,14 @@ header {
 					& > * {
 						line-height: 1.4em;
 					}
-					p:not(:last-child) {
-						margin-bottom: 5px;
+				}
+				&-signature {
+					color: $default;
+					font-size: 12px;
+					&:before {
+						content: ('---');
+						display: block;
+						margin: 10px 0;
 					}
 				}
 			}
