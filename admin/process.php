@@ -305,7 +305,7 @@ switch($do) {
 
 	case "edit_css":
 		$handle = fopen(Http::Request("css_file"), "w");
-		$file_content = html_entity_decode(Http::Request("css"), ENT_QUOTES);
+		$file_content = $_POST['css'];
 
 		if(fwrite($handle, $file_content)) {
 			fclose($handle);

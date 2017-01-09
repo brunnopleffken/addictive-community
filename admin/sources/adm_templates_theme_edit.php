@@ -23,12 +23,12 @@ $filename = "../themes/" . $themes['directory'] . "/css/theme.css";
 // Notifications
 $not_writable = false;
 $notification = Html::Notification(
-	"The Element Inspector (DevTools) of your browser is your friend. Use it to isolate specific elements or tags and view the corresponding CSS styles.", "info"
+	"The Developer Tools of your browser is your friend. Use it to identify specific UI elements and get the corresponding CSS selectors.", "info"
 );
 
 if(!is_writable($filename)) {
 	$notification = Html::Notification(
-		"The file <b>../themes/{$themes['directory']}/css/main.css</b> should be writable (CHMOD 777).", "failure"
+		"The file <b>../themes/{$themes['directory']}/css/theme.css</b> should be writable (CHMOD 777).", "failure"
 	);
 	$not_writable = true;
 }
@@ -42,28 +42,28 @@ $content = file_get_contents($filename);
 
 <div class="block">
 	<?php echo $notification; ?>
-	<div class="grid-row">
-		<form action="process.php?do=edit_css" method="post">
-			<?php if(!$not_writable): ?>
-				<table class="table">
+	<form action="process.php?do=edit_css" method="post">
+		<?php if(!$not_writable): ?>
+			<table class="table">
+				<thead>
 					<tr>
 						<th colspan="10">
-							<div class="fleft">Edit CSS</div>
+							<div class="fleft">CSS File Content</div>
 						</th>
 					</tr>
-					<tr>
-						<td>
-							<textarea name="css" id="css" style="width: 920px; height: 500px; font-family: Consolas, Menlo, monospace"><?php echo $content ?></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="hidden" name="css_file" value="<?php echo $filename ?>">
-							<div class="fright"><input type="submit" value="Done"></div>
-						</td>
-					</tr>
-				</table>
-			<?php endif; ?>
-		</form>
-	</div>
+				</thead>
+				<tr>
+					<td>
+						<textarea name="css" id="css" style="width: 1040px; height: 500px; font-family: Consolas, Menlo, monospace"><?php echo $content ?></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right">
+						<input type="hidden" name="css_file" value="<?php echo $filename ?>">
+						<input type="submit" class="btn btn-default" value="Save File">
+					</td>
+				</tr>
+			</table>
+		<?php endif; ?>
+	</form>
 </div>
