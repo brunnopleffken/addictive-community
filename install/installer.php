@@ -112,11 +112,10 @@ db_port = {$data['db_port']}";
 	case 2:
 		// Get brand new config.ini file
 		$config = parse_ini_file("../config.ini");
-		$Db = new Database();
 
 		// Try to connect to database using config.ini data
-		$database_link = $Db->Connect($config);
-		$status      = ($database_link) ? 1 : 0;
+		$database_link = Database::Connect($config);
+		$status = ($database_link) ? 1 : 0;
 		$description = "Check information and connect to database";
 		break;
 
@@ -130,8 +129,7 @@ db_port = {$data['db_port']}";
 	case 3:
 		// Get config file and connect to Database
 		$config = parse_ini_file("../config.ini");
-		$Db = new Database();
-		$Db->Connect($config);
+		Database::Connect($config);
 
 		// Avoid PHP timeout
 		set_time_limit(0);
@@ -144,7 +142,7 @@ db_port = {$data['db_port']}";
 			$queries = GetStatements($file);
 
 			foreach($queries as $value) {
-				$query = $Db->Query($value);
+				$query = Database::Query($value);
 			}
 
 			$status = ($query) ? 1 : 0;
@@ -166,8 +164,7 @@ db_port = {$data['db_port']}";
 	case 4:
 		// Get config file and connect to Database
 		$config = parse_ini_file("../config.ini");
-		$Db = new Database();
-		$Db->Connect($config);
+		Database::Connect($config);
 		$errors = false;
 
 		// Generate a random security hash and key
@@ -182,7 +179,7 @@ db_port = {$data['db_port']}";
 			$queries = GetStatements($file);
 
 			foreach($queries as $value) {
-				$query = $Db->Query($value);
+				$query = Database::Query($value);
 				if(!$query) {
 					$errors = true;
 				}
@@ -261,7 +258,7 @@ db_port = {$data['db_port']}";
 		$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('language_bad_words_replacement', '#####');";
 
 		foreach($sql as $value) {
-			$query = $Db->Query($value);
+			$query = Database::Query($value);
 			if(!$query) {
 				$errors = true;
 			}
@@ -281,12 +278,11 @@ db_port = {$data['db_port']}";
 	case 5:
 		// Get config file and connect to Database
 		$config = parse_ini_file("../config.ini");
-		$Db = new Database();
-		$Db->Connect($config);
+		Database::Connect($config);
 
 		// Get security hash key
-		$Db->Query("SELECT * FROM c_config c WHERE field = 'security_salt_hash' OR field = 'security_salt_key';");
-		$_salt = $Db->FetchToArray();
+		Database::Query("SELECT * FROM c_config c WHERE field = 'security_salt_hash' OR field = 'security_salt_key';");
+		$_salt = Database::FetchToArray();
 
 		$salt = array(
 			"hash" => $_salt[0]['value'],
@@ -305,7 +301,7 @@ db_port = {$data['db_port']}";
 
 		$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_facebook`, `im_twitter`, `posts`, `last_post_date`, `signature`, `template`, `theme`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', 1, 1367848084, '', 'default', 'default-light', '{$data['default_language']}', NULL, NULL, 0, '{$data['default_timezone']}', 0, 1, 1, '')";
 
-		$insert_admin = $Db->Query($insert_admin_query);
+		$insert_admin = Database::Query($insert_admin_query);
 
 		$status      = ($insert_admin) ? 1 : 0;
 		$description = "Save user information";
