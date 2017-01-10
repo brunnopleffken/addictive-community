@@ -233,13 +233,14 @@ header {
 	}
 	&-info {
 		flex: 1;
-		padding: 12px 10px 10px 0;
+		padding: 10px 10px 10px 0;
 		&-title {
 			display: inline-block;
 			font-size: 20px;
 			font-weight: bold;
 			letter-spacing: 0.05em;
 			margin-bottom: 10px;
+			white-space: nowrap;
 		}
 		&-description {
 			font-size: 12px;
