@@ -5,7 +5,7 @@ Addictive Community
 
 Free open-source discussion board (forum) software, written in object-oriented PHP. Huge advancements were made in our Beta releases and we're working hard to bring new exciting features and important improvements! Read our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md) and be part of it.
 
-![Addictive Community](https://raw.githubusercontent.com/brunnopleffken/addictive-community/3fd1ec6003d1bcb647dc1e36a89dd0506b81a5f1/templates/default/images/screenshot.png)
+![Addictive Community](https://raw.githubusercontent.com/brunnopleffken/addictive-community/development/static/images/screenshot.png)
 
 ## Highlight features
 
@@ -34,12 +34,12 @@ Free open-source discussion board (forum) software, written in object-oriented P
 
 *NOTE #2: For production environment never use `git clone` nor download ZIP from `development` branch. Always download the ZIP file of the [latest official release](https://github.com/brunnopleffken/addictive-community/releases).*
 
-### Requirements
+## Requirements
 
-* Apache 2 webserver running on any major operating system;
+* Apache 2 running on any major operating system;
 * Enabled Apache mod_rewrite;
 * PHP 5.4 or higher;
-* MySQL 5.1 or higher.
+* MySQL 5.6 or higher.
 
 #### This is a Beta version!
 
@@ -51,6 +51,6 @@ We're currently working on automatic updates to be released before the first Fin
 
 We're glad you're interested to help develop Addictive Community. Be part of it reading our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md).
 
-## About the Author
+## Thanks!
 
-Addictive Community is successfully built by the GitHub community! I may have started the project by myself, but it has developed and grown with the help of our developer friends.
+Addictive Community is successfully built by the GitHub community! I may have started the project by myself, but it has grown and developed with the huge help of our developer friends. Thank you all!
