@@ -224,10 +224,9 @@ class Register extends Application
 	public function captcha()
 	{
 		// Build random word
-		$word    = "  ";
+		$word = "";
 		$letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-		$len     = strlen($letters);
-		$letter  = $letters[mt_rand(0, $len - 1)];
+		$len = strlen($letters);
 
 		for ($i = 0; $i < 6; $i++) {
 			$letter = $letters[mt_rand(0, $len - 1)];
@@ -252,7 +251,6 @@ class Register extends Application
 
 		$white = ImageColorAllocate($tmp, 255, 255, 255);
 		$black = ImageColorAllocate($tmp, 0, 0, 0);
-		$grey  = ImageColorAllocate($tmp, 210, 210, 210);
 
 		imagefill($tmp, 0, 0, $white);
 
@@ -278,13 +276,12 @@ class Register extends Application
 		}
 
 		// Render string
-		imagestring($tmp, 5, mt_rand(0, 20), 2, $word, $black);
+		imagestring($tmp, 5, mt_rand(5, 60), mt_rand(0, 5), $word, $black);
 
 		// Distort by resizing
 		imagecopyresized($im, $tmp, 0, 0, 0, 0, $image_x, $image_y, $tmp_x, $tmp_y);
 		imagedestroy($tmp);
 
-		$white = ImageColorAllocate($im, 255, 255, 255);
 		$black = ImageColorAllocate($im, 0, 0, 0);
 		$grey  = ImageColorAllocate($im, 100, 100, 100);
 
@@ -313,6 +310,6 @@ class Register extends Application
 		ImageJPEG($im);
 		ImageDestroy($im);
 
-		exit();
+		exit;
 	}
 }
