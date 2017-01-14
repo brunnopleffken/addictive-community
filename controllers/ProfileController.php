@@ -61,7 +61,7 @@ class Profile extends Application
 	 * VIEW PROFILE MAIN PAGE
 	 * --------------------------------------------------------------------
 	 */
-	public function index($id)
+	public function index()
 	{
 		// Birthday and age
 		$has_birthday = ($this->info['b_year']) ? true : false;

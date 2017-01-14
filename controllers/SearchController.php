@@ -109,7 +109,7 @@ class Search extends Application
 
 		if(Database::rows() >= 100) {
 			// Too many results
-			$warning = Html::notification("There are too many results for this search. Please try your search again with more specific keywords.", "warning", true);
+			// $warning = Html::notification("There are too many results for this search. Please try your search again with more specific keywords.", "warning", true);
 		}
 		else {
 			while($result = Database::fetch()) {

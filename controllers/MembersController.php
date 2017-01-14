@@ -26,7 +26,6 @@ class Members extends Application
 	 */
 	public function index()
 	{
-		$selected = "";
 		$letter_list = "";
 
 		// Yes. The alphabet...
