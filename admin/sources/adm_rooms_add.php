@@ -16,9 +16,9 @@ use \AC\Kernel\Database;
 // ---------------------------------------------------
 
 $categories = "";
-Database::Query("SELECT * FROM c_categories");
+Database::query("SELECT * FROM c_categories");
 
-while($_result = Database::Fetch()) {
+while($_result = Database::fetch()) {
 	$categories .= "<option value='{$_result['c_id']}'>{$_result['name']}</option>";
 }
 
@@ -30,12 +30,12 @@ while($_result = Database::Fetch()) {
 
 function MatrixView()
 {
-	Database::Query("SELECT * FROM c_usergroups;");
+	Database::query("SELECT * FROM c_usergroups;");
 
 	$title = "";
 	$checkboxes = "";
 
-	while($view_g = Database::Fetch()) {
+	while($view_g = Database::fetch()) {
 		$title .= "<td>{$view_g['name']}</td>";
 
 		if($view_g['view_board'] == 1) {
@@ -59,12 +59,12 @@ function MatrixView()
 
 function MatrixPost()
 {
-	Database::Query("SELECT * FROM c_usergroups;");
+	Database::query("SELECT * FROM c_usergroups;");
 
 	$title = "";
 	$checkboxes = "";
 
-	while($view_g = Database::Fetch()) {
+	while($view_g = Database::fetch()) {
 		$title .= "<td>{$view_g['name']}</td>";
 
 		if($view_g['post_new_threads'] == 1) {
@@ -89,12 +89,12 @@ function MatrixPost()
 
 function MatrixReply()
 {
-	Database::Query("SELECT * FROM c_usergroups;");
+	Database::query("SELECT * FROM c_usergroups;");
 
 	$title = "";
 	$checkboxes = "";
 
-	while($view_g = Database::Fetch()) {
+	while($view_g = Database::fetch()) {
 		$title .= "<td>{$view_g['name']}</td>";
 
 		if($view_g['reply_threads'] == 1) {

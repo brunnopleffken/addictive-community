@@ -16,14 +16,14 @@ use \AC\Kernel\Template;
 
 // Messages
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The categories has been successfully updated.", "success");
+		$message = Html::notification("The categories has been successfully updated.", "success");
 		break;
 	case 2:
-		$message = Html::Notification("The room has been successfully removed and all its rooms were moved to the first category.", "success");
+		$message = Html::notification("The room has been successfully removed and all its rooms were moved to the first category.", "success");
 		break;
 	default:
 		$message = "";
@@ -33,9 +33,9 @@ switch($msg) {
 
 // Get list of categories
 
-$categories = Database::Query("SELECT * FROM c_categories ORDER BY c_id;");
+$categories = Database::query("SELECT * FROM c_categories ORDER BY c_id;");
 
-while($category = Database::Fetch($categories)) {
+while($category = Database::fetch($categories)) {
 	$checked = ($category['visible'] == 1) ? "checked='checked'" : "";
 
 	if($categories->num_rows > 1) {
@@ -45,7 +45,7 @@ while($category = Database::Fetch($categories)) {
 		$remove = "";
 	}
 
-	Template::Add("<tr>
+	Template::add("<tr>
 			<td class='min'><input type='number' name='category[{$category['c_id']}][order_n]' value='{$category['order_n']}' class='form-control' style='width: 50px'></td>
 			<td><b>{$category['name']}</b></td>
 			<td class='min text-center'>
@@ -75,7 +75,7 @@ while($category = Database::Fetch($categories)) {
 						<td class="min">Delete</td>
 					</tr>
 				</thead>
-				<?php echo Template::Get(); ?>
+				<?php echo Template::get(); ?>
 			</table>
 			<div class="text-right">
 				<input type="submit" class="btn btn-default" value="Update Categories">

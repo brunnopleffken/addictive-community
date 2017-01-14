@@ -36,7 +36,7 @@ class SessionState extends Session
 	 * Initialize a new session state
 	 * --------------------------------------------------------------------
 	 */
-	public static function Initialize($controller_name)
+	public static function initialize($controller_name)
 	{
 		// Start new or resume existing session
 		session_start();
@@ -54,37 +54,37 @@ class SessionState extends Session
 	 * Update session; or create a new one
 	 * --------------------------------------------------------------------
 	 */
-	public static function UpdateSession()
+	public static function updateSession()
 	{
-		$has_session = Session::Retrieve("session_token") ? true : false;
+		$has_session = Session::retrieve("session_token") ? true : false;
 
 		if(!$has_session) {
 			// Create new session ID
 			self::$session_token = md5(uniqid(mt_rand(), true));
-			Session::Write("session_token", self::$session_token);
+			Session::write("session_token", self::$session_token);
 		}
 		else {
 			// Get existing session ID
-			self::$session_token = Session::Retrieve("session_token");
+			self::$session_token = Session::retrieve("session_token");
 		}
 
-		if(self::GetCookie("member_id")) {
+		if(self::getCookie("member_id")) {
 			// User is logged in, manage member session
-			self::UpdateMemberSession();
+			self::updateMemberSession();
 		}
 		else {
 			if($has_session) {
 				// Is not a member; has session
-				self::GuestSession();
+				self::guestSession();
 			}
 			else {
 				// Is not a member; and has no session
-				self::GuestSession();
+				self::guestSession();
 			}
 		}
 
 		// After everything, created new sessions, updated the existing ones, delete all expired sessions
-		Database::Delete("c_sessions",
+		Database::delete("c_sessions",
 			"session_token <> '" . self::$session_token . "' AND activity_time < '" . self::$session_activity_cut . "'"
 		);
 	}
@@ -94,10 +94,10 @@ class SessionState extends Session
 	 * Create a brand new member session
 	 * --------------------------------------------------------------------
 	 */
-	public static function CreateMemberSession($member_info)
+	public static function createMemberSession($member_info)
 	{
 		// Delete all existing rows in DB with the same member or session ID
-		Database::Delete("c_sessions",
+		Database::delete("c_sessions",
 			"session_token = '{$member_info['session_token']}' OR member_id = '{$member_info['m_id']}'"
 		);
 
@@ -115,14 +115,14 @@ class SessionState extends Session
 		);
 
 		// Create new cookie with member ID
-		self::CreateCookie("member_id", $member_info['m_id'], $persistent);
+		self::createCookie("member_id", $member_info['m_id'], $persistent);
 
 		// Create new sessions for read/unread threads
-		self::CreateCookie("login_time", time(), 1);
-		self::CreateCookie("read_threads", json_encode(array()), 1);
+		self::createCookie("login_time", time(), 1);
+		self::createCookie("read_threads", json_encode(array()), 1);
 
 		// Insert new information in DB
-		Database::Insert("c_sessions", $session);
+		Database::insert("c_sessions", $session);
 	}
 
 	/**
@@ -130,9 +130,9 @@ class SessionState extends Session
 	 * Update a guest session (create it if it doesn't exist)
 	 * --------------------------------------------------------------------
 	 */
-	private static function GuestSession()
+	private static function guestSession()
 	{
-		Database::Query("INSERT INTO c_sessions
+		Database::query("INSERT INTO c_sessions
 			(session_token, member_id, ip_address, activity_time, usergroup, anonymous) VALUES
 			('" . self::$session_token . "', 0, '" . getenv("REMOTE_ADDR") . "', '" . time() . "', 5, 0)
 			ON DUPLICATE KEY UPDATE activity_time = '" . time() . "', location_controller = '" . self::$controller_name . "';");
@@ -149,10 +149,10 @@ class SessionState extends Session
 	 * Cookie 'member_id' must match the 'session_token'
 	 * --------------------------------------------------------------------
 	 */
-	private static function UpdateMemberSession()
+	private static function updateMemberSession()
 	{
-		$session_token = Session::Retrieve("session_token");
-		$member_id = Session::GetCookie("member_id");
+		$session_token = Session::retrieve("session_token");
+		$member_id = Session::getCookie("member_id");
 
 		// Fields to select from c_members
 		// These fields are required globally in Addictive Community
@@ -161,30 +161,30 @@ class SessionState extends Session
 			"template","time_offset", "language", "photo", "photo_type"
 		]);
 
-		$find_member = Database::Query("SELECT * FROM c_sessions
+		$find_member = Database::query("SELECT * FROM c_sessions
 			WHERE session_token = '{$session_token}' AND member_id = '{$member_id}';");
 
-		if(Database::Rows($find_member)) {
+		if(Database::rows($find_member)) {
 			// Get and save user information for later use
-			Database::Query("SELECT {$fields} FROM c_members WHERE m_id = {$member_id};");
-			self::$user_data = Database::Fetch();
+			Database::query("SELECT {$fields} FROM c_members WHERE m_id = {$member_id};");
+			self::$user_data = Database::fetch();
 
 			// Update activity time and controller
 			$now = time();
-			Database::Query("UPDATE c_sessions
+			Database::query("UPDATE c_sessions
 				SET activity_time = '{$now}', location_controller = '" . self::$controller_name . "'
 				WHERE session_token = '{$session_token}';");
 		}
 		else {
-			$member_id = SessionState::GetCookie("member_id");
+			$member_id = SessionState::getCookie("member_id");
 
 			// Delete session from the database (if any)
-			Database::Delete("c_sessions", "member_id = {$member_id}");
+			Database::delete("c_sessions", "member_id = {$member_id}");
 
 			// Destroy cookies
-			SessionState::UnloadCookie("member_id");
-			SessionState::UnloadCookie("login_time");
-			SessionState::UnloadCookie("read_threads");
+			SessionState::unloadCookie("member_id");
+			SessionState::unloadCookie("login_time");
+			SessionState::unloadCookie("read_threads");
 
 			// Redirect
 			header("Location: /");
@@ -196,7 +196,7 @@ class SessionState extends Session
 	 * Return true if session belongs to a logged in member
 	 * --------------------------------------------------------------------
 	 */
-	public static function IsMember()
+	public static function isMember()
 	{
 		if(self::$user_data['m_id'] != 0) {
 			return true;
@@ -209,7 +209,7 @@ class SessionState extends Session
 	 * Return true if logged in member is an Administrator
 	 * --------------------------------------------------------------------
 	 */
-	public static function IsAdmin()
+	public static function isAdmin()
 	{
 		if(self::$user_data['m_id'] != 0 && self::$user_data['usergroup'] == 1) {
 			return true;
@@ -222,7 +222,7 @@ class SessionState extends Session
 	 * Redirect to HTTP 403 if user is a guest
 	 * --------------------------------------------------------------------
 	 */
-	public static function NoGuest()
+	public static function noGuest()
 	{
 		if(self::$user_data['usergroup'] == 5) {
 			header("Location: /403");

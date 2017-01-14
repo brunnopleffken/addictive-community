@@ -38,7 +38,7 @@ class Installer extends Database
 
 	public function InstallerDB()
 	{
-		self::Connect(self::$input);
+		self::connect(self::$input);
 	}
 }
 
@@ -80,7 +80,7 @@ switch($step){
 
 		if(file_exists(".lock")) {
 			$disabled = "disabled";
-			$notification = Html::Notification(
+			$notification = Html::notification(
 				"Installer is locked! Please, remove the file <b>install/.lock</b> to proceed.", "failure", true
 			);
 			$button  = "<input type='button' class='btn btn-default' value='Proceed' disabled>";
@@ -131,7 +131,7 @@ HTML;
 
 	case 2:
 
-		$mysql_information = Html::Notification(
+		$mysql_information = Html::notification(
 			"MySQL version will be checked in step 4.", "info", true
 		);
 
@@ -242,7 +242,7 @@ HTML;
 		$folders .= "</table>";
 
 		if($disabled != "") {
-			$notification = Html::Notification(
+			$notification = Html::notification(
 				"There are still some things to do on your server environment.", "failure", true
 			);
 		}
@@ -300,14 +300,14 @@ HTML;
 		// Second barrier to stop any unwanted reinstall
 
 		if(file_exists(".lock")) {
-			echo Html::Notification(
+			echo Html::notification(
 				"Installer is locked! Please, remove the file <b>install/.lock</b> to proceed.", "failure", true
 			);
 			exit;
 		}
 
 		// Show notification message about tables prefixes
-		$notification = Html::Notification(
+		$notification = Html::notification(
 			"All tables are prefixed with <b>c_</b>.", "info", true
 		);
 
@@ -383,8 +383,8 @@ HTML;
 
 		// Connect to database and get information
 		$installer->InstallerDB();
-		$installer->Query("SELECT VERSION() AS mysql_version;");
-		$result = $installer->Fetch();
+		$installer->query("SELECT VERSION() AS mysql_version;");
+		$result = $installer->fetch();
 
 		preg_match("#[0-9]+\.[0-9]+\.[0-9]+#", $result['mysql_version'], $mysql_version);
 		$info['mysql-version'] = $mysql_version[0];
@@ -392,11 +392,11 @@ HTML;
 		$sql_v = version_compare($info['mysql-version'], MIN_SQL_VERSION);
 
 		if($sql_v >= 0) {
-			Database::Query("SHOW TABLES;");
-			if(Database::Rows() != 0) {
+			Database::query("SHOW TABLES;");
+			if(Database::rows() != 0) {
 				// Show notification message about wrong MySQL version
 				$instructions = "";
-				$mysql_information = Html::Notification(
+				$mysql_information = Html::notification(
 					"The selected database is not empty. Remove all existing tables and try again.", "failure", true
 				);
 				$button_lock = "disabled";
@@ -412,7 +412,7 @@ HTML;
 		else {
 			// Show notification message about wrong MySQL version
 			$instructions = file_get_contents("partials/mysql_outdated.html");
-			$mysql_information = Html::Notification(
+			$mysql_information = Html::notification(
 				"Addictive Community requires MySQL v" . MIN_SQL_VERSION . " or higher (installed: MySQL v{$info['mysql-version']}).", "failure", true
 			);
 			$button_lock = "disabled";

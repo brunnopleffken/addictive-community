@@ -17,7 +17,7 @@ use \AC\Kernel\Http;
 // Execute queries, if defined
 // ---------------------------------------------------
 
-$execute = (Http::Request("execute")) ? Http::Request("execute") : false;
+$execute = (Http::request("execute")) ? Http::request("execute") : false;
 
 if($execute) {
 	switch($execute) {
@@ -27,16 +27,16 @@ if($execute) {
 
 			// Update member count
 
-			Database::Query("SELECT COUNT(*) AS count FROM c_members;");
-			$total = Database::Fetch();
+			Database::query("SELECT COUNT(*) AS count FROM c_members;");
+			$total = Database::fetch();
 			$total = $total['count'];
 
-			Database::Query("UPDATE c_stats SET member_count = '{$total}';");
+			Database::query("UPDATE c_stats SET member_count = '{$total}';");
 
 			// Exit
 
-			$Admin->RegisterLog("Executed system optimization: member counting.");
-			echo Html::Notification("Registered members have been successfully recounted.", "success");
+			$Admin->registerLog("Executed system optimization: member counting.");
+			echo Html::notification("Registered members have been successfully recounted.", "success");
 
 			break;
 
@@ -46,36 +46,36 @@ if($execute) {
 
 			// Update posts
 
-			Database::Query("SELECT COUNT(*) AS count FROM c_posts;");
-			$total = Database::Fetch();
+			Database::query("SELECT COUNT(*) AS count FROM c_posts;");
+			$total = Database::fetch();
 			$total = $total['count'];
 
-			Database::Query("UPDATE c_stats SET post_count = '{$total}';");
+			Database::query("UPDATE c_stats SET post_count = '{$total}';");
 
 			// Update threads
 
-			Database::Query("SELECT COUNT(*) AS count FROM c_threads;");
-			$total = Database::Fetch();
+			Database::query("SELECT COUNT(*) AS count FROM c_threads;");
+			$total = Database::fetch();
 			$total = $total['count'];
 
-			Database::Query("UPDATE c_stats SET thread_count = '{$total}';");
+			Database::query("UPDATE c_stats SET thread_count = '{$total}';");
 
 			// Update members thread count
 
-			$members = Database::Query("SELECT m_id FROM c_members;");
+			$members = Database::query("SELECT m_id FROM c_members;");
 
-			while($_members = Database::Fetch($members)) {
-				$posts = Database::Query("SELECT COUNT(*) AS total FROM c_posts WHERE author_id = '{$_members['m_id']}';");
+			while($_members = Database::fetch($members)) {
+				$posts = Database::query("SELECT COUNT(*) AS total FROM c_posts WHERE author_id = '{$_members['m_id']}';");
 
-				while($post_count = Database::Fetch($posts)) {
-					Database::Query("UPDATE c_members SET posts = '{$post_count['total']}' WHERE m_id = '{$_members['m_id']}';");
+				while($post_count = Database::fetch($posts)) {
+					Database::query("UPDATE c_members SET posts = '{$post_count['total']}' WHERE m_id = '{$_members['m_id']}';");
 				}
 			}
 
 			// Exit
 
-			$Admin->RegisterLog("Executed system optimization: threads and posts counting.");
-			echo Html::Notification("Threads and posts have been successfully recounted.", "success");
+			$Admin->registerLog("Executed system optimization: threads and posts counting.");
+			echo Html::notification("Threads and posts have been successfully recounted.", "success");
 
 			break;
 
@@ -85,22 +85,22 @@ if($execute) {
 
 			// List threads (global)
 
-			$threads = Database::Query("SELECT t_id FROM c_threads;");
+			$threads = Database::query("SELECT t_id FROM c_threads;");
 
 			// Replies counting
 
-			while($_threads = Database::Fetch($threads)) {
-				$posts = Database::Query("SELECT COUNT(p_id) AS post_count FROM c_posts WHERE thread_id = '{$_threads['t_id']}';");
+			while($_threads = Database::fetch($threads)) {
+				$posts = Database::query("SELECT COUNT(p_id) AS post_count FROM c_posts WHERE thread_id = '{$_threads['t_id']}';");
 
-				while($_posts = $Db2->Fetch($posts)) {
-					Database::Query("UPDATE c_threads SET replies = '{$_posts['post_count']}' WHERE t_id = '{$_threads['t_id']}';");
+				while($_posts = $Db2->fetch($posts)) {
+					Database::query("UPDATE c_threads SET replies = '{$_posts['post_count']}' WHERE t_id = '{$_threads['t_id']}';");
 				}
 			}
 
 			// Exit
 
-			$Admin->RegisterLog("Executed system optimization: replies counting.");
-			echo Html::Notification("Replies have been successfully recounted.", "success");
+			$Admin->registerLog("Executed system optimization: replies counting.");
+			echo Html::notification("Replies have been successfully recounted.", "success");
 
 			break;
 	}

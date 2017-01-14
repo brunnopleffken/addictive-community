@@ -14,8 +14,8 @@ use \AC\Kernel\Template;
 
 // Get variables
 
-$name = Http::Request("id");
-$dir  = Http::Request("dir");
+$name = Http::request("id");
+$dir  = Http::request("dir");
 
 // Get file content
 
@@ -26,7 +26,7 @@ require_once($file_path);
 // Build table
 
 foreach($t as $k => $v) {
-	Template::Add("<tr>
+	Template::add("<tr>
 			<td class='font-w600'>{$k}<input type='hidden' name='index[]' value='{$k}'></td>
 			<td><textarea name='{$k}' rows='2' class='form-control span-8'>{$v}</textarea></td>
 		</tr>");
@@ -50,7 +50,7 @@ foreach($t as $k => $v) {
 					<td>Translation</td>
 				</tr>
 			</thead>
-			<?php echo Template::Get() ?>
+			<?php echo Template::get() ?>
 		</table>
 		<div class="box fright">
 			<input type="hidden" name="file" value="<?php echo $name ?>">

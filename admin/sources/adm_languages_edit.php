@@ -14,25 +14,25 @@ use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
 
-$id = Http::Request("id");
+$id = Http::request("id");
 $notification = "";
 
 // Change language name
 
-if(Http::Request("language_name")) {
-	$new_language_name = Http::Request("language_name");
+if(Http::request("language_name")) {
+	$new_language_name = Http::request("language_name");
 
-	Database::Query("UPDATE c_languages SET name = '{$new_language_name}' WHERE l_id = '{$id}';");
+	Database::query("UPDATE c_languages SET name = '{$new_language_name}' WHERE l_id = '{$id}';");
 
-	$notification = Html::Notification(
+	$notification = Html::notification(
 		"You have successfylly changed the language name to {$new_language_name}", "success"
 	);
 }
 
 // Get language info
 
-Database::Query("SELECT * FROM c_languages WHERE l_id = '{$id}';");
-$lang = Database::Fetch();
+Database::query("SELECT * FROM c_languages WHERE l_id = '{$id}';");
+$lang = Database::fetch();
 
 // Get list of files
 
@@ -48,7 +48,7 @@ while($file = readdir($handle)) {
 		$url = preg_replace("#(.+)\.php#", "$1", $file);
 
 		if(!is_writable("../languages/" . $lang['directory'] . "/" . $file)) {
-			$notification = Html::Notification(
+			$notification = Html::notification(
 				"The language files in this directory are not writable. Please, set all files to CHMOD 777.", "failure", true
 			);
 			$edit = "<i class='fa fa-ban'></i>
@@ -58,7 +58,7 @@ while($file = readdir($handle)) {
 			$edit = "<a href='?act=languages&p=file&id={$url}&dir={$lang['directory']}'><i class='fa fa-pencil'></i></a>";
 		}
 
-		Template::Add("<tr>
+		Template::add("<tr>
 				<td><a href='?act=languages&p=file&id={$url}&dir={$lang['directory']}'><b>{$file}</b></a></td>
 				<td>{$edit}</td>
 			</tr>");
@@ -83,7 +83,7 @@ while($file = readdir($handle)) {
 				<td class="min"></td>
 			</tr>
 		</thead>
-		<?php echo Template::Get() ?>
+		<?php echo Template::get() ?>
 	</table>
 
 	<table class="table">

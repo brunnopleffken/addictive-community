@@ -31,18 +31,18 @@ class Room extends Application
 	 * Run before Main()
 	 * --------------------------------------------------------------------
 	 */
-	public function _BeforeAction()
+	public function beforeAction()
 	{
 		// Get and sanitize room ID
-		$this->room_id = Http::Request("id", true);
+		$this->room_id = Http::request("id", true);
 
 		if(!$this->room_id) {
-			$this->Core->Redirect("500");
+			$this->Core->redirect("500");
 		}
 
 		// Update session table with room ID
 		$session_token = SessionState::$session_token;
-		Database::Update("c_sessions", "location_room_id = {$this->room_id}", "session_token = '{$session_token}'");
+		Database::update("c_sessions", "location_room_id = {$this->room_id}", "session_token = '{$session_token}'");
 	}
 
 	/**
@@ -50,22 +50,22 @@ class Room extends Application
 	 * View Room (a.k.a. thread list)
 	 * --------------------------------------------------------------------
 	 */
-	public function Index()
+	public function index()
 	{
 		// Get room information
-		Database::Query("SELECT * FROM c_rooms WHERE r_id = {$this->room_id}");
-		$room_info = Database::Fetch();
+		Database::query("SELECT * FROM c_rooms WHERE r_id = {$this->room_id}");
+		$room_info = Database::fetch();
 
 		// Redirect to Error 404 if the room doesn't exist
 		if($room_info == null) {
-			$this->Core->Redirect("404");
+			$this->Core->redirect("404");
 		}
 
 		// Is the room protected?
 		if($room_info['password'] != "") {
 			$room_session_name = "room_" . $room_info['r_id'];
-			if(!SessionState::GetCookie($room_session_name)) {
-				$this->Core->Redirect("failure?t=protected_room&room=" . $this->room_id);
+			if(!SessionState::getCookie($room_session_name)) {
+				$this->Core->redirect("failure?t=protected_room&room=" . $this->room_id);
 			}
 		}
 
@@ -77,7 +77,7 @@ class Room extends Application
 		}
 
 		// Get list of threads
-		$threads = $this->_GetThreads();
+		$threads = $this->getThreads();
 
 		// Get number of pages
 		$pages = ceil(count($threads) / $this->threads_per_page);
@@ -88,11 +88,11 @@ class Room extends Application
 		$this->Set("page_info", $page_info);
 
 		// Return variables
-		$this->Set("is_member", SessionState::IsMember());
+		$this->Set("is_member", SessionState::isMember());
 		$this->Set("room_id", $this->room_id);
 		$this->Set("room_info", $room_info);
 		$this->Set("threads", $threads);
-		$this->Set("view", Http::Request("view"));
+		$this->Set("view", Http::request("view"));
 		$this->Set("pages", $pages);
 	}
 
@@ -101,24 +101,24 @@ class Room extends Application
 	 * Unlock protected rooms
 	 * --------------------------------------------------------------------
 	 */
-	public function Unlock()
+	public function unlock()
 	{
 		$this->layout = false;
 
-		$password = Http::Request("password");
-		$room_id  = Http::Request("room", true);
+		$password = Http::request("password");
+		$room_id  = Http::request("room", true);
 
-		Database::Query("SELECT password FROM c_rooms WHERE r_id = {$room_id}");
-		$room_info = Database::Fetch();
+		Database::query("SELECT password FROM c_rooms WHERE r_id = {$room_id}");
+		$room_info = Database::fetch();
 
 		if($password == $room_info['password']) {
 			$room_session_name = "room_" . $room_id;
-			SessionState::CreateCookie($room_session_name, 1);
-			$this->Core->Redirect("room/" . $room_id);
+			SessionState::createCookie($room_session_name, 1);
+			$this->Core->redirect("room/" . $room_id);
 			exit;
 		}
 		else {
-			$this->Core->Redirect("failure?t=protected_room&room=" . $room_id);
+			$this->Core->redirect("failure?t=protected_room&room=" . $room_id);
 			exit;
 		}
 	}
@@ -128,13 +128,13 @@ class Room extends Application
 	 * Get list of threads
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetThreads()
+	private function getThreads()
 	{
 		// Declare return variable
 		$thread = array();
 
 		// Get query string (room/id?view=mythreads|topreplies|noreplies|bestanswered)
-		$view = Http::Request("view");
+		$view = Http::request("view");
 
 		// Filter thread list
 		switch($view) {
@@ -174,15 +174,15 @@ class Room extends Application
 		$this->Set("menu", $menu);
 
 		// If admin, then also select all invisible threads; and threads with an opening date
-		$is_admin = (SessionState::IsAdmin()) ? "" : "AND c_threads.start_date < " . time();
+		$is_admin = (SessionState::isAdmin()) ? "" : "AND c_threads.start_date < " . time();
 
 		// Set SQL pagination (OFFSET)
 		$this->threads_per_page = $this->Core->config['threads_per_page'];
-		$page = Http::Request("p", true) ? Http::Request("p", true) : 1;
+		$page = Http::request("p", true) ? Http::request("p", true) : 1;
 		$page = $page * $this->threads_per_page - $this->threads_per_page;
 
 		// Execute query
-		$threads = Database::Query("SELECT c_threads.*, author.username AS author_name, author.email,
+		$threads = Database::query("SELECT c_threads.*, author.username AS author_name, author.email,
 				author.photo_type, author.photo, lastpost.username AS last_post_name,
 				(SELECT post FROM c_posts WHERE thread_id = c_threads.t_id ORDER BY post_date LIMIT 1) as post FROM c_threads
 				INNER JOIN c_members AS author ON (c_threads.author_member_id = author.m_id)
@@ -191,8 +191,8 @@ class Room extends Application
 				LIMIT {$page}, 10;");
 
 		// Process returned data
-		while($row = Database::Fetch($threads)) {
-			$thread[] = $this->_ParseThread($row);
+		while($row = Database::fetch($threads)) {
+			$thread[] = $this->parseThread($row);
 		}
 
 		return $thread;
@@ -203,14 +203,14 @@ class Room extends Application
 	 * Parce and process thread information
 	 * --------------------------------------------------------------------
 	 */
-	private function _ParseThread($result)
+	private function parseThread($result)
 	{
 		// Check if thread has already been read
 		$is_unread = false;
-		$read_threads_cookie = SessionState::GetCookie("addictive_community_read_threads");
+		$read_threads_cookie = SessionState::getCookie("addictive_community_read_threads");
 
 		if($read_threads_cookie) {
-			$login_time_cookie = SessionState::GetCookie("addictive_community_login_time");
+			$login_time_cookie = SessionState::getCookie("addictive_community_login_time");
 			$read_threads = json_decode(html_entity_decode($read_threads_cookie), true);
 			if(!in_array($result['t_id'], $read_threads) && $login_time_cookie < $result['last_post_date']) {
 				$is_unread = true;
@@ -219,19 +219,19 @@ class Room extends Application
 
 		$result['class'] = "";
 		$result['description'] = strip_tags($result['post']);
-		$result['mobile_start_date'] = $this->Core->DateFormat($result['start_date'], "short");
+		$result['mobile_start_date'] = $this->Core->dateFormat($result['start_date'], "short");
 		$result['to_be_opened'] = ($result['start_date'] > time()) ? "to-be-opened" : "";
-		$result['start_date'] = $this->Core->DateFormat($result['start_date']);
-		$result['last_post_date'] = $this->Core->DateFormat($result['last_post_date']);
+		$result['start_date'] = $this->Core->dateFormat($result['start_date']);
+		$result['last_post_date'] = $this->Core->dateFormat($result['last_post_date']);
 
 		// Author avatar
-		$result['author_avatar'] = $this->Core->GetAvatar($result, 100);
+		$result['author_avatar'] = $this->Core->getAvatar($result, 100);
 
 		// Build phrases using internationalization
-		$result['author_name'] = i18n::Translate("R_STARTED_BY", array($result['author_name']));
-		$result['start_date'] = i18n::Translate("R_STARTED_ON", array($result['start_date']));
-		$result['views'] = i18n::Translate("R_VIEWS", array($result['views']));
-		$result['last_post_by'] = i18n::Translate("R_LAST_POST_BY", array($result['last_post_name']));
+		$result['author_name'] = i18n::translate("R_STARTED_BY", array($result['author_name']));
+		$result['start_date'] = i18n::translate("R_STARTED_ON", array($result['start_date']));
+		$result['views'] = i18n::translate("R_VIEWS", array($result['views']));
+		$result['last_post_by'] = i18n::translate("R_LAST_POST_BY", array($result['last_post_name']));
 
 		// Get the number of replies, not total number of posts... ;)
 		$result['replies']--;

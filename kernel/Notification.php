@@ -30,12 +30,12 @@ class Notification
 	{
 		// Check if at least one parameter exists
 		if(count($arguments) < 1) {
-			Html::Error("Notification message is missing.");
+			Html::throwError("Notification message is missing.");
 		}
 
 		// Check if notification type is usable
 		if(!in_array(strtolower($name), array("success", "warning", "danger", "info", "debug"))) {
-			Html::Error("This notification type ({$name}) doesn't exist.");
+			Html::throwError("This notification type ({$name}) doesn't exist.");
 		}
 
 		// Check if notification is persistent, or not
@@ -45,7 +45,7 @@ class Notification
 		self::$class_template = str_replace("{2}", $persistent_class_name, self::$class_template);
 		$message = vsprintf(self::$html_template, array(self::$class_template, $arguments[0]));
 
-		Session::Write("Notification.Flash", $message);
+		Session::write("Notification.Flash", $message);
 	}
 
 	/**
@@ -54,12 +54,12 @@ class Notification
 	 * --------------------------------------------------------------------
 	 */
 
-	public static function Render()
+	public static function render()
 	{
-		$notification = Session::Retrieve("Notification.Flash");
+		$notification = Session::retrieve("Notification.Flash");
 
 		if($notification) {
-			Session::Destroy("Notification.Flash");
+			Session::destroy("Notification.Flash");
 		}
 
 		return $notification;

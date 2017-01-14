@@ -15,11 +15,11 @@ use \AC\Kernel\Http;
 
 // Notifications
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The settings has been successfully changed.", "success");
+		$message = Html::notification("The settings has been successfully changed.", "success");
 		break;
 	default:
 		$message = "";
@@ -29,8 +29,8 @@ switch($msg) {
 
 // Languages
 
-Database::Query("SELECT * FROM c_languages;");
-while($result = Database::Fetch()) {
+Database::query("SELECT * FROM c_languages;");
+while($result = Database::fetch()) {
 	$languages[$result['directory']] = $result['name'];
 }
 
@@ -49,15 +49,15 @@ while($result = Database::Fetch()) {
 			</thead>
 			<tr>
 				<td class="font-w600">Community name</td>
-				<td><input type="text" name="general_community_name" value="<?php echo $Admin->SelectConfig("general_community_name") ?>" class="form-control span-4"></td>
+				<td><input type="text" name="general_community_name" value="<?php echo $Admin->selectConfig("general_community_name") ?>" class="form-control span-4"></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Root path (URL)<small>Absolute URL of your community</small></td>
-				<td><input type="text" name="general_community_url" value="<?php echo $Admin->SelectConfig("general_community_url") ?>" class="form-control span-6"></td>
+				<td><input type="text" name="general_community_url" value="<?php echo $Admin->selectConfig("general_community_url") ?>" class="form-control span-6"></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Default language<small>For guests and new members</small></td>
-				<td><?php echo $Admin->Dropdown("language_default_set", $languages, $Admin->SelectConfig("language_default_set"), "span-3") ?></td>
+				<td><?php echo $Admin->selectField("language_default_set", $languages, $Admin->selectConfig("language_default_set"), "span-3") ?></td>
 			</tr>
 		</table>
 
@@ -69,11 +69,11 @@ while($result = Database::Fetch()) {
 			</thead>
 			<tr>
 				<td class="font-w600">Website name</td>
-				<td><input type="text" name="general_website_name" value="<?php echo $Admin->SelectConfig("general_website_name") ?>" class="form-control span-5"></td>
+				<td><input type="text" name="general_website_name" value="<?php echo $Admin->selectConfig("general_website_name") ?>" class="form-control span-5"></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Website URL</td>
-				<td><input type="text" name="general_website_url" value="<?php echo $Admin->SelectConfig("general_website_url") ?>" class="form-control span-5"></td>
+				<td><input type="text" name="general_website_url" value="<?php echo $Admin->selectConfig("general_website_url") ?>" class="form-control span-5"></td>
 			</tr>
 		</table>
 
@@ -85,19 +85,19 @@ while($result = Database::Fetch()) {
 			</thead>
 			<tr>
 				<td class="font-w600">Logo image name</td>
-				<td><input type="text" name="general_community_logo" value="<?php echo $Admin->SelectConfig("general_community_logo") ?>" class="form-control span-3"></td>
+				<td><input type="text" name="general_community_logo" value="<?php echo $Admin->selectConfig("general_community_logo") ?>" class="form-control span-3"></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Breadcrumb separator</td>
-				<td><input type="text" name="general_bread_separator" value="<?php echo $Admin->SelectConfig("general_bread_separator") ?>" class="form-control span-1"></td>
+				<td><input type="text" name="general_bread_separator" value="<?php echo $Admin->selectConfig("general_bread_separator") ?>" class="form-control span-1"></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Show members online</td>
-				<td><label><?php echo $Admin->SelectCheckbox("general_sidebar_online") ?> Show members online in sidebar.</label></td>
+				<td><label><?php echo $Admin->selectCheckbox("general_sidebar_online") ?> Show members online in sidebar.</label></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Show statistics</td>
-				<td><label><?php echo $Admin->SelectCheckbox("general_sidebar_stats") ?> Show community statistics in sidebar.</label></td>
+				<td><label><?php echo $Admin->selectCheckbox("general_sidebar_stats") ?> Show community statistics in sidebar.</label></td>
 			</tr>
 		</table>
 
@@ -109,11 +109,11 @@ while($result = Database::Fetch()) {
 			</thead>
 			<tr>
 				<td class="font-w600">META Description</td>
-				<td><textarea name="seo_description" class="form-control span-6" rows="3"><?php echo $Admin->SelectConfig("seo_description") ?></textarea></td>
+				<td><textarea name="seo_description" class="form-control span-6" rows="3"><?php echo $Admin->selectConfig("seo_description") ?></textarea></td>
 			</tr>
 			<tr>
 				<td class="font-w600">META Keywords</td>
-				<td><textarea name="seo_keywords" class="form-control span-6" rows="3"><?php echo $Admin->SelectConfig("seo_keywords") ?></textarea></td>
+				<td><textarea name="seo_keywords" class="form-control span-6" rows="3"><?php echo $Admin->selectConfig("seo_keywords") ?></textarea></td>
 			</tr>
 		</table>
 		<div class="text-right">

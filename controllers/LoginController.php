@@ -25,7 +25,7 @@ class Login extends Application
 	 * LOGIN FORM
 	 * --------------------------------------------------------------------
 	 */
-	public function Index()
+	public function index()
 	{
 		// Load "/templates/.../Ajax.php" as Master Page
 		$this->master = "Ajax";
@@ -36,7 +36,7 @@ class Login extends Application
 	 * DO LOGIN: CREATE A NEW MEMBER SESSION
 	 * --------------------------------------------------------------------
 	 */
-	public function Authenticate()
+	public function authenticate()
 	{
 		$this->layout = false;
 
@@ -46,29 +46,29 @@ class Login extends Application
 			"key" => $this->Core->config['security_salt_key']
 		);
 
-		if(Http::Request("username") && Http::Request("password")) {
-			$username = Http::Request("username");
-			$password = Text::Encrypt(Http::Request("password"), $salt);
+		if(Http::request("username") && Http::request("password")) {
+			$username = Http::request("username");
+			$password = Text::encrypt(Http::request("password"), $salt);
 
-			Database::Query("SELECT m_id, usergroup FROM c_members
+			Database::query("SELECT m_id, usergroup FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");
 
-			if(Database::Rows()) {
-				$member_info = Database::Fetch();
-				$member_info['anonymous'] = (Http::Request("anonymous", true)) ? 1 : 0;
-				$member_info['remember'] = (Http::Request("remember", true)) ? 1 : 0;
-				$member_info['session_token'] = SessionState::Retrieve("session_token");
+			if(Database::rows()) {
+				$member_info = Database::fetch();
+				$member_info['anonymous'] = (Http::request("anonymous", true)) ? 1 : 0;
+				$member_info['remember'] = (Http::request("remember", true)) ? 1 : 0;
+				$member_info['session_token'] = SessionState::retrieve("session_token");
 
 				// Check if member session was created successfully
-				SessionState::CreateMemberSession($member_info);
+				SessionState::createMemberSession($member_info);
 
 				// Redirect to Home
-				$this->Core->Redirect("/");
+				$this->Core->redirect("/");
 			}
 			else {
 				// No lines returned: show error
 				// "Username or password is wrong."
-				$this->Core->Redirect("failure?t=wrong_username_password");
+				$this->Core->redirect("failure?t=wrong_username_password");
 			}
 		}
 	}
@@ -78,7 +78,7 @@ class Login extends Application
 	 * VALIDATE USERNAME AND PASSWORD
 	 * --------------------------------------------------------------------
 	 */
-	public function Validate()
+	public function validate()
 	{
 		$this->layout = false;
 
@@ -88,16 +88,16 @@ class Login extends Application
 			"key"  => $this->Core->config['security_salt_key']
 		);
 
-		if(Http::Request("username") && Http::Request("password")) {
-			$username = Http::Request("username");
-			$password = Text::Encrypt(Http::Request("password"), $salt);
+		if(Http::request("username") && Http::request("password")) {
+			$username = Http::request("username");
+			$password = Text::encrypt(Http::request("password"), $salt);
 
-			Database::Query("SELECT 1 FROM c_members
+			Database::query("SELECT 1 FROM c_members
 					WHERE username = '{$username}' AND password = '{$password}';");
 
 			// Check if username and password match
-			if(Database::Rows()) {
-				$user_info = Database::Fetch();
+			if(Database::rows()) {
+				$user_info = Database::fetch();
 
 				// Check if user has been banned (user group #4)
 				if($user_info['usergroup'] == 4) {
@@ -123,20 +123,20 @@ class Login extends Application
 	 * REMOVE ALL MEMBER SESSIONS/COOKIES AND LOG OUT
 	 * --------------------------------------------------------------------
 	 */
-	public function Logout()
+	public function logout()
 	{
 		$this->layout = false;
 
 		// Delete session from the database
 		$member_id = SessionState::$user_data['m_id'];
-		Database::Delete("c_sessions", "member_id = {$member_id}");
+		Database::delete("c_sessions", "member_id = {$member_id}");
 
 		// Destroy cookies
-		SessionState::UnloadCookie("member_id");
-		SessionState::UnloadCookie("login_time");
-		SessionState::UnloadCookie("read_threads");
+		SessionState::unloadCookie("member_id");
+		SessionState::unloadCookie("login_time");
+		SessionState::unloadCookie("read_threads");
 
 		// Redirect
-		$this->Core->Redirect("/");
+		$this->Core->redirect("/");
 	}
 }

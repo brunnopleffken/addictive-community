@@ -34,7 +34,7 @@
 						<span class="file-icon <?= $first_post_info['type'] ?>"></span>
 						<div class="file-name">
 							<span><?= $first_post_info['filename'] ?></span>
-							<?php __(\AC\Kernel\Text::FileSizeFormat($first_post_info['size'])) ?>
+							<?php __(\AC\Kernel\Text::fileSizeFormat($first_post_info['size'])) ?>
 						</div>
 					</a>
 				</div>
@@ -144,7 +144,7 @@
 				<div class="thread-reply-content-author text-center">
 					<?php if($reply[$k]['usergroup'] != 0): ?>
 						<div class="thread-reply-content-author-avatar">
-							<?= \AC\Kernel\Html::Crop($reply[$k]['avatar'], 98, "image") ?>
+							<?= \AC\Kernel\Html::crop($reply[$k]['avatar'], 98, "image") ?>
 						</div>
 						<a href="profile/<?= $reply[$k]['m_id'] ?>" class="thread-reply-content-author-username">
 							<?= $reply[$k]['username'] ?>
@@ -202,7 +202,7 @@
 									<span class="file-icon <?= $reply[$k]['type'] ?>"></span>
 									<div class="file-name">
 										<span><?= $reply[$k]['filename'] ?></span>
-										<?php __(\AC\Kernel\Text::FileSizeFormat($reply[$k]['size'])) ?>
+										<?php __(\AC\Kernel\Text::fileSizeFormat($reply[$k]['size'])) ?>
 									</div>
 								</a>
 							</div>
@@ -251,7 +251,7 @@
 			<a class="btn btn-default btn-lg btn-disabled pull-right"><?php __("T_BTN_LOCKED") ?></a>
 		<?php endif; ?>
 	<?php endif; ?>
-	<?= \AC\Kernel\Html::Paginate($pages['total'], $pages['current'], "{$_SERVER['REDIRECT_URL']}?p=%d") ?>
+	<?= \AC\Kernel\Html::paginate($pages['total'], $pages['current'], "{$_SERVER['REDIRECT_URL']}?p=%d") ?>
 </div>
 
 <!-- MODERATION -->

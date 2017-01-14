@@ -26,9 +26,9 @@ foreach($dir as $k => $v) {
 
 // List of languages
 
-Database::Query("SELECT * FROM c_languages ORDER BY name ASC;");
+Database::query("SELECT * FROM c_languages ORDER BY name ASC;");
 
-while($lang = Database::Fetch()) {
+while($lang = Database::fetch()) {
 	$lang['is_active']  = ($lang['is_active'] == 1) ? "<i class='fa fa-fw fa-check'></i>" : "";
 	$lang['remove'] = "<a href='process.php?do=uninstall_language&id={$lang['l_id']}'><i class='fa fa-fw fa-remove'></i></a>";
 
@@ -36,7 +36,7 @@ while($lang = Database::Fetch()) {
 		$dir_list = array_diff($dir_list, array($lang['directory']));
 	}
 
-	Template::Add("<tr>
+	Template::add("<tr>
 			<td><a href='main.php?act=languages&p=edit&id={$lang['l_id']}'><b>{$lang['name']}</b></a></td>
 			<td>/languages/{$lang['directory']}</td>
 			<td>{$lang['author_name']} ({$lang['author_email']})</td>
@@ -49,11 +49,11 @@ while($lang = Database::Fetch()) {
 // If there is uninstalled languages, show on list
 
 if(!empty($dir_list)) {
-	$not_installed_languages = Html::Notification("There are language packs available to install. Click on the gears icon to install.", "info", false, "New languages available:");
+	$not_installed_languages = Html::notification("There are language packs available to install. Click on the gears icon to install.", "info", false, "New languages available:");
 	foreach($dir_list as $language) {
 		$language_info = json_decode(file_get_contents("../languages/" . $language . "/_language.json"), true);
 
-		Template::Add("<tr>
+		Template::add("<tr>
 				<td class='text-muted'><b>{$language_info['name']}</b></td>
 				<td class='text-muted'>/languages/{$language}</td>
 				<td class='text-muted'>{$language_info['author_name']} ({$language_info['author_email']})</td>
@@ -64,7 +64,7 @@ if(!empty($dir_list)) {
 	}
 }
 else {
-	$not_installed_languages = Html::Notification("Language directories must comply the ICU (International Components for Unicode) locale code, such as <i>en_US</i> for American English and <i>de_DE</i> for German. A full reference guide can be seen <a href='http://demo.icu-project.org/icu-bin/locexp?d_=en'>here</a>.", "info");
+	$not_installed_languages = Html::notification("Language directories must comply the ICU (International Components for Unicode) locale code, such as <i>en_US</i> for American English and <i>de_DE</i> for German. A full reference guide can be seen <a href='http://demo.icu-project.org/icu-bin/locexp?d_=en'>here</a>.", "info");
 }
 
 ?>
@@ -89,6 +89,6 @@ else {
 				<td class="min">Uninstall</td>
 			</tr>
 		</thead>
-		<?php echo Template::Get() ?>
+		<?php echo Template::get() ?>
 	</table>
 </div>

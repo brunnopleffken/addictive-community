@@ -49,7 +49,7 @@ class Application
 	 * RETURNS THE VALUE OF SELF::$LAYOUT
 	 * --------------------------------------------------------------------
 	 */
-	public function HasLayout()
+	public function hasLayout()
 	{
 		return $this->layout;
 	}
@@ -59,17 +59,17 @@ class Application
 	 * DEFINE VARIABLE AND STORE IT IN VIEW_DATA
 	 * --------------------------------------------------------------------
 	 */
-	public function Set($name, $value)
+	public function set($name, $value)
 	{
 		// Of course, you can't name a variable as $this
 		if($name == "this") {
-			Html::Error("The provided variable name ('" . $name . "') cannot be defined.");
+			Html::throwError("The provided variable name ('" . $name . "') cannot be defined.");
 			return false;
 		}
 
 		// Check if array key already exists
 		if(array_key_exists($name, $this->view_data)) {
-			Html::Error(
+			Html::throwError(
 				"The provided variable name <b>" . $name . "</b> already exists. " .
 				"Overwriting output variables is a bad practice."
 			);
@@ -85,7 +85,7 @@ class Application
 	 * RETURN VIEW_DATA
 	 * --------------------------------------------------------------------
 	 */
-	public function Get()
+	public function get()
 	{
 		return $this->view_data;
 	}
@@ -96,27 +96,27 @@ class Application
 	 * Methods or sidebar
 	 * --------------------------------------------------------------------
 	 */
-	public function Run()
+	public function runApplication()
 	{
 		// SIDEBAR: member info
-		$this->_GetMemberInfo();
+		$this->getMemberInfo();
 
 		// SIDEBAR: get list of rooms
-		$this->_GetRooms();
+		$this->getRooms();
 
 		// SIDEBAR: get members online
-		$this->_GetMembersOnline();
+		$this->getMembersOnline();
 
 		// SIDEBAR: get community statistics
-		$this->_GetStats();
+		$this->getStats();
 
 		// Get emoticons
-		$this->_GetEmoticons();
+		$this->getEmoticons();
 
 		// Is community offline?
 		if($this->Core->config['general_offline']) {
 			if(!strstr($_SERVER['REQUEST_URI'], "error")) {
-				$this->Core->Redirect("failure?t=offline");
+				$this->Core->redirect("failure?t=offline");
 			}
 		}
 
@@ -132,7 +132,7 @@ class Application
 		$this->Set("website_url", $this->Core->config['general_website_url']);
 		$this->Set("show_members_online", $this->Core->config['general_sidebar_online']);
 		$this->Set("show_statistics", $this->Core->config['general_sidebar_stats']);
-		$this->Set("is_admin", SessionState::IsAdmin());
+		$this->Set("is_admin", SessionState::isAdmin());
 	}
 
 	/**
@@ -140,18 +140,18 @@ class Application
 	 * SIDEBAR: get member information (if logged in)
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetMemberInfo()
+	private function getMemberInfo()
 	{
 		// If member is logged in
-		if(SessionState::IsMember()) {
+		if(SessionState::isMember()) {
 			// Get user avatar
-			SessionState::$user_data['avatar'] = $this->Core->GetAvatar(SessionState::$user_data, 80);
+			SessionState::$user_data['avatar'] = $this->Core->getAvatar(SessionState::$user_data, 80);
 
 			// Number of new private messages
-			Database::Query("SELECT COUNT(*) AS total FROM c_messages
+			Database::query("SELECT COUNT(*) AS total FROM c_messages
 					WHERE to_id = '" . SessionState::$user_data['m_id'] . "' AND status = 0;");
 
-			$unread_messages = Database::Fetch();
+			$unread_messages = Database::fetch();
 
 			$this->Set("member_info", SessionState::$user_data);
 			$this->Set("member_id", SessionState::$user_data['m_id']); // Just a shortcut :)
@@ -167,13 +167,13 @@ class Application
 	 * SIDEBAR: get list of rooms and count number of threads in each
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetRooms()
+	private function getRooms()
 	{
-		Database::Query("SELECT c_rooms.r_id, c_rooms.name, c_rooms.password,
+		Database::query("SELECT c_rooms.r_id, c_rooms.name, c_rooms.password,
 				(SELECT COUNT(*) FROM c_threads WHERE c_threads.room_id = c_rooms.r_id) AS threads
 				FROM c_rooms WHERE invisible = 0;");
 
-		$_sidebar_rooms = Database::FetchToArray();
+		$_sidebar_rooms = Database::fetchToArray();
 
 		$this->Set("sidebar_rooms", $_sidebar_rooms);
 	}
@@ -183,28 +183,28 @@ class Application
 	 * SIDEBAR: get members and guests online
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetMembersOnline()
+	private function getMembersOnline()
 	{
 		$online = array();
 
-		$members_online = Database::Query("SELECT s.*, m.username FROM c_sessions s
+		$members_online = Database::query("SELECT s.*, m.username FROM c_sessions s
 				INNER JOIN c_members m ON (s.member_id = m.m_id)
 				WHERE s.member_id <> 0 AND s.anonymous = 0
 				ORDER BY s.activity_time DESC;");
 
-		while($members = Database::Fetch($members_online)) {
-			$viewing = i18n::Translate("SIDEBAR_MEMBER_VIEWING") . ": " . ucwords($members['location_controller']);
+		while($members = Database::fetch($members_online)) {
+			$viewing = i18n::translate("SIDEBAR_MEMBER_VIEWING") . ": " . ucwords($members['location_controller']);
 			$online[] = "<a href='profile/{$members['member_id']}' title='{$viewing}'>{$members['username']}</a>";
 		}
 
 		$member_count = count($online);
-		$member_list  = Text::ToList($online);
+		$member_list  = Text::toList($online);
 		$this->Set("member_count", $member_count);
 		$this->Set("member_list", $member_list);
 
 		// Number of guests
-		Database::Query("SELECT COUNT(session_token) AS count FROM c_sessions WHERE member_id = 0;");
-		$guests_count = Database::Fetch();
+		Database::query("SELECT COUNT(session_token) AS count FROM c_sessions WHERE member_id = 0;");
+		$guests_count = Database::fetch();
 		$guests_count = $guests_count['count'];
 		$this->Set("guests_count", $guests_count);
 	}
@@ -214,17 +214,17 @@ class Application
 	 * SIDEBAR: get community statistics
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetStats()
+	private function getStats()
 	{
-		Database::Query("SELECT * FROM c_stats;");
-		$stats_result_temp = Database::Fetch();
+		Database::query("SELECT * FROM c_stats;");
+		$stats_result_temp = Database::fetch();
 
 		$_stats['threads'] = $stats_result_temp['thread_count'];
 		$_stats['posts'] = $stats_result_temp['post_count'];
 		$_stats['members'] = $stats_result_temp['member_count'];
 
-		Database::Query("SELECT m_id, username FROM c_members ORDER BY m_id DESC LIMIT 1;");
-		$stats_result_temp = Database::Fetch();
+		Database::query("SELECT m_id, username FROM c_members ORDER BY m_id DESC LIMIT 1;");
+		$stats_result_temp = Database::fetch();
 
 		$_stats['lastmemberid']   = $stats_result_temp['m_id'];
 		$_stats['lastmembername'] = $stats_result_temp['username'];
@@ -237,16 +237,16 @@ class Application
 	 * GET LIST OF EMOTICONS (REQUIRED FOR TINYMCE)
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetEmoticons()
+	private function getEmoticons()
 	{
 		$emoticons = array();
-		Database::Query("SELECT * FROM c_emoticons WHERE display = 1;");
+		Database::query("SELECT * FROM c_emoticons WHERE display = 1;");
 
 		$add_quotes = function($value) {
 			return "'{$value}'";
 		};
 
-		while($emoticon = Database::Fetch()) {
+		while($emoticon = Database::fetch()) {
 			$emoticons[] = $emoticon['filename'];
 		}
 

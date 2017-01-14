@@ -14,9 +14,9 @@ use \AC\Kernel\Database;
 // User group list
 
 $list = "";
-Database::Query("SELECT * FROM c_usergroups ORDER BY g_id");
+Database::query("SELECT * FROM c_usergroups ORDER BY g_id");
 
-while($group = Database::Fetch()) {
+while($group = Database::fetch()) {
 	if($group['g_id'] == 3) {
 		$list .= "<option value='{$group['g_id']}' selected>{$group['name']}</option>";
 	}

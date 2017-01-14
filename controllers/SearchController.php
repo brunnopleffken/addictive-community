@@ -31,18 +31,18 @@ class Search extends Application
 	 * VIEW SEARCH ENGINE RESULTS
 	 * --------------------------------------------------------------------
 	 */
-	public function Index()
+	public function index()
 	{
 		// Declare empty variables
 		$warning = "";
 		$search_results = array();
 
 		// Get term
-		$this->term = Http::Request("q");
+		$this->term = Http::request("q");
 
 		if($this->term) {
 			// Perform FULLTEXT search
-			$search_results = $this->_PerformSearch();
+			$search_results = $this->performSearch();
 
 			// Has search
 			$this->no_search = false;
@@ -52,8 +52,8 @@ class Search extends Application
 		$num_results = count($search_results);
 
 		// Page info
-		$page_info['title'] = i18n::Translate("S_TITLE");
-		$page_info['bc'] = array(i18n::Translate("S_TITLE"));
+		$page_info['title'] = i18n::translate("S_TITLE");
+		$page_info['bc'] = array(i18n::translate("S_TITLE"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -69,7 +69,7 @@ class Search extends Application
 	 * PERFORM FULLTEXT SEARCH
 	 * --------------------------------------------------------------------
 	 */
-	private function _PerformSearch()
+	private function performSearch()
 	{
 		// Empty results array
 		$results = array();
@@ -78,7 +78,7 @@ class Search extends Application
 		$term_highlight = explode(" ", $this->term);
 
 		// Are we searching in an specific post in a thread?
-		$mode = Http::Request("mode");
+		$mode = Http::request("mode");
 		switch($mode) {
 			case "post":
 				$id = null;
@@ -90,7 +90,7 @@ class Search extends Application
 		}
 
 		// Sort by relevance or date?
-		$sort = Http::Request("sort");
+		$sort = Http::request("sort");
 		switch($sort) {
 			case "date":
 				$order = "ORDER BY post_date DESC";
@@ -101,19 +101,19 @@ class Search extends Application
 		}
 
 		// Perform database query
-		Database::Query("SELECT t.t_id, t.title, t.slug, m.username, p.post_date, p.post FROM c_posts p
+		Database::query("SELECT t.t_id, t.title, t.slug, m.username, p.post_date, p.post FROM c_posts p
 				INNER JOIN c_threads t ON (p.thread_id = t.t_id)
 				INNER JOIN c_members m ON (p.author_id = m.m_id)
 				WHERE {$where} MATCH(post) AGAINST ('{$this->term}') {$order}
 				LIMIT 100;");
 
-		if(Database::Rows() >= 100) {
+		if(Database::rows() >= 100) {
 			// Too many results
-			$warning = Html::Notification("There are too many results for this search. Please try your search again with more specific keywords.", "warning", true);
+			$warning = Html::notification("There are too many results for this search. Please try your search again with more specific keywords.", "warning", true);
 		}
 		else {
-			while($result = Database::Fetch()) {
-				$result['post_date'] = $this->Core->DateFormat($result['post_date']);
+			while($result = Database::fetch()) {
+				$result['post_date'] = $this->Core->dateFormat($result['post_date']);
 
 				foreach($term_highlight as $words) {
 					$result['post'] = preg_replace("/\b{$words}\b/mi", "<mark>$0</mark>", $result['post']);

@@ -16,25 +16,25 @@ use \AC\Kernel\Template;
 
 // Notification
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : 0;
+$msg = (Http::request("msg")) ? Http::request("msg") : 0;
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The settings has been successfully changed.", "success");
+		$message = Html::notification("The settings has been successfully changed.", "success");
 		break;
 	default:
-		$message = Html::Notification("You cannot remove native user groups (like Administrator, Member or Guest).", "info");
+		$message = Html::notification("You cannot remove native user groups (like Administrator, Member or Guest).", "info");
 		break;
 }
 
 // Get usergroup list
 
-Database::Query("SELECT * FROM c_usergroups");
+Database::query("SELECT * FROM c_usergroups");
 
-while($group = Database::Fetch()) {
+while($group = Database::fetch()) {
 	$delete = ($group['stock'] == 0) ? "<i class='fa fa-remove'></i>" : "-";
 
-	Template::Add("<tr>
+	Template::add("<tr>
 			<td><b>{$group['name']}</b></td>
 			<td class='min text-center'><a href='main.php?act=members&p=edit_usergroup&id={$group['g_id']}'><i class='fa fa-pencil'></i></a></td>
 			<td class='min text-center'>{$delete}</td>
@@ -64,7 +64,7 @@ while($group = Database::Fetch()) {
 					<td class="min">Delete</td>
 				</tr>
 			</thead>
-			<?php echo Template::Get() ?>
+			<?php echo Template::get() ?>
 		</table>
 	</form>
 </div>

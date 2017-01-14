@@ -20,7 +20,7 @@ class Http
 	 * SAME AS $_REQUEST['var'], BUT SANITIZED
 	 * --------------------------------------------------------------------
 	 */
-	public static function Request($name, $is_integer = false)
+	public static function request($name, $is_integer = false)
 	{
 		if(isset($_REQUEST[$name])) {
 			$text = $_REQUEST[$name];
@@ -28,7 +28,7 @@ class Http
 			// Return error if $is_integer is true but hasn't a numeric value
 			if($is_integer) {
 				if(!is_numeric($text)) {
-					Html::Error("Variable '{$name}' must be a number.");
+					Html::throwError("Variable '{$name}' must be a number.");
 				}
 
 				return intval($text);
@@ -58,7 +58,7 @@ class Http
 	 * GET UPLOADED FILE
 	 * --------------------------------------------------------------------
 	 */
-	public static function File($name)
+	public static function getFile($name)
 	{
 		if(isset($_FILES[$name]) && !empty($_FILES[$name])) {
 			return $_FILES[$name];
@@ -73,7 +73,7 @@ class Http
 	 * GET CURRENT URL
 	 * --------------------------------------------------------------------
 	 */
-	public static function CurrentUrl()
+	public static function currentUrl()
 	{
 		$page_url = (@$_SERVER['HTTPS'] == "on") ? "https" : "http";
 		$page_url .= "://";

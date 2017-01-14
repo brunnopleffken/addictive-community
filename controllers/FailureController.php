@@ -24,10 +24,10 @@ class Failure extends Application
 	 * VIEW: ERROR PAGE
 	 * --------------------------------------------------------------------
 	 */
-	public function Index()
+	public function index()
 	{
 		// Get type of error
-		$type = Http::Request("t");
+		$type = Http::request("t");
 
 		// Show "Error" as master template in these statuses...
 		$show_error_when = ['offline', 'update', '403', '404', '500'];
@@ -35,16 +35,16 @@ class Failure extends Application
 		// Error list
 		$errors = [
 			'not_allowed' => [
-				Html::Notification(i18n::Translate("E_MESSAGE_NOT_ALLOWED"), "failure", true), "login"
+				Html::notification(i18n::translate("E_MESSAGE_NOT_ALLOWED"), "failure", true), "login"
             ],
 			'validated' => [
-				Html::Notification(i18n::Translate("E_MESSAGE_VALIDATED"), "success", true), "login"
+				Html::notification(i18n::translate("E_MESSAGE_VALIDATED"), "success", true), "login"
             ],
 			'protected_room' => [
-				Html::Notification(i18n::Translate("E_MESSAGE_PROTECTED"), "warning", true), "protected"
+				Html::notification(i18n::translate("E_MESSAGE_PROTECTED"), "warning", true), "protected"
             ],
 			'thread_locked' => [
-				Html::Notification(i18n::Translate("E_MESSAGE_LOCKED_THREAD"), "failure", true), false
+				Html::notification(i18n::translate("E_MESSAGE_LOCKED_THREAD"), "failure", true), false
             ],
 			'offline' => [
 				"", "offline"
@@ -67,7 +67,7 @@ class Failure extends Application
         ];
 
 		// Is this an error, or just a notification message? Change title!
-        $title = strpos($errors[$type][0], "success") ? i18n::Translate("E_SUCCESS_TITLE") : i18n::Translate("E_ERROR_TITLE");
+        $title = strpos($errors[$type][0], "success") ? i18n::translate("E_SUCCESS_TITLE") : i18n::translate("E_ERROR_TITLE");
 
 		// Show custom title
 		if(isset($errors[$type][2])) {

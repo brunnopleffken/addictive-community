@@ -14,14 +14,14 @@ use \AC\Kernel\Html;
 
 // Get board overview
 
-Database::Query("SELECT COUNT(*) AS total FROM c_members;");
-$registered = Database::Fetch();
+Database::query("SELECT COUNT(*) AS total FROM c_members;");
+$registered = Database::fetch();
 
-Database::Query("SELECT COUNT(*) AS total FROM c_posts;");
-$posts = Database::Fetch();
+Database::query("SELECT COUNT(*) AS total FROM c_posts;");
+$posts = Database::fetch();
 
-Database::Query("SELECT COUNT(*) AS total FROM c_threads;");
-$threads = Database::Fetch();
+Database::query("SELECT COUNT(*) AS total FROM c_threads;");
+$threads = Database::fetch();
 
 $posts['average'] = round($posts['total'] / $threads['total'], 1);
 
@@ -29,8 +29,8 @@ $posts['average'] = round($posts['total'] / $threads['total'], 1);
 
 $server_software = $_SERVER["SERVER_SOFTWARE"];
 
-Database::Query("SELECT VERSION() AS version;");
-$mysql_v = Database::Fetch();
+Database::query("SELECT VERSION() AS version;");
+$mysql_v = Database::fetch();
 
 $mysqlversion = "MySQL " . $mysql_v['version'];
 
@@ -38,23 +38,23 @@ $mysqlversion = "MySQL " . $mysql_v['version'];
 
 $html = "";
 
-$reports = Database::Query("SELECT r.*, m.username, t.title FROM c_reports r
+$reports = Database::query("SELECT r.*, m.username, t.title FROM c_reports r
 		INNER JOIN c_members m ON (r.sender_id = m.m_id)
 		LEFT JOIN c_threads t ON (r.thread_id = t.t_id)
 		ORDER BY rp_id DESC LIMIT 15;");
 
-if(Database::Rows($reports) == 0) {
+if(Database::rows($reports) == 0) {
 	$html = "<tr><td colspan='7' class='text-center'>There are no abuse reports at the moment.</td></tr>";
 }
 
-while($report = Database::Fetch($reports)) {
-	$report['date'] = $Core->DateFormat($report['date']);
+while($report = Database::fetch($reports)) {
+	$report['date'] = $Core->dateFormat($report['date']);
 
 	if($report['post_id'] == 0) {
 		$report['post'] = "-";
 	}
 	else {
-		$report['post'] = "Yes (<a href='" . $Admin->SelectConfig("general_community_url") . "thread/{$report['thread_id']}#post-" . $report['post_id'] . "' target='_blank'>view post</a>)";
+		$report['post'] = "Yes (<a href='" . $Admin->selectConfig("general_community_url") . "thread/{$report['thread_id']}#post-" . $report['post_id'] . "' target='_blank'>view post</a>)";
 	}
 
 	$reason[1] = "Nudity or pornography";
@@ -95,7 +95,7 @@ while($report = Database::Fetch($reports)) {
 	<?php
 	//checks to see if install directory is still on the server, and shows a warning.
 	if(file_exists(__DIR__.'/../../install') || is_dir(__DIR__.'/../../install')){
-		echo Html::Notification("It's recommended to delete the /install folder.", "warning",true);
+		echo Html::notification("It's recommended to delete the /install folder.", "warning",true);
 	}
 	?>
 	<div class="row">

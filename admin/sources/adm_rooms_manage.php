@@ -16,23 +16,23 @@ use \AC\Kernel\Template;
 
 // Messages
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The new room has been successfully created.", "success");
+		$message = Html::notification("The new room has been successfully created.", "success");
 		break;
 	case 2:
-		$message = Html::Notification("The room has been successfully edited.", "success");
+		$message = Html::notification("The room has been successfully edited.", "success");
 		break;
 	case 3:
-		$message = Html::Notification("The room has been successfully deleted.", "success");
+		$message = Html::notification("The room has been successfully deleted.", "success");
 		break;
 	case 4:
-		$message = Html::Notification("The room has been successfully resynchronized.", "success");
+		$message = Html::notification("The room has been successfully resynchronized.", "success");
 		break;
 	case 5:
-		$message = Html::Notification("The new category has been successfully created.", "success");
+		$message = Html::notification("The new category has been successfully created.", "success");
 		break;
 	default:
 		$message = "";
@@ -41,10 +41,10 @@ switch($msg) {
 
 // Room list
 
-Database::Query("SELECT * FROM c_rooms ORDER BY name;");
+Database::query("SELECT * FROM c_rooms ORDER BY name;");
 
-while($room = Database::Fetch()) {
-	Template::Add("
+while($room = Database::fetch()) {
+	Template::add("
 		<tr>
 			<td>
 				<p>
@@ -83,7 +83,7 @@ while($room = Database::Fetch()) {
 					<td>Resync</td>
 				</tr>
 			</thead>
-			<?php echo Template::Get(); ?>
+			<?php echo Template::get(); ?>
 		</table>
 	</form>
 </div>

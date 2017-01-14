@@ -33,17 +33,17 @@ class Usercp extends Application
 	 * USER CONTROL PANEL IS FOR MEMBER ONLY. IF GUEST, THEN REDIRECT.
 	 * --------------------------------------------------------------------
 	 */
-	public function _BeforeAction()
+	public function beforeAction()
 	{
 		// This section is for members only
-		SessionState::NoGuest();
+		SessionState::noGuest();
 
 		// Save logged in member ID into $member_id
 		$this->member_id= SessionState::$user_data['m_id'];
 
 		// Get member info (it's used all over the User Control Panel
-		Database::Query("SELECT * FROM c_members WHERE m_id = {$this->member_id}");
-		$this->member_info = Database::Fetch();
+		Database::query("SELECT * FROM c_members WHERE m_id = {$this->member_id}");
+		$this->member_info = Database::fetch();
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Usercp extends Application
 	 * VIEW: USER CONTROL PANEL - DASHBOARD
 	 * --------------------------------------------------------------------
 	 */
-	public function Index()
+	public function index()
 	{
 		// Define selected menu item
 		$menu = array("active", "", "", "", "", "");
@@ -61,7 +61,7 @@ class Usercp extends Application
 
 		// Get register date
 		$register_date_timestamp = $this->member_info['joined'];
-		$register_date = $this->Core->DateFormat($register_date_timestamp);
+		$register_date = $this->Core->dateFormat($register_date_timestamp);
 
 		// Calculate average of posts per day
 		$days = (time() - $register_date_timestamp) / DAY;
@@ -69,15 +69,15 @@ class Usercp extends Application
 		$average_posts = round($posts_total / floor($days), 1);
 
 		// Get number of private messages
-		Database::Query("SELECT COUNT(*) AS total FROM c_messages
+		Database::query("SELECT COUNT(*) AS total FROM c_messages
 				WHERE to_id = {$this->member_id};");
-		$pm = Database::Fetch();
+		$pm = Database::fetch();
 
 		$space_left = $this->Core->config['member_pm_storage'] - $pm['total'];
 
 		// Page info
-		$page_info['title'] = i18n::Translate("C_TITLE");
-		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("C_TITLE");
+		$page_info['bc'] = array(i18n::translate("C_TITLE"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -94,15 +94,15 @@ class Usercp extends Application
 	 * VIEW: USER CONTROL PANEL - PROFILE
 	 * --------------------------------------------------------------------
 	 */
-	public function Profile()
+	public function profile()
 	{
 		// Define selected menu item
 		$menu = array("", "active", "", "", "", "");
 
 		// Define messages
-		$message_id = Http::Request("m", true);
+		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::Notification(i18n::Translate("C_MESSAGE_1"), "success")
+			Html::notification(i18n::translate("C_MESSAGE_1"), "success")
 		);
 
 		// Gender
@@ -118,8 +118,8 @@ class Usercp extends Application
 		$profile['hide_email_status'] = ($this->member_info['hide_email'] == 1) ? "checked" : "";
 
 		// Page info
-		$page_info['title'] = i18n::Translate("C_TITLE");
-		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("C_TITLE");
+		$page_info['bc'] = array(i18n::translate("C_TITLE"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -134,15 +134,15 @@ class Usercp extends Application
 	 * VIEW: USER CONTROL PANEL - EDIT USER PHOTO
 	 * --------------------------------------------------------------------
 	 */
-	public function Photo()
+	public function photo()
 	{
 		// Define selected menu item
 		$menu = array("", "", "active", "", "", "");
 
 		// Define messages
-		$message_id = Http::Request("m", true);
+		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::Notification(i18n::Translate("C_MESSAGE_2"), "success")
+			Html::notification(i18n::translate("C_MESSAGE_2"), "success")
 		);
 
 		// Member has selected Gravatar or custom photo?
@@ -159,13 +159,13 @@ class Usercp extends Application
 		// Force to get both gravatar and custom image
 		$tmp = $this->member_info;
 		$tmp['photo_type'] = "gravatar";
-		$photo_info['gravatar_image'] = $this->Core->GetAvatar($tmp, 240);
+		$photo_info['gravatar_image'] = $this->Core->getAvatar($tmp, 240);
 		$tmp['photo_type'] = "custom";
-		$photo_info['custom_image'] = $this->Core->GetAvatar($tmp, 240);
+		$photo_info['custom_image'] = $this->Core->getAvatar($tmp, 240);
 
 		// Page info
-		$page_info['title'] = i18n::Translate("C_TITLE");
-		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("C_TITLE");
+		$page_info['bc'] = array(i18n::translate("C_TITLE"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -180,20 +180,20 @@ class Usercp extends Application
 	 * VIEW: USER CONTROL PANEL - EDIT SIGNATURE
 	 * --------------------------------------------------------------------
 	 */
-	public function Signature()
+	public function signature()
 	{
 		// Define selected menu item
 		$menu = array("", "", "", "active", "", "");
 
 		// Define messages
-		$message_id = Http::Request("m", true);
+		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::Notification(i18n::Translate("C_MESSAGE_3"), "success")
+			Html::notification(i18n::translate("C_MESSAGE_3"), "success")
 		);
 
 		// Page info
-		$page_info['title'] = i18n::Translate("C_TITLE");
-		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("C_TITLE");
+		$page_info['bc'] = array(i18n::translate("C_TITLE"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -207,15 +207,15 @@ class Usercp extends Application
 	 * VIEW: USER CONTROL PANEL - COMMUNITY SETTINGS
 	 * --------------------------------------------------------------------
 	 */
-	public function Settings()
+	public function settings()
 	{
 		// Define selected menu item
 		$menu = array("", "", "", "", "active", "");
 
 		// Define messages
-		$message_id = Http::Request("m", true);
+		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::Notification(i18n::Translate("C_MESSAGE_4"), "success")
+			Html::notification(i18n::translate("C_MESSAGE_4"), "success")
 		);
 
 		// Timezone list
@@ -259,25 +259,25 @@ class Usercp extends Application
 
 		// Language list
 		$settings['lang_list'] = "";
-		Database::Query("SELECT * FROM c_languages WHERE is_active = 1 ORDER BY name;");
+		Database::query("SELECT * FROM c_languages WHERE is_active = 1 ORDER BY name;");
 
-		while($lang = Database::Fetch()) {
+		while($lang = Database::fetch()) {
 			$selected = ($this->member_info['language'] == $lang['directory']) ? "selected" : "";
 			$settings['lang_list'] .= "<option value='{$lang['directory']}' {$selected}>{$lang['name']}</option>\n";
 		}
 
 		// Template list
 		$settings['theme_list'] = "";
-		Database::Query("SELECT * FROM c_themes WHERE is_active = 1 ORDER BY name;");
+		Database::query("SELECT * FROM c_themes WHERE is_active = 1 ORDER BY name;");
 
-		while($theme = Database::Fetch()) {
+		while($theme = Database::fetch()) {
 			$selected = ($this->member_info['theme'] == $theme['directory']) ? "selected" : "";
 			$settings['theme_list'] .= "<option value='{$theme['directory']}' {$selected}>{$theme['name']}</option>\n";
 		}
 
 		// Page info
-		$page_info['title'] = i18n::Translate("C_TITLE");
-		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("C_TITLE");
+		$page_info['bc'] = array(i18n::translate("C_TITLE"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -291,22 +291,22 @@ class Usercp extends Application
 	 * VIEW: USER CONTROL PANEL - PASSWORD
 	 * --------------------------------------------------------------------
 	 */
-	public function Password()
+	public function password()
 	{
 		// Define selected menu item
 		$menu = array("", "", "", "", "", "active");
 
 		// Define messages
-		$message_id = Http::Request("m", true);
+		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::Notification(i18n::Translate("C_MESSAGE_5"), "success"),
-			Html::Notification(i18n::Translate("C_MESSAGE_6"), "failure"),
-			Html::Notification(i18n::Translate("C_MESSAGE_7"), "failure")
+			Html::notification(i18n::translate("C_MESSAGE_5"), "success"),
+			Html::notification(i18n::translate("C_MESSAGE_6"), "failure"),
+			Html::notification(i18n::translate("C_MESSAGE_7"), "failure")
 		);
 
 		// Page info
-		$page_info['title'] = i18n::Translate("C_TITLE");
-		$page_info['bc'] = array(i18n::Translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("C_TITLE");
+		$page_info['bc'] = array(i18n::translate("C_TITLE"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -319,29 +319,29 @@ class Usercp extends Application
 	 * SAVE: MEMBER PROFILE
 	 * --------------------------------------------------------------------
 	 */
-	public function SaveProfile()
+	public function saveProfile()
 	{
 		$this->layout = false;
 
 		// Get values
 		$info = array(
-			"email"        => Http::Request("email"),
-			"hide_email"   => Http::Request("hide_email"),
-			"member_title" => Http::Request("member_title"),
-			"location"     => Http::Request("location"),
-			"profile"      => Http::Request("profile"),
-			"b_day"        => (Http::Request("b_day")) ? Http::Request("b_day") : 0,
-			"b_month"      => (Http::Request("b_month")) ? Http::Request("b_month") : 0,
-			"b_year"       => (Http::Request("b_year")) ? Http::Request("b_year") : 0,
-			"gender"       => Http::Request("gender"),
-			"website"      => Http::Request("website"),
-			"im_facebook"  => Http::Request("im_facebook"),
-			"im_twitter"   => Http::Request("im_twitter")
+			"email"        => Http::request("email"),
+			"hide_email"   => Http::request("hide_email"),
+			"member_title" => Http::request("member_title"),
+			"location"     => Http::request("location"),
+			"profile"      => Http::request("profile"),
+			"b_day"        => (Http::request("b_day")) ? Http::request("b_day") : 0,
+			"b_month"      => (Http::request("b_month")) ? Http::request("b_month") : 0,
+			"b_year"       => (Http::request("b_year")) ? Http::request("b_year") : 0,
+			"gender"       => Http::request("gender"),
+			"website"      => Http::request("website"),
+			"im_facebook"  => Http::request("im_facebook"),
+			"im_twitter"   => Http::request("im_twitter")
 		);
 
 		// Save and redirect...
-		Database::Update("c_members", $info, "m_id = {$this->member_id}");
-		$this->Core->Redirect("usercp/profile?m=1");
+		Database::update("c_members", $info, "m_id = {$this->member_id}");
+		$this->Core->redirect("usercp/profile?m=1");
 	}
 
 	/**
@@ -349,24 +349,24 @@ class Usercp extends Application
 	 * SAVE: MEMBER PHOTO
 	 * --------------------------------------------------------------------
 	 */
-	public function SavePhoto()
+	public function savePhoto()
 	{
 		$this->layout = false;
 
 		// Get photo type
-		$photo_type = Http::Request("photo_type");
+		$photo_type = Http::request("photo_type");
 
 		// Do processes!
 		if($photo_type == "gravatar") {
 			// Change photo type to 'gravatar'
-			Database::Update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
-			$this->Core->Redirect("usercp/photo?m=1");
+			Database::update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
+			$this->Core->redirect("usercp/photo?m=1");
 		}
 		else {
 			// User photo already hosted on community's server
 			if($_FILES['file_upload']['name'] == "") {
-				Database::Update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
-				$this->Core->Redirect("usercp/photo?m=1");
+				Database::update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
+				$this->Core->redirect("usercp/photo?m=1");
 			}
 			else {
 				// Allowed extensions (JPEG, GIF and PNG)
@@ -376,8 +376,8 @@ class Usercp extends Application
 
 				if(in_array($file_extension, $allowed_extensions)) {
 					// Select current photo, if exists
-					Database::Query("SELECT photo FROM c_members WHERE m_id = '{$this->member_id}';");
-					$current_photo = Database::Fetch();
+					Database::query("SELECT photo FROM c_members WHERE m_id = '{$this->member_id}';");
+					$current_photo = Database::fetch();
 					$current_photo = ($current_photo['photo'] != "") ? $current_photo['photo'] : null;
 
 					// Delete special characters and diacritics
@@ -398,13 +398,13 @@ class Usercp extends Application
 					$new_file_name = $this->member_id . "." . $file_extension;
 					move_uploaded_file($_FILES['file_upload']['tmp_name'], "public/avatar/" . $new_file_name);
 
-					Database::Update("c_members", array(
+					Database::update("c_members", array(
 						"photo_type = '{$photo_type}'",
 						"photo = '{$new_file_name}'"
 					), "m_id = '{$this->member_id}'");
 
 					// Redirect
-					$this->Core->Redirect("usercp/photo?m=1");
+					$this->Core->redirect("usercp/photo?m=1");
 				}
 				exit;
 			}
@@ -416,7 +416,7 @@ class Usercp extends Application
 	 * SAVE: SIGNATURE
 	 * --------------------------------------------------------------------
 	 */
-	public function SaveSignature()
+	public function saveSignature()
 	{
 		$this->layout = false;
 
@@ -426,8 +426,8 @@ class Usercp extends Application
 		);
 
 		// Save and redirect...
-		Database::Update("c_members", $info, "m_id = {$this->member_id}");
-		$this->Core->Redirect("usercp/signature?m=1");
+		Database::update("c_members", $info, "m_id = {$this->member_id}");
+		$this->Core->redirect("usercp/signature?m=1");
 	}
 
 	/**
@@ -435,20 +435,20 @@ class Usercp extends Application
 	 * SAVE:COMMUNITY SETTINGS
 	 * --------------------------------------------------------------------
 	 */
-	public function SaveSettings()
+	public function saveSettings()
 	{
 		$this->layout = false;
 
 		// Get values
 		$info = array(
-			"theme"       => Http::Request("theme"),
-			"language"    => Http::Request("language"),
-			"time_offset" => Http::Request("timezone")
+			"theme"       => Http::request("theme"),
+			"language"    => Http::request("language"),
+			"time_offset" => Http::request("timezone")
 		);
 
 		// Save and redirect...
-		Database::Update("c_members", $info, "m_id = {$this->member_id}");
-		$this->Core->Redirect("usercp/settings?m=1");
+		Database::update("c_members", $info, "m_id = {$this->member_id}");
+		$this->Core->redirect("usercp/settings?m=1");
 	}
 
 	/**
@@ -456,7 +456,7 @@ class Usercp extends Application
 	 * SAVE: NEW PASSWORD
 	 * --------------------------------------------------------------------
 	 */
-	public function SavePassword()
+	public function savePassword()
 	{
 		$this->layout = false;
 
@@ -467,28 +467,28 @@ class Usercp extends Application
 		);
 
 		// Get values
-		$current   = Text::Encrypt(Http::Request("current"), $salt);
-		$new_pass  = Text::Encrypt(Http::Request("new_password"), $salt);
-		$conf_pass = Text::Encrypt(Http::Request("conf_password"), $salt);
+		$current   = Text::encrypt(Http::request("current"), $salt);
+		$new_pass  = Text::encrypt(Http::request("new_password"), $salt);
+		$conf_pass = Text::encrypt(Http::request("conf_password"), $salt);
 
 		// Check if member and password matches
-		Database::Query("SELECT COUNT(*) AS result FROM c_members WHERE m_id = '{$this->member_id}' AND password = '{$current}';");
-		$count = Database::Fetch();
+		Database::query("SELECT COUNT(*) AS result FROM c_members WHERE m_id = '{$this->member_id}' AND password = '{$current}';");
+		$count = Database::fetch();
 
 		if($count['result'] == 0) {
 			// If old password is wrong: redirect and show error message
-			$this->Core->Redirect("usercp/password?m=2");
+			$this->Core->redirect("usercp/password?m=2");
 		}
 		elseif($new_pass != $conf_pass) {
 			// If password does not match: redirect and show error message
-			$this->Core->Redirect("usercp/password?m=3");
+			$this->Core->redirect("usercp/password?m=3");
 		}
 
 		// Continue...
 		$info = array("password" => $new_pass);
-		Database::Update("c_members", $info, "m_id = {$this->member_id}");
+		Database::update("c_members", $info, "m_id = {$this->member_id}");
 
 		// Redirect
-		$this->Core->Redirect("usercp/password?m=1");
+		$this->Core->redirect("usercp/password?m=1");
 	}
 }

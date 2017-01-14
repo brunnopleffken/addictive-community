@@ -12,11 +12,11 @@
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The settings has been successfully changed.", "success");
+		$message = Html::notification("The settings has been successfully changed.", "success");
 		break;
 	default:
 		$message = "";
@@ -38,11 +38,11 @@ switch($msg) {
 			</thead>
 			<tr>
 				<td class="font-w600">Require e-mail validation<small>You <strong>must</strong> configure your <a href="main.php?act=general&p=email">E-mail (SMTP) settings</a>, otherwise you will not be able to send e-mails.</small></td>
-				<td><label><?php echo $Admin->SelectCheckbox("general_security_validation") ?> Send validation e-mail to new members.</label></td>
+				<td><label><?php echo $Admin->selectCheckbox("general_security_validation") ?> Send validation e-mail to new members.</label></td>
 			</tr>
 			<tr>
 				<td class="font-w600">CAPTCHA validation<small>Your <a href="main.php?act=system&p=server">server environment</a> must have GD2 extension enabled.</small></td>
-				<td><label><?php echo $Admin->SelectCheckbox("general_security_captcha") ?> Use CAPTCHA validation.</label></td>
+				<td><label><?php echo $Admin->selectCheckbox("general_security_captcha") ?> Use CAPTCHA validation.</label></td>
 			</tr>
 		</table>
 
@@ -54,11 +54,11 @@ switch($msg) {
 			</thead>
 			<tr>
 				<td class="font-w600">Offline Mode<small>Note that enabling this feature will also prevent search engines from tracking your community content.</small></td>
-				<td><label><?php echo $Admin->SelectCheckbox("general_offline") ?> Community is offline for guests and members (only administrators are allowed to log in).</label></td>
+				<td><label><?php echo $Admin->selectCheckbox("general_offline") ?> Community is offline for guests and members (only administrators are allowed to log in).</label></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Disable new registrations</td>
-				<td><label><?php echo $Admin->SelectCheckbox("general_disable_registrations") ?> This community is closed for new registrations.</label></td>
+				<td><label><?php echo $Admin->selectCheckbox("general_disable_registrations") ?> This community is closed for new registrations.</label></td>
 			</tr>
 		</table>
 		<div class="text-right">

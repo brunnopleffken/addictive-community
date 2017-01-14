@@ -38,13 +38,13 @@ class Email
 		// Check if e-mail information is empty
 		if($config['general_email_smtp'] == "" || $config['general_email_port'] == "" ||
 		$config['general_email_from'] == "") {
-			Html::Error("<b>Mailer Error:</b> You're unable to send e-mails. Check your SMTP settings in "
+			Html::throwError("<b>Mailer Error:</b> You're unable to send e-mails. Check your SMTP settings in "
 				. "<a href='admin/' target='_blank'>Administration Control Panel</a>."
 			);
 		}
 		if($config['general_email_authentication'] &&
 		($config['general_email_username'] == "" || $config['general_email_password'] == "")) {
-			Html::Error("<b>Mailer Error:</b> You're unable to send e-mails. Check your SMTP settings in "
+			Html::throwError("<b>Mailer Error:</b> You're unable to send e-mails. Check your SMTP settings in "
 				. "<a href='admin/' target='_blank'>Administration Control Panel</a>."
 			);
 		}
@@ -73,7 +73,7 @@ class Email
 	 * $to ACCEPTS BOTH STRING AND ARRAY ($email => $name)
 	 * --------------------------------------------------------------------
 	 */
-	public function Send($to, $subject, $body)
+	public function sendMail($to, $subject, $body)
 	{
 		if(is_array($to)) {
 			foreach($to as $address => $username) {
@@ -96,7 +96,7 @@ class Email
 			if(!method_exists("Html", "Error")) {
 				require("Html.php");
 			}
-			Html::Error("<b>Mailer Error:</b> " . $this->Mail->ErrorInfo);
+			Html::throwError("<b>Mailer Error:</b> " . $this->Mail->ErrorInfo);
 			return false;
 		}
 	}

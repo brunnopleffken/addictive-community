@@ -13,28 +13,28 @@ use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
-$id = Http::Request("id");
+$id = Http::request("id");
 
-$notification = Html::Notification(
+$notification = Html::notification(
 	"You will not be able to edit template files from here. You must access those files via FTP.", "info"
 );
 
 // Change language name
 
-if(Http::Request("template_name")) {
-	$new_template_name = Http::Request("template_name");
+if(Http::request("template_name")) {
+	$new_template_name = Http::request("template_name");
 
-	Database::Query("UPDATE c_templates SET name = '{$new_template_name}' WHERE tpl_id = '{$id}';");
+	Database::query("UPDATE c_templates SET name = '{$new_template_name}' WHERE tpl_id = '{$id}';");
 
-	$notification = Html::Notification(
+	$notification = Html::notification(
 		"You have successfylly changed the template name to {$new_template_name}", "success"
 	);
 }
 
 // Get template info
 
-Database::Query("SELECT * FROM c_templates WHERE tpl_id = '{$id}';");
-$lang = Database::Fetch();
+Database::query("SELECT * FROM c_templates WHERE tpl_id = '{$id}';");
+$lang = Database::fetch();
 
 ?>
 

@@ -16,26 +16,26 @@ use \AC\Kernel\Template;
 
 // Notification
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : 0;
+$msg = (Http::request("msg")) ? Http::request("msg") : 0;
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The settings has been successfully changed.", "success");
+		$message = Html::notification("The settings has been successfully changed.", "success");
 		break;
 	case 2:
-		$message = Html::Notification("The new rank has been successfully added.", "success");
+		$message = Html::notification("The new rank has been successfully added.", "success");
 		break;
 	case 3:
-		$message = Html::Notification("The rank has been successfully removed.", "success");
+		$message = Html::notification("The rank has been successfully removed.", "success");
 		break;
 	default:
 		$message = "";
 }
 
 // Get usergroup list
-Database::Query("SELECT * FROM c_ranks ORDER BY min_posts;");
+Database::query("SELECT * FROM c_ranks ORDER BY min_posts;");
 
-while($rank = Database::Fetch()) {
+while($rank = Database::fetch()) {
 	// Image has a higher priority than pip number
 	$symbol = "";
 	if($rank['pips'] != "") {
@@ -45,7 +45,7 @@ while($rank = Database::Fetch()) {
 		$symbol = $rank['pips'];
 	}
 
-	Template::Add("<tr>
+	Template::add("<tr>
 			<td><b>{$rank['title']}</b></td>
 			<td>{$rank['min_posts']}</td>
 			<td>{$symbol}</td>
@@ -78,7 +78,7 @@ while($rank = Database::Fetch()) {
 				<td class="min">Delete</td>
 			</tr>
 		</thead>
-		<?php echo Template::Get() ?>
+		<?php echo Template::get() ?>
 	</table>
 
 	<hr>
@@ -92,7 +92,7 @@ while($rank = Database::Fetch()) {
 			</thead>
 			<tr>
 				<td class="font-w600">Enable ranks and promotions</td>
-				<td><?php echo $Admin->SelectCheckbox("general_member_enable_ranks") ?> Enable ranks for all members</td>
+				<td><?php echo $Admin->selectCheckbox("general_member_enable_ranks") ?> Enable ranks for all members</td>
 			</tr>
 		</table>
 		<div class="text-right">

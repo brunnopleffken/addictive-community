@@ -19,21 +19,21 @@ require_once("../kernel/Http.php");
 // Display error messages
 // e.g.: index.php?error=1
 
-if(Http::Request("error")) {
-	$error = Http::Request("error");
+if(Http::request("error")) {
+	$error = Http::request("error");
 
 	switch($error) {
 		case 1:
-			$message = Html::Notification("Wrong username and/or password. Please, try again!", "failure");
+			$message = Html::notification("Wrong username and/or password. Please, try again!", "failure");
 			break;
 		case 2:
-			$message = Html::Notification("Please, log-in to access the Admin Control Panel.", "warning");
+			$message = Html::notification("Please, log-in to access the Admin Control Panel.", "warning");
 			break;
 		case 3:
-			$message = Html::Notification("This administrator session has expired.", "warning");
+			$message = Html::notification("This administrator session has expired.", "warning");
 			break;
 		case 4:
-			$message = Html::Notification("You don't have permission to access Admin CP.", "failure");
+			$message = Html::notification("You don't have permission to access Admin CP.", "failure");
 			break;
 	}
 }

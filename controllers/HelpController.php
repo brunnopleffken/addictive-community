@@ -24,18 +24,18 @@ class Help extends Application
 	 * VIEW HELP TOPICS
 	 * --------------------------------------------------------------------
 	 */
-	public function Index()
+	public function index()
 	{
 		$this->Core->redirect("404");
 		exit;
 
 		// Get help topics list
-		Database::Query("SELECT h_id, title, short_desc FROM c_help ORDER BY title ASC;");
-		$_topics = Database::FetchToArray();
+		Database::query("SELECT h_id, title, short_desc FROM c_help ORDER BY title ASC;");
+		$_topics = Database::fetchToArray();
 
 		// Page info
-		$page_info['title'] = i18n::Translate("H_TITLE");
-		$page_info['bc'] = array(i18n::Translate("H_TITLE"));
+		$page_info['title'] = i18n::translate("H_TITLE");
+		$page_info['bc'] = array(i18n::translate("H_TITLE"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -47,18 +47,18 @@ class Help extends Application
 	 * READ AN SPECIFIC TOPIC
 	 * --------------------------------------------------------------------
 	 */
-	public function View($id)
+	public function view($id)
 	{
 		$this->Core->redirect("404");
 		exit;
 
 		// Get the topic
-		Database::Query("SELECT * FROM c_help WHERE h_id = '{$id}';");
-		$help = Database::Fetch();
+		Database::query("SELECT * FROM c_help WHERE h_id = '{$id}';");
+		$help = Database::fetch();
 
 		// Page info
-		$page_info['title'] = i18n::Translate("H_TITLE");
-		$page_info['bc'] = array(i18n::Translate("H_TITLE"), $help['title']);
+		$page_info['title'] = i18n::translate("H_TITLE");
+		$page_info['bc'] = array(i18n::translate("H_TITLE"), $help['title']);
 		$this->Set("page_info", $page_info);
 
 		// Return variables

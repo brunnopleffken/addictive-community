@@ -17,24 +17,24 @@ use \AC\Kernel\Session;
 
 // Get rooms info
 
-$id = Http::Request("id", true);
+$id = Http::request("id", true);
 
-Database::Query("SELECT name FROM c_rooms;");
-$room_info = Database::Fetch();
+Database::query("SELECT name FROM c_rooms;");
+$room_info = Database::fetch();
 
 if(isset($_POST['username'])) {
 	// Must the page show search results?
 	$has_result = true;
 
 	$username = $_POST['username'];
-	$logged_member = Session::Retrieve("admin_m_id");
+	$logged_member = Session::retrieve("admin_m_id");
 
-	$members = Database::Query("SELECT m_id, username, email, photo, photo_type FROM c_members
+	$members = Database::query("SELECT m_id, username, email, photo, photo_type FROM c_members
 			WHERE username LIKE '%{$username}%' AND m_id <> {$logged_member} LIMIT 10;");
 
-	while($member = Database::Fetch()) {
-		Template::Add("<tr>
-				<td class='min'>" . Html::Crop($Core->GetAvatar($member, 40), 40, 40) . "</td>
+	while($member = Database::fetch()) {
+		Template::add("<tr>
+				<td class='min'>" . Html::crop($Core->getAvatar($member, 40), 40, 40) . "</td>
 				<td><h3>{$member['username']}</h3></td>
 				<td class='min' style='padding: 20px 0'>
 					<a href='process.php?do=add_moderator&m_id={$member['m_id']}&r_id={$id}' class='btn btn-default btn-sm'>Add as Moderator</a>
@@ -53,7 +53,7 @@ else {
 <h1>Add New Moderator: <?php echo $room_info['name'] ?></h1>
 
 <div class="block">
-		<?php echo Html::Notification("The member with moderator privileges will be able to lock/unlock threads, create announcements and to edit/delete others member's post in this room; but moderators still <u>cannot</u> access the Administration Control Panel.", "warning"); ?>
+		<?php echo Html::notification("The member with moderator privileges will be able to lock/unlock threads, create announcements and to edit/delete others member's post in this room; but moderators still <u>cannot</u> access the Administration Control Panel.", "warning"); ?>
 		<table class="table">
 			<thead>
 				<tr>
@@ -78,7 +78,7 @@ else {
 						<td colspan="3">Member Information</td>
 					</tr>
 				</thead>
-				<?php echo Template::Get(); ?>
+				<?php echo Template::get(); ?>
 			</table>
 		<?php endif; ?>
 </div>

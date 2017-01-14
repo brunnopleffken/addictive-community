@@ -24,10 +24,10 @@ class Report extends Application
 	 * PERFORM ACTIONS BEFORE RUN API METHODS
 	 * --------------------------------------------------------------------
 	 */
-	public function _BeforeAction()
+	public function beforeAction()
 	{
 		// Yeah, to avoid SPAM guests cannot send reports
-		SessionState::NoGuest();
+		SessionState::noGuest();
 	}
 
 	/**
@@ -35,7 +35,7 @@ class Report extends Application
 	 * REPORT A POST
 	 * --------------------------------------------------------------------
 	 */
-	public function Post($post_id)
+	public function post($post_id)
 	{
 		$this->master = "Ajax";
 
@@ -48,7 +48,7 @@ class Report extends Application
 	 * REPORT A THREAD
 	 * --------------------------------------------------------------------
 	 */
-	public function Thread($thread_id)
+	public function thread($thread_id)
 	{
 		$this->master = "Ajax";
 
@@ -61,31 +61,31 @@ class Report extends Application
 	 * SAVE REPORT ON DATABASE
 	 * --------------------------------------------------------------------
 	 */
-	public function Save()
+	public function save()
 	{
 		$this->layout = false;
 
 		// Check if user is reporting a post or a thread
-		if(!Http::Request("post_id", true)) {
+		if(!Http::request("post_id", true)) {
 			$mode = "thread";
-			$thread_id = Http::Request("thread_id", true);
+			$thread_id = Http::request("thread_id", true);
 		}
 		else {
 			$mode = "post";
-			$post_id = Http::Request("post_id", true);
+			$post_id = Http::request("post_id", true);
 
-			Database::Query("SELECT thread_id FROM c_posts WHERE p_id = {$post_id};");
-			$result = Database::Fetch();
+			Database::query("SELECT thread_id FROM c_posts WHERE p_id = {$post_id};");
+			$result = Database::fetch();
 
 			$thread_id = $result['thread_id'];
 		}
 
 		// Build report
 		$report_info = array(
-			"description" => Http::Request("description"),
-			"reason"      => Http::Request("reason", true),
+			"description" => Http::request("description"),
+			"reason"      => Http::request("reason", true),
 			"date"        => time(),
-			"sender_id"   => Http::Request("member_id", true),
+			"sender_id"   => Http::request("member_id", true),
 			"ip_address"  => $_SERVER['REMOTE_ADDR'],
 			"post_id"     => ($post_id) ? $post_id : "0",
 			"thread_id"   => ($thread_id) ? $thread_id : "0",
@@ -93,14 +93,14 @@ class Report extends Application
 		);
 
 		// Save report on DB
-		Database::Insert("c_reports", $report_info);
+		Database::insert("c_reports", $report_info);
 
 		// Redirect to its respective notification
 		if($mode == "thread") {
-			$this->Core->Redirect("thread/" . $report_info['thread_id'] . "?m=1");
+			$this->Core->redirect("thread/" . $report_info['thread_id'] . "?m=1");
 		}
 		else {
-			$this->Core->Redirect("thread/" . $report_info['thread_id'] . "?m=2");
+			$this->Core->redirect("thread/" . $report_info['thread_id'] . "?m=2");
 		}
 	}
 }

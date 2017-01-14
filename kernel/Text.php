@@ -32,7 +32,7 @@ class Text
 	 * SANITIZE STRING (REPLACE SPECIAL CHARS TO HTML ENTITIES)
 	 * --------------------------------------------------------------------
 	 */
-	public static function Sanitize($text)
+	public static function sanitize($text)
 	{
 		$text = str_replace("&", "&amp;", $text);
 		$text = str_replace("<", "&lt;", $text);
@@ -51,7 +51,7 @@ class Text
 	 * REMOVE SPECIFIC TAGS TO AVOID CROSS-SIDE SCRIPTING
 	 * --------------------------------------------------------------------
 	 */
-	public static function RemoveHTMLElements($text)
+	public static function removeHtmlElements($text)
 	{
 		// Dangerous HTML elements
 		$text = str_replace("<!--", "&lt;!--", $text);
@@ -70,7 +70,7 @@ class Text
 	 * $salt must be an array containing [ "hash", "key" ]
 	 * --------------------------------------------------------------------
 	 */
-	public static function Encrypt($password, $salt = array())
+	public static function encrypt($password, $salt = array())
 	{
 		$hash = $password . $salt['hash'];
 		for($i = 0; $i < $salt['key']; $i++) {
@@ -85,7 +85,7 @@ class Text
 	 * CREATE A RANDOM 8 CHAR PASSWORD
 	 * --------------------------------------------------------------------
 	 */
-	public static function MakePassword()
+	public static function makePassword()
 	{
 		$pass = "";
 		$chars = array(
@@ -109,7 +109,7 @@ class Text
 	 * CALCULATE MEMBER AGE FROM BIRTHDATE TIMESTAMP
 	 * --------------------------------------------------------------------
 	 */
-	public static function MemberAge($timestamp)
+	public static function memberAge($timestamp)
 	{
 		$birth = date("md Y", $timestamp);
 		$birth = explode(" ", $birth);
@@ -133,7 +133,7 @@ class Text
 	 * ARE JOINED WITH 'AND'.
 	 * --------------------------------------------------------------------
 	 */
-	public static function ToList($list, $and = "and", $separator = ", ")
+	public static function toList($list, $and = "and", $separator = ", ")
 	{
 		if(count($list) > 1) {
 			return implode($separator, array_slice($list, null, -1)) . " " . $and . " " . array_pop($list);
@@ -146,7 +146,7 @@ class Text
 	 * CONVERT BYTE SIZE INTO HUMAN READABLE FORMAT
 	 * --------------------------------------------------------------------
 	 */
-	public static function FileSizeFormat($bytes = 0)
+	public static function fileSizeFormat($bytes = 0)
 	{
 		if($bytes >= 1048576) {
 			$retval = round($bytes / 1048576 * 100) / 100 . " MB";
@@ -167,7 +167,7 @@ class Text
 	 * ARE JOINED WITH 'AND'.
 	 * --------------------------------------------------------------------
 	 */
-	public static function Slug($string, $replacement = "-")
+	public static function slug($string, $replacement = "-")
 	{
 		$transliteration = \Transliterator::create("Any-Latin; Latin-ASCII; Lower()");
 		$string = $transliteration->transliterate($string);
@@ -182,7 +182,7 @@ class Text
 	 * CONVERT string_with_underscore TO StringWithUnderscore
 	 * --------------------------------------------------------------------
 	 */
-	public static function CamelCase($string = "")
+	public static function camelCase($string = "")
 	{
 		$string = preg_replace("/(_)/", " ", $string);
 		$string = preg_replace("/([\s])/", "", ucwords($string));
@@ -194,9 +194,9 @@ class Text
 	 * CONVERT string_with_underscore TO stringWithUnderscore
 	 * --------------------------------------------------------------------
 	 */
-	public static function LowerCamelCase($string = "")
+	public static function lowerCamelCase($string = "")
 	{
-		$string = self::CamelCase($string);
+		$string = self::camelCase($string);
 		$replace = strtolower(substr($string, 0, 1));
 		$result = $replace . substr($string, 1);
 		return $result;

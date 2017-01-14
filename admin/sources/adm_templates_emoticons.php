@@ -17,9 +17,9 @@ $emoticon_list_from_db = array();
 $emoticon_list_from_dir = array();
 
 // Get list of emoticons from database
-$emoticon_query = Database::Query("SELECT * FROM c_emoticons ORDER BY filename;");
+$emoticon_query = Database::query("SELECT * FROM c_emoticons ORDER BY filename;");
 
-while($emoticon = Database::Fetch($emoticon_query)) {
+while($emoticon = Database::fetch($emoticon_query)) {
 	$emoticon_list_from_db[] = $emoticon['filename'];
 
 	if($emoticon['display']) {
@@ -29,11 +29,11 @@ while($emoticon = Database::Fetch($emoticon_query)) {
 		$disable = "<a href='process.php?do=enable_emoticon&id={$emoticon['id']}'><i class='fa fa-check'></i></a>";
 	}
 
-	Template::Add("<tr>
+	Template::add("<tr>
 			<td>{$emoticon['filename']}</td>
 			<td>{$emoticon['shortcut']}</td>
 			<td><img src='../public/emoticons/{$emoticon['emoticon_set']}/{$emoticon['filename']}' width='16'></td>
-			<td>" . $Admin->FriendlyBool($emoticon['display']) . "</td>
+			<td>" . $Admin->showBoolean($emoticon['display']) . "</td>
 			<td style='text-align:center'>{$disable}</td>
 		</tr>");
 }
@@ -70,7 +70,7 @@ $not_in_database = array_diff($emoticon_list_from_dir, $emoticon_list_from_db);
 				<td class="min">Enable/Disable</td>
 			</tr>
 		</thead>
-		<?php echo Template::Get() ?>
+		<?php echo Template::get() ?>
 	</table>
 
 	<hr>

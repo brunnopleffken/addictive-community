@@ -20,19 +20,19 @@ $message = "";
 if($_POST) {
 	foreach($_POST as $k => $v) {
 		$content = $v;
-		Database::Query("UPDATE c_emails SET content = '{$content}' WHERE type = '{$k}';");
+		Database::query("UPDATE c_emails SET content = '{$content}' WHERE type = '{$k}';");
 	}
 
-	$message = Html::Notification("E-mail templates has been successfully updated.", "success");
+	$message = Html::notification("E-mail templates has been successfully updated.", "success");
 }
 
 // List of e-mail messages
 
-Database::Query("SELECT * FROM c_emails ORDER BY type ASC;");
+Database::query("SELECT * FROM c_emails ORDER BY type ASC;");
 
-while($template = Database::Fetch()) {
+while($template = Database::fetch()) {
 	$template['content'] = str_replace("<br />", "", $template['content']);
-	Template::Add("<tr>
+	Template::add("<tr>
 			<td class='font-w600'>{$template['description']}</td>
 			<td><textarea name='{$template['type']}' rows='8' class='form-control span-9'>{$template['content']}</textarea></td>
 		</tr>");
@@ -45,7 +45,7 @@ while($template = Database::Fetch()) {
 <?php echo $message ?>
 
 <div class="block">
-	<?php echo Html::Notification("<u>Do not</u> change the order of the variables (%s and %d symbols are variables). You can use HTML tags, e.g: for line breaks, use &lt;br&gt;.", "warning"); ?>
+	<?php echo Html::notification("<u>Do not</u> change the order of the variables (%s and %d symbols are variables). You can use HTML tags, e.g: for line breaks, use &lt;br&gt;.", "warning"); ?>
 	<form action="main.php?act=templates&p=emails" method="post">
 		<table class="table">
 			<thead>
@@ -60,7 +60,7 @@ while($template = Database::Fetch()) {
 					<td>Message</td>
 				</tr>
 			</thead>
-			<?php echo Template::Get() ?>
+			<?php echo Template::get() ?>
 		</table>
 		<div class="text-right">
 			<input type="submit" class="btn btn-default" value="Save E-mail Messages">

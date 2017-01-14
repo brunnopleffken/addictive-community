@@ -20,9 +20,9 @@ $username = "";
 // User group list
 
 $list = "";
-Database::Query("SELECT * FROM c_usergroups ORDER BY g_id");
+Database::query("SELECT * FROM c_usergroups ORDER BY g_id");
 
-while($group = Database::Fetch()) {
+while($group = Database::fetch()) {
 	if($group['g_id'] == 3) {
 		$list .= "<option value='{$group['g_id']}' selected>{$group['name']}</option>";
 	}
@@ -35,14 +35,14 @@ while($group = Database::Fetch()) {
 // Minimum 2 characters to avoid DB overload
 
 if(isset($_POST['username']) && strlen($_POST['username']) >= 2) {
-	$username = Text::Sanitize($_POST['username']);
+	$username = Text::sanitize($_POST['username']);
 
-	Database::Query("SELECT m.m_id, m.username, m.email, m.joined, m.photo, m.photo_type, m.posts, m.usergroup, u.g_id, u.name
+	Database::query("SELECT m.m_id, m.username, m.email, m.joined, m.photo, m.photo_type, m.posts, m.usergroup, u.g_id, u.name
 			FROM c_members m INNER JOIN c_usergroups u ON (m.usergroup = u.g_id)
 			WHERE username LIKE '%{$username}%' AND m_id <> 1;");
 
-	while($member = Database::Fetch()) {
-		$member['joined'] = $Core->DateFormat($member['joined']);
+	while($member = Database::fetch()) {
+		$member['joined'] = $Core->dateFormat($member['joined']);
 
 		if($member['usergroup'] == 4) {
 			$member['ban_button'] = "<a href='?act=members&amp;p=ban&amp;do=remove&amp;id={$member['m_id']}' class='btn btn-default btn-sm'>Remove Ban</a>";
@@ -51,8 +51,8 @@ if(isset($_POST['username']) && strlen($_POST['username']) >= 2) {
 			$member['ban_button'] = "<a href='?act=members&amp;p=ban&amp;do=banishment&amp;id={$member['m_id']}' class='btn btn-default btn-sm'>Ban Member</a>";
 		}
 
-		Template::Add("<tr>
-				<td>" . Html::Crop($Core->GetAvatar($member, 36, "admin"), 36, 36) . "</td>
+		Template::add("<tr>
+				<td>" . Html::crop($Core->getAvatar($member, 36, "admin"), 36, 36) . "</td>
 				<td style='font-size:15px'><b>{$member['username']}</b></td>
 				<td>{$member['email']}</td>
 				<td>{$member['joined']}</td>
@@ -63,21 +63,21 @@ if(isset($_POST['username']) && strlen($_POST['username']) >= 2) {
 	}
 }
 else {
-	Template::Add("<tr><td colspan='7' class='text-center'>No members to show.</td></tr>");
+	Template::add("<tr><td colspan='7' class='text-center'>No members to show.</td></tr>");
 }
 
 // Execute actions
 
-if(Http::Request("do")) {
-	$id = Http::Request("id");
+if(Http::request("do")) {
+	$id = Http::request("id");
 
-	switch(Http::Request("do")) {
+	switch(Http::request("do")) {
 		case "banishment":
-			Database::Query("UPDATE c_members SET usergroup = 4 WHERE m_id = '{$id}';");
+			Database::query("UPDATE c_members SET usergroup = 4 WHERE m_id = '{$id}';");
 			break;
 
 		case "remove":
-			Database::Query("UPDATE c_members SET usergroup = 3 WHERE m_id = '{$id}';");
+			Database::query("UPDATE c_members SET usergroup = 3 WHERE m_id = '{$id}';");
 			break;
 	}
 }
@@ -114,6 +114,6 @@ if(Http::Request("do")) {
 				<td></td>
 			</tr>
 		</thead>
-		<?php echo Template::Get() ?>
+		<?php echo Template::get() ?>
 	</table>
 </div>

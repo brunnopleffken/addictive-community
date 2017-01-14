@@ -12,11 +12,11 @@
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The settings has been successfully changed.", "success");
+		$message = Html::notification("The settings has been successfully changed.", "success");
 		break;
 	default:
 		$message = "";
@@ -24,7 +24,7 @@ switch($msg) {
 }
 
 // "Authentication Method" drop-down element value
-$auth = $Admin->SelectConfig("general_email_auth_method");
+$auth = $Admin->selectConfig("general_email_auth_method");
 
 ?>
 
@@ -41,23 +41,23 @@ $auth = $Admin->SelectConfig("general_email_auth_method");
 			</thead>
 			<tr>
 				<td class="font-w600">SMTP server</td>
-				<td><input type="text" name="general_email_smtp" class="form-control span-4" value="<?php echo $Admin->SelectConfig("general_email_smtp") ?>"></td>
+				<td><input type="text" name="general_email_smtp" class="form-control span-4" value="<?php echo $Admin->selectConfig("general_email_smtp") ?>"></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Username</td>
-				<td><input type="text" name="general_email_username" class="form-control span-3" value="<?php echo $Admin->SelectConfig("general_email_username") ?>"></td>
+				<td><input type="text" name="general_email_username" class="form-control span-3" value="<?php echo $Admin->selectConfig("general_email_username") ?>"></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Password</td>
-				<td><input type="password" name="general_email_password" class="form-control span-3" value="<?php echo $Admin->SelectConfig("general_email_password") ?>"></td>
+				<td><input type="password" name="general_email_password" class="form-control span-3" value="<?php echo $Admin->selectConfig("general_email_password") ?>"></td>
 			</tr>
 			<tr>
 				<td class="font-w600">TCP port</td>
-				<td><input type="text" name="general_email_port" class="form-control span-1" value="<?php echo $Admin->SelectConfig("general_email_port") ?>"></td>
+				<td><input type="text" name="general_email_port" class="form-control span-1" value="<?php echo $Admin->selectConfig("general_email_port") ?>"></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Requires authentication</td>
-				<td><label><?php echo $Admin->SelectCheckbox("general_email_authentication") ?> Enable SMTP authentication</label></td>
+				<td><label><?php echo $Admin->selectCheckbox("general_email_authentication") ?> Enable SMTP authentication</label></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Authentication method</td>
@@ -78,11 +78,11 @@ $auth = $Admin->SelectConfig("general_email_auth_method");
 			</thead>
 			<tr>
 				<td class="font-w600">"From" e-mail address<small>Usually the same used in authentication.</small></td>
-				<td><input type="text" name="general_email_from" class="form-control span-4" value="<?php echo $Admin->SelectConfig("general_email_from") ?>"></td>
+				<td><input type="text" name="general_email_from" class="form-control span-4" value="<?php echo $Admin->selectConfig("general_email_from") ?>"></td>
 			</tr>
 			<tr>
 				<td class="font-w600">"From" name</td>
-				<td><input type="text" name="general_email_from_name" class="form-control span-4" value="<?php echo $Admin->SelectConfig("general_email_from_name") ?>"></td>
+				<td><input type="text" name="general_email_from_name" class="form-control span-4" value="<?php echo $Admin->selectConfig("general_email_from_name") ?>"></td>
 			</tr>
 		</table>
 		<div class="text-right">

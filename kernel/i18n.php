@@ -23,7 +23,7 @@ class i18n
 	 * GET STRING OF A GIVEN INDEX
 	 * --------------------------------------------------------------------
 	 */
-	public static function Translate($keyword, $variables = array())
+	public static function translate($keyword, $variables = array())
 	{
 		if(array_key_exists($keyword, self::$dictionary)) {
 			if(!empty($variables)) {

@@ -15,16 +15,16 @@ use \AC\Kernel\Http;
 
 // Execute queries, if defined
 
-$execute = (Http::Request("execute")) ? Http::Request("execute") : false;
+$execute = (Http::request("execute")) ? Http::request("execute") : false;
 
 if($execute) {
 	switch($execute) {
 		case "optimize":
 
 			$tables = "";
-			Database::Query("SHOW TABLES;");
+			Database::query("SHOW TABLES;");
 
-			while($table = Database::Fetch()) {
+			while($table = Database::fetch()) {
 				foreach($table as $db => $name) {
 					$tables .= $name . ", ";
 				}
@@ -32,10 +32,10 @@ if($execute) {
 
 			$tables = substr($tables, 0, -2);
 
-			Database::Query("OPTIMIZE TABLE {$tables};");
-			$Admin->RegisterLog("Database optimization.");
+			Database::query("OPTIMIZE TABLE {$tables};");
+			$Admin->registerLog("Database optimization.");
 
-			echo Html::Notification(
+			echo Html::notification(
 				"Tables have been successfully optimized.<br><span style='font-family: monospace'>OPTIMIZE TABLE {$tables};</span>",
 				"success"
 			);
@@ -45,9 +45,9 @@ if($execute) {
 		case "repair":
 
 			$tables = "";
-			Database::Query("SHOW TABLES;");
+			Database::query("SHOW TABLES;");
 
-			while($table = Database::Fetch()) {
+			while($table = Database::fetch()) {
 				foreach($table as $db => $name) {
 					$tables .= $name . ", ";
 				}
@@ -55,10 +55,10 @@ if($execute) {
 
 			$tables = substr($tables, 0, -2);
 
-			Database::Query("REPAIR TABLE {$tables};");
-			$Admin->RegisterLog("Database repairing.");
+			Database::query("REPAIR TABLE {$tables};");
+			$Admin->registerLog("Database repairing.");
 
-			echo Html::Notification(
+			echo Html::notification(
 				"Tables have been successfully repaired.<br><span style='font-family: monospace'>REPAIR TABLE {$tables};</span>",
 				"success"
 			);
@@ -70,9 +70,9 @@ if($execute) {
 // Get tables from database
 
 $html = "";
-Database::Query("SHOW TABLE STATUS;");
+Database::query("SHOW TABLE STATUS;");
 
-while($table = Database::Fetch()) {
+while($table = Database::fetch()) {
 	$html .= "<tr>
 			<td>{$table['Name']}</td>
 			<td>{$table['Rows']}</td>

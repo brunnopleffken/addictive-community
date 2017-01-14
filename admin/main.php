@@ -29,34 +29,34 @@ $config = parse_ini_file("../config.ini");
 spl_autoload_register('_AutoLoader', true, true);
 
 // First... check if the login sessions exists!
-Session::Init();
-if(!Session::Retrieve("admin_m_id")) {
+Session::init();
+if(!Session::retrieve("admin_m_id")) {
 	header("Location: index.php?error=2");
 }
 
 // If we have a validate session, check the running time.
 // If it's older than 30 minutes, ask for a log in
-if(Session::Retrieve("admin_time") < (time() - 60 * 30)) {
-	Session::Destroy();
+if(Session::retrieve("admin_time") < (time() - 60 * 30)) {
+	Session::destroy();
 	header("Location: index.php?error=3");
 }
 
 // Load kernel drivers
-Database::Connect($config);
-Database::Query("SELECT * FROM c_config;");
-$Core = new Core(Database::FetchConfig());
+Database::connect($config);
+Database::query("SELECT * FROM c_config;");
+$Core = new Core(Database::fetchConfig());
 $Admin = new Admin();
 
 // Update session time
 $_SESSION['admin_time'] = time();
 
 // Admin info
-Database::Query("SELECT username, time_offset FROM c_members WHERE m_id = '{$_SESSION['admin_m_id']}';");
-$admin_info = Database::Fetch();
+Database::query("SELECT username, time_offset FROM c_members WHERE m_id = '{$_SESSION['admin_m_id']}';");
+$admin_info = Database::fetch();
 
 // Define page content
-$act = (Http::Request("act")) ? Http::Request("act") : "dashboard";
-$p = (Http::Request("p")) ? Http::Request("p") : "main";
+$act = (Http::request("act")) ? Http::request("act") : "dashboard";
+$p = (Http::request("p")) ? Http::request("p") : "main";
 
 
 /**

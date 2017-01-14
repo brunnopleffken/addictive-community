@@ -15,26 +15,26 @@ use \AC\Kernel\Http;
 
 // Notification
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : 0;
+$msg = (Http::request("msg")) ? Http::request("msg") : 0;
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The member profile has been successfully updated.", "success");
+		$message = Html::notification("The member profile has been successfully updated.", "success");
 		break;
 	default:
 		$message = "";
 }
 
 // Member ID
-$id = Http::Request("id", true);
+$id = Http::request("id", true);
 
 // Member info
-Database::Query("SELECT * FROM c_members WHERE m_id = {$id};");
-$member = Database::Fetch();
+Database::query("SELECT * FROM c_members WHERE m_id = {$id};");
+$member = Database::fetch();
 
 // Usergroups
-Database::Query("SELECT * FROM c_usergroups;");
-while($usergroup = Database::Fetch()) {
+Database::query("SELECT * FROM c_usergroups;");
+while($usergroup = Database::fetch()) {
 	$usergroup['selected'] = ($usergroup['g_id'] == $member['usergroup']) ? "selected" : "";
 	$usergroups[] = $usergroup;
 }

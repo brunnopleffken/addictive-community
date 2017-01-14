@@ -16,10 +16,10 @@ use \AC\Kernel\Http;
 // Get information
 // ---------------------------------------------------
 
-$id = Http::Request("id");
+$id = Http::request("id");
 
-Database::Query("SELECT * FROM c_rooms WHERE r_id = '{$id}';");
-$room_info = Database::Fetch();
+Database::query("SELECT * FROM c_rooms WHERE r_id = '{$id}';");
+$room_info = Database::fetch();
 
 ?>
 

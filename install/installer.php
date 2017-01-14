@@ -28,7 +28,7 @@ require_once("../kernel/Http.php");
 require_once("../kernel/Text.php");
 
 // Get step number
-$step = Http::Request("step");
+$step = Http::request("step");
 
 // Get user data
 $data = $_POST;
@@ -114,7 +114,7 @@ db_port = {$data['db_port']}";
 		$config = parse_ini_file("../config.ini");
 
 		// Try to connect to database using config.ini data
-		$database_link = Database::Connect($config);
+		$database_link = Database::connect($config);
 		$status = ($database_link) ? 1 : 0;
 		$description = "Check information and connect to database";
 		break;
@@ -129,7 +129,7 @@ db_port = {$data['db_port']}";
 	case 3:
 		// Get config file and connect to Database
 		$config = parse_ini_file("../config.ini");
-		Database::Connect($config);
+		Database::connect($config);
 
 		// Avoid PHP timeout
 		set_time_limit(0);
@@ -142,7 +142,7 @@ db_port = {$data['db_port']}";
 			$queries = GetStatements($file);
 
 			foreach($queries as $value) {
-				$query = Database::Query($value);
+				$query = Database::query($value);
 			}
 
 			$status = ($query) ? 1 : 0;
@@ -164,7 +164,7 @@ db_port = {$data['db_port']}";
 	case 4:
 		// Get config file and connect to Database
 		$config = parse_ini_file("../config.ini");
-		Database::Connect($config);
+		Database::connect($config);
 		$errors = false;
 
 		// Generate a random security hash and key
@@ -179,7 +179,7 @@ db_port = {$data['db_port']}";
 			$queries = GetStatements($file);
 
 			foreach($queries as $value) {
-				$query = Database::Query($value);
+				$query = Database::query($value);
 				if(!$query) {
 					$errors = true;
 				}
@@ -191,8 +191,8 @@ db_port = {$data['db_port']}";
 
 		$community_info = array(
 			'timestamp'      => time(),
-			'community_name' => Text::Sanitize($data['community_name']),
-			'community_url'  => Text::Sanitize($data['community_url'])
+			'community_name' => Text::sanitize($data['community_name']),
+			'community_url'  => Text::sanitize($data['community_url'])
 		);
 
 		// Insert sample room, thread and post
@@ -258,7 +258,7 @@ db_port = {$data['db_port']}";
 		$sql[] = "INSERT INTO `c_config` (`field`, `value`) VALUES ('language_bad_words_replacement', '#####');";
 
 		foreach($sql as $value) {
-			$query = Database::Query($value);
+			$query = Database::query($value);
 			if(!$query) {
 				$errors = true;
 			}
@@ -278,11 +278,11 @@ db_port = {$data['db_port']}";
 	case 5:
 		// Get config file and connect to Database
 		$config = parse_ini_file("../config.ini");
-		Database::Connect($config);
+		Database::connect($config);
 
 		// Get security hash key
-		Database::Query("SELECT * FROM c_config c WHERE field = 'security_salt_hash' OR field = 'security_salt_key';");
-		$_salt = Database::FetchToArray();
+		Database::query("SELECT * FROM c_config c WHERE field = 'security_salt_hash' OR field = 'security_salt_key';");
+		$_salt = Database::fetchToArray();
 
 		$salt = array(
 			"hash" => $_salt[0]['value'],
@@ -291,9 +291,9 @@ db_port = {$data['db_port']}";
 
 		// Get administrator account data
 		$admin_info = array(
-			'username' => Text::Sanitize($data['admin_username']),
-			'password' => Text::Encrypt($data['admin_password'], $salt),
-			'email'    => Text::Sanitize($data['admin_email']),
+			'username' => Text::sanitize($data['admin_username']),
+			'password' => Text::encrypt($data['admin_password'], $salt),
+			'email'    => Text::sanitize($data['admin_email']),
 			'joined'   => time()
 		);
 
@@ -301,7 +301,7 @@ db_port = {$data['db_port']}";
 
 		$insert_admin_query = "INSERT INTO `c_members` (`username`, `password`, `email`, `hide_email`, `ip_address`, `joined`, `usergroup`, `member_title`, `location`, `profile`, `gender`, `b_day`, `b_month`, `b_year`, `photo`, `photo_type`, `website`, `im_facebook`, `im_twitter`, `posts`, `last_post_date`, `signature`, `template`, `theme`, `language`, `warn_level`, `warn_date`, `last_activity`, `time_offset`, `dst`, `show_birthday`, `show_gender`, `token`) VALUES ('{$admin_info['username']}', '{$admin_info['password']}', '{$admin_info['email']}', 1, '', {$admin_info['joined']}, 1, '', '', '', '', NULL, NULL, NULL, '', 'gravatar', '', '', '', 1, 1367848084, '', 'default', 'default-light', '{$data['default_language']}', NULL, NULL, 0, '{$data['default_timezone']}', 0, 1, 1, '')";
 
-		$insert_admin = Database::Query($insert_admin_query);
+		$insert_admin = Database::query($insert_admin_query);
 
 		$status      = ($insert_admin) ? 1 : 0;
 		$description = "Save user information";

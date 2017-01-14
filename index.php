@@ -37,10 +37,10 @@ class Main
 	private $language;
 
 	// Instances of non-static Kernel classes
-	private $Core;
+	private $core;
 
 	// Configurations
-	private $Config = array();
+	private $config = array();
 
 	// Controller instance
 	private $instance;
@@ -66,7 +66,7 @@ class Main
 			$config = parse_ini_file("config.ini");
 		}
 		else {
-			Html::Error("Configuration file is missing.");
+			Html::throwError("Configuration file is missing.");
 		}
 
 		// If config.ini is empty, go to Addictive Community installer
@@ -76,12 +76,12 @@ class Main
 		}
 
 		// Instance of Database() class
-		Database::Connect($config);
+		Database::connect($config);
 
 		// Get query strings from URL
-		$this->controller = strtolower(Http::Request("c"));
-		$this->action = strtolower(Http::Request("act"));
-		$this->id = Http::Request("id", true);
+		$this->controller = strtolower(Http::request("c"));
+		$this->action = strtolower(Http::request("act"));
+		$this->id = Http::request("id", true);
 
 		// If there isn't any controller defined
 		if(!$this->controller) {
@@ -89,22 +89,22 @@ class Main
 		}
 
 		// Initialize Session() class
-		SessionState::Initialize($this->controller);
-		SessionState::UpdateSession();
+		SessionState::initialize($this->controller);
+		SessionState::updateSession();
 
 		// Get settings from database
-		$this->_GetConfig();
+		$this->getConfig();
 
 		// Get current template and language
-		$this->_GetTemplate();
-		$this->_GetLanguage();
+		$this->getTemplate();
+		$this->getLanguage();
 
 		// Instantiate class Core()
-		$this->Core = new Core($this->Config);
+		$this->core = new Core($this->config);
 
 		// OK, let's go...
-		$this->_LoadController($this->controller, $this->action);
-		$this->_LoadView($this->controller, $this->action);
+		$this->loadController();
+		$this->loadView();
 	}
 
 	/**
@@ -112,11 +112,11 @@ class Main
 	 * LOAD CONTROLLER AND FIRST METHOD
 	 * --------------------------------------------------------------------
 	 */
-	private function _LoadController($controller, $action = "")
+	private function loadController()
 	{
 		// Controllers names are in UpperCamelCase, but URLs in lowercase
-		$controller = $this->controller = ucwords($controller);
-		$action = ($action != "") ? Text::CamelCase($this->action) : $this->action = "Index";
+		$controller = $this->controller = ucwords($this->controller);
+		$action = ($this->action != "") ? Text::lowerCamelCase($this->action) : $this->action = "index";
 
 		// Redirect to Error 404 page if controller doesn't exist
 		if(!file_exists("controllers/" . $controller . "Controller.php")) {
@@ -128,16 +128,16 @@ class Main
 		require("controllers/ApplicationController.php");
 		require("controllers/" . $controller . "Controller.php");
 		$controller = "\\AC\\Controllers\\" . $controller;
-		$this->instance = new $controller($this->Core);
+		$this->setController($controller);
 
 		// Execute Controller::_BeforeAction() method
-		if(method_exists($this->instance, "_BeforeAction")) {
-			$this->instance->_BeforeAction($this->id);
+		if(method_exists($this->instance, "beforeAction")) {
+			$this->instance->beforeAction($this->id);
 		}
 
 		// Execute Controller with the provided action method
 		if(method_exists($this->instance, $action)) {
-			$this->instance->Run();
+			$this->instance->runApplication();
 			$this->instance->$action($this->id);
 		}
 		else {
@@ -146,12 +146,22 @@ class Main
 		}
 
 		// Execute Controller::_AfterAction() method
-		if(method_exists($this->instance, "_AfterAction")) {
-			$this->instance->_AfterAction($this->id);
+		if(method_exists($this->instance, "afterAction")) {
+			$this->instance->afterAction($this->id);
 		}
 
 		// Get defined variables
-		$this->view_data = $this->instance->Get();
+		$this->view_data = $this->instance->get();
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * SET CONTROLLER TO $this->instance
+	 * --------------------------------------------------------------------
+	 */
+	private function setController($controller)
+	{
+		$this->instance = new $controller($this->core);
 	}
 
 	/**
@@ -159,9 +169,9 @@ class Main
 	 * LOAD MASTER PAGE AND VIEW
 	 * --------------------------------------------------------------------
 	 */
-	private function _LoadView($controller, $action)
+	private function loadView()
 	{
-		if($this->instance->HasLayout()) {
+		if($this->instance->hasLayout()) {
 			$page_info = array();
 
 			// Get defined variables in controller
@@ -169,12 +179,12 @@ class Main
 				$$k = $v;
 			}
 
-			$breadcrumb = $this->Core->Breadcrumb($page_info);
-			$page_title = $this->Core->PageTitle($page_info);
+			$breadcrumb = $this->core->breadcrumb($page_info);
+			$page_title = $this->core->pageTitle($page_info);
 
 			// Load page content
 			ob_start();
-			require("templates/" . $this->template . "/" . $this->controller . "." . Text::CamelCase($this->action) . ".phtml");
+			require("templates/" . $this->template . "/" . $this->controller . "." . Text::camelCase($this->action) . ".phtml");
 			$this->content = ob_get_clean();
 
 			// Load master page
@@ -187,10 +197,10 @@ class Main
 	 * GET CONFIGURATIONS FROM DATABASE
 	 * --------------------------------------------------------------------
 	 */
-	public function _GetConfig()
+	public function getConfig()
 	{
-		Database::Query("SELECT * FROM c_config;");
-		$this->Config = Database::FetchConfig();
+		Database::query("SELECT * FROM c_config;");
+		$this->config = Database::fetchConfig();
 	}
 
 	/**
@@ -198,17 +208,17 @@ class Main
 	 * GET DEFAULT TEMPLATE OR, IF LOGGED IN, THE ONE DEFINED BY MEMBER
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetTemplate()
+	private function getTemplate()
 	{
 		if(SessionState::$user_data['m_id']) {
 			// Get member-defined theme
-			$this->Config['theme'] = $this->theme = SessionState::$user_data['theme'];
-			$this->Config['template'] = $this->template = SessionState::$user_data['template'];
+			$this->config['theme'] = $this->theme = SessionState::$user_data['theme'];
+			$this->config['template'] = $this->template = SessionState::$user_data['template'];
 		}
 		else {
 			// Get default theme set
-			$this->Config['theme'] = $this->theme = $this->Config['theme_default_set'];
-			$this->Config['template'] = $this->template = $this->Config['template_default_set'];
+			$this->config['theme'] = $this->theme = $this->config['theme_default_set'];
+			$this->config['template'] = $this->template = $this->config['template_default_set'];
 		}
 	}
 
@@ -217,18 +227,20 @@ class Main
 	 * GET DEFUALT LANGUAGE OR, IF LOGGED IN, THE ONE DEFINED BY MEMBER
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetLanguage()
+	private function getLanguage()
 	{
+		$t = array();
+
 		// Get default or member set language
 		if(SessionState::$user_data['m_id']) {
 			$this->language = SessionState::$user_data['language'];
 		}
 		else {
-			$this->language = $this->Config['language_default_set'];
+			$this->language = $this->config['language_default_set'];
 		}
 
 		// Store selected language in $this->Config
-		$this->Config['language'] = $this->language;
+		$this->config['language'] = $this->language;
 
 		// Load language files
 		@include("languages/" . $this->language . "/default.php");
@@ -241,7 +253,7 @@ class Main
 			}
 		}
 		else {
-			echo Html::Notification(
+			echo Html::notification(
 				"Language files or keywords are missing for <b>" . $this->language . "</b>.", "failure", true
 			);
 		}

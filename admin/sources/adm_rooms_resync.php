@@ -17,8 +17,8 @@ use \AC\Kernel\Database;
 
 $id = $_REQUEST['id'];
 
-Database::Query("SELECT * FROM c_rooms WHERE r_id = '{$id}';");
-$room_info = Database::Fetch();
+Database::query("SELECT * FROM c_rooms WHERE r_id = '{$id}';");
+$room_info = Database::fetch();
 
 ?>
 

@@ -8,7 +8,7 @@ config.ini
 !index.html
 
 # Node.js packages
-node_modules
+/node_modules
 
 # Folder config file
 Desktop.ini

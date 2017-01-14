@@ -27,24 +27,24 @@ class Register extends Application
 	 * VIEW: REGISTER NEW MEMBER
 	 * --------------------------------------------------------------------
 	 */
-	public function Index()
+	public function index()
 	{
 		// Get step
-		$step = (!Http::Request("step", true)) ? 1 : Http::Request("step", true);
+		$step = (!Http::request("step", true)) ? 1 : Http::request("step", true);
 
 		// Notifications
-		$message_id = Http::Request("m", true);
+		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::Notification(i18n::Translate("R_ERROR_1"), "failure", true),
-			Html::Notification(i18n::Translate("R_ERROR_2"), "failure", true),
-			Html::Notification(i18n::Translate("R_ERROR_3"), "failure", true),
-			Html::Notification(i18n::Translate("R_ERROR_4"), "failure", true),
-			Html::Notification(i18n::Translate("R_ERROR_5"), "failure", true)
+			Html::notification(i18n::translate("R_ERROR_1"), "failure", true),
+			Html::notification(i18n::translate("R_ERROR_2"), "failure", true),
+			Html::notification(i18n::translate("R_ERROR_3"), "failure", true),
+			Html::notification(i18n::translate("R_ERROR_4"), "failure", true),
+			Html::notification(i18n::translate("R_ERROR_5"), "failure", true)
 		);
 
 		// Page info
-		$page_info['title'] = i18n::Translate("R_TITLE");
-		$page_info['bc'] = array(i18n::Translate("R_TITLE"));
+		$page_info['title'] = i18n::translate("R_TITLE");
+		$page_info['bc'] = array(i18n::translate("R_TITLE"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -62,15 +62,15 @@ class Register extends Application
 	 * PROCESS REGISTER
 	 * --------------------------------------------------------------------
 	 */
-	public function SignUp()
+	public function signUp()
 	{
 		$this->layout = false;
-		$_SESSION['Register']['Username']=Http::Request("username");
-		$_SESSION['Register']['Email']=Http::Request("email");
+		$_SESSION['Register']['Username']=Http::request("username");
+		$_SESSION['Register']['Email']=Http::request("email");
 		// Check if the entered CAPTCHA matches the registered in the session
 		if($this->Core->config['general_security_captcha']) {
-			if(Http::Request("captcha") != $_SESSION['captcha']) {
-				$this->Core->Redirect("register?step=2&m=5");
+			if(Http::request("captcha") != $_SESSION['captcha']) {
+				$this->Core->redirect("register?step=2&m=5");
 			}
 			else {
 				unset($_SESSION['captcha']);
@@ -78,17 +78,17 @@ class Register extends Application
 		}
 
 		// Check if user has entered with username, password and e-mail address
-		if(!Http::Request("username") || !Http::Request("email") || !Http::Request("password")) {
+		if(!Http::request("username") || !Http::request("email") || !Http::request("password")) {
 			$this->Core->Request("register?step=2&m=1");
 		}
 
 		// Check if passwords are equal
-		if(Http::Request("password") != Http::Request("password_conf")) {
+		if(Http::request("password") != Http::request("password_conf")) {
 			$this->Core->Request("register?step=2&m=2");
 		}
 
 		// Check username length
-		if(strlen(Http::Request("username")) < 3 || strlen(Http::Request("username")) > 20) {
+		if(strlen(Http::request("username")) < 3 || strlen(Http::request("username")) > 20) {
 			$this->Core->Request("register?step=2&m=3");
 		}
 		unset($_SESSION['Register']['Username']);
@@ -106,9 +106,9 @@ class Register extends Application
 
 		// Build new member info array
 		$register_info = array(
-			"username"      => Http::Request("username"),
-			"password"      => Text::Encrypt(Http::Request("password"), $salt),
-			"email"         => Http::Request("email"),
+			"username"      => Http::request("username"),
+			"password"      => Text::encrypt(Http::request("password"), $salt),
+			"email"         => Http::request("email"),
 			"hide_email"    => 1,
 			"ip_address"    => $_SERVER['REMOTE_ADDR'],
 			"joined"        => time(),
@@ -126,11 +126,11 @@ class Register extends Application
 		);
 
 		// Check if username or e-mail address already exists
-		Database::Query("SELECT username, email FROM c_members
+		Database::query("SELECT username, email FROM c_members
 				WHERE username = '{$register_info['username']}' OR email = '{$register_info['email']}';");
 
-		if(Database::Rows() > 0) {
-			$this->Core->Redirect("register?step=2&m=4");
+		if(Database::rows() > 0) {
+			$this->Core->redirect("register?step=2&m=4");
 		}
 
 		// Save new member in the Database
@@ -142,16 +142,16 @@ class Register extends Application
 			$Email = new Email($this->Core->config);
 
 			// Insert into database and update stats
-			Database::Insert("c_members", $register_info);
-			$new_member_id = Database::GetLastID();
-			Database::Update("c_stats", "member_count = member_count + 1");
+			Database::insert("c_members", $register_info);
+			$new_member_id = Database::getLastId();
+			Database::update("c_stats", "member_count = member_count + 1");
 
 			// Buid e-mail body
 			$validation_url = $this->Core->config['general_community_url']
 					. "register/validate?m={$new_member_id}&token={$register_info['token']}";
 
-			Database::Query("SELECT content FROM c_emails WHERE type = 'validate';");
-			$email_raw_content = Database::Fetch();
+			Database::query("SELECT content FROM c_emails WHERE type = 'validate';");
+			$email_raw_content = Database::fetch();
 
 			$email_formatted_content = sprintf($email_raw_content['content'],
 				$register_info['username'],
@@ -160,19 +160,19 @@ class Register extends Application
 			);
 
 			// Send e-mail
-			$Email->Send(
+			$Email->sendMail(
 				$register_info['email'],
 				"[" . $this->Core->config['general_community_name'] . "] New Member Validation",
 				$email_formatted_content
 			);
 
-			$this->Core->Redirect("register?step=3");
+			$this->Core->redirect("register?step=3");
 		}
 		else {
 			// DO NOT REQUIRE VALIDATION
-			Database::Insert("c_members", $register_info);
-			Database::Update("c_stats", "member_count = member_count + 1");
-			$this->Core->Redirect("register?step=3");
+			Database::insert("c_members", $register_info);
+			Database::update("c_stats", "member_count = member_count + 1");
+			$this->Core->redirect("register?step=3");
 		}
 
 		exit;
@@ -183,36 +183,36 @@ class Register extends Application
 	 * VALIDATE NEW MEMBER ACCOUNT
 	 * --------------------------------------------------------------------
 	 */
-	public function Validate()
+	public function validate()
 	{
 		$this->layout = false;
 
 		// Get member ID
-		$member = Http::Request("m", true);
-		$token  = Http::Request("token");
+		$member = Http::request("m", true);
+		$token  = Http::request("token");
 
 		// Check if user has already validated
-		Database::Query("SELECT m_id, usergroup, token FROM c_members WHERE m_id = {$member};");
-		$validation_count = Database::Rows();
-		$validation_results = Database::Fetch();
+		Database::query("SELECT m_id, usergroup, token FROM c_members WHERE m_id = {$member};");
+		$validation_count = Database::rows();
+		$validation_results = Database::fetch();
 
 		if($validation_count > 0) {
 			// Validate usergroup
 			if($validation_results['usergroup'] != 6) {
-				Html::Error(i18n::Translate("R_VALIDATE_ALREADY"));
+				Html::throwError(i18n::translate("R_VALIDATE_ALREADY"));
 			}
 
 			// Validate member's security token
 			if($validation_results['token'] != $token) {
-				Html::Error(i18n::Translate("R_VALIDATE_NOT_MATCH"));
+				Html::throwError(i18n::translate("R_VALIDATE_NOT_MATCH"));
 			}
 
 			// Validate and redirect
-			Database::Update("c_members", "usergroup = '3'", "m_id = '{$member}'");
-			$this->Core->Redirect("register?step=4");
+			Database::update("c_members", "usergroup = '3'", "m_id = '{$member}'");
+			$this->Core->redirect("register?step=4");
 		}
 		else {
-			Html::Error(i18n::Translate("R_VALIDATE_NOT_FOUND"));
+			Html::throwError(i18n::translate("R_VALIDATE_NOT_FOUND"));
 		}
 	}
 
@@ -221,7 +221,7 @@ class Register extends Application
 	 * SHOW GD CREATED SECURITY IMAGE (A.K.A. CAPTCHA)
 	 * --------------------------------------------------------------------
 	 */
-	public function Captcha()
+	public function captcha()
 	{
 		// Build random word
 		$word    = "  ";

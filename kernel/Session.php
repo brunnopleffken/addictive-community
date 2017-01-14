@@ -20,7 +20,7 @@ class Session
 	 * Initialize a new session
 	 * --------------------------------------------------------------------
 	 */
-	public static function Init()
+	public static function init()
 	{
 		session_start();
 	}
@@ -30,13 +30,13 @@ class Session
 	 * Create a new session
 	 * --------------------------------------------------------------------
 	 */
-	public static function Write($name, $value)
+	public static function write($name, $value)
 	{
-		if(!self::IsDefined($name)) {
+		if(!self::isDefined($name)) {
 			$_SESSION[$name] = $value;
 		}
 		else {
-			Html::Error("Session '{$name}' is already defined.");
+			Html::throwError("Session '{$name}' is already defined.");
 		}
 	}
 
@@ -45,9 +45,9 @@ class Session
 	 * Get session value
 	 * --------------------------------------------------------------------
 	 */
-	public static function Retrieve($name)
+	public static function retrieve($name)
 	{
-		if(self::IsDefined($name)) {
+		if(self::isDefined($name)) {
 			return $_SESSION[$name];
 		}
 		else {
@@ -60,7 +60,7 @@ class Session
 	 * Permanently deletes a session; or all sessions if there's no param
 	 * --------------------------------------------------------------------
 	 */
-	public static function Destroy($name = "")
+	public static function destroy($name = "")
 	{
 		if($name != "") {
 			unset($_SESSION[$name]);
@@ -76,7 +76,7 @@ class Session
 	 * Return all current sessions
 	 * --------------------------------------------------------------------
 	 */
-	public static function Show()
+	public static function show()
 	{
 		Text::PR($_SESSION);
 	}
@@ -86,7 +86,7 @@ class Session
 	 * Check if the session exists
 	 * --------------------------------------------------------------------
 	 */
-	public static function IsDefined($session_name)
+	public static function isDefined($session_name)
 	{
 		if(isset($_SESSION[$session_name])) {
 			return true;
@@ -101,12 +101,12 @@ class Session
 	 * Set a new cookie (cookie expires in 30 days)
 	 * --------------------------------------------------------------------
 	 */
-	public static function CreateCookie($name, $value, $expire = 1)
+	public static function createCookie($name, $value, $expire = 1)
 	{
 		if($expire == 1) {
 			$expire = time() + DAY * 30;
 		}
-		setcookie($name, Text::Sanitize($value), $expire, "/");
+		setcookie($name, Text::sanitize($value), $expire, "/");
 	}
 
 	/**
@@ -114,7 +114,7 @@ class Session
 	 * Return defined cookies
 	 * --------------------------------------------------------------------
 	 */
-	public static function GetCookie($name)
+	public static function getCookie($name)
 	{
 		if(isset($_COOKIE[$name])) {
 			return $_COOKIE[$name];
@@ -129,7 +129,7 @@ class Session
 	 * Unload cookie from client environment
 	 * --------------------------------------------------------------------
 	 */
-	public static function UnloadCookie($name)
+	public static function unloadCookie($name)
 	{
 		if(isset($_COOKIE[$name])) {
 			unset($_COOKIE[$name]);

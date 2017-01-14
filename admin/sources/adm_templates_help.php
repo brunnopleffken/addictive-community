@@ -16,11 +16,11 @@ use \AC\Kernel\Template;
 
 // Messages
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The new help topic has been successfully added.", "success");
+		$message = Html::notification("The new help topic has been successfully added.", "success");
 		break;
 	default:
 		$message = "";
@@ -29,10 +29,10 @@ switch($msg) {
 
 // Room list
 
-Database::Query("SELECT * FROM c_help ORDER BY title;");
+Database::query("SELECT * FROM c_help ORDER BY title;");
 
-while($topic = Database::Fetch()) {
-	Template::Add("
+while($topic = Database::fetch()) {
+	Template::add("
 		<tr>
 			<td>
 				<b>{$topic['title']}</b><br>
@@ -66,7 +66,7 @@ while($topic = Database::Fetch()) {
 					<td colspan="3" class="min">Options</td>
 				</tr>
 			</thead>
-			<?php echo Template::Get(); ?>
+			<?php echo Template::get(); ?>
 		</table>
 	</form>
 </div>

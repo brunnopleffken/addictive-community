@@ -12,11 +12,11 @@
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The settings has been successfully changed.", "success");
+		$message = Html::notification("The settings has been successfully changed.", "success");
 		break;
 	default:
 		$message = "";
@@ -38,15 +38,15 @@ switch($msg) {
 			</thead>
 			<tr>
 				<td class="font-w600">Enable signatures</td>
-				<td><label><?php echo $Admin->SelectCheckbox("general_member_enable_signature") ?> Enable signatures in posts and personal messages.</label></td>
+				<td><label><?php echo $Admin->selectCheckbox("general_member_enable_signature") ?> Enable signatures in posts and personal messages.</label></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Enable photo upload <small>This will restrict the avatars to 'Gravatar' only. Photos already sent will not be affected.</small></td>
-				<td><label><?php echo $Admin->SelectCheckbox("general_member_enable_avatar_upload") ?> Allow members to upload their own photos as avatar.</label></td>
+				<td><label><?php echo $Admin->selectCheckbox("general_member_enable_avatar_upload") ?> Allow members to upload their own photos as avatar.</label></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Enable ranks and promotions</td>
-				<td><?php echo $Admin->SelectCheckbox("general_member_enable_ranks") ?> Enable ranks for all members.</td>
+				<td><?php echo $Admin->selectCheckbox("general_member_enable_ranks") ?> Enable ranks for all members.</td>
 			</tr>
 		</table>
 		<div class="text-right">

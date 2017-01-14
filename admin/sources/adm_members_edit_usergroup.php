@@ -13,9 +13,9 @@ use \AC\Kernel\Database;
 use \AC\Kernel\Http;
 
 // Get usergroup information
-$id = Http::Request("id", true);
-Database::Query("SELECT * FROM c_usergroups WHERE g_id = {$id};");
-$usergroup = Database::Fetch();
+$id = Http::request("id", true);
+Database::query("SELECT * FROM c_usergroups WHERE g_id = {$id};");
+$usergroup = Database::fetch();
 
 ?>
 

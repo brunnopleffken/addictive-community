@@ -26,8 +26,8 @@ foreach($dir as $k => $v) {
 
 // List of themes
 
-Database::Query("SELECT * FROM c_themes ORDER BY name ASC;");
-$themes = Database::FetchToArray();
+Database::query("SELECT * FROM c_themes ORDER BY name ASC;");
+$themes = Database::fetchToArray();
 
 foreach($themes as $theme) {
 	$theme['is_active']  = ($theme['is_active'] == 1) ? "<i class='fa fa-fw fa-check'></i>" : "";
@@ -37,7 +37,7 @@ foreach($themes as $theme) {
 	}
 
 	// Do not allow to remove default themes
-	if($theme['directory'] == $Admin->SelectConfig("theme_default_set")) {
+	if($theme['directory'] == $Admin->selectConfig("theme_default_set")) {
 		$theme['default'] = "<i class='fa fa-fw fa-check'></i>";
 		$theme['remove'] = "-";
 	}
@@ -52,7 +52,7 @@ foreach($themes as $theme) {
 		$theme['remove'] = "-";
 	}
 
-	Template::Add("<tr>
+	Template::add("<tr>
 			<td><a href='main.php?act=templates&p=theme_edit&id={$theme['theme_id']}'><b>{$theme['name']}</b></a></td>
 			<td>/themes/{$theme['directory']}</td>
 			<td>{$theme['author_name']} ({$theme['author_email']})</td>
@@ -69,11 +69,11 @@ foreach($themes as $theme) {
 $not_installed_languages = "";
 
 if(!empty($dir_list)) {
-	$not_installed_languages = Html::Notification("There are theme packs available to install.", "warning");
+	$not_installed_languages = Html::notification("There are theme packs available to install.", "warning");
 	foreach($dir_list as $theme) {
 		$theme_info = json_decode(file_get_contents("../themes/" . $theme . "/_theme.json"), true);
 
-		Template::Add("<tr>
+		Template::add("<tr>
 				<td style='color:#bbb'><b>{$theme_info['name']}</b></td>
 				<td style='color:#bbb'>/themes/{$theme}</td>
 				<td style='color:#bbb'>{$theme_info['author']} ({$theme_info['email']})</td>
@@ -108,6 +108,6 @@ if(!empty($dir_list)) {
 				<td>Delete</td>
 			</tr>
 		</thead>
-		<?php echo Template::Get() ?>
+		<?php echo Template::get() ?>
 	</table>
 </div>

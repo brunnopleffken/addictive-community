@@ -48,19 +48,19 @@ class Upload
 	 * THE ATTACHMENT ID NUMBER ON DATABASE)
 	 * --------------------------------------------------------------------
 	 */
-	public function Attachment($file, $member = 0, $folder = "public/attachments/")
+	public function sendAttachment($file, $member = 0, $folder = "public/attachments/")
 	{
 		if(is_array($file) && $file['name'] != "") {
 			// Get timestamp
 			$timestamp = time();
 
 			// Validate maximum attachment file size
-			$max_attachment_size_mb = Database::Query("SELECT value FROM c_config WHERE field = 'general_max_attachment_size';");
-			$max_attachment_size_mb = Database::Fetch();
+			Database::query("SELECT value FROM c_config WHERE field = 'general_max_attachment_size';");
+			$max_attachment_size_mb = Database::fetch();
 			$max_attachment_size_bytes = $max_attachment_size_mb['value'] * 1048576;
 
 			if($file['size'] >= $max_attachment_size_bytes) {
-				Html::Error("The uploaded file size exceeds " . $max_attachment_size_mb['value'] . "MB!");
+				Html::throwError("The uploaded file size exceeds " . $max_attachment_size_mb['value'] . "MB!");
 			}
 
 			// Get filename and extension
@@ -68,16 +68,16 @@ class Upload
 			$this->file_extension = strtolower(end($filename));
 
 			// Get attachment type (to use as CSS classes)
-			$this->file_type = $this->FileClass($this->file_extension);
+			$this->file_type = $this->fileClass($this->file_extension);
 
 			// Check if it's not a forbidden extension
 			if(in_array($this->file_extension, $this->forbidden_extensions)) {
-				Html::Error("This file extension is not allowed (.{$this->file_extension})!");
+				Html::throwError("This file extension is not allowed (.{$this->file_extension})!");
 			}
 
 			// Check if is an allowed extension (if array is not empty, of course)
 			if(!empty($this->allowed_extensions) && !in_array($this->file_extension, $this->allowed_extensions)) {
-				Html::Error("This file extension is not allowed (.{$this->file_extension}).");
+				Html::throwError("This file extension is not allowed (.{$this->file_extension}).");
 			}
 
 			// Full path
@@ -109,8 +109,8 @@ class Upload
 				"size"      => $file['size']
 			);
 
-			Database::Insert("c_attachments", $attachment);
-			return Database::GetLastID();
+			Database::insert("c_attachments", $attachment);
+			return Database::getLastId();
 		}
 		else {
 			return 0;
@@ -122,7 +122,7 @@ class Upload
 	 * GET FILE TYPE TO USE IT AS A CSS CLASS
 	 * --------------------------------------------------------------------
 	 */
-	private function FileClass($extension)
+	private function fileClass($extension)
 	{
 		$types = array(
 			"doc"   => array("doc", "docx", "rtf", "pages", "odt", "epub"),
@@ -164,7 +164,7 @@ class Upload
 	 * GET USER-FRIENDLY FILE TYPE DESCRIPTION
 	 * --------------------------------------------------------------------
 	 */
-	public function TranslateFileType($filetype)
+	public function translateFileType($filetype)
 	{
 		$types = array(
 			"doc"   => "Document",
@@ -187,7 +187,7 @@ class Upload
 	 * SET ALLOWED EXTENSIONS FOR FILE UPLOAD
 	 * --------------------------------------------------------------------
 	 */
-	public function SetAllowedExtensions($extensions_list = array())
+	public function setAllowedExtensions($extensions_list = array())
 	{
 		if(is_array($extensions_list)) {
 			$this->allowed_extensions = $extensions_list;
@@ -205,7 +205,7 @@ class Upload
 	 * OTHER USERS NOT WARNED IN ADVANCE.
 	 * --------------------------------------------------------------------
 	 */
-	public function UnlockForbiddenExtensions()
+	public function unlockForbiddenExtensions()
 	{
 		$this->forbidden_extensions = array();
 		return true;

@@ -12,11 +12,11 @@
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The settings has been successfully changed.", "success");
+		$message = Html::notification("The settings has been successfully changed.", "success");
 		break;
 	default:
 		$message = "";
@@ -38,11 +38,11 @@ switch($msg) {
 			</thead>
 			<tr>
 				<td class="font-w600">Short date format<small>Same format as <a href="http://uk1.php.net/manual/en/function.date.php" target="_blank">PHP's date()</a></small></td>
-				<td><input type="text" name="date_short_format" value="<?php echo $Admin->SelectConfig("date_short_format") ?>" class="form-control span-2"></td>
+				<td><input type="text" name="date_short_format" value="<?php echo $Admin->selectConfig("date_short_format") ?>" class="form-control span-2"></td>
 			</tr>
 			<tr>
 				<td class="font-w600">Long date format<small>Same format as <a href="http://uk1.php.net/manual/en/function.date.php" target="_blank">PHP's date()</a></small></td>
-				<td><input type="text" name="date_long_format" value="<?php echo $Admin->SelectConfig("date_long_format") ?>" class="form-control span-2"></td>
+				<td><input type="text" name="date_long_format" value="<?php echo $Admin->selectConfig("date_long_format") ?>" class="form-control span-2"></td>
 			</tr>
 		</table>
 
@@ -54,7 +54,7 @@ switch($msg) {
 			</thead>
 			<tr>
 				<td class="font-w600">Default timezone offset<small>Timezone offset, in hours</small></td>
-				<td><input type="text" name="date_default_offset" value="<?php echo $Admin->SelectConfig("date_default_offset") ?>" class="form-control span-1"> hours</td>
+				<td><input type="text" name="date_default_offset" value="<?php echo $Admin->selectConfig("date_default_offset") ?>" class="form-control span-1"> hours</td>
 			</tr>
 		</table>
 		<div class="text-right">

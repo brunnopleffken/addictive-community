@@ -14,23 +14,23 @@ use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
 
-$username = (Http::Request("username")) ? Http::Request("username") : "";
+$username = (Http::request("username")) ? Http::request("username") : "";
 
 // Get member list
 
 if($username != "") {
-	Database::Query("SELECT m.m_id, m.username, m.email, m.photo, m.photo_type, m.joined, m.posts, m.usergroup, u.g_id, u.name
+	Database::query("SELECT m.m_id, m.username, m.email, m.photo, m.photo_type, m.joined, m.posts, m.usergroup, u.g_id, u.name
 			FROM c_members m INNER JOIN c_usergroups u ON (m.usergroup = u.g_id)
 			WHERE username LIKE '%{$username}%' ORDER BY m_id DESC LIMIT 10;");
 }
 else {
-	Database::Query("SELECT m.m_id, m.username, m.email, m.photo, m.photo_type, m.joined, m.posts, m.usergroup, u.g_id, u.name
+	Database::query("SELECT m.m_id, m.username, m.email, m.photo, m.photo_type, m.joined, m.posts, m.usergroup, u.g_id, u.name
 			FROM c_members m INNER JOIN c_usergroups u ON (m.usergroup = u.g_id)
 			ORDER BY m_id DESC LIMIT 10;");
 }
 
-while($member = Database::Fetch()) {
-	$member['joined'] = $Core->DateFormat($member['joined']);
+while($member = Database::fetch()) {
+	$member['joined'] = $Core->dateFormat($member['joined']);
 
 	if($member['m_id'] != 1) {
 		$remove = "<a href='process.php?do=delete_member&amp;id={$member['m_id']}' data-confirm='Do you really want to remove this member? This action CANNOT be undone.'><i class='fa fa-remove'></i></a>";
@@ -39,8 +39,8 @@ while($member = Database::Fetch()) {
 		$remove = "";
 	}
 
-	Template::Add("<tr>
-			<td>" . Html::Crop($Core->GetAvatar($member, 36, "admin"), 36, 36) . "</td>
+	Template::add("<tr>
+			<td>" . Html::crop($Core->getAvatar($member, 36, "admin"), 36, 36) . "</td>
 			<td><b><a href='../profile/{$member['m_id']}' target='_blank'>{$member['username']}</a></b></td>
 			<td>{$member['email']}</td>
 			<td>{$member['joined']}</td>
@@ -88,7 +88,7 @@ while($member = Database::Fetch()) {
 					<td class="min">Delete</td>
 				</tr>
 			</thead>
-			<?php echo Template::Get() ?>
+			<?php echo Template::get() ?>
 		</table>
 	</form>
 </div>

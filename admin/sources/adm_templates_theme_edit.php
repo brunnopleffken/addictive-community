@@ -14,20 +14,20 @@ use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
 // Theme details
-$id = Http::Request("id");
-Database::Query("SELECT * FROM c_themes WHERE theme_id = {$id};");
-$themes = Database::Fetch();
+$id = Http::request("id");
+Database::query("SELECT * FROM c_themes WHERE theme_id = {$id};");
+$themes = Database::fetch();
 
 $filename = "../themes/" . $themes['directory'] . "/css/theme.css";
 
 // Notifications
 $not_writable = false;
-$notification = Html::Notification(
+$notification = Html::notification(
 	"The Developer Tools of your browser is your friend. Use it to identify specific UI elements and get the corresponding CSS selectors.", "info"
 );
 
 if(!is_writable($filename)) {
-	$notification = Html::Notification(
+	$notification = Html::notification(
 		"The file <b>../themes/{$themes['directory']}/css/theme.css</b> should be writable (CHMOD 777).", "failure"
 	);
 	$not_writable = true;

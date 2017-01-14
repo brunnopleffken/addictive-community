@@ -16,7 +16,7 @@ use \AC\Kernel\Html;
 <h1>Templates Settings</h1>
 
 <div class="block">
-	<?php echo Html::Notification("<u>Themes</u> are packages of CSS styles and image files, this is where you go if you want to change the colors and foreground/background images. <u>Templates</u> are HTML and front-end PHP files and variables (the page structure).", "info") ?>
+	<?php echo Html::notification("<u>Themes</u> are packages of CSS styles and image files, this is where you go if you want to change the colors and foreground/background images. <u>Templates</u> are HTML and front-end PHP files and variables (the page structure).", "info") ?>
 	<table class="table">
 		<thead>
 			<tr>

@@ -15,15 +15,15 @@ use \AC\Kernel\Http;
 use \AC\Kernel\Template;
 
 // Build notification messages
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$member_id = Http::Request("m_id");
-		Database::Query("SELECT username FROM c_members WHERE m_id = {$member_id}");
-		$member_info = Database::Fetch();
+		$member_id = Http::request("m_id");
+		Database::query("SELECT username FROM c_members WHERE m_id = {$member_id}");
+		$member_info = Database::fetch();
 
-		$message = Html::Notification("You have successfully revoked the moderator permissions of {$member_info['username']} in this room.", "success");
+		$message = Html::notification("You have successfully revoked the moderator permissions of {$member_info['username']} in this room.", "success");
 		break;
 	default:
 		$message = "";
@@ -32,20 +32,20 @@ switch($msg) {
 
 // Get rooms info
 
-$id = Http::Request("id", true);
+$id = Http::request("id", true);
 
-$_room_info = Database::Query("SELECT name, moderators FROM c_rooms WHERE r_id = {$id};");
-$room_info = Database::Fetch($_room_info);
+$_room_info = Database::query("SELECT name, moderators FROM c_rooms WHERE r_id = {$id};");
+$room_info = Database::fetch($_room_info);
 
 if($room_info['moderators'] != "") {
 	$moderators = unserialize($room_info['moderators']);
 
 	foreach($moderators as $member_id) {
-		$_member = Database::Query("SELECT m_id, username, email, photo, photo_type FROM c_members WHERE m_id = {$member_id};");
-		$member = Database::Fetch($_member);
+		$_member = Database::query("SELECT m_id, username, email, photo, photo_type FROM c_members WHERE m_id = {$member_id};");
+		$member = Database::fetch($_member);
 
-		Template::Add("<tr>
-				<td class='min'>" . Html::Crop($Core->GetAvatar($member, 30, "admin"), 30, 30) . "</td>
+		Template::add("<tr>
+				<td class='min'>" . Html::crop($Core->getAvatar($member, 30, "admin"), 30, 30) . "</td>
 				<td><h3>{$member['username']}</h3></td>
 				<td class='min'>
 					<a href='process.php?do=remove_moderator&m_id={$member['m_id']}&r_id={$id}' class='btn btn-default btn-sm'>Revoke Moderator Permission</a>
@@ -70,6 +70,6 @@ if($room_info['moderators'] != "") {
 				<td></td>
 			</tr>
 		</thead>
-		<?php echo Template::Get(); ?>
+		<?php echo Template::get(); ?>
 	</table>
 </div>

@@ -29,10 +29,10 @@ class Messenger extends Application
 	 * RUN BEFORE MAIN()
 	 * --------------------------------------------------------------------
 	 */
-	public function _BeforeAction()
+	public function beforeAction()
 	{
 		// This section is for members only
-		SessionState::NoGuest();
+		SessionState::noGuest();
 
 		// Save logged in member ID into $member_id
 		$this->member_id = SessionState::$user_data['m_id'];
@@ -43,16 +43,16 @@ class Messenger extends Application
 	 * VIEW INBOX
 	 * --------------------------------------------------------------------
 	 */
-	public function Index()
+	public function index()
 	{
 		// Define messages
-		$message_id = Http::Request("m", true);
+		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::Notification(i18n::Translate("M_MESSAGE_1"), "success"),
-			Html::Notification(i18n::Translate("M_MESSAGE_2"), "failure")
+			Html::notification(i18n::translate("M_MESSAGE_1"), "success"),
+			Html::notification(i18n::translate("M_MESSAGE_2"), "failure")
 		);
 
-		$folder = (Http::Request("folder")) ? Http::Request("folder") : "inbox";
+		$folder = (Http::request("folder")) ? Http::request("folder") : "inbox";
 
 		// Get personal messages
 		if($folder == "sent") {
@@ -60,7 +60,7 @@ class Messenger extends Application
 			$selected_folder[1] = "class='selected'";
 
 			// Select SENT personal messages
-			$messages = Database::Query("SELECT m.pm_id, m.to_id, m.subject, m.status, m.sent_date, u.username
+			$messages = Database::query("SELECT m.pm_id, m.to_id, m.subject, m.status, m.sent_date, u.username
 					FROM c_messages m INNER JOIN c_members u ON (m.to_id = u.m_id)
 					WHERE m.from_id = '{$this->member_id}' ORDER BY m.sent_date DESC;");
 		}
@@ -69,7 +69,7 @@ class Messenger extends Application
 			$selected_folder[1] = "";
 
 			// Select INBOX personal messages
-			$messages = Database::Query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username
+			$messages = Database::query("SELECT m.pm_id, m.from_id, m.subject, m.status, m.sent_date, u.username
 					FROM c_messages m INNER JOIN c_members u ON (m.from_id = u.m_id)
 					WHERE m.to_id = '{$this->member_id}' ORDER BY m.sent_date DESC;");
 		}
@@ -85,13 +85,13 @@ class Messenger extends Application
 		while($result = $messages->fetch_assoc()) {
 			$result['icon_class'] = ($result['status'] == 0 && $folder == "inbox") ? "fa-envelope" : "fa-envelope-o";
 			$result['subject'] = ($result['status'] == 0 && $folder == "inbox") ? "<b>" . $result['subject'] . "<b>" : $result['subject'];
-			$result['sent_date'] = $this->Core->DateFormat($result['sent_date']);
+			$result['sent_date'] = $this->Core->dateFormat($result['sent_date']);
 			$results[] = $result;
 		}
 
 		// Page info
-		$page_info['title'] = i18n::Translate("M_TITLE");
-		$page_info['bc'] = array(i18n::Translate("M_TITLE"));
+		$page_info['title'] = i18n::translate("M_TITLE");
+		$page_info['bc'] = array(i18n::translate("M_TITLE"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -109,10 +109,10 @@ class Messenger extends Application
 	 * VIEW: READ MESSAGE
 	 * --------------------------------------------------------------------
 	 */
-	public function Read($id)
+	public function read($id)
 	{
 		// Get message info and post
-		$post = Database::Query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type
+		$post = Database::query("SELECT p.*, m.username, m.signature, m.member_title, m.email, m.photo, m.photo_type
 				FROM c_messages p LEFT JOIN c_members m ON (p.from_id = m.m_id)
 				WHERE pm_id = {$id} AND (to_id = {$this->member_id} OR from_id = {$this->member_id});");
 
@@ -122,23 +122,23 @@ class Messenger extends Application
 			// If not, set message as read
 			if($message['status'] == 0) {
 				$time = time();
-				Database::Update("c_messages", array(
+				Database::update("c_messages", array(
 					"status = 1",
 					"read_date = {$time}"
 				), "pm_id = {$id}");
 			}
 
 			// Format content
-			$message['sent_date'] = $this->Core->DateFormat($message['sent_date']);
-			$message['avatar'] = $this->Core->GetAvatar($message, 198);
+			$message['sent_date'] = $this->Core->dateFormat($message['sent_date']);
+			$message['avatar'] = $this->Core->getAvatar($message, 198);
 		}
 		else {
-			$this->Core->Redirect("messenger?m=2");
+			$this->Core->redirect("messenger?m=2");
 		}
 
 		// Page info
-		$page_info['title'] = i18n::Translate("M_TITLE");
-		$page_info['bc'] = array(i18n::Translate("M_TITLE"), $message['subject']);
+		$page_info['title'] = i18n::translate("M_TITLE");
+		$page_info['bc'] = array(i18n::translate("M_TITLE"), $message['subject']);
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -151,11 +151,11 @@ class Messenger extends Application
 	 * VIEW: COMPOSE NEW MESSAGE
 	 * --------------------------------------------------------------------
 	 */
-	public function Compose()
+	public function compose()
 	{
 		// Page info
-		$page_info['title'] = i18n::Translate("M_TITLE");
-		$page_info['bc'] = array(i18n::Translate("M_TITLE"), i18n::Translate("M_COMPOSE"));
+		$page_info['title'] = i18n::translate("M_TITLE");
+		$page_info['bc'] = array(i18n::translate("M_TITLE"), i18n::translate("M_COMPOSE"));
 		$this->Set("page_info", $page_info);
 	}
 
@@ -164,17 +164,17 @@ class Messenger extends Application
 	 * RETURN LIST OF MEMBER
 	 * --------------------------------------------------------------------
 	 */
-	public function GetUsernames()
+	public function getUsernames()
 	{
 		$this->layout = false;
 		$users = array();
 
 		// Get member name
 		$member_id = SessionState::$user_data['member_id'];
-		$term = Http::Request("term");
+		$term = Http::request("term");
 
 		// Get list of usernames
-		$result = Database::Query("SELECT m_id, username FROM c_members
+		$result = Database::query("SELECT m_id, username FROM c_members
 				WHERE username LIKE '%{$term}%' AND usergroup <> 0 AND m_id <> {$member_id};");
 
 		while($row = $result->fetch_assoc()) {
@@ -192,25 +192,25 @@ class Messenger extends Application
 	 * SEND PERSONAL MESSAGE
 	 * --------------------------------------------------------------------
 	 */
-	public function Send()
+	public function send()
 	{
 		$this->layout = false;
 
 		// Build register
 		$pm = array(
 			"from_id"   => $this->member_id,
-			"to_id"     => Http::Request("to", true),
-			"subject"   => Http::Request("subject"),
+			"to_id"     => Http::request("to", true),
+			"subject"   => Http::request("subject"),
 			"status"    => 0,
 			"sent_date" => time(),
 			"message"   => $_REQUEST['post']
 		);
 
 		// Send message
-		Database::Insert("c_messages", $pm);
+		Database::insert("c_messages", $pm);
 
 		// Redirect
-		$this->Core->Redirect("messenger?m=1");
+		$this->Core->redirect("messenger?m=1");
 	}
 
 	/**
@@ -218,7 +218,7 @@ class Messenger extends Application
 	 * DELETE PERSONAL MESSAGES
 	 * --------------------------------------------------------------------
 	 */
-	public function Delete($id)
+	public function delete($id)
 	{
 		$this->layout = false;
 
@@ -228,18 +228,18 @@ class Messenger extends Application
 		// Execute deletion
 		if($id) {
 			// Delete single message (when reading one)
-			Database::Delete("c_messages", "pm_id = {$id} AND to_id = {$member_id}");
+			Database::delete("c_messages", "pm_id = {$id} AND to_id = {$member_id}");
 		}
 		else {
 			// Delete multiple messages (from inbox)
-			$selected_messages = Http::Request("pm");
+			$selected_messages = Http::request("pm");
 			foreach($selected_messages as $pm_id) {
-				Database::Delete("c_messages", "pm_id = {$pm_id} AND to_id = {$member_id}");
+				Database::delete("c_messages", "pm_id = {$pm_id} AND to_id = {$member_id}");
 			}
 		}
 
 		// Redirect
-		$this->Core->Redirect("messenger");
+		$this->Core->redirect("messenger");
 	}
 
 	/**
@@ -247,24 +247,24 @@ class Messenger extends Application
 	 * VIEW: FORWARDING A MESSAGE TO ANOTHER USER
 	 * --------------------------------------------------------------------
 	 */
-	public function Forward($id)
+	public function forward($id)
 	{
 		if($id) {
-			Database::Query("SELECT username, subject, message FROM c_messages
+			Database::query("SELECT username, subject, message FROM c_messages
 					LEFT JOIN c_members ON c_messages.from_id = c_members.m_id
 					WHERE pm_id = {$id} LIMIT 1");
 
-			$message = Database::Fetch();
+			$message = Database::fetch();
 
 			if($message) {
 				$this->Set('message', $message);
 			}
 			else {
-				$this->Core->Redirect("messenger");
+				$this->Core->redirect("messenger");
 			}
 		}
 		else {
-			$this->Core->Redirect("messenger");
+			$this->Core->redirect("messenger");
 		}
 	}
 
@@ -273,28 +273,28 @@ class Messenger extends Application
 	 * VIEW: REPLYING TO A MESSAGE
 	 * --------------------------------------------------------------------
 	 */
-	public function Reply($id)
+	public function reply($id)
 	{
 		$member_id = SessionState::$user_data['member_id'];
 
 		if($id) {
 			//Load message user is replying to
-			Database::Query("SELECT `username`,`m_id` AS `reply_user_id`,`subject` FROM `c_messages`
+			Database::query("SELECT `username`,`m_id` AS `reply_user_id`,`subject` FROM `c_messages`
 					LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id` WHERE `pm_id`={$id}
 					AND `to_id`={$member_id} LIMIT 1");
 
-			$message = Database::Fetch();
+			$message = Database::fetch();
 
 			if($message) {
 				//Set this message so the view can use the information
 				$this->Set('message', $message);
 			}
 			else {
-				$this->Core->Redirect("messenger");
+				$this->Core->redirect("messenger");
 			}
 		}
 		else {
-			$this->Core->Redirect("messenger");
+			$this->Core->redirect("messenger");
 		}
 	}
 }

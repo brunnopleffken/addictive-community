@@ -39,7 +39,7 @@
 			<?php if(!empty($results)): ?>
 				<?php foreach($results as $k => $v): ?>
 					<tr>
-						<td class="min"><?= \AC\Kernel\Html::Crop($results[$k]['avatar'], 40) ?></td>
+						<td class="min"><?= \AC\Kernel\Html::crop($results[$k]['avatar'], 40) ?></td>
 						<td class="font-w600">
 							<a href="profile/<?= $results[$k]['m_id'] ?>"><?= $results[$k]['username'] ?></a>
 						</td>

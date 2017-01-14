@@ -24,7 +24,7 @@ class Members extends Application
 	 * MEMBER LIST
 	 * --------------------------------------------------------------------
 	 */
-	public function Index()
+	public function index()
 	{
 		$selected = "";
 		$letter_list = "";
@@ -39,24 +39,24 @@ class Members extends Application
 		);
 
 		// If there is a search, letter or number selected, don't let "All" selected
-		if(Http::Request("term") || Http::Request("letter") || Http::Request("numbers")) {
-			$first = "<li><a href='members'>" . i18n::Translate("M_ALL") . "</a></li>\n";
+		if(Http::request("term") || Http::request("letter") || Http::request("numbers")) {
+			$first = "<li><a href='members'>" . i18n::translate("M_ALL") . "</a></li>\n";
 		}
 		else {
-			$first = "<li class='active'><a href='members'>" . i18n::Translate("M_ALL") . "</a></li>\n";
+			$first = "<li class='active'><a href='members'>" . i18n::translate("M_ALL") . "</a></li>\n";
 		}
 
 		// Build letter list
 		foreach($letters as $value) {
 			$label = strtoupper($value);
-			$selected = (Http::Request("letter") == $value) ? "class='active'" : "";
-			$order = (Http::Request("order")) ? "&order=" . Http::Request("order") : "";
+			$selected = (Http::request("letter") == $value) ? "class='active'" : "";
+			$order = (Http::request("order")) ? "&order=" . Http::request("order") : "";
 
 			$letter_list .= "<li {$selected}><a href='members?letter={$value}{$order}'>{$label}</a></li>\n";
 		}
 
 		// If there is a number selected, don't let "0-9" selected
-		if(Http::Request("numbers")) {
+		if(Http::request("numbers")) {
 			$numbers = "<li class='active'><a href='members?numbers=true'>0-9</a></li>\n";
 		}
 		else {
@@ -64,11 +64,11 @@ class Members extends Application
 		}
 
 		// Get member list
-		$results = $this->_GetMemberList();
+		$results = $this->getMemberList();
 
 		// Page info
-		$page_info['title'] = i18n::Translate("M_TITLE");
-		$page_info['bc'] = array(i18n::Translate("M_TITLE"));
+		$page_info['title'] = i18n::translate("M_TITLE");
+		$page_info['bc'] = array(i18n::translate("M_TITLE"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -83,14 +83,14 @@ class Members extends Application
 	 * GET MEMBER LIST
 	 * --------------------------------------------------------------------
 	 */
-	private function _GetMemberList()
+	private function getMemberList()
 	{
 		// Declare return variable
 		$term = false;
 		$_result = array();
 
 		// Sort by username, join date or number of posts
-		switch(Http::Request("order")) {
+		switch(Http::request("order")) {
 			case "join":
 				$order = "ORDER BY joined DESC";
 				break;
@@ -106,18 +106,18 @@ class Members extends Application
 		// Filter is blank ("all")
 		$filter = $letter_param = "";
 
-		if(Http::Request("term")) {
+		if(Http::request("term")) {
 			// Search by username
-			$term = Http::Request("term");
+			$term = Http::request("term");
 			$filter = "AND username LIKE '%{$term}%'";
 		}
-		elseif(Http::Request("letter")) {
+		elseif(Http::request("letter")) {
 			// Filter by first letter and execute query!
-			$letter = Http::Request("letter");
+			$letter = Http::request("letter");
 			$filter = "AND username LIKE '{$letter}%'";
 			$letter_param = "letter={$letter}&";
 		}
-		elseif(Http::Request("numbers")) {
+		elseif(Http::request("numbers")) {
 			// Filter by numbers
 			$filter = "AND username REGEXP '^[0-9]'";
 		}
@@ -126,12 +126,12 @@ class Members extends Application
 				LEFT JOIN c_usergroups ON (c_members.usergroup = c_usergroups.g_id)
 				WHERE usergroup <> 0 {$filter} {$order};";
 
-		$members = Database::Query($sql);
+		$members = Database::query($sql);
 
 		// Iterate between results
-		while($result = Database::Fetch($members)) {
-			$result['avatar'] = $this->Core->GetAvatar($result, 80);
-			$result['joined'] = $this->Core->DateFormat($result['joined'], "short");
+		while($result = Database::fetch($members)) {
+			$result['avatar'] = $this->Core->getAvatar($result, 80);
+			$result['joined'] = $this->Core->dateFormat($result['joined'], "short");
 			$_result[] = $result;
 		}
 

@@ -21,7 +21,7 @@
 	<div class="thread-reply-content">
 		<div class="thread-reply-content-author text-center">
 			<div class="thread-reply-content-author-avatar">
-				<?= \AC\Kernel\Html::Crop($message['avatar'], 98, "image") ?>
+				<?= \AC\Kernel\Html::crop($message['avatar'], 98, "image") ?>
 			</div>
 			<a href="profile/<?= $message['from_id'] ?>" class="thread-reply-content-author-username">
 				<?= $message['username'] ?>

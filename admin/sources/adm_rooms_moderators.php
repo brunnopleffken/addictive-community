@@ -16,14 +16,14 @@ use \AC\Kernel\Template;
 use \AC\Kernel\Text;
 
 // Build notification messages
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("You have successfully added a new moderator.", "success");
+		$message = Html::notification("You have successfully added a new moderator.", "success");
 		break;
 	case 2:
-		$message = Html::Notification("This member is already defined as moderator in this room.", "failure");
+		$message = Html::notification("This member is already defined as moderator in this room.", "failure");
 		break;
 	default:
 		$message = "";
@@ -31,9 +31,9 @@ switch($msg) {
 }
 
 // Get rooms and its moderators
-$list = Database::Query("SELECT r_id, name, url, moderators FROM c_rooms WHERE CHAR_LENGTH(url) = 0 OR url IS NULL;");
+$list = Database::query("SELECT r_id, name, url, moderators FROM c_rooms WHERE CHAR_LENGTH(url) = 0 OR url IS NULL;");
 
-while($result = Database::Fetch($list)) {
+while($result = Database::fetch($list)) {
 	// Show list of moderators
 	if($result['moderators'] == "") {
 		$result['moderators_list'] = "---";
@@ -43,13 +43,13 @@ while($result = Database::Fetch($list)) {
 		$moderator_list = array();
 
 		foreach($moderators as $member_id) {
-			$mod_info = Database::Query("SELECT username FROM c_members WHERE m_id = {$member_id};");
-			$member = Database::Fetch($mod_info);
+			$mod_info = Database::query("SELECT username FROM c_members WHERE m_id = {$member_id};");
+			$member = Database::fetch($mod_info);
 
 			$moderator_list[] = $member['username'];
 		}
 
-		$result['moderators_list'] = Text::ToList($moderator_list);
+		$result['moderators_list'] = Text::toList($moderator_list);
 	}
 
 	// Cannot add moderators in Redirect Rooms
@@ -63,7 +63,7 @@ while($result = Database::Fetch($list)) {
 	}
 
 	// Build table
-	Template::Add("<tr>
+	Template::add("<tr>
 			<td><strong>{$result['name']}</strong></td>
 			<td>{$result['moderators_list']}</td>
 			<td class='min text-center'>{$result['add_link']}</td>
@@ -89,6 +89,6 @@ while($result = Database::Fetch($list)) {
 					<td class="min">Remove</td>
 				</tr>
 			</thead>
-			<?php echo Template::Get(); ?>
+			<?php echo Template::get(); ?>
 		</table>
 </div>

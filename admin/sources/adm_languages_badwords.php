@@ -12,14 +12,14 @@
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The settings has been successfully changed.", "success");
+		$message = Html::notification("The settings has been successfully changed.", "success");
 		break;
 	default:
-		$message = Html::Notification("Words must be exact match! If you censor the word \"ass\", the word \"asshole\" will NOT be censored.", "warning");
+		$message = Html::notification("Words must be exact match! If you censor the word \"ass\", the word \"asshole\" will NOT be censored.", "warning");
 		break;
 }
 
@@ -41,13 +41,13 @@ switch($msg) {
 			<tr>
 				<td class="font-w600">Replace with...</td>
 				<td>
-					<input type="text" name="language_bad_words_replacement" class="form-control span-2" value="<?php echo $Admin->SelectConfig("language_bad_words_replacement") ?>">
+					<input type="text" name="language_bad_words_replacement" class="form-control span-2" value="<?php echo $Admin->selectConfig("language_bad_words_replacement") ?>">
 				</td>
 			</tr>
 			<tr>
 				<td class="font-w600">Bad words to be censored<small>One word per line.</small></td>
 				<td>
-					<textarea name="language_bad_words" rows="10" class="form-control span-6"><?php echo $Admin->SelectConfig("language_bad_words") ?></textarea>
+					<textarea name="language_bad_words" rows="10" class="form-control span-6"><?php echo $Admin->selectConfig("language_bad_words") ?></textarea>
 				</td>
 			</tr>
 		</table>

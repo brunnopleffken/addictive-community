@@ -14,14 +14,14 @@ use \AC\Kernel\Template;
 
 // Get administration/moderation logs
 
-Database::Query("SELECT l.*, m.username FROM c_logs l
+Database::query("SELECT l.*, m.username FROM c_logs l
 	INNER JOIN c_members m ON (m.m_id = l.member_id)
 	ORDER BY log_id DESC LIMIT 50;");
 
-while($reg = Database::Fetch()) {
-	$reg['time'] = $Core->DateFormat($reg['time']);
+while($reg = Database::fetch()) {
+	$reg['time'] = $Core->dateFormat($reg['time']);
 
-	Template::Add("<tr>
+	Template::add("<tr>
 			<td>{$reg['username']}</td>
 			<td>{$reg['act']}</td>
 			<td>{$reg['time']}</td>
@@ -46,6 +46,6 @@ while($reg = Database::Fetch()) {
 				<td>IP</td>
 			</tr>
 		</thead>
-		<?php echo Template::Get() ?>
+		<?php echo Template::get() ?>
 	</table>
 </div>

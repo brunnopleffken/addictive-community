@@ -14,10 +14,10 @@ use \AC\Kernel\Http;
 
 // Room editing
 
-$id = Http::Request("id");
+$id = Http::request("id");
 
-Database::Query("SELECT * FROM c_rooms WHERE r_id = '{$id}';");
-$room_info = Database::Fetch();
+Database::query("SELECT * FROM c_rooms WHERE r_id = '{$id}';");
+$room_info = Database::fetch();
 
 ?>
 
@@ -54,15 +54,15 @@ $room_info = Database::Fetch();
 				</tr>
 				<tr>
 					<td class="font-w600">Read only</td>
-					<td><label><?php echo $Admin->BooleanCheckbox("read_only", $room_info['read_only']) ?> Mark room as Read Only (post and reply not allowed).</label></td>
+					<td><label><?php echo $Admin->booleanCheckbox("read_only", $room_info['read_only']) ?> Mark room as Read Only (post and reply not allowed).</label></td>
 				</tr>
 				<tr>
 					<td class="font-w600">Invisible</td>
-					<td><label><?php echo $Admin->BooleanCheckbox("invisible", $room_info['invisible']) ?> Set room as invisible for members, except Administrators.</label></td>
+					<td><label><?php echo $Admin->booleanCheckbox("invisible", $room_info['invisible']) ?> Set room as invisible for members, except Administrators.</label></td>
 				</tr>
 				<tr>
 					<td class="font-w600">File uploads</td>
-					<td><label><?php echo $Admin->BooleanCheckbox("upload", $room_info['upload']) ?> Allow attachments in posts in this room.</label></td>
+					<td><label><?php echo $Admin->booleanCheckbox("upload", $room_info['upload']) ?> Allow attachments in posts in this room.</label></td>
 				</tr>
 			</table>
 
@@ -74,7 +74,7 @@ $room_info = Database::Fetch();
 				</thead>
 				<tr>
 					<td class="font-w600">Enable custom rules<small>Add an alert board at the top of this room?</small></td>
-					<td><label><?php echo $Admin->BooleanCheckbox("rules_visible", $room_info['rules_visible']) ?> Enable custom rules to this room.</label></td>
+					<td><label><?php echo $Admin->booleanCheckbox("rules_visible", $room_info['rules_visible']) ?> Enable custom rules to this room.</label></td>
 				</tr>
 				<tr>
 					<td class="font-w600">Rules title <small>If enabled</small></td>

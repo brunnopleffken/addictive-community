@@ -5,11 +5,11 @@
 
 <div class="nav room-nav">
 	<div class="nav-top">
-		<a href="calendar/view?date=<?= \AC\Kernel\Http::Request("date") ?>" class="active"><?php __("C_VIEW") ?></a>
+		<a href="calendar/view?date=<?= \AC\Kernel\Http::request("date") ?>" class="active"><?php __("C_VIEW") ?></a>
 	</div>
 	<div class="nav-bottom">
-		<a href="calendar/view?date=<?= \AC\Kernel\Http::Request("date") ?>"><?php __("C_VIEW_ALL") ?></a>
-		<a href="calendar/view?date=<?= \AC\Kernel\Http::Request("date") ?>&type=private"><?php __("C_VIEW_PRIVATE") ?></a>
+		<a href="calendar/view?date=<?= \AC\Kernel\Http::request("date") ?>"><?php __("C_VIEW_ALL") ?></a>
+		<a href="calendar/view?date=<?= \AC\Kernel\Http::request("date") ?>&type=private"><?php __("C_VIEW_PRIVATE") ?></a>
 	</div>
 </div>
 

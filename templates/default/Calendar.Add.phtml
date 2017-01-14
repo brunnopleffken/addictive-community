@@ -15,14 +15,14 @@
 			<label class="col-2"><?php __("C_NEW_DATE") ?></label>
 			<div class="col-10">
 				<?php
-					echo \AC\Kernel\Html::Days("day", date("d")) . " ";
-					echo \AC\Kernel\Html::Months("month", false, date("m")) . " ";
-					echo \AC\Kernel\Html::Years("year", 0, 3);
+					echo \AC\Kernel\Html::days("day", date("d")) . " ";
+					echo \AC\Kernel\Html::months("month", false, date("m")) . " ";
+					echo \AC\Kernel\Html::years("year", 0, 3);
 					echo "<span class='form-control-static'>&nbsp;";
 						__("C_NEW_AT");
 					echo "&nbsp;</span>";
-					echo \AC\Kernel\Html::Hours("hour") . " : ";
-					echo \AC\Kernel\Html::Minutes("minute");
+					echo \AC\Kernel\Html::hours("hour") . " : ";
+					echo \AC\Kernel\Html::minutes("minute");
 				?>
 			</div>
 		</div>

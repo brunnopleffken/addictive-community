@@ -23,7 +23,7 @@ class Feeds extends Application
 	 * ATOM SYNDICATION: ROOMS
 	 * --------------------------------------------------------------------
 	 */
-	public function Room($room_id)
+	public function room($room_id)
 	{
 		$this->layout = false;
 
@@ -31,8 +31,8 @@ class Feeds extends Application
 		header('Content-Type: application/xml');
 
 		// Get room information
-		Database::Query("SELECT name, last_post_date FROM c_rooms WHERE r_id = {$room_id};");
-		$room_info = Database::Fetch();
+		Database::query("SELECT name, last_post_date FROM c_rooms WHERE r_id = {$room_id};");
+		$room_info = Database::fetch();
 
 		// Print ATOM syndication header
 		$html = '<?xml version="1.0" encoding="utf-8"?>' . "\n";
@@ -44,15 +44,15 @@ class Feeds extends Application
 		$html .= '<id>' . $this->Core->config['general_community_url'] . '</id>' . "\n\n";
 
 		// Get threads
-		Database::Query("SELECT t.t_id, t.title, t.slug, t.start_date, m.username,
+		Database::query("SELECT t.t_id, t.title, t.slug, t.start_date, m.username,
 				(SELECT p.post FROM c_posts p WHERE p.thread_id = t.t_id ORDER BY post_date LIMIT 1) AS post FROM c_threads t
 				INNER JOIN c_members m ON (t.author_member_id = m.m_id)
 				WHERE t.room_id = {$room_id} ORDER BY t.start_date DESC;");
 
-		while($thread = Database::Fetch()) {
+		while($thread = Database::fetch()) {
 			// Get full URL to thread
 			$thread['thread_url'] = $this->Core->config['general_community_url'] . "thread/" . $thread['t_id'] . "-" . $thread['slug'];
-			$thread['tag'] = Text::Slug($this->Core->config['general_community_name']);
+			$thread['tag'] = Text::slug($this->Core->config['general_community_name']);
 
 			// Print ATOM entries
 			$html .= '<entry>' . "\n";

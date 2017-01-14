@@ -26,8 +26,8 @@ foreach($dir as $k => $v) {
 
 // List of templates
 
-Database::Query("SELECT * FROM c_templates ORDER BY name ASC;");
-$templates = Database::FetchToArray();
+Database::query("SELECT * FROM c_templates ORDER BY name ASC;");
+$templates = Database::fetchToArray();
 
 foreach($templates as $template) {
 	$template['is_active']  = ($template['is_active'] == 1) ? "<i class='fa fa-check'></i>" : "";
@@ -37,7 +37,7 @@ foreach($templates as $template) {
 	}
 
 	// Do not allow to remove default templates
-	if($template['directory'] == $Admin->SelectConfig("template_default_set")) {
+	if($template['directory'] == $Admin->selectConfig("template_default_set")) {
 		$template['default'] = "<i class='fa fa-check'></i>";
 		$template['remove'] = "-";
 	}
@@ -46,7 +46,7 @@ foreach($templates as $template) {
 		$template['remove']= "<a href='process.php?do=template_remove&id={$template['tpl_id']}'><i class='fa fa-remove'></i></a>";
 	}
 
-	Template::Add("<tr>
+	Template::add("<tr>
 			<td><a href=\"main.php?act=templates&p=edit&id={$template['tpl_id']}\"><b>{$template['name']}</b></a></td>
 			<td>/templates/{$template['directory']}</td>
 			<td>{$template['author_name']} ({$template['author_email']})</td>
@@ -64,7 +64,7 @@ if(!empty($dir_list)) {
 	foreach($dir_list as $template) {
 		$template_info = json_decode(file_get_contents("../templates/" . $template . "/_template.json"), true);
 
-		Template::Add("<tr>
+		Template::add("<tr>
 				<td style='color:#bbb'><b>{$template_info['name']}</b></td>
 				<td style='color:#bbb'>/templates/{$template}</td>
 				<td style='color:#bbb'>{$template_info['author']} ({$template_info['email']})</td>
@@ -79,7 +79,7 @@ if(!empty($dir_list)) {
 <h1>Template Manager</h1>
 
 <div class="block">
-	<?php echo Html::Notification("If you want to change the general appearance of your community (like colors and images), you might be looking for <a href='main.php?act=templates&p=themes'>Themes</a> instead.", "info") ?>
+	<?php echo Html::notification("If you want to change the general appearance of your community (like colors and images), you might be looking for <a href='main.php?act=templates&p=themes'>Themes</a> instead.", "info") ?>
 	<table class="table">
 		<thead>
 			<tr>
@@ -99,7 +99,7 @@ if(!empty($dir_list)) {
 				<td class="min"></td>
 			</tr>
 		</thead>
-		<?php echo Template::Get() ?>
+		<?php echo Template::get() ?>
 	</table>
 </div>
 

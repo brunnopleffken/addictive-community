@@ -12,11 +12,11 @@
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The settings has been successfully changed.", "success");
+		$message = Html::notification("The settings has been successfully changed.", "success");
 		break;
 	default:
 		$message = "";
@@ -38,7 +38,7 @@ switch($msg) {
 			</thead>
 			<tr>
 				<td class="font-w600">Maximum warning points<small>Reaching X warnings, the user is automatically banned from the community.</small></td>
-				<td><input type="text" name="general_warning_max" class="form-control span-1" value="<?php echo $Admin->SelectConfig("general_warning_max") ?>"> warnings</td>
+				<td><input type="text" name="general_warning_max" class="form-control span-1" value="<?php echo $Admin->selectConfig("general_warning_max") ?>"> warnings</td>
 			</tr>
 		</table>
 		<div class="text-right">

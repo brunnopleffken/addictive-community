@@ -34,7 +34,7 @@ class Database
 	 * MANUALLY OPEN A NEW CONNECTION TO A MYSQL SERVER
 	 * --------------------------------------------------------------------
 	 */
-	public static function Connect($connection_config = array())
+	public static function connect($connection_config = array())
 	{
 		// Store configuration info as class property
 		self::$connection_config = $connection_config;
@@ -50,7 +50,7 @@ class Database
 
 		// Show error message in case of error
 		if(mysqli_connect_errno()) {
-			self::Exception(mysqli_connect_error());
+			self::databaseException(mysqli_connect_error());
 			return false;
 		}
 		else {
@@ -65,7 +65,7 @@ class Database
 	 * SENDS A UNIQUE QUERY TO THE CURRENTLY ACTIVE DATABASE
 	 * --------------------------------------------------------------------
 	 */
-	public static function Query($sql, $ext_backtrace = 0)
+	public static function query($sql, $ext_backtrace = 0)
 	{
 		// Execute SQL query
 		self::$query = mysqli_query(self::$link, $sql);
@@ -83,7 +83,7 @@ class Database
 
 		// In case of error...
 		if(!self::$query) {
-			self::Exception(
+			self::databaseException(
 				"An error occoured on the following query: " . $sql . "<br><br>"
 				. "<textarea cols='90' rows='5'>" . self::$link->error . "</textarea>"
 			);
@@ -97,7 +97,7 @@ class Database
 	 * FETCH A RESULT ROW AS AN ASSOCIATIVE ARRAY (USED IN "WHILE" LOOPS)
 	 * --------------------------------------------------------------------
 	 */
-	public static function Fetch($result = null)
+	public static function fetch($result = null)
 	{
 		// If any SQL command is passed as parameter...
 		if($result == null) {
@@ -115,7 +115,7 @@ class Database
 	 * FETCH A RESULT ROW AS AN ASSOCIATIVE ARRAY TO BE USED IN CONFIG
 	 * --------------------------------------------------------------------
 	 */
-	public static function FetchConfig($result = null)
+	public static function fetchConfig($result = null)
 	{
 		// If any SQL command is passed as parameter...
 		if($result == null) {
@@ -134,7 +134,7 @@ class Database
 	 * FETCH A RESULT ROW AS AS A REGULAR ASSOCIATIVE ARRAY
 	 * --------------------------------------------------------------------
 	 */
-	public static function FetchToArray($result = null)
+	public static function fetchToArray($result = null)
 	{
 		$results_array = array();
 
@@ -155,7 +155,7 @@ class Database
 	 * GET NUMBER OF ROWS IN RESULT (FOR SELECT STATEMENTS ONLY)
 	 * --------------------------------------------------------------------
 	 */
-	public static function Rows($result = null)
+	public static function rows($result = null)
 	{
 		if($result == null) {
 			$result = self::$query;
@@ -169,7 +169,7 @@ class Database
 	 * NUMBER OF ROWS AFFECTED BY THE LAST INSERT/UPDATE/REPLACE/DELETE OP.
 	 * --------------------------------------------------------------------
 	 */
-	public static function AffectedRows()
+	public static function affectedRows()
 	{
 		self::$resultset = mysqli_affected_rows(self::$link);
 		return self::$resultset;
@@ -180,7 +180,7 @@ class Database
 	 * INSERT DATA FROM AN ARRAY INTO A TABLE
 	 * --------------------------------------------------------------------
 	 */
-	public static function Insert($table, $array)
+	public static function insert($table, $array)
 	{
 		// Loop through array
 		foreach($array as $f => $v) {
@@ -193,11 +193,11 @@ class Database
 
 		// Save backtrace if debug is 'true' and run query
 		$backtrace = (self::$debug) ? debug_backtrace() : null;
-		self::$query = self::Query($sql, $backtrace);
+		self::$query = self::query($sql, $backtrace);
 
 		// In case of error...
 		if(!self::$query) {
-			self::Exception("An error occoured on the following query: " . $sql);
+			self::databaseException("An error occoured on the following query: " . $sql);
 		}
 
 		return self::$query;
@@ -208,7 +208,7 @@ class Database
 	 * UPDATE AN ENTRY ON DATABASE FROM AN ARRAY
 	 * --------------------------------------------------------------------
 	 */
-	public static function Update($table, $data, $where = 1)
+	public static function update($table, $data, $where = 1)
 	{
 		if(is_array($data)) {
 			// Check if it's an associative array or a sequential array
@@ -230,10 +230,10 @@ class Database
 
 		// Save backtrace if debug is 'true' and run query
 		$backtrace = (self::$debug) ? debug_backtrace() : null;
-		self::$query = self::Query($sql, $backtrace);
+		self::$query = self::query($sql, $backtrace);
 
 		if(!self::$query) {
-			self::Exception("An error occoured on the following query: " . $sql);
+			self::databaseException("An error occoured on the following query: " . $sql);
 		}
 
 		return self::$query;
@@ -244,20 +244,20 @@ class Database
 	 * DELETE ENTRIES ON DATABASE
 	 * --------------------------------------------------------------------
 	 */
-	public static function Delete($table, $where = null)
+	public static function delete($table, $where = null)
 	{
 		if($where == null) {
-			Html::Error("You're running a Database::Delete() comand without WHERE.");
+			Html::throwError("You're running a Database::Delete() comand without WHERE.");
 		}
 
 		$sql = "DELETE FROM {$table} WHERE {$where};";
 
 		// Save backtrace if debug is 'true' and run query
 		$backtrace = (self::$debug) ? debug_backtrace() : null;
-		self::$query = self::Query($sql, $backtrace);
+		self::$query = self::query($sql, $backtrace);
 
 		if(!self::$query) {
-			self::Exception("An error occoured on the following query: " . $sql);
+			self::databaseException("An error occoured on the following query: " . $sql);
 		}
 
 		return self::$query;
@@ -268,7 +268,7 @@ class Database
 	 * GET THE ID GENERATED IN THE LAST QUERY
 	 * --------------------------------------------------------------------
 	 */
-	public static function GetLastID()
+	public static function getLastId()
 	{
 		return mysqli_insert_id(self::$link);
 	}
@@ -278,7 +278,7 @@ class Database
 	 * RETURN LOG OF EXECUTED QUERIES
 	 * --------------------------------------------------------------------
 	 */
-	public static function Log()
+	public static function log()
 	{
 		if(self::$debug) {
 			$template = "<table class='table' style='margin:20px 0'>";
@@ -306,13 +306,13 @@ class Database
 	 * SHOW MYSQL ERROR MESSAGE
 	 * --------------------------------------------------------------------
 	 */
-	private static function Exception($message = "")
+	private static function databaseException($message = "")
 	{
 		if($message == "") {
-			Html::Error(mysqli_error(self::$link));
+			Html::throwError(mysqli_error(self::$link));
 		}
 		else {
-			Html::Error($message);
+			Html::throwError($message);
 		}
 	}
 }

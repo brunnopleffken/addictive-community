@@ -36,7 +36,7 @@ class Core
 	 * REDIRECT TO AN SPECIFIC URL
 	 * --------------------------------------------------------------------
 	 */
-	public function Redirect($url)
+	public function redirect($url)
 	{
 		if($url == "HTTP_REFERER") {
 			header("Location: " . $_SERVER['HTTP_REFERER']);
@@ -54,7 +54,7 @@ class Core
 	 * USE CUSTOM DATE FORMATTING
 	 * --------------------------------------------------------------------
 	 */
-	public function DateFormat($timestamp, $format = "long")
+	public function dateFormat($timestamp, $format = "long")
 	{
 		// Get long/short time formats from configurations table
 		if($format == "long") {
@@ -85,7 +85,7 @@ class Core
 	 * $section: public|admin
 	 * --------------------------------------------------------------------
 	 */
-	public function GetAvatar($info = array(), $size = 96, $d = "mm", $r = "g")
+	public function getAvatar($info = array(), $size = 96, $d = "mm", $r = "g")
 	{
 		switch($info['photo_type']) {
 			// Gravatar photo
@@ -116,7 +116,7 @@ class Core
 	 * CREATE CANONICAL TAG URL
 	 * --------------------------------------------------------------------
 	 */
-	public function CanonicalTag($thread_id)
+	public function canonicalTag($thread_id)
 	{
 		return $this->config['general_community_url'] . "index.php?module=thread&id=" . $thread_id;
 	}
@@ -126,7 +126,7 @@ class Core
 	 * BREADCRUMB GENERATOR
 	 * --------------------------------------------------------------------
 	 */
-	public function Breadcrumb($breadcrumb_path = array())
+	public function breadcrumb($breadcrumb_path = array())
 	{
 		$url = $this->config['general_community_url'];
 		$name = $this->config['general_community_name'];
@@ -146,7 +146,7 @@ class Core
 	 * SET HTML <TITLE> CONTENT
 	 * --------------------------------------------------------------------
 	 */
-	public function PageTitle($page_info = array())
+	public function pageTitle($page_info = array())
 	{
 		return (isset($page_info['title'])) ? $page_info['title'] . " - " : "";
 	}

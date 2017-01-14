@@ -12,11 +12,11 @@
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 
-$msg = (Http::Request("msg")) ? Http::Request("msg") : "";
+$msg = (Http::request("msg")) ? Http::request("msg") : "";
 
 switch($msg) {
 	case 1:
-		$message = Html::Notification("The settings has been successfully changed.", "success");
+		$message = Html::notification("The settings has been successfully changed.", "success");
 		break;
 	default:
 		$message = "";
@@ -39,7 +39,7 @@ switch($msg) {
 				</thead>
 				<tr>
 					<td class="font-w600">Expiration time</span></td>
-					<td><input type="text" name="general_session_expiration" class="form-control span-1" value="<?php echo $Admin->SelectConfig("general_session_expiration") ?>"> seconds</td>
+					<td><input type="text" name="general_session_expiration" class="form-control span-1" value="<?php echo $Admin->selectConfig("general_session_expiration") ?>"> seconds</td>
 				</tr>
 			</table>
 			<div class="text-right">
