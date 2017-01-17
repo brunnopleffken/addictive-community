@@ -59,7 +59,7 @@ class Main
 	public function __construct()
 	{
 		// Load kernel classes
-		spl_autoload_register('_AutoLoader', true, true);
+		spl_autoload_register('autoLoaderClass', true, true);
 
 		// Load configuration file
 		if(is_file("config.ini")) {

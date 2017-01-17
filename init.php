@@ -52,7 +52,7 @@ define("YEAR", 31536000);
  * --------------------------------------------------------------------
  */
 
-function _AutoLoader($class_name)
+function autoLoaderClass($class_name)
 {
 	$path = __DIR__;
 	$bits = explode("\\", ltrim($class_name, "\\"));
