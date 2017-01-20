@@ -26,7 +26,7 @@ require_once("../init.php");
 $config = parse_ini_file("../config.ini");
 
 // Define autoloader
-spl_autoload_register('_AutoLoader', true, true);
+spl_autoload_register('autoLoaderClass', true, true);
 
 // First... check if the login sessions exists!
 Session::init();
