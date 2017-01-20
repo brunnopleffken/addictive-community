@@ -23,7 +23,7 @@ switch($msg) {
 		$message = Html::notification("The settings has been successfully changed.", "success");
 		break;
 	default:
-		$message = Html::notification("You cannot remove native user groups (like Administrator, Member or Guest).", "info");
+		$message = Html::notification("You cannot remove root user groups (like Administrator, Member or Guest).", "info");
 		break;
 }
 
@@ -34,8 +34,17 @@ Database::query("SELECT * FROM c_usergroups");
 while($group = Database::fetch()) {
 	$delete = ($group['stock'] == 0) ? "<i class='fa fa-remove'></i>" : "-";
 
+	if($group['stock'] == 0) {
+		$delete = "<i class='fa fa-remove'></i>";
+		$notice = "";
+	}
+	else {
+		$delete = "-";
+		$notice = "<span class='text-muted pull-right'>[ root ]</span>";
+	}
+
 	Template::add("<tr>
-			<td><b>{$group['name']}</b></td>
+			<td><b>{$group['name']}</b> {$notice}</td>
 			<td class='min text-center'><a href='main.php?act=members&p=edit_usergroup&id={$group['g_id']}'><i class='fa fa-pencil'></i></a></td>
 			<td class='min text-center'>{$delete}</td>
 		</tr>");
