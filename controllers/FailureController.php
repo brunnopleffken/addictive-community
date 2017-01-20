@@ -55,6 +55,9 @@ class Failure extends Application
 			'deleted_member' => [
 				"", "deleted"
             ],
+			'banned' => [
+				"", "banned"
+            ],
 			'403' => [
 				"", "403", "Error 403"
             ],

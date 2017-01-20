@@ -55,6 +55,12 @@ class Login extends Application
 
 			if(Database::rows()) {
 				$member_info = Database::fetch();
+
+				// Check if member has been banned
+				if($member_info['usergroup'] == 4) {
+					$this->Core->redirect("/failure?t=banned");
+				}
+
 				$member_info['anonymous'] = (Http::request("anonymous", true)) ? 1 : 0;
 				$member_info['remember'] = (Http::request("remember", true)) ? 1 : 0;
 				$member_info['session_token'] = SessionState::retrieve("session_token");

@@ -19,6 +19,8 @@
 	$t["E_UPDATING_MESSAGE"] = "Please, wait while we update our community to a newer software version.";
 	$t["E_DELETED"] = "This member doesn't exist!";
 	$t["E_DELETED_MESSAGE"] = "Seems like you're trying to view a member that doesn't exist or has been deleted.";
+	$t["E_BANNED"] = "You've been banned!";
+	$t["E_BANNED_MESSAGE"] = "You're not allowed to read, post or reply threads.";
 	$t["E_NOT_FOUND"] = "The requested page was not found.";
 	$t["E_NOT_FOUND_MESSAGE"] = "Seems like the page you're trying to visit doesn't exist.";
 	$t["E_SERVER_ERROR"] = "An unexpected error occurred.";
