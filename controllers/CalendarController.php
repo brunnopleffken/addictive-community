@@ -139,7 +139,7 @@ class Calendar extends Application
 				Http::request("day"),
 				Http::request("year")),
 			"added"     => time(),
-			"text"      => Http::request("text"),
+			"text"      => Http::request("text")
 		);
 
 		// Insert into database and redirect
