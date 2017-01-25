@@ -17,7 +17,7 @@ use \AC\Kernel\Database;
 use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\i18n;
-use AC\Kernel\Session\SessionState;
+use \AC\Kernel\Session\SessionState;
 
 class Messenger extends Application
 {
