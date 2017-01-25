@@ -2,6 +2,7 @@
 /install/.lock
 /public/attachments/*
 /public/avatar/*
+/public/cover/*
 config.ini
 
 # Don't remove index.html files
