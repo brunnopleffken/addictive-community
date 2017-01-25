@@ -54,20 +54,9 @@ define("YEAR", 31536000);
 
 function autoLoaderClass($class_name)
 {
-	$path = __DIR__;
 	$bits = explode("\\", ltrim($class_name, "\\"));
-	$class = array_pop($bits);
-
-	foreach(array_merge($bits, array($class)) as $i => $bit) {
-		if($i == 1 && $bit == "Kernel") {
-			$path .= "/kernel";
-		}
-		if($i == 2 && $bit != $class) {
-			$path .= "/{$bit}";
-		}
-	}
-
-	$path = $path . "/{$class}.php";
+	array_shift($bits);
+	$path = __DIR__ . "/" . lcfirst(implode("/", $bits)) . ".php";
 
 	if(!file_exists($path)) {
 		return false;
