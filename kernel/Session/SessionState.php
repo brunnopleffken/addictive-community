@@ -56,16 +56,16 @@ class SessionState extends Session
 	 */
 	public static function updateSession()
 	{
-		$has_session = Session::retrieve("session_token") ? true : false;
+		$has_session = Session::getCookie("session_token") ? true : false;
 
 		if(!$has_session) {
 			// Create new session ID
 			self::$session_token = md5(uniqid(mt_rand(), true));
-			Session::write("session_token", self::$session_token);
+			Session::createCookie("session_token", self::$session_token);
 		}
 		else {
 			// Get existing session ID
-			self::$session_token = Session::retrieve("session_token");
+			self::$session_token = Session::getCookie("session_token");
 		}
 
 		if(self::getCookie("member_id")) {
@@ -146,7 +146,7 @@ class SessionState extends Session
 	 */
 	private static function updateMemberSession()
 	{
-		$session_token = Session::retrieve("session_token");
+		$session_token = Session::getCookie("session_token");
 		$member_id = Session::getCookie("member_id");
 
 		// Fields to select from c_members

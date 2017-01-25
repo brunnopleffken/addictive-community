@@ -63,7 +63,7 @@ class Login extends Application
 
 				$member_info['anonymous'] = (Http::request("anonymous", true)) ? 1 : 0;
 				$member_info['remember'] = (Http::request("remember", true)) ? 1 : 0;
-				$member_info['session_token'] = SessionState::retrieve("session_token");
+				$member_info['session_token'] = SessionState::getCookie("session_token");
 
 				// Check if member session was created successfully
 				SessionState::createMemberSession($member_info);
