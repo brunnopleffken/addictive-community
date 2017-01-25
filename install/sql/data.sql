@@ -1,6 +1,6 @@
 INSERT INTO `c_categories` (`c_id`, `name`, `order_n`, `visible`)
 VALUES
-	(1,'General Discussions',0,1);
+	(1,'Default Category',0,1);
 
 INSERT INTO `c_emails` (`id`, `type`, `description`, `content`)
 VALUES
