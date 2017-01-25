@@ -113,6 +113,23 @@ class Core
 
 	/**
 	 * --------------------------------------------------------------------
+	 * GET COVER PHOTO FOR MEMBER PROFILES
+	 * --------------------------------------------------------------------
+	 */
+	public function getCover($info)
+	{
+		if($info['cover_photo'] == "") {
+			$cover_photo = $this->getAvatar($info, 1024);
+		}
+		else {
+			$cover_photo = "/public/cover/" . $info['cover_photo'];
+		}
+
+		return $cover_photo;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * CREATE CANONICAL TAG URL
 	 * --------------------------------------------------------------------
 	 */

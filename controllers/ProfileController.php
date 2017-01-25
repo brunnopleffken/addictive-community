@@ -45,7 +45,7 @@ class Profile extends Application
 
 		// Member avatar
 		$info['avatar'] = $this->Core->getAvatar($info, 300);
-		$info['cover'] = $this->Core->getAvatar($info, 1024);
+		$info['cover'] = $this->Core->getCover($info);
 
 		// Readable join date
 		$info['joined'] = $this->Core->dateFormat($info['joined'], "short");

@@ -54,7 +54,7 @@ class Usercp extends Application
 	public function index()
 	{
 		// Define selected menu item
-		$menu = array("active", "", "", "", "", "");
+		$menu = array("active", "", "", "", "", "", "");
 
 		// Get total posts
 		$posts_total = $this->member_info['posts'];
@@ -97,7 +97,7 @@ class Usercp extends Application
 	public function profile()
 	{
 		// Define selected menu item
-		$menu = array("", "active", "", "", "", "");
+		$menu = array("", "active", "", "", "", "", "");
 
 		// Define messages
 		$message_id = Http::request("m", true);
@@ -131,13 +131,13 @@ class Usercp extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * VIEW: USER CONTROL PANEL - EDIT USER PHOTO
+	 * VIEW: USER CONTROL PANEL - EDIT USER AVATAR
 	 * --------------------------------------------------------------------
 	 */
-	public function photo()
+	public function avatar()
 	{
 		// Define selected menu item
-		$menu = array("", "", "active", "", "", "");
+		$menu = array("", "", "active", "", "", "", "");
 
 		// Define messages
 		$message_id = Http::request("m", true);
@@ -177,13 +177,38 @@ class Usercp extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * VIEW: USER CONTROL PANEL - EDIT USER COVER PHOTO
+	 * --------------------------------------------------------------------
+	 */
+	public function cover()
+	{
+		// Define selected menu item
+		$menu = array("", "", "", "active", "", "", "");
+
+		// Define messages
+		$message_id = Http::request("m", true);
+		$notification = array("",
+			Html::notification(i18n::translate("C_MESSAGE_8"), "success")
+		);
+
+		// Get cover image
+		$cover_photo = $this->Core->getCover($this->member_info);
+
+		// Return variables
+		$this->Set("menu", $menu);
+		$this->Set("notification", $notification[$message_id]);
+		$this->Set("cover_photo", $cover_photo);
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * VIEW: USER CONTROL PANEL - EDIT SIGNATURE
 	 * --------------------------------------------------------------------
 	 */
 	public function signature()
 	{
 		// Define selected menu item
-		$menu = array("", "", "", "active", "", "");
+		$menu = array("", "", "", "", "active", "", "");
 
 		// Define messages
 		$message_id = Http::request("m", true);
@@ -210,7 +235,7 @@ class Usercp extends Application
 	public function settings()
 	{
 		// Define selected menu item
-		$menu = array("", "", "", "", "active", "");
+		$menu = array("", "", "", "", "", "active", "");
 
 		// Define messages
 		$message_id = Http::request("m", true);
@@ -294,7 +319,7 @@ class Usercp extends Application
 	public function password()
 	{
 		// Define selected menu item
-		$menu = array("", "", "", "", "", "active");
+		$menu = array("", "", "", "", "", "", "active");
 
 		// Define messages
 		$message_id = Http::request("m", true);
@@ -360,13 +385,13 @@ class Usercp extends Application
 		if($photo_type == "gravatar") {
 			// Change photo type to 'gravatar'
 			Database::update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
-			$this->Core->redirect("usercp/photo?m=1");
+			$this->Core->redirect("usercp/avatar?m=1");
 		}
 		else {
 			// User photo already hosted on community's server
 			if($_FILES['file_upload']['name'] == "") {
 				Database::update("c_members", "photo_type = '{$photo_type}'", "m_id = '{$this->member_id}'");
-				$this->Core->redirect("usercp/photo?m=1");
+				$this->Core->redirect("usercp/avatar?m=1");
 			}
 			else {
 				// Allowed extensions (JPEG, GIF and PNG)
@@ -404,10 +429,50 @@ class Usercp extends Application
 					), "m_id = '{$this->member_id}'");
 
 					// Redirect
-					$this->Core->redirect("usercp/photo?m=1");
+					$this->Core->redirect("usercp/avatar?m=1");
 				}
-				exit;
+				else {
+					Html::Error("File extension not allowed.");
+				}
 			}
+		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * SAVE: COVER PHOTO
+	 * --------------------------------------------------------------------
+	 */
+	public function saveCover()
+	{
+		$this->layout = false;
+
+		// Allowed extensions (JPEG, GIF and PNG)
+		$allowed_extensions = array("jpg", "gif", "png");
+		$file_name_array = explode(".", $_FILES['file_upload']['name']);
+		$file_extension = end($file_name_array);
+
+		if(in_array($file_extension, $allowed_extensions)) {
+			// Get current cover photo
+			Database::query("SELECT cover_photo FROM c_members WHERE m_id = {$this->member_id}");
+			$current_cover = Database::fetch();
+
+			if($current_cover['cover_photo'] != null) {
+				if(is_file("public/cover/{$current_cover['cover_photo']}")) {
+					unlink("public/cover/{$current_cover['cover_photo']}");
+				}
+			}
+
+			// Do upload!
+			$new_file_name = $this->member_id . "." . $file_extension;
+			move_uploaded_file($_FILES['file_upload']['tmp_name'], "public/cover/" . $new_file_name);
+			Database::update("c_members", array("cover_photo = '{$new_file_name}'"), "m_id = '{$this->member_id}'");
+
+			// Redirect
+			$this->Core->redirect("usercp/cover?m=1");
+		}
+		else {
+			Html::Error("File extension not allowed.");
 		}
 	}
 

@@ -101,6 +101,7 @@ CREATE TABLE `c_members` (
   `b_year` int(4) DEFAULT NULL,
   `photo` varchar(40) DEFAULT NULL,
   `photo_type` varchar(10) DEFAULT NULL,
+  `cover_photo` varchar(36) DEFAULT NULL,
   `website` varchar(60) DEFAULT NULL,
   `im_facebook` varchar(50) DEFAULT NULL,
   `im_twitter` varchar(50) DEFAULT NULL,

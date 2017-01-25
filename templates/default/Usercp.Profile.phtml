@@ -8,14 +8,15 @@
 		<div class="nav-top">
 			<a href="usercp" class="<?php __($menu[0]) ?>"><?php __("C_SUMMARY") ?></a>
 			<a href="usercp/profile" class="<?php __($menu[1]) ?>"><?php __("C_PROFILE") ?></a>
-			<a href="usercp/photo" class="<?php __($menu[2]) ?>"><?php __("C_PHOTO") ?></a>
-			<a href="usercp/signature" class="<?php __($menu[3]) ?>"><?php __("C_SIGNATURE") ?></a>
-			<a href="usercp/settings" class="<?php __($menu[4]) ?>"><?php __("C_SETTINGS") ?></a>
-			<a href="usercp/password" class="<?php __($menu[5]) ?>"><?php __("C_PASSWORD") ?></a>
+			<a href="usercp/avatar" class="<?php __($menu[2]) ?>"><?php __("C_PHOTO") ?></a>
+			<a href="usercp/cover" class="<?php __($menu[3]) ?>"><?php __("C_COVER") ?></a>
+			<a href="usercp/signature" class="<?php __($menu[4]) ?>"><?php __("C_SIGNATURE") ?></a>
+			<a href="usercp/settings" class="<?php __($menu[5]) ?>"><?php __("C_SETTINGS") ?></a>
+			<a href="usercp/password" class="<?php __($menu[6]) ?>"><?php __("C_PASSWORD") ?></a>
 		</div>
 	</div>
 	<div class="block-nav-content padding-10">
-		<?php __($notification) ?>
+		<?= $notification ?>
 		<form action="usercp/save_profile" method="post">
 			<div class="form-group grid">
 				<label class="col-2"><?php __("C_MEMBER_TITLE") ?></label>
