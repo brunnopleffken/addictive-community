@@ -25,8 +25,8 @@ class SessionState extends Session
 	public static $session_token = "";
 
 	// Expiration time and activity time cut-off
-	private static $session_expires = 0;
-	private static $session_activity_cut = 0;
+	public static $session_expires = 0;
+	public static $session_activity_cut = 0;
 
 	// Currently loaded controller
 	private static $controller_name = "";
@@ -82,11 +82,6 @@ class SessionState extends Session
 				self::guestSession();
 			}
 		}
-
-		// After everything, created new sessions, updated the existing ones, delete all expired sessions
-		Database::delete("c_sessions",
-			"session_token <> '" . self::$session_token . "' AND activity_time < '" . self::$session_activity_cut . "'"
-		);
 	}
 
 	/**

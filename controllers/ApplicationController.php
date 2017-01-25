@@ -189,7 +189,7 @@ class Application
 
 		$members_online = Database::query("SELECT s.*, m.username FROM c_sessions s
 				INNER JOIN c_members m ON (s.member_id = m.m_id)
-				WHERE s.member_id <> 0 AND s.anonymous = 0
+				WHERE s.member_id <> 0 AND s.anonymous = 0 AND s.activity_time > '" . SessionState::$session_activity_cut . "'
 				ORDER BY s.activity_time DESC;");
 
 		while($members = Database::fetch($members_online)) {
@@ -203,7 +203,8 @@ class Application
 		$this->Set("member_list", $member_list);
 
 		// Number of guests
-		Database::query("SELECT COUNT(session_token) AS count FROM c_sessions WHERE member_id = 0;");
+		Database::query("SELECT COUNT(session_token) AS count FROM c_sessions
+				WHERE member_id = 0 AND activity_time > '" . SessionState::$session_activity_cut . "';");
 		$guests_count = Database::fetch();
 		$guests_count = $guests_count['count'];
 		$this->Set("guests_count", $guests_count);
