@@ -93,10 +93,15 @@ while($report = Database::fetch($reports)) {
 
 <div class="block">
 	<?php
-	//checks to see if install directory is still on the server, and shows a warning.
-	if(file_exists(__DIR__.'/../../install') || is_dir(__DIR__.'/../../install')){
-		echo Html::notification("It's recommended to delete or rename the /install folder.", "warning",true);
-	}
+		// Check if installer is locked
+		if(!file_exists(__DIR__ . '/../../install/.lock') && is_dir(__DIR__ . '/../../install')) {
+			echo Html::notification("The installer is not locked (file \".lock\" is missing). Remove the /install folder immediately.", "failure", true);
+		}
+
+		// Check if /install directory is still on the server
+		if(file_exists(__DIR__ . '/../../install') || is_dir(__DIR__ . '/../../install')) {
+			echo Html::notification("It's recommended to delete or rename the /install folder.", "warning", true);
+		}
 	?>
 	<div class="row">
 		<div class="col-6">
