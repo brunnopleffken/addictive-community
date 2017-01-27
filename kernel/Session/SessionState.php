@@ -94,7 +94,7 @@ class SessionState extends Session
 	public static function removeOldGuestSessions()
 	{
 		Database::query("DELETE FROM c_sessions
-			WHERE member_id = 0 AND activity_time < '" . SessionState::$session_activity_cut . "';");
+			WHERE member_id = 0 AND activity_time < '" . self::$session_activity_cut . "';");
 	}
 
 	/**
@@ -184,15 +184,15 @@ class SessionState extends Session
 				WHERE session_token = '{$session_token}';");
 		}
 		else {
-			$member_id = SessionState::getCookie("member_id");
+			$member_id = self::getCookie("member_id");
 
 			// Delete session from the database (if any)
 			Database::delete("c_sessions", "member_id = {$member_id}");
 
 			// Destroy cookies
-			SessionState::unloadCookie("member_id");
-			SessionState::unloadCookie("login_time");
-			SessionState::unloadCookie("read_threads");
+			self::unloadCookie("member_id");
+			self::unloadCookie("login_time");
+			self::unloadCookie("read_threads");
 
 			// Redirect
 			header("Location: /");
