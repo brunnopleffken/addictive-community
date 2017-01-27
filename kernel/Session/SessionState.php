@@ -82,6 +82,19 @@ class SessionState extends Session
 				self::guestSession();
 			}
 		}
+
+		self::removeOldGuestSessions();
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * Remove old guest sessions
+	 * --------------------------------------------------------------------
+	 */
+	public static function removeOldGuestSessions()
+	{
+		Database::query("DELETE FROM c_sessions
+			WHERE member_id = 0 AND activity_time < '" . SessionState::$session_activity_cut . "';");
 	}
 
 	/**
