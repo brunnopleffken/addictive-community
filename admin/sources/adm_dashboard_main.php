@@ -95,7 +95,7 @@ while($report = Database::fetch($reports)) {
 	<?php
 		// Check if installer is locked
 		if(!file_exists(__DIR__ . '/../../install/.lock') && is_dir(__DIR__ . '/../../install')) {
-			echo Html::notification("The installer is not locked (file \".lock\" is missing). Remove the /install folder immediately.", "failure", true);
+			echo Html::notification("The installer is not locked (file \".lock\" is missing) and is publicly accessible. Remove the /install folder immediately.", "failure", true, "DANGER!");
 		}
 
 		// Check if /install directory is still on the server
@@ -157,7 +157,7 @@ while($report = Database::fetch($reports)) {
 
 	<div class="row">
 		<div class="col-12">
-			<table class="table">
+			<table class="table margin-no">
 				<thead>
 					<tr>
 						<th colspan="10">Abuse Reports</th>
