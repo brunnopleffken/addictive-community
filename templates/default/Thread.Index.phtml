@@ -73,14 +73,17 @@
 				<form action="thread/save_poll/<?= $thread_id ?>" method="post">
 					<div class="questions">
 						<?php foreach($thread_info['poll']['choices'] as $index => $question): ?>
-							<label class="option radio-control">
-								<?php if($thread_info['poll']['multiple']): ?>
-									<input type="checkbox" name="chosen_option[]" value="<?= $index ?>"><span></span>
-								<?php else: ?>
+							<?php if($thread_info['poll']['multiple']): ?>
+								<label class="option checkbox-control">
+									<input type="checkbox" name="chosen_option[]" value="<?= $index ?>"><span><i class="fa fa-check"></i></span>
+									<?= $question ?>
+								</label>
+							<?php else: ?>
+								<label class="option radio-control">
 									<input type="radio" name="chosen_option" value="<?= $index ?>"><span></span>
-								<?php endif; ?>
-								<?= $question ?>
-							</label>
+									<?= $question ?>
+								</label>
+							<?php endif; ?>
 						<?php endforeach; ?>
 					</div>
 					<?php if($member_id != 0): ?>
