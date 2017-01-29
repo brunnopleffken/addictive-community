@@ -174,8 +174,13 @@ class Thread extends Application
 		// Do not allow guests
 		SessionState::noGuest();
 
-		Database::query("SELECT r_id, name, upload, moderators FROM c_rooms WHERE r_id = {$room_id};");
+		Database::query("SELECT r_id, name, upload, read_only, moderators FROM c_rooms WHERE r_id = {$room_id};");
 		$room_info = Database::fetch();
+
+		// If room is set as 'Read Only', redirect back to the list of threads
+		if($room_info['read_only'] == 1) {
+			$this->Core->redirect("room/" . $room_id);
+		}
 
 		// Page info
 		$page_info['title'] = i18n::translate("P_NEW_THREAD") . ": " . $room_info['name'];
