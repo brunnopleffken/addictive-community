@@ -1,6 +1,6 @@
 # Changelog
 
-## Development Version
+## v0.12.0 (2017-01-29)
 
 #### Added
 - Add cover photo to your profile;
@@ -12,15 +12,15 @@
 - Embedded transliterator now parses non-Latin characters (e.g. Greek, Cyrillic, etc.);
 - Fixed several issues with banned members;
 - Missing Swedish translations (thanks to @halojoy);
-- Several others fixes and enhancements.
+- Several others bug fixes and enhancements.
 
 #### Changed
 - Revamped UI components with new and reusable CSS classes, responsive mode is much better;
 - Added the suffix [Name]Controller to the name of controller files;
 - Controller entry method renamed from "Main" to "Index";
-- Default MySQL storage engine changed to InnoDB (requirements are now MySQL 5.6 or above);
+- Default MySQL storage engine changed to InnoDB (now requires MySQL 5.6 or above);
 - Implement class autoloader for kernel modules;
-- Namespaces: added kernel modules to AC\Kernel and controllers to AC\Controllers;
+- Added namespaces: kernel modules to AC\Kernel and controllers to AC\Controllers;
 - Member session handling methods moved to AC\Kernel\Session\SessionState;
 - Database driver is now a static class;
 - Database logging is now disabled by default (enable it setting `private $debug = true` in kernel/Database.php);
