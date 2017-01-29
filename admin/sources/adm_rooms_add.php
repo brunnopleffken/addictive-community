@@ -121,7 +121,6 @@ function MatrixReply()
 
 <div class="block">
 	<form action="process.php?do=newroom" method="post">
-
 		<table class="table">
 			<thead>
 				<tr>
