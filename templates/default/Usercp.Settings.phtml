@@ -22,7 +22,7 @@
 				<label class="col-2"><?php __("C_TIMEZONE") ?></label>
 				<div class="col-10">
 					<select name="timezone" class="select2" style="width: 600px">
-						<?php __($settings['tz_list']) ?>
+						<?= $settings['tz_list'] ?>
 					</select>
 				</div>
 			</div>
@@ -30,7 +30,7 @@
 				<label class="col-2"><?php __("C_LANGUAGE") ?></label>
 				<div class="col-10">
 					<select name="language" class="select2-no-search" style="width: 200px">
-						<?php __($settings['lang_list']) ?>
+						<?= $settings['lang_list'] ?>
 					</select>
 				</div>
 			</div>
@@ -38,7 +38,7 @@
 				<label class="col-2"><?php __("C_THEME") ?></label>
 				<div class="col-10">
 					<select name="theme" class="select2-no-search" style="width: 200px">
-						<?php __($settings['theme_list']) ?>
+						<?= $settings['theme_list'] ?>
 					</select>
 				</div>
 			</div>

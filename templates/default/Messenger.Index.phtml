@@ -19,7 +19,7 @@
 		<a href="messenger?folder=sent"><?php __("M_FOLDER_SENT") ?></a>
 		<?php if(\AC\Kernel\Http::request("folder") != "sent"): ?>
 			<div class="progress-bar" style="width: 200px; float: right; margin-top: 8px">
-				<div class="fill" style="width: <?php __($percentage_width) ?>"></div>
+				<div class="fill" style="width: <?= $percentage_width ?>"></div>
 				<span><?php __("M_STORAGE", array($num_results, $max_storage_size)) ?></span>
 			</div>
 		<?php endif; ?>
@@ -89,9 +89,9 @@
 				<?php if($num_results): ?>
 					<?php foreach($results as $pm): ?>
 						<tr>
-							<td><a href="messenger/read/<?php __($pm['pm_id']) ?>"><?php __($pm['subject']) ?></a></td>
-							<td><a href="profile/<?php __($pm['to_id']) ?>"><?php __($pm['username']) ?></a></td>
-							<td><?php __($pm['sent_date']) ?></td>
+							<td><a href="messenger/read/<?= $pm['pm_id'] ?>"><?= $pm['subject'] ?></a></td>
+							<td><a href="profile/<?= $pm['to_id'] ?>"><?= $pm['username'] ?></a></td>
+							<td><?= $pm['sent_date'] ?></td>
 						</tr>
 					<?php endforeach; ?>
 					<?php else: ?>
