@@ -478,6 +478,30 @@ class Usercp extends Application
 
 	/**
 	 * --------------------------------------------------------------------
+	 * REMOVE THE CURRENTLY SET COVER PHOTO
+	 * --------------------------------------------------------------------
+	 */
+	public function removeCover()
+	{
+		// Delete the file
+		Database::query("SELECT cover_photo FROM c_members WHERE m_id = {$this->member_id}");
+		$current_cover = Database::fetch();
+
+		if($current_cover['cover_photo'] != null) {
+			if(is_file("public/cover/{$current_cover['cover_photo']}")) {
+				unlink("public/cover/{$current_cover['cover_photo']}");
+			}
+		}
+
+		// Remove image name from database
+		Database::update("c_members", "cover_photo = ''", "m_id = {$this->member_id}");
+
+		// Redirect
+		$this->Core->redirect("usercp/cover?m=1");
+	}
+
+	/**
+	 * --------------------------------------------------------------------
 	 * SAVE: SIGNATURE
 	 * --------------------------------------------------------------------
 	 */
