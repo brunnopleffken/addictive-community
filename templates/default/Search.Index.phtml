@@ -1,0 +1,65 @@
+<h1>
+	<small><?= $community_name ?></small>
+	<?php __("S_TITLE") ?>
+</h1>
+
+<div class="block">
+	<div class="form-group grid margin-no">
+		<label class="col-2"><?php __("S_DO") ?></label>
+		<div class="col-10">
+			<form action="search" method="get">
+				<input type="text" name="q" class="form-control span-6" value="<?= $term ?>" required>
+				<input type="submit" value="Search" class="btn btn-default">
+			</form>
+		</div>
+	</div>
+</div>
+
+<?= $warning; ?>
+
+<?php if(!$no_search): ?>
+	<div class="block flat padding-no">
+		<?php if($num_results && $warning == ""): ?>
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="3">
+							<?php __("S_RESULTS", array("\"" . $term . "\"", $num_results)) ?>
+							<div class="pull-right text-s0">
+								<a href="search?q=<?= $term ?>" class="label invert"><?php __("S_BY_RELEVANCE") ?></a>
+								<a href="search?q=<?= $term ?>&sort=date" class="label invert"><?php __("S_BY_DATE") ?></a>
+							</div>
+						</th>
+					</tr>
+				</thead>
+				<?php foreach($results as $result): ?>
+					<thead>
+						<tr>
+							<td class="text-s14">
+								<a href="thread/<?= $result['t_id'] . "-" . $result['slug'] ?>"><?= $result['title'] ?></a>
+							</td>
+							<td class="min text-muted font-w400">
+								<i class="fa fa-user"></i> <?= $result['username'] ?>
+							</td>
+							<td class="min text-muted font-w400">
+								<i class="fa fa-clock-o"></i> <?= $result['post_date'] ?>
+							</td>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="3" style="padding: 20px 10px">
+								<?= $result['post'] ?>
+							</td>
+						</tr>
+					</tbody>
+				<?php endforeach; ?>
+			</table>
+		<?php elseif($warning == ""): ?>
+			<div class="text-center padding-10">
+				<?php __("S_NO_RESULTS", $term) ?>
+			</div>
+		<?php endif; ?>
+	</div>
+<?php endif; ?>

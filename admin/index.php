@@ -1,42 +1,45 @@
 <?php
 
-	## ---------------------------------------------------
-	#  ADDICTIVE COMMUNITY
-	## ---------------------------------------------------
-	#  Developed by Brunno Pleffken Hosti
-	#  File: index.php
-	#  License: GPLv2
-	#  Copyright: (c) 2016 - Addictive Community
-	## ---------------------------------------------------
+## ---------------------------------------------------
+#  ADDICTIVE COMMUNITY
+## ---------------------------------------------------
+#  Developed by Brunno Pleffken Hosti
+#  File: index.php
+#  License: GPLv2
+#  Copyright: (c) 2016 - Addictive Community
+## ---------------------------------------------------
 
-	require_once("../init.php");
-	require_once("../kernel/Html.php");
-	require_once("../kernel/Http.php");
+use \AC\Kernel\Html;
+use \AC\Kernel\Http;
 
-	// Display error messages
-	// e.g.: index.php?error=1
+require_once("../init.php");
+require_once("../kernel/Html.php");
+require_once("../kernel/Http.php");
 
-	if(Http::Request("error")) {
-		$error = Http::Request("error");
+// Display error messages
+// e.g.: index.php?error=1
 
-		switch($error) {
-			case 1:
-				$message = Html::Notification("Wrong username and/or password. Please, try again!", "failure");
-				break;
-			case 2:
-				$message = Html::Notification("Please, log-in to access the Admin Control Panel.", "warning");
-				break;
-			case 3:
-				$message = Html::Notification("This administrator session has expired.", "warning");
-				break;
-			case 4:
-				$message = Html::Notification("You don't have permission to access Admin CP.", "failure");
-				break;
-		}
+if(Http::request("error")) {
+	$error = Http::request("error");
+
+	switch($error) {
+		case 1:
+			$message = Html::notification("Wrong username and/or password. Please, try again!", "failure");
+			break;
+		case 2:
+			$message = Html::notification("Please, log-in to access the Admin Control Panel.", "warning");
+			break;
+		case 3:
+			$message = Html::notification("This administrator session has expired.", "warning");
+			break;
+		case 4:
+			$message = Html::notification("You don't have permission to access Admin CP.", "failure");
+			break;
 	}
-	else {
-		$message = "";
-	}
+}
+else {
+	$message = "";
+}
 
 ?>
 <!DOCTYPE html>
@@ -44,51 +47,75 @@
 <head>
 	<meta charset="utf-8">
 	<title>Addictive Community</title>
-	<script src="../resources/jquery.min.js" type="text/javascript"></script>
-	<script src="../resources/main.js" type="text/javascript"></script>
-	<link href="styles/admin_style.css" type="text/css" rel="stylesheet">
-	<script type="text/javascript">
-		function autofocus(fieldname) {
-			var field = document.getElementById(fieldname);
-			field.focus();
+	<!-- CSS -->
+	<link rel="stylesheet" href="../thirdparty/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../static/css/framework.css">
+	<link rel="stylesheet" href="../static/css/wireframe.css">
+	<style>
+		.login-logo {
+			padding: 60px 0;
 		}
-	</script>
+		.login-logo img {
+			display: block;
+			margin: auto;
+			height: 40px;
+		}
+	</style>
 </head>
 
-<body onload="javascript:autofocus('username')">
+<body onload="autofocus('username')">
 
-	<div id="topbar">
-		<div class="fleft"><a href="http://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">Addictive Community</a></div>
-		<div class="fright"><a href="../" target="_blank" class="toplinks transition">Back to Community &raquo;</a></div>
-		<div class="fix"></div>
-	</div>
-
-	<div id="login-wrapper">
-		<div style="display: table-row">
-			<div style="display: table-cell; vertical-align: middle;">
-				<div class="login-logo"><img src="images/logo.png"></div>
-				<form action="auth.php" method="post" class="validate">
-					<div id="login">
-						<?php echo $message ?>
-						<table style="width: 100%">
-							<tr>
-								<td>Username</td>
-								<td><input type="text" id="username" name="username" class="required small"></td>
-							</tr>
-							<tr>
-								<td>Password</td>
-								<td><input type="password" name="password" class="required small"></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><input type="submit" value="Log In"></td>
-							</tr>
-						</table>
-					</div>
-				</form>
+<header>
+	<div class="top-half outer">
+		<div class="row space-between">
+			<div class="col-flexible text-right">
+				<a href="https://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">View Addictive Comunity on GitHub</a>
+				<a href="https://github.com/brunnopleffken/addictive-community/issues" target="_blank" class="transition">Issues</a>
+				<a href="https://github.com/brunnopleffken/addictive-community/blob/master/CHANGELOG.md" target="_blank" class="transition">Changelog</a>
+			</div>
+			<div class="col-flexible hide-xs">
+				<a href="../" target="_blank" class="toplinks transition">&laquo; Go to your Community</a>
 			</div>
 		</div>
 	</div>
+</header>
+
+<div class="login-logo">
+	<a href="index.php">
+		<img src="../static/images/logo-admin.svg" alt="Addictive Community">
+	</a>
+</div>
+
+<div class="block" style="width: 400px; margin: auto;">
+	<form action="auth.php" method="post">
+		<?php echo $message ?>
+		<div class="form-group grid">
+			<label for="username" class="col-4">Username</label>
+			<div class="col-8">
+				<input type="text" name="username" id="username" class="form-control" required>
+			</div>
+		</div>
+		<div class="form-group grid">
+			<label for="password" class="col-4">Password</label>
+			<div class="col-8">
+				<input type="password" name="password" id="password" class="form-control" required>
+			</div>
+		</div>
+		<div class="text-center">
+			<input type="submit" class="btn btn-default" value="Log In">
+		</div>
+	</form>
+</div>
+
+<!-- JS -->
+<script src="../thirdparty/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="../static/js/application.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function autofocus(fieldname) {
+        var field = document.getElementById(fieldname);
+        field.focus();
+    }
+</script>
 
 </body>
 </html>

@@ -1,0 +1,105 @@
+<div class="header">
+	<h1>
+		<small><?= $community_name ?></small>
+		<?php __("M_TITLE") ?>
+	</h1>
+	<div class="header-buttons">
+		<a href="messenger/compose" class="btn btn-default"><?php __("M_NEW_MESSAGE") ?></a>
+	</div>
+</div>
+
+<?= $notification ?>
+
+<div class="nav room-nav">
+	<div class="nav-top">
+		<a href="messenger" class="active"><?php __("M_FOLDERS") ?></a>
+	</div>
+	<div class="nav-bottom">
+		<a href="messenger"><?php __("M_FOLDER_INBOX") ?></a>
+		<a href="messenger?folder=sent"><?php __("M_FOLDER_SENT") ?></a>
+		<?php if(\AC\Kernel\Http::request("folder") != "sent"): ?>
+			<div class="progress-bar" style="width: 200px; float: right; margin-top: 8px">
+				<div class="fill" style="width: <?= $percentage_width ?>"></div>
+				<span><?php __("M_STORAGE", array($num_results, $max_storage_size)) ?></span>
+			</div>
+		<?php endif; ?>
+	</div>
+</div>
+
+<div class="block padding-no">
+	<?php if($folder == "inbox"): ?>
+		<form action="messenger/delete" method="post" class="personal-messenger">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="5">
+							<?php __("M_FOLDER_INBOX") ?>
+							<div class="pull-right text-s0">
+								<a class="label invert" id="delete-messages"><?php __("M_DELETE_SELECTED") ?></a>
+							</div>
+						</th>
+					</tr>
+					<tr>
+						<td class="min"></td>
+						<td><?php __("M_SUBJECT") ?></td>
+						<td width="20%"><?php __("M_FROM") ?></td>
+						<td width="22%"><?php __("M_DATE") ?></td>
+						<td class="min text-center"><i class="fa fa-check-square-o"></i></td>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if($num_results): ?>
+						<?php foreach($results as $pm): ?>
+							<tr>
+								<td><i class="fa fa-fw <?= $pm['icon_class'] ?>"></i></td>
+								<td><a href="messenger/read/<?= $pm['pm_id'] ?>"><?= $pm['subject'] ?></a></td>
+								<td><a href="profile/<?= $pm['from_id'] ?>"><?= $pm['username'] ?></a></td>
+								<td><?= $pm['sent_date'] ?></td>
+								<td class="text-center">
+									<label class="checkbox-control padding-no">
+										<input type="checkbox" name="pm[]" value="<?= $pm['pm_id'] ?>" class="del-message-checkbox">
+										<span><i class="fa fa-check"></i></span>
+									</label>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+					<?php else: ?>
+						<tr>
+							<td colspan="5" class="text-center"><?php __("M_NO_PM_INBOX") ?></td>
+						</tr>
+					<?php endif; ?>
+				</tbody>
+			</table>
+		</form>
+	<?php else: ?>
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="5">
+						<?php __("M_FOLDER_SENT") ?>
+					</th>
+				</tr>
+				<tr>
+					<td><?php __("M_SUBJECT") ?></td>
+					<td width="20%"><?php __("M_TO") ?></td>
+					<td width="22%"><?php __("M_DATE") ?></td>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if($num_results): ?>
+					<?php foreach($results as $pm): ?>
+						<tr>
+							<td><a href="messenger/read/<?= $pm['pm_id'] ?>"><?= $pm['subject'] ?></a></td>
+							<td><a href="profile/<?= $pm['to_id'] ?>"><?= $pm['username'] ?></a></td>
+							<td><?= $pm['sent_date'] ?></td>
+						</tr>
+					<?php endforeach; ?>
+					<?php else: ?>
+					<tr>
+						<td colspan="5" class="text-center"><?php __("M_NO_PM_INBOX") ?></td>
+					</tr>
+				<?php endif; ?>
+			</tbody>
+		</table>
+	<?php endif; ?>
+</div>

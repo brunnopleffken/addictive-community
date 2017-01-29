@@ -18,7 +18,7 @@ $(document).ready(function() {
 	 */
 	try {
 		var textarea = document.getElementById("css");
-		var textareaCodeMirror = CodeMirror.fromTextArea(textarea, {
+		CodeMirror.fromTextArea(textarea, {
 			lineNumbers: true
 		});
 	} catch(e) {
@@ -35,10 +35,25 @@ $(document).ready(function() {
 			}
 		})
 	}).call(this);
+
+    /**
+	 * Auto-select navigation bar item
+     */
+    (function() {
+        var links = document.querySelectorAll('.nav .nav-bottom a');
+        [].forEach.call(links, function(link) {
+            var elementUrl = new RegExp('(' + (link.href).replace('?', '\\?') + ')$');
+            var browserUrl = window.location.href;
+
+            if(elementUrl.test(browserUrl)) {
+                link.className = 'active';
+            }
+        });
+    }).call(this);
 });
 
 /**
- * Check for updates
+ * Automatic check for updates using GitHub API
  */
 function checkUpdates() {
 	$.ajax("https://api.github.com/repos/brunnopleffken/addictive-community/releases/latest?access_token=a4b75336277bbeb8be2d004c614158836bbe655b", {
@@ -65,7 +80,7 @@ function checkUpdates() {
 	.always(function() {
 		$('.loader').hide();
 	});
-};
+}
 
 /**
  * Delete report on Dashboard View
@@ -103,12 +118,12 @@ function counter(limit) {
  * Returns:
  * -1 = left is LOWER than right
  *  0 = they are equal
- *  1 = left is GREATER = right is LOWER
+ *  1 = left is GREATER; right is LOWER
  *  And FALSE if one of input versions are not valid
  */
 function versionCompare(left, right) {
 	if (typeof left + typeof right != 'stringstring') {
-		return 0;
+		return false;
 	}
 
 	var a = left.split('.');

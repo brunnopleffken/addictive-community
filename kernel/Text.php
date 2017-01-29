@@ -11,6 +11,8 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Kernel;
+
 class Text
 {
 	/**
@@ -30,7 +32,7 @@ class Text
 	 * SANITIZE STRING (REPLACE SPECIAL CHARS TO HTML ENTITIES)
 	 * --------------------------------------------------------------------
 	 */
-	public static function Sanitize($text)
+	public static function sanitize($text)
 	{
 		$text = str_replace("&", "&amp;", $text);
 		$text = str_replace("<", "&lt;", $text);
@@ -49,10 +51,11 @@ class Text
 	 * REMOVE SPECIFIC TAGS TO AVOID CROSS-SIDE SCRIPTING
 	 * --------------------------------------------------------------------
 	 */
-	public static function RemoveHTMLElements($text)
+	public static function removeHtmlElements($text)
 	{
 		// Dangerous HTML elements
-		$text = str_replace("<!--", "", $text);
+		$text = str_replace("<!--", "&lt;!--", $text);
+		$text = str_replace("-->", "--&gt;", $text);
 		$text = preg_replace("/(<\?php|<\?=|\?>)/", "", $text); // No PHP open/close tags
 		$text = preg_replace("/(<script>|<\/script>)/", "", $text); // No JS
 		$text = preg_replace("/(<applet>|<\/applet>|<object>|<\/object>|<embed>|<\/embed>)/", "", $text); // No embedded elements
@@ -67,7 +70,7 @@ class Text
 	 * $salt must be an array containing [ "hash", "key" ]
 	 * --------------------------------------------------------------------
 	 */
-	public static function Encrypt($password, $salt = array())
+	public static function encrypt($password, $salt = array())
 	{
 		$hash = $password . $salt['hash'];
 		for($i = 0; $i < $salt['key']; $i++) {
@@ -82,7 +85,7 @@ class Text
 	 * CREATE A RANDOM 8 CHAR PASSWORD
 	 * --------------------------------------------------------------------
 	 */
-	public static function MakePassword()
+	public static function makePassword()
 	{
 		$pass = "";
 		$chars = array(
@@ -106,7 +109,7 @@ class Text
 	 * CALCULATE MEMBER AGE FROM BIRTHDATE TIMESTAMP
 	 * --------------------------------------------------------------------
 	 */
-	public static function MemberAge($timestamp)
+	public static function memberAge($timestamp)
 	{
 		$birth = date("md Y", $timestamp);
 		$birth = explode(" ", $birth);
@@ -130,7 +133,7 @@ class Text
 	 * ARE JOINED WITH 'AND'.
 	 * --------------------------------------------------------------------
 	 */
-	public static function ToList($list, $and = "and", $separator = ", ")
+	public static function toList($list, $and = "and", $separator = ", ")
 	{
 		if(count($list) > 1) {
 			return implode($separator, array_slice($list, null, -1)) . " " . $and . " " . array_pop($list);
@@ -143,7 +146,7 @@ class Text
 	 * CONVERT BYTE SIZE INTO HUMAN READABLE FORMAT
 	 * --------------------------------------------------------------------
 	 */
-	public static function FileSizeFormat($bytes = 0)
+	public static function fileSizeFormat($bytes = 0)
 	{
 		if($bytes >= 1048576) {
 			$retval = round($bytes / 1048576 * 100) / 100 . " MB";
@@ -164,54 +167,14 @@ class Text
 	 * ARE JOINED WITH 'AND'.
 	 * --------------------------------------------------------------------
 	 */
-	public static function Slug($string, $replacement = "-")
+	public static function slug($string, $replacement = "-")
 	{
-		// Remove single quotes to join contracted English words
-		// So, "don't like" becomes "dont-like", and not "don-t-like"
-		$string = str_replace("&apos;", "", $string);
+		$transliteration = \Transliterator::create("Any-Latin; Latin-ASCII; Lower()");
+		$string = $transliteration->transliterate($string);
+		$string = preg_replace("/[^a-zA-Z0-9\s]/", "", $string);
+		$string = preg_replace("/[\s]+/", $replacement, $string);
 
-		$quoted_replacement = preg_quote($replacement, '/');
-
-		$_transliteration = array(
-			'ä' => 'ae', 'æ' => 'ae', 'ǽ' => 'ae', 'ö' => 'oe', 'œ' => 'oe', 'ü' => 'ue', 'Ä' => 'Ae', 'Ü' => 'Ue', 'Ö' => 'Oe', 'À' => 'A',
-			'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Å' => 'A', 'Ǻ' => 'A', 'Ā' => 'A', 'Å' => 'A', 'Ă' => 'A', 'Ą' => 'A', 'Ǎ' => 'A',
-			'Ä' => 'Ae', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'å' => 'a', 'ǻ' => 'a', 'ā' => 'a', 'ă' => 'a', 'ą' => 'a',
-			'ǎ' => 'a', 'ª' => 'a', 'Ç' => 'C', 'Ć' => 'C', 'Ĉ' => 'C', 'Ċ' => 'C', 'Č' => 'C', 'ç' => 'c', 'ć' => 'c', 'ĉ' => 'c',
-			'ċ' => 'c', 'č' => 'c', 'Ð' => 'D', 'Ď' => 'D', 'Đ' => 'D', 'ð' => 'd', 'ď' => 'd', 'đ' => 'd', 'È' => 'E', 'É' => 'E',
-			'Ê' => 'E', 'Ë' => 'E', 'Ē' => 'E', 'Ĕ' => 'E', 'Ė' => 'E', 'Ę' => 'E', 'Ě' => 'E', 'Ë' => 'E', 'è' => 'e', 'é' => 'e',
-			'ê' => 'e', 'ë' => 'e', 'ē' => 'e', 'ĕ' => 'e', 'ė' => 'e', 'ę' => 'e', 'ě' => 'e', 'Ĝ' => 'G', 'Ğ' => 'G', 'Ġ' => 'G',
-			'Ģ' => 'G', 'Ґ' => 'G', 'ĝ' => 'g', 'ğ' => 'g', 'ġ' => 'g', 'ģ' => 'g', 'ґ' => 'g', 'Ĥ' => 'H', 'Ħ' => 'H', 'ĥ' => 'h',
-			'ħ' => 'h', 'І' => 'I', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ї' => 'Yi', 'Ï' => 'I', 'Ĩ' => 'I', 'Ī' => 'I', 'Ĭ' => 'I',
-			'Ǐ' => 'I', 'Į' => 'I', 'İ' => 'I', 'і' => 'i', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ї' => 'yi', 'ĩ' => 'i',
-			'ī' => 'i', 'ĭ' => 'i', 'ǐ' => 'i', 'į' => 'i', 'ı' => 'i', 'Ĵ' => 'J', 'ĵ' => 'j', 'Ķ' => 'K', 'ķ' => 'k', 'Ĺ' => 'L',
-			'Ļ' => 'L', 'Ľ' => 'L', 'Ŀ' => 'L', 'Ł' => 'L', 'ĺ' => 'l', 'ļ' => 'l', 'ľ' => 'l', 'ŀ' => 'l', 'ł' => 'l', 'Ñ' => 'N',
-			'Ń' => 'N', 'Ņ' => 'N', 'Ň' => 'N', 'ñ' => 'n', 'ń' => 'n', 'ņ' => 'n', 'ň' => 'n', 'ŉ' => 'n', 'Ò' => 'O', 'Ó' => 'O',
-			'Ô' => 'O', 'Õ' => 'O', 'Ō' => 'O', 'Ŏ' => 'O', 'Ǒ' => 'O', 'Ő' => 'O', 'Ơ' => 'O', 'Ø' => 'O', 'Ǿ' => 'O', 'Ö' => 'Oe',
-			'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o', 'ō' => 'o', 'ŏ' => 'o', 'ǒ' => 'o', 'ő' => 'o', 'ơ' => 'o', 'ø' => 'o',
-			'ǿ' => 'o', 'º' => 'o', 'Ŕ' => 'R', 'Ŗ' => 'R', 'Ř' => 'R', 'ŕ' => 'r', 'ŗ' => 'r', 'ř' => 'r', 'Ś' => 'S', 'Ŝ' => 'S',
-			'Ş' => 'S', 'Ș' => 'S', 'Š' => 'S', 'ẞ' => 'SS', 'ś' => 's', 'ŝ' => 's', 'ş' => 's', 'ș' => 's', 'š' => 's', 'ſ' => 's',
-			'Ţ' => 'T', 'Ț' => 'T', 'Ť' => 'T', 'Ŧ' => 'T', 'ţ' => 't', 'ț' => 't', 'ť' => 't', 'ŧ' => 't', 'Ù' => 'U', 'Ú' => 'U',
-			'Û' => 'U', 'Ũ' => 'U', 'Ū' => 'U', 'Ŭ' => 'U', 'Ů' => 'U', 'Ű' => 'U', 'Ų' => 'U', 'Ư' => 'U', 'Ǔ' => 'U', 'Ǖ' => 'U',
-			'Ǘ' => 'U', 'Ǚ' => 'U', 'Ǜ' => 'U', 'Ü' => 'Ue', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ũ' => 'u', 'ū' => 'u', 'ŭ' => 'u',
-			'ů' => 'u', 'ű' => 'u', 'ų' => 'u', 'ư' => 'u', 'ǔ' => 'u', 'ǖ' => 'u', 'ǘ' => 'u', 'ǚ' => 'u', 'ǜ' => 'u', 'Ý' => 'Y',
-			'Ÿ' => 'Y', 'Ŷ' => 'Y', 'ý' => 'y', 'ÿ' => 'y', 'ŷ' => 'y', 'Ŵ' => 'W', 'ŵ' => 'w', 'Ź' => 'Z', 'Ż' => 'Z', 'Ž' => 'Z',
-			'ź' => 'z', 'ż' => 'z', 'ž' => 'z', 'Æ' => 'AE', 'Ǽ' => 'AE', 'ß' => 'ss', 'Ĳ' => 'IJ', 'ĳ' => 'ij', 'Œ' => 'OE', 'ƒ' => 'f',
-			'Þ' => 'TH', 'þ' => 'th', 'Є' => 'Ye', 'є' => 'ye'
-		);
-
-		$map = array(
-			'/[^\s\p{Zs}\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]/mu' => ' ',
-			'/[\s\p{Zs}]+/mu' => $replacement,
-			sprintf('/^[%s]+|[%s]+$/', $quoted_replacement, $quoted_replacement) => '',
-		);
-
-		$string = str_replace(
-			array_keys($_transliteration),
-			array_values($_transliteration),
-			strtolower($string)
-		);
-
-		return preg_replace(array_keys($map), array_values($map), $string);
+		return trim($string, "-");
 	}
 
 	/**
@@ -219,10 +182,23 @@ class Text
 	 * CONVERT string_with_underscore TO StringWithUnderscore
 	 * --------------------------------------------------------------------
 	 */
-	public static function FormatActionName($action_name = "")
+	public static function camelCase($string = "")
 	{
-		$action_name = preg_replace("/(_)/", " ", $action_name);
-		$action_name = preg_replace("/([\s])/", "", ucwords($action_name));
-		return $action_name;
+		$string = preg_replace("/(_)/", " ", $string);
+		$string = preg_replace("/([\s])/", "", ucwords($string));
+		return $string;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * CONVERT string_with_underscore TO stringWithUnderscore
+	 * --------------------------------------------------------------------
+	 */
+	public static function lowerCamelCase($string = "")
+	{
+		$string = self::camelCase($string);
+		$replace = strtolower(substr($string, 0, 1));
+		$result = $replace . substr($string, 1);
+		return $result;
 	}
 }

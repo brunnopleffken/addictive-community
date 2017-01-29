@@ -27,8 +27,11 @@ header('Content-Type: text/html; charset=utf-8');
  * ADDICTIVE COMMUNITY VERSION
  * --------------------------------------------------------------------
  */
-define("VERSION", "v0.11.0");
+define("VERSION", "v0.12.0");
 define("CHANNEL", "Beta"); // e.g.: Alpha, Beta, Release Candidate, Final
+
+define("MIN_PHP_VERSION", 5.4);
+define("MIN_SQL_VERSION", 5.6);
 
 /**
  * --------------------------------------------------------------------
@@ -45,6 +48,26 @@ define("YEAR", 31536000);
 
 /**
  * --------------------------------------------------------------------
+ * AUTOLOADER
+ * --------------------------------------------------------------------
+ */
+
+function autoLoaderClass($class_name)
+{
+	$bits = explode("\\", ltrim($class_name, "\\"));
+	array_shift($bits);
+	$path = __DIR__ . "/" . lcfirst(implode("/", $bits)) . ".php";
+
+	if(!file_exists($path)) {
+		return false;
+	}
+
+	require_once($path);
+	return true;
+}
+
+/**
+ * --------------------------------------------------------------------
  * The awesome internationalization function!
  * Translation INDEX is provided in $string to locate the corresponding
  * translated string. If the INDEX does not exists, the value in
@@ -53,5 +76,5 @@ define("YEAR", 31536000);
  */
 function __($string, $variables = array())
 {
-	echo i18n::Translate($string, $variables);
+	echo \AC\Kernel\i18n::translate($string, $variables);
 }

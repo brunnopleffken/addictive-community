@@ -1,17 +1,58 @@
 # Changelog
 
+## v0.12.0 (2017-01-29)
+
+#### Added
+- Add cover photo to your profile;
+- Add emoticons, change text color and add embedded videos to posts;
+- Database logging now includes backtrace details for additional debug.
+
+#### Fixed
+- Quoted posts not being sanitized;
+- Embedded transliterator now parses non-Latin characters (e.g. Greek, Cyrillic, etc.);
+- Fixed several issues with banned members;
+- Missing Swedish translations (thanks to @halojoy);
+- Several others bug fixes and enhancements.
+
+#### Changed
+- Revamped UI components with new and reusable CSS classes, responsive mode is much better;
+- Added the suffix [Name]Controller to the name of controller files;
+- Controller entry method renamed from "Main" to "Index";
+- Default MySQL storage engine changed to InnoDB (now requires MySQL 5.6 or above);
+- Implement class autoloader for kernel modules;
+- Added namespaces: kernel modules to AC\Kernel and controllers to AC\Controllers;
+- Member session handling methods moved to AC\Kernel\Session\SessionState;
+- Database driver is now a static class;
+- Database logging is now disabled by default (enable it setting `private $debug = true` in kernel/Database.php);
+- Sass files are now compiled using Node.js (gulp + gulp-sass);
+- Form validation now uses the HTML5 API - the UI still behaves the same way.
+- Admin CP now uses the same CSS framework than the rest of the application.
+
+#### Deprecated
+- IIS: untested and unreliable, so its support is now removed;
+- MySQL version older than 5.6 is now unsupported.
+
+
+
+## v0.11.1 (2016-12-07)
+
+#### Fixed
+- Admin CP shows "Update available" even if running the latest version (#105, thanks to @halojoy)
+
+
+
 ## v0.11.0 (2016-11-22)
 
 #### Added
 - Add/remove themes and templates via Admin CP (thanks to @xQuByte);
 - New pages for HTTP errors 404/Not Found and 500/Internal Server Error.
 
-#### Fixes
+#### Fixed
 - Disable registration now works properly showing a warning (thanks to @xQuByte);
 - Forwarding Personal Messages not working due to pending Pull Request.
 
 #### Changed
-- Master templates are now inside the `\templates\[theme]\layouts` directory.
+- Master templates are now inside the `/templates/[theme]/layouts` directory.
 
 #### Security
 - Improved validations for controllers, IDs and reference values;
@@ -30,7 +71,7 @@
 - New built-in language: Russian (thanks to @zalexstudios);
 - Reply and forward private messages (thanks to @johnforte).
 
-#### Fixes
+#### Fixed
 - SQL syntax error when editing a language file via Admin CP (#72);
 - Broken URLs when a thread is written using non-latin characters (#74);
 - Issue with `json_encode()` and multibyte characters (#74);
@@ -54,12 +95,10 @@
 
 ## v0.9.0 (2016-03-15)
 
-*Yes, it's finally here!*
-
 #### Added
 - Set automatic thread opening/lock date and time.
 
-#### Fixes
+#### Fixed
 - Addictive Community is now PHP 7 compatible (retaining the PHP 5.3+ support);
 - Members were able to post in locked threads;
 - Unable to delete multiple private messages (#61, thanks to @xQuByte);
@@ -80,7 +119,7 @@
 - Full member management via Administration CP;
 - New built-in languages: Swedish (thanks to @halojoy) and Brazilian Portuguese.
 
-#### Fixes
+#### Fixed
 - System was unable to send e-mails when SMTP server doesn't require validation (#44, thanks to @halojoy);
 - Fixed an error when creating new thread with strict mode enabled in MySQL (#45);
 - Several bug fixes and enhancements.
@@ -96,7 +135,7 @@
 #### Added
 - Member ranks/promotions given when a member reaches a certain number of posts.
 
-#### Fixes
+#### Fixed
 - Members were unable to log in anonymously (#41);
 - Users were unable to install Addictive Community in WAMP stack in certain scenarios;
 - Few other bug fixes and enhancements.

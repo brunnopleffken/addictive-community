@@ -10,66 +10,10 @@
  */
 
 
-$(document).ready(function($) {
-
-	// Check if database is up using Ajax
-
-	$('#database-form').on('submit', function(event) {
-		var $form = $(this);
-		var isDatabaseUp = false;
-		var proceed = true;
-
-		$('input.required').each(function() {
-			if($(this).val() == "") {
-				$(this).addClass('error');
-				proceed = false;
-			}
-			else {
-				$(this).removeClass('error');
-			}
-		});
-
-		if(proceed) {
-			$.ajax("tests.php?task=test_database", {
-				method: 'post',
-				dataType: 'json',
-				data: $form.serialize(),
-				context: $form,
-				beforeSend: function() {
-					$('input[type=submit]').attr('disabled', true);
-				}
-			})
-			.done(function(data) {
-				if(data.status == 0) {
-					isDatabaseUp = false;
-					alert('ERROR: Could not establish connection to database.\n' + data.message);
-				}
-				else {
-					isDatabaseUp = true;
-				}
-			})
-			.always(function() {
-				$('input[type=submit]').removeAttr('disabled');
-
-				// If there is no errors, submit!
-				if(isDatabaseUp == true) {
-					this.off('submit');
-					this.submit();
-				}
-			});
-		}
-
-		event.preventDefault();
-	});
-});
-
-
 // Agree to the EULA
 
 function eula() {
 	var checkbox = document.getElementById("agree");
-
-	console.log(checkbox.checked);
 
 	if(checkbox.checked == false) {
 		alert("You must agree to the EULA to proceed with installation.");

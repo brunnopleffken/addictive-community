@@ -11,24 +11,18 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Kernel;
+
 class Admin
 {
-	private $Db;
-
 	/**
 	 * --------------------------------------------------------------------
-	 * GET DATABASE CLASS
+	 * ADMIN CONSTRUCTOR
 	 * --------------------------------------------------------------------
 	 */
-	public function __construct($Database)
+	public function __construct()
 	{
-		if($Database) {
-			// Get Database class
-			$this->Db = $Database;
-		}
-		else {
-			return false;
-		}
+		// ...
 	}
 
 	/**
@@ -36,10 +30,10 @@ class Admin
 	 * SHOW CONFIGURATION INSIDE AN INPUT[TEXT] OR TEXTAREA FIELD
 	 * --------------------------------------------------------------------
 	 */
-	public function SelectConfig($field_name)
+	public function selectConfig($field_name)
 	{
-		$this->Db->Query("SELECT value FROM c_config WHERE field = '{$field_name}';");
-		$fetch = $this->Db->Fetch();
+		Database::query("SELECT value FROM c_config WHERE field = '{$field_name}';");
+		$fetch = Database::fetch();
 
 		if($fetch['value']) {
 			return $fetch['value'];
@@ -55,9 +49,9 @@ class Admin
 	 * --------------------------------------------------------------------
 	 * $options = array("key" => 0, "value" => "")
 	 */
-	public function Dropdown($field_name, $options, $value = "", $class = "")
+	public function selectField($field_name, $options, $value = "", $class = "")
 	{
-		$str = "<select name='{$field_name}' class='{$class}'>";
+		$str = "<select name='{$field_name}' class='form-control {$class}'>";
 
 		foreach($options as $k => $v) {
 			$selected = ($k == $value) ? "selected" : "";
@@ -74,10 +68,10 @@ class Admin
 	 * IF 1, THEN CHECKBOX IS CHECKED, OTHERWISE SHOW IT UNCHECKED
 	 * --------------------------------------------------------------------
 	 */
-	public function SelectCheckbox($field_name)
+	public function selectCheckbox($field_name)
 	{
-		$this->Db->Query("SELECT value FROM c_config WHERE field = '{$field_name}';");
-		$fetch = $this->Db->Fetch();
+		Database::query("SELECT value FROM c_config WHERE field = '{$field_name}';");
+		$fetch = Database::fetch();
 
 		if($fetch['value']) {
 			$str = "<input type='hidden' name='{$field_name}' value='0'><input type='checkbox' name='{$field_name}' value='1' checked>";
@@ -94,7 +88,7 @@ class Admin
 	 * IF 1, THEN CHECKBOX IS CHECKED, OTHERWISE SHOW IT UNCHECKED
 	 * --------------------------------------------------------------------
 	 */
-	public function BooleanCheckbox($field_name, $field_value)
+	public function booleanCheckbox($field_name, $field_value)
 	{
 		if($field_value) {
 			$str = "<input type='hidden' name='{$field_name}' value='0'><input type='checkbox' name='{$field_name}' value='1' checked>";
@@ -112,11 +106,11 @@ class Admin
 	 * FORMAT $config['field'] = "value" MUST BE USED!
 	 * --------------------------------------------------------------------
 	 */
-	public function SaveConfig($post)
+	public function saveConfig($post)
 	{
 		if(is_array($post)) {
 			foreach($post as $k => $v) {
-				$this->Db->Query("UPDATE c_config SET value = '{$v}' WHERE field = '{$k}';");
+				Database::query("UPDATE c_config SET value = '{$v}' WHERE field = '{$k}';");
 			}
 			return true;
 		}
@@ -130,7 +124,7 @@ class Admin
 	 * ADD REGISTER TO ADMIN LOG
 	 * --------------------------------------------------------------------
 	 */
-	public function RegisterLog($message)
+	public function registerLog($message)
 	{
 		$log = array(
 			"member_id" => $_SESSION['admin_m_id'],
@@ -138,10 +132,9 @@ class Admin
 			"message"   => $message,
 			"ip_addr"   => $_SERVER['REMOTE_ADDR']
 		);
-		$this->Db->Query("INSERT INTO c_logs (member_id, time, act, ip_address) VALUES
-			('{$log['member_id']}', '{$log['time']}', '{$log['message']}', '{$log['ip_addr']}');");
 
-		return true;
+		Database::query("INSERT INTO c_logs (member_id, time, act, ip_address) VALUES
+			('{$log['member_id']}', '{$log['time']}', '{$log['message']}', '{$log['ip_addr']}');");
 	}
 
 	/**
@@ -149,7 +142,7 @@ class Admin
 	 * REPLACE TRUE/FALSE AND 1/0 INTO GREEN "YES" AND RED "NO"
 	 * --------------------------------------------------------------------
 	 */
-	public function FriendlyBool($value) {
+	public function showBoolean($value) {
 		if($value) {
 			return "<span style='color:#090'>Yes</span>";
 		}

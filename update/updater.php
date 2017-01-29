@@ -24,7 +24,7 @@ require_once("../kernel/Text.php");
 require_once("../kernel/Database.php");
 
 // Load configuration file
-require_once("../config.php");
+$config = parse_ini_file("../config.ini");
 
 // Get step number
 $step = Html::Request("step");
@@ -62,7 +62,7 @@ switch($step) {
 		}
 		else {
 			$status = 0;
-			$description = "File 'config.php' doesn't contain an array or is empty.";
+			$description = "File 'config.ini' doesn't contain any data.";
 		}
 
 		break;

@@ -1,24 +1,24 @@
-<div class="title-bar">
-	<div class="title">
-		<span><?php __($community_name) ?></span>
-		<?php __("P_EDIT_POST") ?>: <?php echo $thread_info['title'] ?>
-	</div>
-</div>
+<h1>
+	<small><?= $community_name ?></small>
+	<?php __("P_EDIT_POST") ?>: <?= $thread_info['title'] ?>
+</h1>
 
-<div class="box">
-	<form action="thread/save_edit/<?php echo $post_info['p_id'] ?>" method="post" class="validate" enctype="multipart/form-data">
-		<div class="input-box">
-			<div class="label"><?php __("P_POST") ?></div>
-			<div class="field">
-				<textarea name="post" id="post" class="full" rows="12"><?php __($post_info['post']) ?></textarea>
+<div class="block">
+	<form action="thread/save_edit/<?= $post_info['p_id'] ?>" method="post" enctype="multipart/form-data">
+		<div class="form-group grid">
+			<label for="" class="col-2"><?php __("P_POST") ?></label>
+			<div class="col-10">
+				<textarea name="post" id="post" rows="30"><?= $post_info['post'] ?></textarea>
 			</div>
 		</div>
-		<div class="fleft">
-			<div class="error-message"><?php __("P_ERROR") ?></div>
-		</div>
-		<div class="fright">
-			<input type="hidden" name="thread_id" value="<?php __($post_info['thread_id']) ?>">
-			<input type="submit" value="<?php __("T_EDIT") ?>">
+		<div class="pull-clear">
+			<div class="pull-left">
+				<div class="error-message"><?php __("P_ERROR") ?></div>
+			</div>
+			<div class="pull-right">
+				<input type="hidden" name="thread_id" value="<?= $post_info['thread_id'] ?>">
+				<input type="submit" value="<?php __("T_EDIT") ?>" class="btn btn-default">
+			</div>
 		</div>
 	</form>
 </div>

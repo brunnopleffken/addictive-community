@@ -1,13 +1,14 @@
 CREATE TABLE `c_attachments` (
   `a_id` int(6) NOT NULL AUTO_INCREMENT,
   `member_id` int(8) NOT NULL,
+  `private` int(1) NOT NULL DEFAULT '0',
   `date` int(10) NOT NULL,
   `filename` varchar(50) NOT NULL DEFAULT '',
   `type` varchar(50) NOT NULL DEFAULT '',
   `clicks` int(8) NOT NULL,
   `size` int(12) NOT NULL,
   PRIMARY KEY (`a_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_categories` (
   `c_id` int(2) NOT NULL AUTO_INCREMENT,
@@ -15,14 +16,14 @@ CREATE TABLE `c_categories` (
   `order_n` int(2) DEFAULT NULL,
   `visible` int(1) NOT NULL,
   PRIMARY KEY (`c_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_config` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `field` varchar(40) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_emails` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
@@ -30,7 +31,7 @@ CREATE TABLE `c_emails` (
   `description` varchar(20) DEFAULT NULL,
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_emoticons` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
@@ -39,7 +40,7 @@ CREATE TABLE `c_emoticons` (
   `display` int(1) NOT NULL,
   `emoticon_set` varchar(20) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_events` (
   `e_id` int(6) NOT NULL AUTO_INCREMENT,
@@ -53,7 +54,7 @@ CREATE TABLE `c_events` (
   `added` int(10) NOT NULL,
   `text` text,
   PRIMARY KEY (`e_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_help` (
   `h_id` int(3) NOT NULL AUTO_INCREMENT,
@@ -61,7 +62,7 @@ CREATE TABLE `c_help` (
   `short_desc` varchar(255) DEFAULT NULL,
   `content` text,
   PRIMARY KEY (`h_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_languages` (
   `l_id` int(2) NOT NULL AUTO_INCREMENT,
@@ -71,7 +72,7 @@ CREATE TABLE `c_languages` (
   `author_email` varchar(50) NOT NULL,
   `is_active` int(1) NOT NULL,
   PRIMARY KEY (`l_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_logs` (
   `log_id` int(6) NOT NULL AUTO_INCREMENT,
@@ -80,7 +81,7 @@ CREATE TABLE `c_logs` (
   `act` varchar(250) DEFAULT NULL,
   `ip_address` varchar(46) DEFAULT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_members` (
   `m_id` int(8) NOT NULL AUTO_INCREMENT,
@@ -100,6 +101,7 @@ CREATE TABLE `c_members` (
   `b_year` int(4) DEFAULT NULL,
   `photo` varchar(40) DEFAULT NULL,
   `photo_type` varchar(10) DEFAULT NULL,
+  `cover_photo` varchar(36) DEFAULT NULL,
   `website` varchar(60) DEFAULT NULL,
   `im_facebook` varchar(50) DEFAULT NULL,
   `im_twitter` varchar(50) DEFAULT NULL,
@@ -118,7 +120,7 @@ CREATE TABLE `c_members` (
   `show_gender` int(1) NOT NULL,
   `token` varchar(128) NOT NULL DEFAULT '',
   PRIMARY KEY (`m_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_messages` (
   `pm_id` int(8) NOT NULL AUTO_INCREMENT,
@@ -132,7 +134,7 @@ CREATE TABLE `c_messages` (
   `attach_id` int(6) DEFAULT NULL,
   `parent_pm` int(8) DEFAULT NULL,
   PRIMARY KEY (`pm_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_posts` (
   `p_id` int(9) NOT NULL AUTO_INCREMENT,
@@ -149,8 +151,8 @@ CREATE TABLE `c_posts` (
   `best_answer` int(1) NOT NULL,
   `first_post` int(1) NOT NULL,
   PRIMARY KEY (`p_id`),
-  FULLTEXT KEY `post` (`post`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  FULLTEXT `post` (`post`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_ranks` (
   `id` int(2) NOT NULL AUTO_INCREMENT,
@@ -159,7 +161,7 @@ CREATE TABLE `c_ranks` (
   `pips` int(1) DEFAULT NULL,
   `image` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_reports` (
   `rp_id` int(6) NOT NULL AUTO_INCREMENT,
@@ -172,7 +174,7 @@ CREATE TABLE `c_reports` (
   `thread_id` int(9) NOT NULL,
   `referer` varchar(255) NOT NULL,
   PRIMARY KEY (`rp_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_rooms` (
   `r_id` int(3) NOT NULL AUTO_INCREMENT,
@@ -197,22 +199,20 @@ CREATE TABLE `c_rooms` (
   `perm_reply` varchar(255) DEFAULT NULL,
   `moderators` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`r_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_sessions` (
-  `s_id` varchar(60) NOT NULL,
+  `session_token` varchar(32) NOT NULL DEFAULT '',
   `member_id` int(11) DEFAULT NULL,
-  `username` varchar(50) DEFAULT NULL,
   `ip_address` varchar(46) DEFAULT NULL,
-  `browser` varchar(200) DEFAULT NULL,
   `activity_time` int(10) DEFAULT NULL,
   `usergroup` int(2) DEFAULT NULL,
   `anonymous` int(1) DEFAULT NULL,
-  `location_type` varchar(30) DEFAULT NULL,
+  `location_controller` varchar(30) DEFAULT NULL,
   `location_id` int(6) DEFAULT NULL,
   `location_room_id` int(3) DEFAULT NULL,
-  PRIMARY KEY (`s_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`session_token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_stats` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
@@ -220,7 +220,7 @@ CREATE TABLE `c_stats` (
   `post_count` int(9) NOT NULL,
   `thread_count` int(9) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_templates` (
   `tpl_id` int(2) NOT NULL AUTO_INCREMENT,
@@ -230,7 +230,7 @@ CREATE TABLE `c_templates` (
   `author_name` varchar(50) NOT NULL,
   `author_email` varchar(50) NOT NULL,
   PRIMARY KEY (`tpl_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_themes` (
   `theme_id` int(2) NOT NULL AUTO_INCREMENT,
@@ -240,7 +240,7 @@ CREATE TABLE `c_themes` (
   `author_name` varchar(50) NOT NULL DEFAULT '',
   `author_email` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`theme_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_threads` (
   `t_id` int(9) NOT NULL AUTO_INCREMENT,
@@ -264,8 +264,8 @@ CREATE TABLE `c_threads` (
   `poll_data` text,
   `poll_allow_multiple` int(1) DEFAULT NULL,
   PRIMARY KEY (`t_id`),
-  FULLTEXT KEY `title` (`title`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  FULLTEXT `title` (`title`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `c_usergroups` (
   `g_id` int(2) NOT NULL AUTO_INCREMENT,
@@ -287,4 +287,4 @@ CREATE TABLE `c_usergroups` (
   `max_pm_storage` int(8) NOT NULL,
   `stock` int(1) NOT NULL,
   PRIMARY KEY (`g_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

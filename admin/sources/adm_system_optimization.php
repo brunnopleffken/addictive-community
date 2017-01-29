@@ -1,151 +1,149 @@
 <?php
 
-	## ---------------------------------------------------
-	#  ADDICTIVE COMMUNITY
-	## ---------------------------------------------------
-	#  Developed by Brunno Pleffken Hosti
-	#  File: adm_system_optimization.php
-	#  License: GPLv2
-	#  Copyright: (c) 2016 - Addictive Community
-	## ---------------------------------------------------
+## ---------------------------------------------------
+#  ADDICTIVE COMMUNITY
+## ---------------------------------------------------
+#  Developed by Brunno Pleffken Hosti
+#  File: adm_system_optimization.php
+#  License: GPLv2
+#  Copyright: (c) 2016 - Addictive Community
+## ---------------------------------------------------
 
-	// ---------------------------------------------------
-	// Execute queries, if defined
-	// ---------------------------------------------------
+use \AC\Kernel\Database;
+use \AC\Kernel\Html;
+use \AC\Kernel\Http;
 
-	$execute = (Http::Request("execute")) ? Http::Request("execute") : false;
+// ---------------------------------------------------
+// Execute queries, if defined
+// ---------------------------------------------------
 
-	if($execute) {
-		switch($execute) {
-			// Recount members
+$execute = (Http::request("execute")) ? Http::request("execute") : false;
 
-			case "members":
+if($execute) {
+	switch($execute) {
+		// Recount members
 
-				// Update member count
+		case "members":
 
-				$Db->Query("SELECT COUNT(*) AS count FROM c_members;");
-				$total = $Db->Fetch();
-				$total = $total['count'];
+			// Update member count
 
-				$Db->Query("UPDATE c_stats SET member_count = '{$total}';");
+			Database::query("SELECT COUNT(*) AS count FROM c_members;");
+			$total = Database::fetch();
+			$total = $total['count'];
 
-				// Exit
+			Database::query("UPDATE c_stats SET member_count = '{$total}';");
 
-				$Admin->RegisterLog("Executed system optimization: member counting.");
-				echo Html::Notification("Registered members have been successfully recounted.", "success");
+			// Exit
 
-				break;
+			$Admin->registerLog("Executed system optimization: member counting.");
+			echo Html::notification("Registered members have been successfully recounted.", "success");
 
-			// Recount member's threads and posts
+			break;
 
-			case "threads":
+		// Recount member's threads and posts
 
-				// Update posts
+		case "threads":
 
-				$Db->Query("SELECT COUNT(*) AS count FROM c_posts;");
-				$total = $Db->Fetch();
-				$total = $total['count'];
+			// Update posts
 
-				$Db->Query("UPDATE c_stats SET post_count = '{$total}';");
+			Database::query("SELECT COUNT(*) AS count FROM c_posts;");
+			$total = Database::fetch();
+			$total = $total['count'];
 
-				// Update threads
+			Database::query("UPDATE c_stats SET post_count = '{$total}';");
 
-				$Db->Query("SELECT COUNT(*) AS count FROM c_threads;");
-				$total = $Db->Fetch();
-				$total = $total['count'];
+			// Update threads
 
-				$Db->Query("UPDATE c_stats SET thread_count = '{$total}';");
+			Database::query("SELECT COUNT(*) AS count FROM c_threads;");
+			$total = Database::fetch();
+			$total = $total['count'];
 
-				// Update members thread count
+			Database::query("UPDATE c_stats SET thread_count = '{$total}';");
 
-				$members = $Db->Query("SELECT m_id FROM c_members;");
+			// Update members thread count
 
-				while($_members = $Db->Fetch($members)) {
-					$posts = $Db->Query("SELECT COUNT(*) AS total FROM c_posts WHERE author_id = '{$_members['m_id']}';");
+			$members = Database::query("SELECT m_id FROM c_members;");
 
-					while($post_count = $Db->Fetch($posts)) {
-						$Db->Query("UPDATE c_members SET posts = '{$post_count['total']}' WHERE m_id = '{$_members['m_id']}';");
-					}
+			while($_members = Database::fetch($members)) {
+				$posts = Database::query("SELECT COUNT(*) AS total FROM c_posts WHERE author_id = '{$_members['m_id']}';");
+
+				while($post_count = Database::fetch($posts)) {
+					Database::query("UPDATE c_members SET posts = '{$post_count['total']}' WHERE m_id = '{$_members['m_id']}';");
 				}
+			}
 
-				// Exit
+			// Exit
 
-				$Admin->RegisterLog("Executed system optimization: threads and posts counting.");
-				echo Html::Notification("Threads and posts have been successfully recounted.", "success");
+			$Admin->registerLog("Executed system optimization: threads and posts counting.");
+			echo Html::notification("Threads and posts have been successfully recounted.", "success");
 
-				break;
+			break;
 
-			// Recount replies
+		// Recount replies
 
-			case "replies":
+		case "replies":
 
-				// List threads (global)
+			// List threads (global)
 
-				$threads = $Db->Query("SELECT t_id FROM c_threads;");
+			$threads = Database::query("SELECT t_id FROM c_threads;");
 
-				// Replies counting
+			// Replies counting
 
-				while($_threads = $Db->Fetch($threads)) {
-					$posts = $Db->Query("SELECT COUNT(p_id) AS post_count FROM c_posts WHERE thread_id = '{$_threads['t_id']}';");
+			while($_threads = Database::fetch($threads)) {
+				$posts = Database::query("SELECT COUNT(p_id) AS post_count FROM c_posts WHERE thread_id = '{$_threads['t_id']}';");
 
-					while($_posts = $Db2->Fetch($posts)) {
-						$Db->Query("UPDATE c_threads SET replies = '{$_posts['post_count']}' WHERE t_id = '{$_threads['t_id']}';");
-					}
+				while($_posts = $Db2->fetch($posts)) {
+					Database::query("UPDATE c_threads SET replies = '{$_posts['post_count']}' WHERE t_id = '{$_threads['t_id']}';");
 				}
+			}
 
-				// Exit
+			// Exit
 
-				$Admin->RegisterLog("Executed system optimization: replies counting.");
-				echo Html::Notification("Replies have been successfully recounted.", "success");
+			$Admin->registerLog("Executed system optimization: replies counting.");
+			echo Html::notification("Replies have been successfully recounted.", "success");
 
-				break;
-		}
+			break;
 	}
+}
 
 ?>
 
-	<h1>System Optimization</h1>
+<h1>System Optimization</h1>
 
-	<div id="content">
+<div class="block">
+	<form action="" method="post">
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="4">Predefined Tasks</th>
+				</tr>
 
-		<div class="grid-row">
-			<!-- LEFT -->
-			<form action="" method="post">
-
-				<table class="table-list">
-					<tr>
-						<th colspan="4">Predefined Tasks</th>
-					</tr>
-
-					<tr class="subtitle">
-						<td>Task Description</td>
-						<td width="1%">Execute</td>
-					</tr>
-					<tr>
-						<td>
-							<b>Recount members</b><br>
-							This will recount registered members based on current number of members from the database and reset last registered member. This should not be used if you wish to retain your registered member counts.
-						</td>
-						<td style="text-align:center"><a href="main.php?act=system&p=optimization&execute=members"><i class="fa fa-play-circle-o"></i></a></td>
-					</tr>
-					<tr>
-						<td>
-							<b>Recount member's threads and posts</b><br>
-							This will recount members threads and posts based on current posts from the database. This will almost certainly REDUCE the post counts for your members as deleted and pruned posts will no longer be counted.
-						</td>
-						<td style="text-align:center"><a href="main.php?act=system&p=optimization&execute=threads"><i class="fa fa-play-circle-o"></i></a></td>
-					</tr>
-					<tr>
-						<td>
-							<b>Recount replies</b><br>
-							This will recount replies, attachments and last poster for all your topics. This may take a while to complete!
-						</td>
-						<td style="text-align:center"><a href="main.php?act=system&p=optimization&execute=replies"><i class="fa fa-play-circle-o"></i></a></td>
-					</tr>
-
-				</table>
-
-			</form>
-		</div>
-
-	</div>
+				<tr>
+					<td>Task Description</td>
+					<td width="1%">Execute</td>
+				</tr>
+			</thead>
+			<tr>
+				<td>
+					<b>Recount members</b><br>
+					This will recount registered members based on current number of members from the database and reset last registered member. This should not be used if you wish to retain your registered member counts.
+				</td>
+				<td style="text-align:center"><a href="main.php?act=system&p=optimization&execute=members"><i class="fa fa-play-circle-o"></i></a></td>
+			</tr>
+			<tr>
+				<td>
+					<b>Recount member's threads and posts</b><br>
+					This will recount members threads and posts based on current posts from the database. This will almost certainly REDUCE the post counts for your members as deleted and pruned posts will no longer be counted.
+				</td>
+				<td style="text-align:center"><a href="main.php?act=system&p=optimization&execute=threads"><i class="fa fa-play-circle-o"></i></a></td>
+			</tr>
+			<tr>
+				<td>
+					<b>Recount replies</b><br>
+					This will recount replies, attachments and last poster for all your topics. This may take a while to complete!
+				</td>
+				<td style="text-align:center"><a href="main.php?act=system&p=optimization&execute=replies"><i class="fa fa-play-circle-o"></i></a></td>
+			</tr>
+		</table>
+	</form>
+</div>

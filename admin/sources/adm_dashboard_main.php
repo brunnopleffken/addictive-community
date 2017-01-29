@@ -1,160 +1,168 @@
 <?php
 
-	## ---------------------------------------------------
-	#  ADDICTIVE COMMUNITY
-	## ---------------------------------------------------
-	#  Developed by Brunno Pleffken Hosti
-	#  File: adm_dashboard_main.php
-	#  License: GPLv2
-	#  Copyright: (c) 2016 - Addictive Community
-	## ---------------------------------------------------
+## ---------------------------------------------------
+#  ADDICTIVE COMMUNITY
+## ---------------------------------------------------
+#  Developed by Brunno Pleffken Hosti
+#  File: adm_dashboard_main.php
+#  License: GPLv2
+#  Copyright: (c) 2016 - Addictive Community
+## ---------------------------------------------------
 
-	// Get board overview
+use \AC\Kernel\Database;
+use \AC\Kernel\Html;
 
-	$Db->Query("SELECT COUNT(*) AS total FROM c_members;");
-	$registered = $Db->Fetch();
+// Get board overview
 
-	$Db->Query("SELECT COUNT(*) AS total FROM c_posts;");
-	$posts = $Db->Fetch();
+Database::query("SELECT COUNT(*) AS total FROM c_members;");
+$registered = Database::fetch();
 
-	$Db->Query("SELECT COUNT(*) AS total FROM c_threads;");
-	$threads = $Db->Fetch();
+Database::query("SELECT COUNT(*) AS total FROM c_posts;");
+$posts = Database::fetch();
 
-	$posts['average'] = round($posts['total'] / $threads['total'], 1);
+Database::query("SELECT COUNT(*) AS total FROM c_threads;");
+$threads = Database::fetch();
 
-	// System environment
+$posts['average'] = round($posts['total'] / $threads['total'], 1);
 
-	$srvsoft = $_SERVER["SERVER_SOFTWARE"];
+// System environment
 
-	$Db->Query("SELECT VERSION() AS version;");
-	$mysql_v = $Db->Fetch();
+$server_software = $_SERVER["SERVER_SOFTWARE"];
 
-	$mysqlversion = "MySQL " . $mysql_v['version'];
+Database::query("SELECT VERSION() AS version;");
+$mysql_v = Database::fetch();
 
-	// Abuse reports
+$mysqlversion = "MySQL " . $mysql_v['version'];
 
-	$html = "";
+// Abuse reports
 
-	$reports = $Db->Query("SELECT r.*, m.username, t.title FROM c_reports r
-			INNER JOIN c_members m ON (r.sender_id = m.m_id)
-			LEFT JOIN c_threads t ON (r.thread_id = t.t_id)
-			ORDER BY rp_id DESC LIMIT 15;");
+$html = "";
 
-	if($Db->Rows($reports) == 0) {
-		$html = "<tr><td colspan='7' class='center'>There are no abuse reports at the moment.</td></tr>";
+$reports = Database::query("SELECT r.*, m.username, t.title FROM c_reports r
+		INNER JOIN c_members m ON (r.sender_id = m.m_id)
+		LEFT JOIN c_threads t ON (r.thread_id = t.t_id)
+		ORDER BY rp_id DESC LIMIT 15;");
+
+if(Database::rows($reports) == 0) {
+	$html = "<tr><td colspan='7' class='text-center'>There are no abuse reports at the moment.</td></tr>";
+}
+
+while($report = Database::fetch($reports)) {
+	$report['date'] = $Core->dateFormat($report['date']);
+
+	if($report['post_id'] == 0) {
+		$report['post'] = "-";
+	}
+	else {
+		$report['post'] = "Yes (<a href='" . $Admin->selectConfig("general_community_url") . "thread/{$report['thread_id']}#post-" . $report['post_id'] . "' target='_blank'>view post</a>)";
 	}
 
-	while($report = $Db->Fetch($reports)) {
-		$report['date'] = $Core->DateFormat($report['date']);
+	$reason[1] = "Nudity or pornography";
+	$reason[2] = "Impersonating me or someone I know";
+	$reason[3] = "Racist or hate speech";
+	$reason[4] = "Targets me or a friend";
+	$reason[5] = "Direct call for violence";
+	$reason[6] = "Excessive violent content";
+	$reason[7] = "Spam";
 
-		if($report['post_id'] == 0) {
-			$report['post'] = "-";
-		}
-		else {
-			$report['post'] = "Yes (<a href='" . $Admin->SelectConfig("general_community_url") . "thread/{$report['thread_id']}#post-" . $report['post_id'] . "' target='_blank'>view post</a>)";
-		}
-
-		$reason[1] = "Nudity or pornography";
-		$reason[2] = "Impersonating me or someone I know";
-		$reason[3] = "Racist or hate speech";
-		$reason[4] = "Targets me or a friend";
-		$reason[5] = "Direct call for violence";
-		$reason[6] = "Excessive violent content";
-		$reason[7] = "Spam";
-
-		$html .= "<tr>
-				<td rowspan='2' style='border-bottom: 2px solid #eee'>{$report['rp_id']}</td>
-				<td rowspan='2' style='border-right: 1px solid #eee; border-bottom: 2px solid #eee' nowrap>{$report['username']}</td>
-				<td nowrap>{$report['date']}</td>
-				<td>{$reason[$report['reason']]}</td>
-				<td><a href='../thread/{$report['thread_id']}'>{$report['title']}</a></td>
-				<td>{$report['post']}</td>
-				<td rowspan='2' style='border-left: 1px solid #eee; border-bottom: 2px solid #eee'>
-					<a href='process.php?do=remove_report&id={$report['rp_id']}' onclick='DeleteReport({$report['rp_id']},{$report['thread_id']})'><img src='images/trash.png'></a>
-				</td>
-			</tr>
-			<tr>
-				<td colspan='4' style='border-bottom: 2px solid #eee'>{$report['description']}</td>
-			</tr>";
-	}
+	$html .= "<tr>
+			<td rowspan='2' style='border-bottom: 2px solid #eee'>{$report['rp_id']}</td>
+			<td rowspan='2' style='border-right: 1px solid #eee; border-bottom: 2px solid #eee' nowrap>{$report['username']}</td>
+			<td nowrap>{$report['date']}</td>
+			<td>{$reason[$report['reason']]}</td>
+			<td><a href='../thread/{$report['thread_id']}'>{$report['title']}</a></td>
+			<td>{$report['post']}</td>
+			<td rowspan='2' style='border-left: 1px solid #eee; border-bottom: 2px solid #eee'>
+				<a href='process.php?do=remove_report&id={$report['rp_id']}' onclick='DeleteReport({$report['rp_id']},{$report['thread_id']})'><img src='images/trash.png'></a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='4' style='border-bottom: 2px solid #eee'>{$report['description']}</td>
+		</tr>";
+}
 
 ?>
 
-	<script>
-		$(document).ready(function() {
-			checkUpdates();
-		});
-	</script>
+<script>
+	$(document).ready(function() {
+		checkUpdates();
+	});
+</script>
 
-	<h1>Dashboard</h1>
+<h1>Dashboard</h1>
 
-	<div id="content">
-		<?php
-		//checks to see if install directory is still on the server, and shows a warning.
-		if(file_exists(__DIR__.'/../../install') || is_dir(__DIR__.'/../../install')){
-			echo HTML::Notification('It is recommended to delete the install folder.','warning',true);
+<div class="block">
+	<?php
+		// Check if installer is locked
+		if(!file_exists(__DIR__ . '/../../install/.lock') && is_dir(__DIR__ . '/../../install')) {
+			echo Html::notification("The installer is not locked (file \".lock\" is missing) and is publicly accessible. Remove the /install folder immediately.", "failure", true, "DANGER!");
 		}
-		?>
-		<div class="grid-row">
-			<!-- LEFT -->
-			<div class="grid-half">
-				<table class="table-list">
+
+		// Check if /install directory is still on the server
+		if(file_exists(__DIR__ . '/../../install') || is_dir(__DIR__ . '/../../install')) {
+			echo Html::notification("It's recommended to delete or rename the /install folder.", "warning", true);
+		}
+	?>
+	<div class="row">
+		<div class="col-6">
+			<table class="table">
+				<thead>
 					<tr>
 						<th colspan="2">Board Overview</th>
 					</tr>
-					<tr>
-						<td class="title">Members</td>
-						<td><?php __($registered['total']) ?> registered</td>
-					</tr>
-					<tr>
-						<td class="title">Post Statistics</td>
-						<td><?php __($posts['total']) ?> posts in <?php __($threads['total']) ?> threads <em>(avg. <?php echo $posts['average'] ?> posts per thread)</em></td>
-					</tr>
-				</table>
-			</div>
+				</thead>
+				<tr>
+					<td class="font-w600">Members</td>
+					<td><?php __($registered['total']) ?> registered</td>
+				</tr>
+				<tr>
+					<td class="font-w600">Post Statistics</td>
+					<td><?php __($posts['total']) ?> posts in <?php __($threads['total']) ?> threads (avg. <?php echo $posts['average'] ?> posts per thread)</td>
+				</tr>
+			</table>
+		</div>
 
-			<div class="grid-spacing"></div>
-
-			<!-- RIGHT -->
-			<div class="grid-half">
-				<table class="table-list">
+		<div class="col-6">
+			<table class="table">
+				<thead>
 					<tr>
 						<th colspan="2">Server Environment</th>
 					</tr>
-					<tr>
-						<td class="title">Software Version</td>
-						<td>Addictive Community <?php echo VERSION . "-" . CHANNEL; ?></td>
-					</tr>
-					<tr>
-						<td class="title">Software Updates</td>
-						<td>
-							<input type="hidden" id="current-version" value="<?php echo VERSION ?>">
-							<div class="loader"><img src="images/loader.gif"> Checking...</div>
-							<div class="update-message fail">Unable to connect to GitHub servers.</div>
-							<div class="update-message no-updates">There is no software update available.</div>
-							<div class="update-message done">New update available to <span></span>.</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="title">Server Software</td>
-						<td><?php __($srvsoft); ?></td>
-					</tr>
-					<tr>
-						<td class="title">MySQL Version</td>
-						<td><?php __($mysqlversion); ?></td>
-					</tr>
-				</table>
-			</div>
+				</thead>
+				<tr>
+					<td class="font-w600">Software Version</td>
+					<td>Addictive Community <?php echo VERSION . "-" . CHANNEL; ?></td>
+				</tr>
+				<tr>
+					<td class="font-w600">Software Updates</td>
+					<td>
+						<input type="hidden" id="current-version" value="<?php echo VERSION ?>">
+						<div class="loader"><img src="images/loader.gif"> Checking...</div>
+						<div class="update-message fail">Unable to connect to GitHub servers.</div>
+						<div class="update-message no-updates">There are no updates currently available.</div>
+						<div class="update-message done">New update available to <span></span>.</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="font-w600">Server Software</td>
+					<td><?php __($server_software); ?></td>
+				</tr>
+				<tr>
+					<td class="font-w600">MySQL Version</td>
+					<td><?php __($mysqlversion); ?></td>
+				</tr>
+			</table>
 		</div>
+	</div>
 
-		<div class="grid-row">
-			<!-- LEFT -->
-			<div class="grid-full">
-				<table class="table-list">
+	<div class="row">
+		<div class="col-12">
+			<table class="table margin-no">
+				<thead>
 					<tr>
 						<th colspan="10">Abuse Reports</th>
 					</tr>
-					<tr class="subtitle">
+					<tr>
 						<td class="min">ID</td>
 						<td>Reported by</td>
 						<td>Date</td>
@@ -163,8 +171,9 @@
 						<td>Reported a post?</td>
 						<td class="min"></td>
 					</tr>
-					<?php echo $html ?>
-				</table>
-			</div>
+				</thead>
+				<?php echo $html ?>
+			</table>
 		</div>
 	</div>
+</div>

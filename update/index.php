@@ -17,7 +17,6 @@
  * --------------------------------------------------------------------
  */
 
-require("../config.php");
 require("../init.php");
 require("../kernel/Admin.php");
 require("../kernel/Database.php");
@@ -26,6 +25,9 @@ require("../kernel/Text.php");
 
 define("MIN_PHP_VERSION", 5.3);
 define("MIN_SQL_VERSION", 5.1);
+
+// Load configuration file
+$config = parse_ini_file("../config.ini");
 
 $Db = new Database($config);
 $Admin = new Admin($Db);

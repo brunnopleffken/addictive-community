@@ -11,6 +11,8 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Kernel;
+
 class Template
 {
 	// HTML template
@@ -21,7 +23,7 @@ class Template
 	 * INSERT HTML INTO $this->html
 	 * --------------------------------------------------------------------
 	 */
-	public static function Add($html = "")
+	public static function add($html = "")
 	{
 		self::$html .= $html;
 	}
@@ -31,7 +33,7 @@ class Template
 	 * GET HTML TEMPLATE STORED IN $this->html
 	 * --------------------------------------------------------------------
 	 */
-	public static function Get()
+	public static function get()
 	{
 		return self::$html;
 	}
@@ -41,7 +43,7 @@ class Template
 	 * CLEAN ALL
 	 * --------------------------------------------------------------------
 	 */
-	public static function Clean()
+	public static function clean()
 	{
 		self::$html = "";
 	}

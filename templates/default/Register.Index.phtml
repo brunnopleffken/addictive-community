@@ -1,0 +1,108 @@
+<h1>
+	<small><?= $community_name ?></small>
+	<?php __("R_TITLE") ?>
+</h1>
+
+<?php if($is_register_disabled == 1): ?>
+	<?= \AC\Kernel\Html::notification("Registration has been disabled.", "warning", true); ?>
+<?php else: ?>
+	<div class="block">
+		<?php if($step == 1): ?>
+			<div class="step-box" style="width: 50%">
+				<div class="current"><h3><?php __("R_STEP_1") ?></h3><small><?php __("R_STEP_AGREEMENT") ?></small></div>
+				<div><h3><?php __("R_STEP_2") ?></h3><small><?php __("R_STEP_YOUR_ACCOUNT") ?></small></div>
+				<div><h3><?php __("R_STEP_3") ?></h3><small><?php __("R_STEP_CONFIRMATION") ?></small></div>
+			</div>
+			<div class="form-group text-center">
+				<textarea class="form-control" style="max-width: 600px; height: 200px" readonly><?php __("R_EULA") ?></textarea>
+			</div>
+			<div class="form-group text-center margin-no">
+				<button class="btn btn-cancel" onclick="javascript:location.href='/'">
+					<?php __("R_DISAGREE") ?>
+				</button>
+				<button class="btn btn-default" onclick="javascript:location.href='register?step=2'">
+					<?php __("R_AGREE") ?>
+				</button>
+			</div>
+		<?php elseif($step == 2): ?>
+			<div class="step-box" style="width: 50%">
+				<div class="prev"><h3><?php __("R_STEP_1") ?></h3><small><?php __("R_STEP_AGREEMENT") ?></small></div>
+				<div class="current"><h3><?php __("R_STEP_2") ?></h3><small><?php __("R_STEP_YOUR_ACCOUNT") ?></small></div>
+				<div><h3><?php __("R_STEP_3") ?></h3><small><?php __("R_STEP_CONFIRMATION") ?></small></div>
+			</div>
+			<?= $notification ?>
+			<form action="register/sign_up" method="post">
+				<div class="form-group grid">
+					<label class="col-3"><?php __("R_USERNAME") ?></label>
+					<div class="col-3">
+						<input type="text" name="username" id="username" maxlength="20" class="form-control" onkeyup="register.checkUsername()" required>
+					</div>
+					<em class="form-control-static col-6"><?php __("R_USERNAME_NOTICE") ?></em>
+				</div>
+				<div class="form-group grid">
+					<label class="col-3"><?php __("R_PASSWORD") ?></label>
+					<div class="col-3">
+						<input type="password" name="password" id="password" class="form-control" required>
+					</div>
+					<em class="form-control-static col-6"><?php __("R_PASSWORD_NOTICE") ?></em>
+				</div>
+				<div class="form-group grid">
+					<label class="col-3"><?php __("R_RETYPE_PASSWD") ?></label>
+					<div class="col-3">
+						<input type="password" name="password_conf" id="password_conf" class="form-control" onkeyup="register.checkPassword()" required>
+					</div>
+					<div id="passwdMatch" class="form-control-static col-6" style="display:none; color:#bb0000; font-weight:bold;">
+						<i class="fa fa-exclamation-triangle"></i> <?php __("R_PASSWORD_ERROR") ?>
+					</div>
+				</div>
+				<div class="form-group grid">
+					<label class="col-3"><?php __("R_EMAIL_ADDR") ?></label>
+					<div class="col-5">
+						<input type="email" name="email" class="form-control" required>
+					</div>
+				</div>
+				<?php if($is_captcha): ?>
+					<div class="form-group grid">
+						<label class="col-3">
+							<?php __("R_CAPTCHA") ?>
+							<small><?php __("R_CAPTCHA_DESCRIPTION") ?></small>
+						</label>
+						<div class="col-9">
+							<input type="text" name="captcha" class="form-control span-2" maxlength="6" required>
+							<img src="register/captcha" alt="CAPTCHA" style="display: block; margin-top: 10px;">
+						</div>
+					</div>
+				<?php endif; ?>
+				<div class="text-right margin-no">
+					<input type="submit" id="formSubmit" class="btn btn-default" value="<?php __("R_STEP_2_SEND") ?>" disabled>
+				</div>
+			</form>
+		<?php elseif($step == 3): ?>
+			<div class="step-box" style="width: 50%">
+				<div class="prev"><h3><?php __("R_STEP_1") ?></h3><small><?php __("R_STEP_AGREEMENT") ?></small></div>
+				<div class="prev"><h3><?php __("R_STEP_2") ?></h3><small><?php __("R_STEP_YOUR_ACCOUNT") ?></small></div>
+				<div class="current"><h3><?php __("R_STEP_3") ?></h3><small><?php __("R_STEP_CONFIRMATION") ?></small></div>
+			</div>
+			<div class="form-group text-center margin-no">
+				<i class="fa fa-check" style="font-size: 50px"></i><br><br>
+				<h2><?php __("R_DONE_CONGRATULATIONS") ?></h2><br>
+				<h3><?php __("R_DONE_SUCCESS") ?></h3>
+				<?php if($general_security_validation): ?>
+					<h3><?php __("R_DONE_VALIDATE") ?></h3>
+				<?php endif; ?>
+			</div>
+		<?php elseif($step == 4): ?>
+			<div class="step-box" style="width: 50%">
+				<div class="prev"><h3><?php __("R_STEP_1") ?></h3><small><?php __("R_STEP_AGREEMENT") ?></small></div>
+				<div class="prev"><h3><?php __("R_STEP_2") ?></h3><small><?php __("R_STEP_YOUR_ACCOUNT") ?></small></div>
+				<div class="prev"><h3><?php __("R_STEP_3") ?></h3><small><?php __("R_STEP_CONFIRMATION") ?></small></div>
+				<div class="current"><h3><?php __("R_STEP_4") ?></h3><small><?php __("R_STEP_VALIDATION") ?></small></div>
+			</div>
+			<div class="form-group text-center margin-no">
+				<i class="fa fa-check" style="font-size: 50px"></i><br><br>
+				<h2><?php __("R_DONE_CONGRATULATIONS") ?></h2><br>
+				<h3><?php __("R_DONE_SUCCESS_VALIDATED") ?></h3>
+			</div>
+		<?php endif; ?>
+	</div>
+<?php endif; ?>

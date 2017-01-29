@@ -11,28 +11,24 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Kernel;
+
+use AC\Kernel\Session\SessionState;
+
 class Core
 {
 	// Community configurations
 	public $config = array();
-
-	// Database class
-	private $Db;
-
-	// Logged member information
-	private $member_info = array();
 
 	/**
 	 * --------------------------------------------------------------------
 	 * CORE() CLASS CONSTRUCTOR
 	 * --------------------------------------------------------------------
 	 */
-	public function __construct($database, $configurations, $member_info = array())
+	public function __construct($configurations)
 	{
 		// Load database layer and configurations array
-		$this->Db = $database;
 		$this->config = $configurations;
-		$this->member_info = $member_info;
 	}
 
 	/**
@@ -40,7 +36,7 @@ class Core
 	 * REDIRECT TO AN SPECIFIC URL
 	 * --------------------------------------------------------------------
 	 */
-	public function Redirect($url)
+	public function redirect($url)
 	{
 		if($url == "HTTP_REFERER") {
 			header("Location: " . $_SERVER['HTTP_REFERER']);
@@ -58,18 +54,22 @@ class Core
 	 * USE CUSTOM DATE FORMATTING
 	 * --------------------------------------------------------------------
 	 */
-	public function DateFormat($timestamp, $format = "long")
+	public function dateFormat($timestamp, $format = "long")
 	{
 		// Get long/short time formats from configurations table
 		if($format == "long") {
 			$format = $this->config['date_long_format'];  // Get long format date from $_config
-		}
-		else {
+		} else {
 			$format = $this->config['date_short_format'];  // Get short format date from $_config
 		}
 
 		// Get timezone offset
-		$user_offset = (isset($this->member_info['time_offset'])) ? $this->member_info['time_offset'] : $this->config['date_default_offset'];
+		if(isset(SessionState::$user_data['time_offset'])) {
+			$user_offset = SessionState::$user_data['time_offset'];
+		} else {
+			$user_offset = $this->config['date_default_offset'];
+		}
+
 		$timezone_offset = $user_offset * HOUR;
 
 		// format and return it
@@ -85,7 +85,7 @@ class Core
 	 * $section: public|admin
 	 * --------------------------------------------------------------------
 	 */
-	public function GetAvatar($info = array(), $size = 96, $section = "public", $d = "mm", $r = "g")
+	public function getAvatar($info = array(), $size = 96, $d = "mm", $r = "g")
 	{
 		switch($info['photo_type']) {
 			// Gravatar photo
@@ -97,13 +97,14 @@ class Core
 
 			// Uploaded photo
 			case "custom":
-				if($section == "public") {
-					$url = "public/avatar/{$info['photo']}";
-				}
-				else {
-					// Modify relative path when viewing in Admin CP
-					$url = "../public/avatar/{$info['photo']}";
-				}
+				// If custom photo is blank, show placeholder instead
+				$url = $info['photo'] == "" ? "static/images/no-photo.png" : "public/avatar/" . $info['photo'];
+				$url = $this->config['general_community_url'] . $url;
+				break;
+
+			// Something happened...
+			default:
+				$url = $this->config['general_community_url'] . "static/images/no-photo.png";
 				break;
 		}
 
@@ -112,29 +113,19 @@ class Core
 
 	/**
 	 * --------------------------------------------------------------------
-	 * PARSE EMOTICONS INSIDE POSTS AND MESSAGES :)
+	 * GET COVER PHOTO FOR MEMBER PROFILES
 	 * --------------------------------------------------------------------
 	 */
-	public function ParseEmoticons($text, $emoticons = array())
+	public function getCover($info)
 	{
-		if($this->config['thread_allow_emoticons']) {
-			// Empty array to store emoticons :O
-			$translate = array();
-
-			// Folder where images are located in ;)
-			$folder = "public/emoticons/" . $this->config['emoticon_default_set'];
-
-			foreach($emoticons as $item) {
-				$shortcut = Text::Sanitize($item['shortcut']);
-				$translate[$shortcut] = "<img src='{$folder}/{$item['filename']}' class='emoticon' alt='{$item['shortcut']}'>";
-			}
-
-			$retval = strtr(html_entity_decode($text), $translate);
-			return Text::RemoveHTMLElements($retval);
+		if($info['cover_photo'] == "") {
+			$cover_photo = $this->getAvatar($info, 1024);
 		}
 		else {
-			return Text::RemoveHTMLElements($text);
+			$cover_photo = "/public/cover/" . $info['cover_photo'];
 		}
+
+		return $cover_photo;
 	}
 
 	/**
@@ -142,23 +133,25 @@ class Core
 	 * CREATE CANONICAL TAG URL
 	 * --------------------------------------------------------------------
 	 */
-	public function CanonicalTag($thread_id)
+	public function canonicalTag($thread_id)
 	{
 		return $this->config['general_community_url'] . "index.php?module=thread&id=" . $thread_id;
 	}
 
 	/**
 	 * --------------------------------------------------------------------
-	 * CREATE CANONICAL TAG URL
+	 * BREADCRUMB GENERATOR
 	 * --------------------------------------------------------------------
 	 */
-	public function Breadcrumb($page_info = array())
+	public function breadcrumb($breadcrumb_path = array())
 	{
-		$breadcrumb = "";
+		$url = $this->config['general_community_url'];
+		$name = $this->config['general_community_name'];
+		$breadcrumb = "<li><a href='{$url}'>{$name}</a></li>";
 
-		if(!empty($page_info)) {
-			foreach($page_info['bc'] as $item) {
-				$breadcrumb .= " " . $this->config['general_bread_separator'] . " " . $item;
+		if(!empty($breadcrumb_path)) {
+			foreach($breadcrumb_path['bc'] as $item) {
+				$breadcrumb .= "<li>{$item}</li>";
 			}
 		}
 
@@ -167,10 +160,10 @@ class Core
 
 	/**
 	 * --------------------------------------------------------------------
-	 * CREATE CANONICAL TAG URL
+	 * SET HTML <TITLE> CONTENT
 	 * --------------------------------------------------------------------
 	 */
-	public function PageTitle($page_info = array())
+	public function pageTitle($page_info = array())
 	{
 		return (isset($page_info['title'])) ? $page_info['title'] . " - " : "";
 	}

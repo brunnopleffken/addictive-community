@@ -11,6 +11,8 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Kernel;
+
 class Html
 {
 	/**
@@ -18,7 +20,7 @@ class Html
 	 * REMOVE ALL NON-ALPHANUMERIC CHARACTER
 	 * --------------------------------------------------------------------
 	 */
-	public static function Sanitize($string, $allowed = array())
+	public static function sanitize($string, $allowed = array())
 	{
 		$allow = null;
 		if(!empty($allowed)) {
@@ -42,7 +44,7 @@ class Html
 	 * LIST OF DAYS OF THE MONTH (1 TO 31)
 	 * --------------------------------------------------------------------
 	 */
-	public static function Days($name, $current = 1, $show_placeholder = false)
+	public static function days($name, $current = 1, $show_placeholder = false)
 	{
 		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 60px'>";
 
@@ -65,7 +67,7 @@ class Html
 	 * $lang IS REQUIRED IF $numeric = false
 	 * --------------------------------------------------------------------
 	 */
-	public static function Months($name, $numeric = true, $current = 1, $show_placeholder = false)
+	public static function months($name, $numeric = true, $current = 1, $show_placeholder = false)
 	{
 		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 110px'>";
 
@@ -76,7 +78,7 @@ class Html
 		for($i = 1; $i <= 12; $i++) {
 			$selected = ($i == $current) ? "selected" : "";
 			if(!$numeric) {
-				$month_name = i18n::Translate("M_" . $i);
+				$month_name = i18n::translate("M_" . $i);
 				$retval .= "<option value='{$i}' {$selected}>{$month_name}</option>";
 			}
 			else {
@@ -93,7 +95,7 @@ class Html
 	 * REALLY NICE YEAR DROP-DOWN GENERATOR
 	 * --------------------------------------------------------------------
 	 */
-	public static function Years($name, $before = 0, $after = 0, $current = 0, $show_placeholder = false)
+	public static function years($name, $before = 0, $after = 0, $current = 0, $show_placeholder = false)
 	{
 		$now = date("Y", time());
 		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 75px'>";
@@ -119,7 +121,7 @@ class Html
 	 * LIST OF HOURS (0 TO 23)
 	 * --------------------------------------------------------------------
 	 */
-	public static function Hours($name, $current = 0)
+	public static function hours($name, $current = 0)
 	{
 		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 55px'>";
 		for($i = 0; $i <= 23; $i++) {
@@ -139,7 +141,7 @@ class Html
 	 * LIST OF MINUTES (0, 15, 30 AND 45)
 	 * --------------------------------------------------------------------
 	 */
-	public static function Minutes($name, $current = 0)
+	public static function minutes($name, $current = 0)
 	{
 		$retval = "<select name='{$name}' id='{$name}' class='select2-no-search' style='width: 55px'>";
 		for($i = 0; $i <= 45; $i += 15) {
@@ -159,19 +161,23 @@ class Html
 	 * SHOW NOTIFICATION MESSAGE
 	 * --------------------------------------------------------------------
 	 */
-	public static function Notification($message, $code = "", $persistent = false, $custom_title = "")
+	public static function notification($message, $code = "", $persistent = false, $custom_title = "")
 	{
 		switch($code) {
 			case "warning":
+				$class = "alert-warning";
 				$title = "WARNING!";
 				break;
 			case "success":
+				$class = "alert-success";
 				$title = "SUCCESS!";
 				break;
 			case "failure":
+				$class = "alert-danger";
 				$title = "ERROR!";
 				break;
 			case "info":
+				$class = "alert-info";
 				$title = "INFORMATION:";
 				break;
 		}
@@ -181,9 +187,8 @@ class Html
 		if($custom_title != "") {
 			$title = $custom_title;
 		}
-		$html = "<div class='notification " . $code . " " . $persistent . "'><p><strong>" . $title . "</strong> " . $message . "</p></div>";
 
-		return $html;
+		return "<div class='alert {$class} {$persistent}'><strong>{$title}</strong> {$message}</div>";
 	}
 
 	/**
@@ -191,7 +196,7 @@ class Html
 	 * FORUM RULES TEMPLATE
 	 * --------------------------------------------------------------------
 	 */
-	public static function ForumRules($title, $text)
+	public static function forumRules($title, $text)
 	{
 		return "<div class='notification warning'><p><strong>" . $title . "</strong> " . $text . "</p></div>";
 	}
@@ -201,9 +206,13 @@ class Html
 	 * CROP IMAGE TO FILL AREA
 	 * --------------------------------------------------------------------
 	 */
-	public static function Crop($image, $w = 0, $h = 0, $class = "")
+	public static function crop($image, $size = 0, $class = "")
 	{
-		return "<div style=\"display:inline-block; width:{$w}px; height:{$h}px; background: url('{$image}') no-repeat center top; background-size:cover; image-rendering: optimizeQuality;\" class='{$class}'></div>";
+		if($image == "public/avatar/") {
+			$image = "static/images/no-photo.png";
+		}
+
+		return "<div style=\"display:block; width:{$size}px; height:{$size}px; background: url('{$image}') no-repeat center top; background-size:cover\" class='crop {$class}'></div>";
 	}
 
 	/**
@@ -211,9 +220,34 @@ class Html
 	 * SHOW ERROR MESSAGE
 	 * --------------------------------------------------------------------
 	 */
-	public static function Error($message)
+	public static function throwError($message)
 	{
 		echo "<h1>Error!</h1><p>" . $message . "</p><hr><em>Addictive Community - (c) " . date("Y") . " All rights reserved.</em>";
 		exit;
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * BUILD PAGINATION
+	 * --------------------------------------------------------------------
+	 */
+	public static function paginate($number_of_pages, $current_page, $url, $label = true)
+	{
+		$template = "<ul class=\"pagination\">";
+
+		if($label) {
+			$template .= "<li class=\"label\">Pages:</li>";
+		}
+
+		for($i = 1; $i <= $number_of_pages; $i++) {
+			$class = $current_page == $i ? "class=\"active\"" : "";
+			$formatted_url = sprintf($url, $i);
+
+			$template .= "<li {$class}><a href=\"{$formatted_url}\">{$i}</a></li>";
+		}
+
+		$template .= "</ul>";
+
+		return $template;
 	}
 }

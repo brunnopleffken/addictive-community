@@ -1,232 +1,233 @@
 <?php
 
-	## ---------------------------------------------------
-	#  ADDICTIVE COMMUNITY
-	## ---------------------------------------------------
-	#  Developed by Brunno Pleffken Hosti
-	#  File: adm_rooms_add.php
-	#  License: GPLv2
-	#  Copyright: (c) 2016 - Addictive Community
-	## ---------------------------------------------------
+## ---------------------------------------------------
+#  ADDICTIVE COMMUNITY
+## ---------------------------------------------------
+#  Developed by Brunno Pleffken Hosti
+#  File: adm_rooms_add.php
+#  License: GPLv2
+#  Copyright: (c) 2016 - Addictive Community
+## ---------------------------------------------------
 
-	// ---------------------------------------------------
-	// Get list of categories
-	// ---------------------------------------------------
+use \AC\Kernel\Database;
 
-	$categories = "";
-	$Db->Query("SELECT * FROM c_categories");
+// ---------------------------------------------------
+// Get list of categories
+// ---------------------------------------------------
 
-	while($_result = $Db->Fetch()) {
-		$categories .= "<option value='{$_result['c_id']}'>{$_result['name']}</option>";
-	}
+$categories = "";
+Database::query("SELECT * FROM c_categories");
 
-	// ---------------------------------------------------
-	// Create permission matrix
-	// ---------------------------------------------------
+while($_result = Database::fetch()) {
+	$categories .= "<option value='{$_result['c_id']}'>{$_result['name']}</option>";
+}
 
-	// View
+// ---------------------------------------------------
+// Create permission matrix
+// ---------------------------------------------------
 
-	function MatrixView()
-	{
-		global $Db;
+// View
 
-		$Db->Query("SELECT * FROM c_usergroups;");
+function MatrixView()
+{
+	Database::query("SELECT * FROM c_usergroups;");
 
-		$title = "";
-		$checkboxes = "";
+	$title = "";
+	$checkboxes = "";
 
-		while($view_g = $Db->Fetch()) {
-			$title .= "<td>{$view_g['name']}</td>";
+	while($view_g = Database::fetch()) {
+		$title .= "<td>{$view_g['name']}</td>";
 
-			if($view_g['view_board'] == 1) {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='view[]' value='V_{$view_g['g_id']}' checked></td>";
-			}
-			else {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='view[]' value='V_{$view_g['g_id']}'></td>";
-			}
+		if($view_g['view_board'] == 1) {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='view[]' value='V_{$view_g['g_id']}' checked></td>";
 		}
-
-		$view = "
-		<table cellspacing='0'><tr>
-			{$title}
-			</tr><tr>
-			{$checkboxes}
-		</tr></table>";
-
-		return $view;
-	}
-
-	// Post
-
-	function MatrixPost()
-	{
-		global $Db;
-
-		$Db->Query("SELECT * FROM c_usergroups;");
-
-		$title = "";
-		$checkboxes = "";
-
-		while($view_g = $Db->Fetch()) {
-			$title .= "<td>{$view_g['name']}</td>";
-
-			if($view_g['post_new_threads'] == 1) {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='post[]' value='V_{$view_g['g_id']}' checked></td>";
-			}
-			else {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='post[]' value='V_{$view_g['g_id']}'></td>";
-			}
+		else {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='view[]' value='V_{$view_g['g_id']}'></td>";
 		}
-
-		$post = "
-		<table cellspacing='0'><tr>
-			{$title}
-			</tr><tr>
-			{$checkboxes}
-		</tr></table>";
-
-		return $post;
 	}
 
-	// Reply
+	$view = "
+	<table cellspacing='0'>
+		<tr>{$title}</tr>
+		<tr>{$checkboxes}</tr>
+	</table>";
 
-	function MatrixReply()
-	{
-		global $Db;
+	return $view;
+}
 
-		$Db->Query("SELECT * FROM c_usergroups;");
+// Post
 
-		$title = "";
-		$checkboxes = "";
+function MatrixPost()
+{
+	Database::query("SELECT * FROM c_usergroups;");
 
-		while($view_g = $Db->Fetch()) {
-			$title .= "<td>{$view_g['name']}</td>";
+	$title = "";
+	$checkboxes = "";
 
-			if($view_g['reply_threads'] == 1) {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='reply[]' value='V_{$view_g['g_id']}' checked></td>";
-			}
-			else {
-				$checkboxes .= "<td class='center'><input type='checkbox' name='reply[]' value='V_{$view_g['g_id']}'></td>";
-			}
+	while($view_g = Database::fetch()) {
+		$title .= "<td>{$view_g['name']}</td>";
+
+		if($view_g['post_new_threads'] == 1) {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='post[]' value='V_{$view_g['g_id']}' checked></td>";
 		}
-
-		$reply = "
-		<table cellspacing='0'><tr>
-			{$title}
-			</tr><tr>
-			{$checkboxes}
-		</tr></table>";
-
-		return $reply;
+		else {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='post[]' value='V_{$view_g['g_id']}'></td>";
+		}
 	}
+
+	$post = "
+	<table cellspacing='0'><tr>
+		{$title}
+		</tr><tr>
+		{$checkboxes}
+	</tr></table>";
+
+	return $post;
+}
+
+// Reply
+
+function MatrixReply()
+{
+	Database::query("SELECT * FROM c_usergroups;");
+
+	$title = "";
+	$checkboxes = "";
+
+	while($view_g = Database::fetch()) {
+		$title .= "<td>{$view_g['name']}</td>";
+
+		if($view_g['reply_threads'] == 1) {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='reply[]' value='V_{$view_g['g_id']}' checked></td>";
+		}
+		else {
+			$checkboxes .= "<td class='center'><input type='checkbox' name='reply[]' value='V_{$view_g['g_id']}'></td>";
+		}
+	}
+
+	$reply = "
+	<table cellspacing='0'><tr>
+		{$title}
+		</tr><tr>
+		{$checkboxes}
+	</tr></table>";
+
+	return $reply;
+}
 
 ?>
 
 <h1>Add New Room</h1>
 
-<div id="content">
-	<div class="grid-row">
-		<!-- LEFT -->
-		<form action="process.php?do=newroom" method="post">
-
-			<table class="table-list">
+<div class="block">
+	<form action="process.php?do=newroom" method="post">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">Room Settings</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Room Name</td>
-					<td><input type="text" name="name" class="medium"></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Room Description</td>
-					<td><textarea name="description" class="large" rows="5"></textarea></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Category</td>
-					<td>
-						<select name="category_id">
-							<?php echo $categories ?>
-						</select>
-					</td>
-				</tr>
-			</table>
+			</thead>
+			<tr>
+				<td class="font-w600">Room name</td>
+				<td><input type="text" name="name" class="form-control span-6"></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Room description</td>
+				<td><textarea name="description" class="form-control span-6" rows="5"></textarea></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Category</td>
+				<td>
+					<select name="category_id" class="form-control span-6">
+						<?php echo $categories ?>
+					</select>
+				</td>
+			</tr>
+		</table>
 
-			<table class="table-list">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">Redirect Settings</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">URL to Redirect<span class="title-desc">If so, the member will be redirected to the specified URL, instead of opening a regular room.</span></td>
-					<td><input type="text" name="url" class="large"></td>
-				</tr>
-			</table>
+			</thead>
+			<tr>
+				<td class="font-w600">URL to redirect<small>If so, the member will be redirected to the specified URL.</small></td>
+				<td><input type="url" name="url" class="form-control span-6"></td>
+			</tr>
+		</table>
 
-			<table class="table-list">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">Security</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Password Protection<span class="title-desc">Leave empty if not required</span></td>
-					<td><input type="password" name="password" class="small"></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Read Only</td>
-					<td><label><input type="checkbox" name="read_only"> Mark room as Read Only (post and reply not allowed).</label></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Invisible</td>
-					<td><label><input type="checkbox" name="invisible"> Set room as invisible for members, except Administrators.</label></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Uploads</td>
-					<td><input type="checkbox" name="upload" checked="checked"> Allow file uploads in this room.</td>
-				</tr>
-			</table>
+			</thead>
+			<tr>
+				<td class="font-w600">Password protection<small>Leave empty if not required</small></td>
+				<td><input type="password" name="password" class="form-control span-3"></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Read only</td>
+				<td><label><input type="checkbox" name="read_only"> Mark room as Read Only (new posts and replies not allowed for members).</label></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Invisible</td>
+				<td><label><input type="checkbox" name="invisible"> Set room as invisible for members, except Administrators.</label></td>
+			</tr>
+			<tr>
+				<td class="font-w600">File uploads</td>
+				<td><input type="checkbox" name="upload" checked="checked"> Allow attachments in posts in this room.</td>
+			</tr>
+		</table>
 
-			<table class="table-list">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">Permissions</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Read Threads</td>
-					<td>
-						<?php echo MatrixView() ?>
-					</td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Post New Thread</td>
-					<td>
-						<?php echo MatrixPost() ?>
-					</td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Reply Threads</td>
-					<td>
-						<?php echo MatrixReply() ?>
-					</td>
-				</tr>
-			</table>
+			</thead>
+			<tr>
+				<td class="font-w600">Read threads</td>
+				<td>
+					<?php echo MatrixView() ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="font-w600">Create new threads</td>
+				<td>
+					<?php echo MatrixPost() ?>
+				</td>
+			</tr>
+			<tr>
+				<td class="font-w600">Reply threads</td>
+				<td>
+					<?php echo MatrixReply() ?>
+				</td>
+			</tr>
+		</table>
 
-			<table class="table-list">
+		<table class="table">
+			<thead>
 				<tr>
 					<th colspan="2">Rules</th>
 				</tr>
-				<tr>
-					<td class="title-fixed">Enable custom rules<span class="title-desc">Add specific rules to this room?</span></td>
-					<td><label><input type="checkbox" id="rules_visible" name="rules_visible" onclick="CustomRulesSelect()"> Enable custom rules to this room.</label></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Rules Title</td>
-					<td><input type="text" name="rules_title" id="rules_title" class="medium" disabled></td>
-				</tr>
-				<tr>
-					<td class="title-fixed">Rules Description</td>
-					<td><textarea name="rules_text" id="rules_text" class="large" rows="8" disabled></textarea></td>
-				</tr>
-			</table>
-
-			<div class="box fright"><input type="submit" value="Create Room"></div>
-
-		</form>
-	</div>
+			</thead>
+			<tr>
+				<td class="font-w600">Enable custom rules<small>Add an alert board at the top of this room?</small></td>
+				<td><label><input type="checkbox" id="rules_visible" name="rules_visible" onclick="CustomRulesSelect()"> Enable custom rules to this room.</label></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Rules title</td>
+				<td><input type="text" name="rules_title" id="rules_title" class="form-control span-4" disabled></td>
+			</tr>
+			<tr>
+				<td class="font-w600">Rules description</td>
+				<td><textarea name="rules_text" id="rules_text" class="form-control span-6" rows="8" disabled></textarea></td>
+			</tr>
+		</table>
+		<div class="text-right">
+			<input type="submit" class="btn btn-default" value="Create Room">
+		</div>
+	</form>
 </div>

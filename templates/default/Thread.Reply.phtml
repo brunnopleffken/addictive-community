@@ -1,43 +1,42 @@
-<div class="title-bar">
-	<div class="title">
-		<span><?php __($community_name) ?></span>
-		<?php __("P_ADD_REPLY") ?>: <?php echo $thread_info['title'] ?>
-	</div>
-</div>
+<h1>
+	<small><?= $community_name ?></small>
+	<?php __("P_ADD_REPLY") ?>: <?= $thread_info['title'] ?>
+</h1>
 
-<div class="box">
-	<form action="thread/save/<?php echo $thread_id ?>" method="post" class="validate" enctype="multipart/form-data">
+<div class="block">
+	<form action="thread/save_reply/<?= $thread_id ?>" method="post" enctype="multipart/form-data">
 		<?php if(!empty($quote)): ?>
-			<div class="input-box">
-				<div class="label"><?php __("P_QUOTE") ?></div>
-				<div class="field" style="padding: 7px 0">
-					<?php __($quote['post']) ?>
-					<input type="hidden" name="quote_post_id" value="<?php __($quote['p_id']) ?>">
+			<div class="form-group grid">
+				<label for="" class="col-2"><?php __("P_QUOTE") ?></label>
+				<div class="col-10" style="padding: 8px 10px">
+					<?= $quote['post'] ?>
+					<input type="hidden" name="quote_post_id" value="<?= $quote['p_id'] ?>">
 				</div>
 			</div>
 		<?php endif; ?>
-		<div class="input-box">
-			<div class="label"><?php __("P_POST") ?></div>
-			<div class="field">
-				<textarea name="post" id="post" class="full" rows="12"></textarea>
+		<div class="form-group grid">
+			<label for="" class="col-2"><?php __("P_POST") ?></label>
+			<div class="col-10">
+				<textarea name="post" id="post" rows="30"></textarea>
 			</div>
 		</div>
 		<?php if($allow_uploads): ?>
-			<div class="input-box">
-				<div class="label"><?php __("P_ATTACHMENTS") ?></div>
-				<div class="field">
-					<div style='display: inline-block'><input type="file" name="attachment"></div>
-					<small><?php __($attachment_size_warning) ?></small>
+			<div class="form-group grid">
+				<label for="" class="col-2"><?php __("P_ATTACHMENTS") ?></label>
+				<div class="col-6">
+					<input type="file" name="attachment">
 				</div>
 			</div>
 		<?php endif; ?>
-		<div class="fleft">
-			<div class="error-message"><?php __("P_ERROR") ?></div>
-		</div>
-		<div class="fright">
-			<input type="hidden" name="room_id" value="<?php echo $thread_info['r_id'] ?>">
-			<input type="hidden" name="thread_id" value="<?php echo $thread_id ?>">
-			<input type="submit" value="<?php __("P_ADD_REPLY_SUBMIT") ?>">
+		<div class="pull-clear">
+			<div class="pull-left">
+				<div class="error-message"><?php __("P_ERROR") ?></div>
+			</div>
+			<div class="pull-right">
+				<input type="hidden" name="room_id" value="<?= $thread_info['r_id'] ?>">
+				<input type="hidden" name="thread_id" value="<?= $thread_id ?>">
+				<input type="submit" value="<?php __("P_ADD_REPLY_SUBMIT") ?>" class="btn btn-default">
+			</div>
 		</div>
 	</form>
 </div>

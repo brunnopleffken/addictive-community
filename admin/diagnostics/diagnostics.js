@@ -14,7 +14,7 @@ $(document).ready(function($) {
 	// Failure tests and error messages
 	var tests = [
 		{ name: 'config-exists', error: 'Have you deleted this file? Upload it again.' },
-		{ name: 'config-has-data', error: 'Maybe your config.php file is not writtable.' },
+		{ name: 'config-has-data', error: 'Maybe your config.ini file is not writtable.' },
 		{ name: 'db-connect', error: 'The data you informed during installation are not valid. Try to reinstall.' },
 		{ name: 'db-database', error: 'The database server exists, but the database name doesn\'t match. Try to reinstall.' },
 		{ name: 'db-tables', error: 'The database server exists, there are missing tables. Delete all remaining tables (if any) and try to reinstall.' },

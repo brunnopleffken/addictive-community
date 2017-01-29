@@ -1,0 +1,67 @@
+<h1>
+	<small><?= $community_name ?></small>
+	<?php __("M_TITLE") ?>
+</h1>
+
+<div class="pull-clear push-10">
+	<ul class="pagination condensed pull-right">
+		<?= $letter_first ?>
+		<?= $letter_list ?>
+		<?= $numbers ?>
+	</ul>
+</div>
+
+<div class="block padding-no">
+	<table class="table">
+		<thead>
+			<tr>
+				<th colspan="6">
+					<?php if($term): ?>
+						<?php __("M_SEARCH") ?>: "<?= $term ?>"
+					<?php endif; ?>
+					<div class="pull-right text-s0">
+						<a href="members?<?= $letter_param ?>order=name" class="label invert"><?php __("M_MEMBER_NAME") ?></a>
+						<a href="members?<?= $letter_param ?>order=join" class="label invert"><?php __("M_JOIN_DATE") ?></a>
+						<a href="members?<?= $letter_param ?>order=post" class="label invert"><?php __("M_POST_COUNT") ?></a>
+					</div>
+				</th>
+			</tr>
+			<tr>
+				<td class="min"></td>
+				<td><?php __("M_MEMBER_NAME") ?></td>
+				<td><?php __("M_JOINED") ?></td>
+				<td><?php __("M_POSTS") ?></td>
+				<td><?php __("M_LOCATION") ?></td>
+				<td><?php __("M_GROUP") ?></td>
+			</tr>
+		</thead>
+		<tbody>
+			<?php if(!empty($results)): ?>
+				<?php foreach($results as $k => $v): ?>
+					<tr>
+						<td class="min"><?= \AC\Kernel\Html::crop($results[$k]['avatar'], 40) ?></td>
+						<td class="font-w600">
+							<a href="profile/<?= $results[$k]['m_id'] ?>"><?= $results[$k]['username'] ?></a>
+						</td>
+						<td><?= $results[$k]['joined'] ?></td>
+						<td><?= $results[$k]['posts'] ?></td>
+						<td><?= $results[$k]['location'] ?></td>
+						<td><?= $results[$k]['name'] ?></td>
+					</tr>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<tr>
+					<td colspan="6" class="text-center"><?php __("M_NO_RESULTS") ?></td>
+				</tr>
+			<?php endif; ?>
+		</tbody>
+	</table>
+</div>
+
+<div class="block">
+	<form method="get" class="inline">
+		<p class="form-control-static"><?php __("M_SEARCH") ?>:</p>
+		<input type="text" name="term" minlength="3" class="form-control span-3" required>
+		<input type="submit" class="btn btn-default" value="OK">
+	</form>
+</div>

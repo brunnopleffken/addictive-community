@@ -1,0 +1,339 @@
+<?= $thread_info['obsolete_notification'] ?>
+<div class="block padding-no thread">
+	<div class="thread-post-author">
+		<img src="http://www.gravatar.com/avatar/d4863bc04b657b65c24b02aa0b62f32e?s=100&d=mm&r=g" class="thread-post-author-avatar">
+		<div class="thread-post-author-info">
+			<a href="profile/<?= $first_post_info['m_id'] ?>"><?= $first_post_info['username'] ?></a>
+			<span>
+				<?= $first_post_info['posts'] ?> <?php __("T_POSTS_LOWCASE") ?> &middot;
+				<?= __("T_POST_REGISTERED") . ": " . $first_post_info['joined'] ?>
+			</span>
+			<span><?= $first_post_info['location'] ?></span>
+		</div>
+		<div class="thread-post-author-share">
+			<a href="#"><i class="fa fa-share-alt"></i></a>
+			<div class="block thread-post-author-share-box">
+				<a href="https://www.facebook.com/sharer/sharer.php?u=<?= $url ?>" class="fb"><i class="fa fa-facebook-square"></i></a>
+				<a href="http://twitter.com/share?text=<?= $first_post_info['title'] ?>&url=<?= $url ?>" class="tw"><i class="fa fa-twitter-square"></i></a>
+				<a href="http://www.reddit.com/submit?url=<?= $url ?>" class="rd"><i class="fa fa-reddit-square"></i></a>
+				<a href="https://plus.google.com/share?url=<?= $url ?>" class="gp"><i class="fa fa-google-plus-square"></i></a>
+				<a href="http://www.linkedin.com/shareArticle?mini=true&url=<?= $url ?>" class="ln"><i class="fa fa-linkedin-square"></i></a>
+			</div>
+		</div>
+	</div>
+	<div class="thread-post-content">
+		<h1><?= $first_post_info['title'] ?></h1>
+		<div class="thread-post-content-body">
+			<?= $first_post_info['post'] ?>
+		</div>
+		<?php if($first_post_info['attach_id'] != 0): ?>
+			<div class="thread-attachments">
+				<div class="title"><?php __("P_ATTACHMENTS") ?></div>
+				<div class="attachment">
+					<a href="<?= $first_post_info['attachment_link'] ?>" target="_blank" rel="nofollow">
+						<span class="file-icon <?= $first_post_info['type'] ?>"></span>
+						<div class="file-name">
+							<span><?= $first_post_info['filename'] ?></span>
+							<?php __(\AC\Kernel\Text::fileSizeFormat($first_post_info['size'])) ?>
+						</div>
+					</a>
+				</div>
+			</div>
+		<?php endif; ?>
+		<div class="thread-post-content-signature">
+			<?= $first_post_info['signature'] ?>
+		</div>
+	</div>
+
+	<?php if($thread_info['poll']['has_poll']): ?>
+		<!-- START poll -->
+		<div class="thread-post-poll">
+			<p class="title"><?= $thread_info['poll']['question'] ?></p>
+			<?php if($thread_info['poll']['has_voted']): ?>
+				<!-- START answered poll -->
+				<div class="already-voted">
+					<i class="fa fa-fw fa-check"></i>
+					Already voted
+				</div>
+				<div class="replies">
+					<?php foreach($thread_info['poll']['choices'] as $k => $question): ?>
+						<div class="question"><?= $question ?></div>
+						<div class="progress-bar">
+							<div class="fill" style="width: <?= $thread_info['poll']['replies_p'][$k] ?>%"></div>
+							<span><?= $thread_info['poll']['replies_n'][$k] ?> votes</span>
+							<div class="label">
+								<span><?= round($thread_info['poll']['replies_p'][$k], 1) ?>%</span>
+							</div>
+						</div>
+					<?php endforeach; ?>
+				</div>
+				<!-- END answered poll -->
+			<?php else: ?>
+				<!-- START poll options -->
+				<form action="thread/save_poll/<?= $thread_id ?>" method="post">
+					<div class="questions">
+						<?php foreach($thread_info['poll']['choices'] as $index => $question): ?>
+							<?php if($thread_info['poll']['multiple']): ?>
+								<label class="option checkbox-control">
+									<input type="checkbox" name="chosen_option[]" value="<?= $index ?>"><span><i class="fa fa-check"></i></span>
+									<?= $question ?>
+								</label>
+							<?php else: ?>
+								<label class="option radio-control">
+									<input type="radio" name="chosen_option" value="<?= $index ?>"><span></span>
+									<?= $question ?>
+								</label>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</div>
+					<?php if($member_id != 0): ?>
+						<input type="submit" value="Vote" class="btn btn-default">
+					<?php else: ?>
+						<input type="submit" value="You're unable to vote" disabled>
+					<?php endif; ?>
+				</form>
+				<!-- END poll options -->
+			<?php endif; ?>
+		</div>
+		<!-- END poll -->
+	<?php endif; ?>
+
+	<div class="thread-post-info">
+		<i class="fa fa-clock-o"></i>
+		<?php __("T_POSTED_ON", array($first_post_info['post_date'])) ?> <?= $first_post_info['edited'] ?>
+		<?php if($member_id != 0): ?>
+			<ul class="options-list pull-right hide-xs">
+				<?php if($first_post_info['is_author']): ?>
+					<li>
+						<a href="thread/edit/<?= $first_post_info['p_id'] ?>">
+							<i class="fa fa-pencil"></i><span><?php __("T_EDIT") ?></span>
+						</a>
+					</li>
+				<?php endif; ?>
+				<li>
+					<a href="report/thread/<?= $thread_id ?>" class="fancybox fancybox.ajax">
+						<i class="fa fa-exclamation-triangle"></i><span><?php __("T_REPORT_ABUSE") ?></span>
+					</a>
+				</li>
+			</ul>
+		<?php endif; ?>
+	</div>
+</div>
+
+<!-- BUTTONS -->
+
+<div class="thread-buttons">
+	<?php if($is_member): ?>
+		<?php if($thread_info['obsolete']): ?>
+			<a class="btn btn-default btn-lg btn-disabled pull-right"><?php __("T_BTN_OBSOLETE") ?></a>
+		<?php elseif($thread_info['locked'] == 0 && $thread_info['allow_to_reply']): ?>
+			<a href="thread/reply/<?= $thread_id ?>" class="btn btn-default btn-lg pull-right"><?php __("T_BTN_ADD") ?></a>
+		<?php else: ?>
+			<a class="btn btn-default btn-lg btn-disabled pull-right"><?php __("T_BTN_LOCKED") ?></a>
+		<?php endif; ?>
+	<?php endif; ?>
+	<div class="thread-buttons-replies">
+		<?php __("T_REPLIES") ?>: <span><?= $thread_info['post_count_display'] ?></span>
+	</div>
+</div>
+
+<!-- REPLIES -->
+
+<?php if(!empty($reply)): ?>
+	<?php foreach($reply as $k => $v): ?>
+		<div class="block padding-no thread-reply">
+			<a id="post-<?= $reply[$k]['p_id'] ?>"></a>
+			<div class="thread-reply-content">
+				<div class="thread-reply-content-author text-center">
+					<?php if($reply[$k]['usergroup'] != 0): ?>
+						<div class="thread-reply-content-author-avatar">
+							<?= \AC\Kernel\Html::crop($reply[$k]['avatar'], 98, "image") ?>
+						</div>
+						<a href="profile/<?= $reply[$k]['m_id'] ?>" class="thread-reply-content-author-username">
+							<?= $reply[$k]['username'] ?>
+						</a>
+						<!-- START tablet/desktop only -->
+						<span class="thread-reply-content-author-rank hide-xs">
+							<span class="pips"><?= $reply[$k]['rank_pips'] ?></span>
+							<?= $reply[$k]['rank_name'] ?>
+						</span>
+						<!-- END tablet/desktop only -->
+						<!-- START mobile only -->
+						<span class="thread-reply-content-author-rank show-xs">
+							<?= $reply[$k]['posts'] ?> <?php __("T_POSTS_LOWCASE") ?>
+						</span>
+						<!-- END mobile only -->
+						<ul class="thread-reply-content-author-info hide-xs">
+							<li><span><?php __("T_POST_POSTS") ?></span><?= $reply[$k]['posts'] ?> <?php __("T_POSTS_LOWCASE") ?></li>
+							<li><span><?php __("T_POST_REGISTERED") ?></span><?= $reply[$k]['joined'] ?></li>
+							<li><span><?php __("T_POST_LOCATION") ?></span><?= $reply[$k]['location'] ?></li>
+						</ul>
+					<?php else: ?>
+						<p class="thread-reply-content-author-username deleted"><?= $reply[$k]['username'] ?></p>
+						<span class="thread-reply-content-author-rank hide-xs">Deleted</span>
+					<?php endif; ?>
+				</div>
+				<div class="thread-reply-content-body">
+					<a href="thread/reply/<?= $thread_id ?>?quote=<?= $reply[$k]['p_id'] ?>" class="thread-reply-content-body-reply hide-xs">
+						<span><?php __("T_REPLY_POST") ?></span>
+						<i class="fa fa-quote-right"></i>
+					</a>
+					<div class="thread-reply-content-body-date">
+						<?php __("T_POSTED_ON", array($reply[$k]['post_date'])) ?>
+						<?= $reply[$k]['edited'] ?>
+					</div>
+					<?php if($reply[$k]['has_quote']): ?>
+						<!-- START quote -->
+						<div class="thread-reply-content-body-quote">
+							<div class="thread-reply-content-body-quote-author">
+								<?php __("T_QUOTED_POSTED_ON", array($reply[$k]['quote_author'], $reply[$k]['quote_time'])) ?>
+							</div>
+							<div class="thread-reply-content-body-quote-message">
+								<?= $reply[$k]['quote_post'] ?>
+							</div>
+						</div>
+						<!-- END quote -->
+					<?php endif; ?>
+					<div class="thread-reply-content-body-post">
+						<?= $reply[$k]['post'] ?>
+					</div>
+					<?php if($reply[$k]['attach_id'] != 0): ?>
+						<div class="thread-attachments">
+							<div class="title"><?php __("P_ATTACHMENTS") ?></div>
+							<div class="attachment">
+								<a href="<?= $reply[$k]['attachment_link'] ?>" target="_blank" rel="nofollow">
+									<span class="file-icon <?= $reply[$k]['type'] ?>"></span>
+									<div class="file-name">
+										<span><?= $reply[$k]['filename'] ?></span>
+										<?php __(\AC\Kernel\Text::fileSizeFormat($reply[$k]['size'])) ?>
+									</div>
+								</a>
+							</div>
+						</div>
+					<?php endif; ?>
+					<div class="thread-reply-content-body-signature">
+						<?= $reply[$k]['signature'] ?>
+					</div>
+				</div>
+			</div>
+			<div class="thread-reply-options pull-clear">
+				<ul class="options-list pull-left">
+					<?php if($is_member): ?>
+						<li>
+							<a href="report/post/<?= $reply[$k]['p_id'] ?>" class="fancybox fancybox.ajax">
+								<i class="fa fa-exclamation-triangle"></i><span><?php __("T_REPORT_POST") ?></span>
+							</a>
+						</li>
+					<?php endif; ?>
+				</ul>
+				<ul class="options-list pull-right">
+					<?php foreach($reply[$k]['post_controls'] as $v): ?>
+						<li>
+							<a href="<?= $v['url'] ?>" class="<?= $v['class'] ?>" <?= $v['data'] ?>>
+								<i class="fa <?= $v['icon'] ?>"></i><span><?= $v['text'] ?></span>
+							</a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+		</div>
+	<?php endforeach; ?>
+<?php else: ?>
+	<div class="block text-center"><?php __("T_NO_REPLIES") ?></div>
+<?php endif; ?>
+
+<!-- PAGINATION AND BUTTONS -->
+
+<div class="thread-buttons">
+	<?php if($is_member): ?>
+		<?php if($thread_info['obsolete']): ?>
+			<a class="btn btn-default btn-lg btn-disabled pull-right"><?php __("T_BTN_OBSOLETE") ?></a>
+		<?php elseif($thread_info['locked'] == 0 && $thread_info['allow_to_reply']): ?>
+			<a href="thread/reply/<?= $thread_id ?>" class="btn btn-default btn-lg pull-right"><?php __("T_BTN_ADD") ?></a>
+		<?php else: ?>
+			<a class="btn btn-default btn-lg btn-disabled pull-right"><?php __("T_BTN_LOCKED") ?></a>
+		<?php endif; ?>
+	<?php endif; ?>
+	<?= \AC\Kernel\Html::paginate($pages['total'], $pages['current'], "{$_SERVER['REDIRECT_URL']}?p=%d") ?>
+</div>
+
+<!-- MODERATION -->
+
+<?php if($is_moderator): ?>
+	<div class="thread-moderation">
+		<div class="thread-moderation-title" data-toggle="thread-moderation-options">
+			<i class="fa fa-fw fa-angle-right"></i><?php __("T_MOD_OPTIONS") ?>
+		</div>
+		<div class="thread-moderation-content block" id="thread-moderation-options" style="margin-bottom: 0">
+			<?php if($thread_info['locked'] == 0): ?>
+				<a href="thread/lock/<?= $thread_id ?>">
+					<i class="fa fa-fw fa-lock"></i><?php __("T_MOD_LOCK_THREAD") ?>
+				</a>
+			<?php else: ?>
+				<a href="thread/unlock/<?= $thread_id ?>">
+					<i class="fa fa-fw fa-unlock"></i><?php __("T_MOD_UNLOCK_THREAD") ?>
+				</a>
+			<?php endif; ?>
+			<?php if($thread_info['announcement'] == 0): ?>
+				<a href="thread/announcement_set/<?= $thread_id ?>">
+					<i class="fa fa-fw fa-thumb-tack"></i><?php __("T_MOD_SET_ANNOUNCEMENT") ?>
+				</a>
+			<?php else: ?>
+				<a href="thread/announcement_unset/<?= $thread_id ?>">
+					<i class="fa fa-fw fa-thumb-tack"></i><?php __("T_MOD_UNSET_ANNOUNCEMENT") ?>
+				</a>
+			<?php endif; ?>
+			<a href="thread/delete/<?= $thread_id ?>" id="thread-delete" data-confirm="<?php __("T_MOD_DELETE_MESSAGE") ?>">
+				<i class="fa fa-fw fa-times-circle"></i><?php __("T_MOD_DELETE_THREAD") ?>
+			</a>
+		</div>
+	</div>
+<?php endif; ?>
+
+<!-- RELATED THREADS -->
+
+<div class="block flat thread-related">
+	<h2><?php __("T_RELATED") ?></h2>
+	<?php if($related_thread_list): ?>
+		<?php foreach($related_thread_list as $k => $v): ?>
+			<div class="item">
+				<span><?= $related_thread_list[$k]['thread_date'] ?></span>
+				<a href="thread/<?= $related_thread_list[$k]['t_id'] . "-" . $related_thread_list[$k]['slug'] ?>">
+					<?= $related_thread_list[$k]['title'] ?>
+				</a>
+			</div>
+		<?php endforeach; ?>
+	<?php else: ?>
+		<small class="text-muted"><?php __("T_NO_RELATED") ?></small>
+	<?php endif; ?>
+</div>
+
+<!-- DELETE POST LIGHTBOX -->
+
+<div id="deleteThreadConfirm" style="display: none">
+	<form action="thread/delete_post" method="post">
+		<table class="table no-border" style="width:350px; margin:0">
+			<thead>
+				<tr>
+					<th>
+						<?php __("T_DELETE_POST") ?>
+						<div class="pull-right text-s0">
+							<a href="javascript:$.fancybox.close();" class="label invert"><?php __("T_CLOSE") ?></a>
+						</div>
+					</th>
+				</tr>
+			</thead>
+			<tr>
+				<td class="min"><?php __("T_DELETE_NOTICE") ?></td>
+			</tr>
+			<tr class="footer">
+				<td colspan="2" style="text-align:center; padding:10px">
+					<input type="hidden" name="pid" id="delete_post_id" value="">
+					<input type="hidden" name="tid" id="delete_thread_id" value="">
+					<input type="hidden" name="mid" id="delete_member_id" value="">
+					<input type="submit" class="btn btn-default" value="<?php __("T_DELETE_POST") ?>">
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>

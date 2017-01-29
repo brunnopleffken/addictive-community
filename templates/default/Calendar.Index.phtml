@@ -1,0 +1,20 @@
+<h1>
+	<small><?= $community_name ?></small>
+	<?php __("C_TITLE") ?>
+</h1>
+
+<div class="block">
+	<form method="get" id="calendar-set-date">
+		<?php __("C_GOTO") ?>:
+		<?= \AC\Kernel\Html::months("month", false, $c_month) ?>
+		<?= \AC\Kernel\Html::years("year", 2, 2, $c_year) ?>
+		<input type="submit" class="btn btn-default" value="<?php __("C_GO") ?>">
+	</form>
+</div>
+
+<?= $calendar ?>
+
+<div class="text-right">
+	<a href="calendar/add" class="btn btn-default"><?php __("C_ADD") ?></a>
+	<a href="calendar" class="btn btn-default"><?php __("C_SHOW") ?></a>
+</div>

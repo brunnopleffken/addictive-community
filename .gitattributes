@@ -1,8 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 
-# Exclude Sass files from language stats
-themes/default-light/scss/* linguist-vendored
+# Exclude vendor plugins and assets from language stats
+thirdparty/* linguist-vendored
 
 # Exclude these files from releases...
 .gitignore export-ignore
@@ -10,3 +10,5 @@ themes/default-light/scss/* linguist-vendored
 CHANGELOG.md export-ignore
 CONTRIBUTE.md export-ignore
 README.md export-ignore
+package.json export-ignore
+gulpfile.js export-ignore

@@ -1,0 +1,24 @@
+{
+  "name": "addictive-community",
+  "version": "0.12.0",
+  "description": "The definitive open-source discussion forum software, written in PHP and MySQL.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunnopleffken/addictive-community.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brunnopleffken/addictive-community/issues"
+  },
+  "homepage": "https://github.com/brunnopleffken/addictive-community#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.0.0"
+  }
+}

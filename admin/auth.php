@@ -9,21 +9,25 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## ---------------------------------------------------
 
-// Include files...
+use \AC\Kernel\Database;
+use \AC\Kernel\Http;
+use \AC\Kernel\Text;
 
-require_once("../config.php");
+// Include files...
 require_once("../kernel/Text.php");
 require_once("../kernel/Http.php");
 require_once("../kernel/Database.php");
 
-// Load MySQL driver and connect
+// Load configuration file
+$config = parse_ini_file("../config.ini");
 
+// Load MySQL driver and connect
 $Db = new Database();
-$Db->Connect($config);
+$Db->connect($config);
 
 // Get security hash key
-$Db->Query("SELECT * FROM c_config c WHERE field = 'security_salt_hash' OR field = 'security_salt_key';");
-$_salt = $Db->FetchToArray();
+$Db->query("SELECT * FROM c_config c WHERE field = 'security_salt_hash' OR field = 'security_salt_key';");
+$_salt = $Db->fetchToArray();
 
 $salt = array(
 	"hash" => $_salt[0]['value'],
@@ -32,21 +36,21 @@ $salt = array(
 
 // Get form information
 
-if(Http::Request("username") && Http::Request("password")) {
-	$username = Http::Request("username");
-	$password = Text::Encrypt(Http::Request("password"), $salt);
+if(Http::request("username") && Http::request("password")) {
+	$username = Http::request("username");
+	$password = Text::encrypt(Http::request("password"), $salt);
 }
 
 // Check if user exists
 
-$Db->Query("SELECT m_id, username, usergroup FROM c_members WHERE username = '{$username}' AND password = '{$password}';");
+$Db->query("SELECT m_id, username, usergroup FROM c_members WHERE username = '{$username}' AND password = '{$password}';");
 
-if($Db->Rows() != 1) {
+if($Db->rows() != 1) {
 	header("Location: index.php?error=1");
 	exit;
 }
 else {
-	$info = $Db->Fetch();
+	$info = $Db->fetch();
 
 	if($info['usergroup'] != 1) {
 		header("Location: index.php?error=4");

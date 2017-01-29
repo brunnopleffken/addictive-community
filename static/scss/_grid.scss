@@ -1,0 +1,50 @@
+// Variables
+
+$cols: 12;
+$gutter: 20px;
+
+// Container
+
+.outer {
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: $gutter / 2;
+	padding-right: $gutter / 2;
+}
+
+// Row
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: $gutter;
+	&.space-between { justify-content: space-between; }
+	&.space-around { justify-content: space-around; }
+}
+
+// Columns
+
+@for $i from 1 through $cols {
+	.col-#{$i} {
+		flex: 0 0 ((100% / $cols) * $i);
+	}
+	.col-offset-#{$i} {
+		margin-left: (100% / $cols) * $i;
+	}
+}
+[class*=col-] {
+	padding-left: $gutter / 2;
+	padding-right: $gutter / 2;
+}
+
+.col-flexible {
+	flex: 0 1 auto;
+}
+
+// Spans
+
+@for $i from 1 through $cols {
+	.span-#{$i} {
+		width: (100% / $cols) * $i !important;
+	}
+}

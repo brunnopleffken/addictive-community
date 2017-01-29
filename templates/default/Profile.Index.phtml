@@ -1,0 +1,101 @@
+<div class="profile-header">
+	<div class="profile-header-background" style="background-image: url('<?= $info['cover'] ?>')">
+		<div class="inner-shadow"></div>
+	</div>
+	<div class="profile-header-info">
+		<div class="avatar">
+			<a href="<?= $info['avatar'] ?>" class="fancybox fancybox.image">
+				<?php __(\AC\Kernel\Html::crop($info['avatar'], 150, "image")) ?>
+			</a>
+		</div>
+		<div class="details">
+			<div class="username"><?= $info['username'] ?></div>
+			<div class="item"><span><?php __("P_POSTS") ?></span><?= $info['posts'] ?></div>
+			<div class="item"><span><?php __("P_REGISTERED") ?></span><?= $info['joined'] ?></div>
+			<div class="item"><span><?php __("P_USERGROUP") ?></span><?= $info['name'] ?></div>
+		</div>
+	</div>
+</div>
+
+<div class="block padding-no">
+	<div class="nav room-nav">
+		<div class="nav-top">
+			<a href="profile/<?= $profile_member_id ?>" class="active"><?php __("P_PROFILE") ?></a>
+			<a href="profile/posts/<?= $profile_member_id ?>"><?php __("P_LAST_POSTS") ?></a>
+			<a href="profile/attachments/<?= $profile_member_id ?>"><?php __("P_ATTACHMENTS") ?></a>
+		</div>
+	</div>
+	<div class="block-nav-content">
+		<table class="table vertical-aligned no-border">
+			<thead>
+				<tr>
+					<td colspan="2" class="text-s14"><?php __("P_MY_PROFILE") ?></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="min text-muted text-right"><?php __("P_ABOUT_ME") ?></td>
+					<td><p><?= nl2br($info['profile']) ?></p></td>
+				</tr>
+				<tr>
+					<td class="min text-muted text-right"><?php __("P_BIRTHDATE") ?></td>
+					<td><?php if($has_birthday) __("P_AGE", array($info['birthday'], $info['age'])) ?></td>
+				</tr>
+				<tr>
+					<td class="min text-muted text-right"><?php __("P_GENDER") ?></td>
+					<td><?= $info['gender'] ?></td>
+				</tr>
+				<tr>
+					<td class="min text-muted text-right"><?php __("P_LOCATION") ?></td>
+					<td><?= $info['location'] ?></td>
+				</tr>
+				<tr>
+					<td class="min text-muted text-right"><?php __("P_WEBSITE") ?></td>
+					<td><?= $info['website'] ?></td>
+				</tr>
+				<tr>
+					<td class="min text-muted text-right"><?php __("P_SIGNATURE") ?></td>
+					<td><?= $info['signature'] ?></td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table vertical-aligned no-border">
+			<thead>
+				<tr>
+					<td colspan="2" class="text-s14"><?php __("P_STATS") ?></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="min text-muted"><?php __("P_BEST_ANSWERS") ?></td>
+					<td><?php __("P_BEST_POSTS", array($info['bestanswers'])) ?></td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="table vertical-aligned no-border">
+			<thead>
+				<tr>
+					<td colspan="2" class="text-s14"><?php __("P_CONTACT_INFO") ?></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="min"><i class="fa fa-fw fa-envelope-o"></i></td>
+					<td><?= $info['email'] ?></td>
+				</tr>
+				<?php if($info['im_facebook']): ?>
+					<tr>
+						<td class="min"><i class="fa fa-fw fa-facebook-square"></i></td>
+						<td><a href="https://www.facebook.com/<?= $info['im_facebook'] ?>" target="_blank" rel="nofollow">fb.me/<?= $info['im_facebook'] ?></a></td>
+					</tr>
+				<?php endif; ?>
+				<?php if($info['im_twitter']): ?>
+					<tr>
+						<td class="min"><i class="fa fa-fw fa-twitter"></i></td>
+						<td><a href="https://twitter.com/<?= $info['im_twitter'] ?>" target="_blank" rel="nofollow">@<?= $info['im_twitter'] ?></a></td>
+					</tr>
+				<?php endif; ?>
+			</tbody>
+		</table>
+	</div>
+</div>

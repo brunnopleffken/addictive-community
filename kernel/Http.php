@@ -11,6 +11,8 @@
 #  Copyright: (c) 2016 - Addictive Community
 ## -------------------------------------------------------
 
+namespace AC\Kernel;
+
 class Http
 {
 	/**
@@ -18,18 +20,22 @@ class Http
 	 * SAME AS $_REQUEST['var'], BUT SANITIZED
 	 * --------------------------------------------------------------------
 	 */
-	public static function Request($name, $numeric_only = false)
+	public static function request($name, $is_integer = false)
 	{
 		if(isset($_REQUEST[$name])) {
 			$text = $_REQUEST[$name];
 
-			// Return error if $numeric_only is true but hasn't a numeric value
-			if($numeric_only == true && !is_numeric($text)) {
-				Html::Error("Variable '{$name}' must be a number.");
+			// Return error if $is_integer is true but hasn't a numeric value
+			if($is_integer) {
+				if(!is_numeric($text)) {
+					Html::throwError("Variable '{$name}' must be a number.");
+				}
+
+				return intval($text);
 			}
 
-			// If is not a number, sanitize value as text
-			if(!$numeric_only && !is_array($_REQUEST[$name])) {
+			// If is not a number nor an array (checkboxes), sanitize value as text
+			if(!$is_integer && !is_array($_REQUEST[$name])) {
 				$text = stripslashes($_REQUEST[$name]);
 				$text = str_replace(";", "&semi;", $text);
 				$text = str_replace("& ", "&amp; ", $text);
@@ -39,12 +45,12 @@ class Http
 				$text = str_replace("'", "&apos;", $text);
 				$text = str_replace("`", "&grave;", $text);
 			}
+
+			return $text;
 		}
 		else {
 			return false;
 		}
-
-		return $text;
 	}
 
 	/**
@@ -52,7 +58,7 @@ class Http
 	 * GET UPLOADED FILE
 	 * --------------------------------------------------------------------
 	 */
-	public static function File($name)
+	public static function getFile($name)
 	{
 		if(isset($_FILES[$name]) && !empty($_FILES[$name])) {
 			return $_FILES[$name];
@@ -67,7 +73,7 @@ class Http
 	 * GET CURRENT URL
 	 * --------------------------------------------------------------------
 	 */
-	public static function CurrentUrl()
+	public static function currentUrl()
 	{
 		$page_url = (@$_SERVER['HTTPS'] == "on") ? "https" : "http";
 		$page_url .= "://";
