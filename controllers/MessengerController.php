@@ -170,7 +170,7 @@ class Messenger extends Application
 		$users = array();
 
 		// Get member name
-		$member_id = SessionState::$user_data['member_id'];
+		$member_id = SessionState::$user_data['m_id'];
 		$term = Http::request("term");
 
 		// Get list of usernames
