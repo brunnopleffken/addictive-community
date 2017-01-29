@@ -36,13 +36,12 @@ class Room extends Application
 		// Get and sanitize room ID
 		$this->room_id = Http::request("id", true);
 
-		if(!$this->room_id) {
-			$this->Core->redirect("500");
+		if($this->room_id) {
+			// Update session table with room ID
+			$session_token = SessionState::$session_token;
+			Database::update("c_sessions", "location_room_id = {$this->room_id}", "session_token = '{$session_token}'");
 		}
 
-		// Update session table with room ID
-		$session_token = SessionState::$session_token;
-		Database::update("c_sessions", "location_room_id = {$this->room_id}", "session_token = '{$session_token}'");
 	}
 
 	/**
