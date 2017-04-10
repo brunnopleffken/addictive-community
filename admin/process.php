@@ -598,6 +598,17 @@ switch($do) {
 
 		break;
 
+	case "delete_member_posts":
+
+		$id = Http::request("id", true);
+		$Db->delete("c_posts", "author_id = {$id}");
+		$Db->delete("c_threads", "author_member_id = {$id}");
+
+		header("Location: main.php?act=members&p=manage&msg=1");
+		exit;
+
+		break;
+
 	case "update_member":
 
 		$id = Http::request("id", true);
