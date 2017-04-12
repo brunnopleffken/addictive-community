@@ -14,7 +14,21 @@ use \AC\Kernel\Html;
 use \AC\Kernel\Http;
 use \AC\Kernel\Template;
 
+
 $username = (Http::request("username")) ? Http::request("username") : "";
+
+// Notification
+$msg = (Http::request("msg")) ? Http::request("msg") : 0;
+
+switch($msg) {
+	case 1:
+		$message = Html::notification("Threads and posts has been successfully deleted.", "success");
+		break;
+	default:
+		$message = "";
+}
+
+echo $message;
 
 // Get member list
 
@@ -48,6 +62,7 @@ while($member = Database::fetch()) {
 			<td>{$member['posts']}</td>
 			<td class='min text-center'><a href='main.php?act=members&amp;p=edit&amp;id={$member['m_id']}'><i class='fa fa-pencil'></i></a></td>
 			<td class='min text-center'>{$remove}</td>
+			<td class='min text-center'><a href='process.php?do=delete_member_posts&id={$member['m_id']}' data-confirm='Do you really want to remove this member posts and threads? This action CANNOT be undone.'><i class='fa fa-trash'></i></a></td>
 		</tr>");
 }
 
@@ -72,9 +87,9 @@ while($member = Database::fetch()) {
 			<thead>
 				<tr>
 					<?php if($username != ""): ?>
-						<th colspan="8">Search Results (output is also always limited by 10 results)</th>
+						<th colspan="9">Search Results (output is also always limited by 10 results)</th>
 					<?php else: ?>
-						<th colspan="8">Last 10 Registered Members</th>
+						<th colspan="9">Last 10 Registered Members</th>
 					<?php endif; ?>
 				</tr>
 				<tr>
@@ -86,6 +101,7 @@ while($member = Database::fetch()) {
 					<td>Posts</td>
 					<td class="min">Edit</td>
 					<td class="min">Delete</td>
+					<td class="min">Delete Posts & Threads</td>
 				</tr>
 			</thead>
 			<?php echo Template::get() ?>
