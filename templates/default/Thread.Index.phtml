@@ -1,11 +1,7 @@
 <?= $thread_info['obsolete_notification'] ?>
 <div class="block padding-no thread">
 	<div class="thread-post-author">
-		<?php if($first_post_info['avatar'] == NULL): ?>
-			<img src="http://www.gravatar.com/avatar/c8d86ad5ed1add319e802f7f659df166?s=196&d=mm&r=g" class="thread-post-author-avatar">
-		<?php else: ?>
-			<img src="<?= $first_post_info['avatar'] ?>" class="thread-post-author-avatar">
-		<?php endif; ?>
+		<?= \AC\Kernel\Html::crop($first_post_info['avatar'], 50, "thread-post-author-avatar") ?>
 		<div class="thread-post-author-info">
 			<a href="profile/<?= $first_post_info['m_id'] ?>"><?= $first_post_info['username'] ?></a>
 			<span>
