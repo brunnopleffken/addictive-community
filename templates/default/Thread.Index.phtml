@@ -141,7 +141,7 @@
 
 <?php if(!empty($reply)): ?>
 	<?php foreach($reply as $k => $v): ?>
-		<div class="block padding-no thread-reply" <?php if($reply[$k]['best_answer'] == 1) echo 'style="background-color: rgba(38, 222, 50, 0.16);"' ?>>
+		<div class="block padding-no thread-reply <?php if($reply[$k]['best_answer'] == 1) echo 'thread-reply-best' ?>">
 			<a id="post-<?= $reply[$k]['p_id'] ?>"></a>
 			<div class="thread-reply-content">
 				<div class="thread-reply-content-author text-center">

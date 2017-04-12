@@ -770,6 +770,13 @@ header {
 			flex: 1 0 100%;
 			padding: 10px;
 		}
+		&-best {
+			background-color: rgb(250, 255, 250);
+			border: 1px solid rgb(0, 160, 100);
+			.badge {
+				background-color: #073;
+			}
+		}
 	}
 	&-related {
 		margin-top: 20px;
