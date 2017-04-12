@@ -695,7 +695,7 @@ class Thread extends Application
 					FROM c_threads
 					WHERE c_threads.t_id = c_posts.thread_id)
 				AS thread_author
-				FROM c_posts WHERE p_id = 9;");
+				FROM c_posts WHERE p_id = {$reply_id};");
 
 		$thread = Database::fetch();
 
@@ -711,7 +711,7 @@ class Thread extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * Set an answer as best answer
+	 * Unset answer as best answer
 	 * --------------------------------------------------------------------
 	 */
 	public function unsetBestAnswer($reply_id)
@@ -725,7 +725,7 @@ class Thread extends Application
 					FROM c_threads
 					WHERE c_threads.t_id = c_posts.thread_id)
 				AS thread_author
-				FROM c_posts WHERE p_id = 9;");
+				FROM c_posts WHERE p_id = {$reply_id};");
 
 		$thread = Database::fetch();
 
