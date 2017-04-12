@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.12.1 (2017-04-12)
+
+#### Added
+- Admin CP: Delete all user's posts and threads (thanks to @xQuByte).
+
+#### Fixed
+- Fix "Transliterator class not found" when submitting a new thread (fixes #121, #124).
+
+
+
 ## v0.12.0 (2017-01-29)
 
 #### Added
