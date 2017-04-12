@@ -1,7 +1,11 @@
 <?= $thread_info['obsolete_notification'] ?>
 <div class="block padding-no thread">
 	<div class="thread-post-author">
-		<img src="http://www.gravatar.com/avatar/d4863bc04b657b65c24b02aa0b62f32e?s=100&d=mm&r=g" class="thread-post-author-avatar">
+		<?php if($first_post_info['avatar'] == NULL): ?>
+			<img src="http://www.gravatar.com/avatar/c8d86ad5ed1add319e802f7f659df166?s=196&d=mm&r=g" class="thread-post-author-avatar">
+		<?php else: ?>
+			<img src="<?= $first_post_info['avatar'] ?>" class="thread-post-author-avatar">
+		<?php endif; ?>
 		<div class="thread-post-author-info">
 			<a href="profile/<?= $first_post_info['m_id'] ?>"><?= $first_post_info['username'] ?></a>
 			<span>
@@ -141,11 +145,12 @@
 
 <?php if(!empty($reply)): ?>
 	<?php foreach($reply as $k => $v): ?>
-		<div class="block padding-no thread-reply">
+		<div class="block padding-no thread-reply" <?php if($reply[$k]['best_answer'] == 1) echo 'style="background-color: rgba(38, 222, 50, 0.16);"' ?>>
 			<a id="post-<?= $reply[$k]['p_id'] ?>"></a>
 			<div class="thread-reply-content">
 				<div class="thread-reply-content-author text-center">
 					<?php if($reply[$k]['usergroup'] != 0): ?>
+						<?php if($reply[$k]['best_answer'] == 1) echo '<div class="badge">BEST ANSWER</div>'; ?>
 						<div class="thread-reply-content-author-avatar">
 							<?= \AC\Kernel\Html::crop($reply[$k]['avatar'], 98, "image") ?>
 						</div>
