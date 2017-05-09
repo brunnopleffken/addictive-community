@@ -137,7 +137,7 @@ $(document).ready(function($) {
 	// Add 'novalidate' to all forms because we're using the custom one right below
 	$('form').attr('novalidate', true);
 
-	$(document).on('submit', 'form', function(event) {
+	$(document).on('submit', 'form:not(.no-validate)', function(event) {
 		var stopSend = false;
 		var form = this;
 
