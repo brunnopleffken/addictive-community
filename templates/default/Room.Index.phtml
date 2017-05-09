@@ -84,12 +84,14 @@
 		</div>
 	<?php endif; ?>
 	<ul class="pagination">
-		<li><a href=""><i class="fa fa-angle-double-left"></i></a></li>
-		<?php for($i = 1; $i <= $pages; $i++): ?>
-			<li class="active">
-				<a href="room/<?= $room_id . "?p=" . $i ?>"><?= $i ?></a>
-			</li>
-		<?php endfor; ?>
-		<li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
+		<?php if($pages > 0): ?>
+			<li><a href=""><i class="fa fa-angle-double-left"></i></a></li>
+			<?php for($i = 1; $i <= $pages; $i++): ?>
+				<li class="active">
+					<a href="room/<?= $room_id . "?p=" . $i ?>"><?= $i ?></a>
+				</li>
+			<?php endfor; ?>
+			<li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
+		<?php endif; ?>
 	</ul>
 </div>
