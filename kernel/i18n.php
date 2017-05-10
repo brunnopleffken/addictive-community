@@ -18,6 +18,9 @@ class i18n
 	// Dictionary array
 	public static $dictionary = array();
 
+	// Missing keys
+	public static $missing_keys = array();
+
 	/**
 	 * --------------------------------------------------------------------
 	 * GET STRING OF A GIVEN INDEX
@@ -41,7 +44,18 @@ class i18n
 			}
 		}
 		else {
+			self::$missing_keys[] = $keyword;
 			return $keyword;
 		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * RETURN MISSING KEYS
+	 * --------------------------------------------------------------------
+	 */
+	public static function getMissingKeys()
+	{
+		return self::$missing_keys;
 	}
 }
