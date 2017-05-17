@@ -52,8 +52,8 @@ class Search extends Application
 		$num_results = count($search_results);
 
 		// Page info
-		$page_info['title'] = i18n::translate("S_TITLE");
-		$page_info['bc'] = array(i18n::translate("S_TITLE"));
+		$page_info['title'] = i18n::translate("search.title");
+		$page_info['bc'] = array(i18n::translate("search.title"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables

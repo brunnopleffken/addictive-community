@@ -3,29 +3,29 @@
 		<thead>
 			<tr>
 				<th>
-					<?php __("R_TITLE") ?>
+					<?php __("report.title") ?>
 					<div class="pull-right text-s0">
-						<a href="javascript:$.fancybox.close();" class="label invert"><?php __("R_CLOSE") ?></a>
+						<a href="javascript:$.fancybox.close();" class="label invert"><?php __("report.close") ?></a>
 					</div>
 				</th>
 			</tr>
 		</thead>
 		<tr>
 			<td>
-				<p><?php __("R_NOTICE") ?></p>
+				<p><?php __("report.notice") ?></p>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<span class="form-control-static"><?php __("R_REASON") ?>:</span>
+				<span class="form-control-static"><?php __("report.reason") ?>:</span>
 				<select name="reason" id="reason" class="select2-no-search span-9">
-					<option value="1"><?php __("R_OPTION_1") ?></option>
-					<option value="2"><?php __("R_OPTION_2") ?></option>
-					<option value="3"><?php __("R_OPTION_3") ?></option>
-					<option value="4"><?php __("R_OPTION_4") ?></option>
-					<option value="5"><?php __("R_OPTION_5") ?></option>
-					<option value="6"><?php __("R_OPTION_6") ?></option>
-					<option value="7"><?php __("R_OPTION_7") ?></option>
+					<option value="1"><?php __("report.option_1") ?></option>
+					<option value="2"><?php __("report.option_2") ?></option>
+					<option value="3"><?php __("report.option_3") ?></option>
+					<option value="4"><?php __("report.option_4") ?></option>
+					<option value="5"><?php __("report.option_5") ?></option>
+					<option value="6"><?php __("report.option_6") ?></option>
+					<option value="7"><?php __("report.option_7") ?></option>
 				</select>
 			</td>
 		</tr>
@@ -36,7 +36,7 @@
 			<td colspan="2" style="text-align:center; padding:10px">
 				<input type="hidden" name="member_id" value="<?= $this->Session->session_info['member_id'] ?>">
 				<input type="hidden" name="thread_id" value="<?= $thread_id ?>">
-				<input type="submit" class="btn btn-default" value="<?php __("R_SEND") ?>">
+				<input type="submit" class="btn btn-default" value="<?php __("report.send") ?>">
 			</td>
 		</tr>
 	</table>

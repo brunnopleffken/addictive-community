@@ -5,14 +5,14 @@
 			<?= $message['subject'] ?>
 		</h1>
 		<div class="header-buttons">
-			<a href="messenger/reply/<?= $message['pm_id'] ?>" class="btn btn-default"><?php __("M_REPLY") ?></a>
-			<a href="messenger/forward/<?= $message['pm_id'] ?>" class="btn btn-default"><?php __("M_FORWARD") ?></a>
-			<a href="messenger/delete/<?= $message['pm_id'] ?>" class="btn btn-default"><?php __("M_DELETE") ?></a>
+			<a href="messenger/reply/<?= $message['pm_id'] ?>" class="btn btn-default"><?php __("messenger.reply") ?></a>
+			<a href="messenger/forward/<?= $message['pm_id'] ?>" class="btn btn-default"><?php __("messenger.forward") ?></a>
+			<a href="messenger/delete/<?= $message['pm_id'] ?>" class="btn btn-default"><?php __("messenger.delete") ?></a>
 		</div>
 	<?php else: ?>
 		<h1>
 			<small><?= $community_name ?></small>
-			<?php __("M_FOLDER_SENT") ?>: <?= $message['subject'] ?>
+			<?php __("messenger.sent") ?>: <?= $message['subject'] ?>
 		</h1>
 	<?php endif; ?>
 </div>
@@ -29,7 +29,7 @@
 		</div>
 		<div class="thread-reply-content-body">
 			<div class="thread-reply-content-body-date">
-				<?php __("M_SENT_ON", array($message['sent_date'])) ?>
+				<?php __("messenger.sent_on", array($message['sent_date'])) ?>
 			</div>
 			<div class="thread-reply-content-body-post">
 				<?= $message['message'] ?>

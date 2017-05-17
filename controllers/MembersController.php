@@ -39,10 +39,10 @@ class Members extends Application
 
 		// If there is a search, letter or number selected, don't let "All" selected
 		if(Http::request("term") || Http::request("letter") || Http::request("numbers")) {
-			$first = "<li><a href='members'>" . i18n::translate("M_ALL") . "</a></li>\n";
+			$first = "<li><a href='members'>" . i18n::translate("members.all") . "</a></li>\n";
 		}
 		else {
-			$first = "<li class='active'><a href='members'>" . i18n::translate("M_ALL") . "</a></li>\n";
+			$first = "<li class='active'><a href='members'>" . i18n::translate("members.all") . "</a></li>\n";
 		}
 
 		// Build letter list
@@ -66,8 +66,8 @@ class Members extends Application
 		$results = $this->getMemberList();
 
 		// Page info
-		$page_info['title'] = i18n::translate("M_TITLE");
-		$page_info['bc'] = array(i18n::translate("M_TITLE"));
+		$page_info['title'] = i18n::translate("members.title");
+		$page_info['bc'] = array(i18n::translate("members.title"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables

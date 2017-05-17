@@ -32,12 +32,12 @@ class Calendar extends Application
 		// Define messages
 		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::notification(i18n::translate("C_MESSAGE_1"), "success")
+			Html::notification(i18n::translate("calendar.notification.success"), "success")
 		);
 
 		// Page info
-		$page_info['title'] = i18n::translate("C_TITLE");
-		$page_info['bc'] = array(i18n::translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("calendar.title");
+		$page_info['bc'] = array(i18n::translate("calendar.title"));
 		$this->Set("page_info", $page_info);
 
 		$this->Set("calendar", $this->generateCalendar());
@@ -55,8 +55,8 @@ class Calendar extends Application
 		SessionState::noGuest();
 
 		// Page info
-		$page_info['title'] = i18n::translate("C_ADD");
-		$page_info['bc'] = array(i18n::translate("C_TITLE"), i18n::translate("C_ADD"));
+		$page_info['title'] = i18n::translate("calendar.add");
+		$page_info['bc'] = array(i18n::translate("calendar.title"), i18n::translate("calendar.add"));
 		$this->Set("page_info", $page_info);
 	}
 
@@ -105,8 +105,8 @@ class Calendar extends Application
 		$birthday_result = Database::fetchToArray();
 
 		// Page info
-		$page_info['title'] = i18n::translate("C_TITLE");
-		$page_info['bc'] = array(i18n::translate("C_TITLE"), $formatted_date);
+		$page_info['title'] = i18n::translate("calendar.title");
+		$page_info['bc'] = array(i18n::translate("calendar.title"), $formatted_date);
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -192,10 +192,10 @@ class Calendar extends Application
 
 		// Create array containing names of days of week.
 		$w_days = array(
-			i18n::translate("W_1"), i18n::translate("W_2"),
-			i18n::translate("W_3"), i18n::translate("W_4"),
-			i18n::translate("W_5"), i18n::translate("W_6"),
-			i18n::translate("W_7")
+			i18n::translate("global.dates.w1"), i18n::translate("global.dates.w2"),
+			i18n::translate("global.dates.w3"), i18n::translate("global.dates.w4"),
+			i18n::translate("global.dates.w5"), i18n::translate("global.dates.w6"),
+			i18n::translate("global.dates.w7")
 		);
 
 		// What is the first day of the selected month?
@@ -208,7 +208,7 @@ class Calendar extends Application
 		$date_components = getdate($month_first_day);
 
 		// What is the name of this month?
-		$m_name = "M_" . $date_components['mon'];
+		$m_name = "global.dates.m" . $date_components['mon'];
 		$m_name = i18n::translate($m_name);
 
 		// What is the index value (0-6) of the first day of the month in question.

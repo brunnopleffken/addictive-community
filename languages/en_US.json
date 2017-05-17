@@ -1,0 +1,362 @@
+{
+	"name": "English (US)",
+	"global": {
+		"search": "Search",
+		"memberlist": "Member List",
+		"calendar": "Calendar",
+		"create_account": "Create Account",
+		"sidebar": {
+			"welcome": "Welcome, guest!",
+			"login": "Log In",
+			"show_profile": "Show %s's Profile",
+			"usercp": "Control Panel",
+			"inbox": "Inbox (%d)",
+			"logout": "Logout",
+			"rooms": "Rooms",
+			"members_online": "Members Online",
+			"member_count": "Members (%d)",
+			"member_viewing": "Viewing",
+			"guest_count": "Guests (%d)",
+			"statistics": "Statistics",
+			"threads": "Threads",
+			"posts": "Posts",
+			"members": "Members",
+			"last_member": "Last Member"
+		},
+		"dates": {
+			"m1": "January",
+			"m2": "February",
+			"m3": "March",
+			"m4": "April",
+			"m5": "May",
+			"m6": "June",
+			"m7": "July",
+			"m8": "August",
+			"m9": "September",
+			"m10": "October",
+			"m11": "November",
+			"m12": "December",
+			"w1": "Sunday",
+			"w2": "Monday",
+			"w3": "Tuesday",
+			"w4": "Wednesday",
+			"w5": "Thursday",
+			"w6": "Friday",
+			"w7": "Saturday"
+		}
+	},
+	"calendar": {
+		"title": "Calendar",
+		"go_to": "Go to",
+		"go": "Go",
+		"add": "Add New Event",
+		"show": "Show Current Month",
+		"new": {
+			"title": "Event Title",
+			"date": "Event Date",
+			"at": "at",
+			"type": "Type",
+			"public": "Public (viewable by all)",
+			"private": "Private (viewable only by you)",
+			"description": "Description",
+			"error": "Event Title and Description are required fields."
+		},
+		"view": {
+			"title": "View",
+			"all": "All Events",
+			"public": "Public Events",
+			"private": "Private Events",
+			"created_by": "Created by %s"
+		},
+		"notification": {
+			"success": "You have successfully added a new event."
+		}
+	},
+	"community": {
+		"moderators": "Moderators",
+		"protected_room": "Protected Room",
+		"redirect_to": "Redirect to",
+		"mark_all_read": "Mark all as read"
+	},
+	"failure": {
+		"error_title": "Ops! An error occurred...",
+		"success_title": "Done!",
+		"proceed": "Proceed",
+		"warning": "WARNING",
+		"success": "SUCCESS",
+		"login": "Login",
+		"login_error": "Please, fill in the username and password fields.",
+		"message": {
+			"not_allowed": "You need to be a registered member to access this page.",
+			"validated": "Your e-mail address has been successfully validated.",
+			"protected": "This room is protected.",
+			"login_error": "Username or password is wrong. Please, try again.",
+			"locked_thread": "This thread is locked."
+		},
+		"offline": {
+			"title": "Sorry, we're offline!",
+			"message": "%s is currently offline while we perform some maintenance."
+		},
+		"updating": {
+			"title": "Updating!",
+			"message": "Please, wait while we update our community to a newer software version."
+		},
+		"deleted": {
+			"title": "This member doesn't exist!",
+			"message": "Seems like you're trying to view a member that doesn't exist or has been deleted."
+		},
+		"banned": {
+			"title": "You've been banned!",
+			"message": "You're not allowed to read, post or reply threads."
+		},
+		"not_found": {
+			"title": "The requested page was not found.",
+			"message": "Seems like the page you're trying to visit doesn't exist."
+		},
+		"server_error": {
+			"title": "An unexpected error occurred.",
+			"message": "This may have occurred because of an internal server error.<br>If the error persists contact the community administrator."
+		},
+		"forbidden": {
+			"title": "Access denied!",
+			"message": "You don't have permission to open this page."
+		}
+	},
+	"help": {
+		"title": "Help Topics",
+		"no_topics": "There are no help topics to show."
+	},
+	"login": {
+		"title": "Log In",
+		"close": "Close",
+		"username": "Username",
+		"password": "Password",
+		"anonymous": "Anonymous log in",
+		"remember": "Remember my current session",
+		"not_member": "Is not a member? <a href='%s'><strong>Sign up here!</strong></a>",
+		"notification": {
+			"error": "Username or password is wrong"
+		}
+	},
+	"members": {
+		"title": "Member List",
+		"all": "All",
+		"member_name": "Member Name",
+		"join_date": "Join Date",
+		"post_count": "Post Count",
+		"joined": "Joined",
+		"posts": "Posts",
+		"location": "Location",
+		"group": "Group",
+		"no_results": "Your search returned no results.",
+		"search": "Search by name"
+	},
+	"messenger": {
+		"title": "Messenger",
+		"new_message": "New Message",
+		"folders": "Folders",
+		"attachments": "Attachments",
+		"inbox": "Inbox",
+		"sent": "Sent",
+		"drafts": "Drafts",
+		"storage": "Storage: %d of %d",
+		"delete_selected": "Delete Selected Messages",
+		"select_all": "Select All",
+		"subject": "Subject",
+		"from": "From",
+		"to": "To",
+		"date": "Date",
+		"no_pm_inbox": "There are no private messages to show.",
+		"no_pm_sent": "There are no sent private messages to show.",
+		"compose": "Compose",
+		"message": "Message",
+		"send": "Send Message",
+		"reply": "Reply",
+		"forward": "Forward",
+		"delete": "Delete",
+		"sent_on": "Sent on %s",
+		"notification": {
+			"sent": "Your personal message has been successfully sent.",
+			"required": "'To', 'Subject' and 'Message' fields are required.",
+			"unable_to_load": "Unable to load the personal message."
+		}
+	},
+	"profile": {
+		"title": "Profile",
+		"posts": "Posts",
+		"registered": "Registered",
+		"usergroup": "Group",
+		"last_posts": "Last Posts &amp; Threads",
+		"attachments": "Attachments",
+		"my_profile": "My Profile",
+		"about_me": "About Me",
+		"birthdate": "Birthdate",
+		"age": "%s (%s years old)",
+		"gender": "Gender",
+		"location": "Location",
+		"website": "Website",
+		"signature": "Signature",
+		"stats": "Member Statistics",
+		"private": "Private",
+		"best_answers": "Best Answers",
+		"best_posts": "%d post(s)",
+		"contact": "Contact Information",
+		"last_threads_by": "Last 5 threads by %s",
+		"last_posts_by": "Last 5 posts by %s",
+		"file_name": "File Name",
+		"file_type": "File Type",
+		"file_size": "Size",
+		"no_attachments": "There are no attachments."
+	},
+	"register": {
+		"title": "Create Account",
+		"step1": "Step 1",
+		"step2": "Step 2",
+		"step3": "Step 3",
+		"step4": "Step 4",
+		"disabled": "Registration has been disabled.",
+		"agreement": "Agreement",
+		"your_account": "Your Account",
+		"confirmation": "Confirmation",
+		"validation": "Validation",
+		"eula": "We are not responsible for any messages posted. The messages express the views of the author of the message, not necessarily the views of this community. Messages that harass, abuse or threaten other members; have obscene or otherwise objectionable content; have spam, commercial or advertising content or links may be removed and may result in the loss of your account. Please do not post any private information unless you want it to be available publicly. Never assume that you are completely anonymous and cannot be identified by your posts.",
+		"agree": "Agree",
+		"disagree": "Disagree",
+		"username": "Username",
+		"username_notice": "Between 3 and 20 characters.",
+		"password": "Password",
+		"password_notice": "Minimum 6 characters.",
+		"password_error": "Passwords does not match!",
+		"password_retype": "Confirm Password",
+		"email": "E-mail Address",
+		"captcha": "CAPTCHA",
+		"captcha_description": "Only letters. Just making sure you're human.",
+		"create": "Create Account",
+		"done": {
+			"congratulations": "Congratulations!",
+			"success": "You have successfully registered your account.",
+			"validate": "Please, check your e-mail to complete registration.",
+			"validated": "Your account is now validated.",
+			"already_validated": "This member is already validated.",
+			"not_match": "Security token doesn't match.",
+			"not_found": "Member not found."
+		},
+		"notification": {
+			"required": "All fields are required. If they're not filled, the registration can't continue.",
+			"does_not_match": "Typed passwords don't match.",
+			"username": "Username must be between 3 and 20 characters.",
+			"already_exists": "Username or e-mail address already exists.",
+			"captcha": "The entered CAPTCHA key doesn't match."
+		}
+	},
+	"report": {
+		"title": "Report Abuse",
+		"close": "Close",
+		"notice": "Please, describe the abusive behavior exhibited.<br>All reports are kept strictly confidential.",
+		"reason": "Reason",
+		"choose": "Chose one...",
+		"option_1": "Nudity or pornography",
+		"option_2": "Impersonating me or someone I know",
+		"option_3": "Racist or hate speech",
+		"option_4": "Targets me or a friend",
+		"option_5": "Direct call for violence",
+		"option_6": "Excessive violent content",
+		"option_7": "Spam",
+		"send": "Send"
+	},
+	"room": {
+		"new_thread": "New Thread",
+		"new_poll": "New Poll",
+		"read_only": "Read Only",
+		"all": "All",
+		"my_threads": "My Threads",
+		"last_reply": "Last Reply",
+		"top_threads": "Top Threads",
+		"no_replies": "No Replies",
+		"answered": "Answered",
+		"polls": "Polls",
+		"started_by": "Started by %s",
+		"started_on": "On %s",
+		"views": "%d views",
+		"last_post_by": "Last post by %s",
+		"no_threads": "There are no threads to be shown. What about starting a new one?"
+	},
+	"search": {
+		"title": "Search",
+		"do": "Do search...",
+		"results": "Your search for <b>%s</b> returned <b>%d</b> results.",
+		"no_results": "Your search for <b>%s</b> returned no results.",
+		"by_relevance": "By Relevance",
+		"by_date": "By Date"
+	},
+	"thread": {
+		"no_replies": "This thread has no replies. Be the first one!",
+		"posts": "Posts",
+		"post_number": "%s posts",
+		"registered": "Registered",
+		"location": "Location",
+		"posted_on": "Posted on %s",
+		"quoted_posted_on": "<strong>%s</strong> posted on %s",
+		"attachments": "Attachments",
+		"edited_on": "Edited on %s by %s",
+		"quote": "Quote",
+		"quote_button": "Reply this post",
+		"report_abuse": "Report abuse",
+		"edit": "Edit",
+		"delete": "Delete",
+		"set_best_answer": "Set as Best Answer",
+		"unset_best_answer": "Unset as Best Answer",
+		"replies": "Replies",
+		"add_reply": "Add Reply",
+		"obsolete": "Obsolete",
+		"locked": "Locked",
+		"delete_post": "Delete Post",
+		"delete_confirm": "Do you want to delete this post? This operation <strong>cannot</strong> be undone!",
+		"close": "Close",
+		"related": "Related Threads",
+		"no_related_threads": "There are no related threads to show.",
+		"mod": {
+			"title": "Moderation Options",
+			"lock": "Lock Thread",
+			"set_announcement": "Set Thread as Announcement",
+			"unset_annoumcement": "Unset Thread as Announcement",
+			"delete": "Delete This Thread",
+			"delete_confirm": "Are you sure you want to delete this thread? This action CANNOT be undone!"
+		},
+		"notification": {
+			"reported": "You have successfully reported this thread.",
+			"post_reported": "You have successfully reported a post in this thread.",
+			"deleted": "You have successfully deleted your post.",
+			"locked": "You have successfully locked this thread.",
+			"unlocked": "You have successfully unlocked this thread.",
+			"announcement_set": "You have successfully set this thread as announcement",
+			"announcement_remove": "You have successfully removed this thread as announcement.",
+			"empty": "Your message is empty.",
+			"title_post_empty": "Title and post content are required fields."
+		},
+		"add": {
+			"edit": "Editing post on",
+			"new_thread": "New Thread",
+			"add_new_thread": "Add New Thread",
+			"title": "Thread Title",
+			"post": "Post",
+			"attachment_max_size": "File size should not exceed <b>%s</b>.",
+			"options": "Thread Options",
+			"set_announcement": "Set thread as announcement",
+			"locked": "Lock thread after posting",
+			"poll": {
+				"question": "Poll Question",
+				"allow_multiple": "Allow multiple choice selection",
+				"choices": "Poll Choices",
+				"description": "Put one answer per line. Maximum 15 answers."
+			},
+			"auto": {
+				"title": "Set thread auto-open/lock date",
+				"description": "Define when the thread will be opened and locked. To not use this feature, leave all fields as is.",
+				"details": "NOTE: The thread opening/lock dates are based on the default community timezone (currently set as <strong>%s hours</strong> in <a href='admin/' target='_blank'>Admin CP</a>), not the member's timezone. This is to ensure that all members view the topic at the same time regardless of where they are.",
+				"open_at": "Open at... <small>(leave blank to post immediately)</small>",
+				"lock_at": "And lock at... <small>(leave blank to not set a locking time)</small>"
+			}
+		}
+	}
+}

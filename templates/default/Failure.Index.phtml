@@ -9,13 +9,13 @@
 	<form action="login/authenticate" method="post">
 		<div class="block">
 			<div class="form-group grid">
-				<label class="col-2"><?php __("E_USERNAME") ?></label>
+				<label class="col-2"><?php __("login.username") ?></label>
 				<div class="col-4">
 					<input type="text" name="username" class="form-control" required>
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label class="col-2"><?php __("E_PASSWORD") ?></label>
+				<label class="col-2"><?php __("login.password") ?></label>
 				<div class="col-4">
 					<input type="password" name="password" class="form-control" required>
 				</div>
@@ -34,57 +34,57 @@
 	<form action="room/unlock" method="post">
 		<div class="block">
 			<div class="form-group grid">
-				<label class="col-2"><?php __("E_PASSWORD") ?></label>
+				<label class="col-2"><?php __("failure.password") ?></label>
 				<div class="col-4">
 					<input type="password" name="password" class="form-control" required>
 				</div>
 			</div>
 			<div class="text-right">
 				<input type="hidden" name="room" value="<?= $_GET['room'] ?>">
-				<input type="submit" value="<?php __("E_PROCEED") ?>" class="btn btn-default">
+				<input type="submit" value="<?php __("failure.proceed") ?>" class="btn btn-default">
 			</div>
 		</div>
 	</form>
 <?php elseif($action == "offline"): ?>
 	<div class="block text-center" style='padding: 40px 0'>
 		<i class="fa fa-user-times" style="font-size: 50px"></i><br><br>
-		<h2><?php __("E_OFFLINE_TITLE") ?></h2><br>
-		<h3><?php __("E_OFFLINE_MESSAGE", $community_name) ?></h3>
+		<h2><?php __("failure.offline.title") ?></h2><br>
+		<h3><?php __("failure.offline.message", $community_name) ?></h3>
 	</div>
 <?php elseif($action == "update"): ?>
 	<div class="block text-center" style='padding: 40px 0'>
 		<i class="fa fa-refresh fa-spin" style="font-size: 50px"></i><br><br>
-		<h2><?php __("E_UPDATING") ?></h2><br>
-		<h3><?php __("E_UPDATING_MESSAGE") ?></h3>
+		<h2><?php __("failure.updating.title") ?></h2><br>
+		<h3><?php __("failure.updating.message") ?></h3>
 	</div>
 <?php elseif($action == "deleted"): ?>
 	<div class="block text-center" style='padding: 40px 0'>
 		<i class="fa fa-user-times" style="font-size: 50px"></i><br><br>
-		<h2><?php __("E_DELETED") ?></h2><br>
-		<h3><?php __("E_DELETED_MESSAGE") ?></h3>
+		<h2><?php __("failure.deleted.title") ?></h2><br>
+		<h3><?php __("failure.deleted.message") ?></h3>
 	</div>
 <?php elseif($action == "banned"): ?>
 	<div class="block text-center" style='padding: 40px 0'>
 		<i class="fa fa-ban" style="font-size: 50px"></i><br><br>
-		<h2><?php __("E_BANNED") ?></h2><br>
-		<h3><?php __("E_BANNED_MESSAGE") ?></h3>
+		<h2><?php __("failure.banned.title") ?></h2><br>
+		<h3><?php __("failure.banned.message") ?></h3>
 	</div>
 <?php elseif($action == "403"): ?>
 	<div class="block text-center" style='padding: 40px 0'>
 		<i class="fa fa-hand-paper-o" style="font-size: 50px"></i><br><br>
-		<h2><?php __("E_FORBIDDEN") ?></h2><br>
-		<h3><?php __("E_FORBIDDEN_MESSAGE") ?></h3>
+		<h2><?php __("failure.forbidden.title") ?></h2><br>
+		<h3><?php __("failure.forbidden.message") ?></h3>
 	</div>
 <?php elseif($action == "404"): ?>
 	<div class="block text-center" style='padding: 40px 0'>
 		<i class="fa fa-meh-o" style="font-size: 50px"></i><br><br>
-		<h2><?php __("E_NOT_FOUND") ?></h2><br>
-		<h3><?php __("E_NOT_FOUND_MESSAGE") ?></h3>
+		<h2><?php __("failure.not_found.title") ?></h2><br>
+		<h3><?php __("failure.not_found.message") ?></h3>
 	</div>
 <?php elseif($action == "500"): ?>
 	<div class="block text-center" style='padding: 40px 0'>
 		<i class="fa fa-exclamation-triangle" style="font-size: 50px"></i><br><br>
-		<h2><?php __("E_SERVER_ERROR") ?></h2><br>
-		<h3><p><?php __("E_SERVER_ERROR_MESSAGE") ?></p></h3>
+		<h2><?php __("failure.server_error.title") ?></h2><br>
+		<h3><p><?php __("failure.server_error.message") ?></p></h3>
 	</div>
 <?php endif; ?>

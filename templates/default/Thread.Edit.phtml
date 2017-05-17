@@ -1,23 +1,23 @@
 <h1>
 	<small><?= $community_name ?></small>
-	<?php __("P_EDIT_POST") ?>: <?= $thread_info['title'] ?>
+	<?php __("thread.add.edit") ?>: <?= $thread_info['title'] ?>
 </h1>
 
 <div class="block">
 	<form action="thread/save_edit/<?= $post_info['p_id'] ?>" method="post" enctype="multipart/form-data">
 		<div class="form-group grid">
-			<label for="" class="col-2"><?php __("P_POST") ?></label>
+			<label for="" class="col-2"><?php __("thread.add.post") ?></label>
 			<div class="col-10">
 				<textarea name="post" id="post" rows="30"><?= $post_info['post'] ?></textarea>
 			</div>
 		</div>
 		<div class="pull-clear">
 			<div class="pull-left">
-				<div class="error-message"><?php __("P_ERROR") ?></div>
+				<div class="error-message"><?php __("thread.notification.empty") ?></div>
 			</div>
 			<div class="pull-right">
 				<input type="hidden" name="thread_id" value="<?= $post_info['thread_id'] ?>">
-				<input type="submit" value="<?php __("T_EDIT") ?>" class="btn btn-default">
+				<input type="submit" value="<?php __("thread.edit") ?>" class="btn btn-default">
 			</div>
 		</div>
 	</form>

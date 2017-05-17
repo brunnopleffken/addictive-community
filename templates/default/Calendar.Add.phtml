@@ -1,52 +1,52 @@
 <h1>
 	<small><?= $community_name ?></small>
-	<?php __("C_TITLE") ?>: <?php __("C_ADD") ?>
+	<?php __("calendar.title") ?>: <?php __("calendar.add") ?>
 </h1>
 
 <div class="block">
 	<form action="calendar/save" method="post">
 		<div class="form-group grid">
-			<label class="col-2"><?php __("C_NEW_TITLE") ?></label>
+			<label class="col-2"><?php __("calendar.new.title") ?></label>
 			<div class="col-6">
 				<input type="text" name="title" class="form-control" required>
 			</div>
 		</div>
 		<div class="form-group grid">
-			<label class="col-2"><?php __("C_NEW_DATE") ?></label>
+			<label class="col-2"><?php __("calendar.new.date") ?></label>
 			<div class="col-10">
 				<?php
 					echo \AC\Kernel\Html::days("day", date("d")) . " ";
 					echo \AC\Kernel\Html::months("month", false, date("m")) . " ";
 					echo \AC\Kernel\Html::years("year", 0, 3);
-					echo "<span class='form-control-static'>&nbsp;";
-						__("C_NEW_AT");
-					echo "&nbsp;</span>";
+					echo "<span class='form-control-static'>&nbsp; ";
+						__("calendar.new.at");
+					echo " &nbsp;</span>";
 					echo \AC\Kernel\Html::hours("hour") . " : ";
 					echo \AC\Kernel\Html::minutes("minute");
 				?>
 			</div>
 		</div>
 		<div class="form-group grid">
-			<label class="col-2"><?php __("C_NEW_TYPE") ?></label>
+			<label class="col-2"><?php __("calendar.new.type") ?></label>
 			<div class="col-4">
 				<select name="type" class="select2 select2-no-search span-12">
-					<option value="public"><?php __("C_NEW_PUBLIC") ?></option>
-					<option value="private"><?php __("C_NEW_PRIVATE") ?></option>
+					<option value="public"><?php __("calendar.new.public") ?></option>
+					<option value="private"><?php __("calendar.new.private") ?></option>
 				</select>
 			</div>
 		</div>
 		<div class="form-group grid">
-			<label class="col-2"><?php __("C_NEW_DESC") ?></label>
+			<label class="col-2"><?php __("calendar.new.description") ?></label>
 			<div class="col-6">
 				<textarea name="text" rows="8" class="form-control" required></textarea>
 			</div>
 		</div>
 		<div class="pull-clear">
 			<div class="pull-left">
-				<div class="error-message"><?php __("C_NEW_ERROR") ?></div>
+				<div class="error-message"><?php __("calendar.new.error") ?></div>
 			</div>
 			<div class="pull-right">
-				<input type="submit" class="btn btn-default" value="<?php __("C_ADD") ?>">
+				<input type="submit" class="btn btn-default" value="<?php __("calendar.add") ?>">
 			</div>
 		</div>
 	</form>

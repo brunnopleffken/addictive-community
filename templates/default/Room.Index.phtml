@@ -6,10 +6,10 @@
 	<?php if($is_member): ?>
 		<div class="header-buttons">
 			<?php if($room_info['read_only']): ?>
-				<a class="btn btn-default btn-disabled font-w600"><?php __("R_READ_ONLY") ?></a>
+				<a class="btn btn-default btn-disabled font-w600"><?php __("room.read_only") ?></a>
 			<?php else: ?>
-				<a href="thread/add/<?= $room_id ?>" class="btn btn-default font-w600"><?php __("R_NEW_THREAD") ?></a>
-				<a href="thread/add/<?= $room_id ?>?poll=1" class="btn btn-default font-w600"><?php __("R_NEW_POLL") ?></a>
+				<a href="thread/add/<?= $room_id ?>" class="btn btn-default font-w600"><?php __("room.new_thread") ?></a>
+				<a href="thread/add/<?= $room_id ?>?poll=1" class="btn btn-default font-w600"><?php __("room.new_poll") ?></a>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
@@ -21,15 +21,15 @@
 
 <div class="nav room-nav">
 	<div class="nav-top">
-		<a href="room/<?= $room_id ?>" class="<?= $menu[0] ?>"><?php __("R_ALL") ?></a>
-		<a href="room/<?= $room_id ?>?view=mythreads" class="<?= $menu[1] ?>"><?php __("R_MY_THREADS") ?></a>
+		<a href="room/<?= $room_id ?>" class="<?= $menu[0] ?>"><?php __("room.all") ?></a>
+		<a href="room/<?= $room_id ?>?view=mythreads" class="<?= $menu[1] ?>"><?php __("room.my_threads") ?></a>
 	</div>
 	<div class="nav-bottom">
-		<a href="room/<?= $room_id ?>"><?php __("R_LAST_REPLY") ?></a>
-		<a href="room/<?= $room_id ?>?view=topreplies"><?php __("R_TOP_THREADS") ?></a>
-		<a href="room/<?= $room_id ?>?view=noreplies"><?php __("R_NO_REPLIES") ?></a>
-		<a href="room/<?= $room_id ?>?view=bestanswered"><?php __("R_ANSWERED") ?></a>
-		<a href="room/<?= $room_id ?>?view=polls"><?php __("R_POLLS") ?></a>
+		<a href="room/<?= $room_id ?>"><?php __("room.last_reply") ?></a>
+		<a href="room/<?= $room_id ?>?view=topreplies"><?php __("room.top_threads") ?></a>
+		<a href="room/<?= $room_id ?>?view=noreplies"><?php __("room.no_replies") ?></a>
+		<a href="room/<?= $room_id ?>?view=bestanswered"><?php __("room.answered") ?></a>
+		<a href="room/<?= $room_id ?>?view=polls"><?php __("room.polls") ?></a>
 		<a href="feeds/room/<?= $room_id ?>" class="pull-right"><i class="fa fa-rss"></i></a>
 	</div>
 </div>
@@ -69,17 +69,17 @@
 		</div>
 	<?php endforeach; ?>
 <?php else: ?>
-	<div class="block text-center"><?php __("R_NO_THREADS") ?></div>
+	<div class="block text-center"><?php __("room.no_threads") ?></div>
 <?php endif; ?>
 
 <div class="room-footer">
 	<?php if($is_member): ?>
 		<div class="room-footer-buttons">
 			<?php if($room_info['read_only']): ?>
-				<a class="btn btn-default btn-disabled font-w600"><?php __("R_READ_ONLY") ?></a>
+				<a class="btn btn-default btn-disabled font-w600"><?php __("room.read_only") ?></a>
 			<?php else: ?>
-				<a href="thread/add/<?= $room_id ?>" class="btn btn-default font-w600"><?php __("R_NEW_THREAD") ?></a>
-				<a href="thread/add/<?= $room_id ?>?poll=1" class="btn btn-default font-w600"><?php __("R_NEW_POLL") ?></a>
+				<a href="thread/add/<?= $room_id ?>" class="btn btn-default font-w600"><?php __("room.new_thread") ?></a>
+				<a href="thread/add/<?= $room_id ?>?poll=1" class="btn btn-default font-w600"><?php __("room.new_poll") ?></a>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>

@@ -41,7 +41,7 @@ class Failure extends Application
 				Html::notification(i18n::translate("E_MESSAGE_VALIDATED"), "success", true), "login"
             ],
 			'protected_room' => [
-				Html::notification(i18n::translate("E_MESSAGE_PROTECTED"), "warning", true), "protected"
+				Html::notification(i18n::translate("failure.message.protected"), "warning", true), "protected"
             ],
 			'thread_locked' => [
 				Html::notification(i18n::translate("E_MESSAGE_LOCKED_THREAD"), "failure", true), false

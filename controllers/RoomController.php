@@ -227,10 +227,10 @@ class Room extends Application
 		$result['author_avatar'] = $this->Core->getAvatar($result, 100);
 
 		// Build phrases using internationalization
-		$result['author_name'] = i18n::translate("R_STARTED_BY", array($result['author_name']));
-		$result['start_date'] = i18n::translate("R_STARTED_ON", array($result['start_date']));
-		$result['views'] = i18n::translate("R_VIEWS", array($result['views']));
-		$result['last_post_by'] = i18n::translate("R_LAST_POST_BY", array($result['last_post_name']));
+		$result['author_name'] = i18n::translate("room.started_by", array($result['author_name']));
+		$result['start_date'] = i18n::translate("room.started_on", array($result['start_date']));
+		$result['views'] = i18n::translate("room.views", array($result['views']));
+		$result['last_post_by'] = i18n::translate("room.last_post_by", array($result['last_post_name']));
 
 		// Get the number of replies, not total number of posts... ;)
 		$result['replies']--;

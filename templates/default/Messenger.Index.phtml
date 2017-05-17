@@ -1,10 +1,10 @@
 <div class="header">
 	<h1>
 		<small><?= $community_name ?></small>
-		<?php __("M_TITLE") ?>
+		<?php __("messenger.title") ?>
 	</h1>
 	<div class="header-buttons">
-		<a href="messenger/compose" class="btn btn-default"><?php __("M_NEW_MESSAGE") ?></a>
+		<a href="messenger/compose" class="btn btn-default"><?php __("messenger.new_message") ?></a>
 	</div>
 </div>
 
@@ -12,15 +12,15 @@
 
 <div class="nav room-nav">
 	<div class="nav-top">
-		<a href="messenger" class="active"><?php __("M_FOLDERS") ?></a>
+		<a href="messenger" class="active"><?php __("messenger.folders") ?></a>
 	</div>
 	<div class="nav-bottom">
-		<a href="messenger"><?php __("M_FOLDER_INBOX") ?></a>
-		<a href="messenger?folder=sent"><?php __("M_FOLDER_SENT") ?></a>
+		<a href="messenger"><?php __("messenger.inbox") ?></a>
+		<a href="messenger?folder=sent"><?php __("messenger.sent") ?></a>
 		<?php if(\AC\Kernel\Http::request("folder") != "sent"): ?>
 			<div class="progress-bar" style="width: 200px; float: right; margin-top: 8px">
 				<div class="fill" style="width: <?= $percentage_width ?>"></div>
-				<span><?php __("M_STORAGE", array($num_results, $max_storage_size)) ?></span>
+				<span><?php __("messenger.storage", array($num_results, $max_storage_size)) ?></span>
 			</div>
 		<?php endif; ?>
 	</div>
@@ -33,17 +33,17 @@
 				<thead>
 					<tr>
 						<th colspan="5">
-							<?php __("M_FOLDER_INBOX") ?>
+							<?php __("messenger.inbox") ?>
 							<div class="pull-right text-s0">
-								<a class="label invert" id="delete-messages"><?php __("M_DELETE_SELECTED") ?></a>
+								<a class="label invert" id="delete-messages"><?php __("messenger.delete_selected") ?></a>
 							</div>
 						</th>
 					</tr>
 					<tr>
 						<td class="min"></td>
-						<td><?php __("M_SUBJECT") ?></td>
-						<td width="20%"><?php __("M_FROM") ?></td>
-						<td width="22%"><?php __("M_DATE") ?></td>
+						<td><?php __("messenger.subject") ?></td>
+						<td width="20%"><?php __("messenger.from") ?></td>
+						<td width="22%"><?php __("messenger.date") ?></td>
 						<td class="min text-center"><i class="fa fa-check-square-o"></i></td>
 					</tr>
 				</thead>
@@ -65,7 +65,7 @@
 						<?php endforeach; ?>
 					<?php else: ?>
 						<tr>
-							<td colspan="5" class="text-center"><?php __("M_NO_PM_INBOX") ?></td>
+							<td colspan="5" class="text-center"><?php __("messenger.no_pm_inbox") ?></td>
 						</tr>
 					<?php endif; ?>
 				</tbody>
@@ -76,13 +76,13 @@
 			<thead>
 				<tr>
 					<th colspan="5">
-						<?php __("M_FOLDER_SENT") ?>
+						<?php __("messenger.sent") ?>
 					</th>
 				</tr>
 				<tr>
-					<td><?php __("M_SUBJECT") ?></td>
-					<td width="20%"><?php __("M_TO") ?></td>
-					<td width="22%"><?php __("M_DATE") ?></td>
+					<td><?php __("messenger.subject") ?></td>
+					<td width="20%"><?php __("messenger.to") ?></td>
+					<td width="22%"><?php __("messenger.date") ?></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -96,7 +96,7 @@
 					<?php endforeach; ?>
 					<?php else: ?>
 					<tr>
-						<td colspan="5" class="text-center"><?php __("M_NO_PM_INBOX") ?></td>
+						<td colspan="5" class="text-center"><?php __("messenger.no_pm_sent") ?></td>
 					</tr>
 				<?php endif; ?>
 			</tbody>

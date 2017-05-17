@@ -35,16 +35,16 @@ class Register extends Application
 		// Notifications
 		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::notification(i18n::translate("R_ERROR_1"), "failure", true),
-			Html::notification(i18n::translate("R_ERROR_2"), "failure", true),
-			Html::notification(i18n::translate("R_ERROR_3"), "failure", true),
-			Html::notification(i18n::translate("R_ERROR_4"), "failure", true),
-			Html::notification(i18n::translate("R_ERROR_5"), "failure", true)
+			Html::notification(i18n::translate("register.notification.required"), "failure", true),
+			Html::notification(i18n::translate("register.notification.does_not_match"), "failure", true),
+			Html::notification(i18n::translate("register.notification.username"), "failure", true),
+			Html::notification(i18n::translate("register.notification.already_exists"), "failure", true),
+			Html::notification(i18n::translate("register.notification.captcha"), "failure", true)
 		);
 
 		// Page info
-		$page_info['title'] = i18n::translate("R_TITLE");
-		$page_info['bc'] = array(i18n::translate("R_TITLE"));
+		$page_info['title'] = i18n::translate("register.title");
+		$page_info['bc'] = array(i18n::translate("register.title"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -199,12 +199,12 @@ class Register extends Application
 		if($validation_count > 0) {
 			// Validate usergroup
 			if($validation_results['usergroup'] != 6) {
-				Html::throwError(i18n::translate("R_VALIDATE_ALREADY"));
+				Html::throwError(i18n::translate("register.done.already_validated"));
 			}
 
 			// Validate member's security token
 			if($validation_results['token'] != $token) {
-				Html::throwError(i18n::translate("R_VALIDATE_NOT_MATCH"));
+				Html::throwError(i18n::translate("register.done.not_match"));
 			}
 
 			// Validate and redirect
@@ -212,7 +212,7 @@ class Register extends Application
 			$this->Core->redirect("register?step=4");
 		}
 		else {
-			Html::throwError(i18n::translate("R_VALIDATE_NOT_FOUND"));
+			Html::throwError(i18n::translate("register.done.not_found"));
 		}
 	}
 

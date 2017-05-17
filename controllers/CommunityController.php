@@ -152,7 +152,7 @@ class Community extends Application
 				$moderator_list[] = "<a href='profile/{$member['m_id']}'>{$member['username']}</a>";
 			}
 
-			$result['moderators_list'] = "<div class='community-info-moderators'>" . i18n::translate("C_MODERATORS") . ": " . Text::toList($moderator_list) . "</div>";
+			$result['moderators_list'] = "<div class='community-info-moderators'>" . i18n::translate("community.moderators") . ": " . Text::toList($moderator_list) . "</div>";
 		}
 		else {
 			$result['moderators_list'] = "";
@@ -173,7 +173,7 @@ class Community extends Application
 		}
 		elseif($result['password'] != "") {
 			$result['icon']  = "<i class='fa fa-lock fa-fw' title='Protected room'></i>";
-			$result['title'] = "<em>" . i18n::translate("C_PROTECTED_ROOM") . "</em>";
+			$result['title'] = "<em>" . i18n::translate("community.protected_room") . "</em>";
 		}
 		elseif($result['invisible'] == 1) {
 			$result['icon']  = "<i class='fa fa-user-secret fa-fw' title='Invisible room'></i>";
@@ -181,7 +181,7 @@ class Community extends Application
 		}
 		elseif($result['url'] != "") {
 			$result['icon']  = "<i class='fa fa-external-link fa-fw' title='Redirect room'></i>";
-			$result['redirect'] = "<div class='redirect'>" . i18n::translate("C_REDIRECT_TO") . ": {$result['url']}</div>";
+			$result['redirect'] = "<div class='redirect'>" . i18n::translate("community.redirect_to") . ": {$result['url']}</div>";
 			$result['room_link'] = $result['url'];
 		}
 		elseif($has_unread_threads) {

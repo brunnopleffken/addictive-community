@@ -1,6 +1,6 @@
 <h1>
 	<small><?= $community_name ?></small>
-	<?php __("M_TITLE") ?>
+	<?php __("members.title") ?>
 </h1>
 
 <div class="pull-clear push-10">
@@ -17,22 +17,22 @@
 			<tr>
 				<th colspan="6">
 					<?php if($term): ?>
-						<?php __("M_SEARCH") ?>: "<?= $term ?>"
+						<?php __("members.search") ?>: "<?= $term ?>"
 					<?php endif; ?>
 					<div class="pull-right text-s0">
-						<a href="members?<?= $letter_param ?>order=name" class="label invert"><?php __("M_MEMBER_NAME") ?></a>
-						<a href="members?<?= $letter_param ?>order=join" class="label invert"><?php __("M_JOIN_DATE") ?></a>
-						<a href="members?<?= $letter_param ?>order=post" class="label invert"><?php __("M_POST_COUNT") ?></a>
+						<a href="members?<?= $letter_param ?>order=name" class="label invert"><?php __("members.member_name") ?></a>
+						<a href="members?<?= $letter_param ?>order=join" class="label invert"><?php __("members.join_date") ?></a>
+						<a href="members?<?= $letter_param ?>order=post" class="label invert"><?php __("members.post_count") ?></a>
 					</div>
 				</th>
 			</tr>
 			<tr>
 				<td class="min"></td>
-				<td><?php __("M_MEMBER_NAME") ?></td>
-				<td><?php __("M_JOINED") ?></td>
-				<td><?php __("M_POSTS") ?></td>
-				<td><?php __("M_LOCATION") ?></td>
-				<td><?php __("M_GROUP") ?></td>
+				<td><?php __("members.member_name") ?></td>
+				<td><?php __("members.joined") ?></td>
+				<td><?php __("members.posts") ?></td>
+				<td><?php __("members.location") ?></td>
+				<td><?php __("members.group") ?></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,7 +51,7 @@
 				<?php endforeach; ?>
 			<?php else: ?>
 				<tr>
-					<td colspan="6" class="text-center"><?php __("M_NO_RESULTS") ?></td>
+					<td colspan="6" class="text-center"><?php __("members.no_results") ?></td>
 				</tr>
 			<?php endif; ?>
 		</tbody>
@@ -60,7 +60,7 @@
 
 <div class="block">
 	<form method="get" class="inline">
-		<p class="form-control-static"><?php __("M_SEARCH") ?>:</p>
+		<p class="form-control-static"><?php __("members.search") ?>:</p>
 		<input type="text" name="term" minlength="3" class="form-control span-3" required>
 		<input type="submit" class="btn btn-default" value="OK">
 	</form>

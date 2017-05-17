@@ -1,15 +1,15 @@
 <h1>
 	<small><?= $community_name ?></small>
-	<?php __("S_TITLE") ?>
+	<?php __("search.title") ?>
 </h1>
 
 <div class="block">
 	<div class="form-group grid margin-no">
-		<label class="col-2"><?php __("S_DO") ?></label>
+		<label class="col-2"><?php __("search.do") ?></label>
 		<div class="col-10">
 			<form action="search" method="get">
 				<input type="text" name="q" class="form-control span-6" value="<?= $term ?>" required>
-				<input type="submit" value="Search" class="btn btn-default">
+				<input type="submit" value="<?php __("search.title") ?>" class="btn btn-default">
 			</form>
 		</div>
 	</div>
@@ -24,10 +24,10 @@
 				<thead>
 					<tr>
 						<th colspan="3">
-							<?php __("S_RESULTS", array("\"" . $term . "\"", $num_results)) ?>
+							<?php __("search.results", array("\"" . $term . "\"", $num_results)) ?>
 							<div class="pull-right text-s0">
-								<a href="search?q=<?= $term ?>" class="label invert"><?php __("S_BY_RELEVANCE") ?></a>
-								<a href="search?q=<?= $term ?>&sort=date" class="label invert"><?php __("S_BY_DATE") ?></a>
+								<a href="search?q=<?= $term ?>" class="label invert"><?php __("search.by_relevance") ?></a>
+								<a href="search?q=<?= $term ?>&sort=date" class="label invert"><?php __("search.by_date") ?></a>
 							</div>
 						</th>
 					</tr>
@@ -58,7 +58,7 @@
 			</table>
 		<?php elseif($warning == ""): ?>
 			<div class="text-center padding-10">
-				<?php __("S_NO_RESULTS", $term) ?>
+				<?php __("search.no_results", $term) ?>
 			</div>
 		<?php endif; ?>
 	</div>
