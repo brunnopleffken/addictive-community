@@ -76,8 +76,8 @@ class Usercp extends Application
 		$space_left = $this->Core->config['member_pm_storage'] - $pm['total'];
 
 		// Page info
-		$page_info['title'] = i18n::translate("C_TITLE");
-		$page_info['bc'] = array(i18n::translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("usercp.title");
+		$page_info['bc'] = array(i18n::translate("usercp.title"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -102,7 +102,7 @@ class Usercp extends Application
 		// Define messages
 		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::notification(i18n::translate("C_MESSAGE_1"), "success")
+			Html::notification(i18n::translate("usercp.profile.notification.success"), "success")
 		);
 
 		// Gender
@@ -118,8 +118,8 @@ class Usercp extends Application
 		$profile['hide_email_status'] = ($this->member_info['hide_email'] == 1) ? "checked" : "";
 
 		// Page info
-		$page_info['title'] = i18n::translate("C_TITLE");
-		$page_info['bc'] = array(i18n::translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("usercp.title");
+		$page_info['bc'] = array(i18n::translate("usercp.title"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -142,7 +142,7 @@ class Usercp extends Application
 		// Define messages
 		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::notification(i18n::translate("C_MESSAGE_2"), "success")
+			Html::notification(i18n::translate("usercp.avatar.notification.success"), "success")
 		);
 
 		// Member has selected Gravatar or custom photo?
@@ -164,8 +164,8 @@ class Usercp extends Application
 		$photo_info['custom_image'] = $this->Core->getAvatar($tmp, 240);
 
 		// Page info
-		$page_info['title'] = i18n::translate("C_TITLE");
-		$page_info['bc'] = array(i18n::translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("usercp.title");
+		$page_info['bc'] = array(i18n::translate("usercp.title"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -188,7 +188,7 @@ class Usercp extends Application
 		// Define messages
 		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::notification(i18n::translate("C_MESSAGE_8"), "success")
+			Html::notification(i18n::translate("usercp.cover.notification.success"), "success")
 		);
 
 		// Get cover image
@@ -213,12 +213,12 @@ class Usercp extends Application
 		// Define messages
 		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::notification(i18n::translate("C_MESSAGE_3"), "success")
+			Html::notification(i18n::translate("usercp.signature.notification.success"), "success")
 		);
 
 		// Page info
-		$page_info['title'] = i18n::translate("C_TITLE");
-		$page_info['bc'] = array(i18n::translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("usercp.title");
+		$page_info['bc'] = array(i18n::translate("usercp.title"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -240,7 +240,7 @@ class Usercp extends Application
 		// Define messages
 		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::notification(i18n::translate("C_MESSAGE_4"), "success")
+			Html::notification(i18n::translate("usercp.settings.notification.success"), "success")
 		);
 
 		// Timezone list
@@ -301,8 +301,8 @@ class Usercp extends Application
 		}
 
 		// Page info
-		$page_info['title'] = i18n::translate("C_TITLE");
-		$page_info['bc'] = array(i18n::translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("usercp.title");
+		$page_info['bc'] = array(i18n::translate("usercp.title"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -324,14 +324,14 @@ class Usercp extends Application
 		// Define messages
 		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::notification(i18n::translate("C_MESSAGE_5"), "success"),
-			Html::notification(i18n::translate("C_MESSAGE_6"), "failure"),
-			Html::notification(i18n::translate("C_MESSAGE_7"), "failure")
+			Html::notification(i18n::translate("usercp.password.notification.success"), "success"),
+			Html::notification(i18n::translate("usercp.password.notification.incorrect"), "failure"),
+			Html::notification(i18n::translate("usercp.password.notification.not_match"), "failure")
 		);
 
 		// Page info
-		$page_info['title'] = i18n::translate("C_TITLE");
-		$page_info['bc'] = array(i18n::translate("C_TITLE"));
+		$page_info['title'] = i18n::translate("usercp.title");
+		$page_info['bc'] = array(i18n::translate("usercp.title"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables

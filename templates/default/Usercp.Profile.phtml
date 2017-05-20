@@ -1,37 +1,37 @@
 <h1>
 	<small><?= $community_name ?></small>
-	<?php __("C_TITLE") ?>
+	<?php __("usercp.title") ?>
 </h1>
 
 <div class="block padding-no">
 	<div class="nav room-nav">
 		<div class="nav-top">
-			<a href="usercp" class="<?php __($menu[0]) ?>"><?php __("C_SUMMARY") ?></a>
-			<a href="usercp/profile" class="<?php __($menu[1]) ?>"><?php __("C_PROFILE") ?></a>
-			<a href="usercp/avatar" class="<?php __($menu[2]) ?>"><?php __("C_PHOTO") ?></a>
-			<a href="usercp/cover" class="<?php __($menu[3]) ?>"><?php __("C_COVER") ?></a>
-			<a href="usercp/signature" class="<?php __($menu[4]) ?>"><?php __("C_SIGNATURE") ?></a>
-			<a href="usercp/settings" class="<?php __($menu[5]) ?>"><?php __("C_SETTINGS") ?></a>
-			<a href="usercp/password" class="<?php __($menu[6]) ?>"><?php __("C_PASSWORD") ?></a>
+			<a href="usercp" class="<?= $menu[0] ?>"><?php __("usercp.summary.title") ?></a>
+			<a href="usercp/profile" class="<?= $menu[1] ?>"><?php __("usercp.profile.title") ?></a>
+			<a href="usercp/avatar" class="<?= $menu[2] ?>"><?php __("usercp.avatar.title") ?></a>
+			<a href="usercp/cover" class="<?= $menu[3] ?>"><?php __("usercp.cover.title") ?></a>
+			<a href="usercp/signature" class="<?= $menu[4] ?>"><?php __("usercp.signature.title") ?></a>
+			<a href="usercp/settings" class="<?= $menu[5] ?>"><?php __("usercp.settings.title") ?></a>
+			<a href="usercp/password" class="<?= $menu[6] ?>"><?php __("usercp.password.title") ?></a>
 		</div>
 	</div>
 	<div class="block-nav-content padding-10">
 		<?= $notification ?>
 		<form action="usercp/save_profile" method="post">
 			<div class="form-group grid">
-				<label class="col-2"><?php __("C_MEMBER_TITLE") ?></label>
+				<label class="col-2"><?php __("usercp.profile.member_title") ?></label>
 				<div class="col-4">
 					<input type="text" name="member_title" class="form-control" value="<?= $member['member_title'] ?>">
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label class="col-2"><?php __("C_ABOUT_ME") ?></label>
+				<label class="col-2"><?php __("usercp.profile.about_me") ?></label>
 				<div class="col-6">
 					<textarea name="profile" rows="4" class="form-control"><?= $member['profile'] ?></textarea>
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label class="col-2"><?php __("C_EMAIL_ADDR") ?></label>
+				<label class="col-2"><?php __("usercp.profile.email") ?></label>
 				<div class="col-5">
 					<input type="email" name="email" class="form-control" value="<?= $member['email'] ?>">
 				</div>
@@ -40,12 +40,12 @@
 						<input type="hidden" name="hide_email" value="0">
 						<input type="checkbox" name="hide_email" value="1" <?= $profile['hide_email_status'] ?>>
 						<span><i class="fa fa-check"></i></span>
-						<small><?php __("C_EMAIL_HIDE") ?></small>
+						<small><?php __("usercp.profile.email_hide") ?></small>
 					</label>
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label class="col-2"><?php __("C_BIRTHDATE") ?></label>
+				<label class="col-2"><?php __("usercp.profile.birthdate") ?></label>
 				<div class="col-10">
 					<?php
 						echo \AC\Kernel\Html::days("b_day", $member['b_day'], true) . " ";
@@ -55,23 +55,23 @@
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label class="col-2"><?php __("C_GENDER") ?></label>
+				<label class="col-2"><?php __("usercp.profile.gender") ?></label>
 				<div class="col-10">
 					<select name="gender" class="select2-no-search" style="width: 120px">
-						<option value="0">---</option>
-						<option value="M" <?= $profile['male'] ?>><?php __("C_GENDER_MALE") ?></option>
-						<option value="F" <?= $profile['female'] ?>><?php __("C_GENDER_FEMALE") ?></option>
+						<option value="0">-</option>
+						<option value="M" <?= $profile['male'] ?>><?php __("usercp.profile.gender_male") ?></option>
+						<option value="F" <?= $profile['female'] ?>><?php __("usercp.profile.gender_female") ?></option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label class="col-2"><?php __("C_LOCATION") ?></label>
+				<label class="col-2"><?php __("usercp.profile.location") ?></label>
 				<div class="col-4">
 					<input type="text" name="location" class="form-control" value="<?= $member['location'] ?>">
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label class="col-2"><?php __("C_WEBSITE") ?></label>
+				<label class="col-2"><?php __("usercp.profile.website") ?></label>
 				<div class="col-5">
 					<input type="url" name="website" class="form-control" value="<?= $member['website'] ?>">
 				</div>
@@ -96,7 +96,7 @@
 			</div>
 			<div class="pull-clear">
 				<div class="pull-right">
-					<input type="submit" value="<?php __("C_UPDATE_PROFILE") ?>" class="btn btn-default">
+					<input type="submit" value="<?php __("usercp.profile.update") ?>" class="btn btn-default">
 				</div>
 			</div>
 		</form>

@@ -358,5 +358,92 @@
 				"lock_at": "And lock at... <small>(leave blank to not set a locking time)</small>"
 			}
 		}
+	},
+	"usercp": {
+		"title": "Control Panel",
+		"summary" : {
+			"title": "Summary",
+			"account_summary": "Your account summary",
+			"total_posts": "Total number of posts to date",
+			"posts": "%s posts",
+			"registered": "You registered on",
+			"average_posts": "Average number of posts per day",
+			"posts_per_day": "%s posts per day",
+			"messenger_summary": "Your messenger summary",
+			"total_messages": "Total messages",
+			"messages": "messages",
+			"space_left": "Message space left"
+		},
+		"profile": {
+			"title": "Profile",
+			"member_title": "Member Title",
+			"about_me": "About Me",
+			"email": "E-mail Address",
+			"email_hide": "Hide e-mail address from other users",
+			"birthdate": "Birthdate",
+			"gender": "Gender",
+			"gender_male": "Male",
+			"gender_female": "Female",
+			"location": "Location",
+			"website": "Website",
+			"update": "Update Profile",
+			"notification": {
+				"success": "Your member profile has been changed successfully."
+			}
+		},
+		"avatar": {
+			"title": "Avatar",
+			"source": "Avatar Source",
+			"custom": "Upload custom avatar",
+			"gravatar_settings": "Gravatar Settings",
+			"gravatar_message": "<b>Gravatar</b> is a service for providing globally unique avatars.<br>Your gravatar is associated with <a href='usercp'>your e-mail address</a>.<br><br>Edit or create your Gravatar accessing <a href='https://www.gravatar.com' target='_blank' rel='nofollow'>www.gravatar.com</a>.",
+			"upload": "Upload Avatar",
+			"update": "Update Avatar",
+			"notification": {
+				"success": "Your avatar has been changed successfully."
+			}
+		},
+		"cover": {
+			"title": "Cover Photo",
+			"current": "Current Photo",
+			"info": "If none is set, then your avatar is your cover photo.",
+			"upload": "Upload Photo",
+			"remove": "Remove",
+			"update": "Update Cover Photo",
+			"notification": {
+				"success": "Your cover photo has been changed successfully."
+			}
+		},
+		"signature": {
+			"title": "Signature",
+			"edit": "Edit Signature",
+			"update": "Update Signature",
+			"notification": {
+				"success": "Your signature has been changed successfully."
+			}
+		},
+		"settings": {
+			"title": "Settings",
+			"timezone": "Timezone",
+			"language": "Language",
+			"theme": "Theme",
+			"update": "Update Settings",
+			"notification": {
+				"success": "Your settings has been changed successfully."
+			}
+		},
+		"password": {
+			"title": "Password",
+			"current": "Current Password",
+			"new": "New Password",
+			"retype": "Retype Password",
+			"empty": "Passwords doesn't match or fields are empty.",
+			"change": "Change Password",
+			"notification": {
+				"success": "Your password has been changed successfully.",
+				"incorrect": "Your old password is incorrect. Please, try again.",
+				"not_match": "The new password does not match (passwords are case-sensitive). Please, try again."
+			}
+		}
 	}
 }
