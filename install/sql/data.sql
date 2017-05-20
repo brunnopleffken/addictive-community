@@ -24,11 +24,7 @@ VALUES
 
 INSERT INTO `c_languages` (`l_id`, `name`, `directory`, `author_name`, `author_email`, `is_active`)
 VALUES
-	(1,'English (US)','en_US','Addictive Community','brunno.pleffken@outlook.com',1),
-	(2,'Korean (South Korea)','ko_KR','Olgierd','olgierd.everac@gmail.com',1),
-	(3,'Portuguese (Brazil)','pt_BR','Brunno Pleffken','brunno.pleffken@outlook.com',1),
-	(4,'Russian','ru_RU','Alex Zalevski','zalexstudios@gmail.com',1),
-	(5,'Swedish','sv_SE','Stefan Forslund','halojoy@outlook.com',1);
+	(1,'English (US)','en_US','Addictive Community','brunno.pleffken@outlook.com',1);
 
 INSERT INTO `c_ranks` (`id`, `title`, `min_posts`, `pips`, `image`)
 VALUES
