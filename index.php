@@ -243,20 +243,19 @@ class Main
 		$this->config['language'] = $this->language;
 
 		// Load language files
-		@include("languages/" . $this->language . "/default.php");
-		@include("languages/" . $this->language . "/" . $this->controller . ".php");
+		$language = @file_get_contents("languages/" . $this->language . ".json");
 
-		// Populate dictionary array
-		if(@is_array($t)) {
-			foreach($t as $k => $v) {
-				i18n::$dictionary[$k] = $v;
-			}
-		}
-		else {
+		if(!$language) {
+			// Show error message
 			echo Html::notification(
 				"Language files or keywords are missing for <b>" . $this->language . "</b>.", "failure", true
 			);
 		}
+		else {
+			// Populate dictionary array
+			i18n::$dictionary = json_decode($language, true);
+		}
+
 	}
 }
 

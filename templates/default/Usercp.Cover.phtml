@@ -1,39 +1,39 @@
 <h1>
 	<small><?= $community_name ?></small>
-	<?php __("C_TITLE") ?>
+	<?php __("usercp.title") ?>
 </h1>
 
 <div class="block padding-no">
 	<div class="nav room-nav">
 		<div class="nav-top">
-			<a href="usercp" class="<?php __($menu[0]) ?>"><?php __("C_SUMMARY") ?></a>
-			<a href="usercp/profile" class="<?php __($menu[1]) ?>"><?php __("C_PROFILE") ?></a>
-			<a href="usercp/avatar" class="<?php __($menu[2]) ?>"><?php __("C_PHOTO") ?></a>
-			<a href="usercp/cover" class="<?php __($menu[3]) ?>"><?php __("C_COVER") ?></a>
-			<a href="usercp/signature" class="<?php __($menu[4]) ?>"><?php __("C_SIGNATURE") ?></a>
-			<a href="usercp/settings" class="<?php __($menu[5]) ?>"><?php __("C_SETTINGS") ?></a>
-			<a href="usercp/password" class="<?php __($menu[6]) ?>"><?php __("C_PASSWORD") ?></a>
+			<a href="usercp" class="<?= $menu[0] ?>"><?php __("usercp.summary.title") ?></a>
+			<a href="usercp/profile" class="<?= $menu[1] ?>"><?php __("usercp.profile.title") ?></a>
+			<a href="usercp/avatar" class="<?= $menu[2] ?>"><?php __("usercp.avatar.title") ?></a>
+			<a href="usercp/cover" class="<?= $menu[3] ?>"><?php __("usercp.cover.title") ?></a>
+			<a href="usercp/signature" class="<?= $menu[4] ?>"><?php __("usercp.signature.title") ?></a>
+			<a href="usercp/settings" class="<?= $menu[5] ?>"><?php __("usercp.settings.title") ?></a>
+			<a href="usercp/password" class="<?= $menu[6] ?>"><?php __("usercp.password.title") ?></a>
 		</div>
 	</div>
 	<div class="block-nav-content padding-10">
 		<?= $notification ?>
 		<form action="usercp/save_cover" method="post" enctype="multipart/form-data">
 			<div class="form-group grid">
-				<label class="col-2"><?php __("C_COVER_CURRENT") ?><small><?php __("C_COVER_CURRENT_INFO") ?></small></label>
+				<label class="col-2"><?php __("usercp.cover.current") ?><small><?php __("usercp.cover.info") ?></small></label>
 				<div class="col-10">
 					<div style="border: 1px solid #ddd; height: 220px; background: url('<?= $cover_photo ?>') no-repeat center; background-size: cover"></div>
 				</div>
 			</div>
 			<div class="form-group grid">
-				<label class="col-2"><?php __("C_COVER_UPLOAD") ?></label>
+				<label class="col-2"><?php __("usercp.cover.upload") ?></label>
 				<div class="col-6">
-					<input type="file" name="file_upload">
+					<input type="file" name="file_upload" required>
 				</div>
 			</div>
 			<div class="pull-clear">
 				<div class="pull-right">
-					<a href="usercp/remove_cover" class="btn btn-cancel"><?php __("C_COVER_REMOVE") ?></a>
-					<input type="submit" value="<?php __("C_COVER_UPDATE") ?>" class="btn btn-default">
+					<a href="usercp/remove_cover" class="btn btn-cancel"><?php __("usercp.cover.remove") ?></a>
+					<input type="submit" value="<?php __("usercp.cover.update") ?>" class="btn btn-default">
 				</div>
 			</div>
 		</form>

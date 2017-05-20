@@ -49,13 +49,13 @@ class Thread extends Application
 		// Define messages
 		$message_id = Http::request("m", true);
 		$notification = ["",
-			Html::notification(i18n::translate("T_MESSAGE_1"), "success"),
-			Html::notification(i18n::translate("T_MESSAGE_2"), "success"),
-			Html::notification(i18n::translate("T_MESSAGE_3"), "success"),
-			Html::notification(i18n::translate("T_MESSAGE_4"), "success"),
-			Html::notification(i18n::translate("T_MESSAGE_5"), "success"),
-			Html::notification(i18n::translate("T_MESSAGE_6"), "success"),
-			Html::notification(i18n::translate("T_MESSAGE_7"), "success")
+			Html::notification(i18n::translate("thread.notification.reported"), "success"),
+			Html::notification(i18n::translate("thread.notification.post_reported"), "success"),
+			Html::notification(i18n::translate("thread.notification.deleted"), "success"),
+			Html::notification(i18n::translate("thread.notification.locked"), "success"),
+			Html::notification(i18n::translate("thread.notification.unlocked"), "success"),
+			Html::notification(i18n::translate("thread.notification.announcement_set"), "success"),
+			Html::notification(i18n::translate("thread.notification.announcement_remove"), "success")
         ];
 
 		// Get thread information
@@ -150,8 +150,8 @@ class Thread extends Application
 		}
 
 		// Page info
-		$page_info['title'] = i18n::translate("P_ADD_REPLY") . ": " . $thread_info['title'];
-		$page_info['bc'] = [$thread_info['name'], i18n::translate("P_ADD_REPLY") . ": " . $thread_info['title']];
+		$page_info['title'] = i18n::translate("thread.add_reply") . ": " . $thread_info['title'];
+		$page_info['bc'] = [$thread_info['name'], i18n::translate("thread.add_reply") . ": " . $thread_info['title']];
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -160,7 +160,7 @@ class Thread extends Application
 		$this->Set("quote", $quote);
 		$this->Set("allow_uploads", $thread_info['upload']);
 		$this->Set("attachment_size_warning",
-			i18n::translate("P_ATTACHMENTS_MAX_SIZE", [$this->Core->config['general_max_attachment_size'] . "MB"])
+			i18n::translate("thread.add.attachment_max_size", [$this->Core->config['general_max_attachment_size'] . "MB"])
 		);
 	}
 
@@ -183,8 +183,8 @@ class Thread extends Application
 		}
 
 		// Page info
-		$page_info['title'] = i18n::translate("P_NEW_THREAD") . ": " . $room_info['name'];
-		$page_info['bc'] = array($room_info['name'], i18n::translate("P_NEW_THREAD"));
+		$page_info['title'] = i18n::translate("thread.add.new_thread") . ": " . $room_info['name'];
+		$page_info['bc'] = array($room_info['name'], i18n::translate("thread.add.new_thread"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -192,7 +192,7 @@ class Thread extends Application
 		$this->Set("allow_uploads", $room_info['upload']);
 		$this->Set("is_moderator", $this->isModerator($room_info['moderators']));
 		$this->Set("is_poll", Http::request("poll"));
-		$this->Set("thread_auto_details", i18n::translate("T_AUTO_DETAILS", $this->Core->config['date_default_offset']));
+		$this->Set("thread_auto_details", i18n::translate("thread.add.auto.details", $this->Core->config['date_default_offset']));
 	}
 
 	/**
@@ -971,7 +971,7 @@ class Thread extends Application
 		// Show label if post was edited
 		if(isset($result['edit_time'])) {
 			$result['edit_time'] = $this->Core->dateFormat($result['edit_time']);
-			$result['edited']    = "(" . i18n::translate("T_EDITED", array($result['edit_time'], $result['edit_username'])) . ")";
+			$result['edited']    = "(" . i18n::translate("thread.edited_on", array($result['edit_time'], $result['edit_username'])) . ")";
 		}
 		else {
 			$result['edited'] = "";
@@ -1047,7 +1047,7 @@ class Thread extends Application
 			// Show label if post was edited
 			if(isset($result['edit_time'])) {
 				$result['edit_time'] = $this->Core->dateFormat($result['edit_time']);
-				$result['edited']    = "(" . i18n::translate("T_EDITED", array($result['edit_time'], $result['edit_username'])) . ")";
+				$result['edited']    = "(" . i18n::translate("thread.edited_on", array($result['edit_time'], $result['edit_username'])) . ")";
 			}
 			else {
 				$result['edited'] = "";
@@ -1081,7 +1081,7 @@ class Thread extends Application
 					"class" => "",
 					"data"  => "",
 					"icon"  => "fa-pencil",
-					"text"  => i18n::translate("T_EDIT")
+					"text"  => i18n::translate("thread.edit")
 				]);
 				// Delete post
 				array_push($result['post_controls'], [
@@ -1089,7 +1089,7 @@ class Thread extends Application
 					"class" => "fancybox delete-post-button",
 					"data"  => "data-post='{$result['p_id']}' data-thread='{$this->thread_id}' data-member='{$result['author_id']}'",
 					"icon"  => "fa-ban",
-					"text"  => i18n::translate("T_DELETE")
+					"text"  => i18n::translate("thread.delete")
 				]);
 			}
 
@@ -1103,7 +1103,7 @@ class Thread extends Application
 						"class" => "",
 						"data"  => "",
 						"icon"  => "fa-thumbs-o-up",
-						"text"  => i18n::translate("T_BEST_SET")
+						"text"  => i18n::translate("thread.set_best_answer")
 					]);
 				}
 				else {
@@ -1113,7 +1113,7 @@ class Thread extends Application
 						"class" => "",
 						"data"  => "",
 						"icon"  => "fa-thumbs-o-down",
-						"text"  => i18n::translate("T_BEST_UNSET")
+						"text"  => i18n::translate("thread.unset_best_answer")
 					]);
 				}
 			}

@@ -3,19 +3,19 @@
 		<thead>
 			<tr>
 				<th colspan="2" class="pull-clear">
-					<div class="pull-left"><?php __("L_TITLE") ?></div>
+					<div class="pull-left"><?php __("login.title") ?></div>
 					<div class="pull-right text-s0">
-						<a href="javascript:$.fancybox.close();" class="label invert"><?php __("L_CLOSE") ?></a>
+						<a href="javascript:$.fancybox.close();" class="label invert"><?php __("login.close") ?></a>
 					</div>
 				</th>
 			</tr>
 		</thead>
 		<tr>
-			<td><strong><?php __("L_USERNAME") ?></strong></td>
+			<td><strong><?php __("login.username") ?></strong></td>
 			<td><input type="text" name="username" class="form-control username" required></td>
 		</tr>
 		<tr>
-			<td><strong><?php __("L_PASSWORD") ?></strong></td>
+			<td><strong><?php __("login.password") ?></strong></td>
 			<td><input type="password" name="password" class="form-control password" required></td>
 		</tr>
 		<tr>
@@ -23,20 +23,20 @@
 			<td>
 				<label class="checkbox-control">
 					<input type="checkbox" name="remember" value="1" checked><span><i class="fa fa-check"></i></span>
-					<?php __("L_REMEMBER") ?>
+					<?php __("login.remember") ?>
 				</label>
 				<label class="checkbox-control">
 					<input type="checkbox" name="anonymous" value="1"><span><i class="fa fa-check"></i></span>
-					<?php __("L_ANONYMOUS") ?>
+					<?php __("login.anonymous") ?>
 				</label>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" class="text-center"><?php __("L_NO_ACCOUNT", array("register")) ?></td>
+			<td colspan="2" class="text-center"><?php __("login.not_member", array("register")) ?></td>
 		</tr>
 		<tr>
 			<td colspan="2" class="text-center">
-				<input type="submit" value="<?php __("L_SUBMIT") ?>" class="btn btn-default" data-error-message="<?php __("L_ERROR_MESSAGE") ?>">
+				<input type="submit" value="<?php __("login.title") ?>" class="btn btn-default" data-error-message="<?php __("login.notification.error") ?>">
 			</td>
 		</tr>
 	</table>

@@ -193,7 +193,7 @@ class Application
 				ORDER BY s.activity_time DESC;");
 
 		while($members = Database::fetch($members_online)) {
-			$viewing = i18n::translate("SIDEBAR_MEMBER_VIEWING") . ": " . ucwords($members['location_controller']);
+			$viewing = i18n::translate("global.sidebar.member_viewing") . ": " . ucwords($members['location_controller']);
 			$online[] = "<a href='profile/{$members['member_id']}' title='{$viewing}'>{$members['username']}</a>";
 		}
 

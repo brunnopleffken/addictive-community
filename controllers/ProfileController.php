@@ -93,7 +93,7 @@ class Profile extends Application
 
 		// Member e-mail
 		if($this->info['hide_email'] == 1) {
-			$this->info['email'] = "<em>" . i18n::translate("P_PRIVATE") . "</em>";
+			$this->info['email'] = "<em>" . i18n::translate("profile.private") . "</em>";
 		}
 		else {
 			$this->info['email'] = "<a href='mailto:" . $this->info['email'] . "'>" . $this->info['email'] . "</a>";
@@ -101,7 +101,7 @@ class Profile extends Application
 
 		// Page info
 		$page_info['title'] = $this->info['username'];
-		$page_info['bc'] = array(i18n::translate("P_PROFILE") . ": " . $this->info['username']);
+		$page_info['bc'] = array(i18n::translate("profile.title") . ": " . $this->info['username']);
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -156,7 +156,7 @@ class Profile extends Application
 
 		// Page info
 		$page_info['title'] = $this->info['username'];
-		$page_info['bc'] = array(i18n::translate("P_PROFILE") . ": " . $this->info['username']);
+		$page_info['bc'] = array(i18n::translate("profile.title") . ": " . $this->info['username']);
 		$this->Set("page_info", $page_info);
 
 		// Return HTML templates
@@ -193,7 +193,7 @@ class Profile extends Application
 
 		// Page info
 		$page_info['title'] = $this->info['username'];
-		$page_info['bc'] = array(i18n::translate("P_PROFILE") . ": " . $this->info['username']);
+		$page_info['bc'] = array(i18n::translate("profile.title") . ": " . $this->info['username']);
 		$this->Set("page_info", $page_info);
 
 		// Return variables

@@ -48,8 +48,8 @@ class Messenger extends Application
 		// Define messages
 		$message_id = Http::request("m", true);
 		$notification = array("",
-			Html::notification(i18n::translate("M_MESSAGE_1"), "success"),
-			Html::notification(i18n::translate("M_MESSAGE_2"), "failure")
+			Html::notification(i18n::translate("messenger.notification.sent"), "success"),
+			Html::notification(i18n::translate("messenger.notification.unable_to_load"), "failure")
 		);
 
 		$folder = (Http::request("folder")) ? Http::request("folder") : "inbox";
@@ -90,8 +90,8 @@ class Messenger extends Application
 		}
 
 		// Page info
-		$page_info['title'] = i18n::translate("M_TITLE");
-		$page_info['bc'] = array(i18n::translate("M_TITLE"));
+		$page_info['title'] = i18n::translate("messenger.title");
+		$page_info['bc'] = array(i18n::translate("messenger.title"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -137,8 +137,8 @@ class Messenger extends Application
 		}
 
 		// Page info
-		$page_info['title'] = i18n::translate("M_TITLE");
-		$page_info['bc'] = array(i18n::translate("M_TITLE"), $message['subject']);
+		$page_info['title'] = i18n::translate("messenger.title");
+		$page_info['bc'] = array(i18n::translate("messenger.title"), $message['subject']);
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -154,8 +154,8 @@ class Messenger extends Application
 	public function compose()
 	{
 		// Page info
-		$page_info['title'] = i18n::translate("M_TITLE");
-		$page_info['bc'] = array(i18n::translate("M_TITLE"), i18n::translate("M_COMPOSE"));
+		$page_info['title'] = i18n::translate("messenger.title");
+		$page_info['bc'] = array(i18n::translate("messenger.title"), i18n::translate("messenger.compose"));
 		$this->Set("page_info", $page_info);
 	}
 

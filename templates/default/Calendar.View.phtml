@@ -1,15 +1,15 @@
 <h1>
 	<small><?= $community_name ?></small>
-	<?php __("C_TITLE") ?>: <?= $formatted_date ?>
+	<?php __("calendar.title") ?>: <?= $formatted_date ?>
 </h1>
 
 <div class="nav room-nav">
 	<div class="nav-top">
-		<a href="calendar/view?date=<?= \AC\Kernel\Http::request("date") ?>" class="active"><?php __("C_VIEW") ?></a>
+		<a href="calendar/view?date=<?= \AC\Kernel\Http::request("date") ?>" class="active"><?php __("calendar.view.title") ?></a>
 	</div>
 	<div class="nav-bottom">
-		<a href="calendar/view?date=<?= \AC\Kernel\Http::request("date") ?>"><?php __("C_VIEW_ALL") ?></a>
-		<a href="calendar/view?date=<?= \AC\Kernel\Http::request("date") ?>&type=private"><?php __("C_VIEW_PRIVATE") ?></a>
+		<a href="calendar/view?date=<?= \AC\Kernel\Http::request("date") ?>"><?php __("calendar.view.all") ?></a>
+		<a href="calendar/view?date=<?= \AC\Kernel\Http::request("date") ?>&type=private"><?php __("calendar.view.private") ?></a>
 	</div>
 </div>
 
@@ -36,7 +36,7 @@
 					<div class="event-time"><?= date("H:i", $event['timestamp']) ?></div>
 					<div class="event-content">
 						<h3><?= $event['title'] ?></h3>
-						<div class="tiny"><?php __("C_VIEW_BY", $event['username']) ?></div>
+						<div class="tiny"><?php __("calendar.view.created_by", $event['username']) ?></div>
 						<p><?= $event['text'] ?></p>
 					</div>
 				</div>
@@ -46,10 +46,10 @@
 	</div>
 <?php else: ?>
 	<div class="block text-center">
-		<?php __("C_NO_EVENTS") ?>
+		<?php __("calendar.view.no_events") ?>
 	</div>
 <?php endif; ?>
 
 <div class="text-right">
-	<a href="calendar?month=<?= $date[1] ?>&year=<?= $date[0] ?>" class="btn btn-default"><?php __("C_TITLE") ?></a>
+	<a href="calendar?month=<?= $date[1] ?>&year=<?= $date[0] ?>" class="btn btn-default"><?php __("calendar.title") ?></a>
 </div>

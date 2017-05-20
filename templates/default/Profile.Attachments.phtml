@@ -5,14 +5,14 @@
 	<div class="profile-header-info">
 		<div class="avatar">
 			<a href="<?= $info['avatar'] ?>" class="fancybox fancybox.image">
-				<?php __(\AC\Kernel\Html::crop($info['avatar'], 150, "image")) ?>
+				<?= \AC\Kernel\Html::crop($info['avatar'], 150, "image") ?>
 			</a>
 		</div>
 		<div class="details">
 			<div class="username"><?= $info['username'] ?></div>
-			<div class="item"><span><?php __("P_POSTS") ?></span><?= $info['posts'] ?></div>
-			<div class="item"><span><?php __("P_REGISTERED") ?></span><?= $info['joined'] ?></div>
-			<div class="item"><span><?php __("P_USERGROUP") ?></span><?= $info['name'] ?></div>
+			<div class="item"><span><?php __("profile.posts") ?></span><?= $info['posts'] ?></div>
+			<div class="item"><span><?php __("profile.registered") ?></span><?= $info['joined'] ?></div>
+			<div class="item"><span><?php __("profile.usergroup") ?></span><?= $info['name'] ?></div>
 		</div>
 	</div>
 </div>
@@ -20,9 +20,9 @@
 <div class="block padding-no">
 	<div class="nav room-nav">
 		<div class="nav-top">
-			<a href="profile/<?= $profile_member_id ?>"><?php __("P_PROFILE") ?></a>
-			<a href="profile/posts/<?= $profile_member_id ?>"><?php __("P_LAST_POSTS") ?></a>
-			<a href="profile/attachments/<?= $profile_member_id ?>" class="active"><?php __("P_ATTACHMENTS") ?></a>
+			<a href="profile/<?= $profile_member_id ?>"><?php __("profile.title") ?></a>
+			<a href="profile/posts/<?= $profile_member_id ?>"><?php __("profile.last_posts") ?></a>
+			<a href="profile/attachments/<?= $profile_member_id ?>" class="active"><?php __("profile.attachments") ?></a>
 		</div>
 	</div>
 	<div class="block-nav-content">
@@ -30,9 +30,9 @@
 			<thead>
 				<tr>
 					<td></td>
-					<td class="text-s14"><?php __("P_NAME") ?></td>
-					<td class="text-s14"><?php __("P_FILETYPE") ?></td>
-					<td class="text-s14"><?php __("P_FILESIZE") ?></td>
+					<td class="text-s14"><?php __("profile.file_name") ?></td>
+					<td class="text-s14"><?php __("profile.file_type") ?></td>
+					<td class="text-s14"><?php __("profile.file_size") ?></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -47,7 +47,7 @@
 					<?php endforeach; ?>
 				<?php else: ?>
 					<tr>
-						<td colspan="4" class="center"><?php __("P_NO_ATTACHMENTS") ?></td>
+						<td colspan="4" class="text-center"><?php __("profile.no_attachments") ?></td>
 					</tr>
 				<?php endif; ?>
 			</tbody>

@@ -78,7 +78,7 @@ class Html
 		for($i = 1; $i <= 12; $i++) {
 			$selected = ($i == $current) ? "selected" : "";
 			if(!$numeric) {
-				$month_name = i18n::translate("M_" . $i);
+				$month_name = i18n::translate("global.dates.m{$i}");
 				$retval .= "<option value='{$i}' {$selected}>{$month_name}</option>";
 			}
 			else {

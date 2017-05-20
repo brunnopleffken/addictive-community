@@ -18,6 +18,9 @@ class i18n
 	// Dictionary array
 	public static $dictionary = array();
 
+	// Missing keys
+	public static $missing_keys = array();
+
 	/**
 	 * --------------------------------------------------------------------
 	 * GET STRING OF A GIVEN INDEX
@@ -25,16 +28,34 @@ class i18n
 	 */
 	public static function translate($keyword, $variables = array())
 	{
-		if(array_key_exists($keyword, self::$dictionary)) {
+		$keys = explode(".", $keyword);
+		$word = self::$dictionary;
+
+		foreach($keys as $key) {
+			$word = &$word[$key];
+		}
+
+		if(!$word == null) {
 			if(!empty($variables)) {
-				return vsprintf(self::$dictionary[$keyword], $variables);
+				return vsprintf($word, $variables);
 			}
 			else {
-				return self::$dictionary[$keyword];
+				return $word;
 			}
 		}
 		else {
+			self::$missing_keys[] = $keyword;
 			return $keyword;
 		}
+	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * RETURN MISSING KEYS
+	 * --------------------------------------------------------------------
+	 */
+	public static function getMissingKeys()
+	{
+		return self::$missing_keys;
 	}
 }

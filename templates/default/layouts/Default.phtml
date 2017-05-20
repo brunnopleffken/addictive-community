@@ -49,11 +49,11 @@
 				<?php if($is_admin): ?>
 					<a href="admin/" target="_blank"><span>Admin CP</span><i class="fa fa-lock"></i></a>
 				<?php endif; ?>
-				<a href="search"><span><?php __("SEARCH") ?></span><i class="fa fa-search"></i></a>
-				<a href="members"><span><?php __("MEMBERLIST") ?></span><i class="fa fa-users"></i></a>
-				<a href="calendar"><span><?php __("CALENDAR") ?></span><i class="fa fa-calendar"></i></a>
+				<a href="search"><span><?php __("global.search") ?></span><i class="fa fa-search"></i></a>
+				<a href="members"><span><?php __("global.memberlist") ?></span><i class="fa fa-users"></i></a>
+				<a href="calendar"><span><?php __("global.calendar") ?></span><i class="fa fa-calendar"></i></a>
 				<?php if($member_id == 0): ?>
-					<a href="register"><span><?php __("SIDEBAR_C_ACCOUNT") ?></span><i class="fa fa-star"></i></a>
+					<a href="register"><span><?php __("global.create_account") ?></span><i class="fa fa-star"></i></a>
 				<?php endif; ?>
 			</div>
 			<div class="col-flexible hide-xs">
@@ -70,7 +70,7 @@
 			</div>
 			<div class="col-flexible search hide-sm">
 				<form action="search" method="get" class="no-validate">
-					<input type="text" name="q" class="form-control search-input" value="<?= \AC\Kernel\Http::request("q") ?>" placeholder="<?php __("SEARCH_BOX") ?>"><!--
+					<input type="text" name="q" class="form-control search-input" value="<?= \AC\Kernel\Http::request("q") ?>" placeholder="<?php __("global.search") ?>..."><!--
 					--><button type="submit" class="btn btn-default search-submit">
 						<i class="fa fa-search"></i>
 					</button>
@@ -94,11 +94,11 @@
 				<?php if($member_id == 0): ?>
 					<div class="block flat user-box">
 						<a href="/" class="username">
-							<?php __("SIDEBAR_WELCOME") ?>
+							<?php __("global.sidebar.welcome") ?>
 						</a>
 						<ul>
-							<li><a href="login" class="fancybox fancybox.ajax"><?php __("SIDEBAR_LOGIN") ?></a></li>
-							<li><a href="register" class="font-w600"><?php __("SIDEBAR_C_ACCOUNT") ?></a></li>
+							<li><a href="login" class="fancybox fancybox.ajax"><?php __("global.sidebar.login") ?></a></li>
+							<li><a href="register" class="font-w600"><?php __("global.create_account") ?></a></li>
 						</ul>
 					</div>
 				<?php else: ?>
@@ -108,14 +108,14 @@
 							<?= $member_info['username'] ?>
 						</a>
 						<ul>
-							<li><a href="usercp"><?php __("SIDEBAR_USERCP") ?></a></li>
-							<li><a href="messenger"><?php __("SIDEBAR_INBOX", array($unread_messages)) ?></a></li>
-							<li><a href="logout"><?php __("SIDEBAR_LOGOUT") ?></a></li>
+							<li><a href="usercp"><?php __("global.sidebar.usercp") ?></a></li>
+							<li><a href="messenger"><?php __("global.sidebar.inbox", array($unread_messages)) ?></a></li>
+							<li><a href="logout"><?php __("global.sidebar.logout") ?></a></li>
 						</ul>
 					</div>
 				<?php endif; ?>
 				<div class="panel">
-					<div class="panel-title"><?php __("SIDEBAR_ROOMS") ?></div>
+					<div class="panel-title"><?php __("global.sidebar.rooms") ?></div>
 					<div class="panel-content">
 						<ul class="rooms">
 							<?php foreach($sidebar_rooms as $k => $v): ?>
@@ -135,28 +135,28 @@
 				</div>
 				<?php if($show_members_online): ?>
 					<div class="panel">
-						<div class="panel-title"><?php __("SIDEBAR_MEMBERS_ONLINE") ?></div>
+						<div class="panel-title"><?php __("global.sidebar.members_online") ?></div>
 						<div class="panel-content body">
 							<dl class="members">
-								<dt><?php __("SIDEBAR_MEMBER_COUNT", array($member_count)) ?></dt>
+								<dt><?php __("global.sidebar.member_count", array($member_count)) ?></dt>
 								<dd><?= $member_list ?></dd>
-								<dt><?php __("SIDEBAR_GUEST_COUNT", array($guests_count)) ?></dt>
+								<dt><?php __("global.sidebar.guest_count", array($guests_count)) ?></dt>
 							</dl>
 						</div>
 					</div>
 				<?php endif; ?>
 				<?php if($show_statistics): ?>
 					<div class="panel">
-						<div class="panel-title"><?php __("SIDEBAR_STATISTICS") ?></div>
+						<div class="panel-title"><?php __("global.sidebar.statistics") ?></div>
 						<div class="panel-content body">
 							<dl class="stats">
-								<dt><?php __("SIDEBAR_S_THREADS") ?></dt>
+								<dt><?php __("global.sidebar.threads") ?></dt>
 								<dd><?= $stats['threads'] ?></dd>
-								<dt><?php __("SIDEBAR_S_POSTS") ?></dt>
+								<dt><?php __("global.sidebar.posts") ?></dt>
 								<dd><?= $stats['posts'] ?></dd>
-								<dt><?php __("SIDEBAR_S_MEMBERS") ?></dt>
+								<dt><?php __("global.sidebar.members") ?></dt>
 								<dd><?= $stats['members'] ?></dd>
-								<dt><?php __("SIDEBAR_S_LAST") ?></dt>
+								<dt><?php __("global.sidebar.last_member") ?></dt>
 								<dd>
 									<a href="profile/<?= $stats['lastmemberid'] ?>">
 										<?= $stats['lastmembername'] ?>
@@ -186,6 +186,11 @@
 <script src="thirdparty/fancybox/jquery.fancybox.pack.js"></script>
 <script src="thirdparty/select2/js/select2.full.min.js"></script>
 <script src="static/js/application.js"></script>
+
+<br>
+<?php AC\Kernel\Text::PR(AC\Kernel\i18n::getMissingKeys()) ?>
+<br>
+<br>
 
 </body>
 </html>

@@ -1,12 +1,12 @@
 <h1>
 	<small><?= $community_name ?></small>
-	<?php __("M_TITLE") ?>: <?php __("M_COMPOSE") ?>
+	<?php __("messenger.title") ?>: <?php __("messenger.compose") ?>
 </h1>
 
 <div class="block">
 	<form action="messenger/send" method="post">
 		<div class="form-group grid">
-			<label class="col-2"><?php __("M_TO") ?></label>
+			<label class="col-2"><?php __("messenger.to") ?></label>
 			<div class="col-4">
 				<select name="to" id="pmTo" class="pm-to span-12" required>
 					<option value=""></option>
@@ -14,23 +14,23 @@
 			</div>
 		</div>
 		<div class="form-group grid">
-			<label class="col-2"><?php __("M_SUBJECT") ?></label>
+			<label class="col-2"><?php __("messenger.subject") ?></label>
 			<div class="col-6">
 				<input type="text" name="subject" class="form-control" required>
 			</div>
 		</div>
 		<div class="form-group grid">
-			<label for="" class="col-2"><?php __("M_MESSAGE") ?></label>
+			<label for="" class="col-2"><?php __("messenger.message") ?></label>
 			<div class="col-10">
 				<textarea name="post" id="post" rows="20"></textarea>
 			</div>
 		</div>
 		<div class="pull-clear">
 			<div class="pull-left">
-				<div class="error-message"><?php __("M_PM_ERROR") ?></div>
+				<div class="error-message"><?php __("messenger.notification.required") ?></div>
 			</div>
 			<div class="pull-right">
-				<input type="submit" class="btn btn-default" value="<?php __("M_SEND") ?>">
+				<input type="submit" class="btn btn-default" value="<?php __("messenger.send") ?>">
 			</div>
 		</div>
 	</form>

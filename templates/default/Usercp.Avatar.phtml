@@ -1,25 +1,25 @@
 <h1>
 	<small><?= $community_name ?></small>
-	<?php __("C_TITLE") ?>
+	<?php __("usercp.title") ?>
 </h1>
 
 <div class="block padding-no">
 	<div class="nav room-nav">
 		<div class="nav-top">
-			<a href="usercp" class="<?php __($menu[0]) ?>"><?php __("C_SUMMARY") ?></a>
-			<a href="usercp/profile" class="<?php __($menu[1]) ?>"><?php __("C_PROFILE") ?></a>
-			<a href="usercp/avatar" class="<?php __($menu[2]) ?>"><?php __("C_PHOTO") ?></a>
-			<a href="usercp/cover" class="<?php __($menu[3]) ?>"><?php __("C_COVER") ?></a>
-			<a href="usercp/signature" class="<?php __($menu[4]) ?>"><?php __("C_SIGNATURE") ?></a>
-			<a href="usercp/settings" class="<?php __($menu[5]) ?>"><?php __("C_SETTINGS") ?></a>
-			<a href="usercp/password" class="<?php __($menu[6]) ?>"><?php __("C_PASSWORD") ?></a>
+			<a href="usercp" class="<?= $menu[0] ?>"><?php __("usercp.summary.title") ?></a>
+			<a href="usercp/profile" class="<?= $menu[1] ?>"><?php __("usercp.profile.title") ?></a>
+			<a href="usercp/avatar" class="<?= $menu[2] ?>"><?php __("usercp.avatar.title") ?></a>
+			<a href="usercp/cover" class="<?= $menu[3] ?>"><?php __("usercp.cover.title") ?></a>
+			<a href="usercp/signature" class="<?= $menu[4] ?>"><?php __("usercp.signature.title") ?></a>
+			<a href="usercp/settings" class="<?= $menu[5] ?>"><?php __("usercp.settings.title") ?></a>
+			<a href="usercp/password" class="<?= $menu[6] ?>"><?php __("usercp.password.title") ?></a>
 		</div>
 	</div>
 	<div class="block-nav-content padding-10">
 		<?= $notification ?>
 		<form action="usercp/save_photo" method="post" enctype="multipart/form-data">
 			<div class="form-group grid">
-				<label class="col-3"><?php __("C_PHOTO_SOURCE") ?></label>
+				<label class="col-3"><?php __("usercp.avatar.source") ?></label>
 				<div class="col-9">
 					<label class="radio-control">
 						<input type="radio" name="photo_type" class="photo-select" value="gravatar" <?= $photo_info['gravatar'] ?>><span></span>
@@ -28,7 +28,7 @@
 					<?php if($enable_upload): ?>
 						<label class="radio-control">
 							<input type="radio" name="photo_type" class="photo-select" value="custom" <?= $photo_info['custom'] ?>><span></span>
-							<?php __("C_PHOTO_CUSTOM") ?>
+							<?php __("usercp.avatar.custom") ?>
 						</label>
 					<?php endif; ?>
 				</div>
@@ -36,18 +36,18 @@
 
 			<!-- GRAVATAR -->
 			<div class="form-group grid" id="gravatar" style="display: none">
-				<label class="col-3"><?php __("C_GRAVATAR_SETTINGS") ?></label>
+				<label class="col-3"><?php __("usercp.avatar.gravatar_settings") ?></label>
 				<div class="col-9">
 					<div class="pull-left" style="margin-right: 20px">
 						<?= \AC\Kernel\Html::crop($photo_info['gravatar_image'], 120) ?>
 					</div>
-					<p><?php __("C_GRAVATAR_MESSAGE") ?></p>
+					<p><?php __("usercp.avatar.gravatar_message") ?></p>
 				</div>
 			</div>
 
 			<!-- CUSTOM -->
 			<div class="form-group grid" id="custom" style="display: none">
-				<label class="col-3"><?php __("C_PHOTO_UPLOAD") ?></label>
+				<label class="col-3"><?php __("usercp.avatar.upload") ?></label>
 				<div class="col-9">
 					<div class="pull-left custom-photo-placeholder" style="margin-right: 20px">
 						<?= \AC\Kernel\Html::crop($photo_info['custom_image'], 120) ?>
@@ -60,7 +60,7 @@
 
 			<div class="pull-clear">
 				<div class="pull-right">
-					<input type="submit" value="<?php __("C_UPDATE_PHOTO") ?>" class="btn btn-default">
+					<input type="submit" value="<?php __("usercp.avatar.update") ?>" class="btn btn-default">
 				</div>
 			</div>
 		</form>
