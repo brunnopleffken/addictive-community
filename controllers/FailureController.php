@@ -35,16 +35,16 @@ class Failure extends Application
 		// Error list
 		$errors = [
 			'not_allowed' => [
-				Html::notification(i18n::translate("E_MESSAGE_NOT_ALLOWED"), "failure", true), "login"
+				Html::notification(i18n::translate("failure.message.not_allowed"), "failure", true), "login"
             ],
 			'validated' => [
-				Html::notification(i18n::translate("E_MESSAGE_VALIDATED"), "success", true), "login"
+				Html::notification(i18n::translate("failure.message.validated"), "success", true), "login"
             ],
 			'protected_room' => [
 				Html::notification(i18n::translate("failure.message.protected"), "warning", true), "protected"
             ],
 			'thread_locked' => [
-				Html::notification(i18n::translate("E_MESSAGE_LOCKED_THREAD"), "failure", true), false
+				Html::notification(i18n::translate("failure.message.locked_thread"), "failure", true), false
             ],
 			'offline' => [
 				"", "offline"
@@ -70,7 +70,7 @@ class Failure extends Application
         ];
 
 		// Is this an error, or just a notification message? Change title!
-        $title = strpos($errors[$type][0], "success") ? i18n::translate("E_SUCCESS_TITLE") : i18n::translate("E_ERROR_TITLE");
+        $title = strpos($errors[$type][0], "success") ? i18n::translate("failure.success_title") : i18n::translate("failure.error_title");
 
 		// Show custom title
 		if(isset($errors[$type][2])) {

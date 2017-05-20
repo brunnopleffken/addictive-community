@@ -971,7 +971,7 @@ class Thread extends Application
 		// Show label if post was edited
 		if(isset($result['edit_time'])) {
 			$result['edit_time'] = $this->Core->dateFormat($result['edit_time']);
-			$result['edited']    = "(" . i18n::translate("T_EDITED", array($result['edit_time'], $result['edit_username'])) . ")";
+			$result['edited']    = "(" . i18n::translate("thread.edited_on", array($result['edit_time'], $result['edit_username'])) . ")";
 		}
 		else {
 			$result['edited'] = "";
@@ -1047,7 +1047,7 @@ class Thread extends Application
 			// Show label if post was edited
 			if(isset($result['edit_time'])) {
 				$result['edit_time'] = $this->Core->dateFormat($result['edit_time']);
-				$result['edited']    = "(" . i18n::translate("T_EDITED", array($result['edit_time'], $result['edit_username'])) . ")";
+				$result['edited']    = "(" . i18n::translate("thread.edited_on", array($result['edit_time'], $result['edit_username'])) . ")";
 			}
 			else {
 				$result['edited'] = "";

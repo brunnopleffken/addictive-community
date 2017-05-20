@@ -33,8 +33,8 @@ class Help extends Application
 		$_topics = Database::fetchToArray();
 
 		// Page info
-		$page_info['title'] = i18n::translate("H_TITLE");
-		$page_info['bc'] = array(i18n::translate("H_TITLE"));
+		$page_info['title'] = i18n::translate("help.title");
+		$page_info['bc'] = array(i18n::translate("help.title"));
 		$this->Set("page_info", $page_info);
 
 		// Return variables
@@ -56,8 +56,8 @@ class Help extends Application
 		$help = Database::fetch();
 
 		// Page info
-		$page_info['title'] = i18n::translate("H_TITLE");
-		$page_info['bc'] = array(i18n::translate("H_TITLE"), $help['title']);
+		$page_info['title'] = i18n::translate("help.title");
+		$page_info['bc'] = array(i18n::translate("help.title"), $help['title']);
 		$this->Set("page_info", $page_info);
 
 		// Return variables
