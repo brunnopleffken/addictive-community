@@ -1,0 +1,450 @@
+{
+    "name": "Português (Brasil)",
+    "global": {
+        "search": "Busca",
+        "memberlist": "Lista de Membros",
+        "calendar": "Calendário",
+        "create_account": "Criar Conta",
+        "sidebar": {
+            "welcome": "Bem-vindo, visitante!",
+            "login": "Login",
+            "show_profile": "Exibir perfil de %s",
+            "usercp": "Painel de Controle",
+            "inbox": "Inbox (%d)",
+            "logout": "Sair",
+            "rooms": "Salas",
+            "members_online": "Membros Online",
+            "member_count": "Membros (%d)",
+            "member_viewing": "Visualizando",
+            "guest_count": "Visitantes (%d)",
+            "statistics": "Estatísticas",
+            "threads": "Tópicos",
+            "posts": "Posts",
+            "members": "Membros",
+            "last_member": "Último Membro"
+        },
+        "dates": {
+            "m1": "Janeiro",
+            "m2": "Fevereiro",
+            "m3": "Março",
+            "m4": "Abril",
+            "m5": "Maio",
+            "m6": "Junho",
+            "m7": "Julho",
+            "m8": "Agosto",
+            "m9": "Setembro",
+            "m10": "Outubro",
+            "m11": "Novembro",
+            "m12": "Dezembro",
+            "w1": "Domingo",
+            "w2": "Segunda-feira",
+            "w3": "Terça-feira",
+            "w4": "Quarta-feira",
+            "w5": "Quinta-feira",
+            "w6": "Sexta-feira",
+            "w7": "Sábado"
+        }
+    },
+    "calendar": {
+        "title": "Calendário",
+        "go_to": "Ir para",
+        "go": "Ir",
+        "add": "Adicionar Novo Evento",
+        "show": "Mostrar Mês Atual",
+        "new": {
+            "title": "Título do evento",
+            "date": "Data do evento",
+            "at": "às",
+            "type": "Tipo",
+            "public": "Público (visível para todos)",
+            "private": "Privado (visível somente para mim)",
+            "description": "Descrição",
+            "error": "Título do evento e Descrição são campos obrigatórios."
+        },
+        "view": {
+            "title": "Ver",
+            "all": "Todos os eventos",
+            "public": "Eventos públicos",
+            "private": "Eventos privados",
+            "created_by": "Criado por %s",
+            "no_events": "Não há eventos agendados disponíveis para esta data no momento."
+        },
+        "notification": {
+            "success": "Você adicionou um novo evento com sucesso."
+        }
+    },
+    "community": {
+        "moderators": "Moderadores",
+        "protected_room": "Sala Protegida",
+        "redirect_to": "Redirecionar para",
+        "mark_all_read": "Marcar todas como lidas"
+    },
+    "failure": {
+        "error_title": "Ops! Ocorreu um erro...",
+        "success_title": "Feito!",
+        "proceed": "Prosseguir",
+        "warning": "AVISO",
+        "success": "SUCESSO",
+        "login": "Login",
+        "login_error": "Por favor, preencha os campos de nome de usuário e senha.",
+        "message": {
+            "not_allowed": "Você precisa ser um membro registrado para acessar esta página.",
+            "validated": "Seu endereço de e-mail foi validado com sucesso.",
+            "protected": "Esta sala é protegida.",
+            "login_error": "Nome de usuário ou senha incorreta. Por favor, tente novamente.",
+            "locked_thread": "Este tópico está travado."
+        },
+        "offline": {
+            "title": "Desculpe, estamos offline!",
+            "message": "%s está atualmente offline enquanto realizamos algumas manutenções."
+        },
+        "updating": {
+            "title": "Atualizando!",
+            "message": "Por favor, aguarde enquanto atualizamos nossa comunidade para uma versão de software mais recente."
+        },
+        "deleted": {
+            "title": "Este membro não existe!",
+            "message": "Parece que você está tentando visualizar um membro que não existe ou que foi excluído."
+        },
+        "banned": {
+            "title": "Você foi banido!",
+            "message": "Você não tem permissões para ler, postar ou responder tópicos."
+        },
+        "not_found": {
+            "title": "A página solicitada não foi encontrada.",
+            "message": "Parece que a página que você está tentando visitar não existe."
+        },
+        "server_error": {
+            "title": "Um erro inesperado ocorreu.",
+            "message": "Isso pode ter acontecido devido a um erro interno do servidor.<br>Se o erro persistir, contate o administrador da comunidade."
+        },
+        "forbidden": {
+            "title": "Acesso negado!",
+            "message": "Você não tem permissões para abrir esta página."
+        }
+    },
+    "help": {
+        "title": "Tópicos de Ajuda",
+        "no_topics": "Não há tópicos de ajuda a serem exibidos."
+    },
+    "login": {
+        "title": "Login",
+        "close": "Fechar",
+        "username": "Nome de usuário",
+        "password": "Senha",
+        "anonymous": "Login anônimo",
+        "remember": "Lembrar da sessão atual",
+        "not_member": "Não é um membro? <a href='%s'><strong>Cadastre-se aqui!</strong></a>",
+        "notification": {
+            "error": "Nome de usuário ou senha incorretos"
+        }
+    },
+    "members": {
+        "title": "Lista de Membros",
+        "all": "Todos",
+        "member_name": "Nome do membro",
+        "join_date": "Data de registro",
+        "post_count": "Número de posts",
+        "joined": "Cadastrado",
+        "posts": "Posts",
+        "location": "Localização",
+        "group": "Grupo",
+        "no_results": "Sua busca não retornou resultados.",
+        "search": "Buscar por nome"
+    },
+    "messenger": {
+        "title": "Mensageiro",
+        "new_message": "Nova Mensagem",
+        "folders": "Pastas",
+        "attachments": "Anexos",
+        "inbox": "Caixa de Entrada",
+        "sent": "Enviados",
+        "drafts": "Rascunhos",
+        "storage": "Armazenamento: %d de %d",
+        "delete_selected": "Deletar Mensagens Selecionadas",
+        "select_all": "Selecionar Todos",
+        "subject": "Assunto",
+        "from": "De",
+        "to": "Para",
+        "date": "Data",
+        "no_pm_inbox": "Não há mensagens privadas para exibir.",
+        "no_pm_sent": "Não há mensagens privadas enviadas para exibir.",
+        "compose": "Escrever",
+        "message": "Mensagem",
+        "send": "Enviar Mensagem",
+        "reply": "Responder",
+        "forward": "Encaminhar",
+        "delete": "Deletar",
+        "sent_on": "Enviado em %s",
+        "notification": {
+            "sent": "Sua mensagem privada foi enviada com sucesso.",
+            "required": "'Para', 'Assunto' e 'Mensagem' são campos obrigatórios.",
+            "unable_to_load": "Não foi possível carregar a mensagem privada."
+        }
+    },
+    "profile": {
+        "title": "Perfil",
+        "posts": "Posts",
+        "registered": "Registrado",
+        "usergroup": "Grupo",
+        "last_posts": "Últimos Posts &amp; Tópicos",
+        "attachments": "Anexos",
+        "my_profile": "Meu Perfil",
+        "about_me": "Sobre Mim",
+        "birthdate": "Nascimento",
+        "age": "%s (%s anos)",
+        "gender": "Gênero",
+        "location": "Localização",
+        "website": "Website",
+        "signature": "Assinatura",
+        "stats": "Estatísticas do Membro",
+        "private": "Privado",
+        "best_answers": "Melhores Respostas",
+        "best_posts": "%d post(s)",
+        "contact": "Informações de Contato",
+        "last_threads_by": "Últimos 5 tópicos de %s",
+        "last_posts_by": "Últimos 5 posts de %s",
+        "file_name": "Nome do arquivo",
+        "file_type": "Tipo do arquivo",
+        "file_size": "Tamanho",
+        "no_attachments": "Não há anexos."
+    },
+    "register": {
+        "title": "Criar Conta",
+        "step1": "Passo 1",
+        "step2": "Passo 2",
+        "step3": "Passo 3",
+        "step4": "Passo 4",
+        "disabled": "Novos registros foram desativados.",
+        "agreement": "Acordo",
+        "your_account": "Sua Conta",
+        "confirmation": "Confirmação",
+        "validation": "Validação",
+        "eula": "Não somos responsáveis por nenhuma das mensagens postadas. As mensagens expressam os pontos-de-vista do autor da mensagem, não necessariamente os pontos-de-vista desta comunidade. Mensagens que sejam agressivas, abusivas ou ameacem outros membros; contém material obsceno ou questionável; contém Spam, anúncio comercial ou propaganda ou links podem ser removidos e podem resultar no bloqueio da sua conta. Por favor, não poste nenhuma informação particular a não ser que você a queira tornar pública. Nunca suponha que você está completamente anônimo e não possa ser identificado pelas suas publicações.",
+        "agree": "Concordo",
+        "disagree": "Discordo",
+        "username": "Nome de usuário",
+        "username_notice": "Entre 3 e 20 caracteres.",
+        "password": "Senha",
+        "password_notice": "Mínimo de 6 caracteres.",
+        "password_error": "As senhas não combinam!",
+        "password_retype": "Confirme a senha",
+        "email": "Endereço de e-mail",
+        "captcha": "CAPTCHA",
+        "captcha_description": "Somente letras. Apenas ter certeza de que você é humano.",
+        "create": "Criar Conta",
+        "done": {
+            "congratulations": "Parabéns!",
+            "success": "Você registrou sua conta com sucesso.",
+            "validate": "Por favor, verifique seu e-mail para completar seu registro.",
+            "validated": "Sua conta está validada.",
+            "already_validated": "Este membro já está validado.",
+            "not_match": "Token de segurança não combina.",
+            "not_found": "Membro não encontrado."
+        },
+        "notification": {
+            "required": "Todos os campos são obrigatórios. Se eles não forem preenchidos o registro não pode continuar.",
+            "does_not_match": "As senhas digitadas não combinam.",
+            "username": "Nome de usuário deve ter entre 3 e 20 caracteres.",
+            "already_exists": "O nome de usuário ou e-mail já existe.",
+            "captcha": "O CAPTCHA digitado não combina."
+        }
+    },
+    "report": {
+        "title": "Reportar Abuso",
+        "close": "Fechar",
+        "notice": "Por favor, descreva o comportamento abusivo apresentado.<br>Todos os relatórios são estritamente confidenciais.",
+        "reason": "Motivo",
+        "choose": "Escolha um...",
+        "option_1": "Nudez ou pornografia",
+        "option_2": "Se passando por mim ou alguém que conheço",
+        "option_3": "Racismo ou discurso de ódio",
+        "option_4": "Se dirige a mim ou um amigo",
+        "option_5": "Incentivo à violência",
+        "option_6": "Conteúdo excessivamente violento",
+        "option_7": "Spam",
+        "send": "Enviar"
+    },
+    "room": {
+        "new_thread": "Novo Tópico",
+        "new_poll": "Nova Enquete",
+        "read_only": "Somente Leitura",
+        "all": "Todos",
+        "my_threads": "Meus Tópicos",
+        "last_reply": "Última Resposta",
+        "top_threads": "Melhores Tópicos",
+        "no_replies": "Sem Respostas",
+        "answered": "Respondidos",
+        "polls": "Enquetes",
+        "started_by": "Iniciado por %s",
+        "started_on": "Em %s",
+        "views": "%d visualizações",
+        "last_post_by": "Último post por %s",
+        "no_threads": "Não há tópicos a serem exibidos. Que tal iniciar um?"
+    },
+    "search": {
+        "title": "Busca",
+        "do": "Buscar por...",
+        "results": "Sua busca por <b>%s</s> retornou <b>%d</b> resultados.",
+        "no_results": "Sua busca por <b>%s</b> não retornou resultados.",
+        "by_relevance": "Por Relevância",
+        "by_date": "Por Data"
+    },
+    "thread": {
+        "no_replies": "Este tópico não contém respostas. Seja o primeiro!",
+        "posts": "Posts",
+        "post_number": "%s posts",
+        "registered": "Registrado",
+        "location": "Localização",
+        "posted_on": "Postado em %s",
+        "quoted_posted_on": "<strong>%s</strong> postou em %s",
+        "attachments": "Anexos",
+        "edited_on": "Editado em %s por %s",
+        "quote": "Citação",
+        "quote_button": "Responder este post",
+        "report_abuse": "Reportar Abuso",
+        "edit": "Editar",
+        "delete": "Deletar",
+        "set_best_answer": "Marcar como Melhor Resposta",
+        "unset_best_answer": "Desmarcar como Melhor Resposta",
+        "replies": "Respostas",
+        "add_reply": "Adicionar Resposta",
+        "obsolete": "Obsoleto",
+        "locked": "Travado",
+        "delete_post": "Deletar Post",
+        "delete_confirm": "Deseja deletar este post? Esta operação <strong>não poderá</strong> ser desfeita!",
+        "close": "Fechar",
+        "related": "Tópicos Relacionados",
+        "no_related_threads": "Não há tópicos relacionados para exibir.",
+        "mod": {
+            "title": "Opções de Moderação",
+            "lock": "Travar Tópico",
+            "set_announcement": "Marcar tópico como Anúncio",
+            "unset_annoumcement": "Desmarcar tópico como Anúncio",
+            "delete": "Deletar este tópico",
+            "delete_confirm": "Tem certeza que deseja deletar este tópico? Esta operação NÃO PODERÁ ser desfeita!"
+        },
+        "notification": {
+            "reported": "Você reportou este tópico com sucesso.",
+            "post_reported": "Você reportou um post neste tópico com sucesso.",
+            "deleted": "Você deletou seu post com sucesso.",
+            "locked": "Você travou este tópico com sucesso.",
+            "unlocked": "Você destravou este tópico com sucesso.",
+            "announcement_set": "Você marcou este tópico como anúncio com sucesso.",
+            "announcement_remove": "Você removeu este tópico como anúncio com sucesso.",
+            "empty": "Sua mensagem está vazia.",
+            "title_post_empty": "O título e conteúdo do post são campos obrigatórios."
+        },
+        "add": {
+            "edit": "Editando post em",
+            "new_thread": "Novo Tópico",
+            "add_new_thread": "Adicionar Novo Tópico",
+            "title": "Título do Tópico",
+            "post": "Post",
+            "attachment_max_size": "Tamanho do arquivo não deverá exceder <b>%s</b>.",
+            "options": "Opções do Tópico",
+            "set_announcement": "Marcar tópico como anúncio",
+            "locked": "Travar tópico após publicar",
+            "poll": {
+                "question": "Pergunta",
+                "allow_multiple": "Permitir seleção de múltipla escolha",
+                "choices": "Respostas",
+                "description": "Escreva uma resposta por linha. Máximo de 15 respostas."
+            },
+            "auto": {
+                "title": "Definir data de abertura/travamento do tópico",
+                "description": "Defina quando o tópico será aberto ou travado. Para não utilizar este recurso, deixe os campos em branco.",
+                "details": "AVISO: A data de abertura/travamento dos tópicos é baseado no fuso-horário padrão da comunidade (atualmente definido em <strong>%s horas</strong> no <a href='admin/' target='_blank'>Painel Administrativo</a>), e não no fuso-horário do membro. Isso garante que todos os membros visualizarão o tópico ao mesmo tempo, independente de sua localização.",
+                "open_at": "Abrir em... <small>(deixe em branco para postar imediatamente)</small>",
+                "lock_at": "Travar em... <small>(deixe em branco para não definir tempo de travamento)</small>"
+            }
+        }
+    },
+    "usercp": {
+        "title": "Painel de Controle",
+        "summary": {
+            "title": "Resumo",
+            "account_summary": "Resumo da sua conta",
+            "total_posts": "Número total de posts",
+            "posts": "%s posts",
+            "registered": "Você se registrou em",
+            "average_posts": "Média de posts por dia",
+            "posts_per_day": "%s posts por dia",
+            "messenger_summary": "Resumo do seu mensageiro",
+            "total_messages": "Total de mensagens",
+            "messages": "mensagens",
+            "space_left": "Espaço restante de mensagens"
+        },
+        "profile": {
+            "title": "Perfil",
+            "member_title": "Título do membro",
+            "about_me": "Sobre mim",
+            "email": "E-mail",
+            "email_hide": "Ocultar meu endereço de e-mail dos outros usuários.",
+            "birthdate": "Nascimento",
+            "gender": "Gênero",
+            "gender_male": "Masculino",
+            "gender_female": "Feminino",
+            "location": "Localização",
+            "website": "Website",
+            "update": "Atualizar Perfil",
+            "notification": {
+                "success": "Seu perfil de membro foi atualizado com sucesso."
+            }
+        },
+        "avatar": {
+            "title": "Avatar",
+            "source": "Origem do avatar",
+            "custom": "Enviar avatar customizado",
+            "gravatar_settings": "Opções do Gravatar",
+            "gravatar_message": "O <b>Gravatar</b> é um serviço que fornece avatares unificados.<br>Seu Gravatar é associado com o seu <a href='usercp'>endereço de e-mail</a>.<br><br>Crie ou edite seu Gravatar acessando <a href='https://www.gravatar.com' target='_blank' rel='nofollow'>www.gravatar.com</a>.",
+            "upload": "Enviar Avatar",
+            "update": "Atualizar Avatar",
+            "notification": {
+                "success": "Seu avatar foi alterado com sucesso."
+            }
+        },
+        "cover": {
+            "title": "Foto de Capa",
+            "current": "Foto Atual",
+            "info": "Se nenhuma for definida, então seu avatar será sua foto de capa.",
+            "upload": "Enviar Foto",
+            "remove": "Remover",
+            "update": "Atualizar Foto de Capa",
+            "notification": {
+                "success": "Sua foto de capa foi alterada com sucesso."
+            }
+        },
+        "signature": {
+            "title": "Assinatura",
+            "edit": "Editar assinatura",
+            "update": "Atualizar Assinatura",
+            "notification": {
+                "success": "Sua assinatura foi alterada com sucesso."
+            }
+        },
+        "settings": {
+            "title": "Ajustes",
+            "timezone": "Fuso-horário",
+            "language": "Idioma",
+            "theme": "Tema",
+            "update": "Salvar Ajustes",
+            "notification": {
+                "success": "Seus ajustes foram atualizados com sucesso."
+            }
+        },
+        "password": {
+            "title": "Senha",
+            "current": "Senha atual",
+            "new": "Nova senha",
+            "retype": "Confirme senha",
+            "empty": "Senhas digitadas não combinam ou os campos estão vazios.",
+            "change": "Alterar Senha",
+            "notification": {
+                "success": "Sua senha foi alterada com sucesso.",
+                "incorrect": "Sua senha antiga está incorreta. Por favor, tente novamente.",
+                "not_match": "As senhas novas não combinam (senhas diferenciam maiúsculas de minúsculas). Por favor, tente novamente."
+            }
+        }
+    }
+}
