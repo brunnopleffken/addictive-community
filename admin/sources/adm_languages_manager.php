@@ -15,16 +15,16 @@ use \AC\Kernel\Template;
 
 // List of directories
 
-$dir_list = array();
+$found_languages = array();
 $dir = scandir("../languages");
 
 foreach($dir as $k => $v) {
-	if(strpos($v, "_") && is_dir("../languages/" . $v)) {
-		$dir_list[] = $v;
+	if(strpos($v, ".json")) {
+		$found_languages[] = $v;
 	}
 }
 
-// List of languages
+// List of installed languages
 
 Database::query("SELECT * FROM c_languages ORDER BY name ASC;");
 
@@ -32,39 +32,34 @@ while($lang = Database::fetch()) {
 	$lang['is_active']  = ($lang['is_active'] == 1) ? "<i class='fa fa-fw fa-check'></i>" : "";
 	$lang['remove'] = "<a href='process.php?do=uninstall_language&id={$lang['l_id']}'><i class='fa fa-fw fa-remove'></i></a>";
 
-	if(in_array($lang['directory'], $dir_list)) {
-		$dir_list = array_diff($dir_list, array($lang['directory']));
+	if(in_array($lang['file_name'] . ".json", $found_languages)) {
+		$found_languages = array_diff($found_languages, array($lang['file_name'] . ".json"));
 	}
 
 	Template::add("<tr>
-			<td><a href='main.php?act=languages&p=edit&id={$lang['l_id']}'><b>{$lang['name']}</b></a></td>
-			<td>/languages/{$lang['directory']}</td>
-			<td>{$lang['author_name']} ({$lang['author_email']})</td>
+			<td><b>{$lang['name']}</b></td>
+			<td>/languages/{$lang['file_name']}</td>
 			<td>{$lang['is_active']}</td>
-			<td class='text-center'><a href='main.php?act=languages&p=edit&id={$lang['l_id']}'><i class='fa fa-fw fa-pencil'></i></a></td>
-			<td class='text-center'>{$lang['remove']}</td>
+			<td class='' style='white-space: nowrap'>{$lang['remove']}</td>
 		</tr>");
 }
 
+
 // If there is uninstalled languages, show on list
 
-if(!empty($dir_list)) {
-	$not_installed_languages = Html::notification("There are language packs available to install. Click on the gears icon to install.", "info", false, "New languages available:");
-	foreach($dir_list as $language) {
-		$language_info = json_decode(file_get_contents("../languages/" . $language . "/_language.json"), true);
+if(!empty($found_languages)) {
+	foreach($found_languages as $language) {
+		$language_info = json_decode(file_get_contents("../languages/" . $language), true);
 
 		Template::add("<tr>
 				<td class='text-muted'><b>{$language_info['name']}</b></td>
 				<td class='text-muted'>/languages/{$language}</td>
-				<td class='text-muted'>{$language_info['author_name']} ({$language_info['author_email']})</td>
-				<td class='text-muted'>Not installed</td>
-				<td class='text-center'><a href='process.php?do=install_language&id={$language}' title='Install'><i class='fa fa-fw fa-gears'></i></a></td>
-				<td></td>
+				<td class='text-muted' style='white-space: nowrap'>Not installed</td>
+				<td class='' style='white-space: nowrap'>
+					<a href='process.php?do=install_language&id={$language}' title='Install'><i class='fa fa-fw fa-gears'></i></a>
+				</td>
 			</tr>");
 	}
-}
-else {
-	$not_installed_languages = Html::notification("Language directories must comply the ICU (International Components for Unicode) locale code, such as <i>en_US</i> for American English and <i>de_DE</i> for German. A full reference guide can be seen <a href='http://demo.icu-project.org/icu-bin/locexp?d_=en'>here</a>.", "info");
 }
 
 ?>
@@ -72,7 +67,6 @@ else {
 <h1>Language Manager</h1>
 
 <div class="block">
-	<?php echo $not_installed_languages ?>
 	<table class="table">
 		<thead>
 			<tr>
@@ -82,13 +76,12 @@ else {
 			</tr>
 			<tr>
 				<td>Language</td>
-				<td>Directory</td>
-				<td>Author</td>
-				<td>Active</td>
-				<td class="min">Edit</td>
-				<td class="min">Uninstall</td>
+				<td>File name</td>
+				<td class="min">Enabled</td>
+				<td class="min">Actions</td>
 			</tr>
 		</thead>
 		<?php echo Template::get() ?>
 	</table>
+	<?= Html::notification("Language file names must comply the ICU (International Components for Unicode) locale code, such as <i>en_US</i> for American English, <i>pt_BR</i> for Brazilian Portuguese and <i>de_DE</i> for German. A full reference guide can be seen <a href='http://demo.icu-project.org/icu-bin/locexp?d_=en' style='text-decoration:underline'>here</a>.", "info"); ?>
 </div>

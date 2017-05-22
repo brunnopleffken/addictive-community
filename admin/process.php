@@ -323,22 +323,20 @@ switch($do) {
 	case "install_language":
 
 		// Get locale code
-		$code = Http::request("id");
+		$filename = Http::request("id");
 
 		// Get array from language JSON manifest
-		$language_info = json_decode(file_get_contents("../languages/" . $code . "/_language.json"), true);
+		$language_info = json_decode(file_get_contents("../languages/" . $filename), true);
 
 		// Insert new language into DB
 		$language = array(
 			"name"         => $language_info['name'],
-			"directory"    => $language_info['directory'],
-			"author_name"  => $language_info['author_name'],
-			"author_email" => $language_info['author_email'],
+			"file_name"    => substr($filename, 0, -5),
 			"is_active"    => 1
 		);
 
 		$Db->insert("c_languages", $language);
-		$Admin->registerLog("Installed new language : " . $code);
+		$Admin->registerLog("Installed new language : " . $filename);
 
 		header("Location: " . $_SERVER['HTTP_REFERER']);
 		exit;

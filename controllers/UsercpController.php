@@ -287,8 +287,8 @@ class Usercp extends Application
 		Database::query("SELECT * FROM c_languages WHERE is_active = 1 ORDER BY name;");
 
 		while($lang = Database::fetch()) {
-			$selected = ($this->member_info['language'] == $lang['directory']) ? "selected" : "";
-			$settings['lang_list'] .= "<option value='{$lang['directory']}' {$selected}>{$lang['name']}</option>\n";
+			$selected = ($this->member_info['language'] == $lang['file_name']) ? "selected" : "";
+			$settings['lang_list'] .= "<option value='{$lang['file_name']}' {$selected}>{$lang['name']}</option>\n";
 		}
 
 		// Template list

@@ -67,9 +67,7 @@ CREATE TABLE `c_help` (
 CREATE TABLE `c_languages` (
   `l_id` int(2) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `directory` varchar(10) NOT NULL,
-  `author_name` varchar(50) NOT NULL,
-  `author_email` varchar(50) NOT NULL,
+  `file_name` varchar(10) NOT NULL,
   `is_active` int(1) NOT NULL,
   PRIMARY KEY (`l_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

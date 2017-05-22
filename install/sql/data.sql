@@ -22,9 +22,11 @@ VALUES
 	(12,':\'(','crying.png',1,'default'),
 	(13,':X','disgusted.png',1,'default');
 
-INSERT INTO `c_languages` (`l_id`, `name`, `directory`, `author_name`, `author_email`, `is_active`)
+INSERT INTO `c_languages` (`l_id`, `name`, `file_name`, `is_active`)
 VALUES
-	(1,'English (US)','en_US','Addictive Community','brunno.pleffken@outlook.com',1);
+	(1, 'English (US)', 'en_US', 1),
+	(2, 'Português (Brasil)', 'pt_BR', 1),
+	(3, 'Russian', 'ru_RU', 1);
 
 INSERT INTO `c_ranks` (`id`, `title`, `min_posts`, `pips`, `image`)
 VALUES
