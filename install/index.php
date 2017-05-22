@@ -435,20 +435,21 @@ HTML;
 		$url = preg_replace("#\?(.+?)*#", "", $url);
 
 		// Languages
-		$dir_list = array();
-		$lang_list = "";
+		$found_languages = array();
+		$languages_options = "";
 		$lang_dir = scandir("../languages");
 
 		foreach($lang_dir as $k => $v) {
-			if(strpos($v, "_") && is_dir("../languages/" . $v)) {
-				$dir_list[] = $v;
+			if(strpos($v, ".json")) {
+				$found_languages[] = $v;
 			}
 		}
 
-		foreach($dir_list as $language) {
-			$language_info = json_decode(file_get_contents("../languages/" . $language . "/_language.json"), true);
-			$selected = ($language_info['directory'] == "en_US") ? "selected" : "";
-			$lang_list .= "<option value='{$language_info['directory']}' {$selected}>{$language_info['name']}</option>";
+		foreach($found_languages as $language) {
+			$language_info = json_decode(file_get_contents("../languages/" . $language), true);
+			$selected = ($language == "en_US.json") ? "selected" : "";
+			$language_id = substr($language, 0, -5);
+			$languages_options .= "<option value='{$language_id}' {$selected}>{$language_info['name']}</option>";
 		}
 
 		// Timezone list
@@ -518,7 +519,7 @@ HTML;
 						<label for="teste" class="col-3">Language</label>
 						<div class="col-9">
 							<select name="language" class="select2 span-5">
-								{$lang_list}
+								{$languages_options}
 							</select>
 						</div>
 					</div>
