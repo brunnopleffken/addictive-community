@@ -3,7 +3,7 @@
 	<?php __("register.title") ?>
 </h1>
 
-<?php if($is_register_disabled == 0): ?>
+<?php if($is_register_disabled == 1): ?>
 	<?= \AC\Kernel\Html::notification("Registration has been disabled.", "warning", true); ?>
 <?php else: ?>
 	<div class="block">
