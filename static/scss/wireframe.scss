@@ -32,6 +32,10 @@ header {
 			height: 35px;
 			margin: 10px 0;
 		}
+		.nav-button {
+			font-size: 24px;
+			margin: 10px 0;
+		}
 		.search {
 			background-color: $accent-dark;
 			border-radius: 6px;
@@ -99,7 +103,7 @@ header {
 				display: inline-block;
 				font-weight: bold;
 				font-size: 16px;
-				margin-bottom: 4px;
+				margin-bottom: 5px;
 			}
 		}
 		.image {
@@ -178,6 +182,115 @@ header {
 		dd {
 			// float: right;
 			font-weight: bold;
+		}
+	}
+}
+
+.overlay {
+	background-color: rgba(0, 0, 0, 0.7);
+	bottom: 0;
+	display: none;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 800;
+}
+
+nav {
+	background-color: $accent;
+	bottom: 0;
+	box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5), -100px 0 50px -100px rgba(0, 0, 0, 0.3) inset;
+	display: none;
+	opacity: 0;
+	position: absolute;
+	right: -280px;
+	top: 0;
+	transition: 300ms;
+	width: 280px;
+	z-index: 999;
+	&.open {
+		opacity: 1;
+		right: 0;
+		transition: 300ms;
+	}
+	.close {
+		background-color: #fff;
+		border-radius: 20px;
+		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+		color: #000;
+		display: none;
+		font-size: 30px;
+		height: 40px;
+		left: -50px;
+		line-height: 33px;
+		position: absolute;
+		text-align: center;
+		top: 10px;
+		width: 40px;
+	}
+	.search {
+		background-color: $accent-darker;
+		padding: 15px 15px;
+		.search-input {
+			border: 0;
+		}
+	}
+	.user-box {
+		background-color: $accent-darker;
+		border-radius: 4px;
+		color: #fff;
+		margin: 15px;
+		overflow: auto;
+		padding: 10px;
+		a {
+			color: lighten($accent, 55%);
+			&.username {
+				display: inline-block;
+				font-weight: bold;
+				font-size: 16px;
+				margin-bottom: 4px;
+			}
+		}
+		.image {
+			border-radius: 2px;
+			float: left;
+			height: 40px;
+			margin-right: 10px;
+			width: 40px;
+		}
+		ul {
+			list-style: none;
+			li {
+				float: left;
+				font-size: 12px;
+				&:before {
+					content: ('·');
+					margin: 0 3px;
+				}
+				&:first-child {
+					&:before { display: none; }
+				}
+			}
+		}
+	}
+	.divider {
+		background-color: $accent-dark;
+		color: #fff;
+		font-weight: bold;
+		padding: 15px;
+		a {
+			color: #fff;
+		}
+	}
+	.list {
+		list-style: none;
+		li {
+			color: #fff;
+			padding: 15px;
+			a {
+				color: #fff;
+			}
 		}
 	}
 }
@@ -1063,6 +1176,7 @@ footer {
 }
 #content {
 	flex: 1;
+	margin-bottom: 30px;
 	min-width: 0;
 	padding-left: 10px;
 	padding-right: 10px;

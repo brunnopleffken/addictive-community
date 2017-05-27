@@ -34,13 +34,59 @@
 				foreach($emoticon_set as $emoticon) {
 					$row[] = "[" . implode(", ", $emoticon) . "]";
 				}
-
 				echo implode(",\n", $row);
 			?>
 		];
 	</script>
 </head>
 <body>
+
+<div class="overlay"></div>
+
+<nav class="">
+	<div class="close">&times;</div>
+	<div class="search">
+		<form action="search" method="get" class="no-validate">
+			<input type="search" name="q" class="form-control search-input" value="<?= \AC\Kernel\Http::request("q") ?>" placeholder="<?php __("global.search") ?>...">
+		</form>
+	</div>
+	<?php if($member_id == 0): ?>
+		<div class="divider"><?php __("global.sidebar.welcome") ?></div>
+		<ul class="list">
+			<li><a href="login" class="fancybox fancybox.ajax"><?php __("global.sidebar.login") ?></a></li>
+			<li><a href="register" class="font-w600"><?php __("global.create_account") ?></a></li>
+		</ul>
+	<?php else: ?>
+		<div class="divider">
+			<a href="profile/<?= $member_info['m_id'] ?>" class="username">
+				<?= $member_info['username'] ?>
+			</a>
+		</div>
+		<ul class="list">
+			<li><a href="usercp"><?php __("global.sidebar.usercp") ?></a></li>
+			<li><a href="messenger"><?php __("global.sidebar.inbox", array($unread_messages)) ?></a></li>
+			<li><a href="logout"><?php __("global.sidebar.logout") ?></a></li>
+		</ul>
+	<?php endif; ?>
+
+	<div class="divider"><?php __("global.sidebar.rooms") ?></div>
+	<ul class="list">
+		<?php foreach($sidebar_rooms as $k => $v): ?>
+			<li>
+				<a href="room/<?= $sidebar_rooms[$k]['r_id'] ?>"><?= $sidebar_rooms[$k]['name'] ?></a>
+			</li>
+		<?php endforeach; ?>
+	</ul>
+	<div class="divider"><?= $community_name ?></div>
+	<ul class="list">
+		<?php if($is_admin): ?>
+			<li><a href="admin/" target="_blank"><span>Admin CP</span></a></li>
+		<?php endif; ?>
+		<li><a href="search"><span><?php __("global.search") ?></span></a></li>
+		<li><a href="members"><span><?php __("global.memberlist") ?></span></a></li>
+		<li><a href="calendar"><span><?php __("global.calendar") ?></span></a></li>
+	</ul>
+</nav>
 
 <header>
 	<div class="top-half outer">
@@ -67,6 +113,9 @@
 				<a href="<?= $community_url ?>">
 					<img src="static/images/logo.svg" class="logo" alt="Addictive Community">
 				</a>
+			</div>
+			<div class="col-minimum nav-button show-sm text-right" id="toggle-sidebar">
+				<i class="fa fa-bars"></i>
 			</div>
 			<div class="col-flexible search hide-sm">
 				<form action="search" method="get" class="no-validate">
