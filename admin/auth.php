@@ -1,13 +1,15 @@
 <?php
 
-## ---------------------------------------------------
+## -------------------------------------------------------
 #  ADDICTIVE COMMUNITY
-## ---------------------------------------------------
-#  Developed by Brunno Pleffken Hosti
+## -------------------------------------------------------
+#  Created by Brunno Pleffken Hosti
+#  https://github.com/addictivehub/addictive-community
+#
 #  File: auth.php
 #  License: GPLv2
-#  Copyright: (c) 2016 - Addictive Community
-## ---------------------------------------------------
+#  Copyright: (c) 2017 - Addictive Community
+## -------------------------------------------------------
 
 use \AC\Kernel\Database;
 use \AC\Kernel\Http;

@@ -2,7 +2,7 @@
  * ADDICTIVE COMMUNITY
  * -------------------------------------------------------
  * Created by Brunno Pleffken Hosti
- * http://github.com/brunnopleffken/addictive-community
+ * https://github.com/addictivehub/addictive-community
  *
  * File: updater.js
  * License: GPLv2

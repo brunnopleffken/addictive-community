@@ -4,11 +4,11 @@
 #  ADDICTIVE COMMUNITY
 ## -------------------------------------------------------
 #  Created by Brunno Pleffken Hosti
-#  http://github.com/brunnopleffken/addictive-community
+#  https://github.com/addictivehub/addictive-community
 #
 #  File: Profile.php
 #  License: GPLv2
-#  Copyright: (c) 2016 - Addictive Community
+#  Copyright: (c) 2017 - Addictive Community
 ## -------------------------------------------------------
 
 namespace AC\Controllers;

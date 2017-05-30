@@ -6,7 +6,7 @@
 #  Developed by Brunno Pleffken Hosti
 #  File: adm_general_topics_posts.php
 #  License: GPLv2
-#  Copyright: (c) 2016 - Addictive Community
+#  Copyright: (c) 2017 - Addictive Community
 ## ---------------------------------------------------
 
 use \AC\Kernel\Html;

@@ -2,11 +2,11 @@
  * ADDICTIVE COMMUNITY
  * -------------------------------------------------------
  * Created by Brunno Pleffken Hosti
- * http://github.com/brunnopleffken/addictive-community
+ * https://github.com/addictivehub/addictive-community
  *
  * File: main.js
  * License: GPLv2
- * Copyright: (c) 2016 - Addictive Community
+ * Copyright: (c) 2017 - Addictive Community
  */
 
 /* global $, tinymce */
@@ -388,6 +388,8 @@ $(document).ready(function($) {
 /**
  * OUT-OF-SCOPE UTILS FUNCTIONS FOR GENERAL USAGE
  */
+
+// Check passwords when registering a new member
 
 var register = {
 	checkUsernamePassed: false,
