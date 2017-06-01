@@ -73,7 +73,7 @@ while($report = Database::fetch($reports)) {
 			<td><a href='../thread/{$report['thread_id']}'>{$report['title']}</a></td>
 			<td>{$report['post']}</td>
 			<td rowspan='2' style='border-left: 1px solid #eee; border-bottom: 2px solid #eee'>
-				<a href='process.php?do=remove_report&id={$report['rp_id']}' onclick='DeleteReport({$report['rp_id']},{$report['thread_id']})'><img src='images/trash.png'></a>
+				<a href='process.php?do=remove_report&id={$report['rp_id']}' onclick='DeleteReport({$report['rp_id']},{$report['thread_id']})'><i class='fa fa-trash'></i></a>
 			</td>
 		</tr>
 		<tr>
