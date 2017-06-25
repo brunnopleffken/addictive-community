@@ -65,7 +65,7 @@ else {
 	</style>
 </head>
 
-<body onload="autofocus('username')">
+<body>
 
 <header>
 	<div class="top-half outer">
@@ -94,7 +94,7 @@ else {
 		<div class="form-group grid">
 			<label for="username" class="col-4">Username</label>
 			<div class="col-8">
-				<input type="text" name="username" id="username" class="form-control" required>
+				<input type="text" name="username" id="username" class="form-control" autofocus="true" required>
 			</div>
 		</div>
 		<div class="form-group grid">
@@ -112,12 +112,6 @@ else {
 <!-- JS -->
 <script src="../thirdparty/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="../static/js/application.js" type="text/javascript"></script>
-<script type="text/javascript">
-    function autofocus(fieldname) {
-        var field = document.getElementById(fieldname);
-        field.focus();
-    }
-</script>
 
 </body>
 </html>
