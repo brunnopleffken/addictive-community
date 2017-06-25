@@ -37,11 +37,11 @@ switch($msg) {
 				</tr>
 			</thead>
 			<tr>
-				<td class="font-w600">Short date format<small>Same format as <a href="http://uk1.php.net/manual/en/function.date.php" target="_blank">PHP's date()</a></small></td>
+				<td class="font-w600">Short date format<small>Same format as <a href="http://php.net/manual/en/function.date.php" target="_blank">PHP's date()</a></small></td>
 				<td><input type="text" name="date_short_format" value="<?php echo $Admin->selectConfig("date_short_format") ?>" class="form-control span-2"></td>
 			</tr>
 			<tr>
-				<td class="font-w600">Long date format<small>Same format as <a href="http://uk1.php.net/manual/en/function.date.php" target="_blank">PHP's date()</a></small></td>
+				<td class="font-w600">Long date format<small>Same format as <a href="http://php.net/manual/en/function.date.php" target="_blank">PHP's date()</a></small></td>
 				<td><input type="text" name="date_long_format" value="<?php echo $Admin->selectConfig("date_long_format") ?>" class="form-control span-2"></td>
 			</tr>
 		</table>
