@@ -370,9 +370,9 @@ $(document).ready(function($) {
 		});
 	}).call(this);
 
-    /**
+	/**
 	 * SOCIAL LINKS
-     */
+	 */
 
 	(function() {
 		$('.thread-post-author-share-box a').on('click', function(event) {

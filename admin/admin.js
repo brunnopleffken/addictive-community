@@ -36,20 +36,20 @@ $(document).ready(function() {
 		})
 	}).call(this);
 
-    /**
+	/**
 	 * Auto-select navigation bar item
-     */
-    (function() {
-        var links = document.querySelectorAll('.nav .nav-bottom a');
-        [].forEach.call(links, function(link) {
-            var elementUrl = new RegExp('(' + (link.href).replace('?', '\\?') + ')$');
-            var browserUrl = window.location.href;
+	 */
+	(function() {
+		var links = document.querySelectorAll('.nav .nav-bottom a');
+		[].forEach.call(links, function(link) {
+			var elementUrl = new RegExp('(' + (link.href).replace('?', '\\?') + ')$');
+			var browserUrl = window.location.href;
 
-            if(elementUrl.test(browserUrl)) {
-                link.className = 'active';
-            }
-        });
-    }).call(this);
+			if(elementUrl.test(browserUrl)) {
+				link.className = 'active';
+			}
+		});
+	}).call(this);
 });
 
 /**

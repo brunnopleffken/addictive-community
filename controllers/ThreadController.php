@@ -56,7 +56,7 @@ class Thread extends Application
 			Html::notification(i18n::translate("thread.notification.unlocked"), "success"),
 			Html::notification(i18n::translate("thread.notification.announcement_set"), "success"),
 			Html::notification(i18n::translate("thread.notification.announcement_remove"), "success")
-        ];
+		];
 
 		// Get thread information
 		$this->thread_info = $this->getThreadInfo();
