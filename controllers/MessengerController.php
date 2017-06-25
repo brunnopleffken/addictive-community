@@ -275,18 +275,18 @@ class Messenger extends Application
 	 */
 	public function reply($id)
 	{
-		$member_id = SessionState::$user_data['member_id'];
+		$member_id = SessionState::$user_data['m_id'];
 
 		if($id) {
-			//Load message user is replying to
-			Database::query("SELECT `username`,`m_id` AS `reply_user_id`,`subject` FROM `c_messages`
-					LEFT JOIN `c_members` ON `c_messages`.`from_id`=`c_members`.`m_id` WHERE `pm_id`={$id}
-					AND `to_id`={$member_id} LIMIT 1");
+			// Load the message that the user is replying to
+			Database::query("SELECT username, m_id AS reply_user_id, subject FROM c_messages
+					INNER JOIN c_members ON c_messages.from_id = c_members.m_id
+					WHERE pm_id = {$id} AND to_id = {$member_id} LIMIT 1");
 
 			$message = Database::fetch();
 
 			if($message) {
-				//Set this message so the view can use the information
+				// Set this message so the view can use the information
 				$this->Set('message', $message);
 			}
 			else {
