@@ -214,7 +214,7 @@ HTML;
 			<!-- <a href="main.php?act=system&amp;p=statistics">Statistics</a> -->
 			<a href="main.php?act=system&amp;p=server">Server Environment</a>
 			<a href="main.php?act=system&amp;p=optimization">System Optimization</a>
-			<a href="https://github.com/brunnopleffken/addictive-community/issues" target="_blank">Found a bug?</a>
+			<a href="https://github.com/addictivehub/addictive-community/issues" target="_blank">Found a bug?</a>
 		</div>
 HTML;
 	}
@@ -264,9 +264,9 @@ HTML;
 		<div class="top-half outer">
 			<div class="row space-between">
 				<div class="col-flexible text-right">
-					<a href="https://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">View Addictive Comunity on GitHub</a>
-					<a href="https://github.com/brunnopleffken/addictive-community/issues" target="_blank" class="transition">Issues</a>
-					<a href="https://github.com/brunnopleffken/addictive-community/blob/master/CHANGELOG.md" target="_blank" class="transition">Changelog</a>
+					<a href="https://github.com/addictivehub/addictive-community" target="_blank" class="transition">View Addictive Comunity on GitHub</a>
+					<a href="https://github.com/addictivehub/addictive-community/issues" target="_blank" class="transition">Issues</a>
+					<a href="https://github.com/addictivehub/addictive-community/blob/master/CHANGELOG.md" target="_blank" class="transition">Changelog</a>
 				</div>
 				<div class="col-flexible hide-xs">
 					<a href="../" target="_blank" class="toplinks transition">&laquo; Go to your Community</a>
@@ -294,7 +294,7 @@ HTML;
 
 <footer class="text-center">
 	Powered by
-	<a href="https://github.com/brunnopleffken/addictive-community" target="_blank">Addictive Community</a>
+	<a href="https://github.com/addictivehub/addictive-community" target="_blank">Addictive Community</a>
 	<?= VERSION . "-" . CHANNEL ?> &copy; <?= date("Y") ?> - All rights reserved.
 </footer>
 

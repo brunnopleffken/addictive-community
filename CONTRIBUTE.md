@@ -8,7 +8,7 @@ Great to have you here! We'd love for you to contribute to our source code, so h
 - [Coding Guidelines](#coding)
 
 ## <a name="issue"></a> Issues and Bugs
-If your issue appears to be a bug, and hasn't been reported, [open a new issue](https://github.com/brunnopleffken/addictive-community/issues/new). Help us to maximize the effort we can spend fixing issues and adding new features by not reporting duplicate issues. Look at [existing bugs](https://github.com/brunnopleffken/addictive-community/issues) and help us understand if "The bug is reproducible? Is it reproducible in other environments (browsers)? What are the steps to reproduce?".
+If your issue appears to be a bug, and hasn't been reported, [open a new issue](https://github.com/addictivehub/addictive-community/issues/new). Help us to maximize the effort we can spend fixing issues and adding new features by not reporting duplicate issues. Look at [existing bugs](https://github.com/addictivehub/addictive-community/issues) and help us understand if "The bug is reproducible? Is it reproducible in other environments (browsers)? What are the steps to reproduce?".
 
 
 ## <a name="translations"></a> Translations
@@ -23,7 +23,7 @@ In the future you will also be able to create customized themes.
 
 
 ## <a name="pullrequest"></a> Submitting a Pull Request
-Before you submit your pull request, search GitHub for an [open or closed Pull Request](https://github.com/brunnopleffken/addictive-community/pulls) that relates to your submission. You don't want to duplicate effort.
+Before you submit your pull request, search GitHub for an [open or closed Pull Request](https://github.com/addictivehub/addictive-community/pulls) that relates to your submission. You don't want to duplicate effort.
 As a contributor, you should **always** work on the `development` branch of your clone (`master` is used only for building releases).
 - Follow our [Coding Guidelines](#coding)
 - Make your changes in a new Git branch: ```git checkout -b bug-fix-branch development```

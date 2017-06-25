@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/brunnopleffken/addictive-community.git"
+    "url": "git+https://github.com/addictivehub/addictive-community.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/brunnopleffken/addictive-community/issues"
+    "url": "https://github.com/addictivehub/addictive-community/issues"
   },
-  "homepage": "https://github.com/brunnopleffken/addictive-community#readme",
+  "homepage": "https://github.com/addictivehub/addictive-community#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-plumber": "^1.1.0",

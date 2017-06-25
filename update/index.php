@@ -286,7 +286,7 @@ HTML;
 <body>
 	<div id="topbar">
 		<div class="wrapper">
-			<div class="fleft"><a href="https://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">View Addictive Community on GitHub</a></div>
+			<div class="fleft"><a href="https://github.com/addictivehub/addictive-community" target="_blank" class="transition">View Addictive Community on GitHub</a></div>
 			<div class="fright"><a href="../" target="_blank" class="transition">Go back to your community</a></div>
 			<div class="fix"></div>
 		</div>

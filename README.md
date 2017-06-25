@@ -3,7 +3,7 @@ Addictive Community
 
 ![Latest release](https://img.shields.io/github/release/brunnopleffken/addictive-community.svg)
 
-Free open-source discussion board (forum) software, written in object-oriented PHP. Huge advancements were made in our Beta releases and we're working hard to bring new exciting features and important improvements! Read our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md) and be part of it.
+Free open-source discussion board (forum) software, written in object-oriented PHP. Huge advancements were made in our Beta releases and we're working hard to bring new exciting features and important improvements! Read our [Contribution Guidelines](https://github.com/addictivehub/addictive-community/blob/master/CONTRIBUTE.md) and be part of it.
 
 ![Addictive Community](https://raw.githubusercontent.com/brunnopleffken/addictive-community/development/static/images/screenshot.png)
 
@@ -24,7 +24,7 @@ Free open-source discussion board (forum) software, written in object-oriented P
 
 ## Installing
 
-1. [Download](https://github.com/brunnopleffken/addictive-community/releases) the latest version of Addictive Community. Upload all the files contained in this archive (retaining the directory structure).
+1. [Download](https://github.com/addictivehub/addictive-community/releases) the latest version of Addictive Community. Upload all the files contained in this archive (retaining the directory structure).
 2. Change the following files and directories permissions to read and write (CHMOD 777 or -rwxrwxrwx): `config.ini`, `/install`, `/public/attachments` and `/public/avatar`.
 3. Run your Addictive Community (e.g. http://www.mywebsite.com/forum). You should be redirected to the installer (if not, read the note below). Please, have the login data of the MySQL server (host server, username and password), as well as the database name.
 4. Follow the steps and wait until the installer gets your community ready.
@@ -32,7 +32,7 @@ Free open-source discussion board (forum) software, written in object-oriented P
 
 *NOTE: If you are not redirected to the installer, make sure your config.ini file is empty.*
 
-*NOTE #2: For production environment never use `git clone` nor download ZIP from `development` branch. Always download the ZIP file of the [latest official release](https://github.com/brunnopleffken/addictive-community/releases).*
+*NOTE #2: For production environment never use `git clone` nor download ZIP from `development` branch. Always download the ZIP file of the [latest official release](https://github.com/addictivehub/addictive-community/releases).*
 
 ## Requirements
 
@@ -49,7 +49,7 @@ We're currently working on automatic updates to be released before the first Fin
 
 ## Contribute
 
-We're glad you're interested to help develop Addictive Community. Be part of it reading our [Contribution Guidelines](https://github.com/brunnopleffken/addictive-community/blob/master/CONTRIBUTE.md).
+We're glad you're interested to help develop Addictive Community. Be part of it reading our [Contribution Guidelines](https://github.com/addictivehub/addictive-community/blob/master/CONTRIBUTE.md).
 
 ## Thanks!
 

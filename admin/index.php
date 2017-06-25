@@ -71,9 +71,9 @@ else {
 	<div class="top-half outer">
 		<div class="row space-between">
 			<div class="col-flexible text-right">
-				<a href="https://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">View Addictive Comunity on GitHub</a>
-				<a href="https://github.com/brunnopleffken/addictive-community/issues" target="_blank" class="transition">Issues</a>
-				<a href="https://github.com/brunnopleffken/addictive-community/blob/master/CHANGELOG.md" target="_blank" class="transition">Changelog</a>
+				<a href="https://github.com/addictivehub/addictive-community" target="_blank" class="transition">View Addictive Comunity on GitHub</a>
+				<a href="https://github.com/addictivehub/addictive-community/issues" target="_blank" class="transition">Issues</a>
+				<a href="https://github.com/addictivehub/addictive-community/blob/master/CHANGELOG.md" target="_blank" class="transition">Changelog</a>
 			</div>
 			<div class="col-flexible hide-xs">
 				<a href="../" target="_blank" class="toplinks transition">&laquo; Go to your Community</a>

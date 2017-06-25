@@ -695,7 +695,7 @@ HTML;
 		<div class="top-half outer">
 			<div class="row space-between">
 				<div class="col-flexible">
-					<a href="https://github.com/brunnopleffken/addictive-community" target="_blank" class="transition">View Addictive Community on GitHub</a>
+					<a href="https://github.com/addictivehub/addictive-community" target="_blank" class="transition">View Addictive Community on GitHub</a>
 				</div>
 			</div>
 		</div>
@@ -712,7 +712,7 @@ HTML;
 
 	<footer class="text-center">
 		Powered by
-		<a href="https://github.com/brunnopleffken/addictive-community" target="_blank">Addictive Community</a>
+		<a href="https://github.com/addictivehub/addictive-community" target="_blank">Addictive Community</a>
 		<?php echo VERSION . "-" . CHANNEL ?> &copy; <?php echo date("Y") ?> - All rights reserved.
 	</footer>
 
