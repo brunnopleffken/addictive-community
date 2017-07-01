@@ -140,6 +140,7 @@ class Community extends Application
 
 		// Get moderators
 		$moderators_array = unserialize($result['moderators']);
+
 		if(!empty($moderators_array)) {
 			$moderators = unserialize($result['moderators']);
 			$moderator_list = array();
@@ -181,7 +182,7 @@ class Community extends Application
 		}
 		elseif($result['url'] != "") {
 			$result['icon']  = "<i class='fa fa-external-link fa-fw' title='Redirect room'></i>";
-			$result['redirect'] = "<div class='redirect'>" . i18n::translate("community.redirect_to") . ": {$result['url']}</div>";
+			$result['redirect'] = "<div class='community-info-redirect'>" . i18n::translate("community.redirect_to") . ": {$result['url']}</div>";
 			$result['room_link'] = $result['url'];
 		}
 		elseif($has_unread_threads) {

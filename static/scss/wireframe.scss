@@ -359,6 +359,13 @@ nav {
 			font-size: 12px;
 			line-height: 1.4em;
 		}
+		&-redirect {
+			color: $default-light;
+			font-size: 10px;
+			letter-spacing: 1px;
+			padding-top: 5px;
+			text-transform: uppercase;
+		}
 		&-moderators {
 			background: url('../images/moderators.png') no-repeat;
 			background-size: 13px 8px;
