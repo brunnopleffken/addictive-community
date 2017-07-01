@@ -73,6 +73,7 @@ header {
 				box-shadow: none;
 				margin-right: 10px;
 				width: 250px;
+				-webkit-appearance: textfield;
 			}
 			.search-submit {
 				background-color: $accent-light;
