@@ -91,6 +91,15 @@
 <header>
 	<div class="top-half outer">
 		<div class="row space-between">
+			<div class="col-flexible">
+				<ul class="apps">
+					<li class="selected"><a href="/">Community</a></li>
+					<li><a href="/articles">Articles</a></li>
+					<?php if($website_url != "" && $website_url != "http://"): ?>
+						<li><a href="<?= $website_url ?>" target="_blank"><?= $website_name ?></a></li>
+					<?php endif; ?>
+				</ul>
+			</div>
 			<div class="col-flexible text-right">
 				<?php if($is_admin): ?>
 					<a href="admin/" target="_blank"><span>Admin CP</span><i class="fa fa-lock"></i></a>
@@ -101,9 +110,6 @@
 				<?php if($member_id == 0): ?>
 					<a href="register"><span><?php __("global.create_account") ?></span><i class="fa fa-star"></i></a>
 				<?php endif; ?>
-			</div>
-			<div class="col-flexible hide-xs">
-				<a href="<?= $website_url ?>" target="_blank"><?= $website_name ?></a>
 			</div>
 		</div>
 	</div>

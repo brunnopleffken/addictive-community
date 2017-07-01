@@ -5,15 +5,12 @@
 header {
 	.top-half {
 		background-color: $accent-darker;
-		.row {
-			flex-direction: row-reverse;
-		}
 		a {
 			color: #ccc;
 			display: inline-block;
 			font-size: 10px;
 			margin-right: 10px;
-			padding: 10px;
+			padding: 15px 10px;
 			text-transform: uppercase;
 			transition: 300ms;
 			&:hover {
@@ -23,6 +20,36 @@ header {
 			}
 			&:last-child {
 				margin: 0;
+			}
+		}
+		.apps {
+			list-style: none;
+			overflow: hidden;
+			li {
+				float: left;
+				position: relative;
+				a {
+					font-size: 12px;
+					letter-spacing: 0.2em;
+					padding: 15px 20px;
+				}
+				&.selected {
+					a {
+						color: #fff;
+					}
+					&::before {
+						border-style: solid;
+						border-width: 0 15px 6px 15px;
+						border-color: transparent transparent #f1f1f1 transparent;
+						bottom: 0;
+						content: ('');
+						height: 0;
+						left: 50%;
+						margin-left: -15px;
+						position: absolute;
+						width: 0;
+					}
+				}
 			}
 		}
 	}
