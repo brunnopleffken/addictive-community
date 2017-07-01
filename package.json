@@ -1,6 +1,6 @@
 {
   "name": "addictive-community",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "The definitive open-source discussion forum software, written in PHP and MySQL.",
   "main": "gulpfile.js",
   "scripts": {
