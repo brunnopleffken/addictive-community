@@ -1,0 +1,450 @@
+{
+	"name": "Svenska (SE)",
+	"global": {
+		"search": "Sökning",
+		"memberlist": "Medlemslista",
+		"calendar": "Kalender",
+		"create_account": "Skapa Konto",
+		"sidebar": {
+			"welcome": "Välkommen, gäst!",
+			"login": "Logga In",
+			"show_profile": "Visa %s's Profil",
+			"usercp": "Kontrollpanel",
+			"inbox": "Inbox (%d)",
+			"logout": "Logga Ut",
+			"rooms": "Rum",
+			"members_online": "Medlemmar Online",
+			"member_count": "Medlemmar (%d)",
+			"member_viewing": "Besöker",
+			"guest_count": "Gäster (%d)",
+			"statistics": "Statistik",
+			"threads": "Trådar",
+			"posts": "Inlägg",
+			"members": "Medlemmar",
+			"last_member": "Senaste Medlem"
+		},
+		"dates": {
+			"m1": "Januari",
+			"m2": "Februari",
+			"m3": "Mars",
+			"m4": "April",
+			"m5": "Maj",
+			"m6": "Juni",
+			"m7": "Juli",
+			"m8": "Augusti",
+			"m9": "September",
+			"m10": "Oktober",
+			"m11": "November",
+			"m12": "December",
+			"w1": "Söndag",
+			"w2": "Måndag",
+			"w3": "Tisdag",
+			"w4": "Onsdag",
+			"w5": "Torsdag",
+			"w6": "Fredag",
+			"w7": "Lördag"
+		}
+	},
+	"calendar": {
+		"title": "Kalender",
+		"go_to": "Gå till",
+		"go": "Gå",
+		"add": "Lägg Till Ny Händelse",
+		"show": "Visa Nuvarande Månad",
+		"new": {
+			"title": "Händelse Titel",
+			"date": "Händelse Datum",
+			"at": "på",
+			"type": "Typ",
+			"public": "Allmänt (läsbart av alla)",
+			"private": "Privat (läsbart bara av dig)",
+			"description": "Beskrivning",
+			"error": "Händelse titel och beskrivning behövs."
+		},
+		"view": {
+			"title": "Visa",
+			"all": "Alla Händelser",
+			"public": "Allmänna Händelser",
+			"private": "Privata Händelser",
+			"created_by": "Skapat av %s",
+			"no_events": "Det finns inga händelser för detta datum."
+		},
+		"notification": {
+			"success": "Du har lyckats lägga till en händelse."
+		}
+	},
+	"community": {
+		"moderators": "Moderatorer",
+		"protected_room": "Skyddat Rum",
+		"redirect_to": "Omdirigera till",
+		"mark_all_read": "Märk alla som lästa"
+	},
+	"failure": {
+		"error_title": "Ops! Ett fel inträffade...",
+		"success_title": "Klart!",
+		"proceed": "Fortsätt",
+		"warning": "VARNING",
+		"success": "LYCKADES",
+		"login": "Logga In",
+		"login_error": "Var snäll fyll i användarnamn och lösenord.",
+		"message": {
+			"not_allowed": "Du måste vara registrerad medlem för att läsa denna sida.",
+			"validated": "Din e-mail adress är korrekt.",
+			"protected": "Detta rum är skyddat.",
+			"login_error": "Användarnamn eller lösenord är felaktigt. Försök igen.",
+			"locked_thread": "Denna tråd är låst."
+		},
+		"offline": {
+			"title": "Ledsen, vi är offline!",
+			"message": "%s är nu offline medan vi utför underhåll."
+		},
+		"updating": {
+			"title": "Uppdatering!",
+			"message": "Vänta medan vi uppdaterar forumet till en ny software version."
+		},
+		"deleted": {
+			"title": "Denna medlem existerar inte!",
+			"message": "Verkar som du försöker se en medlem som inte existerar eller har blivit raderad."
+		},
+		"banned": {
+			"title": "Du har blivit bannlyst!",
+			"message": "Du har inte tillstånd att läsa, posta eller svara."
+		},
+		"not_found": {
+			"title": "Den efterfrågade sidan finns ej.",
+			"message": "Verkar som om sidan inte existerar."
+		},
+		"server_error": {
+			"title": "Ett oväntat fel inträffade.",
+			"message": "Kanske beroende på internt serverfel.<br>Om felet kvarstår kontakta en administratör."
+		},
+		"forbidden": {
+			"title": "Tillgång nekad!",
+			"message": "Du har inte tillåtelse att se denna sida."
+		}
+	},
+	"help": {
+		"title": "Hjälp Ämnen",
+		"no_topics": "Det finns inga hjälp ämnen att visa."
+	},
+	"login": {
+		"title": "Logga In",
+		"close": "Stäng",
+		"username": "Användarnamn",
+		"password": "Lösenord",
+		"anonymous": "Logga in anonymt",
+		"remember": "Kom ihåg mig",
+		"not_member": "Inte medlem? <a href='%s'><strong>Registrera här!</strong></a>",
+		"notification": {
+			"error": "Användarnamn eller lösenord är felaktigt"
+		}
+	},
+	"members": {
+		"title": "Medlemslista",
+		"all": "Alla",
+		"member_name": "Medlems Namn",
+		"join_date": "Registreringsdatum",
+		"post_count": "Antal Inlägg",
+		"joined": "Registrerade",
+		"posts": "Inlägg",
+		"location": "Plats",
+		"group": "Grupp",
+		"no_results": "Sökningen gav inget resultat.",
+		"search": "Sök på namn"
+	},
+	"messenger": {
+		"title": "Meddelanden",
+		"new_message": "Nytt Meddelande",
+		"folders": "Mappar",
+		"attachments": "Bilagor",
+		"inbox": "Inbox",
+		"sent": "Sänt",
+		"drafts": "Utkast",
+		"storage": "Utrymme: %d of %d",
+		"delete_selected": "Radera markerade meddelanden",
+		"select_all": "Markera Alla",
+		"subject": "Ämne",
+		"from": "Från",
+		"to": "Till",
+		"date": "Datum",
+		"no_pm_inbox": "Det finns inga meddelanden att visa.",
+		"no_pm_sent": "DEt finns inga sända meddelanden att visa.",
+		"compose": "Skriv",
+		"message": "Meddelande",
+		"send": "Skicka Meddelande",
+		"reply": "Svara",
+		"forward": "Vidarebefordra",
+		"delete": "Radera",
+		"sent_on": "Skickat %s",
+		"notification": {
+			"sent": "Ditt meddelande har skickats.",
+			"required": "'Till', 'Ämne' and 'Meddelande' måste fyllas.",
+			"unable_to_load": "Kunde inte hantera meddelandet."
+		}
+	},
+	"profile": {
+		"title": "Profil",
+		"posts": "Inlägg",
+		"registered": "Registererad",
+		"usergroup": "Grupp",
+		"last_posts": "Senaste Inlägg &amp; Trådar",
+		"attachments": "Bilagor",
+		"my_profile": "Min Profil",
+		"about_me": "Om Mig",
+		"birthdate": "Födelsedag",
+		"age": "%s (%s år gammal)",
+		"gender": "Kön",
+		"location": "Plats",
+		"website": "Hemsida",
+		"signature": "Signatur",
+		"stats": "Medlems Statistik",
+		"private": "Privat",
+		"best_answers": "Bästa Svar",
+		"best_posts": "%d inlägg",
+		"contact": "Kontakt Information",
+		"last_threads_by": "Senaste 5 trådar av %s",
+		"last_posts_by": "Senaste 5 inlägg  av %s",
+		"file_name": "Filnamn",
+		"file_type": "Filtyp",
+		"file_size": "Storlek",
+		"no_attachments": "Det finns inga bilagor."
+	},
+	"register": {
+		"title": "Skapa Konto",
+		"step1": "Steg 1",
+		"step2": "Steg 2",
+		"step3": "Steg 3",
+		"step4": "Steg 4",
+		"disabled": "Registration är omöjlig.",
+		"agreement": "Avtal",
+		"your_account": "Ditt Konto",
+		"confirmation": "Bekräftelse",
+		"validation": "Godkännande",
+		"eula": "Endast du har ansvar för dina inlägg. Dina meddelande uttrycker dina åsikter. Meddelanden som antastar eller hotar andra medlemmar; har obsceniteter eller annat tvivelaktigt innehåll; har spam eller kommersiellt innehåll eller länkar kan bli raderade och kan resultera i att du förlorar ditt medlemskap. Posta inte privat information som du inte vill publicera. Tro aldrig att du är helt anonym och inte kan bli identifierad genom dina inlägg.",
+		"agree": "Samtycker",
+		"disagree": "Samtycker Inte",
+		"username": "Användarnamn",
+		"username_notice": "Mellan 3 and 20 tecken.",
+		"password": "Lösenord",
+		"password_notice": "Minst 6 tecken.",
+		"password_error": "Lösenorden matchar inte!",
+		"password_retype": "Lösenord igen",
+		"email": "E-mail Adress",
+		"captcha": "CAPTCHA",
+		"captcha_description": "Bara bokstäver. För att se om du är en människa.",
+		"create": "Skapa Konto",
+		"done": {
+			"congratulations": "Gratulerar!",
+			"success": "Du har lyckats registrera ett konto.",
+			"validate": "Kolla din email inbox för att slutföra registreringen.",
+			"validated": "Ditt konto är nu godkänt.",
+			"already_validated": "Denna medlem är redan godkänd.",
+			"not_match": "Säkerhetskoden matchar inte.",
+			"not_found": "Medlem inte hittad."
+		},
+		"notification": {
+			"required": "Alla fält ska fyllas i. Om de inte är fyllda kan inte registrationen fortsätta.",
+			"does_not_match": "Lösenorden matchar inte.",
+			"username": "Användarnamn måste vara mellan 3 och 20 tecken.",
+			"already_exists": "Användarnamn eller email finns redan.",
+			"captcha": "Ifylld CAPTCHA matchar inte."
+		}
+	},
+	"report": {
+		"title": "Rapportera missbruk",
+		"close": "Stäng",
+		"notice": "Beskriv det missbruk du noterat.<br>Alla rapporter är konfidentiella.",
+		"reason": "Skäl",
+		"choose": "Välj ett...",
+		"option_1": "Nakenhet eller pornografi",
+		"option_2": "Föreställer mig eller någon jag känner",
+		"option_3": "Rasistiskt eller hatiskt språk",
+		"option_4": "Antastar mig eller en vän",
+		"option_5": "Rent våld",
+		"option_6": "Överdrivet våldsamt språk",
+		"option_7": "Spam",
+		"send": "Sänd"
+	},
+	"room": {
+		"new_thread": "Ny Tråd",
+		"new_poll": "Ny Omröstning",
+		"read_only": "Endast Läsa",
+		"all": "Alla",
+		"my_threads": "Mina Trådar",
+		"last_reply": "Senaste Svar",
+		"top_threads": "Topp Trådar",
+		"no_replies": "Inga Svar",
+		"answered": "Besvarad",
+		"polls": "Omröstningar",
+		"started_by": "Startad av %s",
+		"started_on": "Startad %s",
+		"views": "%d visningar",
+		"last_post_by": "Senaste inlägg av %s",
+		"no_threads": "Det finns inga trådar att visa. Varför inte starta en?"
+	},
+	"search": {
+		"title": "Sökning",
+		"do": "Gör sökning...",
+		"results": "Din sökning av <b>%s</b> resulterade i <b>%d</b> träffar.",
+		"no_results": "Din sökning av <b>%s</b> gav inget resultat.",
+		"by_relevance": "Per Relevans",
+		"by_date": "Per Tidpunkt"
+	},
+	"thread": {
+		"no_replies": "Denna tråd har inga svar. Bli först!",
+		"posts": "Inlägg",
+		"post_number": "%s inlägg",
+		"registered": "Registerad",
+		"location": "Plats",
+		"posted_on": "Postat %s",
+		"quoted_posted_on": "<strong>%s</strong> postat %s",
+		"attachments": "Bilagor",
+		"edited_on": "Redigerat %s av %s",
+		"quote": "Citat",
+		"quote_button": "Besvara detta inlägg",
+		"report_abuse": "Rapportera missbruk",
+		"edit": "Redigera",
+		"delete": "Radera",
+		"set_best_answer": "Sätt som bästa svar",
+		"unset_best_answer": "Ta bort som bästa svar",
+		"replies": "Svar",
+		"add_reply": "Lägg Till Svar",
+		"obsolete": "Gammalt",
+		"locked": "Låst",
+		"delete_post": "Radera Inlägg",
+		"delete_confirm": "Vill du radera detta inlägg? Denna operation <strong>kan inte</strong> ångras!",
+		"close": "Stäng",
+		"related": "Relaterade Trådar",
+		"no_related_threads": "Det finns inga relaterade trådar.",
+		"mod": {
+			"title": "Moderations Val",
+			"lock": "Lås Tråd",
+			"set_announcement": "Gör Tråd till Kungörelse",
+			"unset_annoumcement": "Ta bort som Kungörelse",
+			"delete": "Radera Denna Tråd",
+			"delete_confirm": "Är du säker du vill radera denna tråd? Detta KAN INTE ångras!"
+		},
+		"notification": {
+			"reported": "Du har rapporterat denna tråd.",
+			"post_reported": "Du har rapporterat ett inlägg i denna tråd.",
+			"deleted": "Du har raderat ditt inlägg.",
+			"locked": "Du har låst denna tråd.",
+			"unlocked": "Du har låst upp denna tråd.",
+			"announcement_set": "Du har gjort denna tråd till en kungörelse",
+			"announcement_remove": "Du har tagit bort denna tråd som kungörelse.",
+			"empty": "Ditt inlägg är tomt.",
+			"title_post_empty": "Ämne och inlägg måste fyllas i."
+		},
+		"add": {
+			"edit": "Redigerade inlägg",
+			"new_thread": "Ny Tråd",
+			"add_new_thread": "Lägg till Ny Tråd",
+			"title": "Trådens Ämne",
+			"post": "Inlägg",
+			"attachment_max_size": "Filstorlek ska inte överstiga <b>%s</b>.",
+			"options": "Tråd Val",
+			"set_announcement": "Gör tråd till kungörelse",
+			"locked": "Lås tråd efter gjort inlägg",
+			"poll": {
+				"question": "Omröstning Fråga",
+				"allow_multiple": "Tillåt många val",
+				"choices": "Omröstnings Val",
+				"description": "Sätt ett svar per rad. Maximum 15 svar."
+			},
+			"auto": {
+				"title": "Sätt tråd auto-öppna/stäng tid",
+				"description": "Definiera när tråden ska öppnas och stängas. För att inte använda lämna fälten tomma.",
+				"details": "NOTERA: Trådens öppning/stängning tid är baserad på forumets officiella tidszon (just nu <strong>%s timmar</strong> i <a href='admin/' target='_blank'>Admin CP</a>), inte medlems tidszon. Detta för att försäkra att alla medlemmar ser tråden på samma gång.",
+				"open_at": "Öppna vid... <small>(lämna tomt för öppning genast)</small>",
+				"lock_at": "Och stäng vid... <small>(lämna tomt för att inte sätta stängning)</small>"
+			}
+		}
+	},
+	"usercp": {
+		"title": "Kontrollpanel",
+		"summary" : {
+			"title": "Sammanfattning",
+			"account_summary": "Ditt kontos sammanfattning",
+			"total_posts": "Totalt antal inlägg till idag",
+			"posts": "%s inlägg",
+			"registered": "Du registrerade",
+			"average_posts": "Genomsnitt antal inlägg per dag",
+			"posts_per_day": "%s inlägg per dag",
+			"messenger_summary": "Dina meddelanden sammanfattning",
+			"total_messages": "Totalt antal meddelanden",
+			"messages": "meddelanden",
+			"space_left": "Meddelanden utrymme kvar"
+		},
+		"profile": {
+			"title": "Profil",
+			"member_title": "Medlems Titel",
+			"about_me": "Om Mig",
+			"email": "E-mail Adress",
+			"email_hide": "Dölj e-mail adress för andra medlemmar",
+			"birthdate": "Födelsedag",
+			"gender": "Kön",
+			"gender_male": "Man",
+			"gender_female": "Kvinna",
+			"location": "Plats",
+			"website": "Hemsida",
+			"update": "Uppdatera Profil",
+			"notification": {
+				"success": "Din profil har blivit uppdaterad."
+			}
+		},
+		"avatar": {
+			"title": "Avatar",
+			"source": "Avatar Från",
+			"custom": "Ladda upp önskad avatar",
+			"gravatar_settings": "Gravatar Inställningar",
+			"gravatar_message": "<b>Gravatar</b> är en service för att välja en globalt unik avatar.<br>Din gravatar är associerad med <a href='usercp'>din e-mail adress</a>.<br><br>Redigera eller skapa din Gravatar här: <a href='https://www.gravatar.com' target='_blank' rel='nofollow'>www.gravatar.com</a>.",
+			"upload": "Ladda Upp Avatar",
+			"update": "Uppdatera Avatar",
+			"notification": {
+				"success": "Din Avatar har blivit ändrad."
+			}
+		},
+		"cover": {
+			"title": "Profil Bild",
+			"current": "Nuvarande Bild",
+			"info": "Om du inte har någon Profil Bild så är din Avatar din bild.",
+			"upload": "Ladda Upp Bild",
+			"remove": "Ta Bort",
+			"update": "Uppdatera Profil Bild",
+			"notification": {
+				"success": "Din Profil Bild har ändrats."
+			}
+		},
+		"signature": {
+			"title": "Signatur",
+			"edit": "Redigera Signatur",
+			"update": "Uppdatera Signatur",
+			"notification": {
+				"success": "Din Signatur har ändrats."
+			}
+		},
+		"settings": {
+			"title": "Inställningar",
+			"timezone": "Tidszon",
+			"language": "Språk",
+			"theme": "Tema",
+			"update": "Uppdatera Inställningar",
+			"notification": {
+				"success": "Dina Inställningar har ändrats."
+			}
+		},
+		"password": {
+			"title": "Lösenord",
+			"current": "Nuvarande Lösenord",
+			"new": "Nytt Lösenord",
+			"retype": "Lösenord Igen",
+			"empty": "Lösenorden matchar inte eller är tomma.",
+			"change": "Byt Lösenord",
+			"notification": {
+				"success": "Ditt lösenord har ändrats.",
+				"incorrect": "Ditt gamla lösenord är felaktigt. Försök igen.",
+				"not_match": "Nya lösenordet matchar inte (lösenord är skiftlägeskänsliga). Försök igen."
+			}
+		}
+	}
+}
