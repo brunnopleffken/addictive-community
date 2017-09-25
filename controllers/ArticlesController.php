@@ -20,6 +20,8 @@ use \AC\Kernel\Text;
 
 class Articles extends Application
 {
+	public $master = "Articles";
+
 	/**
 	 * --------------------------------------------------------------------
 	 * ARTICLES HOME
@@ -27,7 +29,6 @@ class Articles extends Application
 	 */
 	public function index()
 	{
-		echo "OK";
-		exit;
+		// ...
 	}
 }

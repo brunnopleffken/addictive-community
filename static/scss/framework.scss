@@ -290,6 +290,14 @@ textarea.form-control {
 			box-shadow: none;
 		}
 	}
+	&.btn-success {
+		background-color: #0a0;
+		color: #fff;
+		text-shadow: none;
+		&:hover, &:active {
+			background-color: #0b0;
+		}
+	}
 
 	// Sizes
 	&.btn-lg {
