@@ -1189,6 +1189,12 @@ nav {
 	background-color: $accent-darker;
 	margin-bottom: 20px;
 	padding: 10px;
+	&-title {
+		color: #fff;
+		font-size: 20px;
+		font-weight: bold;
+		line-height: 32px;
+	}
 }
 
 .articles-index {
