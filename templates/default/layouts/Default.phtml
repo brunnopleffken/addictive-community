@@ -93,8 +93,8 @@
 		<div class="row space-between">
 			<div class="col-flexible">
 				<ul class="apps">
-					<li class="selected"><a href="/">Community</a></li>
-					<li><a href="/articles">Articles</a></li>
+					<li class="selected"><a href="<?= $community_url ?>">Community</a></li>
+					<li><a href="articles">Articles</a></li>
 					<?php if($website_url != "" && $website_url != "http://"): ?>
 						<li><a href="<?= $website_url ?>" target="_blank"><?= $website_name ?></a></li>
 					<?php endif; ?>
