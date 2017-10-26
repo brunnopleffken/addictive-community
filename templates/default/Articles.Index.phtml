@@ -1,6 +1,8 @@
 <div class="articles-options pull-clear">
-	<div class="articles-options-title pull-left">Latest articles</div>
-	<a href="" class="btn btn-success pull-right">Create New Article</a>
+	<div class="articles-options-title pull-left"><?php __("articles.latest_articles") ?></div>
+	<?php if($is_member): ?>
+		<a href="articles/add" class="btn btn-success pull-right"><?php __("articles.add.title") ?></a>
+	<?php endif; ?>
 </div>
 <div class="articles-index">
 	<?php for($i = 0; $i < 10; $i++): ?>
