@@ -5,14 +5,14 @@
 	<?php endif; ?>
 </div>
 <div class="articles-index">
-	<?php for($i = 0; $i < 10; $i++): ?>
+	<?php foreach($articles as $article): ?>
 		<div class="article-item">
 			<div class="image" style="background-image: url(http://placehold.it/640x480)"></div>
 			<div class="content">
-				<a href="" class="title">This is just a small title for something awesome to read</a>
+				<a href="" class="title"><?= $article['title'] ?></a>
 				<span class="author">By <a href="">Brunno Pleffken</a> in 27 Jul 2017, 00:10</span>
-				<p class="excerpt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo id commodi distinctio, tenetur nostrum quod nesciunt exercitationem. Sint, natus, officiis.</p>
+				<p class="excerpt"><?= $article['content'] ?></p>
 			</div>
 		</div>
-	<?php endfor; ?>
+	<?php endforeach; ?>
 </div>

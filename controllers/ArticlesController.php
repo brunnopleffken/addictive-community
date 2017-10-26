@@ -26,12 +26,23 @@ class Articles extends Application
 
 	/**
 	 * --------------------------------------------------------------------
-	 * ARTICLES HOME
+	 * HOME - VIEW LAST 10 ARTICLES OF EACH CATEGORY
 	 * --------------------------------------------------------------------
 	 */
 	public function index()
 	{
-		// ...
+		// Get last 10 articles
+		Database::query("SELECT * FROM c_articles ORDER BY post_date DESC LIMIT 10;");
+		$articles = Database::fetchToArray();
+
+		// Page info
+		$page_info['title'] = i18n::translate("articles.title");
+		$page_info['bc'] = array(i18n::translate("articles.title"));
+		$this->Set("page_info", $page_info);
+
+		// Set variables
+		$this->Set("is_member", SessionState::isMember());
+		$this->Set('articles', $articles);
 	}
 
 	/**
