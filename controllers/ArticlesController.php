@@ -97,9 +97,9 @@ class Articles extends Application
 		];
 
 		// Send attachments
-		if(Http::getFile("post_image")) {
+		if(Http::getFile("cover_image")) {
 			$Upload = new Upload();
-			$post['post_image'] = $Upload->sendAttachment(Http::getFile("post_image"), $article['member_id']);
+			$article['cover_image'] = $Upload->sendAttachment(Http::getFile("cover_image"), $article['member_id']);
 		}
 
 		// Insert into database
