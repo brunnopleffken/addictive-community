@@ -51,53 +51,8 @@ class Upload
 	public function sendAttachment($file, $member = 0, $folder = "public/attachments/")
 	{
 		if(is_array($file) && $file['name'] != "") {
-			// Get timestamp
-			$timestamp = time();
-
-			// Validate maximum attachment file size
-			Database::query("SELECT value FROM c_config WHERE field = 'general_max_attachment_size';");
-			$max_attachment_size_mb = Database::fetch();
-			$max_attachment_size_bytes = $max_attachment_size_mb['value'] * 1048576;
-
-			if($file['size'] >= $max_attachment_size_bytes) {
-				Html::throwError("The uploaded file size exceeds " . $max_attachment_size_mb['value'] . "MB!");
-			}
-
-			// Get filename and extension
-			$filename = explode(".", $file['name']);
-			$this->file_extension = strtolower(end($filename));
-
-			// Get attachment type (to use as CSS classes)
-			$this->file_type = $this->fileClass($this->file_extension);
-
-			// Check if it's not a forbidden extension
-			if(in_array($this->file_extension, $this->forbidden_extensions)) {
-				Html::throwError("This file extension is not allowed (.{$this->file_extension})!");
-			}
-
-			// Check if is an allowed extension (if array is not empty, of course)
-			if(!empty($this->allowed_extensions) && !in_array($this->file_extension, $this->allowed_extensions)) {
-				Html::throwError("This file extension is not allowed (.{$this->file_extension}).");
-			}
-
-			// Full path
-			$full_path = $folder . $member . "/" . $timestamp . "/";
-			if(!is_dir($full_path)) {
-				mkdir($full_path, 0777, true);
-			}
-
-			// Delete special characters and diacritics
-			$file['name'] = preg_replace(
-				"/[^a-zA-Z0-9_.]/", "",
-				strtr($file['name'],
-					"áàãâäéêëíóôõöúüçñÁÀÃÂÄÉÊËÍÓÔÕÖÚÜÇ ",
-					"aaaaaeeeioooouucnAAAAAEEEIOOOOUUC_"
-				)
-			);
-
-			// Move uploaded file to public member folder
-			move_uploaded_file($file['tmp_name'], $full_path . $file['name']);
-			chmod($full_path . $file['name'], 0666);
+			// Upload file to the designated directory
+			$file = $this->sendFile($file, $member, $folder);
 
 			// Insert new attachment in database
 			$attachment = array(
@@ -115,6 +70,60 @@ class Upload
 		else {
 			return 0;
 		}
+	}
+
+	private function sendFile($file, $member, $folder)
+	{
+		// Get timestamp
+		$timestamp = time();
+
+		// Validate maximum attachment file size
+		Database::query("SELECT value FROM c_config WHERE field = 'general_max_attachment_size';");
+		$max_attachment_size_mb = Database::fetch();
+		$max_attachment_size_bytes = $max_attachment_size_mb['value'] * 1048576;
+
+		if($file['size'] >= $max_attachment_size_bytes) {
+			Html::throwError("The uploaded file size exceeds " . $max_attachment_size_mb['value'] . "MB!");
+		}
+
+		// Get filename and extension
+		$filename = explode(".", $file['name']);
+		$this->file_extension = strtolower(end($filename));
+
+		// Get attachment type (to use as CSS classes)
+		$this->file_type = $this->fileClass($this->file_extension);
+
+		// Check if it's not a forbidden extension
+		if(in_array($this->file_extension, $this->forbidden_extensions)) {
+			Html::throwError("This file extension is not allowed (.{$this->file_extension})!");
+		}
+
+		// Check if is an allowed extension (if array is not empty, of course)
+		if(!empty($this->allowed_extensions) && !in_array($this->file_extension, $this->allowed_extensions)) {
+			Html::throwError("This file extension is not allowed (.{$this->file_extension}).");
+		}
+
+		// Full path
+		$full_path = $folder . $member . "/" . $timestamp . "/";
+		if(!is_dir($full_path)) {
+			mkdir($full_path, 0777, true);
+		}
+
+		// Delete special characters and diacritics
+		$file['name'] = preg_replace(
+			"/[^a-zA-Z0-9_.]/", "",
+			strtr($file['name'],
+				"áàãâäéêëíóôõöúüçñÁÀÃÂÄÉÊËÍÓÔÕÖÚÜÇ ",
+				"aaaaaeeeioooouucnAAAAAEEEIOOOOUUC_"
+			)
+		);
+
+		// Move uploaded file to public member folder
+		$full_image_path = $full_path . $file['name'];
+		move_uploaded_file($file['tmp_name'], $full_image_path);
+		chmod($full_image_path, 0666);
+
+		return $file;
 	}
 
 	/**
