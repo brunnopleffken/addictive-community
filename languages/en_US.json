@@ -45,6 +45,19 @@
 			"w7": "Saturday"
 		}
 	},
+	"articles": {
+		"title": "Articles",
+		"latest_articles": "Latest articles",
+		"add": {
+			"title": "Publish New Article",
+			"article_title": "Article Title",
+			"category": "Category",
+			"content": "Content",
+			"cover_image": "Cover Image",
+			"title_post_empty": "Title and article content are required fields.",
+			"publish_article": "Publish Article"
+		}
+	},
 	"calendar": {
 		"title": "Calendar",
 		"go_to": "Go to",

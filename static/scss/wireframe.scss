@@ -5,15 +5,12 @@
 header {
 	.top-half {
 		background-color: $accent-darker;
-		.row {
-			flex-direction: row-reverse;
-		}
 		a {
 			color: #ccc;
 			display: inline-block;
 			font-size: 10px;
 			margin-right: 10px;
-			padding: 10px;
+			padding: 16px 10px;
 			text-transform: uppercase;
 			transition: 300ms;
 			&:hover {
@@ -23,6 +20,36 @@ header {
 			}
 			&:last-child {
 				margin: 0;
+			}
+		}
+		.apps {
+			list-style: none;
+			overflow: hidden;
+			li {
+				float: left;
+				position: relative;
+				a {
+					font-size: 12px;
+					letter-spacing: 0.2em;
+					padding: 15px 20px;
+				}
+				&.selected {
+					a {
+						color: #fff;
+					}
+					&::before {
+						border-style: solid;
+						border-width: 0 15px 6px 15px;
+						border-color: transparent transparent #f1f1f1 transparent;
+						bottom: 0;
+						content: ('');
+						height: 0;
+						left: 50%;
+						margin-left: -15px;
+						position: absolute;
+						width: 0;
+					}
+				}
 			}
 		}
 	}
@@ -43,9 +70,10 @@ header {
 			padding: 11px;
 			.search-input {
 				border: 0;
-				box-shadow: 0;
+				box-shadow: none;
 				margin-right: 10px;
 				width: 250px;
+				-webkit-appearance: textfield;
 			}
 			.search-submit {
 				background-color: $accent-light;
@@ -203,6 +231,7 @@ nav {
 	box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5), -100px 0 50px -100px rgba(0, 0, 0, 0.3) inset;
 	display: none;
 	opacity: 0;
+	overflow: scroll;
 	position: absolute;
 	right: -280px;
 	top: 0;
@@ -358,6 +387,13 @@ nav {
 		&-description {
 			font-size: 12px;
 			line-height: 1.4em;
+		}
+		&-redirect {
+			color: $default-light;
+			font-size: 10px;
+			letter-spacing: 1px;
+			padding-top: 5px;
+			text-transform: uppercase;
 		}
 		&-moderators {
 			background: url('../images/moderators.png') no-repeat;
@@ -1144,6 +1180,116 @@ nav {
 	}
 	&:only-child {
 		.marker { background: transparent; }
+	}
+}
+
+// ARTICLES
+
+.articles-options {
+	background-color: $accent-darker;
+	margin-bottom: 20px;
+	padding: 10px;
+	&-title {
+		color: #fff;
+		font-size: 20px;
+		font-weight: bold;
+		line-height: 30px;
+	}
+}
+
+.articles-index {
+	align-items: stretch;
+	display: flex;
+	flex-wrap: wrap;
+	.article-item {
+		flex: 0 0 50%;
+		margin-bottom: 20px;
+		@media (max-width: $xsmall) {
+			flex: 0 0 100%;
+			padding: 0 !important;
+		}
+		&:nth-child(even) { padding-left: 10px; }
+		&:nth-child(odd) { padding-right: 10px; }
+		.image {
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			height: 180px;
+		}
+		.content {
+			background-color: #fff;
+			padding: 15px;
+			.title {
+				display: inline-block;
+				font-size: 20px;
+				font-weight: bold;
+				margin-bottom: 10px;
+			}
+			.author {
+				color: $default-light;
+				display: block;
+				font-size: 10px;
+				letter-spacing: 0.2em;
+				margin-bottom: 15px;
+				text-transform: uppercase;
+				a {
+					color: $default-light;
+				}
+			}
+		}
+	}
+}
+
+.article {
+	&-header {
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		height: 280px;
+		margin-bottom: 15px;
+		position: relative;
+		&-shadow {
+			background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 40%, #000 100%);
+			bottom: 0;
+			position: absolute;
+			top: 0;
+			width: 100%;
+		}
+		&-title {
+			bottom: 20px;
+			color: #fff;
+			font-size: 36px;
+			left: 20px;
+			position: absolute;
+			right: 20px;
+		}
+	}
+	&-content {
+		padding: 0;
+		&-info {
+			background-color: #f6f6f6;
+			border-bottom: 1px solid #ddd;
+			color: $default;
+			font-size: 12px;
+			letter-spacing: 0.1em;
+			padding: 15px;
+			text-transform: uppercase;
+			.at {
+				margin-left: 30px;
+			}
+			.star {
+				color: #ffc400;
+			}
+		}
+		&-container {
+			margin: auto;
+			padding: 30px 0;
+			width: 85%;
+			p {
+				margin-bottom: 15px;
+				&:last-child { margin: 0; }
+			}
+		}
 	}
 }
 

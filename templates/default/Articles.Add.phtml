@@ -1,0 +1,45 @@
+<h1>
+	<small><?= $community_name ?></small>
+	<?php __("articles.add.title") ?>
+</h1>
+
+<div class="block">
+	<form action="articles/save" method="post" enctype="multipart/form-data">
+		<div class="form-group grid">
+			<label for="" class="col-2"><?php __("articles.add.article_title") ?></label>
+			<div class="col-6">
+				<input type="text" name="title" class="form-control" maxlength="60" required>
+			</div>
+		</div>
+		<div class="form-group grid">
+			<label for="" class="col-2"><?php __("articles.add.category") ?></label>
+			<div class="col-6">
+				<select name="" id="" class="select2" style="width: 100%">
+					<?php foreach($categories as $category): ?>
+						<option value="<?= $category['id'] ?>"><?= $category['category_name'] ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+		<div class="form-group grid">
+			<label for="" class="col-2"><?php __("articles.add.content") ?></label>
+			<div class="col-10">
+				<textarea name="post" id="post" rows="30"></textarea>
+			</div>
+		</div>
+		<div class="form-group grid">
+			<label for="" class="col-2"><?php __("articles.add.cover_image") ?></label>
+			<div class="col-6">
+				<input type="file" name="cover_image">
+			</div>
+		</div>
+		<div class="pull-clear">
+			<div class="pull-left">
+				<div class="error-message"><?php __("articles.add.title_post_empty") ?></div>
+			</div>
+			<div class="pull-right">
+				<input type="submit" value="<?php __("articles.add.publish_article") ?>" class="btn btn-default">
+			</div>
+		</div>
+	</form>
+</div>

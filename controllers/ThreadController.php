@@ -98,7 +98,7 @@ class Thread extends Application
 		$replies = $this->getReplies($pages);
 
 		// Get related threads
-		$related_thread_list = $this->relatedThreads();
+		$related_thread_list = $this->getRelatedThreads();
 
 		// Page info
 		$page_info['title'] = $this->thread_info['title'];
@@ -979,7 +979,7 @@ class Thread extends Application
 
 		// Block bad words and parse HTML entities
 		$result['post'] = $this->filterBadWords($result['post']);
-		$result['post'] = $this->parseDbText($result['post']);
+		$result['post'] = $this->parseDatabaseText($result['post']);
 
 		// Get attachment link, if there is one
 		if($result['attach_id'] != 0) {
@@ -1037,7 +1037,7 @@ class Thread extends Application
 
 			// Block bad words and parse HTML entities
 			$result['post'] = $this->filterBadWords($result['post']);
-			$result['post'] = $this->parseDbText($result['post']);
+			$result['post'] = $this->parseDatabaseText($result['post']);
 
 			// Get attachment link, if there is one
 			if($result['attach_id'] != 0) {
@@ -1064,7 +1064,7 @@ class Thread extends Application
 				// Return results
 				$result['quote_author'] = $quoted_post_result['author'];
 				$result['quote_time'] = $this->Core->dateFormat($quoted_post_result['post_date']);
-				$result['quote_post'] = $this->parseDbText($quoted_post_result['post']);
+				$result['quote_post'] = $this->parseDatabaseText($quoted_post_result['post']);
 			}
 			else {
 				$result['has_quote'] = false;
@@ -1129,7 +1129,7 @@ class Thread extends Application
 	 * PARSE POST TEXT
 	 * --------------------------------------------------------------------
 	 */
-	private function parseDbText($text)
+	private function parseDatabaseText($text)
 	{
 		$text = htmlentities($text);
 		$text = html_entity_decode($text);
@@ -1181,7 +1181,7 @@ class Thread extends Application
 	 * GET LIST OF RELATED THREADS
 	 * --------------------------------------------------------------------
 	 */
-	private function relatedThreads()
+	private function getRelatedThreads()
 	{
 		$thread_search = explode(" ", strtolower($this->thread_info['title']));
 		$related_thread_list = [];

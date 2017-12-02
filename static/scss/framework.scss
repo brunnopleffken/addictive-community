@@ -233,8 +233,10 @@ textarea.form-control {
 	padding: 8px 12px;
 	text-shadow: 1px 1px 0 #000;
 	transition: 200ms;
-	user-select: none;
 	white-space: nowrap;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
 	&:hover {
 		text-decoration: none;
 	}
@@ -288,6 +290,14 @@ textarea.form-control {
 			box-shadow: none;
 		}
 	}
+	&.btn-success {
+		background-color: #0a0;
+		color: #fff;
+		text-shadow: none;
+		&:hover, &:active {
+			background-color: #0b0;
+		}
+	}
 
 	// Sizes
 	&.btn-lg {
@@ -327,8 +337,10 @@ textarea.form-control {
 		text-align: center;
 		transition: 200ms;
 		vertical-align: text-top;
-		user-select: none;
 		width: 16px;
+		-ms-user-select: none;
+		-moz-user-select: none;
+		-webkit-user-select: none;
 	}
 	input:checked + span {
 		background-color: $accent;
@@ -352,8 +364,10 @@ textarea.form-control {
 		height: 16px;
 		position: relative;
 		vertical-align: text-top;
-		user-select: none;
 		width: 16px;
+		-ms-user-select: none;
+		-moz-user-select: none;
+		-webkit-user-select: none;
 		&:before {
 			background-color: #fff;
 			border-radius: 5px;

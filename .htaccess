@@ -32,4 +32,7 @@ ErrorDocument 500 /500
 
   # Thread: SEO friendly URLs
   RewriteRule ^(thread)/([0-9]+)-(.+)$ index.php?c=$1&id=$2 [QSA]
+
+  # Thread: SEO friendly URLs
+  RewriteRule ^(articles)/([0-9]+)-(.+)$ index.php?c=$1&act=read&id=$2 [QSA]
 </IfModule>

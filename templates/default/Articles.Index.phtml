@@ -1,0 +1,18 @@
+<div class="articles-options pull-clear">
+	<div class="articles-options-title pull-left"><?php __("articles.latest_articles") ?></div>
+	<?php if($is_member): ?>
+		<a href="articles/add" class="btn btn-success pull-right"><?php __("articles.add.title") ?></a>
+	<?php endif; ?>
+</div>
+<div class="articles-index">
+	<?php foreach($articles as $article): ?>
+		<div class="article-item">
+			<div class="image" style="background-image: url(http://placehold.it/640x480)"></div>
+			<div class="content">
+				<a href="" class="title"><?= $article['title'] ?></a>
+				<span class="author">By <a href="">Brunno Pleffken</a> in 27 Jul 2017, 00:10</span>
+				<p class="excerpt"><?= $article['content'] ?></p>
+			</div>
+		</div>
+	<?php endforeach; ?>
+</div>

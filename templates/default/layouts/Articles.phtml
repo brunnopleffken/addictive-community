@@ -7,7 +7,7 @@
 	<title><?= $page_title . $community_name ?> (Powered by Addictive Community)</title>
 	<base href="<?= $community_url ?>">
 	<link rel="search" type="application/opensearchdescription+xml" title="<?= $community_name ?>" href="community/open_search">
-	<link rel="shortcut icon" type="image/png" href="favicon.png">
+	<link rel="icon" type="image/png" href="favicon.png">
 
 	<!-- Meta Tags -->
 	<meta name="generator" content="Addictive Community <?= VERSION ?>">
@@ -34,7 +34,7 @@
 				foreach($emoticon_set as $emoticon) {
 					$row[] = "[" . implode(", ", $emoticon) . "]";
 				}
-				echo implode(",\n\t\t\t", $row) . "\n";
+				echo implode(",\n", $row);
 			?>
 		];
 	</script>
@@ -82,7 +82,6 @@
 		<?php if($is_admin): ?>
 			<li><a href="admin/" target="_blank"><span>Admin CP</span></a></li>
 		<?php endif; ?>
-		<li><a href="search"><span><?php __("global.search") ?></span></a></li>
 		<li><a href="members"><span><?php __("global.memberlist") ?></span></a></li>
 		<li><a href="calendar"><span><?php __("global.calendar") ?></span></a></li>
 	</ul>
@@ -93,8 +92,8 @@
 		<div class="row space-between">
 			<div class="col-flexible">
 				<ul class="apps">
-					<li class="selected"><a href="<?= $community_url ?>">Community</a></li>
-					<li><a href="articles">Articles</a></li>
+					<li><a href="<?= $community_url ?>">Community</a></li>
+					<li class="selected"><a href="articles">Articles</a></li>
 					<?php if($website_url != "" && $website_url != "http://"): ?>
 						<li><a href="<?= $website_url ?>" target="_blank"><?= $website_name ?></a></li>
 					<?php endif; ?>
@@ -104,7 +103,6 @@
 				<?php if($is_admin): ?>
 					<a href="admin/" target="_blank"><span>Admin CP</span><i class="fa fa-lock"></i></a>
 				<?php endif; ?>
-				<a href="search"><span><?php __("global.search") ?></span><i class="fa fa-search"></i></a>
 				<a href="members"><span><?php __("global.memberlist") ?></span><i class="fa fa-users"></i></a>
 				<a href="calendar"><span><?php __("global.calendar") ?></span><i class="fa fa-calendar"></i></a>
 				<?php if($member_id == 0): ?>
@@ -122,14 +120,6 @@
 			</div>
 			<div class="col-minimum nav-button show-sm text-right" id="toggle-sidebar">
 				<i class="fa fa-bars"></i>
-			</div>
-			<div class="col-flexible search hide-sm">
-				<form action="search" method="get" class="no-validate">
-					<input type="search" name="q" class="form-control search-input" value="<?= \AC\Kernel\Http::request("q") ?>" placeholder="<?php __("global.search") ?>..."><!--
-					--><button type="submit" class="btn btn-default search-submit">
-						<i class="fa fa-search"></i>
-					</button>
-				</form>
 			</div>
 		</div>
 		<div class="row">
@@ -169,25 +159,6 @@
 						</ul>
 					</div>
 				<?php endif; ?>
-				<div class="panel">
-					<div class="panel-title"><?php __("global.sidebar.rooms") ?></div>
-					<div class="panel-content">
-						<ul class="rooms">
-							<?php foreach($sidebar_rooms as $k => $v): ?>
-								<li>
-									<a href="room/<?= $sidebar_rooms[$k]['r_id'] ?>">
-										<?= $sidebar_rooms[$k]['name'] ?>
-										<?php if($sidebar_rooms[$k]['password']): ?>
-											<span class="badge"><i class="fa fa-lock"></i></span>
-										<?php else: ?>
-											<span class="badge"><?= $sidebar_rooms[$k]['threads'] ?></span>
-										<?php endif; ?>
-									</a>
-								</li>
-							<?php endforeach; ?>
-						</ul>
-					</div>
-				</div>
 				<?php if($show_members_online): ?>
 					<div class="panel">
 						<div class="panel-title"><?php __("global.sidebar.members_online") ?></div>
@@ -200,30 +171,9 @@
 						</div>
 					</div>
 				<?php endif; ?>
-				<?php if($show_statistics): ?>
-					<div class="panel">
-						<div class="panel-title"><?php __("global.sidebar.statistics") ?></div>
-						<div class="panel-content body">
-							<dl class="stats">
-								<dt><?php __("global.sidebar.threads") ?></dt>
-								<dd><?= $stats['threads'] ?></dd>
-								<dt><?php __("global.sidebar.posts") ?></dt>
-								<dd><?= $stats['posts'] ?></dd>
-								<dt><?php __("global.sidebar.members") ?></dt>
-								<dd><?= $stats['members'] ?></dd>
-								<dt><?php __("global.sidebar.last_member") ?></dt>
-								<dd>
-									<a href="profile/<?= $stats['lastmemberid'] ?>">
-										<?= $stats['lastmembername'] ?>
-									</a>
-								</dd>
-							</dl>
-						</div>
-					</div>
-				<?php endif; ?>
 			</div>
 		</div>
-		<div id="content">
+		<div class="" id="content">
 			<?= $this->content ?>
 		</div>
 	</div>
