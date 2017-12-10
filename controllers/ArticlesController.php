@@ -32,7 +32,9 @@ class Articles extends Application
 	public function index()
 	{
 		// Get last 10 articles
-		Database::query("SELECT * FROM c_articles ORDER BY post_date DESC LIMIT 10;");
+		Database::query("SELECT a.*, m.username FROM c_articles a
+			INNER JOIN c_members m ON (a.member_id = m.m_id)
+			ORDER BY post_date DESC LIMIT 10;");
 		$articles = Database::fetchToArray();
 
 		// Page info
@@ -52,13 +54,11 @@ class Articles extends Application
 	 */
 	public function read($id)
 	{
-		// Get article
-		Database::query("SELECT * FROM c_articles WHERE id = {$id};");
+		// Get article and author info
+		Database::query("SELECT a.*, m.username FROM c_articles a
+			INNER JOIN c_members m ON (a.member_id = m.m_id)
+			WHERE a.a_id = {$id};");
 		$article = Database::fetch();
-
-		// Get author info
-		Database::query("SELECT * FROM c_members WHERE m_id = {$article['member_id']};");
-		$get_user = Database::fetch();
 
 		// Get cover photo
 		Database::query("SELECT * FROM c_attachments WHERE a_id = {$article['cover_image']};");
@@ -66,7 +66,6 @@ class Articles extends Application
 
 		// Set variables
 		$this->Set('article', $article);
-		$this->Set('user', $get_user);
 		$this->Set('attachment', $get_attachment);
 	}
 

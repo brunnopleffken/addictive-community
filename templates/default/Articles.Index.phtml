@@ -9,8 +9,8 @@
 		<div class="article-item">
 			<div class="image" style="background-image: url(http://placehold.it/640x480)"></div>
 			<div class="content">
-				<a href="articles/read/<?= $article['id'] ?>" class="title"><?= $article['title'] ?></a>
-				<span class="author">By <a href=""><?= $article['member_id'] ?></a> in <?= date('d M Y\, H:i', $article['post_date']) ?></span>
+				<a href="articles/read/<?= $article['a_id'] ?>" class="title"><?= $article['title'] ?></a>
+				<span class="author">By <a href=""><?= $article['username'] ?></a> in <?= date('d M Y\, H:i', $article['post_date']) ?></span>
 				<p class="excerpt"><?= $article['content'] ?></p>
 			</div>
 		</div>
