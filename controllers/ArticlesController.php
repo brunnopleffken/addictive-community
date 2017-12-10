@@ -52,7 +52,22 @@ class Articles extends Application
 	 */
 	public function read($id)
 	{
-		$this->Set('teste', $id);
+		// Get article
+		Database::query("SELECT * FROM c_articles WHERE id = {$id};");
+		$article = Database::fetch();
+
+		// Get author info
+		Database::query("SELECT * FROM c_members WHERE m_id = {$article['member_id']};");
+		$get_user = Database::fetch();
+
+		// Get cover photo
+		Database::query("SELECT * FROM c_attachments WHERE a_id = {$article['cover_image']};");
+		$get_attachment = Database::fetch();
+
+		// Set variables
+		$this->Set('article', $article);
+		$this->Set('user', $get_user);
+		$this->Set('attachment', $get_attachment);
 	}
 
 	/**
