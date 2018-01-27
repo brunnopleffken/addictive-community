@@ -544,6 +544,7 @@ ul.options-list {
 		font-size: 12px;
 		font-weight: bold;
 		margin-right: 5px;
+		&:hover { background-color: rgba(#000, 0.05); }
 		&.label {
 			font-weight: normal;
 			line-height: 24px;
@@ -551,9 +552,7 @@ ul.options-list {
 		}
 		&.active {
 			background-color: $accent;
-			a {
-				color: #fff;
-			}
+			a { color: #fff; }
 		}
 		a {
 			color: $accent;
@@ -563,10 +562,7 @@ ul.options-list {
 			padding: 0 4px;
 			text-align: center;
 			transition: 200ms;
-			&:hover {
-				background-color: rgba(#000, 0.05);
-				text-decoration: none;
-			}
+			&:hover { text-decoration: none; }
 		}
 	}
 }
