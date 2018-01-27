@@ -1491,3 +1491,9 @@ footer {
 	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
 	z-index: 9001;
 }
+
+// FANCYBOX
+
+.fancybox-slide > * {
+	padding: 2px;
+}

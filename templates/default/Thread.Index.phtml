@@ -111,7 +111,7 @@
 					</li>
 				<?php endif; ?>
 				<li>
-					<a href="report/thread/<?= $thread_id ?>" class="fancybox fancybox.ajax">
+					<a href="javascript:;" data-type="ajax" data-src="report/thread/<?= $thread_id ?>" data-fancybox>
 						<i class="fa fa-exclamation-triangle"></i><span><?php __("thread.report_abuse") ?></span>
 					</a>
 				</li>
@@ -221,7 +221,7 @@
 				<ul class="options-list pull-left">
 					<?php if($is_member): ?>
 						<li>
-							<a href="report/post/<?= $reply[$k]['p_id'] ?>" class="fancybox fancybox.ajax">
+							<a href="javascript:;" data-type="ajax" data-src="report/post/<?= $reply[$k]['p_id'] ?>" data-fancybox>
 								<i class="fa fa-exclamation-triangle"></i><span><?php __("thread.report_abuse") ?></span>
 							</a>
 						</li>

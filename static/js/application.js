@@ -110,11 +110,8 @@ $(document).ready(function($) {
 
 	(function() {
 		try {
-			$('.fancybox').fancybox({
-				autoSize: true,
-				closeBtn: false,
-				modal: true,
-				padding: 2
+			$('[data-type="ajax"]').fancybox({
+				modal: true
 			});
 		} catch(e) {
 			console.log(e);
