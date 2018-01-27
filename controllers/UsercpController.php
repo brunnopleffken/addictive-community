@@ -66,7 +66,7 @@ class Usercp extends Application
 		// Calculate average of posts per day
 		$days = (time() - $register_date_timestamp) / DAY;
 		$days = ($days < 1) ? 1 : $days; // Avoid "division by zero" exception
-		$average_posts = round($posts_total / floor($days), 1);
+		$average_posts = round($posts_total / floor($days), 2);
 
 		// Get number of private messages
 		Database::query("SELECT COUNT(*) AS total FROM c_messages
