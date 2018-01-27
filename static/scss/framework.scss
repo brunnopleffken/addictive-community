@@ -341,6 +341,7 @@ textarea.form-control {
 		-ms-user-select: none;
 		-moz-user-select: none;
 		-webkit-user-select: none;
+		&:hover { color: #eee; }
 	}
 	input:checked + span {
 		background-color: $accent;
