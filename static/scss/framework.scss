@@ -369,6 +369,9 @@ textarea.form-control {
 		-ms-user-select: none;
 		-moz-user-select: none;
 		-webkit-user-select: none;
+		&:hover {
+			&:before { background-color: #eee; }
+		}
 		&:before {
 			background-color: #fff;
 			border-radius: 5px;
