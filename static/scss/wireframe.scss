@@ -216,8 +216,8 @@ header {
 
 .overlay {
 	background-color: rgba(0, 0, 0, 0.7);
-	bottom: 0;
 	display: none;
+	height: 100%;
 	left: 0;
 	position: absolute;
 	top: 0;
@@ -230,18 +230,17 @@ nav {
 	bottom: 0;
 	box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5), -100px 0 50px -100px rgba(0, 0, 0, 0.3) inset;
 	display: none;
+	height: 100%;
 	opacity: 0;
-	overflow: scroll;
 	position: absolute;
-	right: -280px;
+	right: -260px;
 	top: 0;
 	transition: 300ms;
-	width: 280px;
+	width: 260px;
 	z-index: 999;
 	&.open {
 		opacity: 1;
 		right: 0;
-		transition: 300ms;
 	}
 	.close {
 		background-color: #fff;
@@ -382,7 +381,6 @@ nav {
 			font-weight: bold;
 			letter-spacing: 0.05em;
 			margin-bottom: 10px;
-			white-space: nowrap;
 		}
 		&-description {
 			font-size: 12px;

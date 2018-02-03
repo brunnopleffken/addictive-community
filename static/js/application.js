@@ -34,12 +34,10 @@ $(document).ready(function($) {
 
 	(function() {
 		$('#toggle-sidebar').on('click', function() {
-			$('html,body').css('overflow', 'hidden');
 			$('.overlay').fadeIn();
 			$('nav').addClass('open').show().find('.close').fadeIn();
 		});
 		$('nav .close').on('click', function() {
-			$('html,body').css('overflow', 'auto');
 			$('.overlay').fadeOut();
 			$('nav').removeClass('open').hide().find('.close').fadeOut();
 		});
