@@ -1,7 +1,20 @@
+/**
+ * ADDICTIVE COMMUNITY
+ * -------------------------------------------------------
+ * Created by Brunno Pleffken Hosti
+ * https://github.com/addictivehub/addictive-community
+ *
+ * File: framework.scss
+ * License: GPLv2
+ * Copyright: (c) 2017 - Addictive Community
+ */
+
 @import "reset";
 @import "variables";
 @import "grid";
 @import "utils";
+
+// BASE
 
 body {
 	background-color: #f1f1f1;
