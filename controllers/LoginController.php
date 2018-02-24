@@ -68,8 +68,8 @@ class Login extends Application
 				// Check if member session was created successfully
 				SessionState::createMemberSession($member_info);
 
-				// Redirect to Home
-				$this->Core->redirect("/");
+				// Redirect to the referer page
+				$this->Core->redirect("HTTP_REFERER");
 			}
 			else {
 				// No lines returned: show error
@@ -142,7 +142,7 @@ class Login extends Application
 		SessionState::unloadCookie("login_time");
 		SessionState::unloadCookie("read_threads");
 
-		// Redirect
+		// Redirect to home
 		$this->Core->redirect("/");
 	}
 }
