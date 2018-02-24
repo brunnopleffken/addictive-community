@@ -32,9 +32,11 @@ class Articles extends Application
 	public function index()
 	{
 		// Get last 10 articles
-		Database::query("SELECT a.*, m.username FROM c_articles a
+		Database::query("SELECT a.*, m.username, at.date, at.filename FROM c_articles a
+			INNER JOIN c_attachments at ON (a.cover_image = at.a_id)
 			INNER JOIN c_members m ON (a.member_id = m.m_id)
 			ORDER BY post_date DESC LIMIT 10;");
+
 		$articles = Database::fetchToArray();
 
 		// Page info
@@ -58,11 +60,18 @@ class Articles extends Application
 		Database::query("SELECT a.*, m.username FROM c_articles a
 			INNER JOIN c_members m ON (a.member_id = m.m_id)
 			WHERE a.a_id = {$id};");
+
 		$article = Database::fetch();
 
 		// Get cover photo
 		Database::query("SELECT * FROM c_attachments WHERE a_id = {$article['cover_image']};");
 		$get_attachment = Database::fetch();
+
+		// Format cover image path
+		$get_attachment['url'] = "/public/attachments/"
+			. $get_attachment['member_id'] . "/"
+			. $get_attachment['date'] . "/"
+			. $get_attachment['filename'];
 
 		// Set variables
 		$this->Set('article', $article);
@@ -106,7 +115,7 @@ class Articles extends Application
 			"member_id"   => SessionState::$user_data['m_id'],
 			"title"       => Http::Request("title"),
 			"slug"        => Text::slug(htmlspecialchars_decode(Http::request("title"), ENT_QUOTES)),
-			"content"     => str_replace("'", "&apos;", $_POST['post']),
+			"content"     => str_replace("'", "&apos;", $_POST['content']),
 			"post_date"   => time()
 		];
 

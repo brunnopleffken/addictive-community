@@ -54,8 +54,11 @@
 			"category": "Category",
 			"content": "Content",
 			"cover_image": "Cover Image",
-			"title_post_empty": "Title and article content are required fields.",
+			"title_post_empty": "Title, article content and cover image are required fields.",
 			"publish_article": "Publish Article"
+		},
+		"read": {
+			"written_by": "Written by %s"
 		}
 	},
 	"calendar": {

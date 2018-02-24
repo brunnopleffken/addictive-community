@@ -195,18 +195,19 @@ $(document).ready(function($) {
 	(function() {
 		$('input[type=file]').each(function() {
 			var $field = $(this);
+			var isRequired = '';
 
 			// Hide input[file] field
 			$field.hide();
 
-			// Add an text field and a button
-			$field.parent().append('<input type="text" name="attachment_filename" id="attachment_filename" class="form-control" style="width: calc(100% - 110px)" readonly>');
-			$field.parent().append('<button id="attachment_button" class="btn btn-default" style="margin-left: 10px; width: 100px"><i class="fa fa-upload"></i> Upload</button>');
-
-			// Also add .required if input[file] has .required class
-			if($field.hasClass('required')) {
-				$('#attachment_filename').addClass('required');
+			// Check if file field has "required" attr
+			if($(this).attr('required')) {
+				isRequired = 'required';
 			}
+
+			// Add an text field and a button
+			$field.parent().append('<input type="text" name="attachment_filename" id="attachment_filename" class="form-control" style="width: calc(100% - 110px)" ' + isRequired + '>');
+			$field.parent().append('<button id="attachment_button" class="btn btn-default" style="margin-left: 10px; width: 100px"><i class="fa fa-upload"></i> Upload</button>');
 		});
 
 		$(document).on('click', 'button#attachment_button', function(event) {

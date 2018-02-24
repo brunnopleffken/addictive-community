@@ -1,19 +1,12 @@
 <div class="article">
-	<div class="article-header" style="background-image: url(/public/attachments/<?= $attachment['member_id'] ?>/<?= $attachment['date'] ?>/<?= $attachment['filename'] ?>)">
+	<div class="article-header" style="background-image: url('<?= $attachment['url'] ?>')">
 		<div class="article-header-shadow"></div>
 		<div class="article-header-title"><?= $article['title'] ?></div>
 	</div>
 	<div class="article-content block">
 		<div class="article-content-info">
-			Written by <?= $article['username'] ?> <i class="at fa fa-clock-o"></i> <?= date('d M Y\, H:i', $article['post_date']) ?>
-			<div class="pull-right">
-				<small>12 Votes:</small>
-				<i class="star fa fa-star"></i>
-				<i class="star fa fa-star"></i>
-				<i class="star fa fa-star"></i>
-				<i class="star fa fa-star-half-o"></i>
-				<i class="star fa fa-star-o"></i>
-			</div>
+			<?= __("articles.read.written_by", $article['username']) ?>
+			<i class="at fa fa-clock-o"></i> <?= date('d M Y\, H:i', $article['post_date']) ?>
 		</div>
 		<div class="article-content-container">
 			<?= $article['content'] ?>

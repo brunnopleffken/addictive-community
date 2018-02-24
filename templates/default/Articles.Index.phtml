@@ -8,11 +8,11 @@
 	<?php foreach($articles as $article): ?>
 		<div class="article-item">
 			<div class="content">
-				<div class="image" style="background-image: url(http://placehold.it/640x480)"></div>
+				<div class="image" style="background-image: url('/public/attachments/<?= $article['member_id'] ?>/<?= $article['date'] ?>/<?= $article['filename'] ?>')"></div>
 				<div class="details">
-					<a href="articles/read/<?= $article['a_id'] ?>" class="title"><?= $article['title'] ?></a>
+					<a href="./articles/read/<?= $article['a_id'] ?>" class="title"><?= $article['title'] ?></a>
 					<span class="author">By <a href=""><?= $article['username'] ?></a> in <?= date('d M Y\, H:i', $article['post_date']) ?></span>
-					<p class="excerpt"><?= $article['content'] ?></p>
+					<p class="excerpt"><?= strip_tags($article['content']) ?></p>
 				</div>
 			</div>
 		</div>
