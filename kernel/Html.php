@@ -250,4 +250,25 @@ class Html
 
 		return $template;
 	}
+
+	/**
+	 * --------------------------------------------------------------------
+	 * GET THE INDICATED TEMPLATE FRAGMENT AND RENDER ON THE SCREEN
+	 * --------------------------------------------------------------------
+	 */
+	public static function fragment($fragment_name, $template = "default")
+	{
+		$path = "templates/" . $template . "/fragments/_" . $fragment_name . ".phtml";
+
+		if(file_exists($path)) {
+			require_once($path);
+		}
+		else {
+			return self::notification(
+				"Fragment '{$fragment_name}' doesn't exist in the current scope.",
+				"failure",
+				true
+			);
+		}
+	}
 }

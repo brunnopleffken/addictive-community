@@ -125,6 +125,7 @@ class Application
 		// Treat them as reserved words when declaring variables! ;)
 		$this->Set("community_name", $this->Core->config['general_community_name']);
 		$this->Set("community_url", $this->Core->config['general_community_url']);
+		$this->Set("template", $this->Core->config['template']);
 		$this->Set("theme", $this->Core->config['theme']);
 		$this->Set("meta_description", $this->Core->config['seo_description']);
 		$this->Set("meta_keywords", $this->Core->config['seo_keywords']);
