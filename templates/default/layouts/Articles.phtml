@@ -7,7 +7,7 @@
 	<title><?= $page_title . $community_name ?> (Powered by Addictive Community)</title>
 	<base href="<?= $community_url ?>">
 	<link rel="search" type="application/opensearchdescription+xml" title="<?= $community_name ?>" href="community/open_search">
-	<link rel="icon" type="image/png" href="favicon.png">
+	<link rel="shortcut icon" type="image/png" href="favicon.png">
 
 	<!-- Meta Tags -->
 	<meta name="generator" content="Addictive Community <?= VERSION ?>">
@@ -19,7 +19,7 @@
 
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="thirdparty/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="thirdparty/fancybox/jquery.fancybox.css">
+	<link rel="stylesheet" href="thirdparty/fancybox/jquery.fancybox.min.css">
 	<link rel="stylesheet" href="thirdparty/select2/css/select2.min.css">
 	<link rel="stylesheet" href="static/css/app.min.css">
 	<link rel="stylesheet" href="themes/<?= $theme ?>/css/theme.css">
@@ -27,64 +27,16 @@
 	<script>
 		var ROOT = "<?= $community_url ?>";
 		var EMOTICON_DIR = "<?= $emoticon_dir ?>";
-		var EMOTICONS = [
-			<?php
-				$row = [];
-				foreach($emoticon_set as $emoticon) {
-					$row[] = "[" . implode(", ", $emoticon) . "]";
-				}
-				echo implode(",\n", $row);
-			?>
-		];
+		var EMOTICONS = [<?php
+			$row = [];
+			foreach($emoticon_set as $emoticon) {
+				$row[] = "[" . implode(", ", $emoticon) . "]";
+			}
+			echo implode(",", $row);
+		?>];
 	</script>
 </head>
 <body>
-
-<div class="overlay"></div>
-
-<nav class="">
-	<div class="close">&times;</div>
-	<div class="search">
-		<form action="search" method="get" class="no-validate">
-			<input type="search" name="q" class="form-control search-input" value="<?= \AC\Kernel\Http::request("q") ?>" placeholder="<?php __("global.search") ?>...">
-		</form>
-	</div>
-	<?php if($member_id == 0): ?>
-		<div class="divider"><?php __("global.sidebar.welcome") ?></div>
-		<ul class="list">
-			<li><a href="javascript:;" data-type="ajax" data-src="./login" data-fancybox><?php __("global.sidebar.login") ?></a></li>
-			<li><a href="register" class="font-w600"><?php __("global.create_account") ?></a></li>
-		</ul>
-	<?php else: ?>
-		<div class="divider">
-			<a href="profile/<?= $member_info['m_id'] ?>" class="username">
-				<?= $member_info['username'] ?>
-			</a>
-		</div>
-		<ul class="list">
-			<li><a href="usercp"><?php __("global.sidebar.usercp") ?></a></li>
-			<li><a href="messenger"><?php __("global.sidebar.inbox", array($unread_messages)) ?></a></li>
-			<li><a href="logout"><?php __("global.sidebar.logout") ?></a></li>
-		</ul>
-	<?php endif; ?>
-
-	<div class="divider"><?php __("global.sidebar.rooms") ?></div>
-	<ul class="list">
-		<?php foreach($sidebar_rooms as $k => $v): ?>
-			<li>
-				<a href="room/<?= $sidebar_rooms[$k]['r_id'] ?>"><?= $sidebar_rooms[$k]['name'] ?></a>
-			</li>
-		<?php endforeach; ?>
-	</ul>
-	<div class="divider"><?= $community_name ?></div>
-	<ul class="list">
-		<?php if($is_admin): ?>
-			<li><a href="admin/" target="_blank"><span>Admin CP</span></a></li>
-		<?php endif; ?>
-		<li><a href="members"><span><?php __("global.memberlist") ?></span></a></li>
-		<li><a href="calendar"><span><?php __("global.calendar") ?></span></a></li>
-	</ul>
-</nav>
 
 <header>
 	<div class="top-half outer">
@@ -172,7 +124,7 @@
 				<?php endif; ?>
 			</div>
 		</div>
-		<div class="" id="content">
+		<div id="content">
 			<?= $this->content ?>
 		</div>
 	</div>
@@ -187,7 +139,7 @@
 <!-- JS -->
 <script src="thirdparty/jquery/jquery.min.js"></script>
 <script src="thirdparty/tinymce/tinymce.min.js"></script>
-<script src="thirdparty/fancybox/jquery.fancybox.pack.js"></script>
+<script src="thirdparty/fancybox/jquery.fancybox.min.js"></script>
 <script src="thirdparty/select2/js/select2.full.min.js"></script>
 <script src="static/js/application.js"></script>
 
