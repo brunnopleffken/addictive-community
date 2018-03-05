@@ -9,6 +9,58 @@
  * Copyright: (c) 2017 - Addictive Community
  */
 
+
+// OFF-CANVAS NAVIGATION
+
+// -- Layout structure
+
+.outer-container {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	&.open {
+		.inner-container { transform: translate3d(-90%, 0, 0); }
+	}
+	.inner-container {
+		backface-visibility: hidden;
+		left: 0;
+		position: relative;
+		transform: translate3d(0, 0, 0);
+		transition: transform 500ms ease;
+		.nav-container {
+			background-color: $accent-darker;
+			box-shadow: inset 1.5em 0 1.5em 0.75em rgba(0, 0, 0, 0.1);
+			height: 100%;
+			position: absolute;
+			right: 0;
+			top: 0;
+			transform: translate3d(100%, 0, 0);
+			width: 90%;
+		}
+	}
+}
+
+// -- The mobile navigation bar itself
+
+.nav-container {
+	.top-bar {
+		background-color: rgba(0, 0, 0, 0.25);
+		a {
+			color: #fff;
+			font-size: 16px;
+			line-height: 42px;
+			padding: 0 10px;
+		}
+	}
+	.middle-bar {
+		padding: 0 20px;
+		.nav-close {
+			color: #fff;
+			font-size: 28px;
+		}
+	}
+}
+
 // HEADER
 
 header {
@@ -69,8 +121,8 @@ header {
 			margin: 10px 0;
 		}
 		.nav-button {
-			font-size: 24px;
-			margin: 10px 0;
+			font-size: 28px;
+			margin: 8px 0;
 		}
 		.search {
 			background-color: $accent-dark;
@@ -104,12 +156,9 @@ header {
 			}
 		}
 		.bottom-half {
-			.col-flexible {
-				flex: 1;
-			}
 			.logo {
-				height: auto;
 				max-width: 280px;
+				width: auto;
 			}
 		}
 	}

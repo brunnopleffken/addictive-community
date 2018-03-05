@@ -16,7 +16,6 @@ $gutter: 20px;
 
 .row {
 	display: flex;
-	flex-wrap: wrap;
 	margin-bottom: $gutter;
 	&.content-between { justify-content: space-between; }
 	&.content-around { justify-content: space-around; }
@@ -32,6 +31,7 @@ $gutter: 20px;
 		margin-left: (100% / $cols) * $i;
 	}
 }
+
 [class*=col-] {
 	padding-left: $gutter / 2;
 	padding-right: $gutter / 2;
