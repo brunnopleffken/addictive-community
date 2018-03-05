@@ -1,0 +1,16 @@
+<div class="nav-container">
+	<div class="row content-around top-bar">
+		<?php if($is_admin): ?>
+			<div class="col-flexible"><a href="admin/" target="_blank"><i class="fa fa-lock"></i></a></div>
+		<?php endif; ?>
+		<div class="col-flexible"><a href="search"><i class="fa fa-search"></i></a></div>
+		<div class="col-flexible"><a href="members"><i class="fa fa-users"></i></a></div>
+		<div class="col-flexible"><a href="calendar"><i class="fa fa-calendar"></i></a></div>
+		<?php if($member_id == 0): ?>
+			<div class="col-flexible"><a href="register"><i class="fa fa-star"></i></a></div>
+		<?php endif; ?>
+	</div>
+	<div class="row middle-bar text-right">
+		<div class="nav-close" id="mobile_nav_close"><i class="fa fa-close"></i></div>
+	</div>
+</div>
