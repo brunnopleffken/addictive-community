@@ -18,8 +18,8 @@ $gutter: 20px;
 	display: flex;
 	flex-wrap: wrap;
 	margin-bottom: $gutter;
-	&.space-between { justify-content: space-between; }
-	&.space-around { justify-content: space-around; }
+	&.content-between { justify-content: space-between; }
+	&.content-around { justify-content: space-around; }
 }
 
 // Columns
