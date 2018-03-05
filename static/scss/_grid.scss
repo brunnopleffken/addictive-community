@@ -41,10 +41,6 @@ $gutter: 20px;
 	flex: 0 1 auto;
 }
 
-.col-minimum {
-	flex: 0 1 auto;
-}
-
 // Spans
 
 @for $i from 1 through $cols {
