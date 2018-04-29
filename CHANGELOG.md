@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.13.0 (xxxx-xx-xx)
+
+#### Added
+- Articles is here! Pass on your knowledge, post your thoughts and share with other Addictive Community members (thanks a lot to @xQuByte).
+- New off-canvas sidebar in mobile devices.
+
+#### Fixed
+- Broken 'Set as Best Answer' (thanks to @xQuByte);
+- Search field not working when user is posting a new thread or reply;
+- Missing user avatar in replies (thanks to @xQuByte);
+- Fixed undefined index while replying a private message;
+- Fixed an error that occurred while reporting a post or thread;
+- Minor issues with paginations;
+- Other minor UI fixes and enhancements.
+
+#### Changed
+- Languages: dictionary files are now a single JSON file stored in `/languages`. This version of AC is initially released in English, Russian, Swedish and Brazilian Portuguese. There's more to come!
+- Base CSS files are now merged into one file: `app.min.css`.
+- Upgraded jQuery and other third-party dependencies.
+
+
+
 ## v0.12.1 (2017-04-12)
 
 #### Added
